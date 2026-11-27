@@ -43,6 +43,11 @@ module CrosslyBuyer
 
     attr_accessor :price_check
 
+    # The world object it stands as, and the seller's public shop room (world-picks.ts).
+    attr_accessor :model
+
+    attr_accessor :shop_slug
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -59,7 +64,9 @@ module CrosslyBuyer
         :'seller_display_name' => :'sellerDisplayName',
         :'facts' => :'facts',
         :'reason' => :'reason',
-        :'price_check' => :'priceCheck'
+        :'price_check' => :'priceCheck',
+        :'model' => :'model',
+        :'shop_slug' => :'shopSlug'
       }
     end
 
@@ -84,7 +91,9 @@ module CrosslyBuyer
         :'seller_display_name' => :'String',
         :'facts' => :'Array<String>',
         :'reason' => :'String',
-        :'price_check' => :'CreateBuyerAgentSessionActResponseQuotePriceCheck'
+        :'price_check' => :'CreateBuyerAgentSessionActResponseQuotePriceCheck',
+        :'model' => :'String',
+        :'shop_slug' => :'String'
       }
     end
 
@@ -98,7 +107,9 @@ module CrosslyBuyer
         :'condition',
         :'size',
         :'seller_display_name',
-        :'price_check'
+        :'price_check',
+        :'model',
+        :'shop_slug'
       ])
     end
 
@@ -174,6 +185,14 @@ module CrosslyBuyer
       if attributes.key?(:'price_check')
         self.price_check = attributes[:'price_check']
       end
+
+      if attributes.key?(:'model')
+        self.model = attributes[:'model']
+      end
+
+      if attributes.key?(:'shop_slug')
+        self.shop_slug = attributes[:'shop_slug']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -237,7 +256,9 @@ module CrosslyBuyer
           seller_display_name == o.seller_display_name &&
           facts == o.facts &&
           reason == o.reason &&
-          price_check == o.price_check
+          price_check == o.price_check &&
+          model == o.model &&
+          shop_slug == o.shop_slug
     end
 
     # @see the `==` method
@@ -249,7 +270,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [n, slug, title, price_cents, sale_price_cents, compare_at_cents, thumbnail, brand, condition, size, seller_display_name, facts, reason, price_check].hash
+      [n, slug, title, price_cents, sale_price_cents, compare_at_cents, thumbnail, brand, condition, size, seller_display_name, facts, reason, price_check, model, shop_slug].hash
     end
 
     # Builds the object from hash

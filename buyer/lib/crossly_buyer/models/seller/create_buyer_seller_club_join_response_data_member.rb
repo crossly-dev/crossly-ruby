@@ -15,24 +15,24 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerSellerClubJoinResponseDataMember
-    attr_accessor :tier
+    attr_accessor :spend_cents
 
-    attr_accessor :joined_at
+    attr_accessor :tier
 
     attr_accessor :discount_bps
 
-    attr_accessor :spend_cents
-
     attr_accessor :_next
+
+    attr_accessor :joined_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'tier' => :'tier',
-        :'joined_at' => :'joinedAt',
-        :'discount_bps' => :'discountBps',
         :'spend_cents' => :'spendCents',
-        :'_next' => :'next'
+        :'tier' => :'tier',
+        :'discount_bps' => :'discountBps',
+        :'_next' => :'next',
+        :'joined_at' => :'joinedAt'
       }
     end
 
@@ -44,11 +44,11 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'tier' => :'String',
-        :'joined_at' => :'String',
-        :'discount_bps' => :'Float',
         :'spend_cents' => :'Float',
-        :'_next' => :'CreateBuyerSellerClubJoinResponseDataMemberNext'
+        :'tier' => :'String',
+        :'discount_bps' => :'Float',
+        :'_next' => :'CreateBuyerSellerClubJoinResponseDataMemberNext',
+        :'joined_at' => :'String'
       }
     end
 
@@ -56,7 +56,7 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'tier',
-        :'_next'
+        :'_next',
       ])
     end
 
@@ -75,24 +75,24 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'tier')
-        self.tier = attributes[:'tier']
+      if attributes.key?(:'spend_cents')
+        self.spend_cents = attributes[:'spend_cents']
       end
 
-      if attributes.key?(:'joined_at')
-        self.joined_at = attributes[:'joined_at']
+      if attributes.key?(:'tier')
+        self.tier = attributes[:'tier']
       end
 
       if attributes.key?(:'discount_bps')
         self.discount_bps = attributes[:'discount_bps']
       end
 
-      if attributes.key?(:'spend_cents')
-        self.spend_cents = attributes[:'spend_cents']
-      end
-
       if attributes.key?(:'_next')
         self._next = attributes[:'_next']
+      end
+
+      if attributes.key?(:'joined_at')
+        self.joined_at = attributes[:'joined_at']
       end
     end
 
@@ -100,16 +100,16 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @joined_at.nil?
-        invalid_properties.push('invalid value for "joined_at", joined_at cannot be nil.')
+      if @spend_cents.nil?
+        invalid_properties.push('invalid value for "spend_cents", spend_cents cannot be nil.')
       end
 
       if @discount_bps.nil?
         invalid_properties.push('invalid value for "discount_bps", discount_bps cannot be nil.')
       end
 
-      if @spend_cents.nil?
-        invalid_properties.push('invalid value for "spend_cents", spend_cents cannot be nil.')
+      if @joined_at.nil?
+        invalid_properties.push('invalid value for "joined_at", joined_at cannot be nil.')
       end
 
       invalid_properties
@@ -118,9 +118,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @joined_at.nil?
-      return false if @discount_bps.nil?
       return false if @spend_cents.nil?
+      return false if @discount_bps.nil?
+      return false if @joined_at.nil?
       true
     end
 
@@ -129,11 +129,11 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          tier == o.tier &&
-          joined_at == o.joined_at &&
-          discount_bps == o.discount_bps &&
           spend_cents == o.spend_cents &&
-          _next == o._next
+          tier == o.tier &&
+          discount_bps == o.discount_bps &&
+          _next == o._next &&
+          joined_at == o.joined_at
     end
 
     # @see the `==` method
@@ -145,7 +145,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [tier, joined_at, discount_bps, spend_cents, _next].hash
+      [spend_cents, tier, discount_bps, _next, joined_at].hash
     end
 
     # Builds the object from hash

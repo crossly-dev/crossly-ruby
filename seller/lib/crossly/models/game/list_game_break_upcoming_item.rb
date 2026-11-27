@@ -26,6 +26,9 @@ module Crossly
     # Scheduled start (ISO), and whether the seller is breaking right now.
     attr_accessor :starts_at
 
+    # When the viewer gets in (ISO): the start, or earlier for a loyalty member with the seller's `live_early_entry` perk. Null with no start. Optional: a board read without a viewer leaves it at the start.
+    attr_accessor :doors_open_at
+
     attr_accessor :live
 
     attr_accessor :shop
@@ -47,6 +50,7 @@ module Crossly
         :'product' => :'product',
         :'status' => :'status',
         :'starts_at' => :'startsAt',
+        :'doors_open_at' => :'doorsOpenAt',
         :'live' => :'live',
         :'shop' => :'shop',
         :'buy_url' => :'buyUrl',
@@ -69,8 +73,9 @@ module Crossly
         :'product' => :'String',
         :'status' => :'String',
         :'starts_at' => :'String',
+        :'doors_open_at' => :'String',
         :'live' => :'Boolean',
-        :'shop' => :'SlugName',
+        :'shop' => :'NameSlug',
         :'buy_url' => :'String',
         :'spots_left' => :'Float',
         :'spots' => :'Array<ListGameBreakUpcomingItemSpots>',
@@ -83,6 +88,7 @@ module Crossly
       Set.new([
         :'product',
         :'starts_at',
+        :'doors_open_at',
         :'buy_url',
       ])
     end
@@ -120,6 +126,10 @@ module Crossly
 
       if attributes.key?(:'starts_at')
         self.starts_at = attributes[:'starts_at']
+      end
+
+      if attributes.key?(:'doors_open_at')
+        self.doors_open_at = attributes[:'doors_open_at']
       end
 
       if attributes.key?(:'live')
@@ -214,6 +224,7 @@ module Crossly
           product == o.product &&
           status == o.status &&
           starts_at == o.starts_at &&
+          doors_open_at == o.doors_open_at &&
           live == o.live &&
           shop == o.shop &&
           buy_url == o.buy_url &&
@@ -231,7 +242,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [break_id, title, product, status, starts_at, live, shop, buy_url, spots_left, spots, hits].hash
+      [break_id, title, product, status, starts_at, doors_open_at, live, shop, buy_url, spots_left, spots, hits].hash
     end
 
     # Builds the object from hash

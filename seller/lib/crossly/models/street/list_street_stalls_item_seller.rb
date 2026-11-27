@@ -39,7 +39,7 @@ module Crossly
     def self.openapi_types
       {
         :'name' => :'String',
-        :'shop' => :'NameSlug',
+        :'shop' => :'NameSlug2',
         :'level' => :'Float'
       }
     end

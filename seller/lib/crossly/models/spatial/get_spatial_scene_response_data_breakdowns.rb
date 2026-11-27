@@ -111,7 +111,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @facet.nil?
-      facet_validator = EnumAttributeValidator.new('String', ["brand", "condition", "size", "status", "label", "title", "value", "year", "grade", "game", "set", "franchise", "team", "era", "genre", "colour", "age", "exhibitor"])
+      facet_validator = EnumAttributeValidator.new('String', ["brand", "label", "status", "age", "condition", "size", "title", "value", "set", "team", "year", "grade", "game", "franchise", "era", "genre", "colour", "exhibitor"])
       return false unless facet_validator.valid?(@facet)
       return false if @distinct.nil?
       true
@@ -120,7 +120,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] facet Object to be assigned
     def facet=(facet)
-      validator = EnumAttributeValidator.new('String', ["brand", "condition", "size", "status", "label", "title", "value", "year", "grade", "game", "set", "franchise", "team", "era", "genre", "colour", "age", "exhibitor"])
+      validator = EnumAttributeValidator.new('String', ["brand", "label", "status", "age", "condition", "size", "title", "value", "set", "team", "year", "grade", "game", "franchise", "era", "genre", "colour", "exhibitor"])
       unless validator.valid?(facet)
         fail ArgumentError, "invalid value for \"facet\", must be one of #{validator.allowable_values}."
       end

@@ -17,15 +17,15 @@ module CrosslyBuyer
   class GetBuyerTogetherResponseDataItems
     attr_accessor :id
 
-    attr_accessor :available
+    attr_accessor :slug
 
     attr_accessor :title
-
-    attr_accessor :slug
 
     attr_accessor :price_cents
 
     attr_accessor :image
+
+    attr_accessor :available
 
     attr_accessor :added_by
 
@@ -39,11 +39,11 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'available' => :'available',
-        :'title' => :'title',
         :'slug' => :'slug',
+        :'title' => :'title',
         :'price_cents' => :'priceCents',
         :'image' => :'image',
+        :'available' => :'available',
         :'added_by' => :'addedBy',
         :'up' => :'up',
         :'down' => :'down',
@@ -60,11 +60,11 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'available' => :'Boolean',
-        :'title' => :'String',
         :'slug' => :'String',
+        :'title' => :'String',
         :'price_cents' => :'Float',
         :'image' => :'String',
+        :'available' => :'Boolean',
         :'added_by' => :'String',
         :'up' => :'Float',
         :'down' => :'Float',
@@ -99,16 +99,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'available')
-        self.available = attributes[:'available']
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
       end
 
       if attributes.key?(:'title')
         self.title = attributes[:'title']
-      end
-
-      if attributes.key?(:'slug')
-        self.slug = attributes[:'slug']
       end
 
       if attributes.key?(:'price_cents')
@@ -117,6 +113,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'image')
         self.image = attributes[:'image']
+      end
+
+      if attributes.key?(:'available')
+        self.available = attributes[:'available']
       end
 
       if attributes.key?(:'added_by')
@@ -144,16 +144,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @available.nil?
-        invalid_properties.push('invalid value for "available", available cannot be nil.')
-      end
-
       if @slug.nil?
         invalid_properties.push('invalid value for "slug", slug cannot be nil.')
       end
 
       if @price_cents.nil?
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      end
+
+      if @available.nil?
+        invalid_properties.push('invalid value for "available", available cannot be nil.')
       end
 
       if @added_by.nil?
@@ -179,9 +179,9 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @available.nil?
       return false if @slug.nil?
       return false if @price_cents.nil?
+      return false if @available.nil?
       return false if @added_by.nil?
       return false if @up.nil?
       return false if @down.nil?
@@ -195,11 +195,11 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          available == o.available &&
-          title == o.title &&
           slug == o.slug &&
+          title == o.title &&
           price_cents == o.price_cents &&
           image == o.image &&
+          available == o.available &&
           added_by == o.added_by &&
           up == o.up &&
           down == o.down &&
@@ -215,7 +215,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, available, title, slug, price_cents, image, added_by, up, down, my_vote].hash
+      [id, slug, title, price_cents, image, available, added_by, up, down, my_vote].hash
     end
 
     # Builds the object from hash

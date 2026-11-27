@@ -27,7 +27,11 @@ module Crossly
 
     attr_accessor :slug
 
+    attr_accessor :venue
+
     attr_accessor :host_user_id
+
+    attr_accessor :about
 
     attr_accessor :gate_chain
 
@@ -35,11 +39,7 @@ module Crossly
 
     attr_accessor :gate_name
 
-    attr_accessor :venue
-
     attr_accessor :membership
-
-    attr_accessor :about
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -50,13 +50,13 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'status' => :'status',
         :'slug' => :'slug',
+        :'venue' => :'venue',
         :'host_user_id' => :'hostUserId',
+        :'about' => :'about',
         :'gate_chain' => :'gateChain',
         :'gate_contract' => :'gateContract',
         :'gate_name' => :'gateName',
-        :'venue' => :'venue',
-        :'membership' => :'membership',
-        :'about' => :'about'
+        :'membership' => :'membership'
       }
     end
 
@@ -74,23 +74,23 @@ module Crossly
         :'updated_at' => :'Time',
         :'status' => :'String',
         :'slug' => :'String',
+        :'venue' => :'String',
         :'host_user_id' => :'String',
+        :'about' => :'String',
         :'gate_chain' => :'String',
         :'gate_contract' => :'String',
         :'gate_name' => :'String',
-        :'venue' => :'String',
-        :'membership' => :'String',
-        :'about' => :'String'
+        :'membership' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'about',
         :'gate_chain',
         :'gate_contract',
         :'gate_name',
-        :'about'
       ])
     end
 
@@ -133,8 +133,16 @@ module Crossly
         self.slug = attributes[:'slug']
       end
 
+      if attributes.key?(:'venue')
+        self.venue = attributes[:'venue']
+      end
+
       if attributes.key?(:'host_user_id')
         self.host_user_id = attributes[:'host_user_id']
+      end
+
+      if attributes.key?(:'about')
+        self.about = attributes[:'about']
       end
 
       if attributes.key?(:'gate_chain')
@@ -149,16 +157,8 @@ module Crossly
         self.gate_name = attributes[:'gate_name']
       end
 
-      if attributes.key?(:'venue')
-        self.venue = attributes[:'venue']
-      end
-
       if attributes.key?(:'membership')
         self.membership = attributes[:'membership']
-      end
-
-      if attributes.key?(:'about')
-        self.about = attributes[:'about']
       end
     end
 
@@ -190,12 +190,12 @@ module Crossly
         invalid_properties.push('invalid value for "slug", slug cannot be nil.')
       end
 
-      if @host_user_id.nil?
-        invalid_properties.push('invalid value for "host_user_id", host_user_id cannot be nil.')
-      end
-
       if @venue.nil?
         invalid_properties.push('invalid value for "venue", venue cannot be nil.')
+      end
+
+      if @host_user_id.nil?
+        invalid_properties.push('invalid value for "host_user_id", host_user_id cannot be nil.')
       end
 
       if @membership.nil?
@@ -214,8 +214,8 @@ module Crossly
       return false if @updated_at.nil?
       return false if @status.nil?
       return false if @slug.nil?
-      return false if @host_user_id.nil?
       return false if @venue.nil?
+      return false if @host_user_id.nil?
       return false if @membership.nil?
       true
     end
@@ -231,13 +231,13 @@ module Crossly
           updated_at == o.updated_at &&
           status == o.status &&
           slug == o.slug &&
+          venue == o.venue &&
           host_user_id == o.host_user_id &&
+          about == o.about &&
           gate_chain == o.gate_chain &&
           gate_contract == o.gate_contract &&
           gate_name == o.gate_name &&
-          venue == o.venue &&
-          membership == o.membership &&
-          about == o.about
+          membership == o.membership
     end
 
     # @see the `==` method
@@ -249,7 +249,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, status, slug, host_user_id, gate_chain, gate_contract, gate_name, venue, membership, about].hash
+      [id, name, created_at, updated_at, status, slug, venue, host_user_id, about, gate_chain, gate_contract, gate_name, membership].hash
     end
 
     # Builds the object from hash

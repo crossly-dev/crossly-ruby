@@ -167,7 +167,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @concept.nil?
-      concept_validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks"])
+      concept_validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks", "vault-shares"])
       return false unless concept_validator.valid?(@concept)
       return false if @correct.nil?
       return false if @score.nil?
@@ -179,7 +179,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] concept Object to be assigned
     def concept=(concept)
-      validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks"])
+      validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks", "vault-shares"])
       unless validator.valid?(concept)
         fail ArgumentError, "invalid value for \"concept\", must be one of #{validator.allowable_values}."
       end

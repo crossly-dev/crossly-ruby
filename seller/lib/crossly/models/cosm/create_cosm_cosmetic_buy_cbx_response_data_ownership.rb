@@ -19,23 +19,23 @@ module Crossly
 
     attr_accessor :acquired_at
 
-    attr_accessor :retired_at
+    attr_accessor :cosmetic_id
 
     attr_accessor :merchant_id
 
-    attr_accessor :cosmetic_id
+    attr_accessor :retired_at
 
     attr_accessor :subject_id
-
-    attr_accessor :ledger_id
-
-    attr_accessor :edition_number
 
     attr_accessor :acquired_via
 
     attr_accessor :bound
 
     attr_accessor :paid_cents
+
+    attr_accessor :ledger_id
+
+    attr_accessor :edition_number
 
     attr_accessor :payment_ref
 
@@ -48,15 +48,15 @@ module Crossly
       {
         :'id' => :'id',
         :'acquired_at' => :'acquiredAt',
-        :'retired_at' => :'retiredAt',
-        :'merchant_id' => :'merchantId',
         :'cosmetic_id' => :'cosmeticId',
+        :'merchant_id' => :'merchantId',
+        :'retired_at' => :'retiredAt',
         :'subject_id' => :'subjectId',
-        :'ledger_id' => :'ledgerId',
-        :'edition_number' => :'editionNumber',
         :'acquired_via' => :'acquiredVia',
         :'bound' => :'bound',
         :'paid_cents' => :'paidCents',
+        :'ledger_id' => :'ledgerId',
+        :'edition_number' => :'editionNumber',
         :'payment_ref' => :'paymentRef',
         :'retired_reason' => :'retiredReason',
         :'request_ref' => :'requestRef'
@@ -73,15 +73,15 @@ module Crossly
       {
         :'id' => :'String',
         :'acquired_at' => :'Time',
-        :'retired_at' => :'Time',
-        :'merchant_id' => :'String',
         :'cosmetic_id' => :'String',
+        :'merchant_id' => :'String',
+        :'retired_at' => :'Time',
         :'subject_id' => :'String',
-        :'ledger_id' => :'String',
-        :'edition_number' => :'Float',
         :'acquired_via' => :'String',
         :'bound' => :'Boolean',
         :'paid_cents' => :'Float',
+        :'ledger_id' => :'String',
+        :'edition_number' => :'Float',
         :'payment_ref' => :'String',
         :'retired_reason' => :'String',
         :'request_ref' => :'String'
@@ -92,9 +92,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'retired_at',
+        :'paid_cents',
         :'ledger_id',
         :'edition_number',
-        :'paid_cents',
         :'payment_ref',
         :'retired_reason',
         :'request_ref'
@@ -124,28 +124,20 @@ module Crossly
         self.acquired_at = attributes[:'acquired_at']
       end
 
-      if attributes.key?(:'retired_at')
-        self.retired_at = attributes[:'retired_at']
+      if attributes.key?(:'cosmetic_id')
+        self.cosmetic_id = attributes[:'cosmetic_id']
       end
 
       if attributes.key?(:'merchant_id')
         self.merchant_id = attributes[:'merchant_id']
       end
 
-      if attributes.key?(:'cosmetic_id')
-        self.cosmetic_id = attributes[:'cosmetic_id']
+      if attributes.key?(:'retired_at')
+        self.retired_at = attributes[:'retired_at']
       end
 
       if attributes.key?(:'subject_id')
         self.subject_id = attributes[:'subject_id']
-      end
-
-      if attributes.key?(:'ledger_id')
-        self.ledger_id = attributes[:'ledger_id']
-      end
-
-      if attributes.key?(:'edition_number')
-        self.edition_number = attributes[:'edition_number']
       end
 
       if attributes.key?(:'acquired_via')
@@ -158,6 +150,14 @@ module Crossly
 
       if attributes.key?(:'paid_cents')
         self.paid_cents = attributes[:'paid_cents']
+      end
+
+      if attributes.key?(:'ledger_id')
+        self.ledger_id = attributes[:'ledger_id']
+      end
+
+      if attributes.key?(:'edition_number')
+        self.edition_number = attributes[:'edition_number']
       end
 
       if attributes.key?(:'payment_ref')
@@ -185,12 +185,12 @@ module Crossly
         invalid_properties.push('invalid value for "acquired_at", acquired_at cannot be nil.')
       end
 
-      if @merchant_id.nil?
-        invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
-      end
-
       if @cosmetic_id.nil?
         invalid_properties.push('invalid value for "cosmetic_id", cosmetic_id cannot be nil.')
+      end
+
+      if @merchant_id.nil?
+        invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
       end
 
       if @subject_id.nil?
@@ -213,8 +213,8 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @acquired_at.nil?
-      return false if @merchant_id.nil?
       return false if @cosmetic_id.nil?
+      return false if @merchant_id.nil?
       return false if @subject_id.nil?
       return false if @acquired_via.nil?
       return false if @bound.nil?
@@ -228,15 +228,15 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           acquired_at == o.acquired_at &&
-          retired_at == o.retired_at &&
-          merchant_id == o.merchant_id &&
           cosmetic_id == o.cosmetic_id &&
+          merchant_id == o.merchant_id &&
+          retired_at == o.retired_at &&
           subject_id == o.subject_id &&
-          ledger_id == o.ledger_id &&
-          edition_number == o.edition_number &&
           acquired_via == o.acquired_via &&
           bound == o.bound &&
           paid_cents == o.paid_cents &&
+          ledger_id == o.ledger_id &&
+          edition_number == o.edition_number &&
           payment_ref == o.payment_ref &&
           retired_reason == o.retired_reason &&
           request_ref == o.request_ref
@@ -251,7 +251,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, acquired_at, retired_at, merchant_id, cosmetic_id, subject_id, ledger_id, edition_number, acquired_via, bound, paid_cents, payment_ref, retired_reason, request_ref].hash
+      [id, acquired_at, cosmetic_id, merchant_id, retired_at, subject_id, acquired_via, bound, paid_cents, ledger_id, edition_number, payment_ref, retired_reason, request_ref].hash
     end
 
     # Builds the object from hash

@@ -134,9 +134,9 @@ module Crossly
     def valid?
       return false if @bids.nil?
       return false if @asks.nil?
-      bid_limit_validator = EnumAttributeValidator.new('String', ["floor", "no_units", "no_cash", "ceiling", "curve_end"])
+      bid_limit_validator = EnumAttributeValidator.new('String', ["floor", "ceiling", "no_units", "no_cash", "curve_end"])
       return false unless bid_limit_validator.valid?(@bid_limit)
-      ask_limit_validator = EnumAttributeValidator.new('String', ["floor", "no_units", "no_cash", "ceiling", "curve_end"])
+      ask_limit_validator = EnumAttributeValidator.new('String', ["floor", "ceiling", "no_units", "no_cash", "curve_end"])
       return false unless ask_limit_validator.valid?(@ask_limit)
       true
     end
@@ -144,7 +144,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] bid_limit Object to be assigned
     def bid_limit=(bid_limit)
-      validator = EnumAttributeValidator.new('String', ["floor", "no_units", "no_cash", "ceiling", "curve_end"])
+      validator = EnumAttributeValidator.new('String', ["floor", "ceiling", "no_units", "no_cash", "curve_end"])
       unless validator.valid?(bid_limit)
         fail ArgumentError, "invalid value for \"bid_limit\", must be one of #{validator.allowable_values}."
       end
@@ -154,7 +154,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] ask_limit Object to be assigned
     def ask_limit=(ask_limit)
-      validator = EnumAttributeValidator.new('String', ["floor", "no_units", "no_cash", "ceiling", "curve_end"])
+      validator = EnumAttributeValidator.new('String', ["floor", "ceiling", "no_units", "no_cash", "curve_end"])
       unless validator.valid?(ask_limit)
         fail ArgumentError, "invalid value for \"ask_limit\", must be one of #{validator.allowable_values}."
       end

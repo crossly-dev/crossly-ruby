@@ -15,8 +15,10 @@ require 'time'
 
 module Crossly
   class CreateOrderWhatnotPackageQuoteResponse
+    # Cents the platform charges for the change; 0 = free.
     attr_accessor :cost_cents
 
+    # The platform's refusal of this package, when it gives one.
     attr_accessor :error
 
     # Attribute mapping from ruby-style variable name to JSON key.

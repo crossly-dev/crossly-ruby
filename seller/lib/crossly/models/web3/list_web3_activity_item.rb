@@ -203,7 +203,7 @@ module Crossly
       return false if @chain.nil?
       return false if @contract.nil?
       return false if @event.nil?
-      event_validator = EnumAttributeValidator.new('String', ["listing", "offer", "sale", "cancel"])
+      event_validator = EnumAttributeValidator.new('String', ["sale", "offer", "listing", "cancel"])
       return false unless event_validator.valid?(@event)
       return false if @marketplace.nil?
       return false if @occurred_at.nil?
@@ -213,7 +213,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] event Object to be assigned
     def event=(event)
-      validator = EnumAttributeValidator.new('String', ["listing", "offer", "sale", "cancel"])
+      validator = EnumAttributeValidator.new('String', ["sale", "offer", "listing", "cancel"])
       unless validator.valid?(event)
         fail ArgumentError, "invalid value for \"event\", must be one of #{validator.allowable_values}."
       end

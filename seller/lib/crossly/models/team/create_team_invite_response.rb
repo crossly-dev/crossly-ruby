@@ -81,6 +81,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'accept_url'
       ])
     end
 
@@ -150,10 +151,6 @@ module Crossly
         invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
       end
 
-      if @accept_url.nil?
-        invalid_properties.push('invalid value for "accept_url", accept_url cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -167,7 +164,6 @@ module Crossly
       return false unless role_validator.valid?(@role)
       return false if @scopes.nil?
       return false if @expires_at.nil?
-      return false if @accept_url.nil?
       true
     end
 

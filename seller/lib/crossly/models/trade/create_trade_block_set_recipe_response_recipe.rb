@@ -25,9 +25,13 @@ module Crossly
 
     attr_accessor :updated_at
 
-    attr_accessor :note
+    attr_accessor :version
 
     attr_accessor :reviewed_at
+
+    attr_accessor :note
+
+    attr_accessor :members
 
     attr_accessor :merchant_id
 
@@ -35,11 +39,7 @@ module Crossly
 
     attr_accessor :output_cosmetic_id
 
-    attr_accessor :version
-
     attr_accessor :frozen_at
-
-    attr_accessor :members
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -49,14 +49,14 @@ module Crossly
         :'active' => :'active',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
-        :'note' => :'note',
+        :'version' => :'version',
         :'reviewed_at' => :'reviewedAt',
+        :'note' => :'note',
+        :'members' => :'members',
         :'merchant_id' => :'merchantId',
         :'creator_subject_id' => :'creatorSubjectId',
         :'output_cosmetic_id' => :'outputCosmeticId',
-        :'version' => :'version',
-        :'frozen_at' => :'frozenAt',
-        :'members' => :'members'
+        :'frozen_at' => :'frozenAt'
       }
     end
 
@@ -73,23 +73,23 @@ module Crossly
         :'active' => :'Boolean',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
-        :'note' => :'String',
+        :'version' => :'Float',
         :'reviewed_at' => :'Time',
+        :'note' => :'String',
+        :'members' => :'Array<CreateTradeBlockSetRecipeResponseRecipeMembers>',
         :'merchant_id' => :'String',
         :'creator_subject_id' => :'String',
         :'output_cosmetic_id' => :'String',
-        :'version' => :'Float',
-        :'frozen_at' => :'Time',
-        :'members' => :'Array<CreateTradeBlockSetRecipeResponseRecipeMembers>'
+        :'frozen_at' => :'Time'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'note',
         :'reviewed_at',
-        :'frozen_at',
+        :'note',
+        :'frozen_at'
       ])
     end
 
@@ -128,12 +128,22 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
+      if attributes.key?(:'version')
+        self.version = attributes[:'version']
       end
 
       if attributes.key?(:'reviewed_at')
         self.reviewed_at = attributes[:'reviewed_at']
+      end
+
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
+
+      if attributes.key?(:'members')
+        if (value = attributes[:'members']).is_a?(Array)
+          self.members = value
+        end
       end
 
       if attributes.key?(:'merchant_id')
@@ -148,18 +158,8 @@ module Crossly
         self.output_cosmetic_id = attributes[:'output_cosmetic_id']
       end
 
-      if attributes.key?(:'version')
-        self.version = attributes[:'version']
-      end
-
       if attributes.key?(:'frozen_at')
         self.frozen_at = attributes[:'frozen_at']
-      end
-
-      if attributes.key?(:'members')
-        if (value = attributes[:'members']).is_a?(Array)
-          self.members = value
-        end
       end
     end
 
@@ -187,6 +187,14 @@ module Crossly
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
+      if @version.nil?
+        invalid_properties.push('invalid value for "version", version cannot be nil.')
+      end
+
+      if @members.nil?
+        invalid_properties.push('invalid value for "members", members cannot be nil.')
+      end
+
       if @merchant_id.nil?
         invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
       end
@@ -197,14 +205,6 @@ module Crossly
 
       if @output_cosmetic_id.nil?
         invalid_properties.push('invalid value for "output_cosmetic_id", output_cosmetic_id cannot be nil.')
-      end
-
-      if @version.nil?
-        invalid_properties.push('invalid value for "version", version cannot be nil.')
-      end
-
-      if @members.nil?
-        invalid_properties.push('invalid value for "members", members cannot be nil.')
       end
 
       invalid_properties
@@ -218,11 +218,11 @@ module Crossly
       return false if @active.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
+      return false if @version.nil?
+      return false if @members.nil?
       return false if @merchant_id.nil?
       return false if @creator_subject_id.nil?
       return false if @output_cosmetic_id.nil?
-      return false if @version.nil?
-      return false if @members.nil?
       true
     end
 
@@ -236,14 +236,14 @@ module Crossly
           active == o.active &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
-          note == o.note &&
+          version == o.version &&
           reviewed_at == o.reviewed_at &&
+          note == o.note &&
+          members == o.members &&
           merchant_id == o.merchant_id &&
           creator_subject_id == o.creator_subject_id &&
           output_cosmetic_id == o.output_cosmetic_id &&
-          version == o.version &&
-          frozen_at == o.frozen_at &&
-          members == o.members
+          frozen_at == o.frozen_at
     end
 
     # @see the `==` method
@@ -255,7 +255,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, active, created_at, updated_at, note, reviewed_at, merchant_id, creator_subject_id, output_cosmetic_id, version, frozen_at, members].hash
+      [id, name, active, created_at, updated_at, version, reviewed_at, note, members, merchant_id, creator_subject_id, output_cosmetic_id, frozen_at].hash
     end
 
     # Builds the object from hash

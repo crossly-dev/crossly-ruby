@@ -34,6 +34,8 @@ module Crossly
     # A body shape (BODY_SHAPES). Optional, like the face presets.
     attr_accessor :shape
 
+    attr_accessor :outfit
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +46,8 @@ module Crossly
         :'build' => :'build',
         :'brows' => :'brows',
         :'mouth' => :'mouth',
-        :'shape' => :'shape'
+        :'shape' => :'shape',
+        :'outfit' => :'outfit'
       }
     end
 
@@ -63,7 +66,8 @@ module Crossly
         :'build' => :'String',
         :'brows' => :'String',
         :'mouth' => :'String',
-        :'shape' => :'String'
+        :'shape' => :'String',
+        :'outfit' => :'ListWorldOutfitsItemAppearanceOutfit'
       }
     end
 
@@ -72,7 +76,8 @@ module Crossly
       Set.new([
         :'brows',
         :'mouth',
-        :'shape'
+        :'shape',
+        :'outfit'
       ])
     end
 
@@ -121,6 +126,10 @@ module Crossly
 
       if attributes.key?(:'shape')
         self.shape = attributes[:'shape']
+      end
+
+      if attributes.key?(:'outfit')
+        self.outfit = attributes[:'outfit']
       end
     end
 
@@ -174,7 +183,8 @@ module Crossly
           build == o.build &&
           brows == o.brows &&
           mouth == o.mouth &&
-          shape == o.shape
+          shape == o.shape &&
+          outfit == o.outfit
     end
 
     # @see the `==` method
@@ -186,7 +196,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [skin, hair, hair_colour, eyes, build, brows, mouth, shape].hash
+      [skin, hair, hair_colour, eyes, build, brows, mouth, shape, outfit].hash
     end
 
     # Builds the object from hash

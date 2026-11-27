@@ -21,15 +21,13 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :status
-
     attr_accessor :platform
+
+    attr_accessor :status
 
     attr_accessor :last_error
 
     attr_accessor :started_at
-
-    attr_accessor :batch_id
 
     attr_accessor :finished_at
 
@@ -51,6 +49,8 @@ module Crossly
 
     attr_accessor :error_count
 
+    attr_accessor :batch_id
+
     attr_accessor :list_on_crossly
 
     attr_accessor :crossly_listed_at
@@ -61,11 +61,10 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
-        :'status' => :'status',
         :'platform' => :'platform',
+        :'status' => :'status',
         :'last_error' => :'lastError',
         :'started_at' => :'startedAt',
-        :'batch_id' => :'batchId',
         :'finished_at' => :'finishedAt',
         :'filters' => :'filters',
         :'import_mode' => :'importMode',
@@ -76,6 +75,7 @@ module Crossly
         :'imported_count' => :'importedCount',
         :'skipped_count' => :'skippedCount',
         :'error_count' => :'errorCount',
+        :'batch_id' => :'batchId',
         :'list_on_crossly' => :'listOnCrossly',
         :'crossly_listed_at' => :'crosslyListedAt'
       }
@@ -92,11 +92,10 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'user_id' => :'String',
-        :'status' => :'String',
         :'platform' => :'String',
+        :'status' => :'String',
         :'last_error' => :'String',
         :'started_at' => :'Time',
-        :'batch_id' => :'String',
         :'finished_at' => :'Time',
         :'filters' => :'ListImportsItemFilters',
         :'import_mode' => :'String',
@@ -107,6 +106,7 @@ module Crossly
         :'imported_count' => :'Float',
         :'skipped_count' => :'Float',
         :'error_count' => :'Float',
+        :'batch_id' => :'String',
         :'list_on_crossly' => :'Boolean',
         :'crossly_listed_at' => :'Time'
       }
@@ -117,9 +117,9 @@ module Crossly
       Set.new([
         :'last_error',
         :'started_at',
-        :'batch_id',
         :'finished_at',
         :'filters',
+        :'batch_id',
         :'crossly_listed_at'
       ])
     end
@@ -151,12 +151,12 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'last_error')
@@ -165,10 +165,6 @@ module Crossly
 
       if attributes.key?(:'started_at')
         self.started_at = attributes[:'started_at']
-      end
-
-      if attributes.key?(:'batch_id')
-        self.batch_id = attributes[:'batch_id']
       end
 
       if attributes.key?(:'finished_at')
@@ -211,6 +207,10 @@ module Crossly
         self.error_count = attributes[:'error_count']
       end
 
+      if attributes.key?(:'batch_id')
+        self.batch_id = attributes[:'batch_id']
+      end
+
       if attributes.key?(:'list_on_crossly')
         self.list_on_crossly = attributes[:'list_on_crossly']
       end
@@ -236,12 +236,12 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @platform.nil?
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       if @import_mode.nil?
@@ -289,8 +289,8 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @user_id.nil?
-      return false if @status.nil?
       return false if @platform.nil?
+      return false if @status.nil?
       return false if @import_mode.nil?
       return false if @include_inactive.nil?
       return false if @merge_into_existing_listing.nil?
@@ -311,11 +311,10 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           user_id == o.user_id &&
-          status == o.status &&
           platform == o.platform &&
+          status == o.status &&
           last_error == o.last_error &&
           started_at == o.started_at &&
-          batch_id == o.batch_id &&
           finished_at == o.finished_at &&
           filters == o.filters &&
           import_mode == o.import_mode &&
@@ -326,6 +325,7 @@ module Crossly
           imported_count == o.imported_count &&
           skipped_count == o.skipped_count &&
           error_count == o.error_count &&
+          batch_id == o.batch_id &&
           list_on_crossly == o.list_on_crossly &&
           crossly_listed_at == o.crossly_listed_at
     end
@@ -339,7 +339,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, platform, last_error, started_at, batch_id, finished_at, filters, import_mode, include_inactive, merge_into_existing_listing, merge_into_existing_inventory, total_count, imported_count, skipped_count, error_count, list_on_crossly, crossly_listed_at].hash
+      [id, created_at, user_id, platform, status, last_error, started_at, finished_at, filters, import_mode, include_inactive, merge_into_existing_listing, merge_into_existing_inventory, total_count, imported_count, skipped_count, error_count, batch_id, list_on_crossly, crossly_listed_at].hash
     end
 
     # Builds the object from hash

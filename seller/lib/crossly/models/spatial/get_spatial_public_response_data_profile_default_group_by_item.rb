@@ -16,22 +16,22 @@ require 'time'
 module Crossly
   class GetSpatialPublicResponseDataProfileDefaultGroupByItem
     brand = "brand".freeze
+    label = "label".freeze
+    status = "status".freeze
+    age = "age".freeze
     condition = "condition".freeze
     size = "size".freeze
-    status = "status".freeze
-    label = "label".freeze
     title = "title".freeze
     valueOption = "value".freeze
+    set = "set".freeze
+    team = "team".freeze
     year = "year".freeze
     grade = "grade".freeze
     game = "game".freeze
-    set = "set".freeze
     franchise = "franchise".freeze
-    team = "team".freeze
     era = "era".freeze
     genre = "genre".freeze
     colour = "colour".freeze
-    age = "age".freeze
     exhibitor = "exhibitor".freeze
 
     # Builds the enum from string

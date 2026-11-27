@@ -108,7 +108,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @kyb_status.nil?
-      kyb_status_validator = EnumAttributeValidator.new('String', ["pending", "approved", "rejected", "restricted"])
+      kyb_status_validator = EnumAttributeValidator.new('String', ["pending", "rejected", "approved", "restricted"])
       return false unless kyb_status_validator.valid?(@kyb_status)
       true
     end
@@ -116,7 +116,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kyb_status Object to be assigned
     def kyb_status=(kyb_status)
-      validator = EnumAttributeValidator.new('String', ["pending", "approved", "rejected", "restricted"])
+      validator = EnumAttributeValidator.new('String', ["pending", "rejected", "approved", "restricted"])
       unless validator.valid?(kyb_status)
         fail ArgumentError, "invalid value for \"kyb_status\", must be one of #{validator.allowable_values}."
       end

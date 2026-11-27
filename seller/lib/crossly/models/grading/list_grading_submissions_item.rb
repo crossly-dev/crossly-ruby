@@ -19,6 +19,9 @@ module Crossly
 
     attr_accessor :mode
 
+    # The grading order (submission through Crossly) this card is in.
+    attr_accessor :order_id
+
     attr_accessor :run_id
 
     attr_accessor :run_cutoff_at
@@ -92,6 +95,7 @@ module Crossly
       {
         :'id' => :'id',
         :'mode' => :'mode',
+        :'order_id' => :'orderId',
         :'run_id' => :'runId',
         :'run_cutoff_at' => :'runCutoffAt',
         :'run_status' => :'runStatus',
@@ -128,6 +132,7 @@ module Crossly
       {
         :'id' => :'String',
         :'mode' => :'String',
+        :'order_id' => :'String',
         :'run_id' => :'String',
         :'run_cutoff_at' => :'String',
         :'run_status' => :'String',
@@ -147,7 +152,7 @@ module Crossly
         :'inbound_tracking' => :'String',
         :'return_tracking' => :'String',
         :'prescreen_note' => :'String',
-        :'grading' => :'ListGradingSubmissionsItemGrading',
+        :'grading' => :'CreateBulkBatchItemResponseGrading',
         :'cert_verified' => :'Boolean',
         :'created_at' => :'String',
         :'updated_at' => :'String'
@@ -157,6 +162,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'order_id',
         :'run_id',
         :'run_cutoff_at',
         :'run_status',
@@ -191,6 +197,10 @@ module Crossly
 
       if attributes.key?(:'mode')
         self.mode = attributes[:'mode']
+      end
+
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
       end
 
       if attributes.key?(:'run_id')
@@ -358,7 +368,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @mode.nil?
-      mode_validator = EnumAttributeValidator.new('String', ["run", "direct"])
+      mode_validator = EnumAttributeValidator.new('String', ["direct", "order", "run"])
       return false unless mode_validator.valid?(@mode)
       return false if @grader_slug.nil?
       return false if @grader_name.nil?
@@ -366,7 +376,7 @@ module Crossly
       return false if @declared_value_cents.nil?
       return false if @prescreen.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["graded", "returned", "released", "refunded", "reserved", "received", "charged", "shipped_to_hub", "prescreen_failed", "at_grader", "returning", "vaulted"])
+      status_validator = EnumAttributeValidator.new('String', ["refunded", "received", "released", "reserved", "charged", "shipped_to_hub", "prescreen_failed", "at_grader", "graded", "returning", "returned", "vaulted"])
       return false unless status_validator.valid?(@status)
       return false if @miss_mode.nil?
       return false if @return_mode.nil?
@@ -381,7 +391,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] mode Object to be assigned
     def mode=(mode)
-      validator = EnumAttributeValidator.new('String', ["run", "direct"])
+      validator = EnumAttributeValidator.new('String', ["direct", "order", "run"])
       unless validator.valid?(mode)
         fail ArgumentError, "invalid value for \"mode\", must be one of #{validator.allowable_values}."
       end
@@ -391,7 +401,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["graded", "returned", "released", "refunded", "reserved", "received", "charged", "shipped_to_hub", "prescreen_failed", "at_grader", "returning", "vaulted"])
+      validator = EnumAttributeValidator.new('String', ["refunded", "received", "released", "reserved", "charged", "shipped_to_hub", "prescreen_failed", "at_grader", "graded", "returning", "returned", "vaulted"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -405,6 +415,7 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           mode == o.mode &&
+          order_id == o.order_id &&
           run_id == o.run_id &&
           run_cutoff_at == o.run_cutoff_at &&
           run_status == o.run_status &&
@@ -439,7 +450,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, mode, run_id, run_cutoff_at, run_status, grader_slug, grader_name, tier_slug, inventory_item_id, title, declared_value_cents, prescreen, status, miss_mode, return_mode, charged_cents, refunded_cents, inbound_label_url, inbound_tracking, return_tracking, prescreen_note, grading, cert_verified, created_at, updated_at].hash
+      [id, mode, order_id, run_id, run_cutoff_at, run_status, grader_slug, grader_name, tier_slug, inventory_item_id, title, declared_value_cents, prescreen, status, miss_mode, return_mode, charged_cents, refunded_cents, inbound_label_url, inbound_tracking, return_tracking, prescreen_note, grading, cert_verified, created_at, updated_at].hash
     end
 
     # Builds the object from hash

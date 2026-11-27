@@ -34,6 +34,8 @@ module Crossly
 
     attr_accessor :my_raw_units
 
+    attr_accessor :cta
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -67,7 +69,8 @@ module Crossly
         :'worth_it' => :'worthIt',
         :'raw_tier' => :'rawTier',
         :'my_units' => :'myUnits',
-        :'my_raw_units' => :'myRawUnits'
+        :'my_raw_units' => :'myRawUnits',
+        :'cta' => :'cta'
       }
     end
 
@@ -82,12 +85,13 @@ module Crossly
         :'book_key' => :'String',
         :'raw_mark_cents' => :'Float',
         :'raw_mark_quality' => :'String',
-        :'graded' => :'Array<GetVaultMarketKeyStatResponse>',
+        :'graded' => :'Array<GetVaultMarketGradingSignalResponseGraded>',
         :'graders' => :'Array<GetVaultMarketGradingSignalResponseGraders>',
         :'worth_it' => :'Boolean',
         :'raw_tier' => :'String',
         :'my_units' => :'Array<String>',
-        :'my_raw_units' => :'Float'
+        :'my_raw_units' => :'Float',
+        :'cta' => :'GetVaultMarketGradingSignalResponseCta'
       }
     end
 
@@ -95,6 +99,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'raw_mark_cents',
+        :'cta'
       ])
     end
 
@@ -154,6 +159,10 @@ module Crossly
       if attributes.key?(:'my_raw_units')
         self.my_raw_units = attributes[:'my_raw_units']
       end
+
+      if attributes.key?(:'cta')
+        self.cta = attributes[:'cta']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -200,13 +209,13 @@ module Crossly
     def valid?
       return false if @book_key.nil?
       return false if @raw_mark_quality.nil?
-      raw_mark_quality_validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      raw_mark_quality_validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       return false unless raw_mark_quality_validator.valid?(@raw_mark_quality)
       return false if @graded.nil?
       return false if @graders.nil?
       return false if @worth_it.nil?
       return false if @raw_tier.nil?
-      raw_tier_validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      raw_tier_validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       return false unless raw_tier_validator.valid?(@raw_tier)
       return false if @my_units.nil?
       return false if @my_raw_units.nil?
@@ -216,7 +225,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] raw_mark_quality Object to be assigned
     def raw_mark_quality=(raw_mark_quality)
-      validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       unless validator.valid?(raw_mark_quality)
         fail ArgumentError, "invalid value for \"raw_mark_quality\", must be one of #{validator.allowable_values}."
       end
@@ -226,7 +235,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] raw_tier Object to be assigned
     def raw_tier=(raw_tier)
-      validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       unless validator.valid?(raw_tier)
         fail ArgumentError, "invalid value for \"raw_tier\", must be one of #{validator.allowable_values}."
       end
@@ -246,7 +255,8 @@ module Crossly
           worth_it == o.worth_it &&
           raw_tier == o.raw_tier &&
           my_units == o.my_units &&
-          my_raw_units == o.my_raw_units
+          my_raw_units == o.my_raw_units &&
+          cta == o.cta
     end
 
     # @see the `==` method
@@ -258,7 +268,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [book_key, raw_mark_cents, raw_mark_quality, graded, graders, worth_it, raw_tier, my_units, my_raw_units].hash
+      [book_key, raw_mark_cents, raw_mark_quality, graded, graders, worth_it, raw_tier, my_units, my_raw_units, cta].hash
     end
 
     # Builds the object from hash

@@ -17,9 +17,9 @@ module CrosslyBuyer
   class GetBuyerCaseResponseDataPurchase
     attr_accessor :id
 
-    attr_accessor :status
-
     attr_accessor :buyer_paid_cents
+
+    attr_accessor :status
 
     attr_accessor :refund_status
 
@@ -29,8 +29,8 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
         :'buyer_paid_cents' => :'buyerPaidCents',
+        :'status' => :'status',
         :'refund_status' => :'refundStatus',
         :'refund_amount_cents' => :'refundAmountCents'
       }
@@ -45,8 +45,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
         :'buyer_paid_cents' => :'Float',
+        :'status' => :'String',
         :'refund_status' => :'String',
         :'refund_amount_cents' => :'Float'
       }
@@ -79,12 +79,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'buyer_paid_cents')
         self.buyer_paid_cents = attributes[:'buyer_paid_cents']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'refund_status')
@@ -104,12 +104,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @buyer_paid_cents.nil?
         invalid_properties.push('invalid value for "buyer_paid_cents", buyer_paid_cents cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       invalid_properties
@@ -119,8 +119,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
       return false if @buyer_paid_cents.nil?
+      return false if @status.nil?
       true
     end
 
@@ -130,8 +130,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
           buyer_paid_cents == o.buyer_paid_cents &&
+          status == o.status &&
           refund_status == o.refund_status &&
           refund_amount_cents == o.refund_amount_cents
     end
@@ -145,7 +145,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, buyer_paid_cents, refund_status, refund_amount_cents].hash
+      [id, buyer_paid_cents, status, refund_status, refund_amount_cents].hash
     end
 
     # Builds the object from hash

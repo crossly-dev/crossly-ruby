@@ -28,6 +28,8 @@ All URIs are relative to *https://crossly.net/api*
 
 Create an automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Examples
 
 ```ruby
@@ -91,6 +93,8 @@ This endpoint does not need any parameter.
 > <CreateAutomationRuleImportResponse> create_automation_rule_import(opts)
 
 Import one or more rules from recipe JSON (single or bundle).
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Examples
 
@@ -161,6 +165,8 @@ end
 
 Fire an automation rule immediately.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Examples
 
 ```ruby
@@ -224,9 +230,11 @@ end
 
 ## create_automation_rule_toggle
 
-> <UpdateAutomationRuleResponse> create_automation_rule_toggle(id)
+> <GetAutomationRuleResponse> create_automation_rule_toggle(id)
 
 Flip an automation rule between active and inactive.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Examples
 
@@ -255,7 +263,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateAutomationRuleResponse>, Integer, Hash)> create_automation_rule_toggle_with_http_info(id)
+> <Array(<GetAutomationRuleResponse>, Integer, Hash)> create_automation_rule_toggle_with_http_info(id)
 
 ```ruby
 begin
@@ -263,7 +271,7 @@ begin
   data, status_code, headers = api_instance.create_automation_rule_toggle_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <UpdateAutomationRuleResponse>
+  p data # => <GetAutomationRuleResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling AutomationApi->create_automation_rule_toggle_with_http_info: #{e}"
 end
@@ -277,7 +285,7 @@ end
 
 ### Return type
 
-**UpdateAutomationRuleResponse**
+**GetAutomationRuleResponse**
 
 ### Authorization
 
@@ -294,6 +302,8 @@ end
 > <CreateAutomationRuleValidateRecipeResponse> create_automation_rule_validate_recipe
 
 Dry-run validate one or more recipes against the live catalog.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Examples
 
@@ -493,6 +503,8 @@ end
 
 Delete an automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Examples
 
 ```ruby
@@ -624,6 +636,8 @@ This endpoint does not need any parameter.
 
 Get a single automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Examples
 
 ```ruby
@@ -691,6 +705,8 @@ end
 
 Export the user's full rule library as a portable recipe bundle.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Examples
 
 ```ruby
@@ -754,6 +770,8 @@ This endpoint does not need any parameter.
 > <GetAutomationRuleExportByIdResponse> get_automation_rule_export_by_id(id)
 
 Export a single automation rule as a portable recipe.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Examples
 
@@ -822,6 +840,8 @@ end
 
 List automation rules.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Examples
 
 ```ruby
@@ -885,6 +905,8 @@ This endpoint does not need any parameter.
 > <ListAutomationRunsResponse> list_automation_runs(opts)
 
 Per-fire history for automation rules and workflow chain runs.
+
+Deprecated: use /v1/workflow-runs.
 
 ### Examples
 
@@ -1019,9 +1041,11 @@ This endpoint does not need any parameter.
 
 ## update_automation_rule
 
-> <UpdateAutomationRuleResponse> update_automation_rule(id)
+> <GetAutomationRuleResponse> update_automation_rule(id)
 
 Update an automation rule (full replace).
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Examples
 
@@ -1050,7 +1074,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateAutomationRuleResponse>, Integer, Hash)> update_automation_rule_with_http_info(id)
+> <Array(<GetAutomationRuleResponse>, Integer, Hash)> update_automation_rule_with_http_info(id)
 
 ```ruby
 begin
@@ -1058,7 +1082,7 @@ begin
   data, status_code, headers = api_instance.update_automation_rule_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <UpdateAutomationRuleResponse>
+  p data # => <GetAutomationRuleResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling AutomationApi->update_automation_rule_with_http_info: #{e}"
 end
@@ -1072,7 +1096,7 @@ end
 
 ### Return type
 
-**UpdateAutomationRuleResponse**
+**GetAutomationRuleResponse**
 
 ### Authorization
 

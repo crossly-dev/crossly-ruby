@@ -134,7 +134,7 @@ module CrosslyBuyer
       return false if @domain.nil?
       domain_validator = EnumAttributeValidator.new('String', ["outerwear", "shoes", "dresses", "bottoms", "tops"])
       return false unless domain_validator.valid?(@domain)
-      department_validator = EnumAttributeValidator.new('String', ["men", "women", "kids", "unisex"])
+      department_validator = EnumAttributeValidator.new('String', ["unisex", "men", "women", "kids"])
       return false unless department_validator.valid?(@department)
       return false if @size.nil?
       return false if @basis.nil?
@@ -154,7 +154,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] department Object to be assigned
     def department=(department)
-      validator = EnumAttributeValidator.new('String', ["men", "women", "kids", "unisex"])
+      validator = EnumAttributeValidator.new('String', ["unisex", "men", "women", "kids"])
       unless validator.valid?(department)
         fail ArgumentError, "invalid value for \"department\", must be one of #{validator.allowable_values}."
       end

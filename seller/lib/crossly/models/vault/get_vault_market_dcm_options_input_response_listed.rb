@@ -144,7 +144,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @symbol.nil?
-      option_type_validator = EnumAttributeValidator.new('String', ["call", "put"])
+      option_type_validator = EnumAttributeValidator.new('String', ["put", "call"])
       return false unless option_type_validator.valid?(@option_type)
       true
     end
@@ -152,7 +152,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] option_type Object to be assigned
     def option_type=(option_type)
-      validator = EnumAttributeValidator.new('String', ["call", "put"])
+      validator = EnumAttributeValidator.new('String', ["put", "call"])
       unless validator.valid?(option_type)
         fail ArgumentError, "invalid value for \"option_type\", must be one of #{validator.allowable_values}."
       end

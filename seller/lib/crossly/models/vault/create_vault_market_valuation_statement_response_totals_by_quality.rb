@@ -17,19 +17,19 @@ module Crossly
   class CreateVaultMarketValuationStatementResponseTotalsByQuality
     attr_accessor :none
 
+    attr_accessor :c
+
     attr_accessor :a
 
     attr_accessor :b
-
-    attr_accessor :c
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'none' => :'none',
+        :'c' => :'C',
         :'a' => :'A',
-        :'b' => :'B',
-        :'c' => :'C'
+        :'b' => :'B'
       }
     end
 
@@ -42,9 +42,9 @@ module Crossly
     def self.openapi_types
       {
         :'none' => :'UnitsCents',
+        :'c' => :'UnitsCents',
         :'a' => :'UnitsCents',
-        :'b' => :'UnitsCents',
-        :'c' => :'UnitsCents'
+        :'b' => :'UnitsCents'
       }
     end
 
@@ -73,16 +73,16 @@ module Crossly
         self.none = attributes[:'none']
       end
 
+      if attributes.key?(:'c')
+        self.c = attributes[:'c']
+      end
+
       if attributes.key?(:'a')
         self.a = attributes[:'a']
       end
 
       if attributes.key?(:'b')
         self.b = attributes[:'b']
-      end
-
-      if attributes.key?(:'c')
-        self.c = attributes[:'c']
       end
     end
 
@@ -94,16 +94,16 @@ module Crossly
         invalid_properties.push('invalid value for "none", none cannot be nil.')
       end
 
+      if @c.nil?
+        invalid_properties.push('invalid value for "c", c cannot be nil.')
+      end
+
       if @a.nil?
         invalid_properties.push('invalid value for "a", a cannot be nil.')
       end
 
       if @b.nil?
         invalid_properties.push('invalid value for "b", b cannot be nil.')
-      end
-
-      if @c.nil?
-        invalid_properties.push('invalid value for "c", c cannot be nil.')
       end
 
       invalid_properties
@@ -113,9 +113,9 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @none.nil?
+      return false if @c.nil?
       return false if @a.nil?
       return false if @b.nil?
-      return false if @c.nil?
       true
     end
 
@@ -125,9 +125,9 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           none == o.none &&
+          c == o.c &&
           a == o.a &&
-          b == o.b &&
-          c == o.c
+          b == o.b
     end
 
     # @see the `==` method
@@ -139,7 +139,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [none, a, b, c].hash
+      [none, c, a, b].hash
     end
 
     # Builds the object from hash

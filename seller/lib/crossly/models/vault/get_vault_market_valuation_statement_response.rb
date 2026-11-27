@@ -55,6 +55,8 @@ module Crossly
 
     attr_accessor :venue
 
+    attr_accessor :shares
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -99,7 +101,8 @@ module Crossly
         :'methodology' => :'methodology',
         :'notes' => :'notes',
         :'verify_url' => :'verifyUrl',
-        :'venue' => :'venue'
+        :'venue' => :'venue',
+        :'shares' => :'shares'
       }
     end
 
@@ -130,7 +133,8 @@ module Crossly
         :'methodology' => :'Array<String>',
         :'notes' => :'Array<String>',
         :'verify_url' => :'String',
-        :'venue' => :'String'
+        :'venue' => :'String',
+        :'shares' => :'CreateVaultMarketValuationStatementResponseShares'
       }
     end
 
@@ -141,6 +145,7 @@ module Crossly
         :'prepared_for',
         :'policy_ref',
         :'verify_url',
+        :'shares'
       ])
     end
 
@@ -244,6 +249,10 @@ module Crossly
       if attributes.key?(:'venue')
         self.venue = attributes[:'venue']
       end
+
+      if attributes.key?(:'shares')
+        self.shares = attributes[:'shares']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -327,7 +336,7 @@ module Crossly
       return false if @kind.nil?
       return false if @version.nil?
       return false if @purpose.nil?
-      purpose_validator = EnumAttributeValidator.new('String', ["insurance", "appraisal"])
+      purpose_validator = EnumAttributeValidator.new('String', ["appraisal", "insurance"])
       return false unless purpose_validator.valid?(@purpose)
       return false if @title.nil?
       return false if @as_of.nil?
@@ -344,7 +353,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] purpose Object to be assigned
     def purpose=(purpose)
-      validator = EnumAttributeValidator.new('String', ["insurance", "appraisal"])
+      validator = EnumAttributeValidator.new('String', ["appraisal", "insurance"])
       unless validator.valid?(purpose)
         fail ArgumentError, "invalid value for \"purpose\", must be one of #{validator.allowable_values}."
       end
@@ -375,7 +384,8 @@ module Crossly
           methodology == o.methodology &&
           notes == o.notes &&
           verify_url == o.verify_url &&
-          venue == o.venue
+          venue == o.venue &&
+          shares == o.shares
     end
 
     # @see the `==` method
@@ -387,7 +397,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [issued, hash, seal, verify, kind, version, id, purpose, title, as_of, issued_at, account, prepared_for, policy_ref, units, totals, methodology, notes, verify_url, venue].hash
+      [issued, hash, seal, verify, kind, version, id, purpose, title, as_of, issued_at, account, prepared_for, policy_ref, units, totals, methodology, notes, verify_url, venue, shares].hash
     end
 
     # Builds the object from hash

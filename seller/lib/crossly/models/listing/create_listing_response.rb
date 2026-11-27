@@ -17,11 +17,20 @@ module Crossly
   class CreateListingResponse
     attr_accessor :listing
 
+    # One dispatched crosspost job per accepted platform.
     attr_accessor :jobs
 
+    # Platforms not dispatched, and why (category gate, dropship_not_allowed_on_platform, a dispatch refusal such as validation_error \"Add a weight before listing\", ...). The listing itself was created.
     attr_accessor :skipped
 
     attr_accessor :bulk_job_id
+
+    attr_accessor :client_reference_id
+
+    attr_accessor :existing
+
+    # Soft item-specifics problems (strictItemSpecifics off) and eBay fields accepted but mapped or ignored.
+    attr_accessor :warnings
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -29,7 +38,10 @@ module Crossly
         :'listing' => :'listing',
         :'jobs' => :'jobs',
         :'skipped' => :'skipped',
-        :'bulk_job_id' => :'bulkJobId'
+        :'bulk_job_id' => :'bulkJobId',
+        :'client_reference_id' => :'clientReferenceId',
+        :'existing' => :'existing',
+        :'warnings' => :'warnings'
       }
     end
 
@@ -44,14 +56,20 @@ module Crossly
         :'listing' => :'IdResponse',
         :'jobs' => :'Array<CreateListingResponseJobs>',
         :'skipped' => :'Array<CreateListingResponseSkipped>',
-        :'bulk_job_id' => :'String'
+        :'bulk_job_id' => :'String',
+        :'client_reference_id' => :'String',
+        :'existing' => :'Boolean',
+        :'warnings' => :'Array<CreateListingResponseWarnings>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'bulk_job_id'
+        :'bulk_job_id',
+        :'client_reference_id',
+        :'existing',
+        :'warnings'
       ])
     end
 
@@ -88,6 +106,20 @@ module Crossly
 
       if attributes.key?(:'bulk_job_id')
         self.bulk_job_id = attributes[:'bulk_job_id']
+      end
+
+      if attributes.key?(:'client_reference_id')
+        self.client_reference_id = attributes[:'client_reference_id']
+      end
+
+      if attributes.key?(:'existing')
+        self.existing = attributes[:'existing']
+      end
+
+      if attributes.key?(:'warnings')
+        if (value = attributes[:'warnings']).is_a?(Array)
+          self.warnings = value
+        end
       end
     end
 
@@ -127,7 +159,10 @@ module Crossly
           listing == o.listing &&
           jobs == o.jobs &&
           skipped == o.skipped &&
-          bulk_job_id == o.bulk_job_id
+          bulk_job_id == o.bulk_job_id &&
+          client_reference_id == o.client_reference_id &&
+          existing == o.existing &&
+          warnings == o.warnings
     end
 
     # @see the `==` method
@@ -139,7 +174,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [listing, jobs, skipped, bulk_job_id].hash
+      [listing, jobs, skipped, bulk_job_id, client_reference_id, existing, warnings].hash
     end
 
     # Builds the object from hash

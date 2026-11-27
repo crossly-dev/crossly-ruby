@@ -19,9 +19,66 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Check whether a shipping policy ships to an address.
+    # Pass an unsaved `policy` draft or a `presetId` (neither = your default shipping policy), an `address`, and optionally `consolidateVia` (a ship-together hub). Returns `ships`, and when it does not: `reason`, `stage` (buyer | hub), `message` and the deciding `rule`. `partial` means a fuller address (state, ZIP) could change the answer. A draft that is not a valid shipping policy is a 422; a presetId that is not yours is a 404.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateGeoLocationCheckResponse]
+    def create_geo_location_check(opts = {})
+      data, _status_code, _headers = create_geo_location_check_with_http_info(opts)
+      data
+    end
+
+    # Check whether a shipping policy ships to an address.
+    # Pass an unsaved &#x60;policy&#x60; draft or a &#x60;presetId&#x60; (neither &#x3D; your default shipping policy), an &#x60;address&#x60;, and optionally &#x60;consolidateVia&#x60; (a ship-together hub). Returns &#x60;ships&#x60;, and when it does not: &#x60;reason&#x60;, &#x60;stage&#x60; (buyer | hub), &#x60;message&#x60; and the deciding &#x60;rule&#x60;. &#x60;partial&#x60; means a fuller address (state, ZIP) could change the answer. A draft that is not a valid shipping policy is a 422; a presetId that is not yours is a 404.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateGeoLocationCheckResponse, Integer, Hash)>] CreateGeoLocationCheckResponse data, response status code and response headers
+    def create_geo_location_check_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PolicyPresetsApi.create_geo_location_check ...'
+      end
+      # resource path
+      local_var_path = '/v1/geo/location-check'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateGeoLocationCheckResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PolicyPresetsApi.create_geo_location_check",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PolicyPresetsApi#create_geo_location_check\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create a return / shipping / payment policy preset.
     # @param [Hash] opts the optional parameters
-    # @return [ListPolicyPresetsItem]
+    # @return [CreatePolicyPresetResponse]
     def create_policy_preset(opts = {})
       data, _status_code, _headers = create_policy_preset_with_http_info(opts)
       data
@@ -29,7 +86,7 @@ module Crossly
 
     # Create a return / shipping / payment policy preset.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListPolicyPresetsItem, Integer, Hash)>] ListPolicyPresetsItem data, response status code and response headers
+    # @return [Array<(CreatePolicyPresetResponse, Integer, Hash)>] CreatePolicyPresetResponse data, response status code and response headers
     def create_policy_preset_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PolicyPresetsApi.create_policy_preset ...'
@@ -52,7 +109,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListPolicyPresetsItem'
+      return_type = opts[:debug_return_type] || 'CreatePolicyPresetResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -74,19 +131,19 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Delete a policy preset.
+    # Delete a policy preset. Listings that used it switch to the default preset of its kind.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [OkResponse]
+    # @return [DeletePolicyPresetResponse]
     def delete_policy_preset(id, opts = {})
       data, _status_code, _headers = delete_policy_preset_with_http_info(id, opts)
       data
     end
 
-    # Delete a policy preset.
+    # Delete a policy preset. Listings that used it switch to the default preset of its kind.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    # @return [Array<(DeletePolicyPresetResponse, Integer, Hash)>] DeletePolicyPresetResponse data, response status code and response headers
     def delete_policy_preset_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PolicyPresetsApi.delete_policy_preset ...'
@@ -113,7 +170,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'OkResponse'
+      return_type = opts[:debug_return_type] || 'DeletePolicyPresetResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -135,7 +192,64 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List the seller's return / shipping / payment policy presets.
+    # The seller's shipping / return / payment policy presets by kind, with each kind's default.
+    # Pass a preset `id` as `policies.shippingPresetId` / `returnPresetId` / `paymentPresetId` on POST or PATCH /v1/listings (null = the marketplace's own default). A kind you omit uses `defaultPresetId`.
+    # @param [Hash] opts the optional parameters
+    # @return [GetPolicyResponse]
+    def get_policy(opts = {})
+      data, _status_code, _headers = get_policy_with_http_info(opts)
+      data
+    end
+
+    # The seller&#39;s shipping / return / payment policy presets by kind, with each kind&#39;s default.
+    # Pass a preset &#x60;id&#x60; as &#x60;policies.shippingPresetId&#x60; / &#x60;returnPresetId&#x60; / &#x60;paymentPresetId&#x60; on POST or PATCH /v1/listings (null &#x3D; the marketplace&#39;s own default). A kind you omit uses &#x60;defaultPresetId&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetPolicyResponse, Integer, Hash)>] GetPolicyResponse data, response status code and response headers
+    def get_policy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PolicyPresetsApi.get_policy ...'
+      end
+      # resource path
+      local_var_path = '/v1/policies'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetPolicyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PolicyPresetsApi.get_policy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PolicyPresetsApi#get_policy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the seller's return / shipping / payment policy presets. meta.migrationNotices lists defaults the policy migration demoted (kind still has no default).
     # @param [Hash] opts the optional parameters
     # @option opts [String] :kind 
     # @return [ListPolicyPresetsResponse]
@@ -144,7 +258,7 @@ module Crossly
       data
     end
 
-    # List the seller&#39;s return / shipping / payment policy presets.
+    # List the seller&#39;s return / shipping / payment policy presets. meta.migrationNotices lists defaults the policy migration demoted (kind still has no default).
     # @param [Hash] opts the optional parameters
     # @option opts [String] :kind 
     # @return [Array<(ListPolicyPresetsResponse, Integer, Hash)>] ListPolicyPresetsResponse data, response status code and response headers
@@ -200,7 +314,7 @@ module Crossly
     # Update a policy preset.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [ListPolicyPresetsItem]
+    # @return [CreatePolicyPresetResponse]
     def update_policy_preset(id, opts = {})
       data, _status_code, _headers = update_policy_preset_with_http_info(id, opts)
       data
@@ -209,7 +323,7 @@ module Crossly
     # Update a policy preset.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListPolicyPresetsItem, Integer, Hash)>] ListPolicyPresetsItem data, response status code and response headers
+    # @return [Array<(CreatePolicyPresetResponse, Integer, Hash)>] CreatePolicyPresetResponse data, response status code and response headers
     def update_policy_preset_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PolicyPresetsApi.update_policy_preset ...'
@@ -236,7 +350,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListPolicyPresetsItem'
+      return_type = opts[:debug_return_type] || 'CreatePolicyPresetResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']

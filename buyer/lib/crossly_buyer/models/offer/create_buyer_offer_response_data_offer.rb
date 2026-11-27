@@ -17,13 +17,13 @@ module CrosslyBuyer
   class CreateBuyerOfferResponseDataOffer
     attr_accessor :id
 
-    attr_accessor :status
-
     attr_accessor :platform_listing_id
 
     attr_accessor :buyer_user_id
 
     attr_accessor :amount_cents
+
+    attr_accessor :status
 
     attr_accessor :message
 
@@ -31,10 +31,10 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
         :'platform_listing_id' => :'platformListingId',
         :'buyer_user_id' => :'buyerUserId',
         :'amount_cents' => :'amountCents',
+        :'status' => :'status',
         :'message' => :'message'
       }
     end
@@ -48,10 +48,10 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
         :'platform_listing_id' => :'String',
         :'buyer_user_id' => :'String',
         :'amount_cents' => :'Float',
+        :'status' => :'String',
         :'message' => :'String'
       }
     end
@@ -82,10 +82,6 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
@@ -96,6 +92,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'amount_cents')
         self.amount_cents = attributes[:'amount_cents']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'message')
@@ -111,10 +111,6 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @platform_listing_id.nil?
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
       end
@@ -127,6 +123,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "amount_cents", amount_cents cannot be nil.')
       end
 
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -134,10 +134,10 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
       return false if @platform_listing_id.nil?
       return false if @buyer_user_id.nil?
       return false if @amount_cents.nil?
+      return false if @status.nil?
       true
     end
 
@@ -147,10 +147,10 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
           platform_listing_id == o.platform_listing_id &&
           buyer_user_id == o.buyer_user_id &&
           amount_cents == o.amount_cents &&
+          status == o.status &&
           message == o.message
     end
 
@@ -163,7 +163,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, platform_listing_id, buyer_user_id, amount_cents, message].hash
+      [id, platform_listing_id, buyer_user_id, amount_cents, status, message].hash
     end
 
     # Builds the object from hash

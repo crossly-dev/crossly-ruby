@@ -23,13 +23,16 @@ module CrosslyBuyer
 
     attr_accessor :needs_approval
 
+    attr_accessor :quote
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'rental_id' => :'rentalId',
         :'client_secret' => :'clientSecret',
         :'total_cents' => :'totalCents',
-        :'needs_approval' => :'needsApproval'
+        :'needs_approval' => :'needsApproval',
+        :'quote' => :'quote'
       }
     end
 
@@ -44,7 +47,8 @@ module CrosslyBuyer
         :'rental_id' => :'String',
         :'client_secret' => :'String',
         :'total_cents' => :'Float',
-        :'needs_approval' => :'Boolean'
+        :'needs_approval' => :'Boolean',
+        :'quote' => :'CreateBuyerCatalogListingRentalResponseDataQuote'
       }
     end
 
@@ -85,6 +89,10 @@ module CrosslyBuyer
       if attributes.key?(:'needs_approval')
         self.needs_approval = attributes[:'needs_approval']
       end
+
+      if attributes.key?(:'quote')
+        self.quote = attributes[:'quote']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -103,6 +111,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "needs_approval", needs_approval cannot be nil.')
       end
 
+      if @quote.nil?
+        invalid_properties.push('invalid value for "quote", quote cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -112,6 +124,7 @@ module CrosslyBuyer
       return false if @rental_id.nil?
       return false if @total_cents.nil?
       return false if @needs_approval.nil?
+      return false if @quote.nil?
       true
     end
 
@@ -123,7 +136,8 @@ module CrosslyBuyer
           rental_id == o.rental_id &&
           client_secret == o.client_secret &&
           total_cents == o.total_cents &&
-          needs_approval == o.needs_approval
+          needs_approval == o.needs_approval &&
+          quote == o.quote
     end
 
     # @see the `==` method
@@ -135,7 +149,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [rental_id, client_secret, total_cents, needs_approval].hash
+      [rental_id, client_secret, total_cents, needs_approval, quote].hash
     end
 
     # Builds the object from hash

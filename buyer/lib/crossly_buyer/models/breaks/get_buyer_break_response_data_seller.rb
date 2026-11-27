@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerBreakResponseDataSeller
-    attr_accessor :display_name
-
     attr_accessor :username
+
+    attr_accessor :display_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'display_name' => :'displayName',
-        :'username' => :'username'
+        :'username' => :'username',
+        :'display_name' => :'displayName'
       }
     end
 
@@ -35,16 +35,16 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'display_name' => :'String',
-        :'username' => :'String'
+        :'username' => :'String',
+        :'display_name' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'display_name',
-        :'username'
+        :'username',
+        :'display_name'
       ])
     end
 
@@ -63,12 +63,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'display_name')
-        self.display_name = attributes[:'display_name']
-      end
-
       if attributes.key?(:'username')
         self.username = attributes[:'username']
+      end
+
+      if attributes.key?(:'display_name')
+        self.display_name = attributes[:'display_name']
       end
     end
 
@@ -90,8 +90,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          display_name == o.display_name &&
-          username == o.username
+          username == o.username &&
+          display_name == o.display_name
     end
 
     # @see the `==` method
@@ -103,7 +103,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [display_name, username].hash
+      [username, display_name].hash
     end
 
     # Builds the object from hash

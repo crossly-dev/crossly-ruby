@@ -15,21 +15,36 @@ require 'time'
 
 module Crossly
   class GetAnalyticSummaryResponse
+    attr_accessor :days
+
     attr_accessor :sales
 
     attr_accessor :revenue
 
     attr_accessor :fees
 
-    attr_accessor :days
+    attr_accessor :pending_details_count
+
+    attr_accessor :units_sold
+
+    attr_accessor :net_sales_cents
+
+    attr_accessor :fees_cents
+
+    attr_accessor :net_profit_cents
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'days' => :'days',
         :'sales' => :'sales',
         :'revenue' => :'revenue',
         :'fees' => :'fees',
-        :'days' => :'days'
+        :'pending_details_count' => :'pendingDetailsCount',
+        :'units_sold' => :'unitsSold',
+        :'net_sales_cents' => :'netSalesCents',
+        :'fees_cents' => :'feesCents',
+        :'net_profit_cents' => :'netProfitCents'
       }
     end
 
@@ -41,16 +56,22 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'days' => :'Float',
         :'sales' => :'Float',
         :'revenue' => :'Float',
         :'fees' => :'Float',
-        :'days' => :'Float'
+        :'pending_details_count' => :'Float',
+        :'units_sold' => :'Float',
+        :'net_sales_cents' => :'Float',
+        :'fees_cents' => :'Float',
+        :'net_profit_cents' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'net_profit_cents'
       ])
     end
 
@@ -69,6 +90,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'days')
+        self.days = attributes[:'days']
+      end
+
       if attributes.key?(:'sales')
         self.sales = attributes[:'sales']
       end
@@ -81,8 +106,24 @@ module Crossly
         self.fees = attributes[:'fees']
       end
 
-      if attributes.key?(:'days')
-        self.days = attributes[:'days']
+      if attributes.key?(:'pending_details_count')
+        self.pending_details_count = attributes[:'pending_details_count']
+      end
+
+      if attributes.key?(:'units_sold')
+        self.units_sold = attributes[:'units_sold']
+      end
+
+      if attributes.key?(:'net_sales_cents')
+        self.net_sales_cents = attributes[:'net_sales_cents']
+      end
+
+      if attributes.key?(:'fees_cents')
+        self.fees_cents = attributes[:'fees_cents']
+      end
+
+      if attributes.key?(:'net_profit_cents')
+        self.net_profit_cents = attributes[:'net_profit_cents']
       end
     end
 
@@ -90,6 +131,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @days.nil?
+        invalid_properties.push('invalid value for "days", days cannot be nil.')
+      end
+
       if @sales.nil?
         invalid_properties.push('invalid value for "sales", sales cannot be nil.')
       end
@@ -102,8 +147,20 @@ module Crossly
         invalid_properties.push('invalid value for "fees", fees cannot be nil.')
       end
 
-      if @days.nil?
-        invalid_properties.push('invalid value for "days", days cannot be nil.')
+      if @pending_details_count.nil?
+        invalid_properties.push('invalid value for "pending_details_count", pending_details_count cannot be nil.')
+      end
+
+      if @units_sold.nil?
+        invalid_properties.push('invalid value for "units_sold", units_sold cannot be nil.')
+      end
+
+      if @net_sales_cents.nil?
+        invalid_properties.push('invalid value for "net_sales_cents", net_sales_cents cannot be nil.')
+      end
+
+      if @fees_cents.nil?
+        invalid_properties.push('invalid value for "fees_cents", fees_cents cannot be nil.')
       end
 
       invalid_properties
@@ -112,10 +169,14 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @days.nil?
       return false if @sales.nil?
       return false if @revenue.nil?
       return false if @fees.nil?
-      return false if @days.nil?
+      return false if @pending_details_count.nil?
+      return false if @units_sold.nil?
+      return false if @net_sales_cents.nil?
+      return false if @fees_cents.nil?
       true
     end
 
@@ -124,10 +185,15 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          days == o.days &&
           sales == o.sales &&
           revenue == o.revenue &&
           fees == o.fees &&
-          days == o.days
+          pending_details_count == o.pending_details_count &&
+          units_sold == o.units_sold &&
+          net_sales_cents == o.net_sales_cents &&
+          fees_cents == o.fees_cents &&
+          net_profit_cents == o.net_profit_cents
     end
 
     # @see the `==` method
@@ -139,7 +205,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [sales, revenue, fees, days].hash
+      [days, sales, revenue, fees, pending_details_count, units_sold, net_sales_cents, fees_cents, net_profit_cents].hash
     end
 
     # Builds the object from hash

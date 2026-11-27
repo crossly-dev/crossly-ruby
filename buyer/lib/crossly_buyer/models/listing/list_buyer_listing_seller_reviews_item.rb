@@ -17,31 +17,31 @@ module CrosslyBuyer
   class ListBuyerListingSellerReviewsItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
-    attr_accessor :item
+    attr_accessor :rating
 
     attr_accessor :body
 
-    attr_accessor :rating
+    attr_accessor :media
 
     attr_accessor :seller_reply
 
-    attr_accessor :media
-
     attr_accessor :reviewer
+
+    attr_accessor :item
+
+    attr_accessor :created_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'item' => :'item',
-        :'body' => :'body',
         :'rating' => :'rating',
-        :'seller_reply' => :'sellerReply',
+        :'body' => :'body',
         :'media' => :'media',
-        :'reviewer' => :'reviewer'
+        :'seller_reply' => :'sellerReply',
+        :'reviewer' => :'reviewer',
+        :'item' => :'item',
+        :'created_at' => :'createdAt'
       }
     end
 
@@ -54,13 +54,13 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'item' => :'ListBuyerListingSellerReviewsItemItem',
-        :'body' => :'String',
         :'rating' => :'Float',
-        :'seller_reply' => :'String',
+        :'body' => :'String',
         :'media' => :'Array<ListBuyerListingSellerReviewsItemMedia>',
-        :'reviewer' => :'String'
+        :'seller_reply' => :'String',
+        :'reviewer' => :'String',
+        :'item' => :'ListBuyerListingSellerReviewsItemItem',
+        :'created_at' => :'String'
       }
     end
 
@@ -69,7 +69,7 @@ module CrosslyBuyer
       Set.new([
         :'body',
         :'seller_reply',
-        :'reviewer'
+        :'reviewer',
       ])
     end
 
@@ -92,24 +92,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'item')
-        self.item = attributes[:'item']
-      end
-
-      if attributes.key?(:'body')
-        self.body = attributes[:'body']
-      end
-
       if attributes.key?(:'rating')
         self.rating = attributes[:'rating']
       end
 
-      if attributes.key?(:'seller_reply')
-        self.seller_reply = attributes[:'seller_reply']
+      if attributes.key?(:'body')
+        self.body = attributes[:'body']
       end
 
       if attributes.key?(:'media')
@@ -118,8 +106,20 @@ module CrosslyBuyer
         end
       end
 
+      if attributes.key?(:'seller_reply')
+        self.seller_reply = attributes[:'seller_reply']
+      end
+
       if attributes.key?(:'reviewer')
         self.reviewer = attributes[:'reviewer']
+      end
+
+      if attributes.key?(:'item')
+        self.item = attributes[:'item']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
     end
 
@@ -131,20 +131,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @item.nil?
-        invalid_properties.push('invalid value for "item", item cannot be nil.')
-      end
-
       if @rating.nil?
         invalid_properties.push('invalid value for "rating", rating cannot be nil.')
       end
 
       if @media.nil?
         invalid_properties.push('invalid value for "media", media cannot be nil.')
+      end
+
+      if @item.nil?
+        invalid_properties.push('invalid value for "item", item cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       invalid_properties
@@ -154,10 +154,10 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @item.nil?
       return false if @rating.nil?
       return false if @media.nil?
+      return false if @item.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -167,13 +167,13 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          item == o.item &&
-          body == o.body &&
           rating == o.rating &&
-          seller_reply == o.seller_reply &&
+          body == o.body &&
           media == o.media &&
-          reviewer == o.reviewer
+          seller_reply == o.seller_reply &&
+          reviewer == o.reviewer &&
+          item == o.item &&
+          created_at == o.created_at
     end
 
     # @see the `==` method
@@ -185,7 +185,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, item, body, rating, seller_reply, media, reviewer].hash
+      [id, rating, body, media, seller_reply, reviewer, item, created_at].hash
     end
 
     # Builds the object from hash

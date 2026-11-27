@@ -148,7 +148,7 @@ module Crossly
     def valid?
       return false if @opening.nil?
       return false if @phase.nil?
-      phase_validator = EnumAttributeValidator.new('String', ["limit", "normal", "paused"])
+      phase_validator = EnumAttributeValidator.new('String', ["limit", "paused", "normal"])
       return false unless phase_validator.valid?(@phase)
       true
     end
@@ -156,7 +156,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] phase Object to be assigned
     def phase=(phase)
-      validator = EnumAttributeValidator.new('String', ["limit", "normal", "paused"])
+      validator = EnumAttributeValidator.new('String', ["limit", "paused", "normal"])
       unless validator.valid?(phase)
         fail ArgumentError, "invalid value for \"phase\", must be one of #{validator.allowable_values}."
       end

@@ -21,12 +21,18 @@ module Crossly
 
     attr_accessor :revenue
 
+    attr_accessor :net_sales_cents
+
+    attr_accessor :net_profit_cents
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'day' => :'day',
         :'sales' => :'sales',
-        :'revenue' => :'revenue'
+        :'revenue' => :'revenue',
+        :'net_sales_cents' => :'netSalesCents',
+        :'net_profit_cents' => :'netProfitCents'
       }
     end
 
@@ -40,7 +46,9 @@ module Crossly
       {
         :'day' => :'String',
         :'sales' => :'Float',
-        :'revenue' => :'Float'
+        :'revenue' => :'Float',
+        :'net_sales_cents' => :'Float',
+        :'net_profit_cents' => :'Float'
       }
     end
 
@@ -76,6 +84,14 @@ module Crossly
       if attributes.key?(:'revenue')
         self.revenue = attributes[:'revenue']
       end
+
+      if attributes.key?(:'net_sales_cents')
+        self.net_sales_cents = attributes[:'net_sales_cents']
+      end
+
+      if attributes.key?(:'net_profit_cents')
+        self.net_profit_cents = attributes[:'net_profit_cents']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -94,6 +110,14 @@ module Crossly
         invalid_properties.push('invalid value for "revenue", revenue cannot be nil.')
       end
 
+      if @net_sales_cents.nil?
+        invalid_properties.push('invalid value for "net_sales_cents", net_sales_cents cannot be nil.')
+      end
+
+      if @net_profit_cents.nil?
+        invalid_properties.push('invalid value for "net_profit_cents", net_profit_cents cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -103,6 +127,8 @@ module Crossly
       return false if @day.nil?
       return false if @sales.nil?
       return false if @revenue.nil?
+      return false if @net_sales_cents.nil?
+      return false if @net_profit_cents.nil?
       true
     end
 
@@ -113,7 +139,9 @@ module Crossly
       self.class == o.class &&
           day == o.day &&
           sales == o.sales &&
-          revenue == o.revenue
+          revenue == o.revenue &&
+          net_sales_cents == o.net_sales_cents &&
+          net_profit_cents == o.net_profit_cents
     end
 
     # @see the `==` method
@@ -125,7 +153,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [day, sales, revenue].hash
+      [day, sales, revenue, net_sales_cents, net_profit_cents].hash
     end
 
     # Builds the object from hash

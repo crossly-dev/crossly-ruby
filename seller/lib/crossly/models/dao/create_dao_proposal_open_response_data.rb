@@ -53,6 +53,10 @@ module Crossly
 
     attr_accessor :charity_goal_id
 
+    attr_accessor :proposal_kind
+
+    attr_accessor :params
+
     attr_accessor :created_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -77,6 +81,8 @@ module Crossly
         :'tallied_at' => :'talliedAt',
         :'vetoed_reason' => :'vetoedReason',
         :'charity_goal_id' => :'charityGoalId',
+        :'proposal_kind' => :'proposalKind',
+        :'params' => :'params',
         :'created_at' => :'createdAt'
       }
     end
@@ -108,6 +114,8 @@ module Crossly
         :'tallied_at' => :'String',
         :'vetoed_reason' => :'String',
         :'charity_goal_id' => :'String',
+        :'proposal_kind' => :'String',
+        :'params' => :'Hash<String, Object>',
         :'created_at' => :'String'
       }
     end
@@ -122,6 +130,7 @@ module Crossly
         :'tallied_at',
         :'vetoed_reason',
         :'charity_goal_id',
+        :'params',
       ])
     end
 
@@ -216,6 +225,16 @@ module Crossly
         self.charity_goal_id = attributes[:'charity_goal_id']
       end
 
+      if attributes.key?(:'proposal_kind')
+        self.proposal_kind = attributes[:'proposal_kind']
+      end
+
+      if attributes.key?(:'params')
+        if (value = attributes[:'params']).is_a?(Hash)
+          self.params = value
+        end
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -273,6 +292,10 @@ module Crossly
         invalid_properties.push('invalid value for "pass_threshold_bps", pass_threshold_bps cannot be nil.')
       end
 
+      if @proposal_kind.nil?
+        invalid_properties.push('invalid value for "proposal_kind", proposal_kind cannot be nil.')
+      end
+
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
@@ -295,6 +318,7 @@ module Crossly
       return false if @power_abstain.nil?
       return false if @quorum_bps.nil?
       return false if @pass_threshold_bps.nil?
+      return false if @proposal_kind.nil?
       return false if @created_at.nil?
       true
     end
@@ -323,6 +347,8 @@ module Crossly
           tallied_at == o.tallied_at &&
           vetoed_reason == o.vetoed_reason &&
           charity_goal_id == o.charity_goal_id &&
+          proposal_kind == o.proposal_kind &&
+          params == o.params &&
           created_at == o.created_at
     end
 
@@ -335,7 +361,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [eligible_voters, id, title, body, beneficiary_kind, beneficiary_note, requested_base_units, status, total_voting_power, power_for, power_against, power_abstain, quorum_bps, pass_threshold_bps, opens_at, closes_at, tallied_at, vetoed_reason, charity_goal_id, created_at].hash
+      [eligible_voters, id, title, body, beneficiary_kind, beneficiary_note, requested_base_units, status, total_voting_power, power_for, power_against, power_abstain, quorum_bps, pass_threshold_bps, opens_at, closes_at, tallied_at, vetoed_reason, charity_goal_id, proposal_kind, params, created_at].hash
     end
 
     # Builds the object from hash

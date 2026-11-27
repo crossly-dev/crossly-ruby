@@ -87,6 +87,142 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Continue with Stripe: a one-time Stripe-hosted link that collects what Stripe needs.
+    # Creates the payout account first when there is none (country: ISO alpha-2, default the ship-from country). type is account_onboarding (Stripe shows only what is outstanding) or account_update. The link expires in minutes; ask for a new one rather than storing it. Nothing changes until a person completes it.
+    # @param create_payout_connect_onboard_request [CreatePayoutConnectOnboardRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatePayoutIdentityLinkResponse]
+    def create_payout_identity_link(create_payout_connect_onboard_request, opts = {})
+      data, _status_code, _headers = create_payout_identity_link_with_http_info(create_payout_connect_onboard_request, opts)
+      data
+    end
+
+    # Continue with Stripe: a one-time Stripe-hosted link that collects what Stripe needs.
+    # Creates the payout account first when there is none (country: ISO alpha-2, default the ship-from country). type is account_onboarding (Stripe shows only what is outstanding) or account_update. The link expires in minutes; ask for a new one rather than storing it. Nothing changes until a person completes it.
+    # @param create_payout_connect_onboard_request [CreatePayoutConnectOnboardRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatePayoutIdentityLinkResponse, Integer, Hash)>] CreatePayoutIdentityLinkResponse data, response status code and response headers
+    def create_payout_identity_link_with_http_info(create_payout_connect_onboard_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PayoutApi.create_payout_identity_link ...'
+      end
+      # verify the required parameter 'create_payout_connect_onboard_request' is set
+      if @api_client.config.client_side_validation && create_payout_connect_onboard_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_payout_connect_onboard_request' when calling PayoutApi.create_payout_identity_link"
+      end
+      # resource path
+      local_var_path = '/v1/payouts/identity/link'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_payout_connect_onboard_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePayoutIdentityLinkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PayoutApi.create_payout_identity_link",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PayoutApi#create_payout_identity_link\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Pay out now: instant (fee, minutes, to an eligible card/bank) or standard (free, manual schedule only).
+    # amountCents defaults to everything eligible. Pass idempotencyKey so a retry is the same payout. Returns { payout, feeCents }. 409 when the account cannot be paid or instant is unavailable.
+    # @param create_payout_payout_request [CreatePayoutPayoutRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatePayoutPayoutResponse]
+    def create_payout_payout(create_payout_payout_request, opts = {})
+      data, _status_code, _headers = create_payout_payout_with_http_info(create_payout_payout_request, opts)
+      data
+    end
+
+    # Pay out now: instant (fee, minutes, to an eligible card/bank) or standard (free, manual schedule only).
+    # amountCents defaults to everything eligible. Pass idempotencyKey so a retry is the same payout. Returns { payout, feeCents }. 409 when the account cannot be paid or instant is unavailable.
+    # @param create_payout_payout_request [CreatePayoutPayoutRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatePayoutPayoutResponse, Integer, Hash)>] CreatePayoutPayoutResponse data, response status code and response headers
+    def create_payout_payout_with_http_info(create_payout_payout_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PayoutApi.create_payout_payout ...'
+      end
+      # verify the required parameter 'create_payout_payout_request' is set
+      if @api_client.config.client_side_validation && create_payout_payout_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_payout_payout_request' when calling PayoutApi.create_payout_payout"
+      end
+      # resource path
+      local_var_path = '/v1/payout/payouts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_payout_payout_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePayoutPayoutResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PayoutApi.create_payout_payout",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PayoutApi#create_payout_payout\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your Stripe payout account: status, country, agreement and payout currency.
     # status is not_started (with defaultCountry), pending, active, restricted or payouts_unavailable. Only active can be paid; payouts_unavailable means Stripe offers no payout path to the account's country yet.
     # @param [Hash] opts the optional parameters
@@ -254,6 +390,127 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Stripe's verification of your payout account: status and what Stripe still needs, in plain words.
+    # status is not_started, pending (Stripe is checking), action_required (dueNow lists what to add), verified (payouts on) or restricted (disabledReasonText says why). dueNow / dueLater / inReview are Stripe's requirement keys as plain-words lines ({ keys, label }); errors carry Stripe's reason. Cached up to 60 s; fresh=1 re-reads Stripe. Payouts are gated on payoutsEnabled only.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :fresh 
+    # @return [GetPayoutIdentityResponse]
+    def get_payout_identity(opts = {})
+      data, _status_code, _headers = get_payout_identity_with_http_info(opts)
+      data
+    end
+
+    # Stripe&#39;s verification of your payout account: status and what Stripe still needs, in plain words.
+    # status is not_started, pending (Stripe is checking), action_required (dueNow lists what to add), verified (payouts on) or restricted (disabledReasonText says why). dueNow / dueLater / inReview are Stripe&#39;s requirement keys as plain-words lines ({ keys, label }); errors carry Stripe&#39;s reason. Cached up to 60 s; fresh&#x3D;1 re-reads Stripe. Payouts are gated on payoutsEnabled only.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :fresh 
+    # @return [Array<(GetPayoutIdentityResponse, Integer, Hash)>] GetPayoutIdentityResponse data, response status code and response headers
+    def get_payout_identity_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PayoutApi.get_payout_identity ...'
+      end
+      allowable_values = ["0", "1"]
+      if @api_client.config.client_side_validation && opts[:'fresh'] && !allowable_values.include?(opts[:'fresh'])
+        fail ArgumentError, "invalid value for \"fresh\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/payouts/identity'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'fresh'] = opts[:'fresh'] if !opts[:'fresh'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetPayoutIdentityResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PayoutApi.get_payout_identity",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PayoutApi#get_payout_identity\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your payout wallet: balances, schedule, next payout, instant-payout quote, methods, payouts, transactions.
+    # connected:false (with defaultCountry) before onboarding. balance has availableCents, pendingCents and instantAvailableCents in the account currency. instant.available says whether an instant payout can be made now, with feeCents/netCents for the full instant-available amount and reason when not.
+    # @param [Hash] opts the optional parameters
+    # @return [GetPayoutWalletResponse]
+    def get_payout_wallet(opts = {})
+      data, _status_code, _headers = get_payout_wallet_with_http_info(opts)
+      data
+    end
+
+    # Your payout wallet: balances, schedule, next payout, instant-payout quote, methods, payouts, transactions.
+    # connected:false (with defaultCountry) before onboarding. balance has availableCents, pendingCents and instantAvailableCents in the account currency. instant.available says whether an instant payout can be made now, with feeCents/netCents for the full instant-available amount and reason when not.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetPayoutWalletResponse, Integer, Hash)>] GetPayoutWalletResponse data, response status code and response headers
+    def get_payout_wallet_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PayoutApi.get_payout_wallet ...'
+      end
+      # resource path
+      local_var_path = '/v1/payout/wallet'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetPayoutWalletResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PayoutApi.get_payout_wallet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PayoutApi#get_payout_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Rank platforms by what they net at a given price. Defaults to connected ones.
     # @param [Hash] opts the optional parameters
     # @return [ListPayoutCompareResponse]
@@ -305,6 +562,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: PayoutApi#list_payout_compare\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change the automatic payout schedule.
+    # @param update_payout_schedule_request [UpdatePayoutScheduleRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdatePayoutScheduleResponse]
+    def update_payout_schedule(update_payout_schedule_request, opts = {})
+      data, _status_code, _headers = update_payout_schedule_with_http_info(update_payout_schedule_request, opts)
+      data
+    end
+
+    # Change the automatic payout schedule.
+    # @param update_payout_schedule_request [UpdatePayoutScheduleRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdatePayoutScheduleResponse, Integer, Hash)>] UpdatePayoutScheduleResponse data, response status code and response headers
+    def update_payout_schedule_with_http_info(update_payout_schedule_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: PayoutApi.update_payout_schedule ...'
+      end
+      # verify the required parameter 'update_payout_schedule_request' is set
+      if @api_client.config.client_side_validation && update_payout_schedule_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_payout_schedule_request' when calling PayoutApi.update_payout_schedule"
+      end
+      # resource path
+      local_var_path = '/v1/payout/schedule'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_payout_schedule_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdatePayoutScheduleResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"PayoutApi.update_payout_schedule",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: PayoutApi#update_payout_schedule\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

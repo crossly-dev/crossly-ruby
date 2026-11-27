@@ -73,7 +73,7 @@ module Crossly
       {
         :'quarter' => :'String',
         :'label' => :'String',
-        :'range' => :'GetInventorySellThroughResponseDataWindow',
+        :'range' => :'StartEnd',
         :'in_progress' => :'Boolean',
         :'generated_at' => :'String',
         :'totals' => :'GetVaultMarketReportResponseTotals',

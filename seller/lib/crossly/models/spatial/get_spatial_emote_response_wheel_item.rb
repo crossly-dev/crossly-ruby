@@ -15,6 +15,7 @@ require 'time'
 
 module Crossly
   class GetSpatialEmoteResponseWheelItem
+    PHONE = "phone".freeze
     SPIN = "spin".freeze
     WAVE = "wave".freeze
     POINT = "point".freeze
@@ -35,6 +36,33 @@ module Crossly
     HUG = "hug".freeze
     HIGH_FIVE = "high_five".freeze
     HANDSHAKE = "handshake".freeze
+    FACEPALM = "facepalm".freeze
+    THINK = "think".freeze
+    LAUGH = "laugh".freeze
+    SIGH = "sigh".freeze
+    NO = "no".freeze
+    FIST_PUMP = "fist_pump".freeze
+    VICTORY = "victory".freeze
+    YAWN = "yawn".freeze
+    SALUTE = "salute".freeze
+    BIG_WAVE = "big_wave".freeze
+    BECKON = "beckon".freeze
+    SHUSH = "shush".freeze
+    KISS = "kiss".freeze
+    PEACE = "peace".freeze
+    HEART = "heart".freeze
+    SWAY = "sway".freeze
+    VIBE = "vibe".freeze
+    AIR_GUITAR = "air_guitar".freeze
+    ROBOT = "robot".freeze
+    DISCO = "disco".freeze
+    GAVEL = "gavel".freeze
+    HAGGLE = "haggle".freeze
+    ARMS_CROSSED = "arms_crossed".freeze
+    HANDS_ON_HIPS = "hands_on_hips".freeze
+    KNEEL = "kneel".freeze
+    FIST_BUMP = "fist_bump".freeze
+    DANCE_OFF = "dance_off".freeze
     SHOWOFF = "showoff".freeze
     MOMENTHANDSHAKE = "moment:handshake".freeze
     MOMENTUNBOX = "moment:unbox".freeze

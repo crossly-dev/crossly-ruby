@@ -25,6 +25,12 @@ module Crossly
 
     attr_accessor :user_id
 
+    attr_accessor :status
+
+    attr_accessor :notes
+
+    attr_accessor :source
+
     attr_accessor :sku
 
     attr_accessor :quantity
@@ -32,6 +38,8 @@ module Crossly
     attr_accessor :quantity_available
 
     attr_accessor :quantity_reserved
+
+    attr_accessor :wholesale_reserve
 
     attr_accessor :quantity_sold
 
@@ -69,8 +77,6 @@ module Crossly
 
     attr_accessor :labels
 
-    attr_accessor :notes
-
     attr_accessor :custom_label
 
     attr_accessor :warehouse_location
@@ -85,6 +91,8 @@ module Crossly
 
     attr_accessor :grade_key
 
+    attr_accessor :vault_sell_from
+
     attr_accessor :grading
 
     attr_accessor :first_listed_at
@@ -92,6 +100,8 @@ module Crossly
     attr_accessor :include_tax_in_landed
 
     attr_accessor :cost_basis_cents
+
+    attr_accessor :supplier
 
     attr_accessor :price_floor_cents
 
@@ -111,11 +121,31 @@ module Crossly
 
     attr_accessor :dimension_hin
 
-    attr_accessor :status
-
-    attr_accessor :source
+    attr_accessor :allowance_app_id
 
     attr_accessor :category
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -125,10 +155,14 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
+        :'status' => :'status',
+        :'notes' => :'notes',
+        :'source' => :'source',
         :'sku' => :'sku',
         :'quantity' => :'quantity',
         :'quantity_available' => :'quantityAvailable',
         :'quantity_reserved' => :'quantityReserved',
+        :'wholesale_reserve' => :'wholesaleReserve',
         :'quantity_sold' => :'quantitySold',
         :'original_price' => :'originalPrice',
         :'condition' => :'condition',
@@ -147,7 +181,6 @@ module Crossly
         :'provenance_receipt_id' => :'provenanceReceiptId',
         :'tags' => :'tags',
         :'labels' => :'labels',
-        :'notes' => :'notes',
         :'custom_label' => :'customLabel',
         :'warehouse_location' => :'warehouseLocation',
         :'storage_bin' => :'storageBin',
@@ -155,10 +188,12 @@ module Crossly
         :'market_sku_id' => :'marketSkuId',
         :'market_variant_id' => :'marketVariantId',
         :'grade_key' => :'gradeKey',
+        :'vault_sell_from' => :'vaultSellFrom',
         :'grading' => :'grading',
         :'first_listed_at' => :'firstListedAt',
         :'include_tax_in_landed' => :'includeTaxInLanded',
         :'cost_basis_cents' => :'costBasisCents',
+        :'supplier' => :'supplier',
         :'price_floor_cents' => :'priceFloorCents',
         :'floor_is_net' => :'floorIsNet',
         :'acquired_at' => :'acquiredAt',
@@ -168,8 +203,7 @@ module Crossly
         :'dimension_lin' => :'dimensionLIn',
         :'dimension_win' => :'dimensionWIn',
         :'dimension_hin' => :'dimensionHIn',
-        :'status' => :'status',
-        :'source' => :'source',
+        :'allowance_app_id' => :'allowanceAppId',
         :'category' => :'category'
       }
     end
@@ -187,10 +221,14 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
+        :'status' => :'String',
+        :'notes' => :'String',
+        :'source' => :'String',
         :'sku' => :'String',
         :'quantity' => :'Float',
         :'quantity_available' => :'Float',
         :'quantity_reserved' => :'Float',
+        :'wholesale_reserve' => :'Float',
         :'quantity_sold' => :'Float',
         :'original_price' => :'String',
         :'condition' => :'String',
@@ -209,7 +247,6 @@ module Crossly
         :'provenance_receipt_id' => :'String',
         :'tags' => :'Array<String>',
         :'labels' => :'Array<String>',
-        :'notes' => :'String',
         :'custom_label' => :'String',
         :'warehouse_location' => :'String',
         :'storage_bin' => :'String',
@@ -217,10 +254,12 @@ module Crossly
         :'market_sku_id' => :'String',
         :'market_variant_id' => :'String',
         :'grade_key' => :'String',
-        :'grading' => :'ListGradingSubmissionsItemGrading',
+        :'vault_sell_from' => :'String',
+        :'grading' => :'CreateBulkBatchItemResponseGrading',
         :'first_listed_at' => :'Time',
         :'include_tax_in_landed' => :'Boolean',
         :'cost_basis_cents' => :'Float',
+        :'supplier' => :'ListInventoryItemSupplier',
         :'price_floor_cents' => :'Float',
         :'floor_is_net' => :'Boolean',
         :'acquired_at' => :'Time',
@@ -230,8 +269,7 @@ module Crossly
         :'dimension_lin' => :'String',
         :'dimension_win' => :'String',
         :'dimension_hin' => :'String',
-        :'status' => :'String',
-        :'source' => :'String',
+        :'allowance_app_id' => :'String',
         :'category' => :'MainSub'
       }
     end
@@ -240,6 +278,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'brand',
+        :'notes',
         :'sku',
         :'original_price',
         :'condition',
@@ -253,7 +292,6 @@ module Crossly
         :'size_system',
         :'video_url',
         :'provenance_receipt_id',
-        :'notes',
         :'custom_label',
         :'warehouse_location',
         :'storage_bin',
@@ -261,9 +299,11 @@ module Crossly
         :'market_sku_id',
         :'market_variant_id',
         :'grade_key',
+        :'vault_sell_from',
         :'grading',
         :'first_listed_at',
         :'cost_basis_cents',
+        :'supplier',
         :'price_floor_cents',
         :'acquired_at',
         :'acquired_source',
@@ -272,6 +312,7 @@ module Crossly
         :'dimension_lin',
         :'dimension_win',
         :'dimension_hin',
+        :'allowance_app_id',
         :'category'
       ])
     end
@@ -311,6 +352,18 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'notes')
+        self.notes = attributes[:'notes']
+      end
+
+      if attributes.key?(:'source')
+        self.source = attributes[:'source']
+      end
+
       if attributes.key?(:'sku')
         self.sku = attributes[:'sku']
       end
@@ -325,6 +378,10 @@ module Crossly
 
       if attributes.key?(:'quantity_reserved')
         self.quantity_reserved = attributes[:'quantity_reserved']
+      end
+
+      if attributes.key?(:'wholesale_reserve')
+        self.wholesale_reserve = attributes[:'wholesale_reserve']
       end
 
       if attributes.key?(:'quantity_sold')
@@ -407,10 +464,6 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'notes')
-        self.notes = attributes[:'notes']
-      end
-
       if attributes.key?(:'custom_label')
         self.custom_label = attributes[:'custom_label']
       end
@@ -439,6 +492,10 @@ module Crossly
         self.grade_key = attributes[:'grade_key']
       end
 
+      if attributes.key?(:'vault_sell_from')
+        self.vault_sell_from = attributes[:'vault_sell_from']
+      end
+
       if attributes.key?(:'grading')
         self.grading = attributes[:'grading']
       end
@@ -453,6 +510,10 @@ module Crossly
 
       if attributes.key?(:'cost_basis_cents')
         self.cost_basis_cents = attributes[:'cost_basis_cents']
+      end
+
+      if attributes.key?(:'supplier')
+        self.supplier = attributes[:'supplier']
       end
 
       if attributes.key?(:'price_floor_cents')
@@ -491,12 +552,8 @@ module Crossly
         self.dimension_hin = attributes[:'dimension_hin']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'source')
-        self.source = attributes[:'source']
+      if attributes.key?(:'allowance_app_id')
+        self.allowance_app_id = attributes[:'allowance_app_id']
       end
 
       if attributes.key?(:'category')
@@ -524,6 +581,14 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @source.nil?
+        invalid_properties.push('invalid value for "source", source cannot be nil.')
+      end
+
       if @quantity.nil?
         invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
@@ -534,6 +599,10 @@ module Crossly
 
       if @quantity_reserved.nil?
         invalid_properties.push('invalid value for "quantity_reserved", quantity_reserved cannot be nil.')
+      end
+
+      if @wholesale_reserve.nil?
+        invalid_properties.push('invalid value for "wholesale_reserve", wholesale_reserve cannot be nil.')
       end
 
       if @quantity_sold.nil?
@@ -568,14 +637,6 @@ module Crossly
         invalid_properties.push('invalid value for "floor_is_net", floor_is_net cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @source.nil?
-        invalid_properties.push('invalid value for "source", source cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -586,20 +647,33 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @user_id.nil?
+      return false if @status.nil?
+      return false if @source.nil?
       return false if @quantity.nil?
       return false if @quantity_available.nil?
       return false if @quantity_reserved.nil?
+      return false if @wholesale_reserve.nil?
       return false if @quantity_sold.nil?
       return false if @color.nil?
       return false if @default_title.nil?
       return false if @images.nil?
       return false if @tags.nil?
       return false if @labels.nil?
+      vault_sell_from_validator = EnumAttributeValidator.new('String', ["vault_first", "warehouse_first", "cheapest"])
+      return false unless vault_sell_from_validator.valid?(@vault_sell_from)
       return false if @include_tax_in_landed.nil?
       return false if @floor_is_net.nil?
-      return false if @status.nil?
-      return false if @source.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] vault_sell_from Object to be assigned
+    def vault_sell_from=(vault_sell_from)
+      validator = EnumAttributeValidator.new('String', ["vault_first", "warehouse_first", "cheapest"])
+      unless validator.valid?(vault_sell_from)
+        fail ArgumentError, "invalid value for \"vault_sell_from\", must be one of #{validator.allowable_values}."
+      end
+      @vault_sell_from = vault_sell_from
     end
 
     # Checks equality by comparing each attribute.
@@ -612,10 +686,14 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
+          status == o.status &&
+          notes == o.notes &&
+          source == o.source &&
           sku == o.sku &&
           quantity == o.quantity &&
           quantity_available == o.quantity_available &&
           quantity_reserved == o.quantity_reserved &&
+          wholesale_reserve == o.wholesale_reserve &&
           quantity_sold == o.quantity_sold &&
           original_price == o.original_price &&
           condition == o.condition &&
@@ -634,7 +712,6 @@ module Crossly
           provenance_receipt_id == o.provenance_receipt_id &&
           tags == o.tags &&
           labels == o.labels &&
-          notes == o.notes &&
           custom_label == o.custom_label &&
           warehouse_location == o.warehouse_location &&
           storage_bin == o.storage_bin &&
@@ -642,10 +719,12 @@ module Crossly
           market_sku_id == o.market_sku_id &&
           market_variant_id == o.market_variant_id &&
           grade_key == o.grade_key &&
+          vault_sell_from == o.vault_sell_from &&
           grading == o.grading &&
           first_listed_at == o.first_listed_at &&
           include_tax_in_landed == o.include_tax_in_landed &&
           cost_basis_cents == o.cost_basis_cents &&
+          supplier == o.supplier &&
           price_floor_cents == o.price_floor_cents &&
           floor_is_net == o.floor_is_net &&
           acquired_at == o.acquired_at &&
@@ -655,8 +734,7 @@ module Crossly
           dimension_lin == o.dimension_lin &&
           dimension_win == o.dimension_win &&
           dimension_hin == o.dimension_hin &&
-          status == o.status &&
-          source == o.source &&
+          allowance_app_id == o.allowance_app_id &&
           category == o.category
     end
 
@@ -669,7 +747,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, brand, created_at, updated_at, user_id, sku, quantity, quantity_available, quantity_reserved, quantity_sold, original_price, condition, size, material, style, pattern, department, gender, item_type, size_system, color, default_title, images, video_url, provenance_receipt_id, tags, labels, notes, custom_label, warehouse_location, storage_bin, storage_note, market_sku_id, market_variant_id, grade_key, grading, first_listed_at, include_tax_in_landed, cost_basis_cents, price_floor_cents, floor_is_net, acquired_at, acquired_source, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, status, source, category].hash
+      [id, brand, created_at, updated_at, user_id, status, notes, source, sku, quantity, quantity_available, quantity_reserved, wholesale_reserve, quantity_sold, original_price, condition, size, material, style, pattern, department, gender, item_type, size_system, color, default_title, images, video_url, provenance_receipt_id, tags, labels, custom_label, warehouse_location, storage_bin, storage_note, market_sku_id, market_variant_id, grade_key, vault_sell_from, grading, first_listed_at, include_tax_in_landed, cost_basis_cents, supplier, price_floor_cents, floor_is_net, acquired_at, acquired_source, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, allowance_app_id, category].hash
     end
 
     # Builds the object from hash

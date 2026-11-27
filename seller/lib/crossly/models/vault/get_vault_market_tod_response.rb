@@ -33,6 +33,8 @@ module Crossly
 
     attr_accessor :claims
 
+    attr_accessor :vault_shares
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +46,8 @@ module Crossly
         :'beneficiaries' => :'beneficiaries',
         :'shares_problem' => :'sharesProblem',
         :'units' => :'units',
-        :'claims' => :'claims'
+        :'claims' => :'claims',
+        :'vault_shares' => :'vaultShares'
       }
     end
 
@@ -64,7 +67,8 @@ module Crossly
         :'beneficiaries' => :'Array<GetVaultMarketTodResponseBeneficiaries>',
         :'shares_problem' => :'String',
         :'units' => :'Array<GetVaultMarketTodResponseUnits>',
-        :'claims' => :'Array<GetVaultMarketTodResponseClaims>'
+        :'claims' => :'Array<GetVaultMarketTodResponseClaims>',
+        :'vault_shares' => :'GetVaultMarketTodResponseVaultShares'
       }
     end
 
@@ -73,6 +77,7 @@ module Crossly
       Set.new([
         :'accepted_at',
         :'shares_problem',
+        :'vault_shares'
       ])
     end
 
@@ -131,6 +136,10 @@ module Crossly
         if (value = attributes[:'claims']).is_a?(Array)
           self.claims = value
         end
+      end
+
+      if attributes.key?(:'vault_shares')
+        self.vault_shares = attributes[:'vault_shares']
       end
     end
 
@@ -195,7 +204,8 @@ module Crossly
           beneficiaries == o.beneficiaries &&
           shares_problem == o.shares_problem &&
           units == o.units &&
-          claims == o.claims
+          claims == o.claims &&
+          vault_shares == o.vault_shares
     end
 
     # @see the `==` method
@@ -207,7 +217,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [gate, accepted, accepted_version, accepted_at, locked, beneficiaries, shares_problem, units, claims].hash
+      [gate, accepted, accepted_version, accepted_at, locked, beneficiaries, shares_problem, units, claims, vault_shares].hash
     end
 
     # Builds the object from hash

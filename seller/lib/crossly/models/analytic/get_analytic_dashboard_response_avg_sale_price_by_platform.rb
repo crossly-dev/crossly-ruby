@@ -40,7 +40,7 @@ module Crossly
       {
         :'platform' => :'String',
         :'avg_price' => :'Float',
-        :'count' => :'String'
+        :'count' => :'Float'
       }
     end
 

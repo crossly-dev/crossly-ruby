@@ -196,7 +196,7 @@ module Crossly
     def valid?
       return false if @symbol.nil?
       return false if @side.nil?
-      side_validator = EnumAttributeValidator.new('String', ["long", "short"])
+      side_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless side_validator.valid?(@side)
       return false if @contracts.nil?
       true
@@ -205,7 +205,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] side Object to be assigned
     def side=(side)
-      validator = EnumAttributeValidator.new('String', ["long", "short"])
+      validator = EnumAttributeValidator.new('String', ["short", "long"])
       unless validator.valid?(side)
         fail ArgumentError, "invalid value for \"side\", must be one of #{validator.allowable_values}."
       end

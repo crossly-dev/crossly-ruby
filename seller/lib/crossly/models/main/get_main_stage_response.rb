@@ -30,6 +30,8 @@ module Crossly
 
     attr_accessor :stream
 
+    attr_accessor :house
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +41,8 @@ module Crossly
         :'here' => :'here',
         :'live' => :'live',
         :'upcoming' => :'upcoming',
-        :'stream' => :'stream'
+        :'stream' => :'stream',
+        :'house' => :'house'
       }
     end
 
@@ -57,7 +60,8 @@ module Crossly
         :'here' => :'Float',
         :'live' => :'GetMainStageResponseLive',
         :'upcoming' => :'Array<GetMainStageResponseUpcoming>',
-        :'stream' => :'GetMainStageResponseStream'
+        :'stream' => :'GetMainStageResponseStream',
+        :'house' => :'GetMainStageResponseHouse'
       }
     end
 
@@ -65,7 +69,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'live',
-        :'stream'
+        :'stream',
       ])
     end
 
@@ -113,6 +117,10 @@ module Crossly
       if attributes.key?(:'stream')
         self.stream = attributes[:'stream']
       end
+
+      if attributes.key?(:'house')
+        self.house = attributes[:'house']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -139,6 +147,10 @@ module Crossly
         invalid_properties.push('invalid value for "upcoming", upcoming cannot be nil.')
       end
 
+      if @house.nil?
+        invalid_properties.push('invalid value for "house", house cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -150,6 +162,7 @@ module Crossly
       return false if @capacity.nil?
       return false if @here.nil?
       return false if @upcoming.nil?
+      return false if @house.nil?
       true
     end
 
@@ -164,7 +177,8 @@ module Crossly
           here == o.here &&
           live == o.live &&
           upcoming == o.upcoming &&
-          stream == o.stream
+          stream == o.stream &&
+          house == o.house
     end
 
     # @see the `==` method
@@ -176,7 +190,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, name, capacity, here, live, upcoming, stream].hash
+      [slug, name, capacity, here, live, upcoming, stream, house].hash
     end
 
     # Builds the object from hash

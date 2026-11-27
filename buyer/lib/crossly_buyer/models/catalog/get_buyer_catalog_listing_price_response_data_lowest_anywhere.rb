@@ -17,10 +17,13 @@ module CrosslyBuyer
   class GetBuyerCatalogListingPriceResponseDataLowestAnywhere
     attr_accessor :platforms
 
+    attr_accessor :platform_names
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'platforms' => :'platforms'
+        :'platforms' => :'platforms',
+        :'platform_names' => :'platformNames'
       }
     end
 
@@ -32,13 +35,15 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'platforms' => :'Array<String>'
+        :'platforms' => :'Array<String>',
+        :'platform_names' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'platform_names'
       ])
     end
 
@@ -60,6 +65,12 @@ module CrosslyBuyer
       if attributes.key?(:'platforms')
         if (value = attributes[:'platforms']).is_a?(Array)
           self.platforms = value
+        end
+      end
+
+      if attributes.key?(:'platform_names')
+        if (value = attributes[:'platform_names']).is_a?(Array)
+          self.platform_names = value
         end
       end
     end
@@ -87,7 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          platforms == o.platforms
+          platforms == o.platforms &&
+          platform_names == o.platform_names
     end
 
     # @see the `==` method
@@ -99,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platforms].hash
+      [platforms, platform_names].hash
     end
 
     # Builds the object from hash

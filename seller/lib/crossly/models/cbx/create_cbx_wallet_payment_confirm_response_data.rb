@@ -217,7 +217,7 @@ module Crossly
       return false if @payment_id.nil?
       return false if @duplicate.nil?
       return false if @release_decision.nil?
-      release_decision_validator = EnumAttributeValidator.new('String', ["review", "release", "refuse"])
+      release_decision_validator = EnumAttributeValidator.new('String', ["release", "review", "refuse"])
       return false unless release_decision_validator.valid?(@release_decision)
       return false if @release_reason.nil?
       return false if @base_units.nil?
@@ -231,7 +231,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] release_decision Object to be assigned
     def release_decision=(release_decision)
-      validator = EnumAttributeValidator.new('String', ["review", "release", "refuse"])
+      validator = EnumAttributeValidator.new('String', ["release", "review", "refuse"])
       unless validator.valid?(release_decision)
         fail ArgumentError, "invalid value for \"release_decision\", must be one of #{validator.allowable_values}."
       end

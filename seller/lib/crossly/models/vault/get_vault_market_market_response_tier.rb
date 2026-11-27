@@ -232,7 +232,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @tier.nil?
-      tier_validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      tier_validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       return false unless tier_validator.valid?(@tier)
       return false if @short_initial_bps.nil?
       return false if @short_maintenance_bps.nil?
@@ -242,7 +242,7 @@ module Crossly
       return false if @trades30d.nil?
       return false if @vault_units.nil?
       return false if @counterparties30d.nil?
-      liquidity_tier_validator = EnumAttributeValidator.new('String', ["A", "B", "C", "D"])
+      liquidity_tier_validator = EnumAttributeValidator.new('String', ["C", "A", "B", "D"])
       return false unless liquidity_tier_validator.valid?(@liquidity_tier)
       return false if @shortable.nil?
       return false if @leverable.nil?
@@ -252,7 +252,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end
@@ -262,7 +262,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] liquidity_tier Object to be assigned
     def liquidity_tier=(liquidity_tier)
-      validator = EnumAttributeValidator.new('String', ["A", "B", "C", "D"])
+      validator = EnumAttributeValidator.new('String', ["C", "A", "B", "D"])
       unless validator.valid?(liquidity_tier)
         fail ArgumentError, "invalid value for \"liquidity_tier\", must be one of #{validator.allowable_values}."
       end

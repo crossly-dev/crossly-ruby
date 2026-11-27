@@ -15,9 +15,9 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCollectionSetResponseDataGroup
-    attr_accessor :brand
-
     attr_accessor :category
+
+    attr_accessor :brand
 
     attr_accessor :model
 
@@ -32,8 +32,8 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'brand' => :'brand',
         :'category' => :'category',
+        :'brand' => :'brand',
         :'model' => :'model',
         :'brand_slug' => :'brandSlug',
         :'model_slug' => :'modelSlug',
@@ -50,8 +50,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'brand' => :'String',
         :'category' => :'String',
+        :'brand' => :'String',
         :'model' => :'String',
         :'brand_slug' => :'String',
         :'model_slug' => :'String',
@@ -81,12 +81,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'brand')
-        self.brand = attributes[:'brand']
-      end
-
       if attributes.key?(:'category')
         self.category = attributes[:'category']
+      end
+
+      if attributes.key?(:'brand')
+        self.brand = attributes[:'brand']
       end
 
       if attributes.key?(:'model')
@@ -114,12 +114,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @brand.nil?
-        invalid_properties.push('invalid value for "brand", brand cannot be nil.')
-      end
-
       if @category.nil?
         invalid_properties.push('invalid value for "category", category cannot be nil.')
+      end
+
+      if @brand.nil?
+        invalid_properties.push('invalid value for "brand", brand cannot be nil.')
       end
 
       if @model.nil?
@@ -148,8 +148,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @brand.nil?
       return false if @category.nil?
+      return false if @brand.nil?
       return false if @model.nil?
       return false if @brand_slug.nil?
       return false if @model_slug.nil?
@@ -163,8 +163,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          brand == o.brand &&
           category == o.category &&
+          brand == o.brand &&
           model == o.model &&
           brand_slug == o.brand_slug &&
           model_slug == o.model_slug &&
@@ -181,7 +181,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [brand, category, model, brand_slug, model_slug, total, owned].hash
+      [category, brand, model, brand_slug, model_slug, total, owned].hash
     end
 
     # Builds the object from hash

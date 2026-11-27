@@ -15,9 +15,9 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCheckoutUsdcResponseData
-    attr_accessor :reason
-
     attr_accessor :available
+
+    attr_accessor :reason
 
     attr_accessor :max_cents
 
@@ -26,8 +26,8 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'reason' => :'reason',
         :'available' => :'available',
+        :'reason' => :'reason',
         :'max_cents' => :'maxCents',
         :'networks' => :'networks'
       }
@@ -41,8 +41,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'reason' => :'String',
         :'available' => :'Boolean',
+        :'reason' => :'String',
         :'max_cents' => :'Float',
         :'networks' => :'Array<String>'
       }
@@ -70,12 +70,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'reason')
-        self.reason = attributes[:'reason']
-      end
-
       if attributes.key?(:'available')
         self.available = attributes[:'available']
+      end
+
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
       end
 
       if attributes.key?(:'max_cents')
@@ -122,8 +122,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          reason == o.reason &&
           available == o.available &&
+          reason == o.reason &&
           max_cents == o.max_cents &&
           networks == o.networks
     end
@@ -137,7 +137,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [reason, available, max_cents, networks].hash
+      [available, reason, max_cents, networks].hash
     end
 
     # Builds the object from hash

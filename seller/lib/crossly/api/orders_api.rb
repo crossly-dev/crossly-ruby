@@ -253,7 +253,7 @@ module Crossly
 
     # Bulk mark orders as disputed with a shared reason.
     # @param [Hash] opts the optional parameters
-    # @return [CreateInventoryLabelRenameResponse]
+    # @return [UpdatedResponse]
     def create_order_bulk_mark_disputed(opts = {})
       data, _status_code, _headers = create_order_bulk_mark_disputed_with_http_info(opts)
       data
@@ -261,7 +261,7 @@ module Crossly
 
     # Bulk mark orders as disputed with a shared reason.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateInventoryLabelRenameResponse, Integer, Hash)>] CreateInventoryLabelRenameResponse data, response status code and response headers
+    # @return [Array<(UpdatedResponse, Integer, Hash)>] UpdatedResponse data, response status code and response headers
     def create_order_bulk_mark_disputed_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_bulk_mark_disputed ...'
@@ -284,7 +284,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateInventoryLabelRenameResponse'
+      return_type = opts[:debug_return_type] || 'UpdatedResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -416,7 +416,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Cancel an order on its marketplace.
+    # Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderCancelResponse]
@@ -425,7 +425,7 @@ module Crossly
       data
     end
 
-    # Cancel an order on its marketplace.
+    # Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderCancelResponse, Integer, Hash)>] CreateOrderCancelResponse data, response status code and response headers
@@ -473,6 +473,69 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#create_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Correct a wrong tracking number the marketplace already holds.
+    # Replaces the order's tracking number with `trackingNumber`, on Crossly and on the marketplace, where the platform can change tracking it already has (its trackingCorrection capability): `correction` is replace (overwritten), remove_then_submit (the old number removed, then the new one sent) or submit (the platform held none). Refused with validation_error where the platform cannot change it (update it there), when the order has no tracking, its tracking came with a label (void the label instead), or it is closed or delivered; conflict while the previous tracking update is still in flight.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderCorrectTrackingResponse]
+    def create_order_correct_tracking(id, opts = {})
+      data, _status_code, _headers = create_order_correct_tracking_with_http_info(id, opts)
+      data
+    end
+
+    # Correct a wrong tracking number the marketplace already holds.
+    # Replaces the order&#39;s tracking number with &#x60;trackingNumber&#x60;, on Crossly and on the marketplace, where the platform can change tracking it already has (its trackingCorrection capability): &#x60;correction&#x60; is replace (overwritten), remove_then_submit (the old number removed, then the new one sent) or submit (the platform held none). Refused with validation_error where the platform cannot change it (update it there), when the order has no tracking, its tracking came with a label (void the label instead), or it is closed or delivered; conflict while the previous tracking update is still in flight.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderCorrectTrackingResponse, Integer, Hash)>] CreateOrderCorrectTrackingResponse data, response status code and response headers
+    def create_order_correct_tracking_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_correct_tracking ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_correct_tracking"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/correct-tracking'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderCorrectTrackingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_correct_tracking",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_correct_tracking\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -593,7 +656,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Purchase EasyPost shipping label.
+    # Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderLabelResponse]
@@ -602,7 +665,7 @@ module Crossly
       data
     end
 
-    # Purchase EasyPost shipping label.
+    # Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderLabelResponse, Integer, Hash)>] CreateOrderLabelResponse data, response status code and response headers
@@ -650,6 +713,132 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#create_order_label\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Void a Crossly Shipping label and refund it to the shipping wallet.
+    # Voids the order's unused label, owes the wallet charge back in full (markup included) and sets the order back to needs_fulfillment. The refund is held as pending (`refundPendingCents`; `refundedCents` stays 0) and is credited to the shipping wallet when Crossly releases held credits. Only while the carrier has not scanned the parcel and within 30 days of purchase. `tracking.outcome` says what happens to tracking already sent to the marketplace: not_submitted, removal_queued, replace_on_next_label, or update_manually (with `platformOrderUrl`). Repeating the call returns the same result with `alreadyVoided: true` and refunds nothing again.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderLabelVoidResponse]
+    def create_order_label_void(id, opts = {})
+      data, _status_code, _headers = create_order_label_void_with_http_info(id, opts)
+      data
+    end
+
+    # Void a Crossly Shipping label and refund it to the shipping wallet.
+    # Voids the order&#39;s unused label, owes the wallet charge back in full (markup included) and sets the order back to needs_fulfillment. The refund is held as pending (&#x60;refundPendingCents&#x60;; &#x60;refundedCents&#x60; stays 0) and is credited to the shipping wallet when Crossly releases held credits. Only while the carrier has not scanned the parcel and within 30 days of purchase. &#x60;tracking.outcome&#x60; says what happens to tracking already sent to the marketplace: not_submitted, removal_queued, replace_on_next_label, or update_manually (with &#x60;platformOrderUrl&#x60;). Repeating the call returns the same result with &#x60;alreadyVoided: true&#x60; and refunds nothing again.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderLabelVoidResponse, Integer, Hash)>] CreateOrderLabelVoidResponse data, response status code and response headers
+    def create_order_label_void_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_label_void ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_label_void"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/label/void'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderLabelVoidResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_label_void",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_label_void\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
+    # For an order whose listing is an auto-created external-sale stub. Body: { listingId, platformListingId? }. Moves the sale onto the listing's row on the order's platform (or moves the stub's row under the listing when it has none), decrements its stock like a detected sale, archives the stub, and delists the item from every other marketplace once no unit is left. 409 when the order is already linked.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderLinkListingResponse]
+    def create_order_link_listing(id, opts = {})
+      data, _status_code, _headers = create_order_link_listing_with_http_info(id, opts)
+      data
+    end
+
+    # Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
+    # For an order whose listing is an auto-created external-sale stub. Body: { listingId, platformListingId? }. Moves the sale onto the listing&#39;s row on the order&#39;s platform (or moves the stub&#39;s row under the listing when it has none), decrements its stock like a detected sale, archives the stub, and delists the item from every other marketplace once no unit is left. 409 when the order is already linked.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderLinkListingResponse, Integer, Hash)>] CreateOrderLinkListingResponse data, response status code and response headers
+    def create_order_link_listing_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_link_listing ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_link_listing"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/link-listing'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderLinkListingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_link_listing",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_link_listing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -715,6 +904,78 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Send a message to the order's buyer chat on the marketplace. Mirrored into the Crossly inbox.
+    # @param id [String] 
+    # @param create_order_order_chat_request [CreateOrderOrderChatRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def create_order_order_chat(id, create_order_order_chat_request, opts = {})
+      data, _status_code, _headers = create_order_order_chat_with_http_info(id, create_order_order_chat_request, opts)
+      data
+    end
+
+    # Send a message to the order&#39;s buyer chat on the marketplace. Mirrored into the Crossly inbox.
+    # @param id [String] 
+    # @param create_order_order_chat_request [CreateOrderOrderChatRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def create_order_order_chat_with_http_info(id, create_order_order_chat_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_order_chat ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_order_chat"
+      end
+      # verify the required parameter 'create_order_order_chat_request' is set
+      if @api_client.config.client_side_validation && create_order_order_chat_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_order_chat_request' when calling OrdersApi.create_order_order_chat"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/order-chat'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_order_chat_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_order_chat",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_order_chat\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead).
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderPickupResponse]
@@ -770,7 +1031,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short.
+    # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderPickupLabelResponse]
@@ -779,7 +1040,7 @@ module Crossly
       data
     end
 
-    # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short.
+    # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderPickupLabelResponse, Integer, Hash)>] CreateOrderPickupLabelResponse data, response status code and response headers
@@ -827,6 +1088,311 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#create_order_pickup_label\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save the package (weight oz, box inches) the marketplace prices the label from.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderWhatnotShipmentResponse]
+    def create_order_platform_label_package(id, opts = {})
+      data, _status_code, _headers = create_order_platform_label_package_with_http_info(id, opts)
+      data
+    end
+
+    # Save the package (weight oz, box inches) the marketplace prices the label from.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderWhatnotShipmentResponse, Integer, Hash)>] GetOrderWhatnotShipmentResponse data, response status code and response headers
+    def create_order_platform_label_package_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_platform_label_package ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_platform_label_package"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/package'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderWhatnotShipmentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_platform_label_package",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_platform_label_package\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Quote what a change to the marketplace shipment's package costs (cents).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderWhatnotPackageQuoteResponse]
+    def create_order_platform_label_package_quote(id, opts = {})
+      data, _status_code, _headers = create_order_platform_label_package_quote_with_http_info(id, opts)
+      data
+    end
+
+    # Quote what a change to the marketplace shipment&#39;s package costs (cents).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderWhatnotPackageQuoteResponse, Integer, Hash)>] CreateOrderWhatnotPackageQuoteResponse data, response status code and response headers
+    def create_order_platform_label_package_quote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_platform_label_package_quote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_platform_label_package_quote"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/package/quote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderWhatnotPackageQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_platform_label_package_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_platform_label_package_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Pull the marketplace's prepaid label into Crossly (every platform with a label descriptor).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderPlatformLabelPullResponse]
+    def create_order_platform_label_pull(id, opts = {})
+      data, _status_code, _headers = create_order_platform_label_pull_with_http_info(id, opts)
+      data
+    end
+
+    # Pull the marketplace&#39;s prepaid label into Crossly (every platform with a label descriptor).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderPlatformLabelPullResponse, Integer, Hash)>] CreateOrderPlatformLabelPullResponse data, response status code and response headers
+    def create_order_platform_label_pull_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_platform_label_pull ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_platform_label_pull"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/pull'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderPlatformLabelPullResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_platform_label_pull",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_platform_label_pull\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Buy a replacement / extra marketplace label, or have the marketplace generate it, and record it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderPlatformLabelPurchaseResponse]
+    def create_order_platform_label_purchase(id, opts = {})
+      data, _status_code, _headers = create_order_platform_label_purchase_with_http_info(id, opts)
+      data
+    end
+
+    # Buy a replacement / extra marketplace label, or have the marketplace generate it, and record it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderPlatformLabelPurchaseResponse, Integer, Hash)>] CreateOrderPlatformLabelPurchaseResponse data, response status code and response headers
+    def create_order_platform_label_purchase_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_platform_label_purchase ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_platform_label_purchase"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/purchase'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderPlatformLabelPurchaseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_platform_label_purchase",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_platform_label_purchase\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Quote what buying a marketplace label costs, before you are charged.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderPlatformLabelQuoteResponse]
+    def create_order_platform_label_quote(id, opts = {})
+      data, _status_code, _headers = create_order_platform_label_quote_with_http_info(id, opts)
+      data
+    end
+
+    # Quote what buying a marketplace label costs, before you are charged.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderPlatformLabelQuoteResponse, Integer, Hash)>] CreateOrderPlatformLabelQuoteResponse data, response status code and response headers
+    def create_order_platform_label_quote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_platform_label_quote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_platform_label_quote"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/quote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderPlatformLabelQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_platform_label_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_platform_label_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -892,7 +1458,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # EasyPost rate quote for an order.
+    # Crossly Shipping rate quote for an order.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderRateResponse]
@@ -901,7 +1467,7 @@ module Crossly
       data
     end
 
-    # EasyPost rate quote for an order.
+    # Crossly Shipping rate quote for an order.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderRateResponse, Integer, Hash)>] CreateOrderRateResponse data, response status code and response headers
@@ -953,7 +1519,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Issue a full or partial refund on the platform.
+    # DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderRefundResponse]
@@ -962,7 +1528,7 @@ module Crossly
       data
     end
 
-    # Issue a full or partial refund on the platform.
+    # DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderRefundResponse, Integer, Hash)>] CreateOrderRefundResponse data, response status code and response headers
@@ -1010,6 +1576,134 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#create_order_refund\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Refund an order, in full or in part. `amount` is dollars; omit it for everything left (or the line items' value). Crossly-marketplace orders refund the buyer's card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order's status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateOrderRefundByIdResponse]
+    def create_order_refund_by_id(id, opts = {})
+      data, _status_code, _headers = create_order_refund_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Refund an order, in full or in part. &#x60;amount&#x60; is dollars; omit it for everything left (or the line items&#39; value). Crossly-marketplace orders refund the buyer&#39;s card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order&#39;s status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateOrderRefundByIdResponse, Integer, Hash)>] CreateOrderRefundByIdResponse data, response status code and response headers
+    def create_order_refund_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_refund_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_refund_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/refunds'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderRefundByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_refund_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_refund_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Settle an `unverified` refund (one Crossly could not confirm with the marketplace after its request was interrupted) once you have checked the marketplace: succeeded (with the amount actually refunded, dollars) or failed (nothing moved; the same Idempotency-Key can then try again). Crossly-marketplace refunds are confirmed by support instead.
+    # @param id [String] 
+    # @param refund_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListOrderRefundsItem]
+    def create_order_refund_resolve(id, refund_id, opts = {})
+      data, _status_code, _headers = create_order_refund_resolve_with_http_info(id, refund_id, opts)
+      data
+    end
+
+    # Settle an &#x60;unverified&#x60; refund (one Crossly could not confirm with the marketplace after its request was interrupted) once you have checked the marketplace: succeeded (with the amount actually refunded, dollars) or failed (nothing moved; the same Idempotency-Key can then try again). Crossly-marketplace refunds are confirmed by support instead.
+    # @param id [String] 
+    # @param refund_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListOrderRefundsItem, Integer, Hash)>] ListOrderRefundsItem data, response status code and response headers
+    def create_order_refund_resolve_with_http_info(id, refund_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_refund_resolve ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_refund_resolve"
+      end
+      # verify the required parameter 'refund_id' is set
+      if @api_client.config.client_side_validation && refund_id.nil?
+        fail ArgumentError, "Missing the required parameter 'refund_id' when calling OrdersApi.create_order_refund_resolve"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/refunds/{refundId}/resolve'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'refundId' + '}', CGI.escape(refund_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListOrderRefundsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_refund_resolve",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_refund_resolve\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1072,7 +1766,7 @@ module Crossly
     # Submit tracking number + carrier and notify the platform.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateInboxOfferResponse]
+    # @return [CreateOrderTrackingResponse]
     def create_order_tracking(id, opts = {})
       data, _status_code, _headers = create_order_tracking_with_http_info(id, opts)
       data
@@ -1081,7 +1775,7 @@ module Crossly
     # Submit tracking number + carrier and notify the platform.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateInboxOfferResponse, Integer, Hash)>] CreateInboxOfferResponse data, response status code and response headers
+    # @return [Array<(CreateOrderTrackingResponse, Integer, Hash)>] CreateOrderTrackingResponse data, response status code and response headers
     def create_order_tracking_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_tracking ...'
@@ -1108,7 +1802,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateInboxOfferResponse'
+      return_type = opts[:debug_return_type] || 'CreateOrderTrackingResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1194,7 +1888,7 @@ module Crossly
     # Save a Whatnot shipment package (weight oz, box inches).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateOrderWhatnotLabelResponse]
+    # @return [GetOrderWhatnotShipmentResponse]
     def create_order_whatnot_package(id, opts = {})
       data, _status_code, _headers = create_order_whatnot_package_with_http_info(id, opts)
       data
@@ -1203,7 +1897,7 @@ module Crossly
     # Save a Whatnot shipment package (weight oz, box inches).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateOrderWhatnotLabelResponse, Integer, Hash)>] CreateOrderWhatnotLabelResponse data, response status code and response headers
+    # @return [Array<(GetOrderWhatnotShipmentResponse, Integer, Hash)>] GetOrderWhatnotShipmentResponse data, response status code and response headers
     def create_order_whatnot_package_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_whatnot_package ...'
@@ -1230,7 +1924,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateOrderWhatnotLabelResponse'
+      return_type = opts[:debug_return_type] || 'GetOrderWhatnotShipmentResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1557,6 +2251,195 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Mark a rental delivered to the renter.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [RentalResponse]
+    def create_rental_delivered(id, opts = {})
+      data, _status_code, _headers = create_rental_delivered_with_http_info(id, opts)
+      data
+    end
+
+    # Mark a rental delivered to the renter.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
+    def create_rental_delivered_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_delivered ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_rental_delivered"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/{id}/delivered'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'RentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_rental_delivered",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_rental_delivered\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Approve or decline a renter’s request for more days.
+    # @param id [String] 
+    # @param extension_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateRentalExtensionDecideResponse]
+    def create_rental_extension_decide(id, extension_id, opts = {})
+      data, _status_code, _headers = create_rental_extension_decide_with_http_info(id, extension_id, opts)
+      data
+    end
+
+    # Approve or decline a renter’s request for more days.
+    # @param id [String] 
+    # @param extension_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateRentalExtensionDecideResponse, Integer, Hash)>] CreateRentalExtensionDecideResponse data, response status code and response headers
+    def create_rental_extension_decide_with_http_info(id, extension_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_extension_decide ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_rental_extension_decide"
+      end
+      # verify the required parameter 'extension_id' is set
+      if @api_client.config.client_side_validation && extension_id.nil?
+        fail ArgumentError, "Missing the required parameter 'extension_id' when calling OrdersApi.create_rental_extension_decide"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/{id}/extensions/{extensionId}/decide'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'extensionId' + '}', CGI.escape(extension_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateRentalExtensionDecideResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_rental_extension_decide",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_rental_extension_decide\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Record the return inspection: the checklist, photos, and optionally release the deposit.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [RentalResponse]
+    def create_rental_inspect(id, opts = {})
+      data, _status_code, _headers = create_rental_inspect_with_http_info(id, opts)
+      data
+    end
+
+    # Record the return inspection: the checklist, photos, and optionally release the deposit.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
+    def create_rental_inspect_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_inspect ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_rental_inspect"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/{id}/inspect'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'RentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_rental_inspect",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_rental_inspect\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Buy both labels for a booked rental: outbound to the renter, and the return label they use.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -1614,6 +2497,128 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#create_rental_label\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Report a rental not returned (14 days past due): the deposit goes to you.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [RentalResponse]
+    def create_rental_not_returned(id, opts = {})
+      data, _status_code, _headers = create_rental_not_returned_with_http_info(id, opts)
+      data
+    end
+
+    # Report a rental not returned (14 days past due): the deposit goes to you.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
+    def create_rental_not_returned_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_not_returned ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_rental_not_returned"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/{id}/not-returned'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'RentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_rental_not_returned",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_rental_not_returned\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Release the deposit now, without a claim.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [RentalResponse]
+    def create_rental_release_deposit(id, opts = {})
+      data, _status_code, _headers = create_rental_release_deposit_with_http_info(id, opts)
+      data
+    end
+
+    # Release the deposit now, without a claim.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
+    def create_rental_release_deposit_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_release_deposit ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_rental_release_deposit"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/{id}/release-deposit'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'RentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_rental_release_deposit",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_rental_release_deposit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1740,19 +2745,21 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Get one order.
+    # Get one order, with its sale price, fees, SKU and line items.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [ListOrdersItem]
+    # @return [GetOrderResponse]
     def get_order(id, opts = {})
       data, _status_code, _headers = get_order_with_http_info(id, opts)
       data
     end
 
-    # Get one order.
+    # Get one order, with its sale price, fees, SKU and line items.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\&quot;exact\&quot; &#x3D; the fee the marketplace charged, \&quot;estimated\&quot;), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer&#39;s PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListOrdersItem, Integer, Hash)>] ListOrdersItem data, response status code and response headers
+    # @return [Array<(GetOrderResponse, Integer, Hash)>] GetOrderResponse data, response status code and response headers
     def get_order_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.get_order ...'
@@ -1779,7 +2786,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListOrdersItem'
+      return_type = opts[:debug_return_type] || 'GetOrderResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1913,6 +2920,69 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#get_order_count\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The courier's delivery photo for this order, pulled automatically, with where it came from.
+    # Crossly pulls the doorstep photo from whoever has it (the carrier API, e.g. UPS; Trackified when its tracking carries one; the marketplace when its payload does) and stores it on the order. state is found | none | not_delivered; source / sourceLabel say where it came from (\"From UPS\", \"Added by you\"); checked lists who was asked when there is none. Carriers often attach the photo hours after delivery.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderDeliveryPhotoResponse]
+    def get_order_delivery_photo(id, opts = {})
+      data, _status_code, _headers = get_order_delivery_photo_with_http_info(id, opts)
+      data
+    end
+
+    # The courier&#39;s delivery photo for this order, pulled automatically, with where it came from.
+    # Crossly pulls the doorstep photo from whoever has it (the carrier API, e.g. UPS; Trackified when its tracking carries one; the marketplace when its payload does) and stores it on the order. state is found | none | not_delivered; source / sourceLabel say where it came from (\&quot;From UPS\&quot;, \&quot;Added by you\&quot;); checked lists who was asked when there is none. Carriers often attach the photo hours after delivery.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderDeliveryPhotoResponse, Integer, Hash)>] GetOrderDeliveryPhotoResponse data, response status code and response headers
+    def get_order_delivery_photo_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_delivery_photo ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_delivery_photo"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/delivery-photo'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderDeliveryPhotoResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_delivery_photo",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_delivery_photo\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2058,6 +3128,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The order's buyer chat thread on the marketplace (separate from listing comments): { orderId, platform, messages: [{ id, sender (buyer|seller|platform), body, sentAt, attachments? }], canSend }, oldest message first.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderOrderChatResponse]
+    def get_order_order_chat(id, opts = {})
+      data, _status_code, _headers = get_order_order_chat_with_http_info(id, opts)
+      data
+    end
+
+    # The order&#39;s buyer chat thread on the marketplace (separate from listing comments): { orderId, platform, messages: [{ id, sender (buyer|seller|platform), body, sentAt, attachments? }], canSend }, oldest message first.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderOrderChatResponse, Integer, Hash)>] GetOrderOrderChatResponse data, response status code and response headers
+    def get_order_order_chat_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_order_chat ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_order_chat"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/order-chat'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderOrderChatResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_order_chat",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_order_chat\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Single-order packing slip PDF.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -2119,6 +3250,250 @@ module Crossly
       return data, status_code, headers
     end
 
+    # What buying a marketplace label offers for this order (weight tiers, mailbox state).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderPlatformLabelOptionResponse]
+    def get_order_platform_label_option(id, opts = {})
+      data, _status_code, _headers = get_order_platform_label_option_with_http_info(id, opts)
+      data
+    end
+
+    # What buying a marketplace label offers for this order (weight tiers, mailbox state).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderPlatformLabelOptionResponse, Integer, Hash)>] GetOrderPlatformLabelOptionResponse data, response status code and response headers
+    def get_order_platform_label_option_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_platform_label_option ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_platform_label_option"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/options'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderPlatformLabelOptionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_platform_label_option",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_platform_label_option\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A fresh link to the marketplace's own packing slip PDF.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UrlExpiresInSecondsResponse]
+    def get_order_platform_label_packing_slip(id, opts = {})
+      data, _status_code, _headers = get_order_platform_label_packing_slip_with_http_info(id, opts)
+      data
+    end
+
+    # A fresh link to the marketplace&#39;s own packing slip PDF.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UrlExpiresInSecondsResponse, Integer, Hash)>] UrlExpiresInSecondsResponse data, response status code and response headers
+    def get_order_platform_label_packing_slip_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_platform_label_packing_slip ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_platform_label_packing_slip"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/packing-slip'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UrlExpiresInSecondsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_platform_label_packing_slip",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_platform_label_packing_slip\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The marketplace's shipment for an order (package, label, tracking). Records a label found on it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderWhatnotShipmentResponse]
+    def get_order_platform_label_state(id, opts = {})
+      data, _status_code, _headers = get_order_platform_label_state_with_http_info(id, opts)
+      data
+    end
+
+    # The marketplace&#39;s shipment for an order (package, label, tracking). Records a label found on it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderWhatnotShipmentResponse, Integer, Hash)>] GetOrderWhatnotShipmentResponse data, response status code and response headers
+    def get_order_platform_label_state_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_platform_label_state ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_platform_label_state"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/state'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderWhatnotShipmentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_platform_label_state",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_platform_label_state\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A fresh, short-lived link to the marketplace's label sheet. Never stored.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UrlExpiresInSecondsResponse]
+    def get_order_platform_label_url(id, opts = {})
+      data, _status_code, _headers = get_order_platform_label_url_with_http_info(id, opts)
+      data
+    end
+
+    # A fresh, short-lived link to the marketplace&#39;s label sheet. Never stored.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UrlExpiresInSecondsResponse, Integer, Hash)>] UrlExpiresInSecondsResponse data, response status code and response headers
+    def get_order_platform_label_url_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_platform_label_url ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_platform_label_url"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/platform-label/url'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UrlExpiresInSecondsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_platform_label_url",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_platform_label_url\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Proof-of-delivery evidence from the carrier's scan record (PDF, or JSON).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -2176,6 +3551,128 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#get_order_proof_of_delivery\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What a refund on this order may be, from the platform's declared capability: whether Crossly can refund it at all, full and/or partial, what a partial is measured against (total = what the buyer paid, item = the item price only), whether it may precede shipment, the platform's own reason keys (when listed, a refund's reason must be one of them), whether a comment is sent, whether the refund IS cancelling the sale (cancelsSale: Mercari, full only), whether the window closes when the order completes (untilCompleted; windowClosed = it has) and a one-line note on what the platform does not allow.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderRefundOptionResponse]
+    def get_order_refund_option(id, opts = {})
+      data, _status_code, _headers = get_order_refund_option_with_http_info(id, opts)
+      data
+    end
+
+    # What a refund on this order may be, from the platform&#39;s declared capability: whether Crossly can refund it at all, full and/or partial, what a partial is measured against (total &#x3D; what the buyer paid, item &#x3D; the item price only), whether it may precede shipment, the platform&#39;s own reason keys (when listed, a refund&#39;s reason must be one of them), whether a comment is sent, whether the refund IS cancelling the sale (cancelsSale: Mercari, full only), whether the window closes when the order completes (untilCompleted; windowClosed &#x3D; it has) and a one-line note on what the platform does not allow.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderRefundOptionResponse, Integer, Hash)>] GetOrderRefundOptionResponse data, response status code and response headers
+    def get_order_refund_option_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_refund_option ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_refund_option"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/refund-options'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderRefundOptionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_refund_option",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_refund_option\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Who collected sales tax on one Crossly marketplace order, where, and the seller notice.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderSalesTaxResponse]
+    def get_order_sales_tax(id, opts = {})
+      data, _status_code, _headers = get_order_sales_tax_with_http_info(id, opts)
+      data
+    end
+
+    # Who collected sales tax on one Crossly marketplace order, where, and the seller notice.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderSalesTaxResponse, Integer, Hash)>] GetOrderSalesTaxResponse data, response status code and response headers
+    def get_order_sales_tax_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_sales_tax ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_sales_tax"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/sales-tax'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderSalesTaxResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_sales_tax",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_sales_tax\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2307,7 +3804,7 @@ module Crossly
     # A fresh link to Whatnot's packing slip PDF.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [GetOrderWhatnotPackingSlipResponse]
+    # @return [UrlExpiresInSecondsResponse]
     def get_order_whatnot_packing_slip(id, opts = {})
       data, _status_code, _headers = get_order_whatnot_packing_slip_with_http_info(id, opts)
       data
@@ -2316,7 +3813,7 @@ module Crossly
     # A fresh link to Whatnot&#39;s packing slip PDF.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(GetOrderWhatnotPackingSlipResponse, Integer, Hash)>] GetOrderWhatnotPackingSlipResponse data, response status code and response headers
+    # @return [Array<(UrlExpiresInSecondsResponse, Integer, Hash)>] UrlExpiresInSecondsResponse data, response status code and response headers
     def get_order_whatnot_packing_slip_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_whatnot_packing_slip ...'
@@ -2343,7 +3840,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'GetOrderWhatnotPackingSlipResponse'
+      return_type = opts[:debug_return_type] || 'UrlExpiresInSecondsResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -2368,7 +3865,7 @@ module Crossly
     # Whatnot shipment for an order (package, label, tracking). Records a label found on it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateOrderWhatnotLabelResponse]
+    # @return [GetOrderWhatnotShipmentResponse]
     def get_order_whatnot_shipment(id, opts = {})
       data, _status_code, _headers = get_order_whatnot_shipment_with_http_info(id, opts)
       data
@@ -2377,7 +3874,7 @@ module Crossly
     # Whatnot shipment for an order (package, label, tracking). Records a label found on it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateOrderWhatnotLabelResponse, Integer, Hash)>] CreateOrderWhatnotLabelResponse data, response status code and response headers
+    # @return [Array<(GetOrderWhatnotShipmentResponse, Integer, Hash)>] GetOrderWhatnotShipmentResponse data, response status code and response headers
     def get_order_whatnot_shipment_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_whatnot_shipment ...'
@@ -2404,7 +3901,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateOrderWhatnotLabelResponse'
+      return_type = opts[:debug_return_type] || 'GetOrderWhatnotShipmentResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -2422,6 +3919,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#get_order_whatnot_shipment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One rental: its timeline, both sides’ condition photos, payments, extensions and what can be done next.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetRentalResponse]
+    def get_rental(id, opts = {})
+      data, _status_code, _headers = get_rental_with_http_info(id, opts)
+      data
+    end
+
+    # One rental: its timeline, both sides’ condition photos, payments, extensions and what can be done next.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRentalResponse, Integer, Hash)>] GetRentalResponse data, response status code and response headers
+    def get_rental_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_rental ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_rental"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_rental",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_rental\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
+    # @param [Hash] opts the optional parameters
+    # @return [GetRentalCalendarResponse]
+    def get_rental_calendar(opts = {})
+      data, _status_code, _headers = get_rental_calendar_with_http_info(opts)
+      data
+    end
+
+    # Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRentalCalendarResponse, Integer, Hash)>] GetRentalCalendarResponse data, response status code and response headers
+    def get_rental_calendar_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_rental_calendar ...'
+      end
+      # resource path
+      local_var_path = '/v1/rentals/calendar'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRentalCalendarResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_rental_calendar",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_rental_calendar\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2536,7 +4149,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Orders with a purchased Shippo label a courier can collect or a SCAN form can cover, grouped by carrier.
+    # Orders with a purchased Crossly Shipping label a courier can collect or a SCAN form can cover, grouped by carrier.
     # @param [Hash] opts the optional parameters
     # @return [ListOrderPickupReadyResponse]
     def list_order_pickup_ready(opts = {})
@@ -2544,7 +4157,7 @@ module Crossly
       data
     end
 
-    # Orders with a purchased Shippo label a courier can collect or a SCAN form can cover, grouped by carrier.
+    # Orders with a purchased Crossly Shipping label a courier can collect or a SCAN form can cover, grouped by carrier.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListOrderPickupReadyResponse, Integer, Hash)>] ListOrderPickupReadyResponse data, response status code and response headers
     def list_order_pickup_ready_with_http_info(opts = {})
@@ -2642,6 +4255,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#list_order_pickups\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every refund requested on this order through the API or a cancel, newest first (amounts in dollars).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListOrderRefundsResponse]
+    def list_order_refunds(id, opts = {})
+      data, _status_code, _headers = list_order_refunds_with_http_info(id, opts)
+      data
+    end
+
+    # Every refund requested on this order through the API or a cancel, newest first (amounts in dollars).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListOrderRefundsResponse, Integer, Hash)>] ListOrderRefundsResponse data, response status code and response headers
+    def list_order_refunds_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.list_order_refunds ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.list_order_refunds"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/refunds'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListOrderRefundsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.list_order_refunds",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#list_order_refunds\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2764,24 +4438,34 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List orders.
+    # List orders, each with its sale price, fees, SKU and line items.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page  (default to 1)
     # @option opts [Integer] :limit  (default to 25)
     # @option opts [String] :status 
     # @option opts [String] :platform 
+    # @option opts [String] :channel Only orders sold through this business channel (e.g. wholesale).
+    # @option opts [String] :details pending &#x3D; only orders whose sale details (price, buyer) have not loaded yet.
+    # @option opts [String] :unlinked 1 or true &#x3D; only orders whose sale is not linked to any listing (an orphan sale).
+    # @option opts [Time] :updated_since Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes.
     # @return [ListOrdersResponse]
     def list_orders(opts = {})
       data, _status_code, _headers = list_orders_with_http_info(opts)
       data
     end
 
-    # List orders.
+    # List orders, each with its sale price, fees, SKU and line items.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\&quot;exact\&quot; &#x3D; the fee the marketplace charged, \&quot;estimated\&quot;), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer&#39;s PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page 
     # @option opts [Integer] :limit 
     # @option opts [String] :status 
     # @option opts [String] :platform 
+    # @option opts [String] :channel Only orders sold through this business channel (e.g. wholesale).
+    # @option opts [String] :details pending &#x3D; only orders whose sale details (price, buyer) have not loaded yet.
+    # @option opts [String] :unlinked 1 or true &#x3D; only orders whose sale is not linked to any listing (an orphan sale).
+    # @option opts [Time] :updated_since Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes.
     # @return [Array<(ListOrdersResponse, Integer, Hash)>] ListOrdersResponse data, response status code and response headers
     def list_orders_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2799,6 +4483,18 @@ module Crossly
         fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling OrdersApi.list_orders, must be greater than or equal to 1.'
       end
 
+      allowable_values = ["retail", "wholesale", "auction", "live", "world", "pos", "rental"]
+      if @api_client.config.client_side_validation && opts[:'channel'] && !allowable_values.include?(opts[:'channel'])
+        fail ArgumentError, "invalid value for \"channel\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pending"]
+      if @api_client.config.client_side_validation && opts[:'details'] && !allowable_values.include?(opts[:'details'])
+        fail ArgumentError, "invalid value for \"details\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["1", "true", "0", "false"]
+      if @api_client.config.client_side_validation && opts[:'unlinked'] && !allowable_values.include?(opts[:'unlinked'])
+        fail ArgumentError, "invalid value for \"unlinked\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/orders'
 
@@ -2808,6 +4504,10 @@ module Crossly
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
       query_params[:'platform'] = opts[:'platform'] if !opts[:'platform'].nil?
+      query_params[:'channel'] = opts[:'channel'] if !opts[:'channel'].nil?
+      query_params[:'details'] = opts[:'details'] if !opts[:'details'].nil?
+      query_params[:'unlinked'] = opts[:'unlinked'] if !opts[:'unlinked'].nil?
+      query_params[:'updatedSince'] = opts[:'updated_since'] if !opts[:'updated_since'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2839,6 +4539,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#list_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Active rentals and history, filtered by view, status, dates, item or a search.
+    # @param [Hash] opts the optional parameters
+    # @return [ListRentalHistoryResponse]
+    def list_rental_history(opts = {})
+      data, _status_code, _headers = list_rental_history_with_http_info(opts)
+      data
+    end
+
+    # Active rentals and history, filtered by view, status, dates, item or a search.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListRentalHistoryResponse, Integer, Hash)>] ListRentalHistoryResponse data, response status code and response headers
+    def list_rental_history_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.list_rental_history ...'
+      end
+      # resource path
+      local_var_path = '/v1/rentals/history'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListRentalHistoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.list_rental_history",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#list_rental_history\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2901,7 +4656,7 @@ module Crossly
     # Update order (status, notes, tracking).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [ListOrdersItem]
+    # @return [UpdateOrderResponse]
     def update_order(id, opts = {})
       data, _status_code, _headers = update_order_with_http_info(id, opts)
       data
@@ -2910,7 +4665,7 @@ module Crossly
     # Update order (status, notes, tracking).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListOrdersItem, Integer, Hash)>] ListOrdersItem data, response status code and response headers
+    # @return [Array<(UpdateOrderResponse, Integer, Hash)>] UpdateOrderResponse data, response status code and response headers
     def update_order_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.update_order ...'
@@ -2937,7 +4692,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListOrdersItem'
+      return_type = opts[:debug_return_type] || 'UpdateOrderResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']

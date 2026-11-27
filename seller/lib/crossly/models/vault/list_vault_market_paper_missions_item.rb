@@ -213,7 +213,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @key.nil?
-      key_validator = EnumAttributeValidator.new('String', ["round_trip", "first_fill", "read_mark", "bid_below", "maker_fill", "instant_exit", "price_watch", "mini_set"])
+      key_validator = EnumAttributeValidator.new('String', ["first_fill", "read_mark", "bid_below", "maker_fill", "instant_exit", "price_watch", "round_trip", "mini_set", "share_first", "share_queue", "option_first", "option_expiry"])
       return false unless key_validator.valid?(@key)
       return false if @order.nil?
       return false if @title.nil?
@@ -223,9 +223,9 @@ module Crossly
       return false if @count.nil?
       return false if @done.nil?
       return false if @action.nil?
-      action_validator = EnumAttributeValidator.new('String', ["market", "assistant", "paper", "mark_check", "sets"])
+      action_validator = EnumAttributeValidator.new('String', ["market", "paper", "assistant", "sets", "mark_check"])
       return false unless action_validator.valid?(@action)
-      learn_validator = EnumAttributeValidator.new('String', ["instant-exit", "marks"])
+      learn_validator = EnumAttributeValidator.new('String', ["instant-exit", "marks", "vault-shares"])
       return false unless learn_validator.valid?(@learn)
       true
     end
@@ -233,7 +233,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] key Object to be assigned
     def key=(key)
-      validator = EnumAttributeValidator.new('String', ["round_trip", "first_fill", "read_mark", "bid_below", "maker_fill", "instant_exit", "price_watch", "mini_set"])
+      validator = EnumAttributeValidator.new('String', ["first_fill", "read_mark", "bid_below", "maker_fill", "instant_exit", "price_watch", "round_trip", "mini_set", "share_first", "share_queue", "option_first", "option_expiry"])
       unless validator.valid?(key)
         fail ArgumentError, "invalid value for \"key\", must be one of #{validator.allowable_values}."
       end
@@ -243,7 +243,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] action Object to be assigned
     def action=(action)
-      validator = EnumAttributeValidator.new('String', ["market", "assistant", "paper", "mark_check", "sets"])
+      validator = EnumAttributeValidator.new('String', ["market", "paper", "assistant", "sets", "mark_check"])
       unless validator.valid?(action)
         fail ArgumentError, "invalid value for \"action\", must be one of #{validator.allowable_values}."
       end
@@ -253,7 +253,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] learn Object to be assigned
     def learn=(learn)
-      validator = EnumAttributeValidator.new('String', ["instant-exit", "marks"])
+      validator = EnumAttributeValidator.new('String', ["instant-exit", "marks", "vault-shares"])
       unless validator.valid?(learn)
         fail ArgumentError, "invalid value for \"learn\", must be one of #{validator.allowable_values}."
       end

@@ -21,13 +21,13 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :owner_user_id
+
     attr_accessor :ends_at
 
     attr_accessor :starts_at
 
     attr_accessor :fee_cents
-
-    attr_accessor :owner_user_id
 
     attr_accessor :settled_at
 
@@ -67,10 +67,10 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
+        :'owner_user_id' => :'ownerUserId',
         :'ends_at' => :'endsAt',
         :'starts_at' => :'startsAt',
         :'fee_cents' => :'feeCents',
-        :'owner_user_id' => :'ownerUserId',
         :'settled_at' => :'settledAt',
         :'game_place' => :'gamePlace',
         :'game_object' => :'gameObject',
@@ -90,10 +90,10 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'status' => :'String',
+        :'owner_user_id' => :'String',
         :'ends_at' => :'Time',
         :'starts_at' => :'Time',
         :'fee_cents' => :'Float',
-        :'owner_user_id' => :'String',
         :'settled_at' => :'Time',
         :'game_place' => :'String',
         :'game_object' => :'String',
@@ -137,6 +137,10 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'owner_user_id')
+        self.owner_user_id = attributes[:'owner_user_id']
+      end
+
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
       end
@@ -147,10 +151,6 @@ module Crossly
 
       if attributes.key?(:'fee_cents')
         self.fee_cents = attributes[:'fee_cents']
-      end
-
-      if attributes.key?(:'owner_user_id')
-        self.owner_user_id = attributes[:'owner_user_id']
       end
 
       if attributes.key?(:'settled_at')
@@ -190,16 +190,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @owner_user_id.nil?
+        invalid_properties.push('invalid value for "owner_user_id", owner_user_id cannot be nil.')
+      end
+
       if @ends_at.nil?
         invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
       end
 
       if @starts_at.nil?
         invalid_properties.push('invalid value for "starts_at", starts_at cannot be nil.')
-      end
-
-      if @owner_user_id.nil?
-        invalid_properties.push('invalid value for "owner_user_id", owner_user_id cannot be nil.')
       end
 
       if @game_place.nil?
@@ -227,15 +227,15 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["open", "cancelled", "settled"])
+      status_validator = EnumAttributeValidator.new('String', ["cancelled", "open", "settled"])
       return false unless status_validator.valid?(@status)
+      return false if @owner_user_id.nil?
       return false if @ends_at.nil?
       return false if @starts_at.nil?
-      return false if @owner_user_id.nil?
       return false if @game_place.nil?
       return false if @game_object.nil?
       return false if @entry_mode.nil?
-      entry_mode_validator = EnumAttributeValidator.new('String', ["free", "sponsored", "paid"])
+      entry_mode_validator = EnumAttributeValidator.new('String', ["free", "paid", "sponsored"])
       return false unless entry_mode_validator.valid?(@entry_mode)
       return false if @score_order.nil?
       score_order_validator = EnumAttributeValidator.new('String', ["asc", "desc"])
@@ -246,7 +246,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["open", "cancelled", "settled"])
+      validator = EnumAttributeValidator.new('String', ["cancelled", "open", "settled"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -256,7 +256,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] entry_mode Object to be assigned
     def entry_mode=(entry_mode)
-      validator = EnumAttributeValidator.new('String', ["free", "sponsored", "paid"])
+      validator = EnumAttributeValidator.new('String', ["free", "paid", "sponsored"])
       unless validator.valid?(entry_mode)
         fail ArgumentError, "invalid value for \"entry_mode\", must be one of #{validator.allowable_values}."
       end
@@ -281,10 +281,10 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
+          owner_user_id == o.owner_user_id &&
           ends_at == o.ends_at &&
           starts_at == o.starts_at &&
           fee_cents == o.fee_cents &&
-          owner_user_id == o.owner_user_id &&
           settled_at == o.settled_at &&
           game_place == o.game_place &&
           game_object == o.game_object &&
@@ -301,7 +301,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, ends_at, starts_at, fee_cents, owner_user_id, settled_at, game_place, game_object, entry_mode, score_order].hash
+      [id, created_at, status, owner_user_id, ends_at, starts_at, fee_cents, settled_at, game_place, game_object, entry_mode, score_order].hash
     end
 
     # Builds the object from hash

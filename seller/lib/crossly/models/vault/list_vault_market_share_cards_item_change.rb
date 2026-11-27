@@ -135,12 +135,12 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      since_validator = EnumAttributeValidator.new('String', ["fill", "entry", "cost", "inception"])
+      since_validator = EnumAttributeValidator.new('String', ["entry", "cost", "fill", "inception"])
       return false unless since_validator.valid?(@since)
       return false if @state.nil?
-      state_validator = EnumAttributeValidator.new('String', ["live", "open", "closed", "held", "sold", "gone"])
+      state_validator = EnumAttributeValidator.new('String', ["live", "open", "closed", "sold", "held", "gone"])
       return false unless state_validator.valid?(@state)
-      side_validator = EnumAttributeValidator.new('String', ["long", "short", "own"])
+      side_validator = EnumAttributeValidator.new('String', ["short", "long", "own"])
       return false unless side_validator.valid?(@side)
       true
     end
@@ -148,7 +148,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] since Object to be assigned
     def since=(since)
-      validator = EnumAttributeValidator.new('String', ["fill", "entry", "cost", "inception"])
+      validator = EnumAttributeValidator.new('String', ["entry", "cost", "fill", "inception"])
       unless validator.valid?(since)
         fail ArgumentError, "invalid value for \"since\", must be one of #{validator.allowable_values}."
       end
@@ -158,7 +158,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ["live", "open", "closed", "held", "sold", "gone"])
+      validator = EnumAttributeValidator.new('String', ["live", "open", "closed", "sold", "held", "gone"])
       unless validator.valid?(state)
         fail ArgumentError, "invalid value for \"state\", must be one of #{validator.allowable_values}."
       end
@@ -168,7 +168,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] side Object to be assigned
     def side=(side)
-      validator = EnumAttributeValidator.new('String', ["long", "short", "own"])
+      validator = EnumAttributeValidator.new('String', ["short", "long", "own"])
       unless validator.valid?(side)
         fail ArgumentError, "invalid value for \"side\", must be one of #{validator.allowable_values}."
       end

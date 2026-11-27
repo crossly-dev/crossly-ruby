@@ -25,6 +25,8 @@ module Crossly
 
     attr_accessor :items
 
+    attr_accessor :options
+
     attr_accessor :note
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -35,6 +37,7 @@ module Crossly
         :'to' => :'to',
         :'summary' => :'summary',
         :'items' => :'items',
+        :'options' => :'options',
         :'note' => :'note'
       }
     end
@@ -52,6 +55,7 @@ module Crossly
         :'to' => :'String',
         :'summary' => :'GetVaultMarketTcaResponseSummary',
         :'items' => :'Array<GetVaultMarketTcaResponseItems>',
+        :'options' => :'GetVaultMarketTcaResponseOptions',
         :'note' => :'String'
       }
     end
@@ -99,6 +103,10 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'options')
+        self.options = attributes[:'options']
+      end
+
       if attributes.key?(:'note')
         self.note = attributes[:'note']
       end
@@ -128,6 +136,10 @@ module Crossly
         invalid_properties.push('invalid value for "items", items cannot be nil.')
       end
 
+      if @options.nil?
+        invalid_properties.push('invalid value for "options", options cannot be nil.')
+      end
+
       if @note.nil?
         invalid_properties.push('invalid value for "note", note cannot be nil.')
       end
@@ -143,6 +155,7 @@ module Crossly
       return false if @to.nil?
       return false if @summary.nil?
       return false if @items.nil?
+      return false if @options.nil?
       return false if @note.nil?
       true
     end
@@ -157,6 +170,7 @@ module Crossly
           to == o.to &&
           summary == o.summary &&
           items == o.items &&
+          options == o.options &&
           note == o.note
     end
 
@@ -169,7 +183,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [account, from, to, summary, items, note].hash
+      [account, from, to, summary, items, options, note].hash
     end
 
     # Builds the object from hash

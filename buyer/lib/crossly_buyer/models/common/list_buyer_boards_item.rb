@@ -17,28 +17,28 @@ module CrosslyBuyer
   class ListBuyerBoardsItem
     attr_accessor :id
 
-    attr_accessor :updated_at
+    attr_accessor :title
 
     attr_accessor :is_public
-
-    attr_accessor :item_count
-
-    attr_accessor :title
 
     attr_accessor :share_token
 
     attr_accessor :cover_url
 
+    attr_accessor :item_count
+
+    attr_accessor :updated_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'updated_at' => :'updatedAt',
-        :'is_public' => :'isPublic',
-        :'item_count' => :'itemCount',
         :'title' => :'title',
+        :'is_public' => :'isPublic',
         :'share_token' => :'shareToken',
-        :'cover_url' => :'coverUrl'
+        :'cover_url' => :'coverUrl',
+        :'item_count' => :'itemCount',
+        :'updated_at' => :'updatedAt'
       }
     end
 
@@ -51,19 +51,19 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'updated_at' => :'String',
-        :'is_public' => :'Boolean',
-        :'item_count' => :'Float',
         :'title' => :'String',
+        :'is_public' => :'Boolean',
         :'share_token' => :'String',
-        :'cover_url' => :'String'
+        :'cover_url' => :'String',
+        :'item_count' => :'Float',
+        :'updated_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'cover_url'
+        :'cover_url',
       ])
     end
 
@@ -86,20 +86,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'is_public')
         self.is_public = attributes[:'is_public']
-      end
-
-      if attributes.key?(:'item_count')
-        self.item_count = attributes[:'item_count']
-      end
-
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'share_token')
@@ -108,6 +100,14 @@ module CrosslyBuyer
 
       if attributes.key?(:'cover_url')
         self.cover_url = attributes[:'cover_url']
+      end
+
+      if attributes.key?(:'item_count')
+        self.item_count = attributes[:'item_count']
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
     end
 
@@ -119,24 +119,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @is_public.nil?
         invalid_properties.push('invalid value for "is_public", is_public cannot be nil.')
       end
 
+      if @share_token.nil?
+        invalid_properties.push('invalid value for "share_token", share_token cannot be nil.')
+      end
+
       if @item_count.nil?
         invalid_properties.push('invalid value for "item_count", item_count cannot be nil.')
       end
 
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
-      if @share_token.nil?
-        invalid_properties.push('invalid value for "share_token", share_token cannot be nil.')
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
       invalid_properties
@@ -146,11 +146,11 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @updated_at.nil?
-      return false if @is_public.nil?
-      return false if @item_count.nil?
       return false if @title.nil?
+      return false if @is_public.nil?
       return false if @share_token.nil?
+      return false if @item_count.nil?
+      return false if @updated_at.nil?
       true
     end
 
@@ -160,12 +160,12 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          updated_at == o.updated_at &&
-          is_public == o.is_public &&
-          item_count == o.item_count &&
           title == o.title &&
+          is_public == o.is_public &&
           share_token == o.share_token &&
-          cover_url == o.cover_url
+          cover_url == o.cover_url &&
+          item_count == o.item_count &&
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -177,7 +177,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, updated_at, is_public, item_count, title, share_token, cover_url].hash
+      [id, title, is_public, share_token, cover_url, item_count, updated_at].hash
     end
 
     # Builds the object from hash

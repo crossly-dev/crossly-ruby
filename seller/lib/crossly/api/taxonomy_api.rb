@@ -19,6 +19,75 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # One canonical category and the category it maps to on each marketplace.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetCategoryByIdResponse]
+    def get_category_by_id(id, opts = {})
+      data, _status_code, _headers = get_category_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # One canonical category and the category it maps to on each marketplace.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetCategoryByIdResponse, Integer, Hash)>] GetCategoryByIdResponse data, response status code and response headers
+    def get_category_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TaxonomyApi.get_category_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TaxonomyApi.get_category_by_id"
+      end
+      if @api_client.config.client_side_validation && id.to_s.length > 200
+        fail ArgumentError, 'invalid value for "id" when calling TaxonomyApi.get_category_by_id, the character length must be smaller than or equal to 200.'
+      end
+
+      if @api_client.config.client_side_validation && id.to_s.length < 1
+        fail ArgumentError, 'invalid value for "id" when calling TaxonomyApi.get_category_by_id, the character length must be great than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/categories/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetCategoryByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TaxonomyApi.get_category_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TaxonomyApi#get_category_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Categories for a platform. Default is top-level; pass `?parent=<categoryId>` to drill down one level (supported on cookie platforms whose recipe returns flat parent_id-linked rows).
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
@@ -277,6 +346,252 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: TaxonomyApi#get_taxonomy_required_field\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Item specifics for a canonical category: required/optional, known values, per-marketplace names.
+    # Required-ness and cardinality come from the eBay category the concept maps to. `freeText` = any text is accepted; otherwise `values` are the known values (up to `valuesLimit`). `marketplaces` gives the attribute name each marketplace uses for the aspect. Send them as `itemSpecifics` on POST /v1/listings.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :values_limit  (default to 50)
+    # @return [ListCategoryAspectsResponse]
+    def list_category_aspects(id, opts = {})
+      data, _status_code, _headers = list_category_aspects_with_http_info(id, opts)
+      data
+    end
+
+    # Item specifics for a canonical category: required/optional, known values, per-marketplace names.
+    # Required-ness and cardinality come from the eBay category the concept maps to. &#x60;freeText&#x60; &#x3D; any text is accepted; otherwise &#x60;values&#x60; are the known values (up to &#x60;valuesLimit&#x60;). &#x60;marketplaces&#x60; gives the attribute name each marketplace uses for the aspect. Send them as &#x60;itemSpecifics&#x60; on POST /v1/listings.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :values_limit 
+    # @return [Array<(ListCategoryAspectsResponse, Integer, Hash)>] ListCategoryAspectsResponse data, response status code and response headers
+    def list_category_aspects_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TaxonomyApi.list_category_aspects ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TaxonomyApi.list_category_aspects"
+      end
+      if @api_client.config.client_side_validation && id.to_s.length > 200
+        fail ArgumentError, 'invalid value for "id" when calling TaxonomyApi.list_category_aspects, the character length must be smaller than or equal to 200.'
+      end
+
+      if @api_client.config.client_side_validation && id.to_s.length < 1
+        fail ArgumentError, 'invalid value for "id" when calling TaxonomyApi.list_category_aspects, the character length must be great than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'values_limit'].nil? && opts[:'values_limit'] > 500
+        fail ArgumentError, 'invalid value for "opts[:"values_limit"]" when calling TaxonomyApi.list_category_aspects, must be smaller than or equal to 500.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'values_limit'].nil? && opts[:'values_limit'] < 0
+        fail ArgumentError, 'invalid value for "opts[:"values_limit"]" when calling TaxonomyApi.list_category_aspects, must be greater than or equal to 0.'
+      end
+
+      # resource path
+      local_var_path = '/v1/categories/{id}/aspects'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'valuesLimit'] = opts[:'values_limit'] if !opts[:'values_limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListCategoryAspectsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TaxonomyApi.list_category_aspects",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TaxonomyApi#list_category_aspects\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search or browse Crossly's canonical categories (the ids listings take as categoryId).
+    # `q` matches the category name and path. `path` (e.g. \"Clothing & Shoes > Men\") limits to one branch. Without `q`, `meta.branches` lists the next level under `path` (the root when omitted) so a client can walk the tree down to a leaf.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :path 
+    # @option opts [Integer] :limit  (default to 25)
+    # @return [ListCategorySearchResponse]
+    def list_category_search(opts = {})
+      data, _status_code, _headers = list_category_search_with_http_info(opts)
+      data
+    end
+
+    # Search or browse Crossly&#39;s canonical categories (the ids listings take as categoryId).
+    # &#x60;q&#x60; matches the category name and path. &#x60;path&#x60; (e.g. \&quot;Clothing &amp; Shoes &gt; Men\&quot;) limits to one branch. Without &#x60;q&#x60;, &#x60;meta.branches&#x60; lists the next level under &#x60;path&#x60; (the root when omitted) so a client can walk the tree down to a leaf.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :path 
+    # @option opts [Integer] :limit 
+    # @return [Array<(ListCategorySearchResponse, Integer, Hash)>] ListCategorySearchResponse data, response status code and response headers
+    def list_category_search_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TaxonomyApi.list_category_search ...'
+      end
+      if @api_client.config.client_side_validation && !opts[:'q'].nil? && opts[:'q'].to_s.length > 120
+        fail ArgumentError, 'invalid value for "opts[:"q"]" when calling TaxonomyApi.list_category_search, the character length must be smaller than or equal to 120.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'path'].nil? && opts[:'path'].to_s.length > 400
+        fail ArgumentError, 'invalid value for "opts[:"path"]" when calling TaxonomyApi.list_category_search, the character length must be smaller than or equal to 400.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling TaxonomyApi.list_category_search, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling TaxonomyApi.list_category_search, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/categories/search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'path'] = opts[:'path'] if !opts[:'path'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListCategorySearchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TaxonomyApi.list_category_search",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TaxonomyApi#list_category_search\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search eBay for Charity organisations (the charityId an eBay listing donates to).
+    # Send the chosen `charityOrgId` as `overrides.ebay.charityId` with `overrides.ebay.donationPercentage` (10-100 in steps of 5) on a listing to donate that share of the eBay sale. `q` needs at least 2 characters.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [Integer] :limit  (default to 20)
+    # @option opts [String] :marketplace  (default to 'EBAY_US')
+    # @return [ListTaxonomyEbayCharitiesResponse]
+    def list_taxonomy_ebay_charities(opts = {})
+      data, _status_code, _headers = list_taxonomy_ebay_charities_with_http_info(opts)
+      data
+    end
+
+    # Search eBay for Charity organisations (the charityId an eBay listing donates to).
+    # Send the chosen &#x60;charityOrgId&#x60; as &#x60;overrides.ebay.charityId&#x60; with &#x60;overrides.ebay.donationPercentage&#x60; (10-100 in steps of 5) on a listing to donate that share of the eBay sale. &#x60;q&#x60; needs at least 2 characters.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [Integer] :limit 
+    # @option opts [String] :marketplace 
+    # @return [Array<(ListTaxonomyEbayCharitiesResponse, Integer, Hash)>] ListTaxonomyEbayCharitiesResponse data, response status code and response headers
+    def list_taxonomy_ebay_charities_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TaxonomyApi.list_taxonomy_ebay_charities ...'
+      end
+      if @api_client.config.client_side_validation && !opts[:'q'].nil? && opts[:'q'].to_s.length > 120
+        fail ArgumentError, 'invalid value for "opts[:"q"]" when calling TaxonomyApi.list_taxonomy_ebay_charities, the character length must be smaller than or equal to 120.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 50
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling TaxonomyApi.list_taxonomy_ebay_charities, must be smaller than or equal to 50.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling TaxonomyApi.list_taxonomy_ebay_charities, must be greater than or equal to 1.'
+      end
+
+      allowable_values = ["EBAY_US", "EBAY_GB"]
+      if @api_client.config.client_side_validation && opts[:'marketplace'] && !allowable_values.include?(opts[:'marketplace'])
+        fail ArgumentError, "invalid value for \"marketplace\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/taxonomy/ebay/charities'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'marketplace'] = opts[:'marketplace'] if !opts[:'marketplace'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListTaxonomyEbayCharitiesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TaxonomyApi.list_taxonomy_ebay_charities",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TaxonomyApi#list_taxonomy_ebay_charities\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

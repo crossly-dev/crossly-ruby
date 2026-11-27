@@ -76,7 +76,7 @@ module Crossly
         :'planned_cents' => :'Float',
         :'days_to_complete' => :'Float',
         :'unpriced' => :'Array<String>',
-        :'per_key' => :'Array<Object>',
+        :'per_key' => :'Array<GetVaultMarketCapacityResponsePerKeyItem>',
         :'notes' => :'Array<String>'
       }
     end

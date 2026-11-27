@@ -204,7 +204,7 @@ module Crossly
       return false if @max_cents.nil?
       return false if @eligible.nil?
       return false if @vault_item_id.nil?
-      tier_validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      tier_validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       return false unless tier_validator.valid?(@tier)
       return false if @max_ltv_bps.nil?
       return false if @liq_ltv_bps.nil?
@@ -214,7 +214,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end

@@ -167,7 +167,7 @@ module Crossly
     def valid?
       return false if @address.nil?
       return false if @family.nil?
-      family_validator = EnumAttributeValidator.new('String', ["evm", "solana"])
+      family_validator = EnumAttributeValidator.new('String', ["solana", "evm"])
       return false unless family_validator.valid?(@family)
       return false if @on_crossly.nil?
       return false if @nfts.nil?
@@ -179,7 +179,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] family Object to be assigned
     def family=(family)
-      validator = EnumAttributeValidator.new('String', ["evm", "solana"])
+      validator = EnumAttributeValidator.new('String', ["solana", "evm"])
       unless validator.valid?(family)
         fail ArgumentError, "invalid value for \"family\", must be one of #{validator.allowable_values}."
       end

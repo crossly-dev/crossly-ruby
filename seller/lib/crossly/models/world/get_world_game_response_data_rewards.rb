@@ -145,7 +145,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @grant.nil?
-      grant_validator = EnumAttributeValidator.new('String', ["item", "decor", "cbx", "cosm", "pin", "emote"])
+      grant_validator = EnumAttributeValidator.new('String', ["item", "cosm", "decor", "cbx", "pin", "emote"])
       return false unless grant_validator.valid?(@grant)
       return false if @_when.nil?
       _when_validator = EnumAttributeValidator.new('String', ["score", "win", "play"])
@@ -157,7 +157,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] grant Object to be assigned
     def grant=(grant)
-      validator = EnumAttributeValidator.new('String', ["item", "decor", "cbx", "cosm", "pin", "emote"])
+      validator = EnumAttributeValidator.new('String', ["item", "cosm", "decor", "cbx", "pin", "emote"])
       unless validator.valid?(grant)
         fail ArgumentError, "invalid value for \"grant\", must be one of #{validator.allowable_values}."
       end

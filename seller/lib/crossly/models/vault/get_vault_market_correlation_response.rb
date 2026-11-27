@@ -65,7 +65,7 @@ module Crossly
         :'min_pair_weeks' => :'Float',
         :'insufficient' => :'Boolean',
         :'reason' => :'String',
-        :'indexes' => :'Array<SlugName>',
+        :'indexes' => :'Array<NameSlug>',
         :'rho' => :'Array<Array<Float>>',
         :'n' => :'Array<Array<Float>>',
         :'as_of' => :'String'

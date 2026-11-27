@@ -15,13 +15,17 @@ require 'time'
 
 module Crossly
   class GetVaultMarketAlertPrefResponseMatrix
-    attr_accessor :price
+    attr_accessor :account
 
-    attr_accessor :auction
+    attr_accessor :price
 
     attr_accessor :fill
 
-    attr_accessor :account
+    attr_accessor :auction
+
+    attr_accessor :prediction
+
+    attr_accessor :option_expiry
 
     attr_accessor :margin_call
 
@@ -37,20 +41,34 @@ module Crossly
 
     attr_accessor :follow
 
+    attr_accessor :share_offering
+
+    attr_accessor :share_vote
+
+    attr_accessor :option_settlement
+
+    attr_accessor :prediction_odds
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'price' => :'price',
-        :'auction' => :'auction',
-        :'fill' => :'fill',
         :'account' => :'account',
+        :'price' => :'price',
+        :'fill' => :'fill',
+        :'auction' => :'auction',
+        :'prediction' => :'prediction',
+        :'option_expiry' => :'option_expiry',
         :'margin_call' => :'margin_call',
         :'adl' => :'adl',
         :'p2p_loan' => :'p2p_loan',
         :'market_open' => :'market_open',
         :'receipt_token' => :'receipt_token',
         :'set_goal' => :'set_goal',
-        :'follow' => :'follow'
+        :'follow' => :'follow',
+        :'share_offering' => :'share_offering',
+        :'share_vote' => :'share_vote',
+        :'option_settlement' => :'option_settlement',
+        :'prediction_odds' => :'prediction_odds'
       }
     end
 
@@ -62,17 +80,23 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'price' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'auction' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'fill' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'account' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'margin_call' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'adl' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'p2p_loan' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'market_open' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'receipt_token' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'set_goal' => :'GetVaultMarketAlertPrefResponseMatrixPrice',
-        :'follow' => :'GetVaultMarketAlertPrefResponseMatrixPrice'
+        :'account' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'price' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'fill' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'auction' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'prediction' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'option_expiry' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'margin_call' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'adl' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'p2p_loan' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'market_open' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'receipt_token' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'set_goal' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'follow' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'share_offering' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'share_vote' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'option_settlement' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
+        :'prediction_odds' => :'GetVaultMarketAlertPrefResponseMatrixAccount'
       }
     end
 
@@ -97,20 +121,28 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'price')
-        self.price = attributes[:'price']
+      if attributes.key?(:'account')
+        self.account = attributes[:'account']
       end
 
-      if attributes.key?(:'auction')
-        self.auction = attributes[:'auction']
+      if attributes.key?(:'price')
+        self.price = attributes[:'price']
       end
 
       if attributes.key?(:'fill')
         self.fill = attributes[:'fill']
       end
 
-      if attributes.key?(:'account')
-        self.account = attributes[:'account']
+      if attributes.key?(:'auction')
+        self.auction = attributes[:'auction']
+      end
+
+      if attributes.key?(:'prediction')
+        self.prediction = attributes[:'prediction']
+      end
+
+      if attributes.key?(:'option_expiry')
+        self.option_expiry = attributes[:'option_expiry']
       end
 
       if attributes.key?(:'margin_call')
@@ -140,26 +172,50 @@ module Crossly
       if attributes.key?(:'follow')
         self.follow = attributes[:'follow']
       end
+
+      if attributes.key?(:'share_offering')
+        self.share_offering = attributes[:'share_offering']
+      end
+
+      if attributes.key?(:'share_vote')
+        self.share_vote = attributes[:'share_vote']
+      end
+
+      if attributes.key?(:'option_settlement')
+        self.option_settlement = attributes[:'option_settlement']
+      end
+
+      if attributes.key?(:'prediction_odds')
+        self.prediction_odds = attributes[:'prediction_odds']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @price.nil?
-        invalid_properties.push('invalid value for "price", price cannot be nil.')
+      if @account.nil?
+        invalid_properties.push('invalid value for "account", account cannot be nil.')
       end
 
-      if @auction.nil?
-        invalid_properties.push('invalid value for "auction", auction cannot be nil.')
+      if @price.nil?
+        invalid_properties.push('invalid value for "price", price cannot be nil.')
       end
 
       if @fill.nil?
         invalid_properties.push('invalid value for "fill", fill cannot be nil.')
       end
 
-      if @account.nil?
-        invalid_properties.push('invalid value for "account", account cannot be nil.')
+      if @auction.nil?
+        invalid_properties.push('invalid value for "auction", auction cannot be nil.')
+      end
+
+      if @prediction.nil?
+        invalid_properties.push('invalid value for "prediction", prediction cannot be nil.')
+      end
+
+      if @option_expiry.nil?
+        invalid_properties.push('invalid value for "option_expiry", option_expiry cannot be nil.')
       end
 
       if @margin_call.nil?
@@ -190,16 +246,34 @@ module Crossly
         invalid_properties.push('invalid value for "follow", follow cannot be nil.')
       end
 
+      if @share_offering.nil?
+        invalid_properties.push('invalid value for "share_offering", share_offering cannot be nil.')
+      end
+
+      if @share_vote.nil?
+        invalid_properties.push('invalid value for "share_vote", share_vote cannot be nil.')
+      end
+
+      if @option_settlement.nil?
+        invalid_properties.push('invalid value for "option_settlement", option_settlement cannot be nil.')
+      end
+
+      if @prediction_odds.nil?
+        invalid_properties.push('invalid value for "prediction_odds", prediction_odds cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @price.nil?
-      return false if @auction.nil?
-      return false if @fill.nil?
       return false if @account.nil?
+      return false if @price.nil?
+      return false if @fill.nil?
+      return false if @auction.nil?
+      return false if @prediction.nil?
+      return false if @option_expiry.nil?
       return false if @margin_call.nil?
       return false if @adl.nil?
       return false if @p2p_loan.nil?
@@ -207,6 +281,10 @@ module Crossly
       return false if @receipt_token.nil?
       return false if @set_goal.nil?
       return false if @follow.nil?
+      return false if @share_offering.nil?
+      return false if @share_vote.nil?
+      return false if @option_settlement.nil?
+      return false if @prediction_odds.nil?
       true
     end
 
@@ -215,17 +293,23 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          price == o.price &&
-          auction == o.auction &&
-          fill == o.fill &&
           account == o.account &&
+          price == o.price &&
+          fill == o.fill &&
+          auction == o.auction &&
+          prediction == o.prediction &&
+          option_expiry == o.option_expiry &&
           margin_call == o.margin_call &&
           adl == o.adl &&
           p2p_loan == o.p2p_loan &&
           market_open == o.market_open &&
           receipt_token == o.receipt_token &&
           set_goal == o.set_goal &&
-          follow == o.follow
+          follow == o.follow &&
+          share_offering == o.share_offering &&
+          share_vote == o.share_vote &&
+          option_settlement == o.option_settlement &&
+          prediction_odds == o.prediction_odds
     end
 
     # @see the `==` method
@@ -237,7 +321,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [price, auction, fill, account, margin_call, adl, p2p_loan, market_open, receipt_token, set_goal, follow].hash
+      [account, price, fill, auction, prediction, option_expiry, margin_call, adl, p2p_loan, market_open, receipt_token, set_goal, follow, share_offering, share_vote, option_settlement, prediction_odds].hash
     end
 
     # Builds the object from hash

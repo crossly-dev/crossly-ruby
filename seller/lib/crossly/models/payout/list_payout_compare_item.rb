@@ -206,7 +206,7 @@ module Crossly
       return false unless fee_source_validator.valid?(@fee_source)
       return false if @shipping_cents.nil?
       return false if @shipping_source.nil?
-      shipping_source_validator = EnumAttributeValidator.new('String', ["none", "unknown", "quoted", "platform_label", "buyer_paid"])
+      shipping_source_validator = EnumAttributeValidator.new('String', ["unknown", "none", "quoted", "platform_label", "buyer_paid"])
       return false unless shipping_source_validator.valid?(@shipping_source)
       return false if @net_cents.nil?
       return false if @take_home_pct.nil?
@@ -227,7 +227,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] shipping_source Object to be assigned
     def shipping_source=(shipping_source)
-      validator = EnumAttributeValidator.new('String', ["none", "unknown", "quoted", "platform_label", "buyer_paid"])
+      validator = EnumAttributeValidator.new('String', ["unknown", "none", "quoted", "platform_label", "buyer_paid"])
       unless validator.valid?(shipping_source)
         fail ArgumentError, "invalid value for \"shipping_source\", must be one of #{validator.allowable_values}."
       end

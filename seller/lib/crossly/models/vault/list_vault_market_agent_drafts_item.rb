@@ -333,11 +333,11 @@ module Crossly
       return false if @limit_cents.nil?
       return false if @notional_cents.nil?
       return false if @funding.nil?
-      funding_validator = EnumAttributeValidator.new('String', ["card", "custodian", "vault"])
+      funding_validator = EnumAttributeValidator.new('String', ["vault", "card", "custodian"])
       return false unless funding_validator.valid?(@funding)
       return false if @marketable.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["cancelled", "expired", "rejected", "placing", "drafted", "placed"])
+      status_validator = EnumAttributeValidator.new('String', ["cancelled", "expired", "drafted", "rejected", "placing", "placed"])
       return false unless status_validator.valid?(@status)
       return false if @expires_at.nil?
       return false if @notes.nil?
@@ -360,7 +360,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] funding Object to be assigned
     def funding=(funding)
-      validator = EnumAttributeValidator.new('String', ["card", "custodian", "vault"])
+      validator = EnumAttributeValidator.new('String', ["vault", "card", "custodian"])
       unless validator.valid?(funding)
         fail ArgumentError, "invalid value for \"funding\", must be one of #{validator.allowable_values}."
       end
@@ -370,7 +370,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["cancelled", "expired", "rejected", "placing", "drafted", "placed"])
+      validator = EnumAttributeValidator.new('String', ["cancelled", "expired", "drafted", "rejected", "placing", "placed"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

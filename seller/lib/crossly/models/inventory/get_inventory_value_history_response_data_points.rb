@@ -35,6 +35,12 @@ module Crossly
 
     attr_accessor :stuck_cost_cents
 
+    attr_accessor :over90_cost_cents
+
+    attr_accessor :cost_known_items
+
+    attr_accessor :reconstructed
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -47,7 +53,10 @@ module Crossly
         :'cost_cents' => :'costCents',
         :'retail_cents' => :'retailCents',
         :'market_cents' => :'marketCents',
-        :'stuck_cost_cents' => :'stuckCostCents'
+        :'stuck_cost_cents' => :'stuckCostCents',
+        :'over90_cost_cents' => :'over90CostCents',
+        :'cost_known_items' => :'costKnownItems',
+        :'reconstructed' => :'reconstructed'
       }
     end
 
@@ -68,7 +77,10 @@ module Crossly
         :'cost_cents' => :'Float',
         :'retail_cents' => :'Float',
         :'market_cents' => :'Float',
-        :'stuck_cost_cents' => :'Float'
+        :'stuck_cost_cents' => :'Float',
+        :'over90_cost_cents' => :'Float',
+        :'cost_known_items' => :'Float',
+        :'reconstructed' => :'Boolean'
       }
     end
 
@@ -76,6 +88,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'market_cents',
+        :'over90_cost_cents',
+        :'cost_known_items',
       ])
     end
 
@@ -133,6 +147,18 @@ module Crossly
       if attributes.key?(:'stuck_cost_cents')
         self.stuck_cost_cents = attributes[:'stuck_cost_cents']
       end
+
+      if attributes.key?(:'over90_cost_cents')
+        self.over90_cost_cents = attributes[:'over90_cost_cents']
+      end
+
+      if attributes.key?(:'cost_known_items')
+        self.cost_known_items = attributes[:'cost_known_items']
+      end
+
+      if attributes.key?(:'reconstructed')
+        self.reconstructed = attributes[:'reconstructed']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -175,6 +201,10 @@ module Crossly
         invalid_properties.push('invalid value for "stuck_cost_cents", stuck_cost_cents cannot be nil.')
       end
 
+      if @reconstructed.nil?
+        invalid_properties.push('invalid value for "reconstructed", reconstructed cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -190,6 +220,7 @@ module Crossly
       return false if @cost_cents.nil?
       return false if @retail_cents.nil?
       return false if @stuck_cost_cents.nil?
+      return false if @reconstructed.nil?
       true
     end
 
@@ -207,7 +238,10 @@ module Crossly
           cost_cents == o.cost_cents &&
           retail_cents == o.retail_cents &&
           market_cents == o.market_cents &&
-          stuck_cost_cents == o.stuck_cost_cents
+          stuck_cost_cents == o.stuck_cost_cents &&
+          over90_cost_cents == o.over90_cost_cents &&
+          cost_known_items == o.cost_known_items &&
+          reconstructed == o.reconstructed
     end
 
     # @see the `==` method
@@ -219,7 +253,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, snapshot_date, item_count, unit_count, cost_cents, retail_cents, market_cents, stuck_cost_cents].hash
+      [id, created_at, user_id, snapshot_date, item_count, unit_count, cost_cents, retail_cents, market_cents, stuck_cost_cents, over90_cost_cents, cost_known_items, reconstructed].hash
     end
 
     # Builds the object from hash

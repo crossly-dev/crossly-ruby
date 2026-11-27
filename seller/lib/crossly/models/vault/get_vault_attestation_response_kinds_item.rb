@@ -15,11 +15,11 @@ require 'time'
 
 module Crossly
   class GetVaultAttestationResponseKindsItem
+    OTHER = "other".freeze
     PHYSICAL_COUNT = "physical_count".freeze
     INSURANCE_CERTIFICATE = "insurance_certificate".freeze
     SOC1_TYPE2 = "soc1_type2".freeze
     SOC2 = "soc2".freeze
-    OTHER = "other".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

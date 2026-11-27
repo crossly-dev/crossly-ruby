@@ -23,17 +23,17 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :source
-
     attr_accessor :platform
 
-    attr_accessor :listing_id
+    attr_accessor :account_slot
 
     attr_accessor :marketplace_id
 
     attr_accessor :last_error
 
-    attr_accessor :account_slot
+    attr_accessor :source
+
+    attr_accessor :listing_id
 
     attr_accessor :field
 
@@ -56,12 +56,12 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
-        :'source' => :'source',
         :'platform' => :'platform',
-        :'listing_id' => :'listingId',
+        :'account_slot' => :'accountSlot',
         :'marketplace_id' => :'marketplaceId',
         :'last_error' => :'lastError',
-        :'account_slot' => :'accountSlot',
+        :'source' => :'source',
+        :'listing_id' => :'listingId',
         :'field' => :'field',
         :'our_value' => :'ourValue',
         :'remote_value' => :'remoteValue',
@@ -84,12 +84,12 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
-        :'source' => :'String',
         :'platform' => :'String',
-        :'listing_id' => :'String',
+        :'account_slot' => :'Float',
         :'marketplace_id' => :'String',
         :'last_error' => :'String',
-        :'account_slot' => :'Float',
+        :'source' => :'String',
+        :'listing_id' => :'String',
         :'field' => :'String',
         :'our_value' => :'String',
         :'remote_value' => :'String',
@@ -142,16 +142,12 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'source')
-        self.source = attributes[:'source']
-      end
-
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
       end
 
-      if attributes.key?(:'listing_id')
-        self.listing_id = attributes[:'listing_id']
+      if attributes.key?(:'account_slot')
+        self.account_slot = attributes[:'account_slot']
       end
 
       if attributes.key?(:'marketplace_id')
@@ -162,8 +158,12 @@ module Crossly
         self.last_error = attributes[:'last_error']
       end
 
-      if attributes.key?(:'account_slot')
-        self.account_slot = attributes[:'account_slot']
+      if attributes.key?(:'source')
+        self.source = attributes[:'source']
+      end
+
+      if attributes.key?(:'listing_id')
+        self.listing_id = attributes[:'listing_id']
       end
 
       if attributes.key?(:'field')
@@ -215,24 +215,24 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @source.nil?
-        invalid_properties.push('invalid value for "source", source cannot be nil.')
-      end
-
       if @platform.nil?
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
-      if @listing_id.nil?
-        invalid_properties.push('invalid value for "listing_id", listing_id cannot be nil.')
+      if @account_slot.nil?
+        invalid_properties.push('invalid value for "account_slot", account_slot cannot be nil.')
       end
 
       if @marketplace_id.nil?
         invalid_properties.push('invalid value for "marketplace_id", marketplace_id cannot be nil.')
       end
 
-      if @account_slot.nil?
-        invalid_properties.push('invalid value for "account_slot", account_slot cannot be nil.')
+      if @source.nil?
+        invalid_properties.push('invalid value for "source", source cannot be nil.')
+      end
+
+      if @listing_id.nil?
+        invalid_properties.push('invalid value for "listing_id", listing_id cannot be nil.')
       end
 
       if @field.nil?
@@ -257,11 +257,11 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @user_id.nil?
-      return false if @source.nil?
       return false if @platform.nil?
-      return false if @listing_id.nil?
-      return false if @marketplace_id.nil?
       return false if @account_slot.nil?
+      return false if @marketplace_id.nil?
+      return false if @source.nil?
+      return false if @listing_id.nil?
       return false if @field.nil?
       return false if @first_detected_at.nil?
       return false if @last_detected_at.nil?
@@ -277,12 +277,12 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
-          source == o.source &&
           platform == o.platform &&
-          listing_id == o.listing_id &&
+          account_slot == o.account_slot &&
           marketplace_id == o.marketplace_id &&
           last_error == o.last_error &&
-          account_slot == o.account_slot &&
+          source == o.source &&
+          listing_id == o.listing_id &&
           field == o.field &&
           our_value == o.our_value &&
           remote_value == o.remote_value &&
@@ -301,7 +301,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, user_id, source, platform, listing_id, marketplace_id, last_error, account_slot, field, our_value, remote_value, first_detected_at, last_detected_at, dismissed_at, dismissed_remote_value].hash
+      [id, created_at, updated_at, user_id, platform, account_slot, marketplace_id, last_error, source, listing_id, field, our_value, remote_value, first_detected_at, last_detected_at, dismissed_at, dismissed_remote_value].hash
     end
 
     # Builds the object from hash

@@ -17,34 +17,53 @@ module Crossly
   class SpatialSceneResponseData
     attr_accessor :id
 
+    attr_accessor :user_id
+
+    # 'collection' | 'warehouse'  Same renderer, opposite contracts. A collection may be arranged for beauty; a warehouse must match the physical room or it is worse than no warehouse, because someone will walk to the wrong shelf.
+    attr_accessor :kind
+
+    # NULL for warehouses and for the generic catch-all room.
+    attr_accessor :category_slug
+
+    attr_accessor :name
+
+    # Public share handle. NULL until someone chooses to share.
+    attr_accessor :public_slug
+
+    # 'private' | 'unlisted' | 'public'  Defaults CLOSED. A collection is the one surface in this product that routinely contains things which are not for sale and were never meant to be seen by anybody — that is most of what makes it a collection.
+    attr_accessor :visibility
+
+    attr_accessor :settings
+
+    # kind='shop': the store this showroom belongs to (0830). NULL = a legacy row of the default store.
+    attr_accessor :storefront_id
+
+    # 1147 kind='shop': a store's showrooms in order; 0 = its primary (one per store, the unique index below).
+    attr_accessor :showroom_position
+
+    # 1147 kind='shop': opt-in, stand every live item automatically. Off = only what is pinned shows.
+    attr_accessor :auto_include_inventory
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
-
-    attr_accessor :inventory_item_id
-
-    attr_accessor :scene_id
-
-    attr_accessor :inventory_unit_id
-
-    attr_accessor :node_id
-
-    attr_accessor :slot_index
-
-    attr_accessor :pinned
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
+        :'user_id' => :'userId',
+        :'kind' => :'kind',
+        :'category_slug' => :'categorySlug',
+        :'name' => :'name',
+        :'public_slug' => :'publicSlug',
+        :'visibility' => :'visibility',
+        :'settings' => :'settings',
+        :'storefront_id' => :'storefrontId',
+        :'showroom_position' => :'showroomPosition',
+        :'auto_include_inventory' => :'autoIncludeInventory',
         :'created_at' => :'createdAt',
-        :'updated_at' => :'updatedAt',
-        :'inventory_item_id' => :'inventoryItemId',
-        :'scene_id' => :'sceneId',
-        :'inventory_unit_id' => :'inventoryUnitId',
-        :'node_id' => :'nodeId',
-        :'slot_index' => :'slotIndex',
-        :'pinned' => :'pinned'
+        :'updated_at' => :'updatedAt'
       }
     end
 
@@ -57,21 +76,27 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
+        :'user_id' => :'String',
+        :'kind' => :'String',
+        :'category_slug' => :'String',
+        :'name' => :'String',
+        :'public_slug' => :'String',
+        :'visibility' => :'String',
+        :'settings' => :'SpatialSceneResponseDataSettings',
+        :'storefront_id' => :'String',
+        :'showroom_position' => :'Float',
+        :'auto_include_inventory' => :'Boolean',
         :'created_at' => :'Time',
-        :'updated_at' => :'Time',
-        :'inventory_item_id' => :'String',
-        :'scene_id' => :'String',
-        :'inventory_unit_id' => :'String',
-        :'node_id' => :'String',
-        :'slot_index' => :'Float',
-        :'pinned' => :'Boolean'
+        :'updated_at' => :'Time'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'inventory_unit_id',
+        :'category_slug',
+        :'public_slug',
+        :'storefront_id',
       ])
     end
 
@@ -94,36 +119,52 @@ module Crossly
         self.id = attributes[:'id']
       end
 
+      if attributes.key?(:'user_id')
+        self.user_id = attributes[:'user_id']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'category_slug')
+        self.category_slug = attributes[:'category_slug']
+      end
+
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'public_slug')
+        self.public_slug = attributes[:'public_slug']
+      end
+
+      if attributes.key?(:'visibility')
+        self.visibility = attributes[:'visibility']
+      end
+
+      if attributes.key?(:'settings')
+        self.settings = attributes[:'settings']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'showroom_position')
+        self.showroom_position = attributes[:'showroom_position']
+      end
+
+      if attributes.key?(:'auto_include_inventory')
+        self.auto_include_inventory = attributes[:'auto_include_inventory']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'updated_at')
         self.updated_at = attributes[:'updated_at']
-      end
-
-      if attributes.key?(:'inventory_item_id')
-        self.inventory_item_id = attributes[:'inventory_item_id']
-      end
-
-      if attributes.key?(:'scene_id')
-        self.scene_id = attributes[:'scene_id']
-      end
-
-      if attributes.key?(:'inventory_unit_id')
-        self.inventory_unit_id = attributes[:'inventory_unit_id']
-      end
-
-      if attributes.key?(:'node_id')
-        self.node_id = attributes[:'node_id']
-      end
-
-      if attributes.key?(:'slot_index')
-        self.slot_index = attributes[:'slot_index']
-      end
-
-      if attributes.key?(:'pinned')
-        self.pinned = attributes[:'pinned']
       end
     end
 
@@ -135,32 +176,40 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
+      if @user_id.nil?
+        invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
+      end
+
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
+      end
+
+      if @visibility.nil?
+        invalid_properties.push('invalid value for "visibility", visibility cannot be nil.')
+      end
+
+      if @settings.nil?
+        invalid_properties.push('invalid value for "settings", settings cannot be nil.')
+      end
+
+      if @showroom_position.nil?
+        invalid_properties.push('invalid value for "showroom_position", showroom_position cannot be nil.')
+      end
+
+      if @auto_include_inventory.nil?
+        invalid_properties.push('invalid value for "auto_include_inventory", auto_include_inventory cannot be nil.')
+      end
+
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @updated_at.nil?
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
-      end
-
-      if @inventory_item_id.nil?
-        invalid_properties.push('invalid value for "inventory_item_id", inventory_item_id cannot be nil.')
-      end
-
-      if @scene_id.nil?
-        invalid_properties.push('invalid value for "scene_id", scene_id cannot be nil.')
-      end
-
-      if @node_id.nil?
-        invalid_properties.push('invalid value for "node_id", node_id cannot be nil.')
-      end
-
-      if @slot_index.nil?
-        invalid_properties.push('invalid value for "slot_index", slot_index cannot be nil.')
-      end
-
-      if @pinned.nil?
-        invalid_properties.push('invalid value for "pinned", pinned cannot be nil.')
       end
 
       invalid_properties
@@ -170,13 +219,15 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      return false if @user_id.nil?
+      return false if @kind.nil?
+      return false if @name.nil?
+      return false if @visibility.nil?
+      return false if @settings.nil?
+      return false if @showroom_position.nil?
+      return false if @auto_include_inventory.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
-      return false if @inventory_item_id.nil?
-      return false if @scene_id.nil?
-      return false if @node_id.nil?
-      return false if @slot_index.nil?
-      return false if @pinned.nil?
       true
     end
 
@@ -186,14 +237,18 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          user_id == o.user_id &&
+          kind == o.kind &&
+          category_slug == o.category_slug &&
+          name == o.name &&
+          public_slug == o.public_slug &&
+          visibility == o.visibility &&
+          settings == o.settings &&
+          storefront_id == o.storefront_id &&
+          showroom_position == o.showroom_position &&
+          auto_include_inventory == o.auto_include_inventory &&
           created_at == o.created_at &&
-          updated_at == o.updated_at &&
-          inventory_item_id == o.inventory_item_id &&
-          scene_id == o.scene_id &&
-          inventory_unit_id == o.inventory_unit_id &&
-          node_id == o.node_id &&
-          slot_index == o.slot_index &&
-          pinned == o.pinned
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -205,7 +260,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, inventory_item_id, scene_id, inventory_unit_id, node_id, slot_index, pinned].hash
+      [id, user_id, kind, category_slug, name, public_slug, visibility, settings, storefront_id, showroom_position, auto_include_inventory, created_at, updated_at].hash
     end
 
     # Builds the object from hash

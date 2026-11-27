@@ -189,7 +189,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @brain_kind.nil?
-      brain_kind_validator = EnumAttributeValidator.new('String', ["idle", "rules", "agent"])
+      brain_kind_validator = EnumAttributeValidator.new('String', ["rules", "idle", "agent", "byok"])
       return false unless brain_kind_validator.valid?(@brain_kind)
       return false if @rules.nil?
       return false if @has_agent_secret.nil?
@@ -202,7 +202,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] brain_kind Object to be assigned
     def brain_kind=(brain_kind)
-      validator = EnumAttributeValidator.new('String', ["idle", "rules", "agent"])
+      validator = EnumAttributeValidator.new('String', ["rules", "idle", "agent", "byok"])
       unless validator.valid?(brain_kind)
         fail ArgumentError, "invalid value for \"brain_kind\", must be one of #{validator.allowable_values}."
       end

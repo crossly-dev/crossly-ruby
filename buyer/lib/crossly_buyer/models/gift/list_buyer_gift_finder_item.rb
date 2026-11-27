@@ -21,9 +21,9 @@ module CrosslyBuyer
 
     attr_accessor :title
 
-    attr_accessor :sale_price_cents
-
     attr_accessor :thumbnail
+
+    attr_accessor :sale_price_cents
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -31,8 +31,8 @@ module CrosslyBuyer
         :'slug' => :'slug',
         :'price_cents' => :'priceCents',
         :'title' => :'title',
-        :'sale_price_cents' => :'salePriceCents',
-        :'thumbnail' => :'thumbnail'
+        :'thumbnail' => :'thumbnail',
+        :'sale_price_cents' => :'salePriceCents'
       }
     end
 
@@ -47,8 +47,8 @@ module CrosslyBuyer
         :'slug' => :'String',
         :'price_cents' => :'Float',
         :'title' => :'String',
-        :'sale_price_cents' => :'Float',
-        :'thumbnail' => :'String'
+        :'thumbnail' => :'String',
+        :'sale_price_cents' => :'Float'
       }
     end
 
@@ -56,8 +56,8 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'title',
-        :'sale_price_cents',
-        :'thumbnail'
+        :'thumbnail',
+        :'sale_price_cents'
       ])
     end
 
@@ -88,12 +88,12 @@ module CrosslyBuyer
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'sale_price_cents')
-        self.sale_price_cents = attributes[:'sale_price_cents']
-      end
-
       if attributes.key?(:'thumbnail')
         self.thumbnail = attributes[:'thumbnail']
+      end
+
+      if attributes.key?(:'sale_price_cents')
+        self.sale_price_cents = attributes[:'sale_price_cents']
       end
     end
 
@@ -128,8 +128,8 @@ module CrosslyBuyer
           slug == o.slug &&
           price_cents == o.price_cents &&
           title == o.title &&
-          sale_price_cents == o.sale_price_cents &&
-          thumbnail == o.thumbnail
+          thumbnail == o.thumbnail &&
+          sale_price_cents == o.sale_price_cents
     end
 
     # @see the `==` method
@@ -141,7 +141,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, price_cents, title, sale_price_cents, thumbnail].hash
+      [slug, price_cents, title, thumbnail, sale_price_cents].hash
     end
 
     # Builds the object from hash

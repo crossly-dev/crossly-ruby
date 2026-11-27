@@ -19,11 +19,50 @@ module Crossly
 
     attr_accessor :worst
 
+    # Cost of stock 30+ days listed or unlisted (30-90 + 90+ + unlisted): the same number as attentionCostCents. Not \"older than three months\"; that is over90CostCents.
     attr_accessor :stuck_capital_cents
+
+    attr_accessor :attention_cost_cents
+
+    attr_accessor :over90_cost_cents
+
+    attr_accessor :over90_listed_value_cents
 
     attr_accessor :total_items
 
     attr_accessor :total_units
+
+    attr_accessor :cost_known_items
+
+    attr_accessor :cost_unknown_items
+
+    attr_accessor :listed_value_cents
+
+    attr_accessor :market_value_cents
+
+    attr_accessor :size_by
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -31,8 +70,16 @@ module Crossly
         :'buckets' => :'buckets',
         :'worst' => :'worst',
         :'stuck_capital_cents' => :'stuckCapitalCents',
+        :'attention_cost_cents' => :'attentionCostCents',
+        :'over90_cost_cents' => :'over90CostCents',
+        :'over90_listed_value_cents' => :'over90ListedValueCents',
         :'total_items' => :'totalItems',
-        :'total_units' => :'totalUnits'
+        :'total_units' => :'totalUnits',
+        :'cost_known_items' => :'costKnownItems',
+        :'cost_unknown_items' => :'costUnknownItems',
+        :'listed_value_cents' => :'listedValueCents',
+        :'market_value_cents' => :'marketValueCents',
+        :'size_by' => :'sizeBy'
       }
     end
 
@@ -45,16 +92,25 @@ module Crossly
     def self.openapi_types
       {
         :'buckets' => :'Array<GetInventoryAgingResponseDataBuckets>',
-        :'worst' => :'Array<GetInventoryAgingResponseDataWorst>',
+        :'worst' => :'Array<GetAnalyticInventoryResponseDataWorst>',
         :'stuck_capital_cents' => :'Float',
+        :'attention_cost_cents' => :'Float',
+        :'over90_cost_cents' => :'Float',
+        :'over90_listed_value_cents' => :'Float',
         :'total_items' => :'Float',
-        :'total_units' => :'Float'
+        :'total_units' => :'Float',
+        :'cost_known_items' => :'Float',
+        :'cost_unknown_items' => :'Float',
+        :'listed_value_cents' => :'Float',
+        :'market_value_cents' => :'Float',
+        :'size_by' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'market_value_cents',
       ])
     end
 
@@ -89,12 +145,44 @@ module Crossly
         self.stuck_capital_cents = attributes[:'stuck_capital_cents']
       end
 
+      if attributes.key?(:'attention_cost_cents')
+        self.attention_cost_cents = attributes[:'attention_cost_cents']
+      end
+
+      if attributes.key?(:'over90_cost_cents')
+        self.over90_cost_cents = attributes[:'over90_cost_cents']
+      end
+
+      if attributes.key?(:'over90_listed_value_cents')
+        self.over90_listed_value_cents = attributes[:'over90_listed_value_cents']
+      end
+
       if attributes.key?(:'total_items')
         self.total_items = attributes[:'total_items']
       end
 
       if attributes.key?(:'total_units')
         self.total_units = attributes[:'total_units']
+      end
+
+      if attributes.key?(:'cost_known_items')
+        self.cost_known_items = attributes[:'cost_known_items']
+      end
+
+      if attributes.key?(:'cost_unknown_items')
+        self.cost_unknown_items = attributes[:'cost_unknown_items']
+      end
+
+      if attributes.key?(:'listed_value_cents')
+        self.listed_value_cents = attributes[:'listed_value_cents']
+      end
+
+      if attributes.key?(:'market_value_cents')
+        self.market_value_cents = attributes[:'market_value_cents']
+      end
+
+      if attributes.key?(:'size_by')
+        self.size_by = attributes[:'size_by']
       end
     end
 
@@ -114,12 +202,40 @@ module Crossly
         invalid_properties.push('invalid value for "stuck_capital_cents", stuck_capital_cents cannot be nil.')
       end
 
+      if @attention_cost_cents.nil?
+        invalid_properties.push('invalid value for "attention_cost_cents", attention_cost_cents cannot be nil.')
+      end
+
+      if @over90_cost_cents.nil?
+        invalid_properties.push('invalid value for "over90_cost_cents", over90_cost_cents cannot be nil.')
+      end
+
+      if @over90_listed_value_cents.nil?
+        invalid_properties.push('invalid value for "over90_listed_value_cents", over90_listed_value_cents cannot be nil.')
+      end
+
       if @total_items.nil?
         invalid_properties.push('invalid value for "total_items", total_items cannot be nil.')
       end
 
       if @total_units.nil?
         invalid_properties.push('invalid value for "total_units", total_units cannot be nil.')
+      end
+
+      if @cost_known_items.nil?
+        invalid_properties.push('invalid value for "cost_known_items", cost_known_items cannot be nil.')
+      end
+
+      if @cost_unknown_items.nil?
+        invalid_properties.push('invalid value for "cost_unknown_items", cost_unknown_items cannot be nil.')
+      end
+
+      if @listed_value_cents.nil?
+        invalid_properties.push('invalid value for "listed_value_cents", listed_value_cents cannot be nil.')
+      end
+
+      if @size_by.nil?
+        invalid_properties.push('invalid value for "size_by", size_by cannot be nil.')
       end
 
       invalid_properties
@@ -131,9 +247,28 @@ module Crossly
       return false if @buckets.nil?
       return false if @worst.nil?
       return false if @stuck_capital_cents.nil?
+      return false if @attention_cost_cents.nil?
+      return false if @over90_cost_cents.nil?
+      return false if @over90_listed_value_cents.nil?
       return false if @total_items.nil?
       return false if @total_units.nil?
+      return false if @cost_known_items.nil?
+      return false if @cost_unknown_items.nil?
+      return false if @listed_value_cents.nil?
+      return false if @size_by.nil?
+      size_by_validator = EnumAttributeValidator.new('String', ["value", "cost", "units"])
+      return false unless size_by_validator.valid?(@size_by)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] size_by Object to be assigned
+    def size_by=(size_by)
+      validator = EnumAttributeValidator.new('String', ["value", "cost", "units"])
+      unless validator.valid?(size_by)
+        fail ArgumentError, "invalid value for \"size_by\", must be one of #{validator.allowable_values}."
+      end
+      @size_by = size_by
     end
 
     # Checks equality by comparing each attribute.
@@ -144,8 +279,16 @@ module Crossly
           buckets == o.buckets &&
           worst == o.worst &&
           stuck_capital_cents == o.stuck_capital_cents &&
+          attention_cost_cents == o.attention_cost_cents &&
+          over90_cost_cents == o.over90_cost_cents &&
+          over90_listed_value_cents == o.over90_listed_value_cents &&
           total_items == o.total_items &&
-          total_units == o.total_units
+          total_units == o.total_units &&
+          cost_known_items == o.cost_known_items &&
+          cost_unknown_items == o.cost_unknown_items &&
+          listed_value_cents == o.listed_value_cents &&
+          market_value_cents == o.market_value_cents &&
+          size_by == o.size_by
     end
 
     # @see the `==` method
@@ -157,7 +300,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [buckets, worst, stuck_capital_cents, total_items, total_units].hash
+      [buckets, worst, stuck_capital_cents, attention_cost_cents, over90_cost_cents, over90_listed_value_cents, total_items, total_units, cost_known_items, cost_unknown_items, listed_value_cents, market_value_cents, size_by].hash
     end
 
     # Builds the object from hash

@@ -121,7 +121,7 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["none", "confirm", "save", "buy_crossly", "buy_offsite"])
+      kind_validator = EnumAttributeValidator.new('String', ["none", "save", "buy_crossly", "buy_offsite", "confirm"])
       return false unless kind_validator.valid?(@kind)
       return false if @label.nil?
       true
@@ -130,7 +130,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["none", "confirm", "save", "buy_crossly", "buy_offsite"])
+      validator = EnumAttributeValidator.new('String', ["none", "save", "buy_crossly", "buy_offsite", "confirm"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end

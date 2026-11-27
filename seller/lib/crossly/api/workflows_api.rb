@@ -19,7 +19,207 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Create a workflow: from blank ({ name, graph? }), from a template ({ from: \"template\", templateId, setup?, activate? }) or from an export document ({ from: \"import\", document }). New workflows start paused; activate one with POST /v1/workflows/{id}/activate. Returns the workflow and its validation issues.
+    # @param create_workflow_request [CreateWorkflowRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowResponse]
+    def create_workflow(create_workflow_request, opts = {})
+      data, _status_code, _headers = create_workflow_with_http_info(create_workflow_request, opts)
+      data
+    end
+
+    # Create a workflow: from blank ({ name, graph? }), from a template ({ from: \&quot;template\&quot;, templateId, setup?, activate? }) or from an export document ({ from: \&quot;import\&quot;, document }). New workflows start paused; activate one with POST /v1/workflows/{id}/activate. Returns the workflow and its validation issues.
+    # @param create_workflow_request [CreateWorkflowRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowResponse, Integer, Hash)>] CreateWorkflowResponse data, response status code and response headers
+    def create_workflow_with_http_info(create_workflow_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow ...'
+      end
+      # verify the required parameter 'create_workflow_request' is set
+      if @api_client.config.client_side_validation && create_workflow_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_request' when calling WorkflowsApi.create_workflow"
+      end
+      # resource path
+      local_var_path = '/v1/workflows'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Activate a workflow: its triggers start firing. A graph with blocking issues is refused (422, details.issues).
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [WorkflowResponse]
+    def create_workflow_activate(id, opts = {})
+      data, _status_code, _headers = create_workflow_activate_with_http_info(id, opts)
+      data
+    end
+
+    # Activate a workflow: its triggers start firing. A graph with blocking issues is refused (422, details.issues).
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WorkflowResponse, Integer, Hash)>] WorkflowResponse data, response status code and response headers
+    def create_workflow_activate_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_activate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_activate"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/activate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_activate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_activate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Approve or reject a pending flow.approval request: the waiting run resumes down the approved or rejected port. 409 when it was already decided (another device, Telegram, or the timeout).
+    # @param id [String] Approval id from GET /v1/workflow-approvals.
+    # @param create_workflow_approval_decide_request [CreateWorkflowApprovalDecideRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowApprovalDecideResponse]
+    def create_workflow_approval_decide(id, create_workflow_approval_decide_request, opts = {})
+      data, _status_code, _headers = create_workflow_approval_decide_with_http_info(id, create_workflow_approval_decide_request, opts)
+      data
+    end
+
+    # Approve or reject a pending flow.approval request: the waiting run resumes down the approved or rejected port. 409 when it was already decided (another device, Telegram, or the timeout).
+    # @param id [String] Approval id from GET /v1/workflow-approvals.
+    # @param create_workflow_approval_decide_request [CreateWorkflowApprovalDecideRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowApprovalDecideResponse, Integer, Hash)>] CreateWorkflowApprovalDecideResponse data, response status code and response headers
+    def create_workflow_approval_decide_with_http_info(id, create_workflow_approval_decide_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_approval_decide ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_approval_decide"
+      end
+      # verify the required parameter 'create_workflow_approval_decide_request' is set
+      if @api_client.config.client_side_validation && create_workflow_approval_decide_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_approval_decide_request' when calling WorkflowsApi.create_workflow_approval_decide"
+      end
+      # resource path
+      local_var_path = '/v1/workflow-approvals/{id}/decide'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_approval_decide_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowApprovalDecideResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_approval_decide",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_approval_decide\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create a multi-step workflow chain.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [IdResponse]
     def create_workflow_chain(opts = {})
@@ -28,6 +228,7 @@ module Crossly
     end
 
     # Create a multi-step workflow chain.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
     def create_workflow_chain_with_http_info(opts = {})
@@ -75,6 +276,7 @@ module Crossly
     end
 
     # Enqueue an ad-hoc run of a workflow chain.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorkflowChainRunNowResponse]
@@ -84,6 +286,7 @@ module Crossly
     end
 
     # Enqueue an ad-hoc run of a workflow chain.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorkflowChainRunNowResponse, Integer, Hash)>] CreateWorkflowChainRunNowResponse data, response status code and response headers
@@ -136,6 +339,7 @@ module Crossly
     end
 
     # Flip a workflow chain between active and inactive.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorkflowChainToggleResponse]
@@ -145,6 +349,7 @@ module Crossly
     end
 
     # Flip a workflow chain between active and inactive.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorkflowChainToggleResponse, Integer, Hash)>] CreateWorkflowChainToggleResponse data, response status code and response headers
@@ -196,7 +401,1014 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Pause a workflow: its triggers stop firing. Runs already started finish.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [WorkflowResponse]
+    def create_workflow_deactivate(id, opts = {})
+      data, _status_code, _headers = create_workflow_deactivate_with_http_info(id, opts)
+      data
+    end
+
+    # Pause a workflow: its triggers stop firing. Runs already started finish.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WorkflowResponse, Integer, Hash)>] WorkflowResponse data, response status code and response headers
+    def create_workflow_deactivate_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_deactivate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_deactivate"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/deactivate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_deactivate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_deactivate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Copy a workflow (graph, description, tags) into a new paused workflow.
+    # @param id [String] Workflow id.
+    # @param create_workflow_duplicate_request [CreateWorkflowDuplicateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowDuplicateResponse]
+    def create_workflow_duplicate(id, create_workflow_duplicate_request, opts = {})
+      data, _status_code, _headers = create_workflow_duplicate_with_http_info(id, create_workflow_duplicate_request, opts)
+      data
+    end
+
+    # Copy a workflow (graph, description, tags) into a new paused workflow.
+    # @param id [String] Workflow id.
+    # @param create_workflow_duplicate_request [CreateWorkflowDuplicateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowDuplicateResponse, Integer, Hash)>] CreateWorkflowDuplicateResponse data, response status code and response headers
+    def create_workflow_duplicate_with_http_info(id, create_workflow_duplicate_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_duplicate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_duplicate"
+      end
+      # verify the required parameter 'create_workflow_duplicate_request' is set
+      if @api_client.config.client_side_validation && create_workflow_duplicate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_duplicate_request' when calling WorkflowsApi.create_workflow_duplicate"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/duplicate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_duplicate_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowDuplicateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_duplicate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_duplicate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Resolve one param value (\"{{ $json.priceCents * 0.9 }}\") with the engine's evaluator against an item, the trigger item, earlier nodes' items or a stored run. A bad expression is an answer (ok=false with the message), not an HTTP error. Changes nothing.
+    # @param create_workflow_expression_preview_request [CreateWorkflowExpressionPreviewRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowExpressionPreviewResponse]
+    def create_workflow_expression_preview(create_workflow_expression_preview_request, opts = {})
+      data, _status_code, _headers = create_workflow_expression_preview_with_http_info(create_workflow_expression_preview_request, opts)
+      data
+    end
+
+    # Resolve one param value (\&quot;{{ $json.priceCents * 0.9 }}\&quot;) with the engine&#39;s evaluator against an item, the trigger item, earlier nodes&#39; items or a stored run. A bad expression is an answer (ok&#x3D;false with the message), not an HTTP error. Changes nothing.
+    # @param create_workflow_expression_preview_request [CreateWorkflowExpressionPreviewRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowExpressionPreviewResponse, Integer, Hash)>] CreateWorkflowExpressionPreviewResponse data, response status code and response headers
+    def create_workflow_expression_preview_with_http_info(create_workflow_expression_preview_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_expression_preview ...'
+      end
+      # verify the required parameter 'create_workflow_expression_preview_request' is set
+      if @api_client.config.client_side_validation && create_workflow_expression_preview_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_expression_preview_request' when calling WorkflowsApi.create_workflow_expression_preview"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/expressions/preview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_expression_preview_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowExpressionPreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_expression_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_expression_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Import a crossly.workflow export document (or { document, name }) as a new, paused workflow. Integration and workflow references are cleared (they belong to the exporting account) and listed in stripped.
+    # @param request_body [Hash<String, Object>] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowImportResponse]
+    def create_workflow_import(request_body, opts = {})
+      data, _status_code, _headers = create_workflow_import_with_http_info(request_body, opts)
+      data
+    end
+
+    # Import a crossly.workflow export document (or { document, name }) as a new, paused workflow. Integration and workflow references are cleared (they belong to the exporting account) and listed in stripped.
+    # @param request_body [Hash<String, Object>] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowImportResponse, Integer, Hash)>] CreateWorkflowImportResponse data, response status code and response headers
+    def create_workflow_import_with_http_info(request_body, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_import ...'
+      end
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling WorkflowsApi.create_workflow_import"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/import'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowImportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_import",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_import\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Run a workflow (active or paused) live now, on items you pass or on selected listings / orders / inventory items (one kind per call, up to 1,000). The graph must validate (422 with issues otherwise).
+    # @param id [String] Workflow id.
+    # @param create_workflow_run_request [CreateWorkflowRunRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowRunResponse]
+    def create_workflow_run(id, create_workflow_run_request, opts = {})
+      data, _status_code, _headers = create_workflow_run_with_http_info(id, create_workflow_run_request, opts)
+      data
+    end
+
+    # Run a workflow (active or paused) live now, on items you pass or on selected listings / orders / inventory items (one kind per call, up to 1,000). The graph must validate (422 with issues otherwise).
+    # @param id [String] Workflow id.
+    # @param create_workflow_run_request [CreateWorkflowRunRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowRunResponse, Integer, Hash)>] CreateWorkflowRunResponse data, response status code and response headers
+    def create_workflow_run_with_http_info(id, create_workflow_run_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_run ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_run"
+      end
+      # verify the required parameter 'create_workflow_run_request' is set
+      if @api_client.config.client_side_validation && create_workflow_run_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_run_request' when calling WorkflowsApi.create_workflow_run"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/run'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_run_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowRunResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_run",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_run\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a queued, running or waiting run. 409 when it already finished.
+    # @param run_id [String] Workflow run id.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowRunCancelResponse]
+    def create_workflow_run_cancel(run_id, opts = {})
+      data, _status_code, _headers = create_workflow_run_cancel_with_http_info(run_id, opts)
+      data
+    end
+
+    # Cancel a queued, running or waiting run. 409 when it already finished.
+    # @param run_id [String] Workflow run id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowRunCancelResponse, Integer, Hash)>] CreateWorkflowRunCancelResponse data, response status code and response headers
+    def create_workflow_run_cancel_with_http_info(run_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_run_cancel ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling WorkflowsApi.create_workflow_run_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/workflow-runs/{runId}/cancel'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowRunCancelResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_run_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_run_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # \"Run workflow on…\": the same as POST /v1/workflows/{id}/run with the workflow named in the body.
+    # @param create_workflow_run_on_request [CreateWorkflowRunOnRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowRunOnResponse]
+    def create_workflow_run_on(create_workflow_run_on_request, opts = {})
+      data, _status_code, _headers = create_workflow_run_on_with_http_info(create_workflow_run_on_request, opts)
+      data
+    end
+
+    # \&quot;Run workflow on…\&quot;: the same as POST /v1/workflows/{id}/run with the workflow named in the body.
+    # @param create_workflow_run_on_request [CreateWorkflowRunOnRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowRunOnResponse, Integer, Hash)>] CreateWorkflowRunOnResponse data, response status code and response headers
+    def create_workflow_run_on_with_http_info(create_workflow_run_on_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_run_on ...'
+      end
+      # verify the required parameter 'create_workflow_run_on_request' is set
+      if @api_client.config.client_side_validation && create_workflow_run_on_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_run_on_request' when calling WorkflowsApi.create_workflow_run_on"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/run-on'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_run_on_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowRunOnResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_run_on",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_run_on\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Retry a failed run from the node that failed: a new run (retryOfRunId) seeded from the failed run's checkpoint, so nodes that succeeded are not repeated. 409 unless the run failed.
+    # @param run_id [String] Workflow run id.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowRunRetryResponse]
+    def create_workflow_run_retry(run_id, opts = {})
+      data, _status_code, _headers = create_workflow_run_retry_with_http_info(run_id, opts)
+      data
+    end
+
+    # Retry a failed run from the node that failed: a new run (retryOfRunId) seeded from the failed run&#39;s checkpoint, so nodes that succeeded are not repeated. 409 unless the run failed.
+    # @param run_id [String] Workflow run id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowRunRetryResponse, Integer, Hash)>] CreateWorkflowRunRetryResponse data, response status code and response headers
+    def create_workflow_run_retry_with_http_info(run_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_run_retry ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling WorkflowsApi.create_workflow_run_retry"
+      end
+      # resource path
+      local_var_path = '/v1/workflow-runs/{runId}/retry'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowRunRetryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_run_retry",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_run_retry\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # End a sale now. A sale that has not started is cancelled; a live one closes and every discounted price is put back now (reverted = how many listings were restored). 404 for a sale that is not yours.
+    # @param sale_event_id [String] Sale id from GET /v1/workflows/sales/active.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowSaleEndResponse]
+    def create_workflow_sale_end(sale_event_id, opts = {})
+      data, _status_code, _headers = create_workflow_sale_end_with_http_info(sale_event_id, opts)
+      data
+    end
+
+    # End a sale now. A sale that has not started is cancelled; a live one closes and every discounted price is put back now (reverted &#x3D; how many listings were restored). 404 for a sale that is not yours.
+    # @param sale_event_id [String] Sale id from GET /v1/workflows/sales/active.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowSaleEndResponse, Integer, Hash)>] CreateWorkflowSaleEndResponse data, response status code and response headers
+    def create_workflow_sale_end_with_http_info(sale_event_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_sale_end ...'
+      end
+      # verify the required parameter 'sale_event_id' is set
+      if @api_client.config.client_side_validation && sale_event_id.nil?
+        fail ArgumentError, "Missing the required parameter 'sale_event_id' when calling WorkflowsApi.create_workflow_sale_end"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/sales/{saleEventId}/end'.sub('{' + 'saleEventId' + '}', CGI.escape(sale_event_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowSaleEndResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_sale_end",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_sale_end\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a workflow from a template, filling its setup fields; activate=true activates it when it validates.
+    # @param id [String] Template id from GET /v1/workflows/templates.
+    # @param create_workflow_template_use_request [CreateWorkflowTemplateUseRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowResponse]
+    def create_workflow_template_use(id, create_workflow_template_use_request, opts = {})
+      data, _status_code, _headers = create_workflow_template_use_with_http_info(id, create_workflow_template_use_request, opts)
+      data
+    end
+
+    # Create a workflow from a template, filling its setup fields; activate&#x3D;true activates it when it validates.
+    # @param id [String] Template id from GET /v1/workflows/templates.
+    # @param create_workflow_template_use_request [CreateWorkflowTemplateUseRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowResponse, Integer, Hash)>] CreateWorkflowResponse data, response status code and response headers
+    def create_workflow_template_use_with_http_info(id, create_workflow_template_use_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_template_use ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_template_use"
+      end
+      # verify the required parameter 'create_workflow_template_use_request' is set
+      if @api_client.config.client_side_validation && create_workflow_template_use_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_template_use_request' when calling WorkflowsApi.create_workflow_template_use"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/templates/{id}/use'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_template_use_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_template_use",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_template_use\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Test a workflow (the saved graph, or a draft graph you pass). mode=test runs it for real, using pinned data where a node has it; mode=dry is a safe test: write, destructive and money nodes report what they would do and change nothing. Trigger items: the ones you pass, else pinned, else the last real ones, else the trigger sample.
+    # @param id [String] Workflow id.
+    # @param create_workflow_test_request [CreateWorkflowTestRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowTestResponse]
+    def create_workflow_test(id, create_workflow_test_request, opts = {})
+      data, _status_code, _headers = create_workflow_test_with_http_info(id, create_workflow_test_request, opts)
+      data
+    end
+
+    # Test a workflow (the saved graph, or a draft graph you pass). mode&#x3D;test runs it for real, using pinned data where a node has it; mode&#x3D;dry is a safe test: write, destructive and money nodes report what they would do and change nothing. Trigger items: the ones you pass, else pinned, else the last real ones, else the trigger sample.
+    # @param id [String] Workflow id.
+    # @param create_workflow_test_request [CreateWorkflowTestRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowTestResponse, Integer, Hash)>] CreateWorkflowTestResponse data, response status code and response headers
+    def create_workflow_test_with_http_info(id, create_workflow_test_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_test ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_test"
+      end
+      # verify the required parameter 'create_workflow_test_request' is set
+      if @api_client.config.client_side_validation && create_workflow_test_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_test_request' when calling WorkflowsApi.create_workflow_test"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/test'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_test_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowTestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_test",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_test\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Validate a graph without saving it: unknown node types, missing required params, bad ports, cycles, expression errors. blocking=true means activation would be refused.
+    # @param create_workflow_validate_request [CreateWorkflowValidateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowValidateResponse]
+    def create_workflow_validate(create_workflow_validate_request, opts = {})
+      data, _status_code, _headers = create_workflow_validate_with_http_info(create_workflow_validate_request, opts)
+      data
+    end
+
+    # Validate a graph without saving it: unknown node types, missing required params, bad ports, cycles, expression errors. blocking&#x3D;true means activation would be refused.
+    # @param create_workflow_validate_request [CreateWorkflowValidateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowValidateResponse, Integer, Hash)>] CreateWorkflowValidateResponse data, response status code and response headers
+    def create_workflow_validate_with_http_info(create_workflow_validate_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_validate ...'
+      end
+      # verify the required parameter 'create_workflow_validate_request' is set
+      if @api_client.config.client_side_validation && create_workflow_validate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_validate_request' when calling WorkflowsApi.create_workflow_validate"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/validate'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_validate_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowValidateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_validate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_validate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Restore an earlier version's graph as a new version. Pass version (the current one you read) to refuse the restore when someone saved meanwhile (409). Body optional: { version?: integer }.
+    # @param id [String] Workflow id.
+    # @param v [Integer] The version number to restore.
+    # @param [Hash] opts the optional parameters
+    # @return [WorkflowResponse]
+    def create_workflow_version_restore(id, v, opts = {})
+      data, _status_code, _headers = create_workflow_version_restore_with_http_info(id, v, opts)
+      data
+    end
+
+    # Restore an earlier version&#39;s graph as a new version. Pass version (the current one you read) to refuse the restore when someone saved meanwhile (409). Body optional: { version?: integer }.
+    # @param id [String] Workflow id.
+    # @param v [Integer] The version number to restore.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WorkflowResponse, Integer, Hash)>] WorkflowResponse data, response status code and response headers
+    def create_workflow_version_restore_with_http_info(id, v, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_version_restore ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_version_restore"
+      end
+      # verify the required parameter 'v' is set
+      if @api_client.config.client_side_validation && v.nil?
+        fail ArgumentError, "Missing the required parameter 'v' when calling WorkflowsApi.create_workflow_version_restore"
+      end
+      if @api_client.config.client_side_validation && v < 1
+        fail ArgumentError, 'invalid value for "v" when calling WorkflowsApi.create_workflow_version_restore, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/workflows/{id}/versions/{v}/restore'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'v' + '}', CGI.escape(v.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_version_restore",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_version_restore\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Issue a new inbound URL for an on.webhook trigger node (the old one stops working). The URL, and the signing secret when withSecret=true, are returned ONCE: store them now.
+    # @param id [String] Workflow id.
+    # @param node_id [String] The on.webhook trigger node id.
+    # @param create_workflow_webhook_rotate_request [CreateWorkflowWebhookRotateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorkflowWebhookRotateResponse]
+    def create_workflow_webhook_rotate(id, node_id, create_workflow_webhook_rotate_request, opts = {})
+      data, _status_code, _headers = create_workflow_webhook_rotate_with_http_info(id, node_id, create_workflow_webhook_rotate_request, opts)
+      data
+    end
+
+    # Issue a new inbound URL for an on.webhook trigger node (the old one stops working). The URL, and the signing secret when withSecret&#x3D;true, are returned ONCE: store them now.
+    # @param id [String] Workflow id.
+    # @param node_id [String] The on.webhook trigger node id.
+    # @param create_workflow_webhook_rotate_request [CreateWorkflowWebhookRotateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorkflowWebhookRotateResponse, Integer, Hash)>] CreateWorkflowWebhookRotateResponse data, response status code and response headers
+    def create_workflow_webhook_rotate_with_http_info(id, node_id, create_workflow_webhook_rotate_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.create_workflow_webhook_rotate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.create_workflow_webhook_rotate"
+      end
+      # verify the required parameter 'node_id' is set
+      if @api_client.config.client_side_validation && node_id.nil?
+        fail ArgumentError, "Missing the required parameter 'node_id' when calling WorkflowsApi.create_workflow_webhook_rotate"
+      end
+      # verify the required parameter 'create_workflow_webhook_rotate_request' is set
+      if @api_client.config.client_side_validation && create_workflow_webhook_rotate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_workflow_webhook_rotate_request' when calling WorkflowsApi.create_workflow_webhook_rotate"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/webhooks/{nodeId}/rotate'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'nodeId' + '}', CGI.escape(node_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_workflow_webhook_rotate_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorkflowWebhookRotateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.create_workflow_webhook_rotate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#create_workflow_webhook_rotate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete (archive) a workflow: its triggers stop, open runs are cancelled, run history stays readable.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteWorkflowResponse]
+    def delete_workflow(id, opts = {})
+      data, _status_code, _headers = delete_workflow_with_http_info(id, opts)
+      data
+    end
+
+    # Delete (archive) a workflow: its triggers stop, open runs are cancelled, run history stays readable.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteWorkflowResponse, Integer, Hash)>] DeleteWorkflowResponse data, response status code and response headers
+    def delete_workflow_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.delete_workflow ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.delete_workflow"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteWorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.delete_workflow",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#delete_workflow\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Delete a workflow chain (cascades steps + runs).
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
@@ -206,6 +1418,7 @@ module Crossly
     end
 
     # Delete a workflow chain (cascades steps + runs).
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
@@ -257,7 +1470,124 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Get one workflow with its full graph and current version.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWorkflowResponse]
+    def get_workflow(id, opts = {})
+      data, _status_code, _headers = get_workflow_with_http_info(id, opts)
+      data
+    end
+
+    # Get one workflow with its full graph and current version.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWorkflowResponse, Integer, Hash)>] GetWorkflowResponse data, response status code and response headers
+    def get_workflow_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.get_workflow ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.get_workflow"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.get_workflow",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#get_workflow\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Everything needed to build a workflow: every node type (params, ports, output fields, risk, platforms capability), which platforms each capability covers and which of those you have connected, the expression helpers and bindings ({{ $json.listingId }}…) and the condition operators. Read this before composing a graph rather than guessing node types or param keys.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWorkflowCatalogResponse]
+    def get_workflow_catalog(opts = {})
+      data, _status_code, _headers = get_workflow_catalog_with_http_info(opts)
+      data
+    end
+
+    # Everything needed to build a workflow: every node type (params, ports, output fields, risk, platforms capability), which platforms each capability covers and which of those you have connected, the expression helpers and bindings ({{ $json.listingId }}…) and the condition operators. Read this before composing a graph rather than guessing node types or param keys.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWorkflowCatalogResponse, Integer, Hash)>] GetWorkflowCatalogResponse data, response status code and response headers
+    def get_workflow_catalog_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.get_workflow_catalog ...'
+      end
+      # resource path
+      local_var_path = '/v1/workflows/catalog'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorkflowCatalogResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.get_workflow_catalog",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#get_workflow_catalog\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get one workflow chain with its steps.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetWorkflowChainResponse]
@@ -267,6 +1597,7 @@ module Crossly
     end
 
     # Get one workflow chain with its steps.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetWorkflowChainResponse, Integer, Hash)>] GetWorkflowChainResponse data, response status code and response headers
@@ -318,7 +1649,283 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Export a workflow as a portable document (format crossly.workflow) that POST /v1/workflows/import accepts. Credentials and account handles are stripped; pinned test data only with pinnedData=true.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :pinned_data Keep the nodes&#39; pinned test data.
+    # @return [GetWorkflowExportResponse]
+    def get_workflow_export(id, opts = {})
+      data, _status_code, _headers = get_workflow_export_with_http_info(id, opts)
+      data
+    end
+
+    # Export a workflow as a portable document (format crossly.workflow) that POST /v1/workflows/import accepts. Credentials and account handles are stripped; pinned test data only with pinnedData&#x3D;true.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :pinned_data Keep the nodes&#39; pinned test data.
+    # @return [Array<(GetWorkflowExportResponse, Integer, Hash)>] GetWorkflowExportResponse data, response status code and response headers
+    def get_workflow_export_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.get_workflow_export ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.get_workflow_export"
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'pinned_data'] && !allowable_values.include?(opts[:'pinned_data'])
+        fail ArgumentError, "invalid value for \"pinned_data\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/export'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'pinnedData'] = opts[:'pinned_data'] if !opts[:'pinned_data'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorkflowExportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.get_workflow_export",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#get_workflow_export\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One run: its summary, the graph version it ran, and every node execution (status, item counts per port, timing, errors). Item data per node: GET …/nodes/{nodeId}.
+    # @param run_id [String] Workflow run id.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWorkflowRunResponse]
+    def get_workflow_run(run_id, opts = {})
+      data, _status_code, _headers = get_workflow_run_with_http_info(run_id, opts)
+      data
+    end
+
+    # One run: its summary, the graph version it ran, and every node execution (status, item counts per port, timing, errors). Item data per node: GET …/nodes/{nodeId}.
+    # @param run_id [String] Workflow run id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWorkflowRunResponse, Integer, Hash)>] GetWorkflowRunResponse data, response status code and response headers
+    def get_workflow_run_with_http_info(run_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.get_workflow_run ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling WorkflowsApi.get_workflow_run"
+      end
+      # resource path
+      local_var_path = '/v1/workflow-runs/{runId}'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorkflowRunResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.get_workflow_run",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#get_workflow_run\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every execution of one node in a run with its input and output items (each port keeps the first 50 items, 16 KB per item; truncated=true when cut). Data older than the retention window, or not kept by settings.saveSuccessData=false, is pruned: that execution has input/output null and pruned=true, and when every execution is pruned the response is { data: null, meta: { pruned: true } } (never an empty list).
+    # @param run_id [String] Workflow run id.
+    # @param node_id [String] Node id within the run&#39;s graph.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWorkflowRunNodeResponse]
+    def get_workflow_run_node(run_id, node_id, opts = {})
+      data, _status_code, _headers = get_workflow_run_node_with_http_info(run_id, node_id, opts)
+      data
+    end
+
+    # Every execution of one node in a run with its input and output items (each port keeps the first 50 items, 16 KB per item; truncated&#x3D;true when cut). Data older than the retention window, or not kept by settings.saveSuccessData&#x3D;false, is pruned: that execution has input/output null and pruned&#x3D;true, and when every execution is pruned the response is { data: null, meta: { pruned: true } } (never an empty list).
+    # @param run_id [String] Workflow run id.
+    # @param node_id [String] Node id within the run&#39;s graph.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWorkflowRunNodeResponse, Integer, Hash)>] GetWorkflowRunNodeResponse data, response status code and response headers
+    def get_workflow_run_node_with_http_info(run_id, node_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.get_workflow_run_node ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling WorkflowsApi.get_workflow_run_node"
+      end
+      # verify the required parameter 'node_id' is set
+      if @api_client.config.client_side_validation && node_id.nil?
+        fail ArgumentError, "Missing the required parameter 'node_id' when calling WorkflowsApi.get_workflow_run_node"
+      end
+      # resource path
+      local_var_path = '/v1/workflow-runs/{runId}/nodes/{nodeId}'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s)).sub('{' + 'nodeId' + '}', CGI.escape(node_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorkflowRunNodeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.get_workflow_run_node",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#get_workflow_run_node\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Approval requests from flow.approval nodes, newest first (pending only unless status says otherwise). Decide one with POST /v1/workflow-approvals/{id}/decide.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status Comma-separated: pending, approved, rejected, expired. Default pending.
+    # @option opts [String] :workflow_id Only approvals of this workflow.
+    # @option opts [Integer] :page 1-indexed page. (default to 1)
+    # @option opts [Integer] :limit Rows per page (1-100). (default to 25)
+    # @return [ListWorkflowApprovalsResponse]
+    def list_workflow_approvals(opts = {})
+      data, _status_code, _headers = list_workflow_approvals_with_http_info(opts)
+      data
+    end
+
+    # Approval requests from flow.approval nodes, newest first (pending only unless status says otherwise). Decide one with POST /v1/workflow-approvals/{id}/decide.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status Comma-separated: pending, approved, rejected, expired. Default pending.
+    # @option opts [String] :workflow_id Only approvals of this workflow.
+    # @option opts [Integer] :page 1-indexed page.
+    # @option opts [Integer] :limit Rows per page (1-100).
+    # @return [Array<(ListWorkflowApprovalsResponse, Integer, Hash)>] ListWorkflowApprovalsResponse data, response status code and response headers
+    def list_workflow_approvals_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflow_approvals ...'
+      end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling WorkflowsApi.list_workflow_approvals, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WorkflowsApi.list_workflow_approvals, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WorkflowsApi.list_workflow_approvals, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/workflow-approvals'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'workflowId'] = opts[:'workflow_id'] if !opts[:'workflow_id'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowApprovalsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflow_approvals",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflow_approvals\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List workflow chains with their step graph.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [ListWorkflowChainsResponse]
     def list_workflow_chains(opts = {})
@@ -327,6 +1934,7 @@ module Crossly
     end
 
     # List workflow chains with their step graph.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWorkflowChainsResponse, Integer, Hash)>] ListWorkflowChainsResponse data, response status code and response headers
     def list_workflow_chains_with_http_info(opts = {})
@@ -373,7 +1981,518 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Run history of one workflow, newest first, with per-node status and item counts.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status Comma-separated run statuses: queued, running, waiting, succeeded, failed, cancelled.
+    # @option opts [String] :mode live (triggers), test (editor test run) or dry (safe test: no writes).
+    # @option opts [Time] :since Runs queued at or after this time (ISO 8601).
+    # @option opts [Time] :_until Runs queued at or before this time (ISO 8601).
+    # @option opts [Integer] :page 1-indexed page. (default to 1)
+    # @option opts [Integer] :limit Rows per page (1-100). (default to 25)
+    # @return [ListWorkflowRunsResponse]
+    def list_workflow_runs(id, opts = {})
+      data, _status_code, _headers = list_workflow_runs_with_http_info(id, opts)
+      data
+    end
+
+    # Run history of one workflow, newest first, with per-node status and item counts.
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status Comma-separated run statuses: queued, running, waiting, succeeded, failed, cancelled.
+    # @option opts [String] :mode live (triggers), test (editor test run) or dry (safe test: no writes).
+    # @option opts [Time] :since Runs queued at or after this time (ISO 8601).
+    # @option opts [Time] :_until Runs queued at or before this time (ISO 8601).
+    # @option opts [Integer] :page 1-indexed page.
+    # @option opts [Integer] :limit Rows per page (1-100).
+    # @return [Array<(ListWorkflowRunsResponse, Integer, Hash)>] ListWorkflowRunsResponse data, response status code and response headers
+    def list_workflow_runs_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflow_runs ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.list_workflow_runs"
+      end
+      allowable_values = ["live", "test", "dry"]
+      if @api_client.config.client_side_validation && opts[:'mode'] && !allowable_values.include?(opts[:'mode'])
+        fail ArgumentError, "invalid value for \"mode\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling WorkflowsApi.list_workflow_runs, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WorkflowsApi.list_workflow_runs, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WorkflowsApi.list_workflow_runs, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/workflows/{id}/runs'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'mode'] = opts[:'mode'] if !opts[:'mode'].nil?
+      query_params[:'since'] = opts[:'since'] if !opts[:'since'].nil?
+      query_params[:'until'] = opts[:'_until'] if !opts[:'_until'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowRunsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflow_runs",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflow_runs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Runs of every workflow, newest first. Filter by workflow, status, mode and time.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :workflow_id Only runs of this workflow.
+    # @option opts [String] :status Comma-separated run statuses: queued, running, waiting, succeeded, failed, cancelled.
+    # @option opts [String] :mode live (triggers), test (editor test run) or dry (safe test: no writes).
+    # @option opts [Time] :since Runs queued at or after this time (ISO 8601).
+    # @option opts [Time] :_until Runs queued at or before this time (ISO 8601).
+    # @option opts [Integer] :page 1-indexed page. (default to 1)
+    # @option opts [Integer] :limit Rows per page (1-100). (default to 25)
+    # @return [ListWorkflowRunsResponse]
+    def list_workflow_runs2(opts = {})
+      data, _status_code, _headers = list_workflow_runs2_with_http_info(opts)
+      data
+    end
+
+    # Runs of every workflow, newest first. Filter by workflow, status, mode and time.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :workflow_id Only runs of this workflow.
+    # @option opts [String] :status Comma-separated run statuses: queued, running, waiting, succeeded, failed, cancelled.
+    # @option opts [String] :mode live (triggers), test (editor test run) or dry (safe test: no writes).
+    # @option opts [Time] :since Runs queued at or after this time (ISO 8601).
+    # @option opts [Time] :_until Runs queued at or before this time (ISO 8601).
+    # @option opts [Integer] :page 1-indexed page.
+    # @option opts [Integer] :limit Rows per page (1-100).
+    # @return [Array<(ListWorkflowRunsResponse, Integer, Hash)>] ListWorkflowRunsResponse data, response status code and response headers
+    def list_workflow_runs2_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflow_runs2 ...'
+      end
+      allowable_values = ["live", "test", "dry"]
+      if @api_client.config.client_side_validation && opts[:'mode'] && !allowable_values.include?(opts[:'mode'])
+        fail ArgumentError, "invalid value for \"mode\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling WorkflowsApi.list_workflow_runs2, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WorkflowsApi.list_workflow_runs2, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WorkflowsApi.list_workflow_runs2, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/workflow-runs'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'workflowId'] = opts[:'workflow_id'] if !opts[:'workflow_id'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'mode'] = opts[:'mode'] if !opts[:'mode'].nil?
+      query_params[:'since'] = opts[:'since'] if !opts[:'since'].nil?
+      query_params[:'until'] = opts[:'_until'] if !opts[:'_until'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowRunsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflow_runs2",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflow_runs2\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every live or upcoming sale (a sales event started by a sale.start node) with the workflow that runs it: percent off, window, and how many listings it applies to.
+    # @param [Hash] opts the optional parameters
+    # @return [ListWorkflowSaleActiveResponse]
+    def list_workflow_sale_active(opts = {})
+      data, _status_code, _headers = list_workflow_sale_active_with_http_info(opts)
+      data
+    end
+
+    # Every live or upcoming sale (a sales event started by a sale.start node) with the workflow that runs it: percent off, window, and how many listings it applies to.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWorkflowSaleActiveResponse, Integer, Hash)>] ListWorkflowSaleActiveResponse data, response status code and response headers
+    def list_workflow_sale_active_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflow_sale_active ...'
+      end
+      # resource path
+      local_var_path = '/v1/workflows/sales/active'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowSaleActiveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflow_sale_active",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflow_sale_active\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ready-made workflows (weekend sale, stale-listing markdowns, offer responder, ship-by alerts…), each a complete graph plus the setup fields its \"use\" call asks for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :category Exact template category, e.g. \&quot;Sales &amp; markdowns\&quot;.
+    # @option opts [String] :q Matches name, description, category or tags.
+    # @return [ListWorkflowTemplatesResponse]
+    def list_workflow_templates(opts = {})
+      data, _status_code, _headers = list_workflow_templates_with_http_info(opts)
+      data
+    end
+
+    # Ready-made workflows (weekend sale, stale-listing markdowns, offer responder, ship-by alerts…), each a complete graph plus the setup fields its \&quot;use\&quot; call asks for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :category Exact template category, e.g. \&quot;Sales &amp; markdowns\&quot;.
+    # @option opts [String] :q Matches name, description, category or tags.
+    # @return [Array<(ListWorkflowTemplatesResponse, Integer, Hash)>] ListWorkflowTemplatesResponse data, response status code and response headers
+    def list_workflow_templates_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflow_templates ...'
+      end
+      # resource path
+      local_var_path = '/v1/workflows/templates'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowTemplatesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflow_templates",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflow_templates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The saved versions of a workflow, newest first (restore one with POST …/versions/{v}/restore).
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [ListWorkflowVersionsResponse]
+    def list_workflow_versions(id, opts = {})
+      data, _status_code, _headers = list_workflow_versions_with_http_info(id, opts)
+      data
+    end
+
+    # The saved versions of a workflow, newest first (restore one with POST …/versions/{v}/restore).
+    # @param id [String] Workflow id.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWorkflowVersionsResponse, Integer, Hash)>] ListWorkflowVersionsResponse data, response status code and response headers
+    def list_workflow_versions_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflow_versions ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.list_workflow_versions"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}/versions'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowVersionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflow_versions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflow_versions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List workflows, newest change first. A workflow is a graph of nodes: one or more triggers, then actions, lookups and flow nodes (if, switch, wait, approval…). Each row carries its trigger and node types and a 7-day run sparkline, not the graph (GET /v1/workflows/{id} has it).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :active Only active (true) or paused (false) workflows.
+    # @option opts [String] :tag Only workflows carrying this tag.
+    # @option opts [String] :trigger Only workflows started by this trigger node type, e.g. on.listing.sold.
+    # @option opts [String] :q Name contains (case-insensitive).
+    # @option opts [String] :legacy_ref The workflow an old automation became: rule:&lt;id&gt;, chain:&lt;id&gt; or sale_event:&lt;id&gt;.
+    # @return [ListWorkflowsResponse]
+    def list_workflows(opts = {})
+      data, _status_code, _headers = list_workflows_with_http_info(opts)
+      data
+    end
+
+    # List workflows, newest change first. A workflow is a graph of nodes: one or more triggers, then actions, lookups and flow nodes (if, switch, wait, approval…). Each row carries its trigger and node types and a 7-day run sparkline, not the graph (GET /v1/workflows/{id} has it).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :active Only active (true) or paused (false) workflows.
+    # @option opts [String] :tag Only workflows carrying this tag.
+    # @option opts [String] :trigger Only workflows started by this trigger node type, e.g. on.listing.sold.
+    # @option opts [String] :q Name contains (case-insensitive).
+    # @option opts [String] :legacy_ref The workflow an old automation became: rule:&lt;id&gt;, chain:&lt;id&gt; or sale_event:&lt;id&gt;.
+    # @return [Array<(ListWorkflowsResponse, Integer, Hash)>] ListWorkflowsResponse data, response status code and response headers
+    def list_workflows_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.list_workflows ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'active'] && !allowable_values.include?(opts[:'active'])
+        fail ArgumentError, "invalid value for \"active\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/workflows'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'active'] = opts[:'active'] if !opts[:'active'].nil?
+      query_params[:'tag'] = opts[:'tag'] if !opts[:'tag'].nil?
+      query_params[:'trigger'] = opts[:'trigger'] if !opts[:'trigger'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'legacyRef'] = opts[:'legacy_ref'] if !opts[:'legacy_ref'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWorkflowsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.list_workflows",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#list_workflows\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save a workflow. Pass the version you edited: a save over a newer version is 409 version_conflict (re-read and merge). Saving an active workflow validates it like activation does (422 with issues).
+    # @param id [String] Workflow id.
+    # @param update_workflow_request [UpdateWorkflowRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [WorkflowResponse]
+    def update_workflow(id, update_workflow_request, opts = {})
+      data, _status_code, _headers = update_workflow_with_http_info(id, update_workflow_request, opts)
+      data
+    end
+
+    # Save a workflow. Pass the version you edited: a save over a newer version is 409 version_conflict (re-read and merge). Saving an active workflow validates it like activation does (422 with issues).
+    # @param id [String] Workflow id.
+    # @param update_workflow_request [UpdateWorkflowRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WorkflowResponse, Integer, Hash)>] WorkflowResponse data, response status code and response headers
+    def update_workflow_with_http_info(id, update_workflow_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorkflowsApi.update_workflow ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorkflowsApi.update_workflow"
+      end
+      # verify the required parameter 'update_workflow_request' is set
+      if @api_client.config.client_side_validation && update_workflow_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_workflow_request' when calling WorkflowsApi.update_workflow"
+      end
+      # resource path
+      local_var_path = '/v1/workflows/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_workflow_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WorkflowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorkflowsApi.update_workflow",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorkflowsApi#update_workflow\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Replace a workflow chain wholesale.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
@@ -383,6 +2502,7 @@ module Crossly
     end
 
     # Replace a workflow chain wholesale.
+    # Deprecated: workflow chains are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers

@@ -19,9 +19,13 @@ module Crossly
 
     attr_accessor :rate_per_mile
 
+    attr_accessor :rates
+
     attr_accessor :total_miles
 
     attr_accessor :deduction
+
+    attr_accessor :deduction_cents
 
     attr_accessor :entry_count
 
@@ -30,8 +34,10 @@ module Crossly
       {
         :'year' => :'year',
         :'rate_per_mile' => :'ratePerMile',
+        :'rates' => :'rates',
         :'total_miles' => :'totalMiles',
         :'deduction' => :'deduction',
+        :'deduction_cents' => :'deductionCents',
         :'entry_count' => :'entryCount'
       }
     end
@@ -46,8 +52,10 @@ module Crossly
       {
         :'year' => :'Float',
         :'rate_per_mile' => :'Float',
+        :'rates' => :'Array<GetMileageSummaryResponseRates>',
         :'total_miles' => :'Float',
         :'deduction' => :'Float',
+        :'deduction_cents' => :'Float',
         :'entry_count' => :'Float'
       }
     end
@@ -81,12 +89,22 @@ module Crossly
         self.rate_per_mile = attributes[:'rate_per_mile']
       end
 
+      if attributes.key?(:'rates')
+        if (value = attributes[:'rates']).is_a?(Array)
+          self.rates = value
+        end
+      end
+
       if attributes.key?(:'total_miles')
         self.total_miles = attributes[:'total_miles']
       end
 
       if attributes.key?(:'deduction')
         self.deduction = attributes[:'deduction']
+      end
+
+      if attributes.key?(:'deduction_cents')
+        self.deduction_cents = attributes[:'deduction_cents']
       end
 
       if attributes.key?(:'entry_count')
@@ -106,12 +124,20 @@ module Crossly
         invalid_properties.push('invalid value for "rate_per_mile", rate_per_mile cannot be nil.')
       end
 
+      if @rates.nil?
+        invalid_properties.push('invalid value for "rates", rates cannot be nil.')
+      end
+
       if @total_miles.nil?
         invalid_properties.push('invalid value for "total_miles", total_miles cannot be nil.')
       end
 
       if @deduction.nil?
         invalid_properties.push('invalid value for "deduction", deduction cannot be nil.')
+      end
+
+      if @deduction_cents.nil?
+        invalid_properties.push('invalid value for "deduction_cents", deduction_cents cannot be nil.')
       end
 
       if @entry_count.nil?
@@ -126,8 +152,10 @@ module Crossly
     def valid?
       return false if @year.nil?
       return false if @rate_per_mile.nil?
+      return false if @rates.nil?
       return false if @total_miles.nil?
       return false if @deduction.nil?
+      return false if @deduction_cents.nil?
       return false if @entry_count.nil?
       true
     end
@@ -139,8 +167,10 @@ module Crossly
       self.class == o.class &&
           year == o.year &&
           rate_per_mile == o.rate_per_mile &&
+          rates == o.rates &&
           total_miles == o.total_miles &&
           deduction == o.deduction &&
+          deduction_cents == o.deduction_cents &&
           entry_count == o.entry_count
     end
 
@@ -153,7 +183,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [year, rate_per_mile, total_miles, deduction, entry_count].hash
+      [year, rate_per_mile, rates, total_miles, deduction, deduction_cents, entry_count].hash
     end
 
     # Builds the object from hash

@@ -124,7 +124,7 @@ module Crossly
     def valid?
       return false if @slug.nil?
       return false if @privacy.nil?
-      privacy_validator = EnumAttributeValidator.new('String', ["open", "locked", "friends"])
+      privacy_validator = EnumAttributeValidator.new('String', ["open", "friends", "locked"])
       return false unless privacy_validator.valid?(@privacy)
       return false if @path.nil?
       true
@@ -133,7 +133,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] privacy Object to be assigned
     def privacy=(privacy)
-      validator = EnumAttributeValidator.new('String', ["open", "locked", "friends"])
+      validator = EnumAttributeValidator.new('String', ["open", "friends", "locked"])
       unless validator.valid?(privacy)
         fail ArgumentError, "invalid value for \"privacy\", must be one of #{validator.allowable_values}."
       end

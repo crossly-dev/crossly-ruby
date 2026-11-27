@@ -15,6 +15,10 @@ require 'time'
 
 module Crossly
   class GetAnalyticBookkeepingResponseAnnualTotals
+    attr_accessor :gross_sales
+
+    attr_accessor :refunds
+
     attr_accessor :revenue
 
     attr_accessor :cogs
@@ -23,15 +27,23 @@ module Crossly
 
     attr_accessor :shipping_costs
 
+    attr_accessor :mileage
+
+    attr_accessor :other_expenses
+
     attr_accessor :net_profit
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'gross_sales' => :'grossSales',
+        :'refunds' => :'refunds',
         :'revenue' => :'revenue',
         :'cogs' => :'cogs',
         :'platform_fees' => :'platformFees',
         :'shipping_costs' => :'shippingCosts',
+        :'mileage' => :'mileage',
+        :'other_expenses' => :'otherExpenses',
         :'net_profit' => :'netProfit'
       }
     end
@@ -44,10 +56,14 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'gross_sales' => :'Float',
+        :'refunds' => :'Float',
         :'revenue' => :'Float',
         :'cogs' => :'Float',
         :'platform_fees' => :'Float',
         :'shipping_costs' => :'Float',
+        :'mileage' => :'Float',
+        :'other_expenses' => :'Float',
         :'net_profit' => :'Float'
       }
     end
@@ -73,6 +89,14 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'gross_sales')
+        self.gross_sales = attributes[:'gross_sales']
+      end
+
+      if attributes.key?(:'refunds')
+        self.refunds = attributes[:'refunds']
+      end
+
       if attributes.key?(:'revenue')
         self.revenue = attributes[:'revenue']
       end
@@ -89,6 +113,14 @@ module Crossly
         self.shipping_costs = attributes[:'shipping_costs']
       end
 
+      if attributes.key?(:'mileage')
+        self.mileage = attributes[:'mileage']
+      end
+
+      if attributes.key?(:'other_expenses')
+        self.other_expenses = attributes[:'other_expenses']
+      end
+
       if attributes.key?(:'net_profit')
         self.net_profit = attributes[:'net_profit']
       end
@@ -98,6 +130,14 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @gross_sales.nil?
+        invalid_properties.push('invalid value for "gross_sales", gross_sales cannot be nil.')
+      end
+
+      if @refunds.nil?
+        invalid_properties.push('invalid value for "refunds", refunds cannot be nil.')
+      end
+
       if @revenue.nil?
         invalid_properties.push('invalid value for "revenue", revenue cannot be nil.')
       end
@@ -114,6 +154,14 @@ module Crossly
         invalid_properties.push('invalid value for "shipping_costs", shipping_costs cannot be nil.')
       end
 
+      if @mileage.nil?
+        invalid_properties.push('invalid value for "mileage", mileage cannot be nil.')
+      end
+
+      if @other_expenses.nil?
+        invalid_properties.push('invalid value for "other_expenses", other_expenses cannot be nil.')
+      end
+
       if @net_profit.nil?
         invalid_properties.push('invalid value for "net_profit", net_profit cannot be nil.')
       end
@@ -124,10 +172,14 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @gross_sales.nil?
+      return false if @refunds.nil?
       return false if @revenue.nil?
       return false if @cogs.nil?
       return false if @platform_fees.nil?
       return false if @shipping_costs.nil?
+      return false if @mileage.nil?
+      return false if @other_expenses.nil?
       return false if @net_profit.nil?
       true
     end
@@ -137,10 +189,14 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          gross_sales == o.gross_sales &&
+          refunds == o.refunds &&
           revenue == o.revenue &&
           cogs == o.cogs &&
           platform_fees == o.platform_fees &&
           shipping_costs == o.shipping_costs &&
+          mileage == o.mileage &&
+          other_expenses == o.other_expenses &&
           net_profit == o.net_profit
     end
 
@@ -153,7 +209,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [revenue, cogs, platform_fees, shipping_costs, net_profit].hash
+      [gross_sales, refunds, revenue, cogs, platform_fees, shipping_costs, mileage, other_expenses, net_profit].hash
     end
 
     # Builds the object from hash

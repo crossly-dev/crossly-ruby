@@ -178,7 +178,7 @@ module CrosslyBuyer
       return false if @facts.nil?
       return false if @action.nil?
       return false if @tone.nil?
-      tone_validator = EnumAttributeValidator.new('String', ["none", "info", "win"])
+      tone_validator = EnumAttributeValidator.new('String', ["info", "none", "win"])
       return false unless tone_validator.valid?(@tone)
       true
     end
@@ -186,7 +186,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tone Object to be assigned
     def tone=(tone)
-      validator = EnumAttributeValidator.new('String', ["none", "info", "win"])
+      validator = EnumAttributeValidator.new('String', ["info", "none", "win"])
       unless validator.valid?(tone)
         fail ArgumentError, "invalid value for \"tone\", must be one of #{validator.allowable_values}."
       end

@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class GetWeb3LaunchToolResponse
+    attr_accessor :royalties
+
     attr_accessor :allowlist
 
     attr_accessor :art
@@ -24,6 +26,7 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'royalties' => :'royalties',
         :'allowlist' => :'allowlist',
         :'art' => :'art',
         :'supply' => :'supply'
@@ -38,6 +41,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'royalties' => :'GetWeb3LaunchToolResponseRoyalties',
         :'allowlist' => :'GetWeb3LaunchToolResponseAllowlist',
         :'art' => :'GetWeb3LaunchToolResponseArt',
         :'supply' => :'GetWeb3LaunchToolResponseSupply'
@@ -65,6 +69,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'royalties')
+        self.royalties = attributes[:'royalties']
+      end
+
       if attributes.key?(:'allowlist')
         self.allowlist = attributes[:'allowlist']
       end
@@ -82,6 +90,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @royalties.nil?
+        invalid_properties.push('invalid value for "royalties", royalties cannot be nil.')
+      end
+
       if @allowlist.nil?
         invalid_properties.push('invalid value for "allowlist", allowlist cannot be nil.')
       end
@@ -100,6 +112,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @royalties.nil?
       return false if @allowlist.nil?
       return false if @art.nil?
       return false if @supply.nil?
@@ -111,6 +124,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          royalties == o.royalties &&
           allowlist == o.allowlist &&
           art == o.art &&
           supply == o.supply
@@ -125,7 +139,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [allowlist, art, supply].hash
+      [royalties, allowlist, art, supply].hash
     end
 
     # Builds the object from hash

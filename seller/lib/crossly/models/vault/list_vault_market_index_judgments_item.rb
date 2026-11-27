@@ -169,7 +169,7 @@ module Crossly
       return false if @at.nil?
       return false if @id.nil?
       return false if @action.nil?
-      action_validator = EnumAttributeValidator.new('String', ["method", "halt", "resume", "exclude_key", "void_trade", "restate", "retire"])
+      action_validator = EnumAttributeValidator.new('String', ["method", "resume", "halt", "exclude_key", "void_trade", "restate", "retire"])
       return false unless action_validator.valid?(@action)
       return false if @reason.nil?
       return false if @detail.nil?
@@ -179,7 +179,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] action Object to be assigned
     def action=(action)
-      validator = EnumAttributeValidator.new('String', ["method", "halt", "resume", "exclude_key", "void_trade", "restate", "retire"])
+      validator = EnumAttributeValidator.new('String', ["method", "resume", "halt", "exclude_key", "void_trade", "restate", "retire"])
       unless validator.valid?(action)
         fail ArgumentError, "invalid value for \"action\", must be one of #{validator.allowable_values}."
       end

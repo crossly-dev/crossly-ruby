@@ -15,20 +15,20 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerListingSubscribeOfferResponseData
-    attr_accessor :price_cents
-
     attr_accessor :discount_bps
 
     attr_accessor :intervals
+
+    attr_accessor :price_cents
 
     attr_accessor :subscribe_price_cents
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'price_cents' => :'priceCents',
         :'discount_bps' => :'discountBps',
         :'intervals' => :'intervals',
+        :'price_cents' => :'priceCents',
         :'subscribe_price_cents' => :'subscribePriceCents'
       }
     end
@@ -41,9 +41,9 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'price_cents' => :'Float',
         :'discount_bps' => :'Float',
         :'intervals' => :'Array<Float>',
+        :'price_cents' => :'Float',
         :'subscribe_price_cents' => :'Float'
       }
     end
@@ -69,10 +69,6 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'price_cents')
-        self.price_cents = attributes[:'price_cents']
-      end
-
       if attributes.key?(:'discount_bps')
         self.discount_bps = attributes[:'discount_bps']
       end
@@ -81,6 +77,10 @@ module CrosslyBuyer
         if (value = attributes[:'intervals']).is_a?(Array)
           self.intervals = value
         end
+      end
+
+      if attributes.key?(:'price_cents')
+        self.price_cents = attributes[:'price_cents']
       end
 
       if attributes.key?(:'subscribe_price_cents')
@@ -92,16 +92,16 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @price_cents.nil?
-        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
-      end
-
       if @discount_bps.nil?
         invalid_properties.push('invalid value for "discount_bps", discount_bps cannot be nil.')
       end
 
       if @intervals.nil?
         invalid_properties.push('invalid value for "intervals", intervals cannot be nil.')
+      end
+
+      if @price_cents.nil?
+        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
       if @subscribe_price_cents.nil?
@@ -114,9 +114,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @price_cents.nil?
       return false if @discount_bps.nil?
       return false if @intervals.nil?
+      return false if @price_cents.nil?
       return false if @subscribe_price_cents.nil?
       true
     end
@@ -126,9 +126,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          price_cents == o.price_cents &&
           discount_bps == o.discount_bps &&
           intervals == o.intervals &&
+          price_cents == o.price_cents &&
           subscribe_price_cents == o.subscribe_price_cents
     end
 
@@ -141,7 +141,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [price_cents, discount_bps, intervals, subscribe_price_cents].hash
+      [discount_bps, intervals, price_cents, subscribe_price_cents].hash
     end
 
     # Builds the object from hash

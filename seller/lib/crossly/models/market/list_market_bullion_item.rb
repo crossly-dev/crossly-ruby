@@ -280,10 +280,10 @@ module Crossly
       metal_validator = EnumAttributeValidator.new('String', ["gold", "silver", "platinum", "palladium"])
       return false unless metal_validator.valid?(@metal)
       return false if @form.nil?
-      form_validator = EnumAttributeValidator.new('String', ["round", "bullion_coin", "bar"])
+      form_validator = EnumAttributeValidator.new('String', ["bullion_coin", "bar", "round"])
       return false unless form_validator.valid?(@form)
       return false if @size.nil?
-      size_validator = EnumAttributeValidator.new('String', ["quarter", "fractional", "half", "one", "two-five", "ten", "kilo", "large"])
+      size_validator = EnumAttributeValidator.new('String', ["fractional", "quarter", "half", "one", "two-five", "ten", "kilo", "large"])
       return false unless size_validator.valid?(@size)
       return false if @fine_troy_oz.nil?
       return false if @popularity.nil?
@@ -303,7 +303,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] form Object to be assigned
     def form=(form)
-      validator = EnumAttributeValidator.new('String', ["round", "bullion_coin", "bar"])
+      validator = EnumAttributeValidator.new('String', ["bullion_coin", "bar", "round"])
       unless validator.valid?(form)
         fail ArgumentError, "invalid value for \"form\", must be one of #{validator.allowable_values}."
       end
@@ -313,7 +313,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] size Object to be assigned
     def size=(size)
-      validator = EnumAttributeValidator.new('String', ["quarter", "fractional", "half", "one", "two-five", "ten", "kilo", "large"])
+      validator = EnumAttributeValidator.new('String', ["fractional", "quarter", "half", "one", "two-five", "ten", "kilo", "large"])
       unless validator.valid?(size)
         fail ArgumentError, "invalid value for \"size\", must be one of #{validator.allowable_values}."
       end

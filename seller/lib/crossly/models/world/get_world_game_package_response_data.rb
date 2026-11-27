@@ -27,6 +27,10 @@ module Crossly
 
     attr_accessor :created_at
 
+    attr_accessor :updated_at
+
+    attr_accessor :unpublished_at
+
     attr_accessor :versions
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -38,6 +42,8 @@ module Crossly
         :'name' => :'name',
         :'design_id' => :'designId',
         :'created_at' => :'createdAt',
+        :'updated_at' => :'updatedAt',
+        :'unpublished_at' => :'unpublishedAt',
         :'versions' => :'versions'
       }
     end
@@ -56,6 +62,8 @@ module Crossly
         :'name' => :'String',
         :'design_id' => :'String',
         :'created_at' => :'Time',
+        :'updated_at' => :'Time',
+        :'unpublished_at' => :'Time',
         :'versions' => :'Array<GetWorldGamePackageResponseDataVersions>'
       }
     end
@@ -64,6 +72,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'stats',
+        :'unpublished_at',
       ])
     end
 
@@ -106,6 +115,14 @@ module Crossly
         self.created_at = attributes[:'created_at']
       end
 
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      end
+
+      if attributes.key?(:'unpublished_at')
+        self.unpublished_at = attributes[:'unpublished_at']
+      end
+
       if attributes.key?(:'versions')
         if (value = attributes[:'versions']).is_a?(Array)
           self.versions = value
@@ -137,6 +154,10 @@ module Crossly
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
       if @versions.nil?
         invalid_properties.push('invalid value for "versions", versions cannot be nil.')
       end
@@ -152,6 +173,7 @@ module Crossly
       return false if @name.nil?
       return false if @design_id.nil?
       return false if @created_at.nil?
+      return false if @updated_at.nil?
       return false if @versions.nil?
       true
     end
@@ -167,6 +189,8 @@ module Crossly
           name == o.name &&
           design_id == o.design_id &&
           created_at == o.created_at &&
+          updated_at == o.updated_at &&
+          unpublished_at == o.unpublished_at &&
           versions == o.versions
     end
 
@@ -179,7 +203,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [stats, id, slug, name, design_id, created_at, versions].hash
+      [stats, id, slug, name, design_id, created_at, updated_at, unpublished_at, versions].hash
     end
 
     # Builds the object from hash

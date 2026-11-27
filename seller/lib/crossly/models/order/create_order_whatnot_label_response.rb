@@ -19,11 +19,46 @@ module Crossly
 
     attr_accessor :recorded
 
+    attr_accessor :ok
+
+    # Absent for an additional label, which Poshmark delivers only by email.
+    attr_accessor :download_url
+
+    # True when the label exists only in the seller's inbox.
+    attr_accessor :email_only
+
+    attr_accessor :label_url
+
+    attr_accessor :tracking_number
+
+    attr_accessor :carrier
+
+    attr_accessor :service
+
+    attr_accessor :document_kind
+
+    attr_accessor :web_url
+
+    attr_accessor :pending
+
+    attr_accessor :message
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'shipment' => :'shipment',
-        :'recorded' => :'recorded'
+        :'recorded' => :'recorded',
+        :'ok' => :'ok',
+        :'download_url' => :'downloadUrl',
+        :'email_only' => :'emailOnly',
+        :'label_url' => :'labelUrl',
+        :'tracking_number' => :'trackingNumber',
+        :'carrier' => :'carrier',
+        :'service' => :'service',
+        :'document_kind' => :'documentKind',
+        :'web_url' => :'webUrl',
+        :'pending' => :'pending',
+        :'message' => :'message'
       }
     end
 
@@ -35,14 +70,31 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'shipment' => :'CreateOrderWhatnotLabelResponseShipment',
-        :'recorded' => :'Boolean'
+        :'shipment' => :'GetOrderWhatnotShipmentResponseShipment',
+        :'recorded' => :'Boolean',
+        :'ok' => :'Boolean',
+        :'download_url' => :'String',
+        :'email_only' => :'Boolean',
+        :'label_url' => :'String',
+        :'tracking_number' => :'String',
+        :'carrier' => :'String',
+        :'service' => :'String',
+        :'document_kind' => :'String',
+        :'web_url' => :'String',
+        :'pending' => :'Boolean',
+        :'message' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'download_url',
+        :'tracking_number',
+        :'carrier',
+        :'service',
+        :'document_kind',
+        :'web_url',
       ])
     end
 
@@ -68,28 +120,62 @@ module Crossly
       if attributes.key?(:'recorded')
         self.recorded = attributes[:'recorded']
       end
+
+      if attributes.key?(:'ok')
+        self.ok = attributes[:'ok']
+      end
+
+      if attributes.key?(:'download_url')
+        self.download_url = attributes[:'download_url']
+      end
+
+      if attributes.key?(:'email_only')
+        self.email_only = attributes[:'email_only']
+      end
+
+      if attributes.key?(:'label_url')
+        self.label_url = attributes[:'label_url']
+      end
+
+      if attributes.key?(:'tracking_number')
+        self.tracking_number = attributes[:'tracking_number']
+      end
+
+      if attributes.key?(:'carrier')
+        self.carrier = attributes[:'carrier']
+      end
+
+      if attributes.key?(:'service')
+        self.service = attributes[:'service']
+      end
+
+      if attributes.key?(:'document_kind')
+        self.document_kind = attributes[:'document_kind']
+      end
+
+      if attributes.key?(:'web_url')
+        self.web_url = attributes[:'web_url']
+      end
+
+      if attributes.key?(:'pending')
+        self.pending = attributes[:'pending']
+      end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @shipment.nil?
-        invalid_properties.push('invalid value for "shipment", shipment cannot be nil.')
-      end
-
-      if @recorded.nil?
-        invalid_properties.push('invalid value for "recorded", recorded cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @shipment.nil?
-      return false if @recorded.nil?
       true
     end
 
@@ -99,7 +185,18 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           shipment == o.shipment &&
-          recorded == o.recorded
+          recorded == o.recorded &&
+          ok == o.ok &&
+          download_url == o.download_url &&
+          email_only == o.email_only &&
+          label_url == o.label_url &&
+          tracking_number == o.tracking_number &&
+          carrier == o.carrier &&
+          service == o.service &&
+          document_kind == o.document_kind &&
+          web_url == o.web_url &&
+          pending == o.pending &&
+          message == o.message
     end
 
     # @see the `==` method
@@ -111,7 +208,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [shipment, recorded].hash
+      [shipment, recorded, ok, download_url, email_only, label_url, tracking_number, carrier, service, document_kind, web_url, pending, message].hash
     end
 
     # Builds the object from hash

@@ -19,6 +19,8 @@ module Crossly
 
     attr_accessor :photo_identifier
 
+    attr_accessor :match_reference
+
     attr_accessor :ebay_match
 
     # Unified top-10-globally list, ranked by CLIP visual similarity to the seller's source photo. Each hit carries its origin platform.
@@ -40,11 +42,15 @@ module Crossly
 
     attr_accessor :cached
 
+    # Monthly vision calls (vision-quota.ts) this scan spent: the seller's Activity Log shows them as credits used. 0 for a single-photo scan and for a re-scan of the same photos.
+    attr_accessor :vision_calls_used
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'run_id' => :'runId',
         :'photo_identifier' => :'photoIdentifier',
+        :'match_reference' => :'matchReference',
         :'ebay_match' => :'ebayMatch',
         :'top_hits' => :'topHits',
         :'ebay_hits' => :'ebayHits',
@@ -52,7 +58,8 @@ module Crossly
         :'image_urls' => :'imageUrls',
         :'vision_aspects' => :'visionAspects',
         :'possible_duplicates' => :'possibleDuplicates',
-        :'cached' => :'cached'
+        :'cached' => :'cached',
+        :'vision_calls_used' => :'visionCallsUsed'
       }
     end
 
@@ -66,6 +73,7 @@ module Crossly
       {
         :'run_id' => :'String',
         :'photo_identifier' => :'CreateMagicScanResponsePhotoIdentifier',
+        :'match_reference' => :'CreateMagicScanResponseMatchReference',
         :'ebay_match' => :'CreateMagicScanResponseEbayMatch',
         :'top_hits' => :'Array<CreateMagicScanResponseTopHits>',
         :'ebay_hits' => :'Array<CreateMagicScanResponseEbayHits>',
@@ -73,7 +81,8 @@ module Crossly
         :'image_urls' => :'Array<String>',
         :'vision_aspects' => :'Hash<String, Object>',
         :'possible_duplicates' => :'Array<CreateMagicScanResponsePossibleDuplicates>',
-        :'cached' => :'Boolean'
+        :'cached' => :'Boolean',
+        :'vision_calls_used' => :'Float'
       }
     end
 
@@ -81,7 +90,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'photo_identifier',
+        :'match_reference',
         :'ebay_match',
+        :'vision_calls_used'
       ])
     end
 
@@ -106,6 +117,10 @@ module Crossly
 
       if attributes.key?(:'photo_identifier')
         self.photo_identifier = attributes[:'photo_identifier']
+      end
+
+      if attributes.key?(:'match_reference')
+        self.match_reference = attributes[:'match_reference']
       end
 
       if attributes.key?(:'ebay_match')
@@ -150,6 +165,10 @@ module Crossly
 
       if attributes.key?(:'cached')
         self.cached = attributes[:'cached']
+      end
+
+      if attributes.key?(:'vision_calls_used')
+        self.vision_calls_used = attributes[:'vision_calls_used']
       end
     end
 
@@ -213,6 +232,7 @@ module Crossly
       self.class == o.class &&
           run_id == o.run_id &&
           photo_identifier == o.photo_identifier &&
+          match_reference == o.match_reference &&
           ebay_match == o.ebay_match &&
           top_hits == o.top_hits &&
           ebay_hits == o.ebay_hits &&
@@ -220,7 +240,8 @@ module Crossly
           image_urls == o.image_urls &&
           vision_aspects == o.vision_aspects &&
           possible_duplicates == o.possible_duplicates &&
-          cached == o.cached
+          cached == o.cached &&
+          vision_calls_used == o.vision_calls_used
     end
 
     # @see the `==` method
@@ -232,7 +253,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [run_id, photo_identifier, ebay_match, top_hits, ebay_hits, other_matches, image_urls, vision_aspects, possible_duplicates, cached].hash
+      [run_id, photo_identifier, match_reference, ebay_match, top_hits, ebay_hits, other_matches, image_urls, vision_aspects, possible_duplicates, cached, vision_calls_used].hash
     end
 
     # Builds the object from hash

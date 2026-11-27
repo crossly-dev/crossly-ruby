@@ -40,7 +40,7 @@ module Crossly
       {
         :'enabled' => :'Boolean',
         :'deeds' => :'Array<GetSpatialPropertyResponseDataDeeds>',
-        :'tenancies' => :'Array<CreateSpatialPropertyDeedLeaseResponseData>'
+        :'tenancies' => :'Array<GetSpatialPropertyResponseDataTenancies>'
       }
     end
 

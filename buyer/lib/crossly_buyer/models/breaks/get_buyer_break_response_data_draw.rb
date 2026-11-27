@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerBreakResponseDataDraw
-    attr_accessor :position
-
     attr_accessor :entry
+
+    attr_accessor :position
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'position' => :'position',
-        :'entry' => :'entry'
+        :'entry' => :'entry',
+        :'position' => :'position'
       }
     end
 
@@ -35,8 +35,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'position' => :'Float',
-        :'entry' => :'Float'
+        :'entry' => :'Float',
+        :'position' => :'Float'
       }
     end
 
@@ -61,12 +61,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'position')
-        self.position = attributes[:'position']
-      end
-
       if attributes.key?(:'entry')
         self.entry = attributes[:'entry']
+      end
+
+      if attributes.key?(:'position')
+        self.position = attributes[:'position']
       end
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @position.nil?
-        invalid_properties.push('invalid value for "position", position cannot be nil.')
-      end
-
       if @entry.nil?
         invalid_properties.push('invalid value for "entry", entry cannot be nil.')
+      end
+
+      if @position.nil?
+        invalid_properties.push('invalid value for "position", position cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @position.nil?
       return false if @entry.nil?
+      return false if @position.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          position == o.position &&
-          entry == o.entry
+          entry == o.entry &&
+          position == o.position
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [position, entry].hash
+      [entry, position].hash
     end
 
     # Builds the object from hash

@@ -15,24 +15,24 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerListingImpactResponseData
-    attr_accessor :source
+    attr_accessor :key
 
     attr_accessor :label
-
-    attr_accessor :key
 
     attr_accessor :co2_kg
 
     attr_accessor :water_l
 
+    attr_accessor :source
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'source' => :'source',
-        :'label' => :'label',
         :'key' => :'key',
+        :'label' => :'label',
         :'co2_kg' => :'co2Kg',
-        :'water_l' => :'waterL'
+        :'water_l' => :'waterL',
+        :'source' => :'source'
       }
     end
 
@@ -44,11 +44,11 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'source' => :'String',
-        :'label' => :'String',
         :'key' => :'String',
+        :'label' => :'String',
         :'co2_kg' => :'Float',
-        :'water_l' => :'Float'
+        :'water_l' => :'Float',
+        :'source' => :'String'
       }
     end
 
@@ -56,7 +56,7 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'co2_kg',
-        :'water_l'
+        :'water_l',
       ])
     end
 
@@ -75,16 +75,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'source')
-        self.source = attributes[:'source']
+      if attributes.key?(:'key')
+        self.key = attributes[:'key']
       end
 
       if attributes.key?(:'label')
         self.label = attributes[:'label']
-      end
-
-      if attributes.key?(:'key')
-        self.key = attributes[:'key']
       end
 
       if attributes.key?(:'co2_kg')
@@ -94,22 +90,26 @@ module CrosslyBuyer
       if attributes.key?(:'water_l')
         self.water_l = attributes[:'water_l']
       end
+
+      if attributes.key?(:'source')
+        self.source = attributes[:'source']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @source.nil?
-        invalid_properties.push('invalid value for "source", source cannot be nil.')
+      if @key.nil?
+        invalid_properties.push('invalid value for "key", key cannot be nil.')
       end
 
       if @label.nil?
         invalid_properties.push('invalid value for "label", label cannot be nil.')
       end
 
-      if @key.nil?
-        invalid_properties.push('invalid value for "key", key cannot be nil.')
+      if @source.nil?
+        invalid_properties.push('invalid value for "source", source cannot be nil.')
       end
 
       invalid_properties
@@ -118,9 +118,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @source.nil?
-      return false if @label.nil?
       return false if @key.nil?
+      return false if @label.nil?
+      return false if @source.nil?
       true
     end
 
@@ -129,11 +129,11 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          source == o.source &&
-          label == o.label &&
           key == o.key &&
+          label == o.label &&
           co2_kg == o.co2_kg &&
-          water_l == o.water_l
+          water_l == o.water_l &&
+          source == o.source
     end
 
     # @see the `==` method
@@ -145,7 +145,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [source, label, key, co2_kg, water_l].hash
+      [key, label, co2_kg, water_l, source].hash
     end
 
     # Builds the object from hash

@@ -256,11 +256,11 @@ module Crossly
       return false if @lot.nil?
       return false if @mark_cents.nil?
       return false if @mark_quality.nil?
-      mark_quality_validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      mark_quality_validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       return false unless mark_quality_validator.valid?(@mark_quality)
       return false if @est_loss_cents.nil?
       return false if @loss_bps.nil?
-      term_validator = EnumAttributeValidator.new('String', ["long", "short"])
+      term_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless term_validator.valid?(@term)
       return false if @sell_href.nil?
       true
@@ -269,7 +269,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] mark_quality Object to be assigned
     def mark_quality=(mark_quality)
-      validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       unless validator.valid?(mark_quality)
         fail ArgumentError, "invalid value for \"mark_quality\", must be one of #{validator.allowable_values}."
       end
@@ -279,7 +279,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] term Object to be assigned
     def term=(term)
-      validator = EnumAttributeValidator.new('String', ["long", "short"])
+      validator = EnumAttributeValidator.new('String', ["short", "long"])
       unless validator.valid?(term)
         fail ArgumentError, "invalid value for \"term\", must be one of #{validator.allowable_values}."
       end

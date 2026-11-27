@@ -17,12 +17,37 @@ module Crossly
   class GetAnalyticTimeseryResponse
     attr_accessor :days
 
+    attr_accessor :granularity
+
     attr_accessor :series
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'days' => :'days',
+        :'granularity' => :'granularity',
         :'series' => :'series'
       }
     end
@@ -36,6 +61,7 @@ module Crossly
     def self.openapi_types
       {
         :'days' => :'Float',
+        :'granularity' => :'String',
         :'series' => :'Array<GetAnalyticTimeseryResponseSeries>'
       }
     end
@@ -65,6 +91,10 @@ module Crossly
         self.days = attributes[:'days']
       end
 
+      if attributes.key?(:'granularity')
+        self.granularity = attributes[:'granularity']
+      end
+
       if attributes.key?(:'series')
         if (value = attributes[:'series']).is_a?(Array)
           self.series = value
@@ -80,6 +110,10 @@ module Crossly
         invalid_properties.push('invalid value for "days", days cannot be nil.')
       end
 
+      if @granularity.nil?
+        invalid_properties.push('invalid value for "granularity", granularity cannot be nil.')
+      end
+
       if @series.nil?
         invalid_properties.push('invalid value for "series", series cannot be nil.')
       end
@@ -91,8 +125,21 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @days.nil?
+      return false if @granularity.nil?
+      granularity_validator = EnumAttributeValidator.new('String', ["day", "week", "month"])
+      return false unless granularity_validator.valid?(@granularity)
       return false if @series.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] granularity Object to be assigned
+    def granularity=(granularity)
+      validator = EnumAttributeValidator.new('String', ["day", "week", "month"])
+      unless validator.valid?(granularity)
+        fail ArgumentError, "invalid value for \"granularity\", must be one of #{validator.allowable_values}."
+      end
+      @granularity = granularity
     end
 
     # Checks equality by comparing each attribute.
@@ -101,6 +148,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           days == o.days &&
+          granularity == o.granularity &&
           series == o.series
     end
 
@@ -113,7 +161,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [days, series].hash
+      [days, granularity, series].hash
     end
 
     # Builds the object from hash

@@ -21,6 +21,9 @@ module Crossly
 
     attr_accessor :sold_items_count
 
+    # \"N sales pending details\": in the period, not in revenue/profit/avg.
+    attr_accessor :pending_details_count
+
     attr_accessor :cancelled_count
 
     attr_accessor :cancel_rate
@@ -33,11 +36,16 @@ module Crossly
 
     attr_accessor :avg_sale_price
 
+    # 0–100 (legacy unit). The full cohort is `sellThroughCohort`.
     attr_accessor :sell_through_rate
 
     attr_accessor :sell_through
 
+    attr_accessor :sell_through_cohort
+
     attr_accessor :avg_days_to_sell
+
+    attr_accessor :median_days_to_sell
 
     attr_accessor :sales_by_platform
 
@@ -57,12 +65,15 @@ module Crossly
 
     attr_accessor :available_labels
 
+    attr_accessor :period
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'revenue' => :'revenue',
         :'profit' => :'profit',
         :'sold_items_count' => :'soldItemsCount',
+        :'pending_details_count' => :'pendingDetailsCount',
         :'cancelled_count' => :'cancelledCount',
         :'cancel_rate' => :'cancelRate',
         :'refunded_amount' => :'refundedAmount',
@@ -71,7 +82,9 @@ module Crossly
         :'avg_sale_price' => :'avgSalePrice',
         :'sell_through_rate' => :'sellThroughRate',
         :'sell_through' => :'sellThrough',
+        :'sell_through_cohort' => :'sellThroughCohort',
         :'avg_days_to_sell' => :'avgDaysToSell',
+        :'median_days_to_sell' => :'medianDaysToSell',
         :'sales_by_platform' => :'salesByPlatform',
         :'avg_sale_price_by_platform' => :'avgSalePriceByPlatform',
         :'revenue_by_day' => :'revenueByDay',
@@ -80,7 +93,8 @@ module Crossly
         :'top_brands' => :'topBrands',
         :'top5_items_by_revenue' => :'top5ItemsByRevenue',
         :'recent_sales' => :'recentSales',
-        :'available_labels' => :'availableLabels'
+        :'available_labels' => :'availableLabels',
+        :'period' => :'period'
       }
     end
 
@@ -95,6 +109,7 @@ module Crossly
         :'revenue' => :'GetAnalyticDashboardResponseRevenue',
         :'profit' => :'GetAnalyticDashboardResponseRevenue',
         :'sold_items_count' => :'GetAnalyticDashboardResponseRevenue',
+        :'pending_details_count' => :'Float',
         :'cancelled_count' => :'GetAnalyticDashboardResponseRevenue',
         :'cancel_rate' => :'GetAnalyticDashboardResponseCancelRate',
         :'refunded_amount' => :'GetAnalyticDashboardResponseRevenue',
@@ -103,7 +118,9 @@ module Crossly
         :'avg_sale_price' => :'GetAnalyticDashboardResponseRevenue',
         :'sell_through_rate' => :'Float',
         :'sell_through' => :'GetAnalyticDashboardResponseSellThrough',
+        :'sell_through_cohort' => :'GetAnalyticDashboardResponseSellThroughCohort',
         :'avg_days_to_sell' => :'Float',
+        :'median_days_to_sell' => :'Float',
         :'sales_by_platform' => :'Array<GetAnalyticDashboardResponseSalesByPlatform>',
         :'avg_sale_price_by_platform' => :'Array<GetAnalyticDashboardResponseAvgSalePriceByPlatform>',
         :'revenue_by_day' => :'Array<GetAnalyticDashboardResponseRevenueByDay>',
@@ -112,7 +129,8 @@ module Crossly
         :'top_brands' => :'Array<GetAnalyticDashboardResponseTopCategories>',
         :'top5_items_by_revenue' => :'Array<GetAnalyticDashboardResponseTop5ItemsByRevenue>',
         :'recent_sales' => :'Array<GetAnalyticDashboardResponseRecentSales>',
-        :'available_labels' => :'Array<String>'
+        :'available_labels' => :'Array<String>',
+        :'period' => :'GetAnalyticDashboardResponsePeriod'
       }
     end
 
@@ -121,6 +139,7 @@ module Crossly
       Set.new([
         :'sell_through_rate',
         :'avg_days_to_sell',
+        :'median_days_to_sell',
       ])
     end
 
@@ -149,6 +168,10 @@ module Crossly
 
       if attributes.key?(:'sold_items_count')
         self.sold_items_count = attributes[:'sold_items_count']
+      end
+
+      if attributes.key?(:'pending_details_count')
+        self.pending_details_count = attributes[:'pending_details_count']
       end
 
       if attributes.key?(:'cancelled_count')
@@ -183,8 +206,16 @@ module Crossly
         self.sell_through = attributes[:'sell_through']
       end
 
+      if attributes.key?(:'sell_through_cohort')
+        self.sell_through_cohort = attributes[:'sell_through_cohort']
+      end
+
       if attributes.key?(:'avg_days_to_sell')
         self.avg_days_to_sell = attributes[:'avg_days_to_sell']
+      end
+
+      if attributes.key?(:'median_days_to_sell')
+        self.median_days_to_sell = attributes[:'median_days_to_sell']
       end
 
       if attributes.key?(:'sales_by_platform')
@@ -240,6 +271,10 @@ module Crossly
           self.available_labels = value
         end
       end
+
+      if attributes.key?(:'period')
+        self.period = attributes[:'period']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -256,6 +291,10 @@ module Crossly
 
       if @sold_items_count.nil?
         invalid_properties.push('invalid value for "sold_items_count", sold_items_count cannot be nil.')
+      end
+
+      if @pending_details_count.nil?
+        invalid_properties.push('invalid value for "pending_details_count", pending_details_count cannot be nil.')
       end
 
       if @cancelled_count.nil?
@@ -284,6 +323,10 @@ module Crossly
 
       if @sell_through.nil?
         invalid_properties.push('invalid value for "sell_through", sell_through cannot be nil.')
+      end
+
+      if @sell_through_cohort.nil?
+        invalid_properties.push('invalid value for "sell_through_cohort", sell_through_cohort cannot be nil.')
       end
 
       if @sales_by_platform.nil?
@@ -322,6 +365,10 @@ module Crossly
         invalid_properties.push('invalid value for "available_labels", available_labels cannot be nil.')
       end
 
+      if @period.nil?
+        invalid_properties.push('invalid value for "period", period cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -331,6 +378,7 @@ module Crossly
       return false if @revenue.nil?
       return false if @profit.nil?
       return false if @sold_items_count.nil?
+      return false if @pending_details_count.nil?
       return false if @cancelled_count.nil?
       return false if @cancel_rate.nil?
       return false if @refunded_amount.nil?
@@ -338,6 +386,7 @@ module Crossly
       return false if @listed_items_count.nil?
       return false if @avg_sale_price.nil?
       return false if @sell_through.nil?
+      return false if @sell_through_cohort.nil?
       return false if @sales_by_platform.nil?
       return false if @avg_sale_price_by_platform.nil?
       return false if @revenue_by_day.nil?
@@ -347,6 +396,7 @@ module Crossly
       return false if @top5_items_by_revenue.nil?
       return false if @recent_sales.nil?
       return false if @available_labels.nil?
+      return false if @period.nil?
       true
     end
 
@@ -358,6 +408,7 @@ module Crossly
           revenue == o.revenue &&
           profit == o.profit &&
           sold_items_count == o.sold_items_count &&
+          pending_details_count == o.pending_details_count &&
           cancelled_count == o.cancelled_count &&
           cancel_rate == o.cancel_rate &&
           refunded_amount == o.refunded_amount &&
@@ -366,7 +417,9 @@ module Crossly
           avg_sale_price == o.avg_sale_price &&
           sell_through_rate == o.sell_through_rate &&
           sell_through == o.sell_through &&
+          sell_through_cohort == o.sell_through_cohort &&
           avg_days_to_sell == o.avg_days_to_sell &&
+          median_days_to_sell == o.median_days_to_sell &&
           sales_by_platform == o.sales_by_platform &&
           avg_sale_price_by_platform == o.avg_sale_price_by_platform &&
           revenue_by_day == o.revenue_by_day &&
@@ -375,7 +428,8 @@ module Crossly
           top_brands == o.top_brands &&
           top5_items_by_revenue == o.top5_items_by_revenue &&
           recent_sales == o.recent_sales &&
-          available_labels == o.available_labels
+          available_labels == o.available_labels &&
+          period == o.period
     end
 
     # @see the `==` method
@@ -387,7 +441,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [revenue, profit, sold_items_count, cancelled_count, cancel_rate, refunded_amount, refunded_count, listed_items_count, avg_sale_price, sell_through_rate, sell_through, avg_days_to_sell, sales_by_platform, avg_sale_price_by_platform, revenue_by_day, top_categories, top_subcategories, top_brands, top5_items_by_revenue, recent_sales, available_labels].hash
+      [revenue, profit, sold_items_count, pending_details_count, cancelled_count, cancel_rate, refunded_amount, refunded_count, listed_items_count, avg_sale_price, sell_through_rate, sell_through, sell_through_cohort, avg_days_to_sell, median_days_to_sell, sales_by_platform, avg_sale_price_by_platform, revenue_by_day, top_categories, top_subcategories, top_brands, top5_items_by_revenue, recent_sales, available_labels, period].hash
     end
 
     # Builds the object from hash

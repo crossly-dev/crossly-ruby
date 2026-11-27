@@ -17,44 +17,56 @@ module CrosslyBuyer
   class ListBuyerCartSavedItem
     attr_accessor :id
 
-    attr_accessor :quantity
-
-    attr_accessor :title
-
     attr_accessor :platform_listing_id
-
-    attr_accessor :seller_user_id
 
     attr_accessor :slug
 
+    attr_accessor :title
+
     # The listing's price NOW, in cents — what moving it back would charge.
     attr_accessor :price_cents
+
+    attr_accessor :quantity
 
     attr_accessor :in_stock
 
     attr_accessor :available_quantity
 
+    attr_accessor :seller_user_id
+
     attr_accessor :saved_at
+
+    attr_accessor :thumbnail
 
     attr_accessor :seller_display_name
 
-    attr_accessor :thumbnail
+    # The option it was saved as (catalog `variants[].id`), restored on move-to-cart; null otherwise.
+    attr_accessor :listing_variant_id
+
+    # That option's label (\"M\").
+    attr_accessor :variant_name
+
+    # The listing has options and this item names none: add it again with an option (move-to-cart refuses).
+    attr_accessor :needs_option
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'quantity' => :'quantity',
-        :'title' => :'title',
         :'platform_listing_id' => :'platformListingId',
-        :'seller_user_id' => :'sellerUserId',
         :'slug' => :'slug',
+        :'title' => :'title',
         :'price_cents' => :'priceCents',
+        :'quantity' => :'quantity',
         :'in_stock' => :'inStock',
         :'available_quantity' => :'availableQuantity',
+        :'seller_user_id' => :'sellerUserId',
         :'saved_at' => :'savedAt',
+        :'thumbnail' => :'thumbnail',
         :'seller_display_name' => :'sellerDisplayName',
-        :'thumbnail' => :'thumbnail'
+        :'listing_variant_id' => :'listingVariantId',
+        :'variant_name' => :'variantName',
+        :'needs_option' => :'needsOption'
       }
     end
 
@@ -67,25 +79,31 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'quantity' => :'Float',
-        :'title' => :'String',
         :'platform_listing_id' => :'String',
-        :'seller_user_id' => :'String',
         :'slug' => :'String',
+        :'title' => :'String',
         :'price_cents' => :'Float',
+        :'quantity' => :'Float',
         :'in_stock' => :'Boolean',
         :'available_quantity' => :'Float',
+        :'seller_user_id' => :'String',
         :'saved_at' => :'String',
+        :'thumbnail' => :'String',
         :'seller_display_name' => :'String',
-        :'thumbnail' => :'String'
+        :'listing_variant_id' => :'String',
+        :'variant_name' => :'String',
+        :'needs_option' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'thumbnail',
         :'seller_display_name',
-        :'thumbnail'
+        :'listing_variant_id',
+        :'variant_name',
+        :'needs_option'
       ])
     end
 
@@ -108,28 +126,24 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
-      end
-
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
-      end
-
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
       end
 
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
+      end
+
       if attributes.key?(:'price_cents')
         self.price_cents = attributes[:'price_cents']
+      end
+
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'in_stock')
@@ -140,16 +154,32 @@ module CrosslyBuyer
         self.available_quantity = attributes[:'available_quantity']
       end
 
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
+      end
+
       if attributes.key?(:'saved_at')
         self.saved_at = attributes[:'saved_at']
+      end
+
+      if attributes.key?(:'thumbnail')
+        self.thumbnail = attributes[:'thumbnail']
       end
 
       if attributes.key?(:'seller_display_name')
         self.seller_display_name = attributes[:'seller_display_name']
       end
 
-      if attributes.key?(:'thumbnail')
-        self.thumbnail = attributes[:'thumbnail']
+      if attributes.key?(:'listing_variant_id')
+        self.listing_variant_id = attributes[:'listing_variant_id']
+      end
+
+      if attributes.key?(:'variant_name')
+        self.variant_name = attributes[:'variant_name']
+      end
+
+      if attributes.key?(:'needs_option')
+        self.needs_option = attributes[:'needs_option']
       end
     end
 
@@ -161,28 +191,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
       if @platform_listing_id.nil?
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
-      end
-
-      if @seller_user_id.nil?
-        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       if @slug.nil?
         invalid_properties.push('invalid value for "slug", slug cannot be nil.')
       end
 
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
+      end
+
       if @price_cents.nil?
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
 
       if @in_stock.nil?
@@ -191,6 +217,10 @@ module CrosslyBuyer
 
       if @available_quantity.nil?
         invalid_properties.push('invalid value for "available_quantity", available_quantity cannot be nil.')
+      end
+
+      if @seller_user_id.nil?
+        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       if @saved_at.nil?
@@ -204,14 +234,14 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @quantity.nil?
-      return false if @title.nil?
       return false if @platform_listing_id.nil?
-      return false if @seller_user_id.nil?
       return false if @slug.nil?
+      return false if @title.nil?
       return false if @price_cents.nil?
+      return false if @quantity.nil?
       return false if @in_stock.nil?
       return false if @available_quantity.nil?
+      return false if @seller_user_id.nil?
       return false if @saved_at.nil?
       true
     end
@@ -222,17 +252,20 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          quantity == o.quantity &&
-          title == o.title &&
           platform_listing_id == o.platform_listing_id &&
-          seller_user_id == o.seller_user_id &&
           slug == o.slug &&
+          title == o.title &&
           price_cents == o.price_cents &&
+          quantity == o.quantity &&
           in_stock == o.in_stock &&
           available_quantity == o.available_quantity &&
+          seller_user_id == o.seller_user_id &&
           saved_at == o.saved_at &&
+          thumbnail == o.thumbnail &&
           seller_display_name == o.seller_display_name &&
-          thumbnail == o.thumbnail
+          listing_variant_id == o.listing_variant_id &&
+          variant_name == o.variant_name &&
+          needs_option == o.needs_option
     end
 
     # @see the `==` method
@@ -244,7 +277,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, quantity, title, platform_listing_id, seller_user_id, slug, price_cents, in_stock, available_quantity, saved_at, seller_display_name, thumbnail].hash
+      [id, platform_listing_id, slug, title, price_cents, quantity, in_stock, available_quantity, seller_user_id, saved_at, thumbnail, seller_display_name, listing_variant_id, variant_name, needs_option].hash
     end
 
     # Builds the object from hash

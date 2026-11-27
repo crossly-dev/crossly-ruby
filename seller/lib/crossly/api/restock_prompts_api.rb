@@ -141,6 +141,63 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Whether restocked items are republished automatically.
+    # autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+    # @param [Hash] opts the optional parameters
+    # @return [GetRestockPromptSettingResponse]
+    def get_restock_prompt_setting(opts = {})
+      data, _status_code, _headers = get_restock_prompt_setting_with_http_info(opts)
+      data
+    end
+
+    # Whether restocked items are republished automatically.
+    # autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRestockPromptSettingResponse, Integer, Hash)>] GetRestockPromptSettingResponse data, response status code and response headers
+    def get_restock_prompt_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: RestockPromptsApi.get_restock_prompt_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/restock-prompts/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRestockPromptSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"RestockPromptsApi.get_restock_prompt_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: RestockPromptsApi#get_restock_prompt_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List pending restock prompts.
     # @param [Hash] opts the optional parameters
     # @return [ListRestockPromptsResponse]
@@ -192,6 +249,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: RestockPromptsApi#list_restock_prompts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Turn automatic republish of restocked items on or off.
+    # @param get_restock_prompt_setting_response [GetRestockPromptSettingResponse] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetRestockPromptSettingResponse]
+    def update_restock_prompt_setting(get_restock_prompt_setting_response, opts = {})
+      data, _status_code, _headers = update_restock_prompt_setting_with_http_info(get_restock_prompt_setting_response, opts)
+      data
+    end
+
+    # Turn automatic republish of restocked items on or off.
+    # @param get_restock_prompt_setting_response [GetRestockPromptSettingResponse] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRestockPromptSettingResponse, Integer, Hash)>] GetRestockPromptSettingResponse data, response status code and response headers
+    def update_restock_prompt_setting_with_http_info(get_restock_prompt_setting_response, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: RestockPromptsApi.update_restock_prompt_setting ...'
+      end
+      # verify the required parameter 'get_restock_prompt_setting_response' is set
+      if @api_client.config.client_side_validation && get_restock_prompt_setting_response.nil?
+        fail ArgumentError, "Missing the required parameter 'get_restock_prompt_setting_response' when calling RestockPromptsApi.update_restock_prompt_setting"
+      end
+      # resource path
+      local_var_path = '/v1/restock-prompts/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(get_restock_prompt_setting_response)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRestockPromptSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"RestockPromptsApi.update_restock_prompt_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: RestockPromptsApi#update_restock_prompt_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

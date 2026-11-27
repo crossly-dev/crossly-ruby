@@ -29,9 +29,35 @@ module Crossly
 
     attr_accessor :rails
 
+    attr_accessor :booth_kind
+
+    attr_accessor :capacity
+
     attr_accessor :bookable
 
     attr_accessor :unbookable_reason
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -43,6 +69,8 @@ module Crossly
         :'units' => :'units',
         :'quote' => :'quote',
         :'rails' => :'rails',
+        :'booth_kind' => :'boothKind',
+        :'capacity' => :'capacity',
         :'bookable' => :'bookable',
         :'unbookable_reason' => :'unbookableReason'
       }
@@ -63,6 +91,8 @@ module Crossly
         :'units' => :'Array<GetStallQuoteResponseQuoteUnits>',
         :'quote' => :'CreateStallBookResponseBookingQuote',
         :'rails' => :'Array<GetStallQuoteResponseQuoteRailsItem>',
+        :'booth_kind' => :'String',
+        :'capacity' => :'Float',
         :'bookable' => :'Boolean',
         :'unbookable_reason' => :'String'
       }
@@ -122,6 +152,14 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'booth_kind')
+        self.booth_kind = attributes[:'booth_kind']
+      end
+
+      if attributes.key?(:'capacity')
+        self.capacity = attributes[:'capacity']
+      end
+
       if attributes.key?(:'bookable')
         self.bookable = attributes[:'bookable']
       end
@@ -163,6 +201,14 @@ module Crossly
         invalid_properties.push('invalid value for "rails", rails cannot be nil.')
       end
 
+      if @booth_kind.nil?
+        invalid_properties.push('invalid value for "booth_kind", booth_kind cannot be nil.')
+      end
+
+      if @capacity.nil?
+        invalid_properties.push('invalid value for "capacity", capacity cannot be nil.')
+      end
+
       if @bookable.nil?
         invalid_properties.push('invalid value for "bookable", bookable cannot be nil.')
       end
@@ -180,8 +226,22 @@ module Crossly
       return false if @units.nil?
       return false if @quote.nil?
       return false if @rails.nil?
+      return false if @booth_kind.nil?
+      booth_kind_validator = EnumAttributeValidator.new('String', ["booth", "cart", "pavilion"])
+      return false unless booth_kind_validator.valid?(@booth_kind)
+      return false if @capacity.nil?
       return false if @bookable.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] booth_kind Object to be assigned
+    def booth_kind=(booth_kind)
+      validator = EnumAttributeValidator.new('String', ["booth", "cart", "pavilion"])
+      unless validator.valid?(booth_kind)
+        fail ArgumentError, "invalid value for \"booth_kind\", must be one of #{validator.allowable_values}."
+      end
+      @booth_kind = booth_kind
     end
 
     # Checks equality by comparing each attribute.
@@ -196,6 +256,8 @@ module Crossly
           units == o.units &&
           quote == o.quote &&
           rails == o.rails &&
+          booth_kind == o.booth_kind &&
+          capacity == o.capacity &&
           bookable == o.bookable &&
           unbookable_reason == o.unbookable_reason
     end
@@ -209,7 +271,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [street, spot_index, owner, open, units, quote, rails, bookable, unbookable_reason].hash
+      [street, spot_index, owner, open, units, quote, rails, booth_kind, capacity, bookable, unbookable_reason].hash
     end
 
     # Builds the object from hash

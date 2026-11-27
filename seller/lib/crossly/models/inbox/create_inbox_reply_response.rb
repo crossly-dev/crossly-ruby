@@ -121,7 +121,7 @@ module Crossly
     def valid?
       return false if @job_id.nil?
       return false if @message_id.nil?
-      delivery_status_validator = EnumAttributeValidator.new('String', ["failed", "sent", "sending"])
+      delivery_status_validator = EnumAttributeValidator.new('String', ["sending", "sent", "failed"])
       return false unless delivery_status_validator.valid?(@delivery_status)
       true
     end
@@ -129,7 +129,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] delivery_status Object to be assigned
     def delivery_status=(delivery_status)
-      validator = EnumAttributeValidator.new('String', ["failed", "sent", "sending"])
+      validator = EnumAttributeValidator.new('String', ["sending", "sent", "failed"])
       unless validator.valid?(delivery_status)
         fail ArgumentError, "invalid value for \"delivery_status\", must be one of #{validator.allowable_values}."
       end

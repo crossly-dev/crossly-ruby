@@ -160,7 +160,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @slot.nil?
-      slot_validator = EnumAttributeValidator.new('String', ["spin", "wave", "point", "clap", "cheer", "hype", "shrug", "nod", "sit", "lean", "reach", "dance", "bow", "thumbs", "loupe", "box_spin", "flex", "hug", "high_five", "handshake", "showoff", "moment:handshake", "moment:unbox", "moment:slab_flip"])
+      slot_validator = EnumAttributeValidator.new('String', ["phone", "spin", "wave", "point", "clap", "cheer", "hype", "shrug", "nod", "sit", "lean", "reach", "dance", "bow", "thumbs", "loupe", "box_spin", "flex", "hug", "high_five", "handshake", "facepalm", "think", "laugh", "sigh", "no", "fist_pump", "victory", "yawn", "salute", "big_wave", "beckon", "shush", "kiss", "peace", "heart", "sway", "vibe", "air_guitar", "robot", "disco", "gavel", "haggle", "arms_crossed", "hands_on_hips", "kneel", "fist_bump", "dance_off", "showoff", "moment:handshake", "moment:unbox", "moment:slab_flip"])
       return false unless slot_validator.valid?(@slot)
       return false if @label.nil?
       return false if @locked.nil?
@@ -172,7 +172,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] slot Object to be assigned
     def slot=(slot)
-      validator = EnumAttributeValidator.new('String', ["spin", "wave", "point", "clap", "cheer", "hype", "shrug", "nod", "sit", "lean", "reach", "dance", "bow", "thumbs", "loupe", "box_spin", "flex", "hug", "high_five", "handshake", "showoff", "moment:handshake", "moment:unbox", "moment:slab_flip"])
+      validator = EnumAttributeValidator.new('String', ["phone", "spin", "wave", "point", "clap", "cheer", "hype", "shrug", "nod", "sit", "lean", "reach", "dance", "bow", "thumbs", "loupe", "box_spin", "flex", "hug", "high_five", "handshake", "facepalm", "think", "laugh", "sigh", "no", "fist_pump", "victory", "yawn", "salute", "big_wave", "beckon", "shush", "kiss", "peace", "heart", "sway", "vibe", "air_guitar", "robot", "disco", "gavel", "haggle", "arms_crossed", "hands_on_hips", "kneel", "fist_bump", "dance_off", "showoff", "moment:handshake", "moment:unbox", "moment:slab_flip"])
       unless validator.valid?(slot)
         fail ArgumentError, "invalid value for \"slot\", must be one of #{validator.allowable_values}."
       end

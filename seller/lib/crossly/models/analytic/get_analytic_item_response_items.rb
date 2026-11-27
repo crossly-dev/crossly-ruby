@@ -17,6 +17,14 @@ module Crossly
   class GetAnalyticItemResponseItems
     attr_accessor :sale_id
 
+    attr_accessor :inventory_item_id
+
+    attr_accessor :listing_id
+
+    attr_accessor :platform_listing_id
+
+    attr_accessor :image_url
+
     attr_accessor :platform
 
     attr_accessor :platform_order_id
@@ -26,6 +34,8 @@ module Crossly
     attr_accessor :item_brand
 
     attr_accessor :item_sku
+
+    attr_accessor :details_pending
 
     attr_accessor :sale_price
 
@@ -47,11 +57,16 @@ module Crossly
     def self.attribute_map
       {
         :'sale_id' => :'saleId',
+        :'inventory_item_id' => :'inventoryItemId',
+        :'listing_id' => :'listingId',
+        :'platform_listing_id' => :'platformListingId',
+        :'image_url' => :'imageUrl',
         :'platform' => :'platform',
         :'platform_order_id' => :'platformOrderId',
         :'item_title' => :'itemTitle',
         :'item_brand' => :'itemBrand',
         :'item_sku' => :'itemSku',
+        :'details_pending' => :'detailsPending',
         :'sale_price' => :'salePrice',
         :'platform_fee' => :'platformFee',
         :'shipping_cost' => :'shippingCost',
@@ -72,11 +87,16 @@ module Crossly
     def self.openapi_types
       {
         :'sale_id' => :'String',
+        :'inventory_item_id' => :'String',
+        :'listing_id' => :'String',
+        :'platform_listing_id' => :'String',
+        :'image_url' => :'String',
         :'platform' => :'String',
         :'platform_order_id' => :'String',
         :'item_title' => :'String',
         :'item_brand' => :'String',
         :'item_sku' => :'String',
+        :'details_pending' => :'Boolean',
         :'sale_price' => :'Float',
         :'platform_fee' => :'Float',
         :'shipping_cost' => :'Float',
@@ -91,6 +111,10 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'inventory_item_id',
+        :'listing_id',
+        :'platform_listing_id',
+        :'image_url',
         :'platform_order_id',
         :'item_title',
         :'item_brand',
@@ -100,6 +124,7 @@ module Crossly
         :'shipping_cost',
         :'cost_of_goods',
         :'net_profit',
+        :'margin_pct',
         :'days_to_sell',
       ])
     end
@@ -123,6 +148,22 @@ module Crossly
         self.sale_id = attributes[:'sale_id']
       end
 
+      if attributes.key?(:'inventory_item_id')
+        self.inventory_item_id = attributes[:'inventory_item_id']
+      end
+
+      if attributes.key?(:'listing_id')
+        self.listing_id = attributes[:'listing_id']
+      end
+
+      if attributes.key?(:'platform_listing_id')
+        self.platform_listing_id = attributes[:'platform_listing_id']
+      end
+
+      if attributes.key?(:'image_url')
+        self.image_url = attributes[:'image_url']
+      end
+
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
       end
@@ -141,6 +182,10 @@ module Crossly
 
       if attributes.key?(:'item_sku')
         self.item_sku = attributes[:'item_sku']
+      end
+
+      if attributes.key?(:'details_pending')
+        self.details_pending = attributes[:'details_pending']
       end
 
       if attributes.key?(:'sale_price')
@@ -188,8 +233,8 @@ module Crossly
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
-      if @margin_pct.nil?
-        invalid_properties.push('invalid value for "margin_pct", margin_pct cannot be nil.')
+      if @details_pending.nil?
+        invalid_properties.push('invalid value for "details_pending", details_pending cannot be nil.')
       end
 
       if @detected_at.nil?
@@ -204,7 +249,7 @@ module Crossly
     def valid?
       return false if @sale_id.nil?
       return false if @platform.nil?
-      return false if @margin_pct.nil?
+      return false if @details_pending.nil?
       return false if @detected_at.nil?
       true
     end
@@ -215,11 +260,16 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           sale_id == o.sale_id &&
+          inventory_item_id == o.inventory_item_id &&
+          listing_id == o.listing_id &&
+          platform_listing_id == o.platform_listing_id &&
+          image_url == o.image_url &&
           platform == o.platform &&
           platform_order_id == o.platform_order_id &&
           item_title == o.item_title &&
           item_brand == o.item_brand &&
           item_sku == o.item_sku &&
+          details_pending == o.details_pending &&
           sale_price == o.sale_price &&
           platform_fee == o.platform_fee &&
           shipping_cost == o.shipping_cost &&
@@ -239,7 +289,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [sale_id, platform, platform_order_id, item_title, item_brand, item_sku, sale_price, platform_fee, shipping_cost, cost_of_goods, net_profit, margin_pct, days_to_sell, detected_at].hash
+      [sale_id, inventory_item_id, listing_id, platform_listing_id, image_url, platform, platform_order_id, item_title, item_brand, item_sku, details_pending, sale_price, platform_fee, shipping_cost, cost_of_goods, net_profit, margin_pct, days_to_sell, detected_at].hash
     end
 
     # Builds the object from hash

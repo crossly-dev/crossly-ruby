@@ -25,9 +25,11 @@ module Crossly
 
     attr_accessor :slug
 
-    attr_accessor :hidden_at
-
     attr_accessor :image_url
+
+    attr_accessor :verified
+
+    attr_accessor :hidden_at
 
     attr_accessor :refreshed_at
 
@@ -37,21 +39,19 @@ module Crossly
 
     attr_accessor :contract
 
-    attr_accessor :first_seen_at
-
     attr_accessor :token_type
 
     attr_accessor :total_supply
 
     attr_accessor :featured_rank
 
+    attr_accessor :first_seen_at
+
     attr_accessor :banner_url
 
     attr_accessor :twitter
 
     attr_accessor :discord
-
-    attr_accessor :verified
 
     attr_accessor :deployed_block
 
@@ -83,20 +83,20 @@ module Crossly
         :'description' => :'description',
         :'category' => :'category',
         :'slug' => :'slug',
-        :'hidden_at' => :'hiddenAt',
         :'image_url' => :'imageUrl',
+        :'verified' => :'verified',
+        :'hidden_at' => :'hiddenAt',
         :'refreshed_at' => :'refreshedAt',
         :'external_url' => :'externalUrl',
         :'chain' => :'chain',
         :'contract' => :'contract',
-        :'first_seen_at' => :'firstSeenAt',
         :'token_type' => :'tokenType',
         :'total_supply' => :'totalSupply',
         :'featured_rank' => :'featuredRank',
+        :'first_seen_at' => :'firstSeenAt',
         :'banner_url' => :'bannerUrl',
         :'twitter' => :'twitter',
         :'discord' => :'discord',
-        :'verified' => :'verified',
         :'deployed_block' => :'deployedBlock',
         :'collectors' => :'collectors',
         :'indexed_at' => :'indexedAt',
@@ -124,20 +124,20 @@ module Crossly
         :'description' => :'String',
         :'category' => :'String',
         :'slug' => :'String',
-        :'hidden_at' => :'Time',
         :'image_url' => :'String',
+        :'verified' => :'Boolean',
+        :'hidden_at' => :'Time',
         :'refreshed_at' => :'Time',
         :'external_url' => :'String',
         :'chain' => :'String',
         :'contract' => :'String',
-        :'first_seen_at' => :'Time',
         :'token_type' => :'String',
         :'total_supply' => :'String',
         :'featured_rank' => :'Float',
+        :'first_seen_at' => :'Time',
         :'banner_url' => :'String',
         :'twitter' => :'String',
         :'discord' => :'String',
-        :'verified' => :'Boolean',
         :'deployed_block' => :'Float',
         :'collectors' => :'Float',
         :'indexed_at' => :'Time',
@@ -160,8 +160,8 @@ module Crossly
         :'description',
         :'category',
         :'slug',
-        :'hidden_at',
         :'image_url',
+        :'hidden_at',
         :'external_url',
         :'token_type',
         :'total_supply',
@@ -217,12 +217,16 @@ module Crossly
         self.slug = attributes[:'slug']
       end
 
-      if attributes.key?(:'hidden_at')
-        self.hidden_at = attributes[:'hidden_at']
-      end
-
       if attributes.key?(:'image_url')
         self.image_url = attributes[:'image_url']
+      end
+
+      if attributes.key?(:'verified')
+        self.verified = attributes[:'verified']
+      end
+
+      if attributes.key?(:'hidden_at')
+        self.hidden_at = attributes[:'hidden_at']
       end
 
       if attributes.key?(:'refreshed_at')
@@ -241,10 +245,6 @@ module Crossly
         self.contract = attributes[:'contract']
       end
 
-      if attributes.key?(:'first_seen_at')
-        self.first_seen_at = attributes[:'first_seen_at']
-      end
-
       if attributes.key?(:'token_type')
         self.token_type = attributes[:'token_type']
       end
@@ -257,6 +257,10 @@ module Crossly
         self.featured_rank = attributes[:'featured_rank']
       end
 
+      if attributes.key?(:'first_seen_at')
+        self.first_seen_at = attributes[:'first_seen_at']
+      end
+
       if attributes.key?(:'banner_url')
         self.banner_url = attributes[:'banner_url']
       end
@@ -267,10 +271,6 @@ module Crossly
 
       if attributes.key?(:'discord')
         self.discord = attributes[:'discord']
-      end
-
-      if attributes.key?(:'verified')
-        self.verified = attributes[:'verified']
       end
 
       if attributes.key?(:'deployed_block')
@@ -322,6 +322,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @verified.nil?
+        invalid_properties.push('invalid value for "verified", verified cannot be nil.')
+      end
+
       if @refreshed_at.nil?
         invalid_properties.push('invalid value for "refreshed_at", refreshed_at cannot be nil.')
       end
@@ -338,10 +342,6 @@ module Crossly
         invalid_properties.push('invalid value for "first_seen_at", first_seen_at cannot be nil.')
       end
 
-      if @verified.nil?
-        invalid_properties.push('invalid value for "verified", verified cannot be nil.')
-      end
-
       if @collectors.nil?
         invalid_properties.push('invalid value for "collectors", collectors cannot be nil.')
       end
@@ -352,11 +352,11 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @verified.nil?
       return false if @refreshed_at.nil?
       return false if @chain.nil?
       return false if @contract.nil?
       return false if @first_seen_at.nil?
-      return false if @verified.nil?
       return false if @collectors.nil?
       true
     end
@@ -371,20 +371,20 @@ module Crossly
           description == o.description &&
           category == o.category &&
           slug == o.slug &&
-          hidden_at == o.hidden_at &&
           image_url == o.image_url &&
+          verified == o.verified &&
+          hidden_at == o.hidden_at &&
           refreshed_at == o.refreshed_at &&
           external_url == o.external_url &&
           chain == o.chain &&
           contract == o.contract &&
-          first_seen_at == o.first_seen_at &&
           token_type == o.token_type &&
           total_supply == o.total_supply &&
           featured_rank == o.featured_rank &&
+          first_seen_at == o.first_seen_at &&
           banner_url == o.banner_url &&
           twitter == o.twitter &&
           discord == o.discord &&
-          verified == o.verified &&
           deployed_block == o.deployed_block &&
           collectors == o.collectors &&
           indexed_at == o.indexed_at &&
@@ -407,7 +407,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [symbol, name, description, category, slug, hidden_at, image_url, refreshed_at, external_url, chain, contract, first_seen_at, token_type, total_supply, featured_rank, banner_url, twitter, discord, verified, deployed_block, collectors, indexed_at, indexed_count, image_source, banner_source, image_thumb_url, banner_thumb_url, rehost_checked_at, hidden_reason, hidden_category].hash
+      [symbol, name, description, category, slug, image_url, verified, hidden_at, refreshed_at, external_url, chain, contract, token_type, total_supply, featured_rank, first_seen_at, banner_url, twitter, discord, deployed_block, collectors, indexed_at, indexed_count, image_source, banner_source, image_thumb_url, banner_thumb_url, rehost_checked_at, hidden_reason, hidden_category].hash
     end
 
     # Builds the object from hash

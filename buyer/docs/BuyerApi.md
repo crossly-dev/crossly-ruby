@@ -25,14 +25,19 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_buyer_catalog_listing_rental**](BuyerApi.md#create_buyer_catalog_listing_rental) | **POST** /v1/buyer/catalog/listings/{slug}/rental | Book a rental. Returns a Stripe PaymentIntent client secret for rent + shipping both ways + deposit; the dates are held 30 minutes for payment. Crossly buys both labels; the deposit comes back after the item does. |
 | [**create_buyer_catalog_listing_rental_quote**](BuyerApi.md#create_buyer_catalog_listing_rental_quote) | **POST** /v1/buyer/catalog/listings/{slug}/rental/quote | Price a rental: rent (the cheaper of by-the-day and by-the-week), both shipping legs once a ship-to is given, and the deposit. &#x60;problem&#x60; says why the dates can’t be booked. |
 | [**create_buyer_catalog_listing_video_request**](BuyerApi.md#create_buyer_catalog_listing_video_request) | **POST** /v1/buyer/catalog/listings/{slug}/video-requests | Ask the seller for a video of an item (one open request per item). The seller is notified; their answer appears on the listing for every buyer. |
+| [**create_buyer_company**](BuyerApi.md#create_buyer_company) | **POST** /v1/buyer/company | Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company. |
+| [**create_buyer_company_approval**](BuyerApi.md#create_buyer_company_approval) | **POST** /v1/buyer/company/approvals | Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout. |
+| [**create_buyer_company_approval_decide**](BuyerApi.md#create_buyer_company_approval_decide) | **POST** /v1/buyer/company/approvals/{id}/decide | Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?. |
+| [**create_buyer_company_member**](BuyerApi.md#create_buyer_company_member) | **POST** /v1/buyer/company/members | Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval). |
 | [**create_buyer_conversation_invite**](BuyerApi.md#create_buyer_conversation_invite) | **POST** /v1/buyer/conversations/{id}/invite | Invite a friend into a chat with a seller: a single-use link (7 days) that makes whoever opens it a guest who can read and post. Only the thread’s buyer can invite; at most 5 guests. |
 | [**create_buyer_conversation_join**](BuyerApi.md#create_buyer_conversation_join) | **POST** /v1/buyer/conversations/join/{token} | Join a chat you were invited into, as a guest. |
+| [**create_buyer_event_rsvp**](BuyerApi.md#create_buyer_event_rsvp) | **POST** /v1/buyer/events/{slug}/rsvp | RSVP to an event: going (counts against its capacity) or interested. |
 | [**create_buyer_feedback**](BuyerApi.md#create_buyer_feedback) | **POST** /v1/buyer/feedback | Leave feedback on up to 25 orders at once, with optional detailed seller ratings. |
 | [**create_buyer_fit_ref**](BuyerApi.md#create_buyer_fit_ref) | **POST** /v1/buyer/fit/refs | Save a reference garment (flat measurements, inches) to compare listings against. |
 | [**create_buyer_following_seller_seen**](BuyerApi.md#create_buyer_following_seller_seen) | **POST** /v1/buyer/following/sellers/seen | Clear the \&quot;new listings\&quot; count on a followed seller, or on all of them. |
 | [**create_buyer_gift_card**](BuyerApi.md#create_buyer_gift_card) | **POST** /v1/buyer/gift-cards | Start a gift card purchase. |
 | [**create_buyer_gift_card_redeem**](BuyerApi.md#create_buyer_gift_card_redeem) | **POST** /v1/buyer/gift-cards/redeem | Redeem a gift card code into your own balance. |
-| [**create_buyer_group_buy_join**](BuyerApi.md#create_buyer_group_buy_join) | **POST** /v1/buyer/group-buys/{id}/join | Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key. |
+| [**create_buyer_group_buy_join**](BuyerApi.md#create_buyer_group_buy_join) | **POST** /v1/buyer/group-buys/{id}/join | Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. &#x60;linkToken&#x60; opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key. |
 | [**create_buyer_group_buy_leave**](BuyerApi.md#create_buyer_group_buy_leave) | **POST** /v1/buyer/group-buys/{id}/leave | Leave a group buy and release your hold. |
 | [**create_buyer_hunt**](BuyerApi.md#create_buyer_hunt) | **POST** /v1/buyer/hunts | Start a buyer-agent hunt — over a search (filters), or auto-buy on one listing (listingSlug: buy it once its price, sale applied, is within maxPriceCents). &#x60;offer&#x60; and &#x60;buy&#x60; modes also need buyer:checkout:write, and the budget is checked against this key’s spending controls. |
 | [**create_buyer_instant_offer_accept**](BuyerApi.md#create_buyer_instant_offer_accept) | **POST** /v1/buyer/instant-offers/{id}/accept | Accept Crossly’s instant offer on a collection item. Ops then send a prepaid label; the store credit is paid once the item arrives and checks out. |
@@ -53,22 +58,28 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_buyer_pack_fairness_rotate**](BuyerApi.md#create_buyer_pack_fairness_rotate) | **POST** /v1/buyer/packs/fairness/rotate | Reveal your current server seed and start a new one (optionally with your own client seed). Refused while an opening is awaiting payment. |
 | [**create_buyer_pack_open**](BuyerApi.md#create_buyer_pack_open) | **POST** /v1/buyer/packs/{slug}/open | Open a pack. SPENDS MONEY: charges the pack price to your saved card, then pulls one real item by the published odds (provably fair: see /buyer/packs/fairness) into your Crossly vault. confirmAdult must be true. Checked against this key’s spending controls; send an Idempotency-Key. |
 | [**create_buyer_pack_opening_sell_back**](BuyerApi.md#create_buyer_pack_opening_sell_back) | **POST** /v1/buyer/pack-openings/{id}/sell-back | Sell a pull straight back for Crossly credit at the pack’s buyback rate, within its window, while it is still in your vault. |
-| [**create_buyer_passport_claim**](BuyerApi.md#create_buyer_passport_claim) | **POST** /v1/buyer/passports/{code}/claim | Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again. |
+| [**create_buyer_passport_claim**](BuyerApi.md#create_buyer_passport_claim) | **POST** /v1/buyer/passports/{code}/claim | Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again. |
 | [**create_buyer_protection_plan_cancel**](BuyerApi.md#create_buyer_protection_plan_cancel) | **POST** /v1/buyer/protection-plans/{id}/cancel | Cancel a protection plan. The insurer decides what is refundable (pro-rata after the free-look window); that amount goes back to the card. |
-| [**create_buyer_purchase_download**](BuyerApi.md#create_buyer_purchase_download) | **POST** /v1/buyer/purchases/{id}/download | A ten-minute link to a digital purchase’s file; each call uses one of its downloads. |
 | [**create_buyer_purchase_fit**](BuyerApi.md#create_buyer_purchase_fit) | **POST** /v1/buyer/purchases/{id}/fit | Say how a delivered purchase fit: true_to_size, small or large. It teaches your size memory and, pooled with other buyers, how the brand runs. |
 | [**create_buyer_purchase_return**](BuyerApi.md#create_buyer_purchase_return) | **POST** /v1/buyer/purchases/{id}/return | Return a purchase under the seller’s policy, or send back a try-at-home item. With reason doesnt_fit, &#x60;fit&#x60; (small | large) says which way, and it feeds your size memory. |
 | [**create_buyer_registry**](BuyerApi.md#create_buyer_registry) | **POST** /v1/buyer/registries | Start a gift registry (wedding, baby, birthday, housewarming, graduation, other). Items are added like any wishlist item; set shipAddressId to one of your saved addresses so guests can buy — they never see it. |
 | [**create_buyer_registry_gift_thanked**](BuyerApi.md#create_buyer_registry_gift_thanked) | **POST** /v1/buyer/registries/{id}/gifts/{giftId}/thanked | Tick a gift as thanked (or untick it). |
 | [**create_buyer_rental_arrival_photo**](BuyerApi.md#create_buyer_rental_arrival_photo) | **POST** /v1/buyer/rentals/{id}/arrival-photos | Photograph a rental on arrival (URLs you uploaded): your side of the condition record. |
+| [**create_buyer_rental_buyout**](BuyerApi.md#create_buyer_rental_buyout) | **POST** /v1/buyer/rentals/{id}/buyout | Buy the item you are renting: the price less the rent-to-own credit → clientSecret. |
 | [**create_buyer_rental_cancel**](BuyerApi.md#create_buyer_rental_cancel) | **POST** /v1/buyer/rentals/{id}/cancel | Cancel a rental that has not shipped: everything is refunded. |
 | [**create_buyer_rental_claim_response**](BuyerApi.md#create_buyer_rental_claim_response) | **POST** /v1/buyer/rentals/{id}/claim-response | Answer a deposit claim: accept (the claim is paid, the rest refunded) or dispute (Crossly decides). |
+| [**create_buyer_rental_delivered**](BuyerApi.md#create_buyer_rental_delivered) | **POST** /v1/buyer/rentals/{id}/delivered | Confirm your rental arrived. |
+| [**create_buyer_rental_extension**](BuyerApi.md#create_buyer_rental_extension) | **POST** /v1/buyer/rentals/{id}/extensions | Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe. |
+| [**create_buyer_rental_extension_pay**](BuyerApi.md#create_buyer_rental_extension_pay) | **POST** /v1/buyer/rentals/{id}/extensions/{extensionId}/pay | Pay for an extension the seller approved → clientSecret. |
 | [**create_buyer_rental_identity_start**](BuyerApi.md#create_buyer_rental_identity_start) | **POST** /v1/buyer/rentals/identity/start | Start the ID check renting needs (Stripe Identity: photo ID + selfie). Open &#x60;url&#x60; (hosted) or use &#x60;clientSecret&#x60; with Stripe.js. |
+| [**create_buyer_rental_return_shipped**](BuyerApi.md#create_buyer_rental_return_shipped) | **POST** /v1/buyer/rentals/{id}/return-shipped | Say you sent your rental back (optionally with photos). |
 | [**create_buyer_return_cancel**](BuyerApi.md#create_buyer_return_cancel) | **POST** /v1/buyer/returns/{id}/cancel | Cancel a return before it ships. |
 | [**create_buyer_return_tracking**](BuyerApi.md#create_buyer_return_tracking) | **POST** /v1/buyer/returns/{id}/tracking | Add tracking to a return you shipped on your own label. |
 | [**create_buyer_seller_club_join**](BuyerApi.md#create_buyer_seller_club_join) | **POST** /v1/buyer/sellers/{sellerUserId}/club/join | Join a seller’s loyalty club (free). Your tier’s discount then applies to their items — the best of it and any other rate you have with them, never stacked. |
+| [**create_buyer_seller_loyalty_join**](BuyerApi.md#create_buyer_seller_loyalty_join) | **POST** /v1/buyer/sellers/{sellerUserId}/loyalty/join | Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once. |
 | [**create_buyer_seller_report**](BuyerApi.md#create_buyer_seller_report) | **POST** /v1/buyer/sellers/{username}/report | Report a seller to Crossly’s trust team. |
 | [**create_buyer_split_cancel**](BuyerApi.md#create_buyer_split_cancel) | **POST** /v1/buyer/splits/{id}/cancel | Cancel a split you organised; every held share is released. |
+| [**create_buyer_store_report**](BuyerApi.md#create_buyer_store_report) | **POST** /v1/buyer/stores/{slug}/report | Report a store to Crossly’s trust team. |
 | [**create_buyer_together**](BuyerApi.md#create_buyer_together) | **POST** /v1/buyer/together | Start a shop-together room. |
 | [**create_buyer_together_item**](BuyerApi.md#create_buyer_together_item) | **POST** /v1/buyer/together/{code}/items | Add a listing to a shop-together board. |
 | [**create_buyer_together_item_vote**](BuyerApi.md#create_buyer_together_item_vote) | **POST** /v1/buyer/together/{code}/items/{id}/vote | Vote an item on a room’s board up (1), down (-1) or clear (0). |
@@ -79,6 +90,14 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_buyer_vault_list**](BuyerApi.md#create_buyer_vault_list) | **POST** /v1/buyer/vault/{id}/list | Sell a vault item on the market at your price. It is already authenticated, so when it sells nothing ships in: the buyer keeps it vaulted or it ships straight to them. |
 | [**create_buyer_vault_unlist**](BuyerApi.md#create_buyer_vault_unlist) | **POST** /v1/buyer/vault/{id}/unlist | Take a vault item off the market; it stays stored. |
 | [**create_buyer_vault_withdraw**](BuyerApi.md#create_buyer_vault_withdraw) | **POST** /v1/buyer/vault/{id}/withdraw | Ship a vault item home, standard or expedited. The shipping, any storage it owes and the early-withdrawal fee (within 90 days of arriving) are charged to your saved card now, all checked against this key’s spending controls; send an Idempotency-Key. |
+| [**create_buyer_wholesale_catalog_apply**](BuyerApi.md#create_buyer_wholesale_catalog_apply) | **POST** /v1/buyer/wholesale/catalogs/{storeSlug}/{catalogSlug}/apply | Apply to a store&#39;s wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller&#39;s requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request. |
+| [**create_buyer_wholesale_freight_request**](BuyerApi.md#create_buyer_wholesale_freight_request) | **POST** /v1/buyer/wholesale/freight-requests | Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller. |
+| [**create_buyer_wholesale_invoice_pay_link**](BuyerApi.md#create_buyer_wholesale_invoice_pay_link) | **POST** /v1/buyer/wholesale/invoices/{id}/pay-link | A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page. |
+| [**create_buyer_wholesale_order_sheet**](BuyerApi.md#create_buyer_wholesale_order_sheet) | **POST** /v1/buyer/wholesale/order-sheets | Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note. |
+| [**create_buyer_wholesale_quote**](BuyerApi.md#create_buyer_wholesale_quote) | **POST** /v1/buyer/wholesale/quotes | Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference. |
+| [**create_buyer_wholesale_quote_accept**](BuyerApi.md#create_buyer_wholesale_quote_accept) | **POST** /v1/buyer/wholesale/quotes/{id}/accept | Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line&#39;s quantity drops the lock). Paying happens at checkout on Crossly. |
+| [**create_buyer_wholesale_quote_withdraw**](BuyerApi.md#create_buyer_wholesale_quote_withdraw) | **POST** /v1/buyer/wholesale/quotes/{id}/withdraw | Withdraw a quote request that is still requested or answered. |
+| [**create_buyer_wholesale_upload_validate**](BuyerApi.md#create_buyer_wholesale_upload_validate) | **POST** /v1/buyer/wholesale/upload/validate | Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line. |
 | [**create_buyer_wishlist**](BuyerApi.md#create_buyer_wishlist) | **POST** /v1/buyer/wishlists | Create a wishlist. |
 | [**create_buyer_wishlist_invite**](BuyerApi.md#create_buyer_wishlist_invite) | **POST** /v1/buyer/wishlists/{id}/invite | Share a wishlist with a co-editor: a single-use link (14 days). Members add and remove items; only the owner renames, deletes or removes members. At most 20. |
 | [**create_buyer_wishlist_item**](BuyerApi.md#create_buyer_wishlist_item) | **POST** /v1/buyer/wishlists/{id}/items | Add a listing to a wishlist. |
@@ -89,8 +108,12 @@ All URIs are relative to *https://crossly.net/api*
 | [**delete_buyer_break_spot_hold**](BuyerApi.md#delete_buyer_break_spot_hold) | **DELETE** /v1/buyer/breaks/{id}/spots/{spotId}/hold | Release a break spot you hold. |
 | [**delete_buyer_cart_item**](BuyerApi.md#delete_buyer_cart_item) | **DELETE** /v1/buyer/cart/items/{id} | Remove a line from your cart. |
 | [**delete_buyer_cart_saved**](BuyerApi.md#delete_buyer_cart_saved) | **DELETE** /v1/buyer/cart/saved/{id} | Remove an item from saved-for-later. Returns the remaining list. |
+| [**delete_buyer_company_member**](BuyerApi.md#delete_buyer_company_member) | **DELETE** /v1/buyer/company/members/{id} | Remove a member or cancel an invite (owner), or leave the company (your own member id). |
 | [**delete_buyer_conversation_guest**](BuyerApi.md#delete_buyer_conversation_guest) | **DELETE** /v1/buyer/conversations/{id}/guests/{userId} | Remove a guest (the thread’s buyer), or leave (a guest, with your own user id). |
+| [**delete_buyer_creation_review**](BuyerApi.md#delete_buyer_creation_review) | **DELETE** /v1/buyer/creations/{format}/{id}/review | Remove your review of a creation (its vote leaves the rating with it). |
+| [**delete_buyer_event_rsvp**](BuyerApi.md#delete_buyer_event_rsvp) | **DELETE** /v1/buyer/events/{slug}/rsvp | Take back your RSVP. |
 | [**delete_buyer_fit_ref**](BuyerApi.md#delete_buyer_fit_ref) | **DELETE** /v1/buyer/fit/refs/{id} | Delete a reference garment. |
+| [**delete_buyer_home_guestbook**](BuyerApi.md#delete_buyer_home_guestbook) | **DELETE** /v1/buyer/home/guestbook/{id} | Hide a line from your home’s guestbook. |
 | [**delete_buyer_market_bid**](BuyerApi.md#delete_buyer_market_bid) | **DELETE** /v1/buyer/market/bids/{id} | Cancel a resting market bid. |
 | [**delete_buyer_market_watch**](BuyerApi.md#delete_buyer_market_watch) | **DELETE** /v1/buyer/market/watches/{id} | Stop watching a market variant. |
 | [**delete_buyer_offer**](BuyerApi.md#delete_buyer_offer) | **DELETE** /v1/buyer/offers/{id} | Withdraw an offer you made that the seller has not answered. |
@@ -98,9 +121,11 @@ All URIs are relative to *https://crossly.net/api*
 | [**delete_buyer_recently_viewed2**](BuyerApi.md#delete_buyer_recently_viewed2) | **DELETE** /v1/buyer/recently-viewed | Clear your recently viewed list. |
 | [**delete_buyer_registry**](BuyerApi.md#delete_buyer_registry) | **DELETE** /v1/buyer/registries/{id} | Delete a registry (and the wishlist behind it). |
 | [**delete_buyer_seller_club_join**](BuyerApi.md#delete_buyer_seller_club_join) | **DELETE** /v1/buyer/sellers/{sellerUserId}/club/join | Leave a seller’s loyalty club. |
+| [**delete_buyer_seller_loyalty_join**](BuyerApi.md#delete_buyer_seller_loyalty_join) | **DELETE** /v1/buyer/sellers/{sellerUserId}/loyalty/join | Leave a seller’s loyalty club. |
 | [**delete_buyer_together_item**](BuyerApi.md#delete_buyer_together_item) | **DELETE** /v1/buyer/together/{code}/items/{id} | Take an item you added off a room’s board. |
 | [**delete_buyer_total_request**](BuyerApi.md#delete_buyer_total_request) | **DELETE** /v1/buyer/total-requests/{id} | Cancel a total request you made. |
 | [**delete_buyer_try_on**](BuyerApi.md#delete_buyer_try_on) | **DELETE** /v1/buyer/try-ons/{id} | Delete a try-on and its images — or pass &#x60;all&#x60; to delete every photo and result. |
+| [**delete_buyer_wholesale_order_sheet**](BuyerApi.md#delete_buyer_wholesale_order_sheet) | **DELETE** /v1/buyer/wholesale/order-sheets/{id} | Delete an order sheet. |
 | [**delete_buyer_wishlist**](BuyerApi.md#delete_buyer_wishlist) | **DELETE** /v1/buyer/wishlists/{id} | Delete a wishlist and everything on it. |
 | [**delete_buyer_wishlist_item**](BuyerApi.md#delete_buyer_wishlist_item) | **DELETE** /v1/buyer/wishlists/{id}/items/{slug} | Take a listing off a wishlist. |
 | [**delete_buyer_wishlist_member**](BuyerApi.md#delete_buyer_wishlist_member) | **DELETE** /v1/buyer/wishlists/{id}/members/{userId} | Remove a co-editor (the owner), or leave a list shared with you (your own user id). |
@@ -116,9 +141,14 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_buyer_checkout_usdc**](BuyerApi.md#get_buyer_checkout_usdc) | **GET** /v1/buyer/checkout/usdc | Whether Crossly takes USDC (Stripe stablecoin payments: Solana, Ethereum, Base, Polygon), and its per-order limit. Paying needs the buyer’s wallet, so it happens in the browser checkout, never unattended. |
 | [**get_buyer_collection_offer**](BuyerApi.md#get_buyer_collection_offer) | **GET** /v1/buyer/collection/{id}/offer | What an item in your collection would fetch now: the top open bid on the market for the same variant, condition and grade, and Crossly’s instant offer in store credit when that is switched on (a quote valid for a limited time). |
 | [**get_buyer_collection_set**](BuyerApi.md#get_buyer_collection_set) | **GET** /v1/buyer/collection/sets/{category}/{brand}/{model} | One set: every piece (owned or missing, with its lowest ask on the market), what completing it would cost now, and the leaderboard of collectors who opted in, with your rank. |
+| [**get_buyer_company**](BuyerApi.md#get_buyer_company) | **GET** /v1/buyer/company | Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none. |
+| [**get_buyer_creation**](BuyerApi.md#get_buyer_creation) | **GET** /v1/buyer/creations/{format}/{id} | A live creation&#39;s public page: its rating breakdown, recent reviews and whether you can review it. |
 | [**get_buyer_creator**](BuyerApi.md#get_buyer_creator) | **GET** /v1/buyer/creators/{handle} | A creator storefront: profile, affiliate code, and shelves of live picks. |
+| [**get_buyer_event**](BuyerApi.md#get_buyer_event) | **GET** /v1/buyer/events/{slug} | A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP. |
 | [**get_buyer_fit_vocabulary**](BuyerApi.md#get_buyer_fit_vocabulary) | **GET** /v1/buyer/fit/vocabulary | Garment kinds and the measurements each takes. |
 | [**get_buyer_gift_finder_option**](BuyerApi.md#get_buyer_gift_finder_option) | **GET** /v1/buyer/gift-finder/options | The gift finder’s questions: recipients, interests, budgets. |
+| [**get_buyer_home**](BuyerApi.md#get_buyer_home) | **GET** /v1/buyer/home | Your home in Crossly World (made on first read). |
+| [**get_buyer_home_placeable**](BuyerApi.md#get_buyer_home_placeable) | **GET** /v1/buyer/home/placeable | What you could place in your home: your items and delivered furniture. |
 | [**get_buyer_impact**](BuyerApi.md#get_buyer_impact) | **GET** /v1/buyer/impact | The sourced footprint your secondhand purchases avoided. |
 | [**get_buyer_layaway**](BuyerApi.md#get_buyer_layaway) | **GET** /v1/buyer/layaways/{id} | One layaway and its schedule. |
 | [**get_buyer_listing_audio_summary**](BuyerApi.md#get_buyer_listing_audio_summary) | **GET** /v1/buyer/listings/{slug}/audio-summary | A spoken summary of a listing (accessibility): the text, built only from the listing’s own fields and the seller’s description, and the recording of it when one exists. |
@@ -139,7 +169,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_buyer_pack**](BuyerApi.md#get_buyer_pack) | **GET** /v1/buyer/packs/{slug} | One pack: tiers and odds, items left, expected value, the chase items still in it. |
 | [**get_buyer_pack_fairness**](BuyerApi.md#get_buyer_pack_fairness) | **GET** /v1/buyer/packs/fairness | Your provably-fair seeds: the active server-seed commitment (sha256), your client seed and nonce, and every retired seed in full so past openings can be re-run. |
 | [**get_buyer_party**](BuyerApi.md#get_buyer_party) | **GET** /v1/buyer/parties/{slug} | One shopping party. |
-| [**get_buyer_passport**](BuyerApi.md#get_buyer_passport) | **GET** /v1/buyer/passports/{code} | What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much. |
+| [**get_buyer_passport**](BuyerApi.md#get_buyer_passport) | **GET** /v1/buyer/passports/{code} | What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid&#x3D;, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much. |
 | [**get_buyer_preference**](BuyerApi.md#get_buyer_preference) | **GET** /v1/buyer/preferences | The shopping profile derived from that activity. |
 | [**get_buyer_price_guide**](BuyerApi.md#get_buyer_price_guide) | **GET** /v1/buyer/price-guide | What matching items actually sold for on Crossly: median, quartiles, by month, and recent sales. Needs q, brand or category. |
 | [**get_buyer_profile**](BuyerApi.md#get_buyer_profile) | **GET** /v1/buyer/profile | Your Crossly shopping profile — name, email, saved address, Bucks balance. |
@@ -149,14 +179,38 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_buyer_purchase_story**](BuyerApi.md#get_buyer_purchase_story) | **GET** /v1/buyer/purchases/{id}/story | Your owner story on a purchase, passed on to the next owner if you resell it. |
 | [**get_buyer_registry**](BuyerApi.md#get_buyer_registry) | **GET** /v1/buyer/registries/{id} | One of your registries: items with how many are wanted and bought. |
 | [**get_buyer_registry_by_token**](BuyerApi.md#get_buyer_registry_by_token) | **GET** /v1/buyer/registry/{token} | A registry as a guest sees it: items, how many are still wanted, and whether it can ship. Never the address. |
+| [**get_buyer_rental**](BuyerApi.md#get_buyer_rental) | **GET** /v1/buyer/rentals/{id} | One of your rentals: timeline, payments, the return label, extension and buy-out terms. |
 | [**get_buyer_rental_eligibility**](BuyerApi.md#get_buyer_rental_eligibility) | **GET** /v1/buyer/rentals/eligibility | Can you rent right now: ID-verified (a photo ID and a matching selfie, once), the verified name rentals ship to, and your standing (one rental at a time until your first comes back; none after one that never did). |
 | [**get_buyer_seller_club**](BuyerApi.md#get_buyer_seller_club) | **GET** /v1/buyer/sellers/{sellerUserId}/club | A seller’s loyalty club: its tiers (spend threshold, discount, perks) and your standing. null when the seller has none. |
+| [**get_buyer_seller_loyalty**](BuyerApi.md#get_buyer_seller_loyalty) | **GET** /v1/buyer/sellers/{sellerUserId}/loyalty | A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none. |
 | [**get_buyer_seller_trust**](BuyerApi.md#get_buyer_seller_trust) | **GET** /v1/buyer/sellers/{username}/trust | Seller at a glance: member since, completed sales, independent rating, typical handling time, dispute rate, trust tier, badges — and the plain sentences the profile shows. |
 | [**get_buyer_together**](BuyerApi.md#get_buyer_together) | **GET** /v1/buyer/together/{code} | A shop-together room: members, the board with votes, and chat. |
 | [**get_buyer_vault_market_history**](BuyerApi.md#get_buyer_vault_market_history) | **GET** /v1/buyer/vault-markets/history | Your Vault Markets value by day at the marks (oldest first, today live) over &#x60;days&#x60; (default 90), and today’s change against yesterday’s close. |
 | [**get_buyer_vault_market_index**](BuyerApi.md#get_buyer_vault_market_index) | **GET** /v1/buyer/vault-markets/indexes/{slug} | One index with its published daily closes (oldest first, &#x60;days&#x60; default 365) and its level now. |
 | [**get_buyer_vault_market_instant_exit**](BuyerApi.md#get_buyer_vault_market_instant_exit) | **GET** /v1/buyer/vault-markets/instant-exit/{id} | The Instant Exit quote for one vault unit you hold, and whether it can be sold now. |
+| [**get_buyer_vault_market_option_analytic**](BuyerApi.md#get_buyer_vault_market_option_analytic) | **GET** /v1/buyer/vault-markets/options/analytics/{underlying} | Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only. |
+| [**get_buyer_vault_market_option_chain**](BuyerApi.md#get_buyer_vault_market_option_chain) | **GET** /v1/buyer/vault-markets/options/chain/{underlying} | The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract. |
+| [**get_buyer_vault_market_option_iv**](BuyerApi.md#get_buyer_vault_market_option_iv) | **GET** /v1/buyer/vault-markets/options/iv/{underlying} | The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark. |
+| [**get_buyer_vault_market_option_position**](BuyerApi.md#get_buyer_vault_market_option_position) | **GET** /v1/buyer/vault-markets/options/positions | Your fractional options positions with their marks, P&amp;L and Greeks (open by default; &#x60;status&#x60; all for closed and settled too). Read only. |
+| [**get_buyer_vault_market_option_risk**](BuyerApi.md#get_buyer_vault_market_option_risk) | **GET** /v1/buyer/vault-markets/options/risk | Your options portfolio Greeks, a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;) and the beta-weighted delta against an index. Read only. |
+| [**get_buyer_vault_market_prediction_board**](BuyerApi.md#get_buyer_vault_market_prediction_board) | **GET** /v1/buyer/vault-markets/predictions/board | The busiest open prediction markets and their odds (the Trading Floor board). Anonymous. |
+| [**get_buyer_vault_market_prediction_event**](BuyerApi.md#get_buyer_vault_market_prediction_event) | **GET** /v1/buyer/vault-markets/predictions/events/{id} | One expiry’s markets with your holdings in each and their real worst and best case across them. |
+| [**get_buyer_vault_market_prediction_leaderboard**](BuyerApi.md#get_buyer_vault_market_prediction_leaderboard) | **GET** /v1/buyer/vault-markets/predictions/leaderboard | Opt-in forecaster leaderboards (&#x60;period&#x60; week | month | all; &#x60;metric&#x60; pnl | accuracy | brier; &#x60;venue&#x60; live | paper). |
+| [**get_buyer_vault_market_prediction_market**](BuyerApi.md#get_buyer_vault_market_prediction_market) | **GET** /v1/buyer/vault-markets/predictions/markets/{id} | One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash. |
+| [**get_buyer_vault_market_prediction_market_history**](BuyerApi.md#get_buyer_vault_market_prediction_market_history) | **GET** /v1/buyer/vault-markets/predictions/markets/{id}/history | A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (&#x60;range&#x60; 1d, 1w, 1m, all; &#x60;venue&#x60; live or paper). |
+| [**get_buyer_vault_market_share**](BuyerApi.md#get_buyer_vault_market_share) | **GET** /v1/buyer/vault-markets/shares | Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts. |
+| [**get_buyer_vault_market_share_basket**](BuyerApi.md#get_buyer_vault_market_share_basket) | **GET** /v1/buyer/vault-markets/shares/baskets/{id} | One theme basket: its series, weights and prices, and your holdings against them. |
+| [**get_buyer_vault_market_share_sery**](BuyerApi.md#get_buyer_vault_market_share_sery) | **GET** /v1/buyer/vault-markets/shares/series/{id} | One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts. |
+| [**get_buyer_vault_market_share_sery_history**](BuyerApi.md#get_buyer_vault_market_share_sery_history) | **GET** /v1/buyer/vault-markets/shares/series/{id}/history | A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark. |
+| [**get_buyer_vault_market_share_sery_perk**](BuyerApi.md#get_buyer_vault_market_share_sery_perk) | **GET** /v1/buyer/vault-markets/shares/series/{id}/perks | Your holder perks on a series: badge, visit links, viewing days and your bookings. |
 | [**get_buyer_vault_market_worth**](BuyerApi.md#get_buyer_vault_market_worth) | **GET** /v1/buyer/vault-markets/worth | What your vault is worth now: value at the market prices (marks come only from trades) split into reliable and indicative marks, cost and P&amp;L, today’s change, and an estimate of what the units free to sell would fetch from the bids resting on the book now. Read only. |
+| [**get_buyer_wholesale_cart**](BuyerApi.md#get_buyer_wholesale_cart) | **GET** /v1/buyer/wholesale/cart | Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group. |
+| [**get_buyer_wholesale_catalog_apply**](BuyerApi.md#get_buyer_wholesale_catalog_apply) | **GET** /v1/buyer/wholesale/catalogs/{storeSlug}/{catalogSlug}/apply | The application form for a store&#39;s wholesale catalog: the seller&#39;s requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable&#x3D;false for a catalog you cannot apply to. |
+| [**get_buyer_wholesale_drop**](BuyerApi.md#get_buyer_wholesale_drop) | **GET** /v1/buyer/wholesale/drops/{id} | One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you. |
+| [**get_buyer_wholesale_invoice_pay_quote**](BuyerApi.md#get_buyer_wholesale_invoice_pay_quote) | **GET** /v1/buyer/wholesale/invoices/{id}/pay-quote | What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach). |
+| [**get_buyer_wholesale_order_sheet**](BuyerApi.md#get_buyer_wholesale_order_sheet) | **GET** /v1/buyer/wholesale/order-sheets/{id} | One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option). |
+| [**get_buyer_wholesale_quote**](BuyerApi.md#get_buyer_wholesale_quote) | **GET** /v1/buyer/wholesale/quotes/{id} | One of your quotes with its items, the seller&#39;s prices and expiry. |
+| [**get_buyer_wholesale_reorder**](BuyerApi.md#get_buyer_wholesale_reorder) | **GET** /v1/buyer/wholesale/reorder/{id} | Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged. |
 | [**list_buyer_activity**](BuyerApi.md#list_buyer_activity) | **GET** /v1/buyer/activity | What this buyer has compared lately. |
 | [**list_buyer_auction_bids**](BuyerApi.md#list_buyer_auction_bids) | **GET** /v1/buyer/auctions/{slug}/bids | An auction’s bid history, highest first, bidders anonymised. |
 | [**list_buyer_auctions**](BuyerApi.md#list_buyer_auctions) | **GET** /v1/buyer/auctions | Auctions you have bid in — bidding, won or lost (last 100). |
@@ -170,8 +224,11 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_catalog_listing_videos**](BuyerApi.md#list_buyer_catalog_listing_videos) | **GET** /v1/buyer/catalog/listings/{slug}/videos | Videos the seller recorded for this item on request, newest first, with the question each one answers. |
 | [**list_buyer_clubs**](BuyerApi.md#list_buyer_clubs) | **GET** /v1/buyer/clubs | Sellers’ loyalty clubs you belong to: your spend with each, your tier and its discount, and the next tier. |
 | [**list_buyer_collection_sets**](BuyerApi.md#list_buyer_collection_sets) | **GET** /v1/buyer/collection/sets | Sets you are collecting — a catalogue brand + model you own at least two pieces of — with owned / total and percent complete, most complete first; and whether you show on set leaderboards. |
+| [**list_buyer_company_approvals**](BuyerApi.md#list_buyer_company_approvals) | **GET** /v1/buyer/company/approvals | Spend approval requests (owners and accounts payable see all; others their own). ?status&#x3D;pending|approved|declined|used|expired. |
 | [**list_buyer_consolidations**](BuyerApi.md#list_buyer_consolidations) | **GET** /v1/buyer/consolidations | Your ship-together orders: parcels at the hub, and the one box out. |
 | [**list_buyer_conversation_guests**](BuyerApi.md#list_buyer_conversation_guests) | **GET** /v1/buyer/conversations/{id}/guests | Guests in a chat. |
+| [**list_buyer_creation_reviewable**](BuyerApi.md#list_buyer_creation_reviewable) | **GET** /v1/buyer/creations/reviewable | Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each. |
+| [**list_buyer_events**](BuyerApi.md#list_buyer_events) | **GET** /v1/buyer/events | Upcoming and live seller events across Crossly, soonest first. |
 | [**list_buyer_feedback**](BuyerApi.md#list_buyer_feedback) | **GET** /v1/buyer/feedback | Feedback you have left sellers, newest first — with the ids you revise by. |
 | [**list_buyer_feedback_pending**](BuyerApi.md#list_buyer_feedback_pending) | **GET** /v1/buyer/feedback/pending | Orders from the last 60 days that are on their way or arrived and still need your feedback. |
 | [**list_buyer_fit_refs**](BuyerApi.md#list_buyer_fit_refs) | **GET** /v1/buyer/fit/refs | Your saved reference garments for fit comparison. |
@@ -180,6 +237,8 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_gift_cards**](BuyerApi.md#list_buyer_gift_cards) | **GET** /v1/buyer/gift-cards | Gift cards you bought, newest first. |
 | [**list_buyer_gift_finder**](BuyerApi.md#list_buyer_gift_finder) | **GET** /v1/buyer/gift-finder | Live listings for a recipient, interest and budget. |
 | [**list_buyer_gift_sent**](BuyerApi.md#list_buyer_gift_sent) | **GET** /v1/buyer/gifts/sent | Items you sent as gifts: whether the teaser went out, whether it arrived and was opened, and any thank-you. Send one with &#x60;gift&#x60; on checkout. |
+| [**list_buyer_home_builders**](BuyerApi.md#list_buyer_home_builders) | **GET** /v1/buyer/home/builders | Your co-builders: friends who may arrange your home with you. |
+| [**list_buyer_home_building**](BuyerApi.md#list_buyer_home_building) | **GET** /v1/buyer/homes/building | The homes you co-build, to visit and arrange. |
 | [**list_buyer_hotspots**](BuyerApi.md#list_buyer_hotspots) | **GET** /v1/buyer/hotspots | Shop-the-look tags on a story or lookbook photo: each tagged listing and where it sits on the image (x, y as fractions). |
 | [**list_buyer_hunts**](BuyerApi.md#list_buyer_hunts) | **GET** /v1/buyer/hunts | Your buyer-agent hunts and what they did. |
 | [**list_buyer_instant_offers**](BuyerApi.md#list_buyer_instant_offers) | **GET** /v1/buyer/instant-offers | Your instant offers: live quotes, accepted ones awaiting a label, approved ones (with the prepaid label) and paid ones. |
@@ -188,6 +247,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_listing_seller_reviews**](BuyerApi.md#list_buyer_listing_seller_reviews) | **GET** /v1/buyer/listings/{slug}/seller-reviews | The seller’s public reviews: summary, text, photos, replies. |
 | [**list_buyer_live_shipments**](BuyerApi.md#list_buyer_live_shipments) | **GET** /v1/buyer/live-shipments | Your one-box-per-show shipments: every order won in a show ships together, and postage is charged once (the rest refunded when it ships). |
 | [**list_buyer_live_stream_lineup**](BuyerApi.md#list_buyer_live_stream_lineup) | **GET** /v1/buyer/live-streams/{id}/lineup | What a live show will sell, in order: each item, its price, and whether it is still available. |
+| [**list_buyer_loyalty**](BuyerApi.md#list_buyer_loyalty) | **GET** /v1/buyer/loyalty | Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history. |
 | [**list_buyer_market_bids**](BuyerApi.md#list_buyer_market_bids) | **GET** /v1/buyer/market/bids | Your resting market bids. |
 | [**list_buyer_market_watches**](BuyerApi.md#list_buyer_market_watches) | **GET** /v1/buyer/market/watches | Market variants you watch, with the price you are waiting for. |
 | [**list_buyer_offers**](BuyerApi.md#list_buyer_offers) | **GET** /v1/buyer/offers | Offers you have made, newest first (last 100). |
@@ -196,6 +256,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_packs**](BuyerApi.md#list_buyer_packs) | **GET** /v1/buyer/packs | Packs you can open: price, every tier with its published odds, what is left in it and its value range, and the expected value of one opening. |
 | [**list_buyer_parties**](BuyerApi.md#list_buyer_parties) | **GET** /v1/buyer/parties | Themed shopping parties, live and upcoming. |
 | [**list_buyer_party_listings**](BuyerApi.md#list_buyer_party_listings) | **GET** /v1/buyer/parties/{slug}/listings | Listings shared to a party, featured first. |
+| [**list_buyer_payment_methods**](BuyerApi.md#list_buyer_payment_methods) | **GET** /v1/buyer/payment-methods | Your saved cards, the default first. |
 | [**list_buyer_pickup_points**](BuyerApi.md#list_buyer_pickup_points) | **GET** /v1/buyer/pickup-points | Carrier pickup points (UPS Access Point / FedEx Hold at Location) near an address; pass one as &#x60;pickupPoint&#x60; to POST /v1/buyer/checkout. |
 | [**list_buyer_protection_plans**](BuyerApi.md#list_buyer_protection_plans) | **GET** /v1/buyer/protection-plans | Your protection plans (bought at checkout with &#x60;protection&#x60;): status, term, coverage, contract id, and any refund. |
 | [**list_buyer_registries**](BuyerApi.md#list_buyer_registries) | **GET** /v1/buyer/registries | Your gift registries. |
@@ -205,6 +266,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_size_memory_prompts**](BuyerApi.md#list_buyer_size_memory_prompts) | **GET** /v1/buyer/size-memory/prompts | Delivered orders with a size that you haven’t said how they fit (the last 60 days). |
 | [**list_buyer_size_memory_sizes**](BuyerApi.md#list_buyer_size_memory_sizes) | **GET** /v1/buyer/size-memory/sizes | The sizes learned from what you bought and kept, by kind of item (shoes, tops, bottoms, dresses, outerwear) and department. |
 | [**list_buyer_splits**](BuyerApi.md#list_buyer_splits) | **GET** /v1/buyer/splits | Purchases you split, with each share’s status. |
+| [**list_buyer_store_listings**](BuyerApi.md#list_buyer_store_listings) | **GET** /v1/buyer/stores/{slug}/listings | A store&#39;s live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges. |
 | [**list_buyer_subscriptions**](BuyerApi.md#list_buyer_subscriptions) | **GET** /v1/buyer/subscriptions | Your subscribe &amp; save standing orders. |
 | [**list_buyer_together**](BuyerApi.md#list_buyer_together) | **GET** /v1/buyer/together | Shop-together rooms you are in. |
 | [**list_buyer_total_requests**](BuyerApi.md#list_buyer_total_requests) | **GET** /v1/buyer/total-requests | Your combined-shipping total requests, newest per seller. |
@@ -213,20 +275,51 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_vault_market_holdings**](BuyerApi.md#list_buyer_vault_market_holdings) | **GET** /v1/buyer/vault-markets/holdings | Each unit you hold in the vault at its market price, with the mark’s quality (A or B reliable, C indicative, none), cost, P&amp;L and where it stands (stored, listed, lent, pledged, at the grader); &#x60;meta&#x60; carries the totals and the units you have out on loan. |
 | [**list_buyer_vault_market_indexes**](BuyerApi.md#list_buyer_vault_market_indexes) | **GET** /v1/buyer/vault-markets/indexes | Crossly indexes over vault book keys (category, brand, curated, composite, segment, and your own), each with its level now and change since the last daily close. Index levels are valued only from the book’s marks. |
 | [**list_buyer_vault_market_instant_exit**](BuyerApi.md#list_buyer_vault_market_instant_exit) | **GET** /v1/buyer/vault-markets/instant-exit | Instant Exit quotes for what you hold, one per book key: the best resting bid (yours left out), its share of the mark, the bid levels, units held and which are free to sell, and why a key cannot be sold instantly. A quote, not an order. |
+| [**list_buyer_vault_market_option_combos**](BuyerApi.md#list_buyer_vault_market_option_combos) | **GET** /v1/buyer/vault-markets/options/combos | Your options strategies (working by default) with their legs, net price per unit and fills. Read only. |
+| [**list_buyer_vault_market_option_notices**](BuyerApi.md#list_buyer_vault_market_option_notices) | **GET** /v1/buyer/vault-markets/options/notices | Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only. |
+| [**list_buyer_vault_market_option_series**](BuyerApi.md#list_buyer_vault_market_option_series) | **GET** /v1/buyer/vault-markets/options/series | Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only. |
+| [**list_buyer_vault_market_option_strategies**](BuyerApi.md#list_buyer_vault_market_option_strategies) | **GET** /v1/buyer/vault-markets/options/strategies | The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only. |
+| [**list_buyer_vault_market_prediction_comments**](BuyerApi.md#list_buyer_vault_market_prediction_comments) | **GET** /v1/buyer/vault-markets/predictions/comments | A prediction market’s (or series’) discussion thread. Read only. |
+| [**list_buyer_vault_market_prediction_markets**](BuyerApi.md#list_buyer_vault_market_prediction_markets) | **GET** /v1/buyer/vault-markets/predictions/markets | \&quot;Will it hit?\&quot; prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market&#39;s own price, display only). |
+| [**list_buyer_vault_market_prediction_positions**](BuyerApi.md#list_buyer_vault_market_prediction_positions) | **GET** /v1/buyer/vault-markets/predictions/positions | Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled. |
+| [**list_buyer_vault_market_share_auto_invest**](BuyerApi.md#list_buyer_vault_market_share_auto_invest) | **GET** /v1/buyer/vault-markets/shares/auto-invest | Your recurring Vault Shares auto-invest plans. |
+| [**list_buyer_vault_market_share_baskets**](BuyerApi.md#list_buyer_vault_market_share_baskets) | **GET** /v1/buyer/vault-markets/shares/baskets | Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund. |
+| [**list_buyer_vault_market_share_drops**](BuyerApi.md#list_buyer_vault_market_share_drops) | **GET** /v1/buyer/vault-markets/shares/drops | Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price). |
+| [**list_buyer_vault_market_share_gifts**](BuyerApi.md#list_buyer_vault_market_share_gifts) | **GET** /v1/buyer/vault-markets/shares/gifts | Vault Shares gifts you sent or were offered. |
+| [**list_buyer_vault_market_share_series**](BuyerApi.md#list_buyer_vault_market_share_series) | **GET** /v1/buyer/vault-markets/shares/series | Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding. |
 | [**list_buyer_vault_market_watchlist**](BuyerApi.md#list_buyer_vault_market_watchlist) | **GET** /v1/buyer/vault-markets/watchlist | The book keys you watch, with mark and its quality, 24 h and 7 d change, and the last 30 daily marks. |
 | [**list_buyer_video_requests**](BuyerApi.md#list_buyer_video_requests) | **GET** /v1/buyer/video-requests | Your video requests and their answers. |
+| [**list_buyer_wallet_perks**](BuyerApi.md#list_buyer_wallet_perks) | **GET** /v1/buyer/wallet/perks | The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other. |
+| [**list_buyer_wholesale_drops**](BuyerApi.md#list_buyer_wholesale_drops) | **GET** /v1/buyer/wholesale/drops | Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook &#x3D; reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock. |
+| [**list_buyer_wholesale_freight_requests**](BuyerApi.md#list_buyer_wholesale_freight_requests) | **GET** /v1/buyer/wholesale/freight-requests | Your freight (LTL) quote requests to sellers, with the seller&#39;s figure in cents once quoted. |
+| [**list_buyer_wholesale_order_sheets**](BuyerApi.md#list_buyer_wholesale_order_sheets) | **GET** /v1/buyer/wholesale/order-sheets | Your saved wholesale order sheets (one seller each), newest first. |
+| [**list_buyer_wholesale_orders**](BuyerApi.md#list_buyer_wholesale_orders) | **GET** /v1/buyer/wholesale/orders | Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder. |
+| [**list_buyer_wholesale_prebooks**](BuyerApi.md#list_buyer_wholesale_prebooks) | **GET** /v1/buyer/wholesale/prebooks | Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock. |
+| [**list_buyer_wholesale_quotes**](BuyerApi.md#list_buyer_wholesale_quotes) | **GET** /v1/buyer/wholesale/quotes | Your requests for a quote (RFQ) to wholesale sellers. ?status&#x3D;open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired. |
+| [**list_buyer_wholesale_statement**](BuyerApi.md#list_buyer_wholesale_statement) | **GET** /v1/buyer/wholesale/statement | Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them. |
+| [**list_buyer_wholesale_suppliers**](BuyerApi.md#list_buyer_wholesale_suppliers) | **GET** /v1/buyer/wholesale/suppliers | The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each. |
 | [**list_buyer_wishlist_items**](BuyerApi.md#list_buyer_wishlist_items) | **GET** /v1/buyer/wishlists/{id}/items | What is on one wishlist. |
 | [**list_buyer_wishlist_members**](BuyerApi.md#list_buyer_wishlist_members) | **GET** /v1/buyer/wishlists/{id}/members | Co-editors of a shared wishlist. |
 | [**list_buyer_wishlists**](BuyerApi.md#list_buyer_wishlists) | **GET** /v1/buyer/wishlists | Your wishlists. |
 | [**update_buyer_board**](BuyerApi.md#update_buyer_board) | **PATCH** /v1/buyer/boards/{id} | Rename a board, change its description, or make it public / private. |
 | [**update_buyer_board_layout**](BuyerApi.md#update_buyer_board_layout) | **PUT** /v1/buyer/boards/{id}/layout | Replace a board’s layout: items by platform listing id or slug, with x, y, w (0–1) and z. At most 40. |
 | [**update_buyer_collection_set_leaderboard**](BuyerApi.md#update_buyer_collection_set_leaderboard) | **PUT** /v1/buyer/collection/sets/leaderboard | Show or hide yourself (by your public handle) on set leaderboards. |
+| [**update_buyer_company**](BuyerApi.md#update_buyer_company) | **PATCH** /v1/buyer/company | Rename the company or change its tax id / website (owner). |
+| [**update_buyer_company_address**](BuyerApi.md#update_buyer_company_address) | **PUT** /v1/buyer/company/addresses | Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20. |
+| [**update_buyer_company_member**](BuyerApi.md#update_buyer_company_member) | **PATCH** /v1/buyer/company/members/{id} | Change a member&#39;s role or approval limit (owner). The last owner stays an owner. |
+| [**update_buyer_creation_review**](BuyerApi.md#update_buyer_creation_review) | **PUT** /v1/buyer/creations/{format}/{id}/review | Review a creation you bought (or change your review): 1-5 stars and an optional comment. |
 | [**update_buyer_feedback**](BuyerApi.md#update_buyer_feedback) | **PATCH** /v1/buyer/feedback/{id} | Revise feedback you left, within 60 days. |
+| [**update_buyer_home**](BuyerApi.md#update_buyer_home) | **PATCH** /v1/buyer/home | Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values. |
+| [**update_buyer_home_builder**](BuyerApi.md#update_buyer_home_builder) | **PUT** /v1/buyer/home/builders | Set your co-builders (friends only, at most 4). |
+| [**update_buyer_home_layout**](BuyerApi.md#update_buyer_home_layout) | **PUT** /v1/buyer/home/layout | Arrange your home: the whole layout, checked against what you own. |
 | [**update_buyer_hunt**](BuyerApi.md#update_buyer_hunt) | **PATCH** /v1/buyer/hunts/{id} | Pause, resume or stop a hunt. |
+| [**update_buyer_payment_method_default**](BuyerApi.md#update_buyer_payment_method_default) | **PUT** /v1/buyer/payment-methods/{id}/default | Make one of your saved cards the default. |
 | [**update_buyer_purchase_story**](BuyerApi.md#update_buyer_purchase_story) | **PUT** /v1/buyer/purchases/{id}/story | Write your owner story (280 characters); it travels with the item if you resell it. |
 | [**update_buyer_registry**](BuyerApi.md#update_buyer_registry) | **PATCH** /v1/buyer/registries/{id} | Edit a registry: title, kind, date, message, ship-to address. |
 | [**update_buyer_registry_item**](BuyerApi.md#update_buyer_registry_item) | **PUT** /v1/buyer/registries/{id}/items/{platformListingId} | How many of an item you want (1–50). |
 | [**update_buyer_subscription**](BuyerApi.md#update_buyer_subscription) | **PATCH** /v1/buyer/subscriptions/{id} | Pause, resume, skip the next delivery, change the interval, or cancel. |
+| [**update_buyer_wholesale_cart_po**](BuyerApi.md#update_buyer_wholesale_cart_po) | **PUT** /v1/buyer/wholesale/cart/po | Set the PO reference for one seller&#39;s group of your cart: { sellerUserId, poReference } (empty clears it). |
+| [**update_buyer_wholesale_order_sheet**](BuyerApi.md#update_buyer_wholesale_order_sheet) | **PATCH** /v1/buyer/wholesale/order-sheets/{id} | Rename an order sheet, change its PO reference or note, or replace its lines. |
 | [**update_buyer_wishlist**](BuyerApi.md#update_buyer_wishlist) | **PATCH** /v1/buyer/wishlists/{id} | Rename a wishlist, or make it public / private. |
 
 
@@ -1662,6 +1755,265 @@ end
 - **Accept**: application/json
 
 
+## create_buyer_company
+
+> <BuyerCompanyResponse> create_buyer_company
+
+Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+  result = api_instance.create_buyer_company
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company: #{e}"
+end
+```
+
+#### Using the create_buyer_company_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> create_buyer_company_with_http_info
+
+```ruby
+begin
+  # Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+  data, status_code, headers = api_instance.create_buyer_company_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_company_approval
+
+> <CreateBuyerCompanyApprovalResponse> create_buyer_company_approval
+
+Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+  result = api_instance.create_buyer_company_approval
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_approval: #{e}"
+end
+```
+
+#### Using the create_buyer_company_approval_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerCompanyApprovalResponse>, Integer, Hash)> create_buyer_company_approval_with_http_info
+
+```ruby
+begin
+  # Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+  data, status_code, headers = api_instance.create_buyer_company_approval_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerCompanyApprovalResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_approval_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateBuyerCompanyApprovalResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_company_approval_decide
+
+> <CreateBuyerCompanyApprovalResponse> create_buyer_company_approval_decide(id)
+
+Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+  result = api_instance.create_buyer_company_approval_decide(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_approval_decide: #{e}"
+end
+```
+
+#### Using the create_buyer_company_approval_decide_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerCompanyApprovalResponse>, Integer, Hash)> create_buyer_company_approval_decide_with_http_info(id)
+
+```ruby
+begin
+  # Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+  data, status_code, headers = api_instance.create_buyer_company_approval_decide_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerCompanyApprovalResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_approval_decide_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerCompanyApprovalResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_company_member
+
+> <BuyerCompanyResponse> create_buyer_company_member
+
+Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+  result = api_instance.create_buyer_company_member
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_member: #{e}"
+end
+```
+
+#### Using the create_buyer_company_member_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> create_buyer_company_member_with_http_info
+
+```ruby
+begin
+  # Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+  data, status_code, headers = api_instance.create_buyer_company_member_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_company_member_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## create_buyer_conversation_invite
 
 > <CreateBuyerWishlistInviteResponse> create_buyer_conversation_invite(id)
@@ -1785,6 +2137,73 @@ end
 ### Return type
 
 **CreateBuyerConversationJoinResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_event_rsvp
+
+> <CreateBuyerEventRsvpResponse> create_buyer_event_rsvp(slug)
+
+RSVP to an event: going (counts against its capacity) or interested.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+slug = 'slug_example' # String | 
+
+begin
+  # RSVP to an event: going (counts against its capacity) or interested.
+  result = api_instance.create_buyer_event_rsvp(slug)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_event_rsvp: #{e}"
+end
+```
+
+#### Using the create_buyer_event_rsvp_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerEventRsvpResponse>, Integer, Hash)> create_buyer_event_rsvp_with_http_info(slug)
+
+```ruby
+begin
+  # RSVP to an event: going (counts against its capacity) or interested.
+  data, status_code, headers = api_instance.create_buyer_event_rsvp_with_http_info(slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerEventRsvpResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_event_rsvp_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerEventRsvpResponse**
 
 ### Authorization
 
@@ -2138,7 +2557,7 @@ end
 
 > <CreateBuyerGroupBuyJoinResponse> create_buyer_group_buy_join(id)
 
-Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. `linkToken` opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
 
 ### Examples
 
@@ -2155,7 +2574,7 @@ api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
 
 begin
-  # Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+  # Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. `linkToken` opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
   result = api_instance.create_buyer_group_buy_join(id)
   p result
 rescue CrosslyBuyer::ApiError => e
@@ -2171,7 +2590,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+  # Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. `linkToken` opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
   data, status_code, headers = api_instance.create_buyer_group_buy_join_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
@@ -3547,7 +3966,7 @@ end
 
 > <GetBuyerPassportResponse> create_buyer_passport_claim(code)
 
-Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
 
 ### Examples
 
@@ -3564,7 +3983,7 @@ api_instance = CrosslyBuyer::BuyerApi.new
 code = 'code_example' # String | 
 
 begin
-  # Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+  # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
   result = api_instance.create_buyer_passport_claim(code)
   p result
 rescue CrosslyBuyer::ApiError => e
@@ -3580,7 +3999,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+  # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
   data, status_code, headers = api_instance.create_buyer_passport_claim_with_http_info(code)
   p status_code # => 2xx
   p headers # => { ... }
@@ -3666,73 +4085,6 @@ end
 ### Return type
 
 **CreateBuyerProtectionPlanCancelResponse**
-
-### Authorization
-
-[BuyerOAuth](../README.md#BuyerOAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## create_buyer_purchase_download
-
-> <CreateBuyerPurchaseDownloadResponse> create_buyer_purchase_download(id)
-
-A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-
-### Examples
-
-```ruby
-require 'time'
-require 'crossly_buyer'
-# setup authorization
-CrosslyBuyer.configure do |config|
-  # Configure Bearer authorization: BuyerOAuth
-  config.access_token = 'YOUR_BEARER_TOKEN'
-end
-
-api_instance = CrosslyBuyer::BuyerApi.new
-id = 'id_example' # String | 
-
-begin
-  # A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-  result = api_instance.create_buyer_purchase_download(id)
-  p result
-rescue CrosslyBuyer::ApiError => e
-  puts "Error when calling BuyerApi->create_buyer_purchase_download: #{e}"
-end
-```
-
-#### Using the create_buyer_purchase_download_with_http_info variant
-
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CreateBuyerPurchaseDownloadResponse>, Integer, Hash)> create_buyer_purchase_download_with_http_info(id)
-
-```ruby
-begin
-  # A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-  data, status_code, headers = api_instance.create_buyer_purchase_download_with_http_info(id)
-  p status_code # => 2xx
-  p headers # => { ... }
-  p data # => <CreateBuyerPurchaseDownloadResponse>
-rescue CrosslyBuyer::ApiError => e
-  puts "Error when calling BuyerApi->create_buyer_purchase_download_with_http_info: #{e}"
-end
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **id** | **String** |  |  |
-
-### Return type
-
-**CreateBuyerPurchaseDownloadResponse**
 
 ### Authorization
 
@@ -4013,7 +4365,7 @@ end
 
 ## create_buyer_rental_arrival_photo
 
-> <CreateBuyerRentalArrivalPhotoResponse> create_buyer_rental_arrival_photo(id)
+> <BuyerRentalResponse> create_buyer_rental_arrival_photo(id)
 
 Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
 
@@ -4044,7 +4396,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerRentalArrivalPhotoResponse>, Integer, Hash)> create_buyer_rental_arrival_photo_with_http_info(id)
+> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_arrival_photo_with_http_info(id)
 
 ```ruby
 begin
@@ -4052,7 +4404,7 @@ begin
   data, status_code, headers = api_instance.create_buyer_rental_arrival_photo_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateBuyerRentalArrivalPhotoResponse>
+  p data # => <BuyerRentalResponse>
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_rental_arrival_photo_with_http_info: #{e}"
 end
@@ -4066,7 +4418,74 @@ end
 
 ### Return type
 
-**CreateBuyerRentalArrivalPhotoResponse**
+**BuyerRentalResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_rental_buyout
+
+> <CreateBuyerRentalBuyoutResponse> create_buyer_rental_buyout(id)
+
+Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+  result = api_instance.create_buyer_rental_buyout(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_buyout: #{e}"
+end
+```
+
+#### Using the create_buyer_rental_buyout_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerRentalBuyoutResponse>, Integer, Hash)> create_buyer_rental_buyout_with_http_info(id)
+
+```ruby
+begin
+  # Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+  data, status_code, headers = api_instance.create_buyer_rental_buyout_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerRentalBuyoutResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_buyout_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerRentalBuyoutResponse**
 
 ### Authorization
 
@@ -4212,6 +4631,209 @@ end
 - **Accept**: application/json
 
 
+## create_buyer_rental_delivered
+
+> <BuyerRentalResponse> create_buyer_rental_delivered(id)
+
+Confirm your rental arrived.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Confirm your rental arrived.
+  result = api_instance.create_buyer_rental_delivered(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_delivered: #{e}"
+end
+```
+
+#### Using the create_buyer_rental_delivered_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_delivered_with_http_info(id)
+
+```ruby
+begin
+  # Confirm your rental arrived.
+  data, status_code, headers = api_instance.create_buyer_rental_delivered_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerRentalResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_delivered_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerRentalResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_rental_extension
+
+> <CreateBuyerRentalExtensionResponse> create_buyer_rental_extension(id)
+
+Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+  result = api_instance.create_buyer_rental_extension(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_extension: #{e}"
+end
+```
+
+#### Using the create_buyer_rental_extension_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerRentalExtensionResponse>, Integer, Hash)> create_buyer_rental_extension_with_http_info(id)
+
+```ruby
+begin
+  # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+  data, status_code, headers = api_instance.create_buyer_rental_extension_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerRentalExtensionResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_extension_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerRentalExtensionResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_rental_extension_pay
+
+> <CreateBuyerRentalExtensionPayResponse> create_buyer_rental_extension_pay(id, extension_id)
+
+Pay for an extension the seller approved → clientSecret.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+extension_id = 'extension_id_example' # String | 
+
+begin
+  # Pay for an extension the seller approved → clientSecret.
+  result = api_instance.create_buyer_rental_extension_pay(id, extension_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_extension_pay: #{e}"
+end
+```
+
+#### Using the create_buyer_rental_extension_pay_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerRentalExtensionPayResponse>, Integer, Hash)> create_buyer_rental_extension_pay_with_http_info(id, extension_id)
+
+```ruby
+begin
+  # Pay for an extension the seller approved → clientSecret.
+  data, status_code, headers = api_instance.create_buyer_rental_extension_pay_with_http_info(id, extension_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerRentalExtensionPayResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_extension_pay_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **extension_id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerRentalExtensionPayResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## create_buyer_rental_identity_start
 
 > <CreateBuyerRentalIdentityStartResponse> create_buyer_rental_identity_start
@@ -4265,6 +4887,73 @@ This endpoint does not need any parameter.
 ### Return type
 
 **CreateBuyerRentalIdentityStartResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_rental_return_shipped
+
+> <BuyerRentalResponse> create_buyer_rental_return_shipped(id)
+
+Say you sent your rental back (optionally with photos).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Say you sent your rental back (optionally with photos).
+  result = api_instance.create_buyer_rental_return_shipped(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_return_shipped: #{e}"
+end
+```
+
+#### Using the create_buyer_rental_return_shipped_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_return_shipped_with_http_info(id)
+
+```ruby
+begin
+  # Say you sent your rental back (optionally with photos).
+  data, status_code, headers = api_instance.create_buyer_rental_return_shipped_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerRentalResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_rental_return_shipped_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerRentalResponse**
 
 ### Authorization
 
@@ -4477,9 +5166,76 @@ end
 - **Accept**: application/json
 
 
+## create_buyer_seller_loyalty_join
+
+> <GetBuyerSellerLoyaltyResponse> create_buyer_seller_loyalty_join(seller_user_id)
+
+Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+seller_user_id = 'seller_user_id_example' # String | 
+
+begin
+  # Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+  result = api_instance.create_buyer_seller_loyalty_join(seller_user_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_seller_loyalty_join: #{e}"
+end
+```
+
+#### Using the create_buyer_seller_loyalty_join_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerSellerLoyaltyResponse>, Integer, Hash)> create_buyer_seller_loyalty_join_with_http_info(seller_user_id)
+
+```ruby
+begin
+  # Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+  data, status_code, headers = api_instance.create_buyer_seller_loyalty_join_with_http_info(seller_user_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerSellerLoyaltyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_seller_loyalty_join_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **seller_user_id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerSellerLoyaltyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## create_buyer_seller_report
 
-> <CreateBuyerSellerReportResponse> create_buyer_seller_report(username, create_buyer_seller_report_request)
+> <CreateBuyerStoreReportResponse> create_buyer_seller_report(username, create_buyer_seller_report_request)
 
 Report a seller to Crossly’s trust team.
 
@@ -4513,7 +5269,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerSellerReportResponse>, Integer, Hash)> create_buyer_seller_report_with_http_info(username, create_buyer_seller_report_request)
+> <Array(<CreateBuyerStoreReportResponse>, Integer, Hash)> create_buyer_seller_report_with_http_info(username, create_buyer_seller_report_request)
 
 ```ruby
 begin
@@ -4521,7 +5277,7 @@ begin
   data, status_code, headers = api_instance.create_buyer_seller_report_with_http_info(username, create_buyer_seller_report_request)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateBuyerSellerReportResponse>
+  p data # => <CreateBuyerStoreReportResponse>
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_seller_report_with_http_info: #{e}"
 end
@@ -4536,7 +5292,7 @@ end
 
 ### Return type
 
-**CreateBuyerSellerReportResponse**
+**CreateBuyerStoreReportResponse**
 
 ### Authorization
 
@@ -4612,6 +5368,77 @@ end
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_store_report
+
+> <CreateBuyerStoreReportResponse> create_buyer_store_report(slug, create_buyer_seller_report_request)
+
+Report a store to Crossly’s trust team.
+
+Files against whoever runs the store. A second report while your first is still under review updates that report instead of filing another. `purchaseId` is attached only if it is your order from this seller.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+slug = 'slug_example' # String | The store’s slug (its /shop/s/<slug> address).
+create_buyer_seller_report_request = CrosslyBuyer::CreateBuyerSellerReportRequest.new({reason: 'scam'}) # CreateBuyerSellerReportRequest | 
+
+begin
+  # Report a store to Crossly’s trust team.
+  result = api_instance.create_buyer_store_report(slug, create_buyer_seller_report_request)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_store_report: #{e}"
+end
+```
+
+#### Using the create_buyer_store_report_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerStoreReportResponse>, Integer, Hash)> create_buyer_store_report_with_http_info(slug, create_buyer_seller_report_request)
+
+```ruby
+begin
+  # Report a store to Crossly’s trust team.
+  data, status_code, headers = api_instance.create_buyer_store_report_with_http_info(slug, create_buyer_seller_report_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerStoreReportResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_store_report_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** | The store’s slug (its /shop/s/&lt;slug&gt; address). |  |
+| **create_buyer_seller_report_request** | **CreateBuyerSellerReportRequest** |  |  |
+
+### Return type
+
+**CreateBuyerStoreReportResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -5275,6 +6102,532 @@ end
 ### Return type
 
 **CreateBuyerVaultWithdrawResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_catalog_apply
+
+> <CreateBuyerWholesaleCatalogApplyResponse> create_buyer_wholesale_catalog_apply(store_slug, catalog_slug)
+
+Apply to a store's wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller's requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+store_slug = 'store_slug_example' # String | 
+catalog_slug = 'catalog_slug_example' # String | 
+
+begin
+  # Apply to a store's wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller's requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+  result = api_instance.create_buyer_wholesale_catalog_apply(store_slug, catalog_slug)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_catalog_apply: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_catalog_apply_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerWholesaleCatalogApplyResponse>, Integer, Hash)> create_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug)
+
+```ruby
+begin
+  # Apply to a store's wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller's requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+  data, status_code, headers = api_instance.create_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerWholesaleCatalogApplyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_catalog_apply_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **store_slug** | **String** |  |  |
+| **catalog_slug** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerWholesaleCatalogApplyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_freight_request
+
+> <CreateBuyerWholesaleFreightRequestResponse> create_buyer_wholesale_freight_request
+
+Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+  result = api_instance.create_buyer_wholesale_freight_request
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_freight_request: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_freight_request_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerWholesaleFreightRequestResponse>, Integer, Hash)> create_buyer_wholesale_freight_request_with_http_info
+
+```ruby
+begin
+  # Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+  data, status_code, headers = api_instance.create_buyer_wholesale_freight_request_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerWholesaleFreightRequestResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_freight_request_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateBuyerWholesaleFreightRequestResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_invoice_pay_link
+
+> <CreateBuyerWholesaleInvoicePayLinkResponse> create_buyer_wholesale_invoice_pay_link(id)
+
+A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+  result = api_instance.create_buyer_wholesale_invoice_pay_link(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_invoice_pay_link: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_invoice_pay_link_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerWholesaleInvoicePayLinkResponse>, Integer, Hash)> create_buyer_wholesale_invoice_pay_link_with_http_info(id)
+
+```ruby
+begin
+  # A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+  data, status_code, headers = api_instance.create_buyer_wholesale_invoice_pay_link_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerWholesaleInvoicePayLinkResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_invoice_pay_link_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerWholesaleInvoicePayLinkResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_order_sheet
+
+> <BuyerWholesaleOrderSheetResponse> create_buyer_wholesale_order_sheet
+
+Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+  result = api_instance.create_buyer_wholesale_order_sheet
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_order_sheet: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_order_sheet_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerWholesaleOrderSheetResponse>, Integer, Hash)> create_buyer_wholesale_order_sheet_with_http_info
+
+```ruby
+begin
+  # Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+  data, status_code, headers = api_instance.create_buyer_wholesale_order_sheet_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerWholesaleOrderSheetResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_order_sheet_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerWholesaleOrderSheetResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_quote
+
+> <BuyerWholesaleQuoteResponse> create_buyer_wholesale_quote
+
+Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+  result = api_instance.create_buyer_wholesale_quote
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_quote: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_quote_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerWholesaleQuoteResponse>, Integer, Hash)> create_buyer_wholesale_quote_with_http_info
+
+```ruby
+begin
+  # Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+  data, status_code, headers = api_instance.create_buyer_wholesale_quote_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerWholesaleQuoteResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_quote_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerWholesaleQuoteResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_quote_accept
+
+> <CreateBuyerWholesaleQuoteAcceptResponse> create_buyer_wholesale_quote_accept(id)
+
+Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line's quantity drops the lock). Paying happens at checkout on Crossly.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line's quantity drops the lock). Paying happens at checkout on Crossly.
+  result = api_instance.create_buyer_wholesale_quote_accept(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_quote_accept: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_quote_accept_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerWholesaleQuoteAcceptResponse>, Integer, Hash)> create_buyer_wholesale_quote_accept_with_http_info(id)
+
+```ruby
+begin
+  # Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line's quantity drops the lock). Paying happens at checkout on Crossly.
+  data, status_code, headers = api_instance.create_buyer_wholesale_quote_accept_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerWholesaleQuoteAcceptResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_quote_accept_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerWholesaleQuoteAcceptResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_quote_withdraw
+
+> <BuyerWholesaleQuoteResponse> create_buyer_wholesale_quote_withdraw(id)
+
+Withdraw a quote request that is still requested or answered.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Withdraw a quote request that is still requested or answered.
+  result = api_instance.create_buyer_wholesale_quote_withdraw(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_quote_withdraw: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_quote_withdraw_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerWholesaleQuoteResponse>, Integer, Hash)> create_buyer_wholesale_quote_withdraw_with_http_info(id)
+
+```ruby
+begin
+  # Withdraw a quote request that is still requested or answered.
+  data, status_code, headers = api_instance.create_buyer_wholesale_quote_withdraw_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerWholesaleQuoteResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_quote_withdraw_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerWholesaleQuoteResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_buyer_wholesale_upload_validate
+
+> <CreateBuyerWholesaleUploadValidateResponse> create_buyer_wholesale_upload_validate
+
+Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+  result = api_instance.create_buyer_wholesale_upload_validate
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_upload_validate: #{e}"
+end
+```
+
+#### Using the create_buyer_wholesale_upload_validate_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerWholesaleUploadValidateResponse>, Integer, Hash)> create_buyer_wholesale_upload_validate_with_http_info
+
+```ruby
+begin
+  # Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+  data, status_code, headers = api_instance.create_buyer_wholesale_upload_validate_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerWholesaleUploadValidateResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_wholesale_upload_validate_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateBuyerWholesaleUploadValidateResponse**
 
 ### Authorization
 
@@ -5965,6 +7318,73 @@ end
 - **Accept**: application/json
 
 
+## delete_buyer_company_member
+
+> <BuyerCompanyResponse> delete_buyer_company_member(id)
+
+Remove a member or cancel an invite (owner), or leave the company (your own member id).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Remove a member or cancel an invite (owner), or leave the company (your own member id).
+  result = api_instance.delete_buyer_company_member(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_company_member: #{e}"
+end
+```
+
+#### Using the delete_buyer_company_member_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> delete_buyer_company_member_with_http_info(id)
+
+```ruby
+begin
+  # Remove a member or cancel an invite (owner), or leave the company (your own member id).
+  data, status_code, headers = api_instance.delete_buyer_company_member_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_company_member_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## delete_buyer_conversation_guest
 
 > <BuyerResponse> delete_buyer_conversation_guest(id, user_id)
@@ -6019,6 +7439,142 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **user_id** | **String** |  |  |
+
+### Return type
+
+**BuyerResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## delete_buyer_creation_review
+
+> <BuyerResponse> delete_buyer_creation_review(format, id)
+
+Remove your review of a creation (its vote leaves the rating with it).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+format = 'wearable' # String | The creation format.
+id = 'id_example' # String | The creation id (a card is <setId>.<slug>).
+
+begin
+  # Remove your review of a creation (its vote leaves the rating with it).
+  result = api_instance.delete_buyer_creation_review(format, id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_creation_review: #{e}"
+end
+```
+
+#### Using the delete_buyer_creation_review_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse>, Integer, Hash)> delete_buyer_creation_review_with_http_info(format, id)
+
+```ruby
+begin
+  # Remove your review of a creation (its vote leaves the rating with it).
+  data, status_code, headers = api_instance.delete_buyer_creation_review_with_http_info(format, id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_creation_review_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **format** | **String** | The creation format. |  |
+| **id** | **String** | The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). |  |
+
+### Return type
+
+**BuyerResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## delete_buyer_event_rsvp
+
+> <BuyerResponse> delete_buyer_event_rsvp(slug)
+
+Take back your RSVP.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+slug = 'slug_example' # String | 
+
+begin
+  # Take back your RSVP.
+  result = api_instance.delete_buyer_event_rsvp(slug)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_event_rsvp: #{e}"
+end
+```
+
+#### Using the delete_buyer_event_rsvp_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse>, Integer, Hash)> delete_buyer_event_rsvp_with_http_info(slug)
+
+```ruby
+begin
+  # Take back your RSVP.
+  data, status_code, headers = api_instance.delete_buyer_event_rsvp_with_http_info(slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_event_rsvp_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** |  |  |
 
 ### Return type
 
@@ -6090,6 +7646,72 @@ end
 ### Return type
 
 **BuyerResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## delete_buyer_home_guestbook
+
+> delete_buyer_home_guestbook(id)
+
+Hide a line from your home’s guestbook.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Hide a line from your home’s guestbook.
+  api_instance.delete_buyer_home_guestbook(id)
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_home_guestbook: #{e}"
+end
+```
+
+#### Using the delete_buyer_home_guestbook_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> delete_buyer_home_guestbook_with_http_info(id)
+
+```ruby
+begin
+  # Hide a line from your home’s guestbook.
+  data, status_code, headers = api_instance.delete_buyer_home_guestbook_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_home_guestbook_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+nil (empty response body)
 
 ### Authorization
 
@@ -6571,6 +8193,73 @@ end
 - **Accept**: application/json
 
 
+## delete_buyer_seller_loyalty_join
+
+> <BuyerResponse> delete_buyer_seller_loyalty_join(seller_user_id)
+
+Leave a seller’s loyalty club.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+seller_user_id = 'seller_user_id_example' # String | 
+
+begin
+  # Leave a seller’s loyalty club.
+  result = api_instance.delete_buyer_seller_loyalty_join(seller_user_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_seller_loyalty_join: #{e}"
+end
+```
+
+#### Using the delete_buyer_seller_loyalty_join_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse>, Integer, Hash)> delete_buyer_seller_loyalty_join_with_http_info(seller_user_id)
+
+```ruby
+begin
+  # Leave a seller’s loyalty club.
+  data, status_code, headers = api_instance.delete_buyer_seller_loyalty_join_with_http_info(seller_user_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_seller_loyalty_join_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **seller_user_id** | **String** |  |  |
+
+### Return type
+
+**BuyerResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## delete_buyer_together_item
 
 > <BuyerResponse> delete_buyer_together_item(code, id)
@@ -6763,6 +8452,73 @@ end
 ### Return type
 
 **DeleteBuyerTryOnResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## delete_buyer_wholesale_order_sheet
+
+> <DeleteBuyerWholesaleOrderSheetResponse> delete_buyer_wholesale_order_sheet(id)
+
+Delete an order sheet.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Delete an order sheet.
+  result = api_instance.delete_buyer_wholesale_order_sheet(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_wholesale_order_sheet: #{e}"
+end
+```
+
+#### Using the delete_buyer_wholesale_order_sheet_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<DeleteBuyerWholesaleOrderSheetResponse>, Integer, Hash)> delete_buyer_wholesale_order_sheet_with_http_info(id)
+
+```ruby
+begin
+  # Delete an order sheet.
+  data, status_code, headers = api_instance.delete_buyer_wholesale_order_sheet_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <DeleteBuyerWholesaleOrderSheetResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->delete_buyer_wholesale_order_sheet_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**DeleteBuyerWholesaleOrderSheetResponse**
 
 ### Authorization
 
@@ -7781,6 +9537,139 @@ end
 - **Accept**: application/json
 
 
+## get_buyer_company
+
+> <BuyerCompanyResponse> get_buyer_company
+
+Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+  result = api_instance.get_buyer_company
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_company: #{e}"
+end
+```
+
+#### Using the get_buyer_company_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> get_buyer_company_with_http_info
+
+```ruby
+begin
+  # Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+  data, status_code, headers = api_instance.get_buyer_company_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_company_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_creation
+
+> <GetBuyerCreationResponse> get_buyer_creation(format, id)
+
+A live creation's public page: its rating breakdown, recent reviews and whether you can review it.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+format = 'wearable' # String | The creation format.
+id = 'id_example' # String | The creation id (a card is <setId>.<slug>).
+
+begin
+  # A live creation's public page: its rating breakdown, recent reviews and whether you can review it.
+  result = api_instance.get_buyer_creation(format, id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_creation: #{e}"
+end
+```
+
+#### Using the get_buyer_creation_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerCreationResponse>, Integer, Hash)> get_buyer_creation_with_http_info(format, id)
+
+```ruby
+begin
+  # A live creation's public page: its rating breakdown, recent reviews and whether you can review it.
+  data, status_code, headers = api_instance.get_buyer_creation_with_http_info(format, id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerCreationResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_creation_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **format** | **String** | The creation format. |  |
+| **id** | **String** | The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). |  |
+
+### Return type
+
+**GetBuyerCreationResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_buyer_creator
 
 > <GetBuyerCreatorResponse> get_buyer_creator(handle)
@@ -7837,6 +9726,73 @@ end
 ### Return type
 
 **GetBuyerCreatorResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_event
+
+> <GetBuyerEventResponse> get_buyer_event(slug)
+
+A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+slug = 'slug_example' # String | 
+
+begin
+  # A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+  result = api_instance.get_buyer_event(slug)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_event: #{e}"
+end
+```
+
+#### Using the get_buyer_event_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerEventResponse>, Integer, Hash)> get_buyer_event_with_http_info(slug)
+
+```ruby
+begin
+  # A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+  data, status_code, headers = api_instance.get_buyer_event_with_http_info(slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerEventResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_event_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** |  |  |
+
+### Return type
+
+**GetBuyerEventResponse**
 
 ### Authorization
 
@@ -7965,6 +9921,134 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetBuyerGiftFinderOptionResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_home
+
+> <BuyerHomeResponse> get_buyer_home
+
+Your home in Crossly World (made on first read).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your home in Crossly World (made on first read).
+  result = api_instance.get_buyer_home
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_home: #{e}"
+end
+```
+
+#### Using the get_buyer_home_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerHomeResponse>, Integer, Hash)> get_buyer_home_with_http_info
+
+```ruby
+begin
+  # Your home in Crossly World (made on first read).
+  data, status_code, headers = api_instance.get_buyer_home_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerHomeResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_home_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerHomeResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_home_placeable
+
+> <GetBuyerHomePlaceableResponse> get_buyer_home_placeable
+
+What you could place in your home: your items and delivered furniture.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # What you could place in your home: your items and delivered furniture.
+  result = api_instance.get_buyer_home_placeable
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_home_placeable: #{e}"
+end
+```
+
+#### Using the get_buyer_home_placeable_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerHomePlaceableResponse>, Integer, Hash)> get_buyer_home_placeable_with_http_info
+
+```ruby
+begin
+  # What you could place in your home: your items and delivered furniture.
+  data, status_code, headers = api_instance.get_buyer_home_placeable_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerHomePlaceableResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_home_placeable_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerHomePlaceableResponse**
 
 ### Authorization
 
@@ -9319,7 +11403,7 @@ end
 
 > <GetBuyerPassportResponse> get_buyer_passport(code)
 
-What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
 
 ### Examples
 
@@ -9336,7 +11420,7 @@ api_instance = CrosslyBuyer::BuyerApi.new
 code = 'code_example' # String | 
 
 begin
-  # What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+  # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
   result = api_instance.get_buyer_passport(code)
   p result
 rescue CrosslyBuyer::ApiError => e
@@ -9352,7 +11436,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+  # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
   data, status_code, headers = api_instance.get_buyer_passport_with_http_info(code)
   p status_code # => 2xx
   p headers # => { ... }
@@ -9978,6 +12062,73 @@ end
 - **Accept**: application/json
 
 
+## get_buyer_rental
+
+> <GetBuyerRentalResponse> get_buyer_rental(id)
+
+One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+  result = api_instance.get_buyer_rental(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_rental: #{e}"
+end
+```
+
+#### Using the get_buyer_rental_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerRentalResponse>, Integer, Hash)> get_buyer_rental_with_http_info(id)
+
+```ruby
+begin
+  # One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+  data, status_code, headers = api_instance.get_buyer_rental_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerRentalResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_rental_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerRentalResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_buyer_rental_eligibility
 
 > <GetBuyerRentalEligibilityResponse> get_buyer_rental_eligibility
@@ -10098,6 +12249,73 @@ end
 ### Return type
 
 **GetBuyerSellerClubResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_seller_loyalty
+
+> <GetBuyerSellerLoyaltyResponse> get_buyer_seller_loyalty(seller_user_id)
+
+A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+seller_user_id = 'seller_user_id_example' # String | 
+
+begin
+  # A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+  result = api_instance.get_buyer_seller_loyalty(seller_user_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_seller_loyalty: #{e}"
+end
+```
+
+#### Using the get_buyer_seller_loyalty_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerSellerLoyaltyResponse>, Integer, Hash)> get_buyer_seller_loyalty_with_http_info(seller_user_id)
+
+```ruby
+begin
+  # A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+  data, status_code, headers = api_instance.get_buyer_seller_loyalty_with_http_info(seller_user_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerSellerLoyaltyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_seller_loyalty_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **seller_user_id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerSellerLoyaltyResponse**
 
 ### Authorization
 
@@ -10441,6 +12659,996 @@ end
 - **Accept**: application/json
 
 
+## get_buyer_vault_market_option_analytic
+
+> <GetBuyerVaultMarketOptionAnalyticResponse> get_buyer_vault_market_option_analytic(underlying)
+
+Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+underlying = 'underlying_example' # String | 
+
+begin
+  # Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+  result = api_instance.get_buyer_vault_market_option_analytic(underlying)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_analytic: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_option_analytic_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketOptionAnalyticResponse>, Integer, Hash)> get_buyer_vault_market_option_analytic_with_http_info(underlying)
+
+```ruby
+begin
+  # Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+  data, status_code, headers = api_instance.get_buyer_vault_market_option_analytic_with_http_info(underlying)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketOptionAnalyticResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_analytic_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **underlying** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketOptionAnalyticResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_option_chain
+
+> <GetBuyerVaultMarketOptionChainResponse> get_buyer_vault_market_option_chain(underlying)
+
+The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+underlying = 'underlying_example' # String | 
+
+begin
+  # The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+  result = api_instance.get_buyer_vault_market_option_chain(underlying)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_chain: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_option_chain_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketOptionChainResponse>, Integer, Hash)> get_buyer_vault_market_option_chain_with_http_info(underlying)
+
+```ruby
+begin
+  # The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+  data, status_code, headers = api_instance.get_buyer_vault_market_option_chain_with_http_info(underlying)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketOptionChainResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_chain_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **underlying** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketOptionChainResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_option_iv
+
+> <GetBuyerVaultMarketOptionIvResponse> get_buyer_vault_market_option_iv(underlying)
+
+The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+underlying = 'underlying_example' # String | 
+
+begin
+  # The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+  result = api_instance.get_buyer_vault_market_option_iv(underlying)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_iv: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_option_iv_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketOptionIvResponse>, Integer, Hash)> get_buyer_vault_market_option_iv_with_http_info(underlying)
+
+```ruby
+begin
+  # The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+  data, status_code, headers = api_instance.get_buyer_vault_market_option_iv_with_http_info(underlying)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketOptionIvResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_iv_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **underlying** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketOptionIvResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_option_position
+
+> <GetBuyerVaultMarketOptionPositionResponse> get_buyer_vault_market_option_position
+
+Your fractional options positions with their marks, P&L and Greeks (open by default; `status` all for closed and settled too). Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your fractional options positions with their marks, P&L and Greeks (open by default; `status` all for closed and settled too). Read only.
+  result = api_instance.get_buyer_vault_market_option_position
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_position: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_option_position_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketOptionPositionResponse>, Integer, Hash)> get_buyer_vault_market_option_position_with_http_info
+
+```ruby
+begin
+  # Your fractional options positions with their marks, P&L and Greeks (open by default; `status` all for closed and settled too). Read only.
+  data, status_code, headers = api_instance.get_buyer_vault_market_option_position_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketOptionPositionResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_position_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerVaultMarketOptionPositionResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_option_risk
+
+> <GetBuyerVaultMarketOptionRiskResponse> get_buyer_vault_market_option_risk
+
+Your options portfolio Greeks, a scenario's P&L (`priceShift`, `volShift`, `daysForward`) and the beta-weighted delta against an index. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your options portfolio Greeks, a scenario's P&L (`priceShift`, `volShift`, `daysForward`) and the beta-weighted delta against an index. Read only.
+  result = api_instance.get_buyer_vault_market_option_risk
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_risk: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_option_risk_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketOptionRiskResponse>, Integer, Hash)> get_buyer_vault_market_option_risk_with_http_info
+
+```ruby
+begin
+  # Your options portfolio Greeks, a scenario's P&L (`priceShift`, `volShift`, `daysForward`) and the beta-weighted delta against an index. Read only.
+  data, status_code, headers = api_instance.get_buyer_vault_market_option_risk_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketOptionRiskResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_option_risk_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerVaultMarketOptionRiskResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_prediction_board
+
+> <GetBuyerVaultMarketPredictionBoardResponse> get_buyer_vault_market_prediction_board
+
+The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+  result = api_instance.get_buyer_vault_market_prediction_board
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_board: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_prediction_board_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketPredictionBoardResponse>, Integer, Hash)> get_buyer_vault_market_prediction_board_with_http_info
+
+```ruby
+begin
+  # The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+  data, status_code, headers = api_instance.get_buyer_vault_market_prediction_board_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketPredictionBoardResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_board_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerVaultMarketPredictionBoardResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_prediction_event
+
+> <GetBuyerVaultMarketPredictionEventResponse> get_buyer_vault_market_prediction_event(id)
+
+One expiry’s markets with your holdings in each and their real worst and best case across them.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One expiry’s markets with your holdings in each and their real worst and best case across them.
+  result = api_instance.get_buyer_vault_market_prediction_event(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_event: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_prediction_event_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketPredictionEventResponse>, Integer, Hash)> get_buyer_vault_market_prediction_event_with_http_info(id)
+
+```ruby
+begin
+  # One expiry’s markets with your holdings in each and their real worst and best case across them.
+  data, status_code, headers = api_instance.get_buyer_vault_market_prediction_event_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketPredictionEventResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_event_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketPredictionEventResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_prediction_leaderboard
+
+> <GetBuyerVaultMarketPredictionLeaderboardResponse> get_buyer_vault_market_prediction_leaderboard
+
+Opt-in forecaster leaderboards (`period` week | month | all; `metric` pnl | accuracy | brier; `venue` live | paper).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Opt-in forecaster leaderboards (`period` week | month | all; `metric` pnl | accuracy | brier; `venue` live | paper).
+  result = api_instance.get_buyer_vault_market_prediction_leaderboard
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_leaderboard: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_prediction_leaderboard_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketPredictionLeaderboardResponse>, Integer, Hash)> get_buyer_vault_market_prediction_leaderboard_with_http_info
+
+```ruby
+begin
+  # Opt-in forecaster leaderboards (`period` week | month | all; `metric` pnl | accuracy | brier; `venue` live | paper).
+  data, status_code, headers = api_instance.get_buyer_vault_market_prediction_leaderboard_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketPredictionLeaderboardResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_leaderboard_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerVaultMarketPredictionLeaderboardResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_prediction_market
+
+> <GetBuyerVaultMarketPredictionMarketResponse> get_buyer_vault_market_prediction_market(id)
+
+One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+  result = api_instance.get_buyer_vault_market_prediction_market(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_market: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_prediction_market_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketPredictionMarketResponse>, Integer, Hash)> get_buyer_vault_market_prediction_market_with_http_info(id)
+
+```ruby
+begin
+  # One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+  data, status_code, headers = api_instance.get_buyer_vault_market_prediction_market_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketPredictionMarketResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_market_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketPredictionMarketResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_prediction_market_history
+
+> <GetBuyerVaultMarketPredictionMarketHistoryResponse> get_buyer_vault_market_prediction_market_history(id)
+
+A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (`range` 1d, 1w, 1m, all; `venue` live or paper).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (`range` 1d, 1w, 1m, all; `venue` live or paper).
+  result = api_instance.get_buyer_vault_market_prediction_market_history(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_market_history: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_prediction_market_history_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketPredictionMarketHistoryResponse>, Integer, Hash)> get_buyer_vault_market_prediction_market_history_with_http_info(id)
+
+```ruby
+begin
+  # A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (`range` 1d, 1w, 1m, all; `venue` live or paper).
+  data, status_code, headers = api_instance.get_buyer_vault_market_prediction_market_history_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketPredictionMarketHistoryResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_prediction_market_history_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketPredictionMarketHistoryResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_share
+
+> <GetBuyerVaultMarketShareResponse> get_buyer_vault_market_share
+
+Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+  result = api_instance.get_buyer_vault_market_share
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_share_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketShareResponse>, Integer, Hash)> get_buyer_vault_market_share_with_http_info
+
+```ruby
+begin
+  # Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+  data, status_code, headers = api_instance.get_buyer_vault_market_share_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketShareResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerVaultMarketShareResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_share_basket
+
+> <GetBuyerVaultMarketShareBasketResponse> get_buyer_vault_market_share_basket(id)
+
+One theme basket: its series, weights and prices, and your holdings against them.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One theme basket: its series, weights and prices, and your holdings against them.
+  result = api_instance.get_buyer_vault_market_share_basket(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_basket: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_share_basket_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketShareBasketResponse>, Integer, Hash)> get_buyer_vault_market_share_basket_with_http_info(id)
+
+```ruby
+begin
+  # One theme basket: its series, weights and prices, and your holdings against them.
+  data, status_code, headers = api_instance.get_buyer_vault_market_share_basket_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketShareBasketResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_basket_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketShareBasketResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_share_sery
+
+> <GetBuyerVaultMarketShareSeryResponse> get_buyer_vault_market_share_sery(id)
+
+One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+  result = api_instance.get_buyer_vault_market_share_sery(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_sery: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_share_sery_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketShareSeryResponse>, Integer, Hash)> get_buyer_vault_market_share_sery_with_http_info(id)
+
+```ruby
+begin
+  # One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+  data, status_code, headers = api_instance.get_buyer_vault_market_share_sery_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketShareSeryResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_sery_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketShareSeryResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_share_sery_history
+
+> <GetBuyerVaultMarketShareSeryHistoryResponse> get_buyer_vault_market_share_sery_history(id)
+
+A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+  result = api_instance.get_buyer_vault_market_share_sery_history(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_sery_history: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_share_sery_history_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketShareSeryHistoryResponse>, Integer, Hash)> get_buyer_vault_market_share_sery_history_with_http_info(id)
+
+```ruby
+begin
+  # A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+  data, status_code, headers = api_instance.get_buyer_vault_market_share_sery_history_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketShareSeryHistoryResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_sery_history_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketShareSeryHistoryResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_vault_market_share_sery_perk
+
+> <GetBuyerVaultMarketShareSeryPerkResponse> get_buyer_vault_market_share_sery_perk(id)
+
+Your holder perks on a series: badge, visit links, viewing days and your bookings.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Your holder perks on a series: badge, visit links, viewing days and your bookings.
+  result = api_instance.get_buyer_vault_market_share_sery_perk(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_sery_perk: #{e}"
+end
+```
+
+#### Using the get_buyer_vault_market_share_sery_perk_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerVaultMarketShareSeryPerkResponse>, Integer, Hash)> get_buyer_vault_market_share_sery_perk_with_http_info(id)
+
+```ruby
+begin
+  # Your holder perks on a series: badge, visit links, viewing days and your bookings.
+  data, status_code, headers = api_instance.get_buyer_vault_market_share_sery_perk_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerVaultMarketShareSeryPerkResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_vault_market_share_sery_perk_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerVaultMarketShareSeryPerkResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_buyer_vault_market_worth
 
 > <GetBuyerVaultMarketWorthResponse> get_buyer_vault_market_worth
@@ -10494,6 +13702,474 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetBuyerVaultMarketWorthResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_cart
+
+> <GetBuyerWholesaleCartResponse> get_buyer_wholesale_cart
+
+Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+  result = api_instance.get_buyer_wholesale_cart
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_cart: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_cart_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerWholesaleCartResponse>, Integer, Hash)> get_buyer_wholesale_cart_with_http_info
+
+```ruby
+begin
+  # Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+  data, status_code, headers = api_instance.get_buyer_wholesale_cart_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerWholesaleCartResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_cart_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerWholesaleCartResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_catalog_apply
+
+> <GetBuyerWholesaleCatalogApplyResponse> get_buyer_wholesale_catalog_apply(store_slug, catalog_slug)
+
+The application form for a store's wholesale catalog: the seller's requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable=false for a catalog you cannot apply to.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+store_slug = 'store_slug_example' # String | 
+catalog_slug = 'catalog_slug_example' # String | 
+
+begin
+  # The application form for a store's wholesale catalog: the seller's requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable=false for a catalog you cannot apply to.
+  result = api_instance.get_buyer_wholesale_catalog_apply(store_slug, catalog_slug)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_catalog_apply: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_catalog_apply_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerWholesaleCatalogApplyResponse>, Integer, Hash)> get_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug)
+
+```ruby
+begin
+  # The application form for a store's wholesale catalog: the seller's requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable=false for a catalog you cannot apply to.
+  data, status_code, headers = api_instance.get_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerWholesaleCatalogApplyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_catalog_apply_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **store_slug** | **String** |  |  |
+| **catalog_slug** | **String** |  |  |
+
+### Return type
+
+**GetBuyerWholesaleCatalogApplyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_drop
+
+> <GetBuyerWholesaleDropResponse> get_buyer_wholesale_drop(id)
+
+One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+  result = api_instance.get_buyer_wholesale_drop(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_drop: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_drop_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerWholesaleDropResponse>, Integer, Hash)> get_buyer_wholesale_drop_with_http_info(id)
+
+```ruby
+begin
+  # One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+  data, status_code, headers = api_instance.get_buyer_wholesale_drop_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerWholesaleDropResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_drop_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerWholesaleDropResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_invoice_pay_quote
+
+> <GetBuyerWholesaleInvoicePayQuoteResponse> get_buyer_wholesale_invoice_pay_quote(id)
+
+What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+  result = api_instance.get_buyer_wholesale_invoice_pay_quote(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_invoice_pay_quote: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_invoice_pay_quote_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerWholesaleInvoicePayQuoteResponse>, Integer, Hash)> get_buyer_wholesale_invoice_pay_quote_with_http_info(id)
+
+```ruby
+begin
+  # What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+  data, status_code, headers = api_instance.get_buyer_wholesale_invoice_pay_quote_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerWholesaleInvoicePayQuoteResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_invoice_pay_quote_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerWholesaleInvoicePayQuoteResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_order_sheet
+
+> <BuyerWholesaleOrderSheetResponse> get_buyer_wholesale_order_sheet(id)
+
+One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+  result = api_instance.get_buyer_wholesale_order_sheet(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_order_sheet: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_order_sheet_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerWholesaleOrderSheetResponse>, Integer, Hash)> get_buyer_wholesale_order_sheet_with_http_info(id)
+
+```ruby
+begin
+  # One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+  data, status_code, headers = api_instance.get_buyer_wholesale_order_sheet_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerWholesaleOrderSheetResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_order_sheet_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerWholesaleOrderSheetResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_quote
+
+> <BuyerWholesaleQuoteResponse> get_buyer_wholesale_quote(id)
+
+One of your quotes with its items, the seller's prices and expiry.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # One of your quotes with its items, the seller's prices and expiry.
+  result = api_instance.get_buyer_wholesale_quote(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_quote: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_quote_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerWholesaleQuoteResponse>, Integer, Hash)> get_buyer_wholesale_quote_with_http_info(id)
+
+```ruby
+begin
+  # One of your quotes with its items, the seller's prices and expiry.
+  data, status_code, headers = api_instance.get_buyer_wholesale_quote_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerWholesaleQuoteResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_quote_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerWholesaleQuoteResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_wholesale_reorder
+
+> <GetBuyerWholesaleReorderResponse> get_buyer_wholesale_reorder(id)
+
+Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+  result = api_instance.get_buyer_wholesale_reorder(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_reorder: #{e}"
+end
+```
+
+#### Using the get_buyer_wholesale_reorder_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerWholesaleReorderResponse>, Integer, Hash)> get_buyer_wholesale_reorder_with_http_info(id)
+
+```ruby
+begin
+  # Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+  data, status_code, headers = api_instance.get_buyer_wholesale_reorder_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerWholesaleReorderResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_wholesale_reorder_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerWholesaleReorderResponse**
 
 ### Authorization
 
@@ -11370,6 +15046,70 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## list_buyer_company_approvals
+
+> <BuyerResponse3> list_buyer_company_approvals
+
+Spend approval requests (owners and accounts payable see all; others their own). ?status=pending|approved|declined|used|expired.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Spend approval requests (owners and accounts payable see all; others their own). ?status=pending|approved|declined|used|expired.
+  result = api_instance.list_buyer_company_approvals
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_company_approvals: #{e}"
+end
+```
+
+#### Using the list_buyer_company_approvals_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_company_approvals_with_http_info
+
+```ruby
+begin
+  # Spend approval requests (owners and accounts payable see all; others their own). ?status=pending|approved|declined|used|expired.
+  data, status_code, headers = api_instance.list_buyer_company_approvals_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_company_approvals_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_buyer_consolidations
 
 > <BuyerResponse3> list_buyer_consolidations
@@ -11490,6 +15230,139 @@ end
 ### Return type
 
 **ListBuyerWishlistMembersResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_creation_reviewable
+
+> <ListBuyerCreationReviewableResponse> list_buyer_creation_reviewable(opts)
+
+Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  purchase_ref: 'purchase_ref_example' # String | Only the creation this purchase bought.
+}
+
+begin
+  # Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+  result = api_instance.list_buyer_creation_reviewable(opts)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_creation_reviewable: #{e}"
+end
+```
+
+#### Using the list_buyer_creation_reviewable_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerCreationReviewableResponse>, Integer, Hash)> list_buyer_creation_reviewable_with_http_info(opts)
+
+```ruby
+begin
+  # Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+  data, status_code, headers = api_instance.list_buyer_creation_reviewable_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerCreationReviewableResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_creation_reviewable_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **purchase_ref** | **String** | Only the creation this purchase bought. | [optional] |
+
+### Return type
+
+**ListBuyerCreationReviewableResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_events
+
+> <ListBuyerEventsResponse> list_buyer_events
+
+Upcoming and live seller events across Crossly, soonest first.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Upcoming and live seller events across Crossly, soonest first.
+  result = api_instance.list_buyer_events
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_events: #{e}"
+end
+```
+
+#### Using the list_buyer_events_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerEventsResponse>, Integer, Hash)> list_buyer_events_with_http_info
+
+```ruby
+begin
+  # Upcoming and live seller events across Crossly, soonest first.
+  data, status_code, headers = api_instance.list_buyer_events_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerEventsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_events_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerEventsResponse**
 
 ### Authorization
 
@@ -12006,6 +15879,134 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListBuyerGiftSentResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_home_builders
+
+> <ListBuyerHomeBuildersResponse> list_buyer_home_builders
+
+Your co-builders: friends who may arrange your home with you.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your co-builders: friends who may arrange your home with you.
+  result = api_instance.list_buyer_home_builders
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_home_builders: #{e}"
+end
+```
+
+#### Using the list_buyer_home_builders_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerHomeBuildersResponse>, Integer, Hash)> list_buyer_home_builders_with_http_info
+
+```ruby
+begin
+  # Your co-builders: friends who may arrange your home with you.
+  data, status_code, headers = api_instance.list_buyer_home_builders_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerHomeBuildersResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_home_builders_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerHomeBuildersResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_home_building
+
+> <ListBuyerHomeBuildingResponse> list_buyer_home_building
+
+The homes you co-build, to visit and arrange.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # The homes you co-build, to visit and arrange.
+  result = api_instance.list_buyer_home_building
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_home_building: #{e}"
+end
+```
+
+#### Using the list_buyer_home_building_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerHomeBuildingResponse>, Integer, Hash)> list_buyer_home_building_with_http_info
+
+```ruby
+begin
+  # The homes you co-build, to visit and arrange.
+  data, status_code, headers = api_instance.list_buyer_home_building_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerHomeBuildingResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_home_building_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerHomeBuildingResponse**
 
 ### Authorization
 
@@ -12538,6 +16539,70 @@ end
 - **Accept**: application/json
 
 
+## list_buyer_loyalty
+
+> <ListBuyerLoyaltyResponse> list_buyer_loyalty
+
+Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+  result = api_instance.list_buyer_loyalty
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_loyalty: #{e}"
+end
+```
+
+#### Using the list_buyer_loyalty_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerLoyaltyResponse>, Integer, Hash)> list_buyer_loyalty_with_http_info
+
+```ruby
+begin
+  # Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+  data, status_code, headers = api_instance.list_buyer_loyalty_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerLoyaltyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_loyalty_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerLoyaltyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_buyer_market_bids
 
 > <BuyerResponse3> list_buyer_market_bids
@@ -13056,6 +17121,72 @@ end
 ### Return type
 
 **BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_payment_methods
+
+> <ListBuyerPaymentMethodsResponse> list_buyer_payment_methods
+
+Your saved cards, the default first.
+
+Brand, last 4, expiry and whether it is your default. The `id` is what checkout and auction bids take as `paymentMethodId`.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your saved cards, the default first.
+  result = api_instance.list_buyer_payment_methods
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_payment_methods: #{e}"
+end
+```
+
+#### Using the list_buyer_payment_methods_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerPaymentMethodsResponse>, Integer, Hash)> list_buyer_payment_methods_with_http_info
+
+```ruby
+begin
+  # Your saved cards, the default first.
+  data, status_code, headers = api_instance.list_buyer_payment_methods_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerPaymentMethodsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_payment_methods_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerPaymentMethodsResponse**
 
 ### Authorization
 
@@ -13646,6 +17777,73 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## list_buyer_store_listings
+
+> <ListBuyerStoreListingsResponse> list_buyer_store_listings(slug)
+
+A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+slug = 'slug_example' # String | 
+
+begin
+  # A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+  result = api_instance.list_buyer_store_listings(slug)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_store_listings: #{e}"
+end
+```
+
+#### Using the list_buyer_store_listings_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerStoreListingsResponse>, Integer, Hash)> list_buyer_store_listings_with_http_info(slug)
+
+```ruby
+begin
+  # A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+  data, status_code, headers = api_instance.list_buyer_store_listings_with_http_info(slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerStoreListingsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_store_listings_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** |  |  |
+
+### Return type
+
+**ListBuyerStoreListingsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_buyer_subscriptions
 
 > <ListBuyerSubscriptionsResponse> list_buyer_subscriptions
@@ -14160,6 +18358,774 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## list_buyer_vault_market_option_combos
+
+> <ListBuyerVaultMarketOptionCombosResponse> list_buyer_vault_market_option_combos
+
+Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+  result = api_instance.list_buyer_vault_market_option_combos
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_combos: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_option_combos_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketOptionCombosResponse>, Integer, Hash)> list_buyer_vault_market_option_combos_with_http_info
+
+```ruby
+begin
+  # Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+  data, status_code, headers = api_instance.list_buyer_vault_market_option_combos_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketOptionCombosResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_combos_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketOptionCombosResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_option_notices
+
+> <ListBuyerVaultMarketOptionNoticesResponse> list_buyer_vault_market_option_notices
+
+Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+  result = api_instance.list_buyer_vault_market_option_notices
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_notices: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_option_notices_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketOptionNoticesResponse>, Integer, Hash)> list_buyer_vault_market_option_notices_with_http_info
+
+```ruby
+begin
+  # Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+  data, status_code, headers = api_instance.list_buyer_vault_market_option_notices_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketOptionNoticesResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_notices_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketOptionNoticesResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_option_series
+
+> <ListBuyerVaultMarketOptionSeriesResponse> list_buyer_vault_market_option_series
+
+Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+  result = api_instance.list_buyer_vault_market_option_series
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_series: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_option_series_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketOptionSeriesResponse>, Integer, Hash)> list_buyer_vault_market_option_series_with_http_info
+
+```ruby
+begin
+  # Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+  data, status_code, headers = api_instance.list_buyer_vault_market_option_series_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketOptionSeriesResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_series_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketOptionSeriesResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_option_strategies
+
+> <ListBuyerVaultMarketOptionStrategiesResponse> list_buyer_vault_market_option_strategies
+
+The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+  result = api_instance.list_buyer_vault_market_option_strategies
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_strategies: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_option_strategies_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketOptionStrategiesResponse>, Integer, Hash)> list_buyer_vault_market_option_strategies_with_http_info
+
+```ruby
+begin
+  # The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+  data, status_code, headers = api_instance.list_buyer_vault_market_option_strategies_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketOptionStrategiesResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_option_strategies_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketOptionStrategiesResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_prediction_comments
+
+> <ListBuyerVaultMarketPredictionCommentsResponse> list_buyer_vault_market_prediction_comments
+
+A prediction market’s (or series’) discussion thread. Read only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # A prediction market’s (or series’) discussion thread. Read only.
+  result = api_instance.list_buyer_vault_market_prediction_comments
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_prediction_comments: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_prediction_comments_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketPredictionCommentsResponse>, Integer, Hash)> list_buyer_vault_market_prediction_comments_with_http_info
+
+```ruby
+begin
+  # A prediction market’s (or series’) discussion thread. Read only.
+  data, status_code, headers = api_instance.list_buyer_vault_market_prediction_comments_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketPredictionCommentsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_prediction_comments_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketPredictionCommentsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_prediction_markets
+
+> <ListBuyerVaultMarketPredictionMarketsResponse> list_buyer_vault_market_prediction_markets
+
+\"Will it hit?\" prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market's own price, display only).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # \"Will it hit?\" prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market's own price, display only).
+  result = api_instance.list_buyer_vault_market_prediction_markets
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_prediction_markets: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_prediction_markets_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketPredictionMarketsResponse>, Integer, Hash)> list_buyer_vault_market_prediction_markets_with_http_info
+
+```ruby
+begin
+  # \"Will it hit?\" prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market's own price, display only).
+  data, status_code, headers = api_instance.list_buyer_vault_market_prediction_markets_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketPredictionMarketsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_prediction_markets_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketPredictionMarketsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_prediction_positions
+
+> <ListBuyerVaultMarketPredictionPositionsResponse> list_buyer_vault_market_prediction_positions
+
+Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+  result = api_instance.list_buyer_vault_market_prediction_positions
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_prediction_positions: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_prediction_positions_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketPredictionPositionsResponse>, Integer, Hash)> list_buyer_vault_market_prediction_positions_with_http_info
+
+```ruby
+begin
+  # Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+  data, status_code, headers = api_instance.list_buyer_vault_market_prediction_positions_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketPredictionPositionsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_prediction_positions_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketPredictionPositionsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_share_auto_invest
+
+> <ListBuyerVaultMarketShareAutoInvestResponse> list_buyer_vault_market_share_auto_invest
+
+Your recurring Vault Shares auto-invest plans.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your recurring Vault Shares auto-invest plans.
+  result = api_instance.list_buyer_vault_market_share_auto_invest
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_auto_invest: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_share_auto_invest_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketShareAutoInvestResponse>, Integer, Hash)> list_buyer_vault_market_share_auto_invest_with_http_info
+
+```ruby
+begin
+  # Your recurring Vault Shares auto-invest plans.
+  data, status_code, headers = api_instance.list_buyer_vault_market_share_auto_invest_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketShareAutoInvestResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_auto_invest_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketShareAutoInvestResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_share_baskets
+
+> <ListBuyerVaultMarketShareBasketsResponse> list_buyer_vault_market_share_baskets
+
+Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+  result = api_instance.list_buyer_vault_market_share_baskets
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_baskets: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_share_baskets_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketShareBasketsResponse>, Integer, Hash)> list_buyer_vault_market_share_baskets_with_http_info
+
+```ruby
+begin
+  # Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+  data, status_code, headers = api_instance.list_buyer_vault_market_share_baskets_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketShareBasketsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_baskets_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketShareBasketsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_share_drops
+
+> <ListBuyerVaultMarketShareDropsResponse> list_buyer_vault_market_share_drops
+
+Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+  result = api_instance.list_buyer_vault_market_share_drops
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_drops: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_share_drops_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketShareDropsResponse>, Integer, Hash)> list_buyer_vault_market_share_drops_with_http_info
+
+```ruby
+begin
+  # Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+  data, status_code, headers = api_instance.list_buyer_vault_market_share_drops_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketShareDropsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_drops_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketShareDropsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_share_gifts
+
+> <ListBuyerVaultMarketShareGiftsResponse> list_buyer_vault_market_share_gifts
+
+Vault Shares gifts you sent or were offered.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Vault Shares gifts you sent or were offered.
+  result = api_instance.list_buyer_vault_market_share_gifts
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_gifts: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_share_gifts_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketShareGiftsResponse>, Integer, Hash)> list_buyer_vault_market_share_gifts_with_http_info
+
+```ruby
+begin
+  # Vault Shares gifts you sent or were offered.
+  data, status_code, headers = api_instance.list_buyer_vault_market_share_gifts_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketShareGiftsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_gifts_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketShareGiftsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_vault_market_share_series
+
+> <ListBuyerVaultMarketShareSeriesResponse> list_buyer_vault_market_share_series
+
+Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+  result = api_instance.list_buyer_vault_market_share_series
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_series: #{e}"
+end
+```
+
+#### Using the list_buyer_vault_market_share_series_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerVaultMarketShareSeriesResponse>, Integer, Hash)> list_buyer_vault_market_share_series_with_http_info
+
+```ruby
+begin
+  # Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+  data, status_code, headers = api_instance.list_buyer_vault_market_share_series_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerVaultMarketShareSeriesResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_vault_market_share_series_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerVaultMarketShareSeriesResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_buyer_vault_market_watchlist
 
 > <ListBuyerVaultMarketWatchlistResponse> list_buyer_vault_market_watchlist
@@ -14277,6 +19243,582 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListBuyerVideoRequestsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wallet_perks
+
+> <ListBuyerWalletPerksResponse> list_buyer_wallet_perks
+
+The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+  result = api_instance.list_buyer_wallet_perks
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wallet_perks: #{e}"
+end
+```
+
+#### Using the list_buyer_wallet_perks_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerWalletPerksResponse>, Integer, Hash)> list_buyer_wallet_perks_with_http_info
+
+```ruby
+begin
+  # The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+  data, status_code, headers = api_instance.list_buyer_wallet_perks_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerWalletPerksResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wallet_perks_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerWalletPerksResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_drops
+
+> <ListBuyerWholesaleDropsResponse> list_buyer_wholesale_drops
+
+Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook = reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook = reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+  result = api_instance.list_buyer_wholesale_drops
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_drops: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_drops_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerWholesaleDropsResponse>, Integer, Hash)> list_buyer_wholesale_drops_with_http_info
+
+```ruby
+begin
+  # Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook = reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+  data, status_code, headers = api_instance.list_buyer_wholesale_drops_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerWholesaleDropsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_drops_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerWholesaleDropsResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_freight_requests
+
+> <BuyerResponse3> list_buyer_wholesale_freight_requests
+
+Your freight (LTL) quote requests to sellers, with the seller's figure in cents once quoted.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your freight (LTL) quote requests to sellers, with the seller's figure in cents once quoted.
+  result = api_instance.list_buyer_wholesale_freight_requests
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_freight_requests: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_freight_requests_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_wholesale_freight_requests_with_http_info
+
+```ruby
+begin
+  # Your freight (LTL) quote requests to sellers, with the seller's figure in cents once quoted.
+  data, status_code, headers = api_instance.list_buyer_wholesale_freight_requests_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_freight_requests_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_order_sheets
+
+> <BuyerResponse3> list_buyer_wholesale_order_sheets
+
+Your saved wholesale order sheets (one seller each), newest first.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your saved wholesale order sheets (one seller each), newest first.
+  result = api_instance.list_buyer_wholesale_order_sheets
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_order_sheets: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_order_sheets_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_wholesale_order_sheets_with_http_info
+
+```ruby
+begin
+  # Your saved wholesale order sheets (one seller each), newest first.
+  data, status_code, headers = api_instance.list_buyer_wholesale_order_sheets_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_order_sheets_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_orders
+
+> <BuyerResponse3> list_buyer_wholesale_orders
+
+Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+  result = api_instance.list_buyer_wholesale_orders
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_orders: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_orders_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_wholesale_orders_with_http_info
+
+```ruby
+begin
+  # Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+  data, status_code, headers = api_instance.list_buyer_wholesale_orders_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_orders_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_prebooks
+
+> <ListBuyerWholesalePrebooksResponse> list_buyer_wholesale_prebooks
+
+Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+  result = api_instance.list_buyer_wholesale_prebooks
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_prebooks: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_prebooks_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerWholesalePrebooksResponse>, Integer, Hash)> list_buyer_wholesale_prebooks_with_http_info
+
+```ruby
+begin
+  # Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+  data, status_code, headers = api_instance.list_buyer_wholesale_prebooks_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerWholesalePrebooksResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_prebooks_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerWholesalePrebooksResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_quotes
+
+> <BuyerResponse3> list_buyer_wholesale_quotes
+
+Your requests for a quote (RFQ) to wholesale sellers. ?status=open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your requests for a quote (RFQ) to wholesale sellers. ?status=open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+  result = api_instance.list_buyer_wholesale_quotes
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_quotes: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_quotes_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_wholesale_quotes_with_http_info
+
+```ruby
+begin
+  # Your requests for a quote (RFQ) to wholesale sellers. ?status=open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+  data, status_code, headers = api_instance.list_buyer_wholesale_quotes_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_quotes_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_statement
+
+> <BuyerResponse3> list_buyer_wholesale_statement
+
+Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+  result = api_instance.list_buyer_wholesale_statement
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_statement: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_statement_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_wholesale_statement_with_http_info
+
+```ruby
+begin
+  # Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+  data, status_code, headers = api_instance.list_buyer_wholesale_statement_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_statement_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_wholesale_suppliers
+
+> <BuyerResponse3> list_buyer_wholesale_suppliers
+
+The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+  result = api_instance.list_buyer_wholesale_suppliers
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_suppliers: #{e}"
+end
+```
+
+#### Using the list_buyer_wholesale_suppliers_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerResponse3>, Integer, Hash)> list_buyer_wholesale_suppliers_with_http_info
+
+```ruby
+begin
+  # The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+  data, status_code, headers = api_instance.list_buyer_wholesale_suppliers_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerResponse3>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_wholesale_suppliers_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerResponse3**
 
 ### Authorization
 
@@ -14684,6 +20226,274 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## update_buyer_company
+
+> <BuyerCompanyResponse> update_buyer_company
+
+Rename the company or change its tax id / website (owner).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Rename the company or change its tax id / website (owner).
+  result = api_instance.update_buyer_company
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_company: #{e}"
+end
+```
+
+#### Using the update_buyer_company_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> update_buyer_company_with_http_info
+
+```ruby
+begin
+  # Rename the company or change its tax id / website (owner).
+  data, status_code, headers = api_instance.update_buyer_company_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_company_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_company_address
+
+> <BuyerCompanyResponse> update_buyer_company_address
+
+Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+  result = api_instance.update_buyer_company_address
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_company_address: #{e}"
+end
+```
+
+#### Using the update_buyer_company_address_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> update_buyer_company_address_with_http_info
+
+```ruby
+begin
+  # Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+  data, status_code, headers = api_instance.update_buyer_company_address_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_company_address_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_company_member
+
+> <BuyerCompanyResponse> update_buyer_company_member(id)
+
+Change a member's role or approval limit (owner). The last owner stays an owner.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Change a member's role or approval limit (owner). The last owner stays an owner.
+  result = api_instance.update_buyer_company_member(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_company_member: #{e}"
+end
+```
+
+#### Using the update_buyer_company_member_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerCompanyResponse>, Integer, Hash)> update_buyer_company_member_with_http_info(id)
+
+```ruby
+begin
+  # Change a member's role or approval limit (owner). The last owner stays an owner.
+  data, status_code, headers = api_instance.update_buyer_company_member_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerCompanyResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_company_member_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerCompanyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_creation_review
+
+> <UpdateBuyerCreationReviewResponse> update_buyer_creation_review(format, id, update_buyer_creation_review_request)
+
+Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+
+Only a buyer of it may review it (a bought copy, or a pack that held the card). One review per creation; a second call replaces it. The comment is moderated.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+format = 'wearable' # String | The creation format.
+id = 'id_example' # String | The creation id (a card is <setId>.<slug>).
+update_buyer_creation_review_request = CrosslyBuyer::UpdateBuyerCreationReviewRequest.new({rating: 37}) # UpdateBuyerCreationReviewRequest | 
+
+begin
+  # Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+  result = api_instance.update_buyer_creation_review(format, id, update_buyer_creation_review_request)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_creation_review: #{e}"
+end
+```
+
+#### Using the update_buyer_creation_review_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateBuyerCreationReviewResponse>, Integer, Hash)> update_buyer_creation_review_with_http_info(format, id, update_buyer_creation_review_request)
+
+```ruby
+begin
+  # Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+  data, status_code, headers = api_instance.update_buyer_creation_review_with_http_info(format, id, update_buyer_creation_review_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateBuyerCreationReviewResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_creation_review_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **format** | **String** | The creation format. |  |
+| **id** | **String** | The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). |  |
+| **update_buyer_creation_review_request** | **UpdateBuyerCreationReviewRequest** |  |  |
+
+### Return type
+
+**UpdateBuyerCreationReviewResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## update_buyer_feedback
 
 > <BuyerResponse> update_buyer_feedback(id, update_buyer_feedback_request)
@@ -14755,6 +20565,198 @@ end
 - **Accept**: application/json
 
 
+## update_buyer_home
+
+> <BuyerHomeResponse> update_buyer_home
+
+Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+  result = api_instance.update_buyer_home
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home: #{e}"
+end
+```
+
+#### Using the update_buyer_home_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerHomeResponse>, Integer, Hash)> update_buyer_home_with_http_info
+
+```ruby
+begin
+  # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+  data, status_code, headers = api_instance.update_buyer_home_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerHomeResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerHomeResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_home_builder
+
+> <ListBuyerHomeBuildersResponse> update_buyer_home_builder
+
+Set your co-builders (friends only, at most 4).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Set your co-builders (friends only, at most 4).
+  result = api_instance.update_buyer_home_builder
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_builder: #{e}"
+end
+```
+
+#### Using the update_buyer_home_builder_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerHomeBuildersResponse>, Integer, Hash)> update_buyer_home_builder_with_http_info
+
+```ruby
+begin
+  # Set your co-builders (friends only, at most 4).
+  data, status_code, headers = api_instance.update_buyer_home_builder_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerHomeBuildersResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_builder_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListBuyerHomeBuildersResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_home_layout
+
+> <BuyerHomeResponse> update_buyer_home_layout
+
+Arrange your home: the whole layout, checked against what you own.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Arrange your home: the whole layout, checked against what you own.
+  result = api_instance.update_buyer_home_layout
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_layout: #{e}"
+end
+```
+
+#### Using the update_buyer_home_layout_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerHomeResponse>, Integer, Hash)> update_buyer_home_layout_with_http_info
+
+```ruby
+begin
+  # Arrange your home: the whole layout, checked against what you own.
+  data, status_code, headers = api_instance.update_buyer_home_layout_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerHomeResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_layout_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**BuyerHomeResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## update_buyer_hunt
 
 > <BuyerResponse> update_buyer_hunt(id)
@@ -14811,6 +20813,75 @@ end
 ### Return type
 
 **BuyerResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_payment_method_default
+
+> <UpdateBuyerPaymentMethodDefaultResponse> update_buyer_payment_method_default(id)
+
+Make one of your saved cards the default.
+
+The default is the card express checkout offers first. Only your own saved card: any other id is a 404.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Make one of your saved cards the default.
+  result = api_instance.update_buyer_payment_method_default(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_payment_method_default: #{e}"
+end
+```
+
+#### Using the update_buyer_payment_method_default_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateBuyerPaymentMethodDefaultResponse>, Integer, Hash)> update_buyer_payment_method_default_with_http_info(id)
+
+```ruby
+begin
+  # Make one of your saved cards the default.
+  data, status_code, headers = api_instance.update_buyer_payment_method_default_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateBuyerPaymentMethodDefaultResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_payment_method_default_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**UpdateBuyerPaymentMethodDefaultResponse**
 
 ### Authorization
 
@@ -15081,6 +21152,137 @@ end
 ### Return type
 
 **BuyerResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_wholesale_cart_po
+
+> <UpdateBuyerWholesaleCartPoResponse> update_buyer_wholesale_cart_po
+
+Set the PO reference for one seller's group of your cart: { sellerUserId, poReference } (empty clears it).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Set the PO reference for one seller's group of your cart: { sellerUserId, poReference } (empty clears it).
+  result = api_instance.update_buyer_wholesale_cart_po
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_wholesale_cart_po: #{e}"
+end
+```
+
+#### Using the update_buyer_wholesale_cart_po_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateBuyerWholesaleCartPoResponse>, Integer, Hash)> update_buyer_wholesale_cart_po_with_http_info
+
+```ruby
+begin
+  # Set the PO reference for one seller's group of your cart: { sellerUserId, poReference } (empty clears it).
+  data, status_code, headers = api_instance.update_buyer_wholesale_cart_po_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateBuyerWholesaleCartPoResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_wholesale_cart_po_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**UpdateBuyerWholesaleCartPoResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_buyer_wholesale_order_sheet
+
+> <BuyerWholesaleOrderSheetResponse> update_buyer_wholesale_order_sheet(id)
+
+Rename an order sheet, change its PO reference or note, or replace its lines.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Rename an order sheet, change its PO reference or note, or replace its lines.
+  result = api_instance.update_buyer_wholesale_order_sheet(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_wholesale_order_sheet: #{e}"
+end
+```
+
+#### Using the update_buyer_wholesale_order_sheet_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<BuyerWholesaleOrderSheetResponse>, Integer, Hash)> update_buyer_wholesale_order_sheet_with_http_info(id)
+
+```ruby
+begin
+  # Rename an order sheet, change its PO reference or note, or replace its lines.
+  data, status_code, headers = api_instance.update_buyer_wholesale_order_sheet_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <BuyerWholesaleOrderSheetResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_wholesale_order_sheet_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**BuyerWholesaleOrderSheetResponse**
 
 ### Authorization
 

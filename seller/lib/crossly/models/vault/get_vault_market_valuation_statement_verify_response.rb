@@ -241,7 +241,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @purpose.nil?
-      purpose_validator = EnumAttributeValidator.new('String', ["insurance", "appraisal"])
+      purpose_validator = EnumAttributeValidator.new('String', ["appraisal", "insurance"])
       return false unless purpose_validator.valid?(@purpose)
       return false if @title.nil?
       return false if @as_of.nil?
@@ -252,7 +252,7 @@ module Crossly
       return false if @intact.nil?
       return false if @seal.nil?
       return false if @verdict.nil?
-      verdict_validator = EnumAttributeValidator.new('String', ["valid", "altered", "mismatch"])
+      verdict_validator = EnumAttributeValidator.new('String', ["mismatch", "altered", "valid"])
       return false unless verdict_validator.valid?(@verdict)
       return false if @note.nil?
       true
@@ -261,7 +261,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] purpose Object to be assigned
     def purpose=(purpose)
-      validator = EnumAttributeValidator.new('String', ["insurance", "appraisal"])
+      validator = EnumAttributeValidator.new('String', ["appraisal", "insurance"])
       unless validator.valid?(purpose)
         fail ArgumentError, "invalid value for \"purpose\", must be one of #{validator.allowable_values}."
       end
@@ -271,7 +271,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] verdict Object to be assigned
     def verdict=(verdict)
-      validator = EnumAttributeValidator.new('String', ["valid", "altered", "mismatch"])
+      validator = EnumAttributeValidator.new('String', ["mismatch", "altered", "valid"])
       unless validator.valid?(verdict)
         fail ArgumentError, "invalid value for \"verdict\", must be one of #{validator.allowable_values}."
       end

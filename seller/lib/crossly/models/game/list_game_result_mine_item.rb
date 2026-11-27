@@ -187,7 +187,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @game.nil?
-      game_validator = EnumAttributeValidator.new('String', ["price_guess", "price_guess_solo", "hunt", "speed_trade", "break_host"])
+      game_validator = EnumAttributeValidator.new('String', ["price_guess", "price_guess_solo", "hunt", "speed_trade", "break_host", "pack_break"])
       return false unless game_validator.valid?(@game)
       return false if @ref_id.nil?
       return false if @score.nil?
@@ -201,7 +201,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] game Object to be assigned
     def game=(game)
-      validator = EnumAttributeValidator.new('String', ["price_guess", "price_guess_solo", "hunt", "speed_trade", "break_host"])
+      validator = EnumAttributeValidator.new('String', ["price_guess", "price_guess_solo", "hunt", "speed_trade", "break_host", "pack_break"])
       unless validator.valid?(game)
         fail ArgumentError, "invalid value for \"game\", must be one of #{validator.allowable_values}."
       end

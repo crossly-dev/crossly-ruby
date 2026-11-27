@@ -150,7 +150,7 @@ module Crossly
       return false if @number.nil?
       return false if @title.nil?
       return false if @reason.nil?
-      reason_validator = EnumAttributeValidator.new('String', ["too_many", "no_price", "over_budget", "not_chosen"])
+      reason_validator = EnumAttributeValidator.new('String', ["no_price", "too_many", "over_budget", "not_chosen"])
       return false unless reason_validator.valid?(@reason)
       return false if @text.nil?
       true
@@ -159,7 +159,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] reason Object to be assigned
     def reason=(reason)
-      validator = EnumAttributeValidator.new('String', ["too_many", "no_price", "over_budget", "not_chosen"])
+      validator = EnumAttributeValidator.new('String', ["no_price", "too_many", "over_budget", "not_chosen"])
       unless validator.valid?(reason)
         fail ArgumentError, "invalid value for \"reason\", must be one of #{validator.allowable_values}."
       end

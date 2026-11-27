@@ -141,11 +141,11 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @name.nil?
-      name_validator = EnumAttributeValidator.new('String', ["spreadBps", "trades30d", "trades90d", "counterparties90d", "medianGapDays", "twoSidedShare", "depthCents", "amihud", "rollBps"])
+      name_validator = EnumAttributeValidator.new('String', ["trades30d", "trades90d", "counterparties90d", "medianGapDays", "spreadBps", "twoSidedShare", "depthCents", "amihud", "rollBps"])
       return false unless name_validator.valid?(@name)
       return false if @weight.nil?
       return false if @better.nil?
-      better_validator = EnumAttributeValidator.new('String', ["high", "low"])
+      better_validator = EnumAttributeValidator.new('String', ["low", "high"])
       return false unless better_validator.valid?(@better)
       true
     end
@@ -153,7 +153,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] name Object to be assigned
     def name=(name)
-      validator = EnumAttributeValidator.new('String', ["spreadBps", "trades30d", "trades90d", "counterparties90d", "medianGapDays", "twoSidedShare", "depthCents", "amihud", "rollBps"])
+      validator = EnumAttributeValidator.new('String', ["trades30d", "trades90d", "counterparties90d", "medianGapDays", "spreadBps", "twoSidedShare", "depthCents", "amihud", "rollBps"])
       unless validator.valid?(name)
         fail ArgumentError, "invalid value for \"name\", must be one of #{validator.allowable_values}."
       end
@@ -163,7 +163,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] better Object to be assigned
     def better=(better)
-      validator = EnumAttributeValidator.new('String', ["high", "low"])
+      validator = EnumAttributeValidator.new('String', ["low", "high"])
       unless validator.valid?(better)
         fail ArgumentError, "invalid value for \"better\", must be one of #{validator.allowable_values}."
       end

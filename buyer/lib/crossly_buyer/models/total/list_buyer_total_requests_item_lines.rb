@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerTotalRequestsItemLines
-    attr_accessor :quantity
-
     attr_accessor :platform_listing_id
+
+    attr_accessor :quantity
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'quantity' => :'quantity',
-        :'platform_listing_id' => :'platformListingId'
+        :'platform_listing_id' => :'platformListingId',
+        :'quantity' => :'quantity'
       }
     end
 
@@ -35,8 +35,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'quantity' => :'Float',
-        :'platform_listing_id' => :'String'
+        :'platform_listing_id' => :'String',
+        :'quantity' => :'Float'
       }
     end
 
@@ -61,12 +61,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
-      end
-
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
+      end
+
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
       end
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
       if @platform_listing_id.nil?
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @quantity.nil?
       return false if @platform_listing_id.nil?
+      return false if @quantity.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          quantity == o.quantity &&
-          platform_listing_id == o.platform_listing_id
+          platform_listing_id == o.platform_listing_id &&
+          quantity == o.quantity
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [quantity, platform_listing_id].hash
+      [platform_listing_id, quantity].hash
     end
 
     # Builds the object from hash

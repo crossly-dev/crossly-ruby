@@ -14,6 +14,7 @@ require 'date'
 require 'time'
 
 module Crossly
+  # 1172 ratings: average stars (null before the first) and how many.
   class AverageCount
     attr_accessor :average
 

@@ -17,19 +17,17 @@ module CrosslyBuyer
   class GetBuyerCaseResponseDataCase
     attr_accessor :id
 
-    attr_accessor :created_at
+    attr_accessor :purchase_id
 
-    attr_accessor :updated_at
+    attr_accessor :seller_user_id
 
     attr_accessor :reason
 
     attr_accessor :state
 
-    attr_accessor :seller_user_id
+    attr_accessor :created_at
 
-    attr_accessor :purchase_id
-
-    attr_accessor :resolved_at
+    attr_accessor :updated_at
 
     attr_accessor :buyer_note
 
@@ -45,24 +43,26 @@ module CrosslyBuyer
 
     attr_accessor :resolved_decision
 
+    attr_accessor :resolved_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'updated_at' => :'updatedAt',
+        :'purchase_id' => :'purchaseId',
+        :'seller_user_id' => :'sellerUserId',
         :'reason' => :'reason',
         :'state' => :'state',
-        :'seller_user_id' => :'sellerUserId',
-        :'purchase_id' => :'purchaseId',
-        :'resolved_at' => :'resolvedAt',
+        :'created_at' => :'createdAt',
+        :'updated_at' => :'updatedAt',
         :'buyer_note' => :'buyerNote',
         :'photo_urls' => :'photoUrls',
         :'awaiting_party' => :'awaitingParty',
         :'escalate_after' => :'escalateAfter',
         :'offered_refund_cents' => :'offeredRefundCents',
         :'resolved_refund_cents' => :'resolvedRefundCents',
-        :'resolved_decision' => :'resolvedDecision'
+        :'resolved_decision' => :'resolvedDecision',
+        :'resolved_at' => :'resolvedAt'
       }
     end
 
@@ -75,34 +75,34 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'updated_at' => :'String',
+        :'purchase_id' => :'String',
+        :'seller_user_id' => :'String',
         :'reason' => :'String',
         :'state' => :'String',
-        :'seller_user_id' => :'String',
-        :'purchase_id' => :'String',
-        :'resolved_at' => :'String',
+        :'created_at' => :'String',
+        :'updated_at' => :'String',
         :'buyer_note' => :'String',
         :'photo_urls' => :'Array<String>',
         :'awaiting_party' => :'String',
         :'escalate_after' => :'String',
         :'offered_refund_cents' => :'Float',
         :'resolved_refund_cents' => :'Float',
-        :'resolved_decision' => :'String'
+        :'resolved_decision' => :'String',
+        :'resolved_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'resolved_at',
         :'buyer_note',
         :'photo_urls',
         :'awaiting_party',
         :'escalate_after',
         :'offered_refund_cents',
         :'resolved_refund_cents',
-        :'resolved_decision'
+        :'resolved_decision',
+        :'resolved_at'
       ])
     end
 
@@ -125,12 +125,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'purchase_id')
+        self.purchase_id = attributes[:'purchase_id']
       end
 
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'reason')
@@ -141,16 +141,12 @@ module CrosslyBuyer
         self.state = attributes[:'state']
       end
 
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'purchase_id')
-        self.purchase_id = attributes[:'purchase_id']
-      end
-
-      if attributes.key?(:'resolved_at')
-        self.resolved_at = attributes[:'resolved_at']
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
 
       if attributes.key?(:'buyer_note')
@@ -182,6 +178,10 @@ module CrosslyBuyer
       if attributes.key?(:'resolved_decision')
         self.resolved_decision = attributes[:'resolved_decision']
       end
+
+      if attributes.key?(:'resolved_at')
+        self.resolved_at = attributes[:'resolved_at']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -192,12 +192,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @purchase_id.nil?
+        invalid_properties.push('invalid value for "purchase_id", purchase_id cannot be nil.')
       end
 
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      if @seller_user_id.nil?
+        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       if @reason.nil?
@@ -208,12 +208,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "state", state cannot be nil.')
       end
 
-      if @seller_user_id.nil?
-        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
-      if @purchase_id.nil?
-        invalid_properties.push('invalid value for "purchase_id", purchase_id cannot be nil.')
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
       invalid_properties
@@ -223,12 +223,12 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @updated_at.nil?
+      return false if @purchase_id.nil?
+      return false if @seller_user_id.nil?
       return false if @reason.nil?
       return false if @state.nil?
-      return false if @seller_user_id.nil?
-      return false if @purchase_id.nil?
+      return false if @created_at.nil?
+      return false if @updated_at.nil?
       true
     end
 
@@ -238,20 +238,20 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          updated_at == o.updated_at &&
+          purchase_id == o.purchase_id &&
+          seller_user_id == o.seller_user_id &&
           reason == o.reason &&
           state == o.state &&
-          seller_user_id == o.seller_user_id &&
-          purchase_id == o.purchase_id &&
-          resolved_at == o.resolved_at &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
           buyer_note == o.buyer_note &&
           photo_urls == o.photo_urls &&
           awaiting_party == o.awaiting_party &&
           escalate_after == o.escalate_after &&
           offered_refund_cents == o.offered_refund_cents &&
           resolved_refund_cents == o.resolved_refund_cents &&
-          resolved_decision == o.resolved_decision
+          resolved_decision == o.resolved_decision &&
+          resolved_at == o.resolved_at
     end
 
     # @see the `==` method
@@ -263,7 +263,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, reason, state, seller_user_id, purchase_id, resolved_at, buyer_note, photo_urls, awaiting_party, escalate_after, offered_refund_cents, resolved_refund_cents, resolved_decision].hash
+      [id, purchase_id, seller_user_id, reason, state, created_at, updated_at, buyer_note, photo_urls, awaiting_party, escalate_after, offered_refund_cents, resolved_refund_cents, resolved_decision, resolved_at].hash
     end
 
     # Builds the object from hash

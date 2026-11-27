@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerBreakSpotHoldResponseData
-    attr_accessor :slug
-
     attr_accessor :held_until
+
+    attr_accessor :slug
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'slug' => :'slug',
-        :'held_until' => :'heldUntil'
+        :'held_until' => :'heldUntil',
+        :'slug' => :'slug'
       }
     end
 
@@ -35,15 +35,15 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'slug' => :'String',
-        :'held_until' => :'String'
+        :'held_until' => :'String',
+        :'slug' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'slug',
+        :'slug'
       ])
     end
 
@@ -62,12 +62,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'slug')
-        self.slug = attributes[:'slug']
-      end
-
       if attributes.key?(:'held_until')
         self.held_until = attributes[:'held_until']
+      end
+
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
       end
     end
 
@@ -94,8 +94,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          slug == o.slug &&
-          held_until == o.held_until
+          held_until == o.held_until &&
+          slug == o.slug
     end
 
     # @see the `==` method
@@ -107,7 +107,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, held_until].hash
+      [held_until, slug].hash
     end
 
     # Builds the object from hash

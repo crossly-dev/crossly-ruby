@@ -15,18 +15,18 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerMarketPurchaseOptionResponseData
+    attr_accessor :vault_stock
+
     attr_accessor :fast_ship_cents
 
     attr_accessor :grading_runs
 
-    attr_accessor :vault_stock
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'vault_stock' => :'vaultStock',
         :'fast_ship_cents' => :'fastShipCents',
-        :'grading_runs' => :'gradingRuns',
-        :'vault_stock' => :'vaultStock'
+        :'grading_runs' => :'gradingRuns'
       }
     end
 
@@ -38,9 +38,9 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'vault_stock' => :'Boolean',
         :'fast_ship_cents' => :'Float',
-        :'grading_runs' => :'Array<GetBuyerMarketPurchaseOptionResponseDataGradingRuns>',
-        :'vault_stock' => :'Boolean'
+        :'grading_runs' => :'Array<GetBuyerMarketPurchaseOptionResponseDataGradingRuns>'
       }
     end
 
@@ -65,6 +65,10 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'vault_stock')
+        self.vault_stock = attributes[:'vault_stock']
+      end
+
       if attributes.key?(:'fast_ship_cents')
         self.fast_ship_cents = attributes[:'fast_ship_cents']
       end
@@ -74,16 +78,16 @@ module CrosslyBuyer
           self.grading_runs = value
         end
       end
-
-      if attributes.key?(:'vault_stock')
-        self.vault_stock = attributes[:'vault_stock']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @vault_stock.nil?
+        invalid_properties.push('invalid value for "vault_stock", vault_stock cannot be nil.')
+      end
+
       if @fast_ship_cents.nil?
         invalid_properties.push('invalid value for "fast_ship_cents", fast_ship_cents cannot be nil.')
       end
@@ -92,19 +96,15 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "grading_runs", grading_runs cannot be nil.')
       end
 
-      if @vault_stock.nil?
-        invalid_properties.push('invalid value for "vault_stock", vault_stock cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @vault_stock.nil?
       return false if @fast_ship_cents.nil?
       return false if @grading_runs.nil?
-      return false if @vault_stock.nil?
       true
     end
 
@@ -113,9 +113,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          vault_stock == o.vault_stock &&
           fast_ship_cents == o.fast_ship_cents &&
-          grading_runs == o.grading_runs &&
-          vault_stock == o.vault_stock
+          grading_runs == o.grading_runs
     end
 
     # @see the `==` method
@@ -127,7 +127,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [fast_ship_cents, grading_runs, vault_stock].hash
+      [vault_stock, fast_ship_cents, grading_runs].hash
     end
 
     # Builds the object from hash

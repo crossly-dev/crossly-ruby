@@ -21,6 +21,8 @@ module Crossly
 
     attr_accessor :platform_order_id
 
+    attr_accessor :details_pending
+
     attr_accessor :sale_price
 
     attr_accessor :platform_fee
@@ -30,10 +32,6 @@ module Crossly
     attr_accessor :cost_of_goods
 
     attr_accessor :net_profit
-
-    attr_accessor :detected_by
-
-    attr_accessor :detected_at
 
     attr_accessor :item_title
 
@@ -45,13 +43,12 @@ module Crossly
         :'sale_id' => :'saleId',
         :'platform' => :'platform',
         :'platform_order_id' => :'platformOrderId',
+        :'details_pending' => :'detailsPending',
         :'sale_price' => :'salePrice',
         :'platform_fee' => :'platformFee',
         :'shipping_cost' => :'shippingCost',
         :'cost_of_goods' => :'costOfGoods',
         :'net_profit' => :'netProfit',
-        :'detected_by' => :'detectedBy',
-        :'detected_at' => :'detectedAt',
         :'item_title' => :'itemTitle',
         :'item_image' => :'itemImage'
       }
@@ -68,13 +65,12 @@ module Crossly
         :'sale_id' => :'String',
         :'platform' => :'String',
         :'platform_order_id' => :'String',
+        :'details_pending' => :'Boolean',
         :'sale_price' => :'Float',
         :'platform_fee' => :'Float',
         :'shipping_cost' => :'Float',
         :'cost_of_goods' => :'Float',
         :'net_profit' => :'Float',
-        :'detected_by' => :'String',
-        :'detected_at' => :'Time',
         :'item_title' => :'String',
         :'item_image' => :'String'
       }
@@ -90,6 +86,7 @@ module Crossly
         :'cost_of_goods',
         :'net_profit',
         :'item_title',
+        :'item_image'
       ])
     end
 
@@ -120,6 +117,10 @@ module Crossly
         self.platform_order_id = attributes[:'platform_order_id']
       end
 
+      if attributes.key?(:'details_pending')
+        self.details_pending = attributes[:'details_pending']
+      end
+
       if attributes.key?(:'sale_price')
         self.sale_price = attributes[:'sale_price']
       end
@@ -138,14 +139,6 @@ module Crossly
 
       if attributes.key?(:'net_profit')
         self.net_profit = attributes[:'net_profit']
-      end
-
-      if attributes.key?(:'detected_by')
-        self.detected_by = attributes[:'detected_by']
-      end
-
-      if attributes.key?(:'detected_at')
-        self.detected_at = attributes[:'detected_at']
       end
 
       if attributes.key?(:'item_title')
@@ -169,16 +162,8 @@ module Crossly
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
-      if @detected_by.nil?
-        invalid_properties.push('invalid value for "detected_by", detected_by cannot be nil.')
-      end
-
-      if @detected_at.nil?
-        invalid_properties.push('invalid value for "detected_at", detected_at cannot be nil.')
-      end
-
-      if @item_image.nil?
-        invalid_properties.push('invalid value for "item_image", item_image cannot be nil.')
+      if @details_pending.nil?
+        invalid_properties.push('invalid value for "details_pending", details_pending cannot be nil.')
       end
 
       invalid_properties
@@ -189,9 +174,7 @@ module Crossly
     def valid?
       return false if @sale_id.nil?
       return false if @platform.nil?
-      return false if @detected_by.nil?
-      return false if @detected_at.nil?
-      return false if @item_image.nil?
+      return false if @details_pending.nil?
       true
     end
 
@@ -203,13 +186,12 @@ module Crossly
           sale_id == o.sale_id &&
           platform == o.platform &&
           platform_order_id == o.platform_order_id &&
+          details_pending == o.details_pending &&
           sale_price == o.sale_price &&
           platform_fee == o.platform_fee &&
           shipping_cost == o.shipping_cost &&
           cost_of_goods == o.cost_of_goods &&
           net_profit == o.net_profit &&
-          detected_by == o.detected_by &&
-          detected_at == o.detected_at &&
           item_title == o.item_title &&
           item_image == o.item_image
     end
@@ -223,7 +205,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [sale_id, platform, platform_order_id, sale_price, platform_fee, shipping_cost, cost_of_goods, net_profit, detected_by, detected_at, item_title, item_image].hash
+      [sale_id, platform, platform_order_id, details_pending, sale_price, platform_fee, shipping_cost, cost_of_goods, net_profit, item_title, item_image].hash
     end
 
     # Builds the object from hash

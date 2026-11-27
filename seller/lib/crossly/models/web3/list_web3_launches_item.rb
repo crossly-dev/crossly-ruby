@@ -64,6 +64,14 @@ module Crossly
     # Per-token art has been revealed.
     attr_accessor :revealed
 
+    # Creator Studio (migration 1163): the card set this collection takes on chain, and the creations it mints.
+    attr_accessor :card_set_id
+
+    attr_accessor :creation_refs
+
+    # Migration 1178 (R-studio-15): what holding a token gets you, decided at mint (shared/creator/holder-perks).
+    attr_accessor :holder_perks
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -111,7 +119,10 @@ module Crossly
         :'creator' => :'creator',
         :'card' => :'card',
         :'allowlist' => :'allowlist',
-        :'revealed' => :'revealed'
+        :'revealed' => :'revealed',
+        :'card_set_id' => :'cardSetId',
+        :'creation_refs' => :'creationRefs',
+        :'holder_perks' => :'holderPerks'
       }
     end
 
@@ -137,15 +148,18 @@ module Crossly
         :'holder_start' => :'String',
         :'public_start' => :'String',
         :'end_time' => :'String',
-        :'holder_gate' => :'ListWeb3LaunchesItemHolderGate',
+        :'holder_gate' => :'ContractName',
         :'max_per_wallet' => :'Float',
         :'royalty_bps' => :'Float',
         :'platform_bps' => :'Float',
         :'phase' => :'String',
-        :'creator' => :'ListWeb3LaunchesItemCreator',
+        :'creator' => :'NameObject',
         :'card' => :'Boolean',
         :'allowlist' => :'Boolean',
-        :'revealed' => :'Boolean'
+        :'revealed' => :'Boolean',
+        :'card_set_id' => :'String',
+        :'creation_refs' => :'Array<String>',
+        :'holder_perks' => :'Array<ListWeb3LaunchesItemHolderPerksItem>'
       }
     end
 
@@ -158,6 +172,9 @@ module Crossly
         :'holder_start',
         :'end_time',
         :'holder_gate',
+        :'card_set_id',
+        :'creation_refs',
+        :'holder_perks'
       ])
     end
 
@@ -267,6 +284,22 @@ module Crossly
       if attributes.key?(:'revealed')
         self.revealed = attributes[:'revealed']
       end
+
+      if attributes.key?(:'card_set_id')
+        self.card_set_id = attributes[:'card_set_id']
+      end
+
+      if attributes.key?(:'creation_refs')
+        if (value = attributes[:'creation_refs']).is_a?(Array)
+          self.creation_refs = value
+        end
+      end
+
+      if attributes.key?(:'holder_perks')
+        if (value = attributes[:'holder_perks']).is_a?(Array)
+          self.holder_perks = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -349,10 +382,10 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @chain.nil?
-      chain_validator = EnumAttributeValidator.new('String', ["solana", "ethereum", "base", "polygon", "arbitrum", "optimism"])
+      chain_validator = EnumAttributeValidator.new('String', ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"])
       return false unless chain_validator.valid?(@chain)
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["live", "draft", "failed", "deploying"])
+      status_validator = EnumAttributeValidator.new('String', ["draft", "live", "failed", "deploying"])
       return false unless status_validator.valid?(@status)
       return false if @name.nil?
       return false if @symbol.nil?
@@ -364,7 +397,7 @@ module Crossly
       return false if @royalty_bps.nil?
       return false if @platform_bps.nil?
       return false if @phase.nil?
-      phase_validator = EnumAttributeValidator.new('String', ["ended", "holder", "public", "upcoming", "sold_out"])
+      phase_validator = EnumAttributeValidator.new('String', ["public", "ended", "upcoming", "holder", "sold_out"])
       return false unless phase_validator.valid?(@phase)
       return false if @creator.nil?
       return false if @card.nil?
@@ -376,7 +409,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] chain Object to be assigned
     def chain=(chain)
-      validator = EnumAttributeValidator.new('String', ["solana", "ethereum", "base", "polygon", "arbitrum", "optimism"])
+      validator = EnumAttributeValidator.new('String', ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"])
       unless validator.valid?(chain)
         fail ArgumentError, "invalid value for \"chain\", must be one of #{validator.allowable_values}."
       end
@@ -386,7 +419,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["live", "draft", "failed", "deploying"])
+      validator = EnumAttributeValidator.new('String', ["draft", "live", "failed", "deploying"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -396,7 +429,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] phase Object to be assigned
     def phase=(phase)
-      validator = EnumAttributeValidator.new('String', ["ended", "holder", "public", "upcoming", "sold_out"])
+      validator = EnumAttributeValidator.new('String', ["public", "ended", "upcoming", "holder", "sold_out"])
       unless validator.valid?(phase)
         fail ArgumentError, "invalid value for \"phase\", must be one of #{validator.allowable_values}."
       end
@@ -430,7 +463,10 @@ module Crossly
           creator == o.creator &&
           card == o.card &&
           allowlist == o.allowlist &&
-          revealed == o.revealed
+          revealed == o.revealed &&
+          card_set_id == o.card_set_id &&
+          creation_refs == o.creation_refs &&
+          holder_perks == o.holder_perks
     end
 
     # @see the `==` method
@@ -442,7 +478,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, chain, contract, status, name, symbol, description, image_url, max_supply, minted, price_wei, holder_start, public_start, end_time, holder_gate, max_per_wallet, royalty_bps, platform_bps, phase, creator, card, allowlist, revealed].hash
+      [id, chain, contract, status, name, symbol, description, image_url, max_supply, minted, price_wei, holder_start, public_start, end_time, holder_gate, max_per_wallet, royalty_bps, platform_bps, phase, creator, card, allowlist, revealed, card_set_id, creation_refs, holder_perks].hash
     end
 
     # Builds the object from hash

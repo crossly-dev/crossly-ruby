@@ -15,9 +15,9 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerListingBoughtTogetherResponseDataItems
-    attr_accessor :title
-
     attr_accessor :slug
+
+    attr_accessor :title
 
     attr_accessor :price_cents
 
@@ -28,8 +28,8 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'title' => :'title',
         :'slug' => :'slug',
+        :'title' => :'title',
         :'price_cents' => :'priceCents',
         :'image' => :'image',
         :'same_seller' => :'sameSeller'
@@ -44,8 +44,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'title' => :'String',
         :'slug' => :'String',
+        :'title' => :'String',
         :'price_cents' => :'Float',
         :'image' => :'String',
         :'same_seller' => :'Boolean'
@@ -75,12 +75,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'price_cents')
@@ -129,8 +129,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          title == o.title &&
           slug == o.slug &&
+          title == o.title &&
           price_cents == o.price_cents &&
           image == o.image &&
           same_seller == o.same_seller
@@ -145,7 +145,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [title, slug, price_cents, image, same_seller].hash
+      [slug, title, price_cents, image, same_seller].hash
     end
 
     # Builds the object from hash

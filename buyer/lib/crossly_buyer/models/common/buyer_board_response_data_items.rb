@@ -15,19 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class BuyerBoardResponseDataItems
-    attr_accessor :available
-
-    attr_accessor :title
-
     attr_accessor :platform_listing_id
 
     attr_accessor :slug
 
+    attr_accessor :title
+
     attr_accessor :price_cents
 
-    attr_accessor :note
-
     attr_accessor :image_url
+
+    attr_accessor :available
 
     attr_accessor :x
 
@@ -37,20 +35,22 @@ module CrosslyBuyer
 
     attr_accessor :z
 
+    attr_accessor :note
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'available' => :'available',
-        :'title' => :'title',
         :'platform_listing_id' => :'platformListingId',
         :'slug' => :'slug',
+        :'title' => :'title',
         :'price_cents' => :'priceCents',
-        :'note' => :'note',
         :'image_url' => :'imageUrl',
+        :'available' => :'available',
         :'x' => :'x',
         :'y' => :'y',
         :'w' => :'w',
-        :'z' => :'z'
+        :'z' => :'z',
+        :'note' => :'note'
       }
     end
 
@@ -62,27 +62,27 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'available' => :'Boolean',
-        :'title' => :'String',
         :'platform_listing_id' => :'String',
         :'slug' => :'String',
+        :'title' => :'String',
         :'price_cents' => :'Float',
-        :'note' => :'String',
         :'image_url' => :'String',
+        :'available' => :'Boolean',
         :'x' => :'Float',
         :'y' => :'Float',
         :'w' => :'Float',
-        :'z' => :'Float'
+        :'z' => :'Float',
+        :'note' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'title',
         :'slug',
-        :'note',
+        :'title',
         :'image_url',
+        :'note'
       ])
     end
 
@@ -101,14 +101,6 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'available')
-        self.available = attributes[:'available']
-      end
-
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
@@ -117,16 +109,20 @@ module CrosslyBuyer
         self.slug = attributes[:'slug']
       end
 
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
+      end
+
       if attributes.key?(:'price_cents')
         self.price_cents = attributes[:'price_cents']
       end
 
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
-      end
-
       if attributes.key?(:'image_url')
         self.image_url = attributes[:'image_url']
+      end
+
+      if attributes.key?(:'available')
+        self.available = attributes[:'available']
       end
 
       if attributes.key?(:'x')
@@ -144,22 +140,26 @@ module CrosslyBuyer
       if attributes.key?(:'z')
         self.z = attributes[:'z']
       end
+
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @available.nil?
-        invalid_properties.push('invalid value for "available", available cannot be nil.')
-      end
-
       if @platform_listing_id.nil?
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
       end
 
       if @price_cents.nil?
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      end
+
+      if @available.nil?
+        invalid_properties.push('invalid value for "available", available cannot be nil.')
       end
 
       if @x.nil?
@@ -184,9 +184,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @available.nil?
       return false if @platform_listing_id.nil?
       return false if @price_cents.nil?
+      return false if @available.nil?
       return false if @x.nil?
       return false if @y.nil?
       return false if @w.nil?
@@ -199,17 +199,17 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          available == o.available &&
-          title == o.title &&
           platform_listing_id == o.platform_listing_id &&
           slug == o.slug &&
+          title == o.title &&
           price_cents == o.price_cents &&
-          note == o.note &&
           image_url == o.image_url &&
+          available == o.available &&
           x == o.x &&
           y == o.y &&
           w == o.w &&
-          z == o.z
+          z == o.z &&
+          note == o.note
     end
 
     # @see the `==` method
@@ -221,7 +221,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [available, title, platform_listing_id, slug, price_cents, note, image_url, x, y, w, z].hash
+      [platform_listing_id, slug, title, price_cents, image_url, available, x, y, w, z, note].hash
     end
 
     # Builds the object from hash

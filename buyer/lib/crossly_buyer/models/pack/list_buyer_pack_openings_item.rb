@@ -17,17 +17,13 @@ module CrosslyBuyer
   class ListBuyerPackOpeningsItem
     attr_accessor :id
 
+    attr_accessor :pack_title
+
+    attr_accessor :pack_slug
+
     attr_accessor :status
 
     attr_accessor :price_cents
-
-    attr_accessor :image_url
-
-    attr_accessor :vault_item_id
-
-    attr_accessor :opened_at
-
-    attr_accessor :tier_name
 
     attr_accessor :value_cents
 
@@ -35,28 +31,32 @@ module CrosslyBuyer
 
     attr_accessor :item_title
 
+    attr_accessor :image_url
+
+    attr_accessor :tier_name
+
+    attr_accessor :vault_item_id
+
+    attr_accessor :opened_at
+
     attr_accessor :proof
-
-    attr_accessor :pack_title
-
-    attr_accessor :pack_slug
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
+        :'pack_title' => :'packTitle',
+        :'pack_slug' => :'packSlug',
         :'status' => :'status',
         :'price_cents' => :'priceCents',
-        :'image_url' => :'imageUrl',
-        :'vault_item_id' => :'vaultItemId',
-        :'opened_at' => :'openedAt',
-        :'tier_name' => :'tierName',
         :'value_cents' => :'valueCents',
         :'buyback_cents' => :'buybackCents',
         :'item_title' => :'itemTitle',
-        :'proof' => :'proof',
-        :'pack_title' => :'packTitle',
-        :'pack_slug' => :'packSlug'
+        :'image_url' => :'imageUrl',
+        :'tier_name' => :'tierName',
+        :'vault_item_id' => :'vaultItemId',
+        :'opened_at' => :'openedAt',
+        :'proof' => :'proof'
       }
     end
 
@@ -69,31 +69,31 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
+        :'pack_title' => :'String',
+        :'pack_slug' => :'String',
         :'status' => :'String',
         :'price_cents' => :'Float',
-        :'image_url' => :'String',
-        :'vault_item_id' => :'String',
-        :'opened_at' => :'String',
-        :'tier_name' => :'String',
         :'value_cents' => :'Float',
         :'buyback_cents' => :'Float',
         :'item_title' => :'String',
-        :'proof' => :'ListBuyerPackOpeningsItemProof',
-        :'pack_title' => :'String',
-        :'pack_slug' => :'String'
+        :'image_url' => :'String',
+        :'tier_name' => :'String',
+        :'vault_item_id' => :'String',
+        :'opened_at' => :'String',
+        :'proof' => :'ListBuyerPackOpeningsItemProof'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'image_url',
-        :'vault_item_id',
-        :'opened_at',
-        :'tier_name',
         :'value_cents',
         :'buyback_cents',
         :'item_title',
+        :'image_url',
+        :'tier_name',
+        :'vault_item_id',
+        :'opened_at',
       ])
     end
 
@@ -116,28 +116,20 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
+      if attributes.key?(:'pack_title')
+        self.pack_title = attributes[:'pack_title']
+      end
+
+      if attributes.key?(:'pack_slug')
+        self.pack_slug = attributes[:'pack_slug']
+      end
+
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
 
       if attributes.key?(:'price_cents')
         self.price_cents = attributes[:'price_cents']
-      end
-
-      if attributes.key?(:'image_url')
-        self.image_url = attributes[:'image_url']
-      end
-
-      if attributes.key?(:'vault_item_id')
-        self.vault_item_id = attributes[:'vault_item_id']
-      end
-
-      if attributes.key?(:'opened_at')
-        self.opened_at = attributes[:'opened_at']
-      end
-
-      if attributes.key?(:'tier_name')
-        self.tier_name = attributes[:'tier_name']
       end
 
       if attributes.key?(:'value_cents')
@@ -152,16 +144,24 @@ module CrosslyBuyer
         self.item_title = attributes[:'item_title']
       end
 
+      if attributes.key?(:'image_url')
+        self.image_url = attributes[:'image_url']
+      end
+
+      if attributes.key?(:'tier_name')
+        self.tier_name = attributes[:'tier_name']
+      end
+
+      if attributes.key?(:'vault_item_id')
+        self.vault_item_id = attributes[:'vault_item_id']
+      end
+
+      if attributes.key?(:'opened_at')
+        self.opened_at = attributes[:'opened_at']
+      end
+
       if attributes.key?(:'proof')
         self.proof = attributes[:'proof']
-      end
-
-      if attributes.key?(:'pack_title')
-        self.pack_title = attributes[:'pack_title']
-      end
-
-      if attributes.key?(:'pack_slug')
-        self.pack_slug = attributes[:'pack_slug']
       end
     end
 
@@ -171,6 +171,14 @@ module CrosslyBuyer
       invalid_properties = Array.new
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @pack_title.nil?
+        invalid_properties.push('invalid value for "pack_title", pack_title cannot be nil.')
+      end
+
+      if @pack_slug.nil?
+        invalid_properties.push('invalid value for "pack_slug", pack_slug cannot be nil.')
       end
 
       if @status.nil?
@@ -185,14 +193,6 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "proof", proof cannot be nil.')
       end
 
-      if @pack_title.nil?
-        invalid_properties.push('invalid value for "pack_title", pack_title cannot be nil.')
-      end
-
-      if @pack_slug.nil?
-        invalid_properties.push('invalid value for "pack_slug", pack_slug cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -200,11 +200,11 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      return false if @pack_title.nil?
+      return false if @pack_slug.nil?
       return false if @status.nil?
       return false if @price_cents.nil?
       return false if @proof.nil?
-      return false if @pack_title.nil?
-      return false if @pack_slug.nil?
       true
     end
 
@@ -214,18 +214,18 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          pack_title == o.pack_title &&
+          pack_slug == o.pack_slug &&
           status == o.status &&
           price_cents == o.price_cents &&
-          image_url == o.image_url &&
-          vault_item_id == o.vault_item_id &&
-          opened_at == o.opened_at &&
-          tier_name == o.tier_name &&
           value_cents == o.value_cents &&
           buyback_cents == o.buyback_cents &&
           item_title == o.item_title &&
-          proof == o.proof &&
-          pack_title == o.pack_title &&
-          pack_slug == o.pack_slug
+          image_url == o.image_url &&
+          tier_name == o.tier_name &&
+          vault_item_id == o.vault_item_id &&
+          opened_at == o.opened_at &&
+          proof == o.proof
     end
 
     # @see the `==` method
@@ -237,7 +237,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, price_cents, image_url, vault_item_id, opened_at, tier_name, value_cents, buyback_cents, item_title, proof, pack_title, pack_slug].hash
+      [id, pack_title, pack_slug, status, price_cents, value_cents, buyback_cents, item_title, image_url, tier_name, vault_item_id, opened_at, proof].hash
     end
 
     # Builds the object from hash

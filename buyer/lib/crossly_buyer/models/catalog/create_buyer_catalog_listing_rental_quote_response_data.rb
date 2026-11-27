@@ -15,33 +15,89 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerCatalogListingRentalQuoteResponseData
+    attr_accessor :fulfilment
+
+    attr_accessor :shipping_cents
+
+    attr_accessor :total_cents
+
+    attr_accessor :needs_approval
+
+    attr_accessor :cancellation
+
+    attr_accessor :buyout
+
+    attr_accessor :problem
+
     attr_accessor :start_date
 
     attr_accessor :end_date
 
     attr_accessor :days
 
-    attr_accessor :problem
+    # The unit the booking would hold (null when none is free).
+    attr_accessor :unit
 
+    attr_accessor :lines
+
+    # Rent after discounts.
     attr_accessor :rent_cents
+
+    attr_accessor :cleaning_fee_cents
+
+    attr_accessor :damage_waiver_cents
 
     attr_accessor :deposit_cents
 
-    attr_accessor :shipping_cents
+    # Why the deposit is 0 or lowered, when it is.
+    attr_accessor :deposit_note
 
-    attr_accessor :total_cents
+    # Everything but shipping and the deposit: what the seller's fee is taken on.
+    attr_accessor :chargeable_cents
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'fulfilment' => :'fulfilment',
+        :'shipping_cents' => :'shippingCents',
+        :'total_cents' => :'totalCents',
+        :'needs_approval' => :'needsApproval',
+        :'cancellation' => :'cancellation',
+        :'buyout' => :'buyout',
+        :'problem' => :'problem',
         :'start_date' => :'startDate',
         :'end_date' => :'endDate',
         :'days' => :'days',
-        :'problem' => :'problem',
+        :'unit' => :'unit',
+        :'lines' => :'lines',
         :'rent_cents' => :'rentCents',
+        :'cleaning_fee_cents' => :'cleaningFeeCents',
+        :'damage_waiver_cents' => :'damageWaiverCents',
         :'deposit_cents' => :'depositCents',
-        :'shipping_cents' => :'shippingCents',
-        :'total_cents' => :'totalCents'
+        :'deposit_note' => :'depositNote',
+        :'chargeable_cents' => :'chargeableCents'
       }
     end
 
@@ -53,23 +109,35 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'fulfilment' => :'String',
+        :'shipping_cents' => :'Float',
+        :'total_cents' => :'Float',
+        :'needs_approval' => :'Boolean',
+        :'cancellation' => :'CreateBuyerCatalogListingRentalQuoteResponseDataCancellation',
+        :'buyout' => :'CreateBuyerCatalogListingRentalQuoteResponseDataBuyout',
+        :'problem' => :'String',
         :'start_date' => :'String',
         :'end_date' => :'String',
         :'days' => :'Float',
-        :'problem' => :'String',
+        :'unit' => :'Float',
+        :'lines' => :'Array<CreateBuyerCatalogListingRentalQuoteResponseDataLines>',
         :'rent_cents' => :'Float',
+        :'cleaning_fee_cents' => :'Float',
+        :'damage_waiver_cents' => :'Float',
         :'deposit_cents' => :'Float',
-        :'shipping_cents' => :'Float',
-        :'total_cents' => :'Float'
+        :'deposit_note' => :'String',
+        :'chargeable_cents' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'problem',
         :'shipping_cents',
-        :'total_cents'
+        :'total_cents',
+        :'problem',
+        :'unit',
+        :'deposit_note',
       ])
     end
 
@@ -88,6 +156,34 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'fulfilment')
+        self.fulfilment = attributes[:'fulfilment']
+      end
+
+      if attributes.key?(:'shipping_cents')
+        self.shipping_cents = attributes[:'shipping_cents']
+      end
+
+      if attributes.key?(:'total_cents')
+        self.total_cents = attributes[:'total_cents']
+      end
+
+      if attributes.key?(:'needs_approval')
+        self.needs_approval = attributes[:'needs_approval']
+      end
+
+      if attributes.key?(:'cancellation')
+        self.cancellation = attributes[:'cancellation']
+      end
+
+      if attributes.key?(:'buyout')
+        self.buyout = attributes[:'buyout']
+      end
+
+      if attributes.key?(:'problem')
+        self.problem = attributes[:'problem']
+      end
+
       if attributes.key?(:'start_date')
         self.start_date = attributes[:'start_date']
       end
@@ -100,24 +196,38 @@ module CrosslyBuyer
         self.days = attributes[:'days']
       end
 
-      if attributes.key?(:'problem')
-        self.problem = attributes[:'problem']
+      if attributes.key?(:'unit')
+        self.unit = attributes[:'unit']
+      end
+
+      if attributes.key?(:'lines')
+        if (value = attributes[:'lines']).is_a?(Array)
+          self.lines = value
+        end
       end
 
       if attributes.key?(:'rent_cents')
         self.rent_cents = attributes[:'rent_cents']
       end
 
+      if attributes.key?(:'cleaning_fee_cents')
+        self.cleaning_fee_cents = attributes[:'cleaning_fee_cents']
+      end
+
+      if attributes.key?(:'damage_waiver_cents')
+        self.damage_waiver_cents = attributes[:'damage_waiver_cents']
+      end
+
       if attributes.key?(:'deposit_cents')
         self.deposit_cents = attributes[:'deposit_cents']
       end
 
-      if attributes.key?(:'shipping_cents')
-        self.shipping_cents = attributes[:'shipping_cents']
+      if attributes.key?(:'deposit_note')
+        self.deposit_note = attributes[:'deposit_note']
       end
 
-      if attributes.key?(:'total_cents')
-        self.total_cents = attributes[:'total_cents']
+      if attributes.key?(:'chargeable_cents')
+        self.chargeable_cents = attributes[:'chargeable_cents']
       end
     end
 
@@ -125,6 +235,22 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @fulfilment.nil?
+        invalid_properties.push('invalid value for "fulfilment", fulfilment cannot be nil.')
+      end
+
+      if @needs_approval.nil?
+        invalid_properties.push('invalid value for "needs_approval", needs_approval cannot be nil.')
+      end
+
+      if @cancellation.nil?
+        invalid_properties.push('invalid value for "cancellation", cancellation cannot be nil.')
+      end
+
+      if @buyout.nil?
+        invalid_properties.push('invalid value for "buyout", buyout cannot be nil.')
+      end
+
       if @start_date.nil?
         invalid_properties.push('invalid value for "start_date", start_date cannot be nil.')
       end
@@ -137,12 +263,28 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "days", days cannot be nil.')
       end
 
+      if @lines.nil?
+        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
+      end
+
       if @rent_cents.nil?
         invalid_properties.push('invalid value for "rent_cents", rent_cents cannot be nil.')
       end
 
+      if @cleaning_fee_cents.nil?
+        invalid_properties.push('invalid value for "cleaning_fee_cents", cleaning_fee_cents cannot be nil.')
+      end
+
+      if @damage_waiver_cents.nil?
+        invalid_properties.push('invalid value for "damage_waiver_cents", damage_waiver_cents cannot be nil.')
+      end
+
       if @deposit_cents.nil?
         invalid_properties.push('invalid value for "deposit_cents", deposit_cents cannot be nil.')
+      end
+
+      if @chargeable_cents.nil?
+        invalid_properties.push('invalid value for "chargeable_cents", chargeable_cents cannot be nil.')
       end
 
       invalid_properties
@@ -151,12 +293,32 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @fulfilment.nil?
+      fulfilment_validator = EnumAttributeValidator.new('String', ["ship", "pickup"])
+      return false unless fulfilment_validator.valid?(@fulfilment)
+      return false if @needs_approval.nil?
+      return false if @cancellation.nil?
+      return false if @buyout.nil?
       return false if @start_date.nil?
       return false if @end_date.nil?
       return false if @days.nil?
+      return false if @lines.nil?
       return false if @rent_cents.nil?
+      return false if @cleaning_fee_cents.nil?
+      return false if @damage_waiver_cents.nil?
       return false if @deposit_cents.nil?
+      return false if @chargeable_cents.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] fulfilment Object to be assigned
+    def fulfilment=(fulfilment)
+      validator = EnumAttributeValidator.new('String', ["ship", "pickup"])
+      unless validator.valid?(fulfilment)
+        fail ArgumentError, "invalid value for \"fulfilment\", must be one of #{validator.allowable_values}."
+      end
+      @fulfilment = fulfilment
     end
 
     # Checks equality by comparing each attribute.
@@ -164,14 +326,24 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          fulfilment == o.fulfilment &&
+          shipping_cents == o.shipping_cents &&
+          total_cents == o.total_cents &&
+          needs_approval == o.needs_approval &&
+          cancellation == o.cancellation &&
+          buyout == o.buyout &&
+          problem == o.problem &&
           start_date == o.start_date &&
           end_date == o.end_date &&
           days == o.days &&
-          problem == o.problem &&
+          unit == o.unit &&
+          lines == o.lines &&
           rent_cents == o.rent_cents &&
+          cleaning_fee_cents == o.cleaning_fee_cents &&
+          damage_waiver_cents == o.damage_waiver_cents &&
           deposit_cents == o.deposit_cents &&
-          shipping_cents == o.shipping_cents &&
-          total_cents == o.total_cents
+          deposit_note == o.deposit_note &&
+          chargeable_cents == o.chargeable_cents
     end
 
     # @see the `==` method
@@ -183,7 +355,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [start_date, end_date, days, problem, rent_cents, deposit_cents, shipping_cents, total_cents].hash
+      [fulfilment, shipping_cents, total_cents, needs_approval, cancellation, buyout, problem, start_date, end_date, days, unit, lines, rent_cents, cleaning_fee_cents, damage_waiver_cents, deposit_cents, deposit_note, chargeable_cents].hash
     end
 
     # Builds the object from hash

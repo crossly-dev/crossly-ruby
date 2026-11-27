@@ -195,7 +195,7 @@ module Crossly
       return false unless how_validator.valid?(@how)
       return false if @disposed_at.nil?
       return false if @proceeds_cents.nil?
-      term_validator = EnumAttributeValidator.new('String', ["long", "short"])
+      term_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless term_validator.valid?(@term)
       true
     end
@@ -213,7 +213,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] term Object to be assigned
     def term=(term)
-      validator = EnumAttributeValidator.new('String', ["long", "short"])
+      validator = EnumAttributeValidator.new('String', ["short", "long"])
       unless validator.valid?(term)
         fail ArgumentError, "invalid value for \"term\", must be one of #{validator.allowable_values}."
       end

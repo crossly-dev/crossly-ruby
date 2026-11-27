@@ -23,11 +23,11 @@ module Crossly
 
     attr_accessor :platform
 
-    attr_accessor :type
+    attr_accessor :inventory_item_id
 
     attr_accessor :order_id
 
-    attr_accessor :inventory_item_id
+    attr_accessor :type
 
     attr_accessor :delta
 
@@ -44,9 +44,9 @@ module Crossly
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
         :'platform' => :'platform',
-        :'type' => :'type',
-        :'order_id' => :'orderId',
         :'inventory_item_id' => :'inventoryItemId',
+        :'order_id' => :'orderId',
+        :'type' => :'type',
         :'delta' => :'delta',
         :'quantity_before' => :'quantityBefore',
         :'quantity_after' => :'quantityAfter',
@@ -66,9 +66,9 @@ module Crossly
         :'created_at' => :'Time',
         :'user_id' => :'String',
         :'platform' => :'String',
-        :'type' => :'String',
-        :'order_id' => :'String',
         :'inventory_item_id' => :'String',
+        :'order_id' => :'String',
+        :'type' => :'String',
         :'delta' => :'Float',
         :'quantity_before' => :'Float',
         :'quantity_after' => :'Float',
@@ -80,8 +80,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'platform',
-        :'order_id',
         :'inventory_item_id',
+        :'order_id',
         :'delta',
         :'quantity_before',
         :'quantity_after',
@@ -120,16 +120,16 @@ module Crossly
         self.platform = attributes[:'platform']
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
+      if attributes.key?(:'inventory_item_id')
+        self.inventory_item_id = attributes[:'inventory_item_id']
       end
 
       if attributes.key?(:'order_id')
         self.order_id = attributes[:'order_id']
       end
 
-      if attributes.key?(:'inventory_item_id')
-        self.inventory_item_id = attributes[:'inventory_item_id']
+      if attributes.key?(:'type')
+        self.type = attributes[:'type']
       end
 
       if attributes.key?(:'delta')
@@ -191,9 +191,9 @@ module Crossly
           created_at == o.created_at &&
           user_id == o.user_id &&
           platform == o.platform &&
-          type == o.type &&
-          order_id == o.order_id &&
           inventory_item_id == o.inventory_item_id &&
+          order_id == o.order_id &&
+          type == o.type &&
           delta == o.delta &&
           quantity_before == o.quantity_before &&
           quantity_after == o.quantity_after &&
@@ -209,7 +209,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, platform, type, order_id, inventory_item_id, delta, quantity_before, quantity_after, sale_id].hash
+      [id, created_at, user_id, platform, inventory_item_id, order_id, type, delta, quantity_before, quantity_after, sale_id].hash
     end
 
     # Builds the object from hash

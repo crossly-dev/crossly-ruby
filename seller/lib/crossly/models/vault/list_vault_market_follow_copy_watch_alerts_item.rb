@@ -17,6 +17,8 @@ module Crossly
   class ListVaultMarketFollowCopyWatchAlertsItem
     attr_accessor :id
 
+    attr_accessor :by
+
     attr_accessor :side
 
     attr_accessor :quantity
@@ -67,6 +69,7 @@ module Crossly
     def self.attribute_map
       {
         :'id' => :'id',
+        :'by' => :'by',
         :'side' => :'side',
         :'quantity' => :'quantity',
         :'limit_cents' => :'limitCents',
@@ -91,6 +94,7 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
+        :'by' => :'ListVaultMarketFollowCopyWatchAlertsItemBy',
         :'side' => :'String',
         :'quantity' => :'Float',
         :'limit_cents' => :'Float',
@@ -133,6 +137,10 @@ module Crossly
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'by')
+        self.by = attributes[:'by']
       end
 
       if attributes.key?(:'side')
@@ -192,6 +200,10 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
+      if @by.nil?
+        invalid_properties.push('invalid value for "by", by cannot be nil.')
+      end
+
       if @side.nil?
         invalid_properties.push('invalid value for "side", side cannot be nil.')
       end
@@ -231,6 +243,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      return false if @by.nil?
       return false if @side.nil?
       side_validator = EnumAttributeValidator.new('String', ["buy", "sell"])
       return false unless side_validator.valid?(@side)
@@ -260,6 +273,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          by == o.by &&
           side == o.side &&
           quantity == o.quantity &&
           limit_cents == o.limit_cents &&
@@ -283,7 +297,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, side, quantity, limit_cents, book_key, name, label, image_url, placed_at, at, read, still_resting, market_href].hash
+      [id, by, side, quantity, limit_cents, book_key, name, label, image_url, placed_at, at, read, still_resting, market_href].hash
     end
 
     # Builds the object from hash

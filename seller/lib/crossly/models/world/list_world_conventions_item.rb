@@ -41,6 +41,17 @@ module Crossly
     # The room it is held in, so a card can link straight into it.
     attr_accessor :public_slug
 
+    # A full-page convention (a rented hall, booth tiers; spec WD4): sellers book a tier on its booth page.
+    attr_accessor :tiered
+
+    # When the doors open for visitors: the start (or when the host takes it live, if sooner).
+    attr_accessor :doors_open_at
+
+    # For a signed-in viewer (doors.ts): when THEIR doors open (earlier with live_early_entry), and whether they are.
+    attr_accessor :your_doors_open_at
+
+    attr_accessor :doors_open
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -55,7 +66,11 @@ module Crossly
         :'revenue_share_bps' => :'revenueShareBps',
         :'table_count' => :'tableCount',
         :'exhibitor_count' => :'exhibitorCount',
-        :'public_slug' => :'publicSlug'
+        :'public_slug' => :'publicSlug',
+        :'tiered' => :'tiered',
+        :'doors_open_at' => :'doorsOpenAt',
+        :'your_doors_open_at' => :'yourDoorsOpenAt',
+        :'doors_open' => :'doorsOpen'
       }
     end
 
@@ -78,7 +93,11 @@ module Crossly
         :'revenue_share_bps' => :'Float',
         :'table_count' => :'Float',
         :'exhibitor_count' => :'Float',
-        :'public_slug' => :'String'
+        :'public_slug' => :'String',
+        :'tiered' => :'Boolean',
+        :'doors_open_at' => :'Time',
+        :'your_doors_open_at' => :'String',
+        :'doors_open' => :'Boolean'
       }
     end
 
@@ -88,7 +107,9 @@ module Crossly
         :'category_slug',
         :'entry_fee_cents',
         :'revenue_share_bps',
-        :'public_slug'
+        :'public_slug',
+        :'your_doors_open_at',
+        :'doors_open'
       ])
     end
 
@@ -154,6 +175,22 @@ module Crossly
       if attributes.key?(:'public_slug')
         self.public_slug = attributes[:'public_slug']
       end
+
+      if attributes.key?(:'tiered')
+        self.tiered = attributes[:'tiered']
+      end
+
+      if attributes.key?(:'doors_open_at')
+        self.doors_open_at = attributes[:'doors_open_at']
+      end
+
+      if attributes.key?(:'your_doors_open_at')
+        self.your_doors_open_at = attributes[:'your_doors_open_at']
+      end
+
+      if attributes.key?(:'doors_open')
+        self.doors_open = attributes[:'doors_open']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -192,6 +229,14 @@ module Crossly
         invalid_properties.push('invalid value for "exhibitor_count", exhibitor_count cannot be nil.')
       end
 
+      if @tiered.nil?
+        invalid_properties.push('invalid value for "tiered", tiered cannot be nil.')
+      end
+
+      if @doors_open_at.nil?
+        invalid_properties.push('invalid value for "doors_open_at", doors_open_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -206,6 +251,8 @@ module Crossly
       return false if @entry_model.nil?
       return false if @table_count.nil?
       return false if @exhibitor_count.nil?
+      return false if @tiered.nil?
+      return false if @doors_open_at.nil?
       true
     end
 
@@ -225,7 +272,11 @@ module Crossly
           revenue_share_bps == o.revenue_share_bps &&
           table_count == o.table_count &&
           exhibitor_count == o.exhibitor_count &&
-          public_slug == o.public_slug
+          public_slug == o.public_slug &&
+          tiered == o.tiered &&
+          doors_open_at == o.doors_open_at &&
+          your_doors_open_at == o.your_doors_open_at &&
+          doors_open == o.doors_open
     end
 
     # @see the `==` method
@@ -237,7 +288,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, title, category_slug, starts_at, ends_at, status, entry_model, entry_fee_cents, revenue_share_bps, table_count, exhibitor_count, public_slug].hash
+      [id, title, category_slug, starts_at, ends_at, status, entry_model, entry_fee_cents, revenue_share_bps, table_count, exhibitor_count, public_slug, tiered, doors_open_at, your_doors_open_at, doors_open].hash
     end
 
     # Builds the object from hash

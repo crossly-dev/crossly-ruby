@@ -74,7 +74,74 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Fire a synthetic test.ping delivery to one webhook.
+    # Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+    # @param id [String] 
+    # @param delivery_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWebhookDeliveryRedeliverResponse]
+    def create_webhook_delivery_redeliver(id, delivery_id, opts = {})
+      data, _status_code, _headers = create_webhook_delivery_redeliver_with_http_info(id, delivery_id, opts)
+      data
+    end
+
+    # Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+    # @param id [String] 
+    # @param delivery_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWebhookDeliveryRedeliverResponse, Integer, Hash)>] CreateWebhookDeliveryRedeliverResponse data, response status code and response headers
+    def create_webhook_delivery_redeliver_with_http_info(id, delivery_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.create_webhook_delivery_redeliver ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WebhooksApi.create_webhook_delivery_redeliver"
+      end
+      # verify the required parameter 'delivery_id' is set
+      if @api_client.config.client_side_validation && delivery_id.nil?
+        fail ArgumentError, "Missing the required parameter 'delivery_id' when calling WebhooksApi.create_webhook_delivery_redeliver"
+      end
+      # resource path
+      local_var_path = '/v1/webhooks/{id}/deliveries/{deliveryId}/redeliver'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'deliveryId' + '}', CGI.escape(delivery_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWebhookDeliveryRedeliverResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.create_webhook_delivery_redeliver",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#create_webhook_delivery_redeliver\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWebhookTestResponse]
@@ -83,7 +150,7 @@ module Crossly
       data
     end
 
-    # Fire a synthetic test.ping delivery to one webhook.
+    # Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWebhookTestResponse, Integer, Hash)>] CreateWebhookTestResponse data, response status code and response headers
@@ -249,6 +316,85 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: WebhooksApi#get_webhook_stream\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Integer] :limit  (default to 25)
+    # @return [ListWebhookDeliveriesResponse]
+    def list_webhook_deliveries(id, opts = {})
+      data, _status_code, _headers = list_webhook_deliveries_with_http_info(id, opts)
+      data
+    end
+
+    # List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Integer] :limit 
+    # @return [Array<(ListWebhookDeliveriesResponse, Integer, Hash)>] ListWebhookDeliveriesResponse data, response status code and response headers
+    def list_webhook_deliveries_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.list_webhook_deliveries ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WebhooksApi.list_webhook_deliveries"
+      end
+      allowable_values = ["pending", "succeeded", "failed"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WebhooksApi.list_webhook_deliveries, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling WebhooksApi.list_webhook_deliveries, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/webhooks/{id}/deliveries'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWebhookDeliveriesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.list_webhook_deliveries",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#list_webhook_deliveries\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

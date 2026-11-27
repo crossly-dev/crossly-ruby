@@ -135,6 +135,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # A stall counter: the listings you picked (in order), its booth kind and capacity.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetStallBookingCounterResponse]
+    def get_stall_booking_counter(id, opts = {})
+      data, _status_code, _headers = get_stall_booking_counter_with_http_info(id, opts)
+      data
+    end
+
+    # A stall counter: the listings you picked (in order), its booth kind and capacity.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetStallBookingCounterResponse, Integer, Hash)>] GetStallBookingCounterResponse data, response status code and response headers
+    def get_stall_booking_counter_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StallsApi.get_stall_booking_counter ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StallsApi.get_stall_booking_counter"
+      end
+      # resource path
+      local_var_path = '/v1/stalls/bookings/{id}/counter'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetStallBookingCounterResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StallsApi.get_stall_booking_counter",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StallsApi#get_stall_booking_counter\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Quote a stall: street, spot, and either unit=day with start (YYYY-MM-DD) and days, or unit=event with events (comma-separated event ids). Returns the line items in cents, the rails the spot accepts and whether it is bookable.
     # @param street [String] 
     # @param spot [Integer] 
@@ -216,6 +277,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: StallsApi#get_stall_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetStallStreetAerialResponse]
+    def get_stall_street_aerial(slug, opts = {})
+      data, _status_code, _headers = get_stall_street_aerial_with_http_info(slug, opts)
+      data
+    end
+
+    # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetStallStreetAerialResponse, Integer, Hash)>] GetStallStreetAerialResponse data, response status code and response headers
+    def get_stall_street_aerial_with_http_info(slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StallsApi.get_stall_street_aerial ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling StallsApi.get_stall_street_aerial"
+      end
+      # resource path
+      local_var_path = '/v1/stalls/streets/{slug}/aerial'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetStallStreetAerialResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StallsApi.get_stall_street_aerial",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StallsApi#get_stall_street_aerial\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+    # @param [Hash] opts the optional parameters
+    # @return [ListStallListingSearchResponse]
+    def list_stall_listing_search(opts = {})
+      data, _status_code, _headers = list_stall_listing_search_with_http_info(opts)
+      data
+    end
+
+    # Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListStallListingSearchResponse, Integer, Hash)>] ListStallListingSearchResponse data, response status code and response headers
+    def list_stall_listing_search_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StallsApi.list_stall_listing_search ...'
+      end
+      # resource path
+      local_var_path = '/v1/stalls/listing-search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListStallListingSearchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StallsApi.list_stall_listing_search",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StallsApi#list_stall_listing_search\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

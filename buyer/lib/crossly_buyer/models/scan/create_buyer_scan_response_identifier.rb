@@ -15,9 +15,9 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerScanResponseIdentifier
-    attr_accessor :value
-
     attr_accessor :ns
+
+    attr_accessor :value
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -44,8 +44,8 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'value' => :'value',
-        :'ns' => :'ns'
+        :'ns' => :'ns',
+        :'value' => :'value'
       }
     end
 
@@ -57,8 +57,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'value' => :'String',
-        :'ns' => :'String'
+        :'ns' => :'String',
+        :'value' => :'String'
       }
     end
 
@@ -83,12 +83,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'value')
-        self.value = attributes[:'value']
-      end
-
       if attributes.key?(:'ns')
         self.ns = attributes[:'ns']
+      end
+
+      if attributes.key?(:'value')
+        self.value = attributes[:'value']
       end
     end
 
@@ -96,12 +96,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @value.nil?
-        invalid_properties.push('invalid value for "value", value cannot be nil.')
-      end
-
       if @ns.nil?
         invalid_properties.push('invalid value for "ns", ns cannot be nil.')
+      end
+
+      if @value.nil?
+        invalid_properties.push('invalid value for "value", value cannot be nil.')
       end
 
       invalid_properties
@@ -110,17 +110,17 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @value.nil?
       return false if @ns.nil?
-      ns_validator = EnumAttributeValidator.new('String', ["style_code", "gtin", "lego_set", "tcgplayer", "discogs", "asin"])
+      ns_validator = EnumAttributeValidator.new('String', ["gtin", "style_code", "lego_set", "tcgplayer", "discogs", "asin"])
       return false unless ns_validator.valid?(@ns)
+      return false if @value.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] ns Object to be assigned
     def ns=(ns)
-      validator = EnumAttributeValidator.new('String', ["style_code", "gtin", "lego_set", "tcgplayer", "discogs", "asin"])
+      validator = EnumAttributeValidator.new('String', ["gtin", "style_code", "lego_set", "tcgplayer", "discogs", "asin"])
       unless validator.valid?(ns)
         fail ArgumentError, "invalid value for \"ns\", must be one of #{validator.allowable_values}."
       end
@@ -132,8 +132,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          value == o.value &&
-          ns == o.ns
+          ns == o.ns &&
+          value == o.value
     end
 
     # @see the `==` method
@@ -145,7 +145,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [value, ns].hash
+      [ns, value].hash
     end
 
     # Builds the object from hash

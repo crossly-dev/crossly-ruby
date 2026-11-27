@@ -49,7 +49,7 @@ module Crossly
       {
         :'id' => :'String',
         :'name' => :'String',
-        :'appearance' => :'ListWorldOutfitsItemAppearance',
+        :'appearance' => :'CreateWorldOutfitResponseDataPresetAppearance',
         :'items' => :'Array<Hash<String, Object>>',
         :'created_at' => :'String',
         :'updated_at' => :'String'

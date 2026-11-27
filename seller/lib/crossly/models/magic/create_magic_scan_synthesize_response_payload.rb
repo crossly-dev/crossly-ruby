@@ -193,7 +193,7 @@ module Crossly
         :'description' => :'String',
         :'brand' => :'String',
         :'condition' => :'String',
-        :'grading' => :'ListGradingSubmissionsItemGrading',
+        :'grading' => :'CreateBulkBatchItemResponseGrading',
         :'color' => :'String',
         :'material' => :'String',
         :'size' => :'String',
@@ -484,11 +484,11 @@ module Crossly
     def valid?
       return false if @title.nil?
       return false if @description.nil?
-      condition_validator = EnumAttributeValidator.new('String', ["new", "fair", "good", "like_new", "poor", "refurbished"])
+      condition_validator = EnumAttributeValidator.new('String', ["new", "good", "fair", "like_new", "poor", "refurbished"])
       return false unless condition_validator.valid?(@condition)
       shipping_paid_by_validator = EnumAttributeValidator.new('String', ["seller", "buyer"])
       return false unless shipping_paid_by_validator.valid?(@shipping_paid_by)
-      returns_accepted_validator = EnumAttributeValidator.new('String', ["yes", "no"])
+      returns_accepted_validator = EnumAttributeValidator.new('String', ["no", "yes"])
       return false unless returns_accepted_validator.valid?(@returns_accepted)
       return false if @per_platform_overrides.nil?
       return false if @confidence.nil?
@@ -498,7 +498,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] condition Object to be assigned
     def condition=(condition)
-      validator = EnumAttributeValidator.new('String', ["new", "fair", "good", "like_new", "poor", "refurbished"])
+      validator = EnumAttributeValidator.new('String', ["new", "good", "fair", "like_new", "poor", "refurbished"])
       unless validator.valid?(condition)
         fail ArgumentError, "invalid value for \"condition\", must be one of #{validator.allowable_values}."
       end
@@ -518,7 +518,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] returns_accepted Object to be assigned
     def returns_accepted=(returns_accepted)
-      validator = EnumAttributeValidator.new('String', ["yes", "no"])
+      validator = EnumAttributeValidator.new('String', ["no", "yes"])
       unless validator.valid?(returns_accepted)
         fail ArgumentError, "invalid value for \"returns_accepted\", must be one of #{validator.allowable_values}."
       end

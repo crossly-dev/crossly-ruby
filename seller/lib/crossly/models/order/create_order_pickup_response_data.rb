@@ -25,23 +25,23 @@ module Crossly
 
     attr_accessor :carrier
 
-    attr_accessor :order_ids
-
-    attr_accessor :shippo_pickup_id
-
     attr_accessor :confirmation
 
-    attr_accessor :pickup_date
+    attr_accessor :order_ids
 
     attr_accessor :min_time
 
     attr_accessor :max_time
 
+    attr_accessor :instructions
+
+    attr_accessor :shippo_pickup_id
+
+    attr_accessor :pickup_date
+
     attr_accessor :confirmed_start
 
     attr_accessor :confirmed_end
-
-    attr_accessor :instructions
 
     attr_accessor :warnings
 
@@ -53,15 +53,15 @@ module Crossly
         :'user_id' => :'userId',
         :'status' => :'status',
         :'carrier' => :'carrier',
-        :'order_ids' => :'orderIds',
-        :'shippo_pickup_id' => :'shippoPickupId',
         :'confirmation' => :'confirmation',
-        :'pickup_date' => :'pickupDate',
+        :'order_ids' => :'orderIds',
         :'min_time' => :'minTime',
         :'max_time' => :'maxTime',
+        :'instructions' => :'instructions',
+        :'shippo_pickup_id' => :'shippoPickupId',
+        :'pickup_date' => :'pickupDate',
         :'confirmed_start' => :'confirmedStart',
         :'confirmed_end' => :'confirmedEnd',
-        :'instructions' => :'instructions',
         :'warnings' => :'warnings'
       }
     end
@@ -79,15 +79,15 @@ module Crossly
         :'user_id' => :'String',
         :'status' => :'String',
         :'carrier' => :'String',
-        :'order_ids' => :'Array<String>',
-        :'shippo_pickup_id' => :'String',
         :'confirmation' => :'String',
-        :'pickup_date' => :'String',
+        :'order_ids' => :'Array<String>',
         :'min_time' => :'String',
         :'max_time' => :'String',
+        :'instructions' => :'String',
+        :'shippo_pickup_id' => :'String',
+        :'pickup_date' => :'String',
         :'confirmed_start' => :'Time',
         :'confirmed_end' => :'Time',
-        :'instructions' => :'String',
         :'warnings' => :'Array<String>'
       }
     end
@@ -96,9 +96,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'confirmation',
+        :'instructions',
         :'confirmed_start',
         :'confirmed_end',
-        :'instructions',
       ])
     end
 
@@ -137,22 +137,14 @@ module Crossly
         self.carrier = attributes[:'carrier']
       end
 
-      if attributes.key?(:'order_ids')
-        if (value = attributes[:'order_ids']).is_a?(Array)
-          self.order_ids = value
-        end
-      end
-
-      if attributes.key?(:'shippo_pickup_id')
-        self.shippo_pickup_id = attributes[:'shippo_pickup_id']
-      end
-
       if attributes.key?(:'confirmation')
         self.confirmation = attributes[:'confirmation']
       end
 
-      if attributes.key?(:'pickup_date')
-        self.pickup_date = attributes[:'pickup_date']
+      if attributes.key?(:'order_ids')
+        if (value = attributes[:'order_ids']).is_a?(Array)
+          self.order_ids = value
+        end
       end
 
       if attributes.key?(:'min_time')
@@ -163,16 +155,24 @@ module Crossly
         self.max_time = attributes[:'max_time']
       end
 
+      if attributes.key?(:'instructions')
+        self.instructions = attributes[:'instructions']
+      end
+
+      if attributes.key?(:'shippo_pickup_id')
+        self.shippo_pickup_id = attributes[:'shippo_pickup_id']
+      end
+
+      if attributes.key?(:'pickup_date')
+        self.pickup_date = attributes[:'pickup_date']
+      end
+
       if attributes.key?(:'confirmed_start')
         self.confirmed_start = attributes[:'confirmed_start']
       end
 
       if attributes.key?(:'confirmed_end')
         self.confirmed_end = attributes[:'confirmed_end']
-      end
-
-      if attributes.key?(:'instructions')
-        self.instructions = attributes[:'instructions']
       end
 
       if attributes.key?(:'warnings')
@@ -210,20 +210,20 @@ module Crossly
         invalid_properties.push('invalid value for "order_ids", order_ids cannot be nil.')
       end
 
-      if @shippo_pickup_id.nil?
-        invalid_properties.push('invalid value for "shippo_pickup_id", shippo_pickup_id cannot be nil.')
-      end
-
-      if @pickup_date.nil?
-        invalid_properties.push('invalid value for "pickup_date", pickup_date cannot be nil.')
-      end
-
       if @min_time.nil?
         invalid_properties.push('invalid value for "min_time", min_time cannot be nil.')
       end
 
       if @max_time.nil?
         invalid_properties.push('invalid value for "max_time", max_time cannot be nil.')
+      end
+
+      if @shippo_pickup_id.nil?
+        invalid_properties.push('invalid value for "shippo_pickup_id", shippo_pickup_id cannot be nil.')
+      end
+
+      if @pickup_date.nil?
+        invalid_properties.push('invalid value for "pickup_date", pickup_date cannot be nil.')
       end
 
       if @warnings.nil?
@@ -242,10 +242,10 @@ module Crossly
       return false if @status.nil?
       return false if @carrier.nil?
       return false if @order_ids.nil?
-      return false if @shippo_pickup_id.nil?
-      return false if @pickup_date.nil?
       return false if @min_time.nil?
       return false if @max_time.nil?
+      return false if @shippo_pickup_id.nil?
+      return false if @pickup_date.nil?
       return false if @warnings.nil?
       true
     end
@@ -260,15 +260,15 @@ module Crossly
           user_id == o.user_id &&
           status == o.status &&
           carrier == o.carrier &&
-          order_ids == o.order_ids &&
-          shippo_pickup_id == o.shippo_pickup_id &&
           confirmation == o.confirmation &&
-          pickup_date == o.pickup_date &&
+          order_ids == o.order_ids &&
           min_time == o.min_time &&
           max_time == o.max_time &&
+          instructions == o.instructions &&
+          shippo_pickup_id == o.shippo_pickup_id &&
+          pickup_date == o.pickup_date &&
           confirmed_start == o.confirmed_start &&
           confirmed_end == o.confirmed_end &&
-          instructions == o.instructions &&
           warnings == o.warnings
     end
 
@@ -281,7 +281,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, carrier, order_ids, shippo_pickup_id, confirmation, pickup_date, min_time, max_time, confirmed_start, confirmed_end, instructions, warnings].hash
+      [id, created_at, user_id, status, carrier, confirmation, order_ids, min_time, max_time, instructions, shippo_pickup_id, pickup_date, confirmed_start, confirmed_end, warnings].hash
     end
 
     # Builds the object from hash

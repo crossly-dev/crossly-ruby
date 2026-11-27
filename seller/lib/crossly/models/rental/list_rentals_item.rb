@@ -25,6 +25,16 @@ module Crossly
 
     attr_accessor :ship_to
 
+    attr_accessor :platform_listing_id
+
+    attr_accessor :payout_timing
+
+    attr_accessor :payout_released_at
+
+    attr_accessor :order_id
+
+    attr_accessor :crossly_fee_cents
+
     attr_accessor :id
 
     attr_accessor :status
@@ -69,6 +79,36 @@ module Crossly
 
     attr_accessor :deposit_refunded_cents
 
+    attr_accessor :unit
+
+    attr_accessor :fulfilment
+
+    attr_accessor :cleaning_fee_cents
+
+    attr_accessor :damage_waiver
+
+    attr_accessor :damage_waiver_cents
+
+    attr_accessor :late_fee_cents
+
+    attr_accessor :rent_refunded_cents
+
+    attr_accessor :buyout_cents
+
+    attr_accessor :charges
+
+    attr_accessor :condition_photos_return
+
+    attr_accessor :approved_at
+
+    attr_accessor :delivered_at
+
+    attr_accessor :return_shipped_at
+
+    attr_accessor :inspected_at
+
+    attr_accessor :bought_out_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -77,6 +117,11 @@ module Crossly
         :'closed_at' => :'closedAt',
         :'created_at' => :'createdAt',
         :'ship_to' => :'shipTo',
+        :'platform_listing_id' => :'platformListingId',
+        :'payout_timing' => :'payoutTiming',
+        :'payout_released_at' => :'payoutReleasedAt',
+        :'order_id' => :'orderId',
+        :'crossly_fee_cents' => :'crosslyFeeCents',
         :'id' => :'id',
         :'status' => :'status',
         :'slug' => :'slug',
@@ -98,7 +143,22 @@ module Crossly
         :'condition_photos_out' => :'conditionPhotosOut',
         :'condition_photos_in' => :'conditionPhotosIn',
         :'approval_due_at' => :'approvalDueAt',
-        :'deposit_refunded_cents' => :'depositRefundedCents'
+        :'deposit_refunded_cents' => :'depositRefundedCents',
+        :'unit' => :'unit',
+        :'fulfilment' => :'fulfilment',
+        :'cleaning_fee_cents' => :'cleaningFeeCents',
+        :'damage_waiver' => :'damageWaiver',
+        :'damage_waiver_cents' => :'damageWaiverCents',
+        :'late_fee_cents' => :'lateFeeCents',
+        :'rent_refunded_cents' => :'rentRefundedCents',
+        :'buyout_cents' => :'buyoutCents',
+        :'charges' => :'charges',
+        :'condition_photos_return' => :'conditionPhotosReturn',
+        :'approved_at' => :'approvedAt',
+        :'delivered_at' => :'deliveredAt',
+        :'return_shipped_at' => :'returnShippedAt',
+        :'inspected_at' => :'inspectedAt',
+        :'bought_out_at' => :'boughtOutAt'
       }
     end
 
@@ -115,6 +175,11 @@ module Crossly
         :'closed_at' => :'String',
         :'created_at' => :'String',
         :'ship_to' => :'Hash<String, Object>',
+        :'platform_listing_id' => :'String',
+        :'payout_timing' => :'String',
+        :'payout_released_at' => :'String',
+        :'order_id' => :'String',
+        :'crossly_fee_cents' => :'Float',
         :'id' => :'String',
         :'status' => :'String',
         :'slug' => :'String',
@@ -136,7 +201,22 @@ module Crossly
         :'condition_photos_out' => :'Array<String>',
         :'condition_photos_in' => :'Array<String>',
         :'approval_due_at' => :'String',
-        :'deposit_refunded_cents' => :'Float'
+        :'deposit_refunded_cents' => :'Float',
+        :'unit' => :'Float',
+        :'fulfilment' => :'String',
+        :'cleaning_fee_cents' => :'Float',
+        :'damage_waiver' => :'Boolean',
+        :'damage_waiver_cents' => :'Float',
+        :'late_fee_cents' => :'Float',
+        :'rent_refunded_cents' => :'Float',
+        :'buyout_cents' => :'Float',
+        :'charges' => :'Hash<String, Object>',
+        :'condition_photos_return' => :'Array<String>',
+        :'approved_at' => :'String',
+        :'delivered_at' => :'String',
+        :'return_shipped_at' => :'String',
+        :'inspected_at' => :'String',
+        :'bought_out_at' => :'String'
       }
     end
 
@@ -147,12 +227,23 @@ module Crossly
         :'returned_at',
         :'closed_at',
         :'ship_to',
+        :'platform_listing_id',
+        :'payout_timing',
+        :'payout_released_at',
+        :'order_id',
+        :'crossly_fee_cents',
         :'slug',
         :'outbound_tracking',
         :'return_tracking',
         :'label_url',
         :'claim_note',
         :'approval_due_at',
+        :'buyout_cents',
+        :'approved_at',
+        :'delivered_at',
+        :'return_shipped_at',
+        :'inspected_at',
+        :'bought_out_at'
       ])
     end
 
@@ -191,6 +282,26 @@ module Crossly
         if (value = attributes[:'ship_to']).is_a?(Hash)
           self.ship_to = value
         end
+      end
+
+      if attributes.key?(:'platform_listing_id')
+        self.platform_listing_id = attributes[:'platform_listing_id']
+      end
+
+      if attributes.key?(:'payout_timing')
+        self.payout_timing = attributes[:'payout_timing']
+      end
+
+      if attributes.key?(:'payout_released_at')
+        self.payout_released_at = attributes[:'payout_released_at']
+      end
+
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
+      end
+
+      if attributes.key?(:'crossly_fee_cents')
+        self.crossly_fee_cents = attributes[:'crossly_fee_cents']
       end
 
       if attributes.key?(:'id')
@@ -286,6 +397,70 @@ module Crossly
       if attributes.key?(:'deposit_refunded_cents')
         self.deposit_refunded_cents = attributes[:'deposit_refunded_cents']
       end
+
+      if attributes.key?(:'unit')
+        self.unit = attributes[:'unit']
+      end
+
+      if attributes.key?(:'fulfilment')
+        self.fulfilment = attributes[:'fulfilment']
+      end
+
+      if attributes.key?(:'cleaning_fee_cents')
+        self.cleaning_fee_cents = attributes[:'cleaning_fee_cents']
+      end
+
+      if attributes.key?(:'damage_waiver')
+        self.damage_waiver = attributes[:'damage_waiver']
+      end
+
+      if attributes.key?(:'damage_waiver_cents')
+        self.damage_waiver_cents = attributes[:'damage_waiver_cents']
+      end
+
+      if attributes.key?(:'late_fee_cents')
+        self.late_fee_cents = attributes[:'late_fee_cents']
+      end
+
+      if attributes.key?(:'rent_refunded_cents')
+        self.rent_refunded_cents = attributes[:'rent_refunded_cents']
+      end
+
+      if attributes.key?(:'buyout_cents')
+        self.buyout_cents = attributes[:'buyout_cents']
+      end
+
+      if attributes.key?(:'charges')
+        if (value = attributes[:'charges']).is_a?(Hash)
+          self.charges = value
+        end
+      end
+
+      if attributes.key?(:'condition_photos_return')
+        if (value = attributes[:'condition_photos_return']).is_a?(Array)
+          self.condition_photos_return = value
+        end
+      end
+
+      if attributes.key?(:'approved_at')
+        self.approved_at = attributes[:'approved_at']
+      end
+
+      if attributes.key?(:'delivered_at')
+        self.delivered_at = attributes[:'delivered_at']
+      end
+
+      if attributes.key?(:'return_shipped_at')
+        self.return_shipped_at = attributes[:'return_shipped_at']
+      end
+
+      if attributes.key?(:'inspected_at')
+        self.inspected_at = attributes[:'inspected_at']
+      end
+
+      if attributes.key?(:'bought_out_at')
+        self.bought_out_at = attributes[:'bought_out_at']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -360,6 +535,42 @@ module Crossly
         invalid_properties.push('invalid value for "deposit_refunded_cents", deposit_refunded_cents cannot be nil.')
       end
 
+      if @unit.nil?
+        invalid_properties.push('invalid value for "unit", unit cannot be nil.')
+      end
+
+      if @fulfilment.nil?
+        invalid_properties.push('invalid value for "fulfilment", fulfilment cannot be nil.')
+      end
+
+      if @cleaning_fee_cents.nil?
+        invalid_properties.push('invalid value for "cleaning_fee_cents", cleaning_fee_cents cannot be nil.')
+      end
+
+      if @damage_waiver.nil?
+        invalid_properties.push('invalid value for "damage_waiver", damage_waiver cannot be nil.')
+      end
+
+      if @damage_waiver_cents.nil?
+        invalid_properties.push('invalid value for "damage_waiver_cents", damage_waiver_cents cannot be nil.')
+      end
+
+      if @late_fee_cents.nil?
+        invalid_properties.push('invalid value for "late_fee_cents", late_fee_cents cannot be nil.')
+      end
+
+      if @rent_refunded_cents.nil?
+        invalid_properties.push('invalid value for "rent_refunded_cents", rent_refunded_cents cannot be nil.')
+      end
+
+      if @charges.nil?
+        invalid_properties.push('invalid value for "charges", charges cannot be nil.')
+      end
+
+      if @condition_photos_return.nil?
+        invalid_properties.push('invalid value for "condition_photos_return", condition_photos_return cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -383,6 +594,15 @@ module Crossly
       return false if @condition_photos_out.nil?
       return false if @condition_photos_in.nil?
       return false if @deposit_refunded_cents.nil?
+      return false if @unit.nil?
+      return false if @fulfilment.nil?
+      return false if @cleaning_fee_cents.nil?
+      return false if @damage_waiver.nil?
+      return false if @damage_waiver_cents.nil?
+      return false if @late_fee_cents.nil?
+      return false if @rent_refunded_cents.nil?
+      return false if @charges.nil?
+      return false if @condition_photos_return.nil?
       true
     end
 
@@ -396,6 +616,11 @@ module Crossly
           closed_at == o.closed_at &&
           created_at == o.created_at &&
           ship_to == o.ship_to &&
+          platform_listing_id == o.platform_listing_id &&
+          payout_timing == o.payout_timing &&
+          payout_released_at == o.payout_released_at &&
+          order_id == o.order_id &&
+          crossly_fee_cents == o.crossly_fee_cents &&
           id == o.id &&
           status == o.status &&
           slug == o.slug &&
@@ -417,7 +642,22 @@ module Crossly
           condition_photos_out == o.condition_photos_out &&
           condition_photos_in == o.condition_photos_in &&
           approval_due_at == o.approval_due_at &&
-          deposit_refunded_cents == o.deposit_refunded_cents
+          deposit_refunded_cents == o.deposit_refunded_cents &&
+          unit == o.unit &&
+          fulfilment == o.fulfilment &&
+          cleaning_fee_cents == o.cleaning_fee_cents &&
+          damage_waiver == o.damage_waiver &&
+          damage_waiver_cents == o.damage_waiver_cents &&
+          late_fee_cents == o.late_fee_cents &&
+          rent_refunded_cents == o.rent_refunded_cents &&
+          buyout_cents == o.buyout_cents &&
+          charges == o.charges &&
+          condition_photos_return == o.condition_photos_return &&
+          approved_at == o.approved_at &&
+          delivered_at == o.delivered_at &&
+          return_shipped_at == o.return_shipped_at &&
+          inspected_at == o.inspected_at &&
+          bought_out_at == o.bought_out_at
     end
 
     # @see the `==` method
@@ -429,7 +669,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [shipped_at, returned_at, closed_at, created_at, ship_to, id, status, slug, title, image_url, start_date, end_date, days, rent_cents, shipping_cents, deposit_cents, outbound_tracking, return_tracking, label_url, claim_cents, claim_note, claim_photos, claim_disputed, condition_photos_out, condition_photos_in, approval_due_at, deposit_refunded_cents].hash
+      [shipped_at, returned_at, closed_at, created_at, ship_to, platform_listing_id, payout_timing, payout_released_at, order_id, crossly_fee_cents, id, status, slug, title, image_url, start_date, end_date, days, rent_cents, shipping_cents, deposit_cents, outbound_tracking, return_tracking, label_url, claim_cents, claim_note, claim_photos, claim_disputed, condition_photos_out, condition_photos_in, approval_due_at, deposit_refunded_cents, unit, fulfilment, cleaning_fee_cents, damage_waiver, damage_waiver_cents, late_fee_cents, rent_refunded_cents, buyout_cents, charges, condition_photos_return, approved_at, delivered_at, return_shipped_at, inspected_at, bought_out_at].hash
     end
 
     # Builds the object from hash

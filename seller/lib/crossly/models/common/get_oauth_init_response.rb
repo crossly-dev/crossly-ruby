@@ -17,8 +17,6 @@ module Crossly
   class GetOauthInitResponse
     attr_accessor :url
 
-    attr_accessor :correlation_id
-
     attr_accessor :one_shot
 
     attr_accessor :status
@@ -31,7 +29,6 @@ module Crossly
     def self.attribute_map
       {
         :'url' => :'url',
-        :'correlation_id' => :'correlationId',
         :'one_shot' => :'oneShot',
         :'status' => :'status',
         :'request_url' => :'requestUrl',
@@ -48,7 +45,6 @@ module Crossly
     def self.openapi_types
       {
         :'url' => :'String',
-        :'correlation_id' => :'String',
         :'one_shot' => :'Boolean',
         :'status' => :'String',
         :'request_url' => :'String',
@@ -79,10 +75,6 @@ module Crossly
 
       if attributes.key?(:'url')
         self.url = attributes[:'url']
-      end
-
-      if attributes.key?(:'correlation_id')
-        self.correlation_id = attributes[:'correlation_id']
       end
 
       if attributes.key?(:'one_shot')
@@ -121,7 +113,6 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           url == o.url &&
-          correlation_id == o.correlation_id &&
           one_shot == o.one_shot &&
           status == o.status &&
           request_url == o.request_url &&
@@ -137,7 +128,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, correlation_id, one_shot, status, request_url, message].hash
+      [url, one_shot, status, request_url, message].hash
     end
 
     # Builds the object from hash

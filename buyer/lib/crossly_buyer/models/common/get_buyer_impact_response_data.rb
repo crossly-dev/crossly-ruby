@@ -15,21 +15,21 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerImpactResponseData
-    attr_accessor :co2_kg
-
-    attr_accessor :water_l
-
     attr_accessor :items_bought
 
     attr_accessor :items_with_figures
 
+    attr_accessor :co2_kg
+
+    attr_accessor :water_l
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'co2_kg' => :'co2Kg',
-        :'water_l' => :'waterL',
         :'items_bought' => :'itemsBought',
-        :'items_with_figures' => :'itemsWithFigures'
+        :'items_with_figures' => :'itemsWithFigures',
+        :'co2_kg' => :'co2Kg',
+        :'water_l' => :'waterL'
       }
     end
 
@@ -41,10 +41,10 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'co2_kg' => :'Float',
-        :'water_l' => :'Float',
         :'items_bought' => :'Float',
-        :'items_with_figures' => :'Float'
+        :'items_with_figures' => :'Float',
+        :'co2_kg' => :'Float',
+        :'water_l' => :'Float'
       }
     end
 
@@ -69,14 +69,6 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'co2_kg')
-        self.co2_kg = attributes[:'co2_kg']
-      end
-
-      if attributes.key?(:'water_l')
-        self.water_l = attributes[:'water_l']
-      end
-
       if attributes.key?(:'items_bought')
         self.items_bought = attributes[:'items_bought']
       end
@@ -84,20 +76,20 @@ module CrosslyBuyer
       if attributes.key?(:'items_with_figures')
         self.items_with_figures = attributes[:'items_with_figures']
       end
+
+      if attributes.key?(:'co2_kg')
+        self.co2_kg = attributes[:'co2_kg']
+      end
+
+      if attributes.key?(:'water_l')
+        self.water_l = attributes[:'water_l']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @co2_kg.nil?
-        invalid_properties.push('invalid value for "co2_kg", co2_kg cannot be nil.')
-      end
-
-      if @water_l.nil?
-        invalid_properties.push('invalid value for "water_l", water_l cannot be nil.')
-      end
-
       if @items_bought.nil?
         invalid_properties.push('invalid value for "items_bought", items_bought cannot be nil.')
       end
@@ -106,16 +98,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "items_with_figures", items_with_figures cannot be nil.')
       end
 
+      if @co2_kg.nil?
+        invalid_properties.push('invalid value for "co2_kg", co2_kg cannot be nil.')
+      end
+
+      if @water_l.nil?
+        invalid_properties.push('invalid value for "water_l", water_l cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @co2_kg.nil?
-      return false if @water_l.nil?
       return false if @items_bought.nil?
       return false if @items_with_figures.nil?
+      return false if @co2_kg.nil?
+      return false if @water_l.nil?
       true
     end
 
@@ -124,10 +124,10 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          co2_kg == o.co2_kg &&
-          water_l == o.water_l &&
           items_bought == o.items_bought &&
-          items_with_figures == o.items_with_figures
+          items_with_figures == o.items_with_figures &&
+          co2_kg == o.co2_kg &&
+          water_l == o.water_l
     end
 
     # @see the `==` method
@@ -139,7 +139,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [co2_kg, water_l, items_bought, items_with_figures].hash
+      [items_bought, items_with_figures, co2_kg, water_l].hash
     end
 
     # Builds the object from hash

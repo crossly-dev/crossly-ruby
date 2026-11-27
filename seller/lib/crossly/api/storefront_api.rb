@@ -19,6 +19,1142 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontHighlightResponse]
+    def create_storefront_highlight(opts = {})
+      data, _status_code, _headers = create_storefront_highlight_with_http_info(opts)
+      data
+    end
+
+    # Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontHighlightResponse, Integer, Hash)>] CreateStorefrontHighlightResponse data, response status code and response headers
+    def create_storefront_highlight_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_highlight ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontHighlightResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_highlight",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_highlight\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontHighlightResponse]
+    def create_storefront_highlight_item(id, opts = {})
+      data, _status_code, _headers = create_storefront_highlight_item_with_http_info(id, opts)
+      data
+    end
+
+    # Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
+    def create_storefront_highlight_item_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_highlight_item ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.create_storefront_highlight_item"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights/{id}/items'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_highlight_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_highlight_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Profile shelves proposed from your top tags and categories (not saved).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontProfileSuggestShelveResponse]
+    def create_storefront_profile_suggest_shelve(opts = {})
+      data, _status_code, _headers = create_storefront_profile_suggest_shelve_with_http_info(opts)
+      data
+    end
+
+    # Profile shelves proposed from your top tags and categories (not saved).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontProfileSuggestShelveResponse, Integer, Hash)>] CreateStorefrontProfileSuggestShelveResponse data, response status code and response headers
+    def create_storefront_profile_suggest_shelve_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_profile_suggest_shelve ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/profile/suggest-shelves'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontProfileSuggestShelveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_profile_suggest_shelve",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_profile_suggest_shelve\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontSectionResponse]
+    def create_storefront_section(opts = {})
+      data, _status_code, _headers = create_storefront_section_with_http_info(opts)
+      data
+    end
+
+    # Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontSectionResponse, Integer, Hash)>] StorefrontSectionResponse data, response status code and response headers
+    def create_storefront_section_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_section ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/sections'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontSectionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_section",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_section\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Resolve an unsaved design page like the live site would: every section with its listings and extras (preview: true).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontSitePreviewResponse]
+    def create_storefront_site_preview(opts = {})
+      data, _status_code, _headers = create_storefront_site_preview_with_http_info(opts)
+      data
+    end
+
+    # Resolve an unsaved design page like the live site would: every section with its listings and extras (preview: true).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontSitePreviewResponse, Integer, Hash)>] CreateStorefrontSitePreviewResponse data, response status code and response headers
+    def create_storefront_site_preview_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_site_preview ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/preview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontSitePreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_site_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_site_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Publish the draft: it becomes the live site and a publish version is kept (the last 30 versions are kept).
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse2]
+    def create_storefront_site_publish(opts = {})
+      data, _status_code, _headers = create_storefront_site_publish_with_http_info(opts)
+      data
+    end
+
+    # Publish the draft: it becomes the live site and a publish version is kept (the last 30 versions are kept).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
+    def create_storefront_site_publish_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_site_publish ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/publish'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse2'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_site_publish",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_site_publish\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The live listings a ListingSource (manual, tags, category, smart rule or all) selects from your store, and how many match.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontSiteResolveResponse]
+    def create_storefront_site_resolve(opts = {})
+      data, _status_code, _headers = create_storefront_site_resolve_with_http_info(opts)
+      data
+    end
+
+    # The live listings a ListingSource (manual, tags, category, smart rule or all) selects from your store, and how many match.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontSiteResolveResponse, Integer, Hash)>] CreateStorefrontSiteResolveResponse data, response status code and response headers
+    def create_storefront_site_resolve_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_site_resolve ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/resolve'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontSiteResolveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_site_resolve",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_site_resolve\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace the draft with a starter site (vintage, sneakers, streetwear, collectibles, boutique, home, minimal, drop, general). The current draft is kept as a version first.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse2]
+    def create_storefront_site_starter(opts = {})
+      data, _status_code, _headers = create_storefront_site_starter_with_http_info(opts)
+      data
+    end
+
+    # Replace the draft with a starter site (vintage, sneakers, streetwear, collectibles, boutique, home, minimal, drop, general). The current draft is kept as a version first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
+    def create_storefront_site_starter_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_site_starter ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/starter'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse2'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_site_starter",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_site_starter\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Auto-build: website sections proposed from your top tags and categories (not saved).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontSiteSuggestResponse]
+    def create_storefront_site_suggest(opts = {})
+      data, _status_code, _headers = create_storefront_site_suggest_with_http_info(opts)
+      data
+    end
+
+    # Auto-build: website sections proposed from your top tags and categories (not saved).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontSiteSuggestResponse, Integer, Hash)>] CreateStorefrontSiteSuggestResponse data, response status code and response headers
+    def create_storefront_site_suggest_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_site_suggest ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/suggest'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontSiteSuggestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_site_suggest",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_site_suggest\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Copy a saved version into the draft (the current draft is kept as a version first). Publish to make it live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse3]
+    def create_storefront_site_version_restore(id, opts = {})
+      data, _status_code, _headers = create_storefront_site_version_restore_with_http_info(id, opts)
+      data
+    end
+
+    # Copy a saved version into the draft (the current draft is kept as a version first). Publish to make it live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
+    def create_storefront_site_version_restore_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_site_version_restore ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.create_storefront_site_version_restore"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/versions/{id}/restore'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_site_version_restore",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_site_version_restore\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Publish the trade site draft (a version is kept).
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse2]
+    def create_storefront_trade_site_publish(opts = {})
+      data, _status_code, _headers = create_storefront_trade_site_publish_with_http_info(opts)
+      data
+    end
+
+    # Publish the trade site draft (a version is kept).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
+    def create_storefront_trade_site_publish_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_trade_site_publish ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/publish'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse2'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_trade_site_publish",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_trade_site_publish\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontSiteResolveResponse]
+    def create_storefront_trade_site_resolve(opts = {})
+      data, _status_code, _headers = create_storefront_trade_site_resolve_with_http_info(opts)
+      data
+    end
+
+    # The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontSiteResolveResponse, Integer, Hash)>] CreateStorefrontSiteResolveResponse data, response status code and response headers
+    def create_storefront_trade_site_resolve_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_trade_site_resolve ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/resolve'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontSiteResolveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_trade_site_resolve",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_trade_site_resolve\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse2]
+    def create_storefront_trade_site_starter(opts = {})
+      data, _status_code, _headers = create_storefront_trade_site_starter_with_http_info(opts)
+      data
+    end
+
+    # Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
+    def create_storefront_trade_site_starter_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_trade_site_starter ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/starter'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse2'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_trade_site_starter",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_trade_site_starter\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Trade Auto-build: trade site sections proposed from your wholesale catalogs (a spotlight, a rail per catalog, terms, apply banner). Not saved.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStorefrontSiteSuggestResponse]
+    def create_storefront_trade_site_suggest(opts = {})
+      data, _status_code, _headers = create_storefront_trade_site_suggest_with_http_info(opts)
+      data
+    end
+
+    # Trade Auto-build: trade site sections proposed from your wholesale catalogs (a spotlight, a rail per catalog, terms, apply banner). Not saved.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStorefrontSiteSuggestResponse, Integer, Hash)>] CreateStorefrontSiteSuggestResponse data, response status code and response headers
+    def create_storefront_trade_site_suggest_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.create_storefront_trade_site_suggest ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/suggest'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStorefrontSiteSuggestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.create_storefront_trade_site_suggest",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#create_storefront_trade_site_suggest\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a highlight and its saved stories. The original stories are unaffected.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteStoryResponse]
+    def delete_storefront_highlight(id, opts = {})
+      data, _status_code, _headers = delete_storefront_highlight_with_http_info(id, opts)
+      data
+    end
+
+    # Delete a highlight and its saved stories. The original stories are unaffected.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteStoryResponse, Integer, Hash)>] DeleteStoryResponse data, response status code and response headers
+    def delete_storefront_highlight_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.delete_storefront_highlight ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.delete_storefront_highlight"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteStoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.delete_storefront_highlight",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#delete_storefront_highlight\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Remove one saved story from a highlight.
+    # @param id [String] 
+    # @param item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontHighlightResponse]
+    def delete_storefront_highlight_item(id, item_id, opts = {})
+      data, _status_code, _headers = delete_storefront_highlight_item_with_http_info(id, item_id, opts)
+      data
+    end
+
+    # Remove one saved story from a highlight.
+    # @param id [String] 
+    # @param item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
+    def delete_storefront_highlight_item_with_http_info(id, item_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.delete_storefront_highlight_item ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.delete_storefront_highlight_item"
+      end
+      # verify the required parameter 'item_id' is set
+      if @api_client.config.client_side_validation && item_id.nil?
+        fail ArgumentError, "Missing the required parameter 'item_id' when calling StorefrontApi.delete_storefront_highlight_item"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights/{id}/items/{itemId}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'itemId' + '}', CGI.escape(item_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.delete_storefront_highlight_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#delete_storefront_highlight_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Remove a section. Listings on a removed shelf stay live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_storefront_section(id, opts = {})
+      data, _status_code, _headers = delete_storefront_section_with_http_info(id, opts)
+      data
+    end
+
+    # Remove a section. Listings on a removed shelf stay live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_storefront_section_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.delete_storefront_section ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.delete_storefront_section"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/sections/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.delete_storefront_section",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#delete_storefront_section\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your storefront design: banner, logo, tagline, bio, theme, SEO title and description, social links, and whether it is published.
+    # @param [Hash] opts the optional parameters
+    # @return [GetStorefrontResponse]
+    def get_storefront(opts = {})
+      data, _status_code, _headers = get_storefront_with_http_info(opts)
+      data
+    end
+
+    # Your storefront design: banner, logo, tagline, bio, theme, SEO title and description, social links, and whether it is published.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetStorefrontResponse, Integer, Hash)>] GetStorefrontResponse data, response status code and response headers
+    def get_storefront_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.get_storefront ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetStorefrontResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.get_storefront",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#get_storefront\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your store's live listings by tag, category, condition and brand, with the price range: what product sources can select.
+    # @param [Hash] opts the optional parameters
+    # @return [GetStorefrontMerchResponse]
+    def get_storefront_merch(opts = {})
+      data, _status_code, _headers = get_storefront_merch_with_http_info(opts)
+      data
+    end
+
+    # Your store&#39;s live listings by tag, category, condition and brand, with the price range: what product sources can select.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetStorefrontMerchResponse, Integer, Hash)>] GetStorefrontMerchResponse data, response status code and response headers
+    def get_storefront_merch_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.get_storefront_merch ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/merch'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetStorefrontMerchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.get_storefront_merch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#get_storefront_merch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your shop profile (the Crossly Shop page): banner, logo, tagline, bio, accent, announcement, shelves, blocks and All items options.
+    # @param [Hash] opts the optional parameters
+    # @return [GetStorefrontProfileResponse]
+    def get_storefront_profile(opts = {})
+      data, _status_code, _headers = get_storefront_profile_with_http_info(opts)
+      data
+    end
+
+    # Your shop profile (the Crossly Shop page): banner, logo, tagline, bio, accent, announcement, shelves, blocks and All items options.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetStorefrontProfileResponse, Integer, Hash)>] GetStorefrontProfileResponse data, response status code and response headers
+    def get_storefront_profile_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.get_storefront_profile ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/profile'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetStorefrontProfileResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.get_storefront_profile",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#get_storefront_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address.
     # @param [Hash] opts the optional parameters
     # @return [GetStorefrontShippingResponse]
@@ -74,6 +1210,739 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your store website: the draft design, what is live, when each changed, whether the site is switched on, and its custom domain.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse3]
+    def get_storefront_site(opts = {})
+      data, _status_code, _headers = get_storefront_site_with_http_info(opts)
+      data
+    end
+
+    # Your store website: the draft design, what is live, when each changed, whether the site is switched on, and its custom domain.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
+    def get_storefront_site_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.get_storefront_site ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.get_storefront_site",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#get_storefront_site\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your store's trade (wholesale) site at /site/:slug/trade: the draft, what is live, whether it is on and its gating (public | prices_private | approved_only).
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse3]
+    def get_storefront_trade_site(opts = {})
+      data, _status_code, _headers = get_storefront_trade_site_with_http_info(opts)
+      data
+    end
+
+    # Your store&#39;s trade (wholesale) site at /site/:slug/trade: the draft, what is live, whether it is on and its gating (public | prices_private | approved_only).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
+    def get_storefront_trade_site_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.get_storefront_trade_site ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.get_storefront_trade_site",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#get_storefront_trade_site\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your store’s story highlights in display order, each with its saved stories (media, overlays, product tie-in, when posted). Empty highlights included.
+    # @param [Hash] opts the optional parameters
+    # @return [ListStorefrontHighlightsResponse]
+    def list_storefront_highlights(opts = {})
+      data, _status_code, _headers = list_storefront_highlights_with_http_info(opts)
+      data
+    end
+
+    # Your store’s story highlights in display order, each with its saved stories (media, overlays, product tie-in, when posted). Empty highlights included.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListStorefrontHighlightsResponse, Integer, Hash)>] ListStorefrontHighlightsResponse data, response status code and response headers
+    def list_storefront_highlights_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.list_storefront_highlights ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListStorefrontHighlightsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.list_storefront_highlights",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#list_storefront_highlights\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your storefront sections in display order: kind, title, visible, config, and listing ids for listings shelves.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse4]
+    def list_storefront_sections(opts = {})
+      data, _status_code, _headers = list_storefront_sections_with_http_info(opts)
+      data
+    end
+
+    # Your storefront sections in display order: kind, title, visible, config, and listing ids for listings shelves.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse4, Integer, Hash)>] StorefrontResponse4 data, response status code and response headers
+    def list_storefront_sections_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.list_storefront_sections ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/sections'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse4'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.list_storefront_sections",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#list_storefront_sections\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Saved versions of the website, newest first (publish, restore and template points; up to 30).
+    # @param [Hash] opts the optional parameters
+    # @return [ListStorefrontSiteVersionsResponse]
+    def list_storefront_site_versions(opts = {})
+      data, _status_code, _headers = list_storefront_site_versions_with_http_info(opts)
+      data
+    end
+
+    # Saved versions of the website, newest first (publish, restore and template points; up to 30).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListStorefrontSiteVersionsResponse, Integer, Hash)>] ListStorefrontSiteVersionsResponse data, response status code and response headers
+    def list_storefront_site_versions_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.list_storefront_site_versions ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/versions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListStorefrontSiteVersionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.list_storefront_site_versions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#list_storefront_site_versions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before = meta.nextCursor of the previous page.
+    # @param [Hash] opts the optional parameters
+    # @return [ListStorefrontStoryArchiveResponse]
+    def list_storefront_story_archive(opts = {})
+      data, _status_code, _headers = list_storefront_story_archive_with_http_info(opts)
+      data
+    end
+
+    # Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before &#x3D; meta.nextCursor of the previous page.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListStorefrontStoryArchiveResponse, Integer, Hash)>] ListStorefrontStoryArchiveResponse data, response status code and response headers
+    def list_storefront_story_archive_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.list_storefront_story_archive ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/stories/archive'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListStorefrontStoryArchiveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.list_storefront_story_archive",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#list_storefront_story_archive\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Update your storefront design. Omitted fields are unchanged, null clears. published=false keeps the design as a draft and buyers see the standard storefront.
+    # @param [Hash] opts the optional parameters
+    # @return [GetStorefrontResponse]
+    def update_storefront(opts = {})
+      data, _status_code, _headers = update_storefront_with_http_info(opts)
+      data
+    end
+
+    # Update your storefront design. Omitted fields are unchanged, null clears. published&#x3D;false keeps the design as a draft and buyers see the standard storefront.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetStorefrontResponse, Integer, Hash)>] GetStorefrontResponse data, response status code and response headers
+    def update_storefront_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetStorefrontResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename a highlight or change its cover (coverUrl null = use the first story).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontHighlightResponse]
+    def update_storefront_highlight(id, opts = {})
+      data, _status_code, _headers = update_storefront_highlight_with_http_info(id, opts)
+      data
+    end
+
+    # Rename a highlight or change its cover (coverUrl null &#x3D; use the first story).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
+    def update_storefront_highlight_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_highlight ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.update_storefront_highlight"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_highlight",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_highlight\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the order of a highlight’s saved stories: every item id, first to last.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontHighlightResponse]
+    def update_storefront_highlight_item_order(id, opts = {})
+      data, _status_code, _headers = update_storefront_highlight_item_order_with_http_info(id, opts)
+      data
+    end
+
+    # Set the order of a highlight’s saved stories: every item id, first to last.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
+    def update_storefront_highlight_item_order_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_highlight_item_order ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.update_storefront_highlight_item_order"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights/{id}/items/order'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_highlight_item_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_highlight_item_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the highlight order in one call: every highlight id, first to last.
+    # @param [Hash] opts the optional parameters
+    # @return [ListStorefrontHighlightsResponse]
+    def update_storefront_highlight_order(opts = {})
+      data, _status_code, _headers = update_storefront_highlight_order_with_http_info(opts)
+      data
+    end
+
+    # Set the highlight order in one call: every highlight id, first to last.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListStorefrontHighlightsResponse, Integer, Hash)>] ListStorefrontHighlightsResponse data, response status code and response headers
+    def update_storefront_highlight_order_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_highlight_order ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/highlights/order'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListStorefrontHighlightsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_highlight_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_highlight_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace your shop profile (a complete ShopProfile). Saved straight away.
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateStorefrontProfileResponse]
+    def update_storefront_profile(opts = {})
+      data, _status_code, _headers = update_storefront_profile_with_http_info(opts)
+      data
+    end
+
+    # Replace your shop profile (a complete ShopProfile). Saved straight away.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateStorefrontProfileResponse, Integer, Hash)>] UpdateStorefrontProfileResponse data, response status code and response headers
+    def update_storefront_profile_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_profile ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/profile'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateStorefrontProfileResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_profile",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename, show/hide, refill (listings shelves) or reconfigure a section.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontSectionResponse]
+    def update_storefront_section(id, opts = {})
+      data, _status_code, _headers = update_storefront_section_with_http_info(id, opts)
+      data
+    end
+
+    # Rename, show/hide, refill (listings shelves) or reconfigure a section.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontSectionResponse, Integer, Hash)>] StorefrontSectionResponse data, response status code and response headers
+    def update_storefront_section_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_section ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontApi.update_storefront_section"
+      end
+      # resource path
+      local_var_path = '/v1/storefront/sections/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontSectionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_section",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_section\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the section order in one atomic call: every section id, top to bottom.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse4]
+    def update_storefront_section_reorder(opts = {})
+      data, _status_code, _headers = update_storefront_section_reorder_with_http_info(opts)
+      data
+    end
+
+    # Set the section order in one atomic call: every section id, top to bottom.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse4, Integer, Hash)>] StorefrontResponse4 data, response status code and response headers
+    def update_storefront_section_reorder_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_section_reorder ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/sections/reorder'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse4'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_section_reorder",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_section_reorder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin).
     # @param [Hash] opts the optional parameters
     # @return [GetStorefrontShippingResponse]
@@ -125,6 +1994,281 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_shipping\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save the website draft (a complete SiteDesign). Validated strictly (a bad field is a 400 naming its path) and sanitized; buyers see nothing until you publish.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse2]
+    def update_storefront_site_draft(opts = {})
+      data, _status_code, _headers = update_storefront_site_draft_with_http_info(opts)
+      data
+    end
+
+    # Save the website draft (a complete SiteDesign). Validated strictly (a bad field is a 400 naming its path) and sanitized; buyers see nothing until you publish.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
+    def update_storefront_site_draft_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_site_draft ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/draft'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse2'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_site_draft",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_site_draft\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Switch the website on or off. On requires a publish first; off makes /site/:slug 404 and the custom domain show the shop profile.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse3]
+    def update_storefront_site_enabled(opts = {})
+      data, _status_code, _headers = update_storefront_site_enabled_with_http_info(opts)
+      data
+    end
+
+    # Switch the website on or off. On requires a publish first; off makes /site/:slug 404 and the custom domain show the shop profile.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
+    def update_storefront_site_enabled_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_site_enabled ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/site/enabled'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_site_enabled",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_site_enabled\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse2]
+    def update_storefront_trade_site_draft(opts = {})
+      data, _status_code, _headers = update_storefront_trade_site_draft_with_http_info(opts)
+      data
+    end
+
+    # Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
+    def update_storefront_trade_site_draft_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_trade_site_draft ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/draft'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse2'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_trade_site_draft",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_trade_site_draft\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Switch the trade site on (needs a publish first) or off.
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse3]
+    def update_storefront_trade_site_enabled(opts = {})
+      data, _status_code, _headers = update_storefront_trade_site_enabled_with_http_info(opts)
+      data
+    end
+
+    # Switch the trade site on (needs a publish first) or off.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
+    def update_storefront_trade_site_enabled_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_trade_site_enabled ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/enabled'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_trade_site_enabled",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_trade_site_enabled\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse3]
+    def update_storefront_trade_site_gating(opts = {})
+      data, _status_code, _headers = update_storefront_trade_site_gating_with_http_info(opts)
+      data
+    end
+
+    # Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
+    def update_storefront_trade_site_gating_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_trade_site_gating ...'
+      end
+      # resource path
+      local_var_path = '/v1/storefront/trade-site/gating'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontApi.update_storefront_trade_site_gating",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontApi#update_storefront_trade_site_gating\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

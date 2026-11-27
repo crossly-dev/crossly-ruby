@@ -19,15 +19,15 @@ module CrosslyBuyer
 
     attr_accessor :created_at
 
-    attr_accessor :video_url
-
     attr_accessor :status
+
+    attr_accessor :video_url
 
     attr_accessor :platform_listing_id
 
-    attr_accessor :seller_user_id
-
     attr_accessor :buyer_user_id
+
+    attr_accessor :seller_user_id
 
     attr_accessor :note
 
@@ -40,11 +40,11 @@ module CrosslyBuyer
       {
         :'id' => :'id',
         :'created_at' => :'createdAt',
-        :'video_url' => :'videoUrl',
         :'status' => :'status',
+        :'video_url' => :'videoUrl',
         :'platform_listing_id' => :'platformListingId',
-        :'seller_user_id' => :'sellerUserId',
         :'buyer_user_id' => :'buyerUserId',
+        :'seller_user_id' => :'sellerUserId',
         :'note' => :'note',
         :'answered_at' => :'answeredAt',
         :'seller_note' => :'sellerNote'
@@ -61,11 +61,11 @@ module CrosslyBuyer
       {
         :'id' => :'String',
         :'created_at' => :'Time',
-        :'video_url' => :'String',
         :'status' => :'String',
+        :'video_url' => :'String',
         :'platform_listing_id' => :'String',
-        :'seller_user_id' => :'String',
         :'buyer_user_id' => :'String',
+        :'seller_user_id' => :'String',
         :'note' => :'String',
         :'answered_at' => :'Time',
         :'seller_note' => :'String'
@@ -105,24 +105,24 @@ module CrosslyBuyer
         self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'video_url')
-        self.video_url = attributes[:'video_url']
-      end
-
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'video_url')
+        self.video_url = attributes[:'video_url']
       end
 
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
 
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
-      end
-
       if attributes.key?(:'buyer_user_id')
         self.buyer_user_id = attributes[:'buyer_user_id']
+      end
+
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'note')
@@ -158,12 +158,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
       end
 
-      if @seller_user_id.nil?
-        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
-      end
-
       if @buyer_user_id.nil?
         invalid_properties.push('invalid value for "buyer_user_id", buyer_user_id cannot be nil.')
+      end
+
+      if @seller_user_id.nil?
+        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       invalid_properties
@@ -176,8 +176,8 @@ module CrosslyBuyer
       return false if @created_at.nil?
       return false if @status.nil?
       return false if @platform_listing_id.nil?
-      return false if @seller_user_id.nil?
       return false if @buyer_user_id.nil?
+      return false if @seller_user_id.nil?
       true
     end
 
@@ -188,11 +188,11 @@ module CrosslyBuyer
       self.class == o.class &&
           id == o.id &&
           created_at == o.created_at &&
-          video_url == o.video_url &&
           status == o.status &&
+          video_url == o.video_url &&
           platform_listing_id == o.platform_listing_id &&
-          seller_user_id == o.seller_user_id &&
           buyer_user_id == o.buyer_user_id &&
+          seller_user_id == o.seller_user_id &&
           note == o.note &&
           answered_at == o.answered_at &&
           seller_note == o.seller_note
@@ -207,7 +207,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, video_url, status, platform_listing_id, seller_user_id, buyer_user_id, note, answered_at, seller_note].hash
+      [id, created_at, status, video_url, platform_listing_id, buyer_user_id, seller_user_id, note, answered_at, seller_note].hash
     end
 
     # Builds the object from hash

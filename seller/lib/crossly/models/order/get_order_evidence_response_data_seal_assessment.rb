@@ -127,7 +127,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @verdict.nil?
-      verdict_validator = EnumAttributeValidator.new('String', ["opened", "unknown", "intact", "suspect"])
+      verdict_validator = EnumAttributeValidator.new('String', ["unknown", "opened", "intact", "suspect"])
       return false unless verdict_validator.valid?(@verdict)
       return false if @reasons.nil?
       return false if @headline.nil?
@@ -137,7 +137,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] verdict Object to be assigned
     def verdict=(verdict)
-      validator = EnumAttributeValidator.new('String', ["opened", "unknown", "intact", "suspect"])
+      validator = EnumAttributeValidator.new('String', ["unknown", "opened", "intact", "suspect"])
       unless validator.valid?(verdict)
         fail ArgumentError, "invalid value for \"verdict\", must be one of #{validator.allowable_values}."
       end

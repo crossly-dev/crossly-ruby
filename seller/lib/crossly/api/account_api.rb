@@ -21,7 +21,7 @@ module Crossly
     end
     # Cancel a pending account deletion.
     # @param [Hash] opts the optional parameters
-    # @return [DeleteDropResponse]
+    # @return [CreateAccountCancelDeletionResponse]
     def create_account_cancel_deletion(opts = {})
       data, _status_code, _headers = create_account_cancel_deletion_with_http_info(opts)
       data
@@ -29,7 +29,7 @@ module Crossly
 
     # Cancel a pending account deletion.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(DeleteDropResponse, Integer, Hash)>] DeleteDropResponse data, response status code and response headers
+    # @return [Array<(CreateAccountCancelDeletionResponse, Integer, Hash)>] CreateAccountCancelDeletionResponse data, response status code and response headers
     def create_account_cancel_deletion_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.create_account_cancel_deletion ...'
@@ -52,7 +52,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'DeleteDropResponse'
+      return_type = opts[:debug_return_type] || 'CreateAccountCancelDeletionResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -70,6 +70,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AccountApi#create_account_cancel_deletion\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+    # alreadyVerified:true when there is nothing to do. Nothing is verified until a person completes the link.
+    # @param create_account_identity_verification_start_request [CreateAccountIdentityVerificationStartRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWorldMatureVerifyResponse]
+    def create_account_identity_verification_start(create_account_identity_verification_start_request, opts = {})
+      data, _status_code, _headers = create_account_identity_verification_start_with_http_info(create_account_identity_verification_start_request, opts)
+      data
+    end
+
+    # Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+    # alreadyVerified:true when there is nothing to do. Nothing is verified until a person completes the link.
+    # @param create_account_identity_verification_start_request [CreateAccountIdentityVerificationStartRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWorldMatureVerifyResponse, Integer, Hash)>] CreateWorldMatureVerifyResponse data, response status code and response headers
+    def create_account_identity_verification_start_with_http_info(create_account_identity_verification_start_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.create_account_identity_verification_start ...'
+      end
+      # verify the required parameter 'create_account_identity_verification_start_request' is set
+      if @api_client.config.client_side_validation && create_account_identity_verification_start_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_account_identity_verification_start_request' when calling AccountApi.create_account_identity_verification_start"
+      end
+      # resource path
+      local_var_path = '/v1/account/identity-verification/start'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_account_identity_verification_start_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWorldMatureVerifyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.create_account_identity_verification_start",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#create_account_identity_verification_start\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -129,7 +197,62 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Schedule account deletion after a grace period.
+    # Confirm again a deletion paused because the account was in use.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateAccountReconfirmDeletionResponse]
+    def create_account_reconfirm_deletion(opts = {})
+      data, _status_code, _headers = create_account_reconfirm_deletion_with_http_info(opts)
+      data
+    end
+
+    # Confirm again a deletion paused because the account was in use.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateAccountReconfirmDeletionResponse, Integer, Hash)>] CreateAccountReconfirmDeletionResponse data, response status code and response headers
+    def create_account_reconfirm_deletion_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.create_account_reconfirm_deletion ...'
+      end
+      # resource path
+      local_var_path = '/v1/account/reconfirm-deletion'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAccountReconfirmDeletionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.create_account_reconfirm_deletion",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#create_account_reconfirm_deletion\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Schedule account deletion after a grace period. Requires confirmEmail.
     # @param [Hash] opts the optional parameters
     # @return [CreateAccountRequestDeletionResponse]
     def create_account_request_deletion(opts = {})
@@ -137,7 +260,7 @@ module Crossly
       data
     end
 
-    # Schedule account deletion after a grace period.
+    # Schedule account deletion after a grace period. Requires confirmEmail.
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAccountRequestDeletionResponse, Integer, Hash)>] CreateAccountRequestDeletionResponse data, response status code and response headers
     def create_account_request_deletion_with_http_info(opts = {})
@@ -260,6 +383,14 @@ module Crossly
       if @api_client.config.client_side_validation && session_id.nil?
         fail ArgumentError, "Missing the required parameter 'session_id' when calling AccountApi.delete_auth_session_by_session_id"
       end
+      if @api_client.config.client_side_validation && session_id.to_s.length > 64
+        fail ArgumentError, 'invalid value for "session_id" when calling AccountApi.delete_auth_session_by_session_id, the character length must be smaller than or equal to 64.'
+      end
+
+      if @api_client.config.client_side_validation && session_id.to_s.length < 1
+        fail ArgumentError, 'invalid value for "session_id" when calling AccountApi.delete_auth_session_by_session_id, the character length must be great than or equal to 1.'
+      end
+
       # resource path
       local_var_path = '/v1/auth/sessions/{sessionId}'.sub('{' + 'sessionId' + '}', CGI.escape(session_id.to_s))
 
@@ -361,6 +492,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # What closing the account will and will not do, before you request it.
+    # @param [Hash] opts the optional parameters
+    # @return [GetAccountClosureChecklistResponse]
+    def get_account_closure_checklist(opts = {})
+      data, _status_code, _headers = get_account_closure_checklist_with_http_info(opts)
+      data
+    end
+
+    # What closing the account will and will not do, before you request it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAccountClosureChecklistResponse, Integer, Hash)>] GetAccountClosureChecklistResponse data, response status code and response headers
+    def get_account_closure_checklist_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.get_account_closure_checklist ...'
+      end
+      # resource path
+      local_var_path = '/v1/account/closure-checklist'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAccountClosureChecklistResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.get_account_closure_checklist",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#get_account_closure_checklist\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get the currently-pending deletion request, if any.
     # @param [Hash] opts the optional parameters
     # @return [GetAccountDeletionStatusResponse]
@@ -412,6 +598,63 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AccountApi#get_account_deletion_status\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your identity verification: one status for the whole account, read by every feature that needs ID.
+    # status is unverified, requires_input, processing, verified or canceled. requires_input with a lastError { code, reason } is a failed try the person can redo on the same link (start returns it); processing is being reviewed; neither is a decline, only canceled is. attempts counts the failed tries. ageVerified passes the age-restricted checkout gate. message is the next step in words (null once verified).
+    # @param [Hash] opts the optional parameters
+    # @return [GetAccountIdentityVerificationResponse]
+    def get_account_identity_verification(opts = {})
+      data, _status_code, _headers = get_account_identity_verification_with_http_info(opts)
+      data
+    end
+
+    # Your identity verification: one status for the whole account, read by every feature that needs ID.
+    # status is unverified, requires_input, processing, verified or canceled. requires_input with a lastError { code, reason } is a failed try the person can redo on the same link (start returns it); processing is being reviewed; neither is a decline, only canceled is. attempts counts the failed tries. ageVerified passes the age-restricted checkout gate. message is the next step in words (null once verified).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAccountIdentityVerificationResponse, Integer, Hash)>] GetAccountIdentityVerificationResponse data, response status code and response headers
+    def get_account_identity_verification_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.get_account_identity_verification ...'
+      end
+      # resource path
+      local_var_path = '/v1/account/identity-verification'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAccountIdentityVerificationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.get_account_identity_verification",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#get_account_identity_verification\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

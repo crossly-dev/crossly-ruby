@@ -21,13 +21,13 @@ module CrosslyBuyer
 
     attr_accessor :median_cents
 
-    attr_accessor :buyback_days
-
-    attr_accessor :buyback_cents
-
     attr_accessor :comps
 
     attr_accessor :keeps_pct
+
+    attr_accessor :buyback_cents
+
+    attr_accessor :buyback_days
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -35,10 +35,10 @@ module CrosslyBuyer
         :'brand' => :'brand',
         :'category' => :'category',
         :'median_cents' => :'medianCents',
-        :'buyback_days' => :'buybackDays',
-        :'buyback_cents' => :'buybackCents',
         :'comps' => :'comps',
-        :'keeps_pct' => :'keepsPct'
+        :'keeps_pct' => :'keepsPct',
+        :'buyback_cents' => :'buybackCents',
+        :'buyback_days' => :'buybackDays'
       }
     end
 
@@ -53,18 +53,18 @@ module CrosslyBuyer
         :'brand' => :'String',
         :'category' => :'String',
         :'median_cents' => :'Float',
-        :'buyback_days' => :'Float',
-        :'buyback_cents' => :'Float',
         :'comps' => :'Float',
-        :'keeps_pct' => :'Float'
+        :'keeps_pct' => :'Float',
+        :'buyback_cents' => :'Float',
+        :'buyback_days' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'keeps_pct',
         :'buyback_cents',
-        :'keeps_pct'
       ])
     end
 
@@ -95,20 +95,20 @@ module CrosslyBuyer
         self.median_cents = attributes[:'median_cents']
       end
 
-      if attributes.key?(:'buyback_days')
-        self.buyback_days = attributes[:'buyback_days']
-      end
-
-      if attributes.key?(:'buyback_cents')
-        self.buyback_cents = attributes[:'buyback_cents']
-      end
-
       if attributes.key?(:'comps')
         self.comps = attributes[:'comps']
       end
 
       if attributes.key?(:'keeps_pct')
         self.keeps_pct = attributes[:'keeps_pct']
+      end
+
+      if attributes.key?(:'buyback_cents')
+        self.buyback_cents = attributes[:'buyback_cents']
+      end
+
+      if attributes.key?(:'buyback_days')
+        self.buyback_days = attributes[:'buyback_days']
       end
     end
 
@@ -128,12 +128,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "median_cents", median_cents cannot be nil.')
       end
 
-      if @buyback_days.nil?
-        invalid_properties.push('invalid value for "buyback_days", buyback_days cannot be nil.')
-      end
-
       if @comps.nil?
         invalid_properties.push('invalid value for "comps", comps cannot be nil.')
+      end
+
+      if @buyback_days.nil?
+        invalid_properties.push('invalid value for "buyback_days", buyback_days cannot be nil.')
       end
 
       invalid_properties
@@ -145,8 +145,8 @@ module CrosslyBuyer
       return false if @brand.nil?
       return false if @category.nil?
       return false if @median_cents.nil?
-      return false if @buyback_days.nil?
       return false if @comps.nil?
+      return false if @buyback_days.nil?
       true
     end
 
@@ -158,10 +158,10 @@ module CrosslyBuyer
           brand == o.brand &&
           category == o.category &&
           median_cents == o.median_cents &&
-          buyback_days == o.buyback_days &&
-          buyback_cents == o.buyback_cents &&
           comps == o.comps &&
-          keeps_pct == o.keeps_pct
+          keeps_pct == o.keeps_pct &&
+          buyback_cents == o.buyback_cents &&
+          buyback_days == o.buyback_days
     end
 
     # @see the `==` method
@@ -173,7 +173,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [brand, category, median_cents, buyback_days, buyback_cents, comps, keeps_pct].hash
+      [brand, category, median_cents, comps, keeps_pct, buyback_cents, buyback_days].hash
     end
 
     # Builds the object from hash

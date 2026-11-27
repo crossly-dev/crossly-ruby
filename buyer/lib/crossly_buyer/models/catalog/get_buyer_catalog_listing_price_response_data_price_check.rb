@@ -17,15 +17,15 @@ module CrosslyBuyer
   class GetBuyerCatalogListingPriceResponseDataPriceCheck
     attr_accessor :verdict
 
-    attr_accessor :sales
-
     attr_accessor :median_cents
-
-    attr_accessor :days
 
     attr_accessor :low_cents
 
     attr_accessor :high_cents
+
+    attr_accessor :sales
+
+    attr_accessor :days
 
     attr_accessor :last_sold_at
 
@@ -55,11 +55,11 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'verdict' => :'verdict',
-        :'sales' => :'sales',
         :'median_cents' => :'medianCents',
-        :'days' => :'days',
         :'low_cents' => :'lowCents',
         :'high_cents' => :'highCents',
+        :'sales' => :'sales',
+        :'days' => :'days',
         :'last_sold_at' => :'lastSoldAt'
       }
     end
@@ -73,11 +73,11 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'verdict' => :'String',
-        :'sales' => :'Float',
         :'median_cents' => :'Float',
-        :'days' => :'Float',
         :'low_cents' => :'Float',
         :'high_cents' => :'Float',
+        :'sales' => :'Float',
+        :'days' => :'Float',
         :'last_sold_at' => :'String'
       }
     end
@@ -107,16 +107,8 @@ module CrosslyBuyer
         self.verdict = attributes[:'verdict']
       end
 
-      if attributes.key?(:'sales')
-        self.sales = attributes[:'sales']
-      end
-
       if attributes.key?(:'median_cents')
         self.median_cents = attributes[:'median_cents']
-      end
-
-      if attributes.key?(:'days')
-        self.days = attributes[:'days']
       end
 
       if attributes.key?(:'low_cents')
@@ -125,6 +117,14 @@ module CrosslyBuyer
 
       if attributes.key?(:'high_cents')
         self.high_cents = attributes[:'high_cents']
+      end
+
+      if attributes.key?(:'sales')
+        self.sales = attributes[:'sales']
+      end
+
+      if attributes.key?(:'days')
+        self.days = attributes[:'days']
       end
 
       if attributes.key?(:'last_sold_at')
@@ -140,16 +140,8 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "verdict", verdict cannot be nil.')
       end
 
-      if @sales.nil?
-        invalid_properties.push('invalid value for "sales", sales cannot be nil.')
-      end
-
       if @median_cents.nil?
         invalid_properties.push('invalid value for "median_cents", median_cents cannot be nil.')
-      end
-
-      if @days.nil?
-        invalid_properties.push('invalid value for "days", days cannot be nil.')
       end
 
       if @low_cents.nil?
@@ -158,6 +150,14 @@ module CrosslyBuyer
 
       if @high_cents.nil?
         invalid_properties.push('invalid value for "high_cents", high_cents cannot be nil.')
+      end
+
+      if @sales.nil?
+        invalid_properties.push('invalid value for "sales", sales cannot be nil.')
+      end
+
+      if @days.nil?
+        invalid_properties.push('invalid value for "days", days cannot be nil.')
       end
 
       if @last_sold_at.nil?
@@ -171,13 +171,13 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @verdict.nil?
-      verdict_validator = EnumAttributeValidator.new('String', ["high", "fair", "good", "great"])
+      verdict_validator = EnumAttributeValidator.new('String', ["good", "fair", "high", "great"])
       return false unless verdict_validator.valid?(@verdict)
-      return false if @sales.nil?
       return false if @median_cents.nil?
-      return false if @days.nil?
       return false if @low_cents.nil?
       return false if @high_cents.nil?
+      return false if @sales.nil?
+      return false if @days.nil?
       return false if @last_sold_at.nil?
       true
     end
@@ -185,7 +185,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] verdict Object to be assigned
     def verdict=(verdict)
-      validator = EnumAttributeValidator.new('String', ["high", "fair", "good", "great"])
+      validator = EnumAttributeValidator.new('String', ["good", "fair", "high", "great"])
       unless validator.valid?(verdict)
         fail ArgumentError, "invalid value for \"verdict\", must be one of #{validator.allowable_values}."
       end
@@ -198,11 +198,11 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           verdict == o.verdict &&
-          sales == o.sales &&
           median_cents == o.median_cents &&
-          days == o.days &&
           low_cents == o.low_cents &&
           high_cents == o.high_cents &&
+          sales == o.sales &&
+          days == o.days &&
           last_sold_at == o.last_sold_at
     end
 
@@ -215,7 +215,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [verdict, sales, median_cents, days, low_cents, high_cents, last_sold_at].hash
+      [verdict, median_cents, low_cents, high_cents, sales, days, last_sold_at].hash
     end
 
     # Builds the object from hash

@@ -26,6 +26,8 @@ module Crossly
 
     attr_accessor :host
 
+    attr_accessor :lot
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -33,7 +35,8 @@ module Crossly
         :'title' => :'title',
         :'playback_url' => :'playbackUrl',
         :'cover_image_url' => :'coverImageUrl',
-        :'host' => :'host'
+        :'host' => :'host',
+        :'lot' => :'lot'
       }
     end
 
@@ -49,7 +52,8 @@ module Crossly
         :'title' => :'String',
         :'playback_url' => :'String',
         :'cover_image_url' => :'String',
-        :'host' => :'String'
+        :'host' => :'String',
+        :'lot' => :'GetMainStageResponseStreamLot'
       }
     end
 
@@ -58,7 +62,8 @@ module Crossly
       Set.new([
         :'playback_url',
         :'cover_image_url',
-        :'host'
+        :'host',
+        :'lot'
       ])
     end
 
@@ -96,6 +101,10 @@ module Crossly
       if attributes.key?(:'host')
         self.host = attributes[:'host']
       end
+
+      if attributes.key?(:'lot')
+        self.lot = attributes[:'lot']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -130,7 +139,8 @@ module Crossly
           title == o.title &&
           playback_url == o.playback_url &&
           cover_image_url == o.cover_image_url &&
-          host == o.host
+          host == o.host &&
+          lot == o.lot
     end
 
     # @see the `==` method
@@ -142,7 +152,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, title, playback_url, cover_image_url, host].hash
+      [id, title, playback_url, cover_image_url, host, lot].hash
     end
 
     # Builds the object from hash

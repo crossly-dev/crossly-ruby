@@ -162,7 +162,7 @@ module Crossly
       role_validator = EnumAttributeValidator.new('String', ["maker", "taker"])
       return false unless role_validator.valid?(@role)
       return false if @program.nil?
-      program_validator = EnumAttributeValidator.new('String', ["volume", "lp", "dmm", "retail"])
+      program_validator = EnumAttributeValidator.new('String', ["retail", "volume", "lp", "dmm"])
       return false unless program_validator.valid?(@program)
       return false if @rate_bps.nil?
       return false if @trim_cents.nil?
@@ -184,7 +184,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] program Object to be assigned
     def program=(program)
-      validator = EnumAttributeValidator.new('String', ["volume", "lp", "dmm", "retail"])
+      validator = EnumAttributeValidator.new('String', ["retail", "volume", "lp", "dmm"])
       unless validator.valid?(program)
         fail ArgumentError, "invalid value for \"program\", must be one of #{validator.allowable_values}."
       end

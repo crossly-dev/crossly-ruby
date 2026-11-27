@@ -5,9 +5,11 @@ All URIs are relative to *https://crossly.net/api*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_webhook**](WebhooksApi.md#create_webhook) | **POST** /v1/webhooks | Register a webhook endpoint (returns the signing secret once). |
-| [**create_webhook_test**](WebhooksApi.md#create_webhook_test) | **POST** /v1/webhooks/{id}/test | Fire a synthetic test.ping delivery to one webhook. |
+| [**create_webhook_delivery_redeliver**](WebhooksApi.md#create_webhook_delivery_redeliver) | **POST** /v1/webhooks/{id}/deliveries/{deliveryId}/redeliver | Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload. |
+| [**create_webhook_test**](WebhooksApi.md#create_webhook_test) | **POST** /v1/webhooks/{id}/test | Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true). |
 | [**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /v1/webhooks/{id} | Delete a webhook endpoint. |
 | [**get_webhook_stream**](WebhooksApi.md#get_webhook_stream) | **GET** /v1/webhooks/stream | Stream this account&#39;s webhook events as they happen (SSE). |
+| [**list_webhook_deliveries**](WebhooksApi.md#list_webhook_deliveries) | **GET** /v1/webhooks/{id}/deliveries | List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload. |
 | [**list_webhooks**](WebhooksApi.md#list_webhooks) | **GET** /v1/webhooks | List your registered webhook endpoints. |
 
 
@@ -75,11 +77,80 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## create_webhook_delivery_redeliver
+
+> <CreateWebhookDeliveryRedeliverResponse> create_webhook_delivery_redeliver(id, delivery_id)
+
+Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WebhooksApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+delivery_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+  result = api_instance.create_webhook_delivery_redeliver(id, delivery_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WebhooksApi->create_webhook_delivery_redeliver: #{e}"
+end
+```
+
+#### Using the create_webhook_delivery_redeliver_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateWebhookDeliveryRedeliverResponse>, Integer, Hash)> create_webhook_delivery_redeliver_with_http_info(id, delivery_id)
+
+```ruby
+begin
+  # Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+  data, status_code, headers = api_instance.create_webhook_delivery_redeliver_with_http_info(id, delivery_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateWebhookDeliveryRedeliverResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WebhooksApi->create_webhook_delivery_redeliver_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **delivery_id** | **String** |  |  |
+
+### Return type
+
+**CreateWebhookDeliveryRedeliverResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## create_webhook_test
 
 > <CreateWebhookTestResponse> create_webhook_test(id)
 
-Fire a synthetic test.ping delivery to one webhook.
+Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
 
 ### Examples
 
@@ -96,7 +167,7 @@ api_instance = Crossly::WebhooksApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 
 begin
-  # Fire a synthetic test.ping delivery to one webhook.
+  # Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
   result = api_instance.create_webhook_test(id)
   p result
 rescue Crossly::ApiError => e
@@ -112,7 +183,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Fire a synthetic test.ping delivery to one webhook.
+  # Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
   data, status_code, headers = api_instance.create_webhook_test_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
@@ -273,6 +344,79 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: text/event-stream, application/json
+
+
+## list_webhook_deliveries
+
+> <ListWebhookDeliveriesResponse> list_webhook_deliveries(id, opts)
+
+List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WebhooksApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  status: 'pending', # String | 
+  limit: 56 # Integer | 
+}
+
+begin
+  # List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+  result = api_instance.list_webhook_deliveries(id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WebhooksApi->list_webhook_deliveries: #{e}"
+end
+```
+
+#### Using the list_webhook_deliveries_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListWebhookDeliveriesResponse>, Integer, Hash)> list_webhook_deliveries_with_http_info(id, opts)
+
+```ruby
+begin
+  # List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+  data, status_code, headers = api_instance.list_webhook_deliveries_with_http_info(id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListWebhookDeliveriesResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WebhooksApi->list_webhook_deliveries_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **status** | **String** |  | [optional] |
+| **limit** | **Integer** |  | [optional][default to 25] |
+
+### Return type
+
+**ListWebhookDeliveriesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
 ## list_webhooks

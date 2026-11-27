@@ -53,6 +53,10 @@ module Crossly
 
     attr_accessor :listing_ids
 
+    attr_accessor :booth_kind
+
+    attr_accessor :capacity
+
     attr_accessor :awning
 
     attr_accessor :booth
@@ -107,6 +111,8 @@ module Crossly
         :'refunded_cents' => :'refundedCents',
         :'cancellable' => :'cancellable',
         :'listing_ids' => :'listingIds',
+        :'booth_kind' => :'boothKind',
+        :'capacity' => :'capacity',
         :'awning' => :'awning',
         :'booth' => :'booth',
         :'sign' => :'sign',
@@ -142,6 +148,8 @@ module Crossly
         :'refunded_cents' => :'Float',
         :'cancellable' => :'Boolean',
         :'listing_ids' => :'Array<String>',
+        :'booth_kind' => :'String',
+        :'capacity' => :'Float',
         :'awning' => :'ColourPattern',
         :'booth' => :'CreateStallBookResponseBookingBooth',
         :'sign' => :'String',
@@ -257,6 +265,14 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'booth_kind')
+        self.booth_kind = attributes[:'booth_kind']
+      end
+
+      if attributes.key?(:'capacity')
+        self.capacity = attributes[:'capacity']
+      end
+
       if attributes.key?(:'awning')
         self.awning = attributes[:'awning']
       end
@@ -354,6 +370,14 @@ module Crossly
         invalid_properties.push('invalid value for "listing_ids", listing_ids cannot be nil.')
       end
 
+      if @booth_kind.nil?
+        invalid_properties.push('invalid value for "booth_kind", booth_kind cannot be nil.')
+      end
+
+      if @capacity.nil?
+        invalid_properties.push('invalid value for "capacity", capacity cannot be nil.')
+      end
+
       if @attendant.nil?
         invalid_properties.push('invalid value for "attendant", attendant cannot be nil.')
       end
@@ -375,7 +399,7 @@ module Crossly
       return false if @street.nil?
       return false if @spot_index.nil?
       return false if @unit.nil?
-      unit_validator = EnumAttributeValidator.new('String', ["event", "day"])
+      unit_validator = EnumAttributeValidator.new('String', ["day", "event"])
       return false unless unit_validator.valid?(@unit)
       return false if @units.nil?
       return false if @starts_at.nil?
@@ -384,7 +408,7 @@ module Crossly
       status_validator = EnumAttributeValidator.new('String', ["cancelled", "ended", "booked", "folded"])
       return false unless status_validator.valid?(@status)
       return false if @rail.nil?
-      rail_validator = EnumAttributeValidator.new('String', ["card", "bucks", "cbx"])
+      rail_validator = EnumAttributeValidator.new('String', ["card", "cbx", "bucks"])
       return false unless rail_validator.valid?(@rail)
       return false if @owner.nil?
       return false if @quote.nil?
@@ -392,6 +416,10 @@ module Crossly
       return false if @refunded_cents.nil?
       return false if @cancellable.nil?
       return false if @listing_ids.nil?
+      return false if @booth_kind.nil?
+      booth_kind_validator = EnumAttributeValidator.new('String', ["booth", "cart", "pavilion"])
+      return false unless booth_kind_validator.valid?(@booth_kind)
+      return false if @capacity.nil?
       return false if @attendant.nil?
       return false if @created_at.nil?
       true
@@ -400,7 +428,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] unit Object to be assigned
     def unit=(unit)
-      validator = EnumAttributeValidator.new('String', ["event", "day"])
+      validator = EnumAttributeValidator.new('String', ["day", "event"])
       unless validator.valid?(unit)
         fail ArgumentError, "invalid value for \"unit\", must be one of #{validator.allowable_values}."
       end
@@ -420,11 +448,21 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] rail Object to be assigned
     def rail=(rail)
-      validator = EnumAttributeValidator.new('String', ["card", "bucks", "cbx"])
+      validator = EnumAttributeValidator.new('String', ["card", "cbx", "bucks"])
       unless validator.valid?(rail)
         fail ArgumentError, "invalid value for \"rail\", must be one of #{validator.allowable_values}."
       end
       @rail = rail
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] booth_kind Object to be assigned
+    def booth_kind=(booth_kind)
+      validator = EnumAttributeValidator.new('String', ["booth", "cart", "pavilion"])
+      unless validator.valid?(booth_kind)
+        fail ArgumentError, "invalid value for \"booth_kind\", must be one of #{validator.allowable_values}."
+      end
+      @booth_kind = booth_kind
     end
 
     # Checks equality by comparing each attribute.
@@ -451,6 +489,8 @@ module Crossly
           refunded_cents == o.refunded_cents &&
           cancellable == o.cancellable &&
           listing_ids == o.listing_ids &&
+          booth_kind == o.booth_kind &&
+          capacity == o.capacity &&
           awning == o.awning &&
           booth == o.booth &&
           sign == o.sign &&
@@ -467,7 +507,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [stats, upcoming, drawn_booth, booth_trimmed, id, street, spot_index, unit, units, starts_at, ends_at, status, rail, owner, quote, total_cents, refunded_cents, cancellable, listing_ids, awning, booth, sign, attendant, created_at].hash
+      [stats, upcoming, drawn_booth, booth_trimmed, id, street, spot_index, unit, units, starts_at, ends_at, status, rail, owner, quote, total_cents, refunded_cents, cancellable, listing_ids, booth_kind, capacity, awning, booth, sign, attendant, created_at].hash
     end
 
     # Builds the object from hash

@@ -20,17 +20,17 @@ module CrosslyBuyer
     # Feedback can now be left on this order.
     attr_accessor :can_review
 
-    attr_accessor :buyer_received_at
-
     attr_accessor :already_confirmed
+
+    attr_accessor :buyer_received_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'ok' => :'ok',
         :'can_review' => :'canReview',
-        :'buyer_received_at' => :'buyerReceivedAt',
-        :'already_confirmed' => :'alreadyConfirmed'
+        :'already_confirmed' => :'alreadyConfirmed',
+        :'buyer_received_at' => :'buyerReceivedAt'
       }
     end
 
@@ -44,16 +44,16 @@ module CrosslyBuyer
       {
         :'ok' => :'Boolean',
         :'can_review' => :'Boolean',
-        :'buyer_received_at' => :'String',
-        :'already_confirmed' => :'Boolean'
+        :'already_confirmed' => :'Boolean',
+        :'buyer_received_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'buyer_received_at',
-        :'already_confirmed'
+        :'already_confirmed',
+        :'buyer_received_at'
       ])
     end
 
@@ -80,12 +80,12 @@ module CrosslyBuyer
         self.can_review = attributes[:'can_review']
       end
 
-      if attributes.key?(:'buyer_received_at')
-        self.buyer_received_at = attributes[:'buyer_received_at']
-      end
-
       if attributes.key?(:'already_confirmed')
         self.already_confirmed = attributes[:'already_confirmed']
+      end
+
+      if attributes.key?(:'buyer_received_at')
+        self.buyer_received_at = attributes[:'buyer_received_at']
       end
     end
 
@@ -119,8 +119,8 @@ module CrosslyBuyer
       self.class == o.class &&
           ok == o.ok &&
           can_review == o.can_review &&
-          buyer_received_at == o.buyer_received_at &&
-          already_confirmed == o.already_confirmed
+          already_confirmed == o.already_confirmed &&
+          buyer_received_at == o.buyer_received_at
     end
 
     # @see the `==` method
@@ -132,7 +132,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ok, can_review, buyer_received_at, already_confirmed].hash
+      [ok, can_review, already_confirmed, buyer_received_at].hash
     end
 
     # Builds the object from hash

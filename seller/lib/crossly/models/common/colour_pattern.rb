@@ -111,10 +111,10 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @colour.nil?
-      colour_validator = EnumAttributeValidator.new('String', ["red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "cream", "charcoal"])
+      colour_validator = EnumAttributeValidator.new('String', ["yellow", "blue", "green", "pink", "purple", "charcoal", "red", "orange", "teal", "cream"])
       return false unless colour_validator.valid?(@colour)
       return false if @pattern.nil?
-      pattern_validator = EnumAttributeValidator.new('String', ["solid", "stripe", "scallop", "check"])
+      pattern_validator = EnumAttributeValidator.new('String', ["check", "stripe", "solid", "scallop"])
       return false unless pattern_validator.valid?(@pattern)
       true
     end
@@ -122,7 +122,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] colour Object to be assigned
     def colour=(colour)
-      validator = EnumAttributeValidator.new('String', ["red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "cream", "charcoal"])
+      validator = EnumAttributeValidator.new('String', ["yellow", "blue", "green", "pink", "purple", "charcoal", "red", "orange", "teal", "cream"])
       unless validator.valid?(colour)
         fail ArgumentError, "invalid value for \"colour\", must be one of #{validator.allowable_values}."
       end
@@ -132,7 +132,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] pattern Object to be assigned
     def pattern=(pattern)
-      validator = EnumAttributeValidator.new('String', ["solid", "stripe", "scallop", "check"])
+      validator = EnumAttributeValidator.new('String', ["check", "stripe", "solid", "scallop"])
       unless validator.valid?(pattern)
         fail ArgumentError, "invalid value for \"pattern\", must be one of #{validator.allowable_values}."
       end

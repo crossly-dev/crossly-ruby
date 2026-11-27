@@ -21,15 +21,15 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :ended_at
-
     attr_accessor :owner_user_id
 
-    attr_accessor :end_reason
+    attr_accessor :ended_at
 
-    attr_accessor :paid_through
+    attr_accessor :rail
 
     attr_accessor :plot_id
+
+    attr_accessor :paid_through
 
     attr_accessor :deed_id
 
@@ -41,22 +41,28 @@ module Crossly
 
     attr_accessor :terms_frozen_at
 
+    attr_accessor :end_reason
+
+    attr_accessor :autopay
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
-        :'ended_at' => :'endedAt',
         :'owner_user_id' => :'ownerUserId',
-        :'end_reason' => :'endReason',
-        :'paid_through' => :'paidThrough',
+        :'ended_at' => :'endedAt',
+        :'rail' => :'rail',
         :'plot_id' => :'plotId',
+        :'paid_through' => :'paidThrough',
         :'deed_id' => :'deedId',
         :'tenant_user_id' => :'tenantUserId',
         :'tenant_scene_id' => :'tenantSceneId',
         :'rent_weekly_cents' => :'rentWeeklyCents',
-        :'terms_frozen_at' => :'termsFrozenAt'
+        :'terms_frozen_at' => :'termsFrozenAt',
+        :'end_reason' => :'endReason',
+        :'autopay' => :'autopay'
       }
     end
 
@@ -71,16 +77,18 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'status' => :'String',
-        :'ended_at' => :'Time',
         :'owner_user_id' => :'String',
-        :'end_reason' => :'String',
-        :'paid_through' => :'Time',
+        :'ended_at' => :'Time',
+        :'rail' => :'String',
         :'plot_id' => :'String',
+        :'paid_through' => :'Time',
         :'deed_id' => :'String',
         :'tenant_user_id' => :'String',
         :'tenant_scene_id' => :'String',
         :'rent_weekly_cents' => :'Float',
-        :'terms_frozen_at' => :'Time'
+        :'terms_frozen_at' => :'Time',
+        :'end_reason' => :'String',
+        :'autopay' => :'Boolean'
       }
     end
 
@@ -88,11 +96,12 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'ended_at',
-        :'end_reason',
+        :'rail',
         :'paid_through',
         :'tenant_user_id',
         :'tenant_scene_id',
-        :'terms_frozen_at'
+        :'terms_frozen_at',
+        :'end_reason',
       ])
     end
 
@@ -123,24 +132,24 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'ended_at')
-        self.ended_at = attributes[:'ended_at']
-      end
-
       if attributes.key?(:'owner_user_id')
         self.owner_user_id = attributes[:'owner_user_id']
       end
 
-      if attributes.key?(:'end_reason')
-        self.end_reason = attributes[:'end_reason']
+      if attributes.key?(:'ended_at')
+        self.ended_at = attributes[:'ended_at']
       end
 
-      if attributes.key?(:'paid_through')
-        self.paid_through = attributes[:'paid_through']
+      if attributes.key?(:'rail')
+        self.rail = attributes[:'rail']
       end
 
       if attributes.key?(:'plot_id')
         self.plot_id = attributes[:'plot_id']
+      end
+
+      if attributes.key?(:'paid_through')
+        self.paid_through = attributes[:'paid_through']
       end
 
       if attributes.key?(:'deed_id')
@@ -161,6 +170,14 @@ module Crossly
 
       if attributes.key?(:'terms_frozen_at')
         self.terms_frozen_at = attributes[:'terms_frozen_at']
+      end
+
+      if attributes.key?(:'end_reason')
+        self.end_reason = attributes[:'end_reason']
+      end
+
+      if attributes.key?(:'autopay')
+        self.autopay = attributes[:'autopay']
       end
     end
 
@@ -196,6 +213,10 @@ module Crossly
         invalid_properties.push('invalid value for "rent_weekly_cents", rent_weekly_cents cannot be nil.')
       end
 
+      if @autopay.nil?
+        invalid_properties.push('invalid value for "autopay", autopay cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -209,6 +230,7 @@ module Crossly
       return false if @plot_id.nil?
       return false if @deed_id.nil?
       return false if @rent_weekly_cents.nil?
+      return false if @autopay.nil?
       true
     end
 
@@ -220,16 +242,18 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
-          ended_at == o.ended_at &&
           owner_user_id == o.owner_user_id &&
-          end_reason == o.end_reason &&
-          paid_through == o.paid_through &&
+          ended_at == o.ended_at &&
+          rail == o.rail &&
           plot_id == o.plot_id &&
+          paid_through == o.paid_through &&
           deed_id == o.deed_id &&
           tenant_user_id == o.tenant_user_id &&
           tenant_scene_id == o.tenant_scene_id &&
           rent_weekly_cents == o.rent_weekly_cents &&
-          terms_frozen_at == o.terms_frozen_at
+          terms_frozen_at == o.terms_frozen_at &&
+          end_reason == o.end_reason &&
+          autopay == o.autopay
     end
 
     # @see the `==` method
@@ -241,7 +265,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, ended_at, owner_user_id, end_reason, paid_through, plot_id, deed_id, tenant_user_id, tenant_scene_id, rent_weekly_cents, terms_frozen_at].hash
+      [id, created_at, status, owner_user_id, ended_at, rail, plot_id, paid_through, deed_id, tenant_user_id, tenant_scene_id, rent_weekly_cents, terms_frozen_at, end_reason, autopay].hash
     end
 
     # Builds the object from hash

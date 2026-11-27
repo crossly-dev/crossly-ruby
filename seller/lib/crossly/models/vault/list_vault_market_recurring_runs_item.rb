@@ -25,9 +25,9 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :reason
-
     attr_accessor :order_id
+
+    attr_accessor :reason
 
     attr_accessor :mark_cents
 
@@ -47,8 +47,8 @@ module Crossly
         :'id' => :'id',
         :'user_id' => :'userId',
         :'status' => :'status',
-        :'reason' => :'reason',
         :'order_id' => :'orderId',
+        :'reason' => :'reason',
         :'mark_cents' => :'markCents',
         :'limit_cents' => :'limitCents',
         :'filled_cents' => :'filledCents',
@@ -70,8 +70,8 @@ module Crossly
         :'id' => :'String',
         :'user_id' => :'String',
         :'status' => :'String',
-        :'reason' => :'String',
         :'order_id' => :'String',
+        :'reason' => :'String',
         :'mark_cents' => :'Float',
         :'limit_cents' => :'Float',
         :'filled_cents' => :'Float',
@@ -83,8 +83,8 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'reason',
         :'order_id',
+        :'reason',
         :'mark_cents',
         :'limit_cents',
         :'filled_cents',
@@ -126,12 +126,12 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'reason')
-        self.reason = attributes[:'reason']
-      end
-
       if attributes.key?(:'order_id')
         self.order_id = attributes[:'order_id']
+      end
+
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
       end
 
       if attributes.key?(:'mark_cents')
@@ -213,8 +213,8 @@ module Crossly
           id == o.id &&
           user_id == o.user_id &&
           status == o.status &&
-          reason == o.reason &&
           order_id == o.order_id &&
+          reason == o.reason &&
           mark_cents == o.mark_cents &&
           limit_cents == o.limit_cents &&
           filled_cents == o.filled_cents &&
@@ -231,7 +231,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [due_at, created_at, id, user_id, status, reason, order_id, mark_cents, limit_cents, filled_cents, schedule_id, used_backup].hash
+      [due_at, created_at, id, user_id, status, order_id, reason, mark_cents, limit_cents, filled_cents, schedule_id, used_backup].hash
     end
 
     # Builds the object from hash

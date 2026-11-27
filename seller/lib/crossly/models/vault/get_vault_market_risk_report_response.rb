@@ -29,6 +29,8 @@ module Crossly
 
     attr_accessor :concentration
 
+    attr_accessor :counterparty
+
     attr_accessor :partner_dcm
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -41,6 +43,7 @@ module Crossly
         :'lvar' => :'lvar',
         :'stress' => :'stress',
         :'concentration' => :'concentration',
+        :'counterparty' => :'counterparty',
         :'partner_dcm' => :'partnerDcm'
       }
     end
@@ -60,6 +63,7 @@ module Crossly
         :'lvar' => :'GetVaultMarketRiskReportResponseLvar',
         :'stress' => :'GetVaultMarketRiskReportResponseStress',
         :'concentration' => :'GetVaultMarketRiskReportResponseConcentration',
+        :'counterparty' => :'GetVaultMarketRiskReportResponseCounterparty',
         :'partner_dcm' => :'GetVaultMarketRiskReportResponsePartnerDcm'
       }
     end
@@ -113,6 +117,10 @@ module Crossly
         self.concentration = attributes[:'concentration']
       end
 
+      if attributes.key?(:'counterparty')
+        self.counterparty = attributes[:'counterparty']
+      end
+
       if attributes.key?(:'partner_dcm')
         self.partner_dcm = attributes[:'partner_dcm']
       end
@@ -150,6 +158,10 @@ module Crossly
         invalid_properties.push('invalid value for "concentration", concentration cannot be nil.')
       end
 
+      if @counterparty.nil?
+        invalid_properties.push('invalid value for "counterparty", counterparty cannot be nil.')
+      end
+
       if @partner_dcm.nil?
         invalid_properties.push('invalid value for "partner_dcm", partner_dcm cannot be nil.')
       end
@@ -167,6 +179,7 @@ module Crossly
       return false if @lvar.nil?
       return false if @stress.nil?
       return false if @concentration.nil?
+      return false if @counterparty.nil?
       return false if @partner_dcm.nil?
       true
     end
@@ -183,6 +196,7 @@ module Crossly
           lvar == o.lvar &&
           stress == o.stress &&
           concentration == o.concentration &&
+          counterparty == o.counterparty &&
           partner_dcm == o.partner_dcm
     end
 
@@ -195,7 +209,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [account, as_of, nav, var, lvar, stress, concentration, partner_dcm].hash
+      [account, as_of, nav, var, lvar, stress, concentration, counterparty, partner_dcm].hash
     end
 
     # Builds the object from hash

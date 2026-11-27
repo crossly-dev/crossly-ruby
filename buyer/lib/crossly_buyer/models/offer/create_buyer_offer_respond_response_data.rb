@@ -18,18 +18,18 @@ module CrosslyBuyer
     # accepted | declined | countered.
     attr_accessor :status
 
-    # Countered: the id of YOUR new offer, now waiting on the seller.
-    attr_accessor :offer_id
-
     # Accepted: you can now pay for it (48 hours).
     attr_accessor :redeemable
+
+    # Countered: the id of YOUR new offer, now waiting on the seller.
+    attr_accessor :offer_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'status' => :'status',
-        :'offer_id' => :'offerId',
-        :'redeemable' => :'redeemable'
+        :'redeemable' => :'redeemable',
+        :'offer_id' => :'offerId'
       }
     end
 
@@ -42,16 +42,16 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'status' => :'String',
-        :'offer_id' => :'String',
-        :'redeemable' => :'Boolean'
+        :'redeemable' => :'Boolean',
+        :'offer_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'offer_id',
-        :'redeemable'
+        :'redeemable',
+        :'offer_id'
       ])
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'offer_id')
-        self.offer_id = attributes[:'offer_id']
-      end
-
       if attributes.key?(:'redeemable')
         self.redeemable = attributes[:'redeemable']
+      end
+
+      if attributes.key?(:'offer_id')
+        self.offer_id = attributes[:'offer_id']
       end
     end
 
@@ -107,8 +107,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           status == o.status &&
-          offer_id == o.offer_id &&
-          redeemable == o.redeemable
+          redeemable == o.redeemable &&
+          offer_id == o.offer_id
     end
 
     # @see the `==` method
@@ -120,7 +120,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [status, offer_id, redeemable].hash
+      [status, redeemable, offer_id].hash
     end
 
     # Builds the object from hash

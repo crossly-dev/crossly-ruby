@@ -19,6 +19,244 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Start a listing experiment. split: 2-4 live platform listings observed over the same window; sequential: one platform listing, before vs after changeAt (optionally applying a new price).
+    # @param [Hash] opts the optional parameters
+    # @return [AnalyticExperimentResponse]
+    def create_analytic_experiment(opts = {})
+      data, _status_code, _headers = create_analytic_experiment_with_http_info(opts)
+      data
+    end
+
+    # Start a listing experiment. split: 2-4 live platform listings observed over the same window; sequential: one platform listing, before vs after changeAt (optionally applying a new price).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AnalyticExperimentResponse, Integer, Hash)>] AnalyticExperimentResponse data, response status code and response headers
+    def create_analytic_experiment_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.create_analytic_experiment ...'
+      end
+      # resource path
+      local_var_path = '/v1/analytics/experiments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AnalyticExperimentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.create_analytic_experiment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#create_analytic_experiment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Record the outcome: a winning arm, no difference, or inconclusive. Concludes the experiment.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [AnalyticExperimentResponse]
+    def create_analytic_experiment_declare(id, opts = {})
+      data, _status_code, _headers = create_analytic_experiment_declare_with_http_info(id, opts)
+      data
+    end
+
+    # Record the outcome: a winning arm, no difference, or inconclusive. Concludes the experiment.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AnalyticExperimentResponse, Integer, Hash)>] AnalyticExperimentResponse data, response status code and response headers
+    def create_analytic_experiment_declare_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.create_analytic_experiment_declare ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AnalyticsApi.create_analytic_experiment_declare"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/experiments/{id}/declare'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AnalyticExperimentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.create_analytic_experiment_declare",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#create_analytic_experiment_declare\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop an experiment: no more data is counted after now.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [AnalyticExperimentResponse]
+    def create_analytic_experiment_stop(id, opts = {})
+      data, _status_code, _headers = create_analytic_experiment_stop_with_http_info(id, opts)
+      data
+    end
+
+    # Stop an experiment: no more data is counted after now.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AnalyticExperimentResponse, Integer, Hash)>] AnalyticExperimentResponse data, response status code and response headers
+    def create_analytic_experiment_stop_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.create_analytic_experiment_stop ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AnalyticsApi.create_analytic_experiment_stop"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/experiments/{id}/stop'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AnalyticExperimentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.create_analytic_experiment_stop",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#create_analytic_experiment_stop\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete an experiment. The listings are untouched.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteStoryResponse]
+    def delete_analytic_experiment(id, opts = {})
+      data, _status_code, _headers = delete_analytic_experiment_with_http_info(id, opts)
+      data
+    end
+
+    # Delete an experiment. The listings are untouched.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteStoryResponse, Integer, Hash)>] DeleteStoryResponse data, response status code and response headers
+    def delete_analytic_experiment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.delete_analytic_experiment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AnalyticsApi.delete_analytic_experiment"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/experiments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteStoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.delete_analytic_experiment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#delete_analytic_experiment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Monthly P&L + per-platform breakdown for a calendar year.
     # @param [Hash] opts the optional parameters
     # @return [GetAnalyticBookkeepingResponse]
@@ -74,26 +312,36 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Sales + revenue grouped by platform for the last N days.
+    # Sales, net sales, fees and net profit by platform for the last N days.
     # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :days Calendar days back, today included. Larger values are clamped to 365. (default to 30)
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [GetAnalyticByPlatformResponse]
     def get_analytic_by_platform(opts = {})
       data, _status_code, _headers = get_analytic_by_platform_with_http_info(opts)
       data
     end
 
-    # Sales + revenue grouped by platform for the last N days.
+    # Sales, net sales, fees and net profit by platform for the last N days.
     # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :days Calendar days back, today included. Larger values are clamped to 365.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [Array<(GetAnalyticByPlatformResponse, Integer, Hash)>] GetAnalyticByPlatformResponse data, response status code and response headers
     def get_analytic_by_platform_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_by_platform ...'
       end
+      if @api_client.config.client_side_validation && !opts[:'days'].nil? && opts[:'days'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"days"]" when calling AnalyticsApi.get_analytic_by_platform, must be greater than or equal to 1.'
+      end
+
       # resource path
       local_var_path = '/v1/analytics/by-platform'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -125,6 +373,81 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_by_platform\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Compare 2-4 of your listings: columns of price, quality, channels, views, favorites, offers and outcome, engagement curves, the fields that differ, and observational tests of favorite rate, view-to-offer rate and views per day.
+    # @param ids [String] Comma-separated listing ids, 2 to 4. The first is arm A.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :align age &#x3D; x is days since first listed (default); calendar &#x3D; x is the date.
+    # @option opts [String] :platform Restrict engagement to one channel (platform id).
+    # @option opts [String] :tz IANA time zone. Default UTC.
+    # @return [GetAnalyticCompareResponse]
+    def get_analytic_compare(ids, opts = {})
+      data, _status_code, _headers = get_analytic_compare_with_http_info(ids, opts)
+      data
+    end
+
+    # Compare 2-4 of your listings: columns of price, quality, channels, views, favorites, offers and outcome, engagement curves, the fields that differ, and observational tests of favorite rate, view-to-offer rate and views per day.
+    # @param ids [String] Comma-separated listing ids, 2 to 4. The first is arm A.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :align age &#x3D; x is days since first listed (default); calendar &#x3D; x is the date.
+    # @option opts [String] :platform Restrict engagement to one channel (platform id).
+    # @option opts [String] :tz IANA time zone. Default UTC.
+    # @return [Array<(GetAnalyticCompareResponse, Integer, Hash)>] GetAnalyticCompareResponse data, response status code and response headers
+    def get_analytic_compare_with_http_info(ids, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_compare ...'
+      end
+      # verify the required parameter 'ids' is set
+      if @api_client.config.client_side_validation && ids.nil?
+        fail ArgumentError, "Missing the required parameter 'ids' when calling AnalyticsApi.get_analytic_compare"
+      end
+      allowable_values = ["age", "calendar"]
+      if @api_client.config.client_side_validation && opts[:'align'] && !allowable_values.include?(opts[:'align'])
+        fail ArgumentError, "invalid value for \"align\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/compare'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'ids'] = ids
+      query_params[:'align'] = opts[:'align'] if !opts[:'align'].nil?
+      query_params[:'platform'] = opts[:'platform'] if !opts[:'platform'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticCompareResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_compare",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_compare\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -184,6 +507,250 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your listing A/B experiments, newest first, with status, days running and the current verdict.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status Default all.
+    # @option opts [Integer] :page 1-indexed page. Default 1.
+    # @option opts [Integer] :size Rows per page. Default 20.
+    # @return [GetAnalyticExperimentResponse]
+    def get_analytic_experiment(opts = {})
+      data, _status_code, _headers = get_analytic_experiment_with_http_info(opts)
+      data
+    end
+
+    # Your listing A/B experiments, newest first, with status, days running and the current verdict.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :status Default all.
+    # @option opts [Integer] :page 1-indexed page. Default 1.
+    # @option opts [Integer] :size Rows per page. Default 20.
+    # @return [Array<(GetAnalyticExperimentResponse, Integer, Hash)>] GetAnalyticExperimentResponse data, response status code and response headers
+    def get_analytic_experiment_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_experiment ...'
+      end
+      allowable_values = ["all", "running", "concluded", "draft"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling AnalyticsApi.get_analytic_experiment, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'size'].nil? && opts[:'size'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"size"]" when calling AnalyticsApi.get_analytic_experiment, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'size'].nil? && opts[:'size'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"size"]" when calling AnalyticsApi.get_analytic_experiment, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/analytics/experiments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'size'] = opts[:'size'] if !opts[:'size'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticExperimentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_experiment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_experiment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One experiment: arms with their windows, exposure and rates, the primary-metric test per arm against A, guardrail tests, the daily series and what to do next.
+    # @param id [String] The experiment id (a uuid).
+    # @param [Hash] opts the optional parameters
+    # @return [GetAnalyticExperimentByIdResponse]
+    def get_analytic_experiment_by_id(id, opts = {})
+      data, _status_code, _headers = get_analytic_experiment_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # One experiment: arms with their windows, exposure and rates, the primary-metric test per arm against A, guardrail tests, the daily series and what to do next.
+    # @param id [String] The experiment id (a uuid).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAnalyticExperimentByIdResponse, Integer, Hash)>] GetAnalyticExperimentByIdResponse data, response status code and response headers
+    def get_analytic_experiment_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_experiment_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AnalyticsApi.get_analytic_experiment_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/experiments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticExperimentByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_experiment_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_experiment_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [Integer] :maturity Days an item has to sell within to count as sold in the cohort. Default 30.
+    # @return [GetAnalyticInventoryResponse]
+    def get_analytic_inventory(opts = {})
+      data, _status_code, _headers = get_analytic_inventory_with_http_info(opts)
+      data
+    end
+
+    # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [Integer] :maturity Days an item has to sell within to count as sold in the cohort. Default 30.
+    # @return [Array<(GetAnalyticInventoryResponse, Integer, Hash)>] GetAnalyticInventoryResponse data, response status code and response headers
+    def get_analytic_inventory_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_inventory ...'
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      allowable_values = [30, 60, 90]
+      if @api_client.config.client_side_validation && opts[:'maturity'] && !allowable_values.include?(opts[:'maturity'])
+        fail ArgumentError, "invalid value for \"maturity\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/inventory'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+      query_params[:'maturity'] = opts[:'maturity'] if !opts[:'maturity'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticInventoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_inventory",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_inventory\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Per-item P&L for sold inventory.
     # @param [Hash] opts the optional parameters
     # @return [GetAnalyticItemResponse]
@@ -239,27 +806,861 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Headline KPIs for the last N days.
+    # One listing in depth: channels with views, favorites and offers, the merged timeline, engagement series, price history, comps, money waterfall, days on market, offers, messages, experiments and suggestions.
+    # @param listing_id [String] A listings.id you own (or an inventory item id with by&#x3D;inventory).
     # @param [Hash] opts the optional parameters
-    # @option opts [Integer] :days  (default to 30)
+    # @option opts [String] :by inventory &#x3D; the id is an inventory item id; the answer is { redirectListingId }. Default listing.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
+    # @return [GetAnalyticItemByListingIdResponse]
+    def get_analytic_item_by_listing_id(listing_id, opts = {})
+      data, _status_code, _headers = get_analytic_item_by_listing_id_with_http_info(listing_id, opts)
+      data
+    end
+
+    # One listing in depth: channels with views, favorites and offers, the merged timeline, engagement series, price history, comps, money waterfall, days on market, offers, messages, experiments and suggestions.
+    # @param listing_id [String] A listings.id you own (or an inventory item id with by&#x3D;inventory).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :by inventory &#x3D; the id is an inventory item id; the answer is { redirectListingId }. Default listing.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
+    # @return [Array<(GetAnalyticItemByListingIdResponse, Integer, Hash)>] GetAnalyticItemByListingIdResponse data, response status code and response headers
+    def get_analytic_item_by_listing_id_with_http_info(listing_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_item_by_listing_id ...'
+      end
+      # verify the required parameter 'listing_id' is set
+      if @api_client.config.client_side_validation && listing_id.nil?
+        fail ArgumentError, "Missing the required parameter 'listing_id' when calling AnalyticsApi.get_analytic_item_by_listing_id"
+      end
+      allowable_values = ["listing", "inventory"]
+      if @api_client.config.client_side_validation && opts[:'by'] && !allowable_values.include?(opts[:'by'])
+        fail ArgumentError, "invalid value for \"by\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/items/{listingId}'.sub('{' + 'listingId' + '}', CGI.escape(listing_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'by'] = opts[:'by'] if !opts[:'by'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticItemByListingIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_item_by_listing_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_item_by_listing_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every marketplace side by side: net sales and profit, units, ASP, take rate, margin, shipping subsidy, days to sell, sell-through, cancel and return rates, offers and engagement; with vs=2-3 platforms, a head-to-head over listings live on all of them.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :vs Comma-separated 2-3 platform ids for the head-to-head.
+    # @option opts [String] :sort Default netSales.
+    # @option opts [String] :dir Default desc.
+    # @return [GetAnalyticMarketplaceResponse]
+    def get_analytic_marketplace(opts = {})
+      data, _status_code, _headers = get_analytic_marketplace_with_http_info(opts)
+      data
+    end
+
+    # Every marketplace side by side: net sales and profit, units, ASP, take rate, margin, shipping subsidy, days to sell, sell-through, cancel and return rates, offers and engagement; with vs&#x3D;2-3 platforms, a head-to-head over listings live on all of them.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :vs Comma-separated 2-3 platform ids for the head-to-head.
+    # @option opts [String] :sort Default netSales.
+    # @option opts [String] :dir Default desc.
+    # @return [Array<(GetAnalyticMarketplaceResponse, Integer, Hash)>] GetAnalyticMarketplaceResponse data, response status code and response headers
+    def get_analytic_marketplace_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_marketplace ...'
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["netSales", "netProfit", "unitsSold", "asp", "takeRate", "marginRate", "shippingSubsidy", "medianDaysToSell", "sellThroughRate", "cancelRate", "returnRate", "offerAcceptRate", "avgOfferPctOfAsk", "viewsPerListingDay", "favoriteRate", "platform", "activeListings", "staleListings"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["asc", "desc"]
+      if @api_client.config.client_side_validation && opts[:'dir'] && !allowable_values.include?(opts[:'dir'])
+        fail ArgumentError, "invalid value for \"dir\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/marketplaces'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+      query_params[:'vs'] = opts[:'vs'] if !opts[:'vs'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'dir'] = opts[:'dir'] if !opts[:'dir'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticMarketplaceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_marketplace",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_marketplace\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One marketplace in depth: its row, the money series, fee breakdown, days-to-sell and price-realization histograms, categories, top items, at-risk listings, a day-by-hour sales heatmap and offer stats.
+    # @param platform [String] A platform id, e.g. ebay, poshmark.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @return [GetAnalyticMarketplaceByPlatformResponse]
+    def get_analytic_marketplace_by_platform(platform, opts = {})
+      data, _status_code, _headers = get_analytic_marketplace_by_platform_with_http_info(platform, opts)
+      data
+    end
+
+    # One marketplace in depth: its row, the money series, fee breakdown, days-to-sell and price-realization histograms, categories, top items, at-risk listings, a day-by-hour sales heatmap and offer stats.
+    # @param platform [String] A platform id, e.g. ebay, poshmark.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @return [Array<(GetAnalyticMarketplaceByPlatformResponse, Integer, Hash)>] GetAnalyticMarketplaceByPlatformResponse data, response status code and response headers
+    def get_analytic_marketplace_by_platform_with_http_info(platform, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_marketplace_by_platform ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AnalyticsApi.get_analytic_marketplace_by_platform"
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/marketplaces/{platform}'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticMarketplaceByPlatformResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_marketplace_by_platform",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_marketplace_by_platform\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # KPIs with deltas (net sales, net profit, units, ASP, margin, sell-through, median days to sell, active listings, take rate), the trend series, by-marketplace split, top categories, brands and items, sell-through cohort, data health and insights.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :stores Comma-separated store ids.
+    # @return [GetAnalyticOverviewResponse]
+    def get_analytic_overview(opts = {})
+      data, _status_code, _headers = get_analytic_overview_with_http_info(opts)
+      data
+    end
+
+    # KPIs with deltas (net sales, net profit, units, ASP, margin, sell-through, median days to sell, active listings, take rate), the trend series, by-marketplace split, top categories, brands and items, sell-through cohort, data health and insights.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :stores Comma-separated store ids.
+    # @return [Array<(GetAnalyticOverviewResponse, Integer, Hash)>] GetAnalyticOverviewResponse data, response status code and response headers
+    def get_analytic_overview_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_overview ...'
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/overview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+      query_params[:'stores'] = opts[:'stores'] if !opts[:'stores'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticOverviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_overview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_overview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Per-listing performance: channels, views, favorites, offers and conversations in the period, units sold, net sales and profit, margin, days to sell and a 0-100 health score, paged and sortable.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :status unsold &#x3D; listed at least minDays with no completed sale.
+    # @option opts [String] :q Title, SKU or brand contains.
+    # @option opts [String] :sort Default lastActivity.
+    # @option opts [String] :dir Default desc.
+    # @option opts [Integer] :page 1-indexed page. Default 1.
+    # @option opts [Integer] :size Rows per page. Default 50.
+    # @option opts [Integer] :min_days Minimum days listed (for status&#x3D;unsold). Default 0.
+    # @return [GetAnalyticPerformanceResponse]
+    def get_analytic_performance(opts = {})
+      data, _status_code, _headers = get_analytic_performance_with_http_info(opts)
+      data
+    end
+
+    # Per-listing performance: channels, views, favorites, offers and conversations in the period, units sold, net sales and profit, margin, days to sell and a 0-100 health score, paged and sortable.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :status unsold &#x3D; listed at least minDays with no completed sale.
+    # @option opts [String] :q Title, SKU or brand contains.
+    # @option opts [String] :sort Default lastActivity.
+    # @option opts [String] :dir Default desc.
+    # @option opts [Integer] :page 1-indexed page. Default 1.
+    # @option opts [Integer] :size Rows per page. Default 50.
+    # @option opts [Integer] :min_days Minimum days listed (for status&#x3D;unsold). Default 0.
+    # @return [Array<(GetAnalyticPerformanceResponse, Integer, Hash)>] GetAnalyticPerformanceResponse data, response status code and response headers
+    def get_analytic_performance_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_performance ...'
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["all", "active", "sold", "unsold", "ended"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["lastActivity", "title", "price", "daysListed", "views", "favorites", "offers", "unitsSold", "netSales", "netProfit", "margin", "daysToSell", "health"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["asc", "desc"]
+      if @api_client.config.client_side_validation && opts[:'dir'] && !allowable_values.include?(opts[:'dir'])
+        fail ArgumentError, "invalid value for \"dir\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling AnalyticsApi.get_analytic_performance, must be greater than or equal to 1.'
+      end
+
+      allowable_values = [25, 50, 100]
+      if @api_client.config.client_side_validation && opts[:'size'] && !allowable_values.include?(opts[:'size'])
+        fail ArgumentError, "invalid value for \"size\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'min_days'].nil? && opts[:'min_days'] < 0
+        fail ArgumentError, 'invalid value for "opts[:"min_days"]" when calling AnalyticsApi.get_analytic_performance, must be greater than or equal to 0.'
+      end
+
+      # resource path
+      local_var_path = '/v1/analytics/performance'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'dir'] = opts[:'dir'] if !opts[:'dir'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'size'] = opts[:'size'] if !opts[:'size'].nil?
+      query_params[:'minDays'] = opts[:'min_days'] if !opts[:'min_days'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticPerformanceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_performance",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_performance\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One program's report over a date range (default the last 30 days, at most 366): KPIs, a daily trend and a breakdown table. Money in integer cents.
+    # @param program [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Date] :from First UTC day (YYYY-MM-DD), inclusive.
+    # @option opts [Date] :to Last UTC day (YYYY-MM-DD), inclusive. Default today.
+    # @option opts [String] :by Breakdown dimension, when the program offers one (worlds: showroom, property, event).
+    # @return [GetAnalyticProgramResponse]
+    def get_analytic_program(program, opts = {})
+      data, _status_code, _headers = get_analytic_program_with_http_info(program, opts)
+      data
+    end
+
+    # One program&#39;s report over a date range (default the last 30 days, at most 366): KPIs, a daily trend and a breakdown table. Money in integer cents.
+    # @param program [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Date] :from First UTC day (YYYY-MM-DD), inclusive.
+    # @option opts [Date] :to Last UTC day (YYYY-MM-DD), inclusive. Default today.
+    # @option opts [String] :by Breakdown dimension, when the program offers one (worlds: showroom, property, event).
+    # @return [Array<(GetAnalyticProgramResponse, Integer, Hash)>] GetAnalyticProgramResponse data, response status code and response headers
+    def get_analytic_program_with_http_info(program, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_program ...'
+      end
+      # verify the required parameter 'program' is set
+      if @api_client.config.client_side_validation && program.nil?
+        fail ArgumentError, "Missing the required parameter 'program' when calling AnalyticsApi.get_analytic_program"
+      end
+      # verify enum value
+      allowable_values = ["wholesale", "ads", "rentals", "branding", "events", "drops", "discounts", "market", "worlds", "funding", "vault", "team", "referrals", "developer-apps"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(program)
+        fail ArgumentError, "invalid value for \"program\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/programs/{program}'.sub('{' + 'program' + '}', CGI.escape(program.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'by'] = opts[:'by'] if !opts[:'by'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticProgramResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_program",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_program\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Niches along one dimension: listed and active counts, units sold, cohort sell-through, median days to sell, net sales and profit, margin, ROI, ASP and discount from ask; rows under minN are flagged lowSample.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :dim category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+).
+    # @option opts [String] :sort Default netSales.
+    # @option opts [String] :dir Default desc.
+    # @option opts [Integer] :min_n Minimum sample for a row to count as a winner or loser. Default 3.
+    # @option opts [String] :q Segment label contains.
+    # @return [GetAnalyticSegmentResponse]
+    def get_analytic_segment(opts = {})
+      data, _status_code, _headers = get_analytic_segment_with_http_info(opts)
+      data
+    end
+
+    # Niches along one dimension: listed and active counts, units sold, cohort sell-through, median days to sell, net sales and profit, margin, ROI, ASP and discount from ask; rows under minN are flagged lowSample.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [String] :dim category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+).
+    # @option opts [String] :sort Default netSales.
+    # @option opts [String] :dir Default desc.
+    # @option opts [Integer] :min_n Minimum sample for a row to count as a winner or loser. Default 3.
+    # @option opts [String] :q Segment label contains.
+    # @return [Array<(GetAnalyticSegmentResponse, Integer, Hash)>] GetAnalyticSegmentResponse data, response status code and response headers
+    def get_analytic_segment_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_segment ...'
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["category", "subcategory", "brand", "condition", "size", "source", "department", "priceBand", "ageBand"]
+      if @api_client.config.client_side_validation && opts[:'dim'] && !allowable_values.include?(opts[:'dim'])
+        fail ArgumentError, "invalid value for \"dim\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["label", "listedCount", "activeCount", "unitsSold", "sellThrough", "medianDaysToSell", "netSales", "netProfit", "marginRate", "margin", "roi", "asp", "share"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["asc", "desc"]
+      if @api_client.config.client_side_validation && opts[:'dir'] && !allowable_values.include?(opts[:'dir'])
+        fail ArgumentError, "invalid value for \"dir\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'min_n'].nil? && opts[:'min_n'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"min_n"]" when calling AnalyticsApi.get_analytic_segment, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/analytics/segments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+      query_params[:'dim'] = opts[:'dim'] if !opts[:'dim'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'dir'] = opts[:'dir'] if !opts[:'dir'].nil?
+      query_params[:'minN'] = opts[:'min_n'] if !opts[:'min_n'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticSegmentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_segment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_segment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One niche in depth: its row, series, by-marketplace split, days-to-sell histogram, price bands, top items and the 10 oldest unsold listings in it.
+    # @param dim [String] One of category, subcategory, brand, condition, size, source, department, priceBand, ageBand. category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+).
+    # @param key [String] The segment key from a segments row (URL-encoded). A key with no data in scope is a 404.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @return [GetAnalyticSegmentByKeyResponse]
+    def get_analytic_segment_by_key(dim, key, opts = {})
+      data, _status_code, _headers = get_analytic_segment_by_key_with_http_info(dim, key, opts)
+      data
+    end
+
+    # One niche in depth: its row, series, by-marketplace split, days-to-sell histogram, price bands, top items and the 10 oldest unsold listings in it.
+    # @param dim [String] One of category, subcategory, brand, condition, size, source, department, priceBand, ageBand. category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+).
+    # @param key [String] The segment key from a segments row (URL-encoded). A key with no data in scope is a 404.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @return [Array<(GetAnalyticSegmentByKeyResponse, Integer, Hash)>] GetAnalyticSegmentByKeyResponse data, response status code and response headers
+    def get_analytic_segment_by_key_with_http_info(dim, key, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_segment_by_key ...'
+      end
+      # verify the required parameter 'dim' is set
+      if @api_client.config.client_side_validation && dim.nil?
+        fail ArgumentError, "Missing the required parameter 'dim' when calling AnalyticsApi.get_analytic_segment_by_key"
+      end
+      # verify the required parameter 'key' is set
+      if @api_client.config.client_side_validation && key.nil?
+        fail ArgumentError, "Missing the required parameter 'key' when calling AnalyticsApi.get_analytic_segment_by_key"
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/segments/{dim}/{key}'.sub('{' + 'dim' + '}', CGI.escape(dim.to_s)).sub('{' + 'key' + '}', CGI.escape(key.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticSegmentByKeyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.get_analytic_segment_by_key",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#get_analytic_segment_by_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Headline KPIs for the last N days (the same numbers as the analytics overview).
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :days Calendar days back, today included. Larger values are clamped to 365. (default to 30)
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [GetAnalyticSummaryResponse]
     def get_analytic_summary(opts = {})
       data, _status_code, _headers = get_analytic_summary_with_http_info(opts)
       data
     end
 
-    # Headline KPIs for the last N days.
+    # Headline KPIs for the last N days (the same numbers as the analytics overview).
     # @param [Hash] opts the optional parameters
-    # @option opts [Integer] :days 
+    # @option opts [Integer] :days Calendar days back, today included. Larger values are clamped to 365.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [Array<(GetAnalyticSummaryResponse, Integer, Hash)>] GetAnalyticSummaryResponse data, response status code and response headers
     def get_analytic_summary_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_summary ...'
       end
-      if @api_client.config.client_side_validation && !opts[:'days'].nil? && opts[:'days'] > 365
-        fail ArgumentError, 'invalid value for "opts[:"days"]" when calling AnalyticsApi.get_analytic_summary, must be smaller than or equal to 365.'
-      end
-
       if @api_client.config.client_side_validation && !opts[:'days'].nil? && opts[:'days'] < 1
         fail ArgumentError, 'invalid value for "opts[:"days"]" when calling AnalyticsApi.get_analytic_summary, must be greater than or equal to 1.'
       end
@@ -270,6 +1671,7 @@ module Crossly
       # query parameters
       query_params = opts[:query_params] || {}
       query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -305,26 +1707,36 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Daily sales + revenue series for the last N days.
+    # Sales and net sales over the last N days, zero-filled, one row per calendar day.
     # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :days Calendar days back, today included. Larger values are clamped to 365. (default to 30)
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [GetAnalyticTimeseryResponse]
     def get_analytic_timesery(opts = {})
       data, _status_code, _headers = get_analytic_timesery_with_http_info(opts)
       data
     end
 
-    # Daily sales + revenue series for the last N days.
+    # Sales and net sales over the last N days, zero-filled, one row per calendar day.
     # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :days Calendar days back, today included. Larger values are clamped to 365.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [Array<(GetAnalyticTimeseryResponse, Integer, Hash)>] GetAnalyticTimeseryResponse data, response status code and response headers
     def get_analytic_timesery_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_timesery ...'
       end
+      if @api_client.config.client_side_validation && !opts[:'days'].nil? && opts[:'days'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"days"]" when calling AnalyticsApi.get_analytic_timesery, must be greater than or equal to 1.'
+      end
+
       # resource path
       local_var_path = '/v1/analytics/timeseries'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -415,16 +1827,18 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Platform velocity + margin insight (90-day window).
+    # Platform velocity + margin insight (90-day window): units, net sales, median days to sell, ASP and net after the real marketplace fees.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [ListInsightByPlatformResponse]
     def list_insight_by_platform(opts = {})
       data, _status_code, _headers = list_insight_by_platform_with_http_info(opts)
       data
     end
 
-    # Platform velocity + margin insight (90-day window).
+    # Platform velocity + margin insight (90-day window): units, net sales, median days to sell, ASP and net after the real marketplace fees.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC.
     # @return [Array<(ListInsightByPlatformResponse, Integer, Hash)>] ListInsightByPlatformResponse data, response status code and response headers
     def list_insight_by_platform_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -435,6 +1849,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -466,6 +1881,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AnalyticsApi#list_insight_by_platform\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename an experiment or change its hypothesis, notes or planned end.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [AnalyticExperimentResponse]
+    def update_analytic_experiment(id, opts = {})
+      data, _status_code, _headers = update_analytic_experiment_with_http_info(id, opts)
+      data
+    end
+
+    # Rename an experiment or change its hypothesis, notes or planned end.
+    # @param id [String] The experiment id (a uuid; any other id is a 404).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AnalyticExperimentResponse, Integer, Hash)>] AnalyticExperimentResponse data, response status code and response headers
+    def update_analytic_experiment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AnalyticsApi.update_analytic_experiment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AnalyticsApi.update_analytic_experiment"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/experiments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AnalyticExperimentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AnalyticsApi.update_analytic_experiment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AnalyticsApi#update_analytic_experiment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

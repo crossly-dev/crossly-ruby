@@ -21,14 +21,29 @@ module Crossly
 
     attr_accessor :unit_count
 
-    # What the seller PAID for the stock in this bucket — the number that makes 90+ feel urgent. Retail value flatters it; cost is the money actually stuck on the shelf.
-    attr_accessor :cost_cents
-
-    # What it would bring in at current prices, for the opportunity figure.
+    # Old name for listedValueCents.
     attr_accessor :retail_cents
 
-    # One line the seller can act on.
     attr_accessor :recommendation
+
+    attr_accessor :key
+
+    attr_accessor :items
+
+    attr_accessor :units
+
+    # Σ unit cost × units over the items whose cost is known.
+    attr_accessor :cost_cents
+
+    attr_accessor :cost_known_items
+
+    attr_accessor :cost_unknown_items
+
+    # Σ ask × units; items with no ask add nothing.
+    attr_accessor :listed_value_cents
+
+    # Σ market × units over the marked items; null when none in the bucket are marked.
+    attr_accessor :market_value_cents
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -58,9 +73,16 @@ module Crossly
         :'bucket' => :'bucket',
         :'item_count' => :'itemCount',
         :'unit_count' => :'unitCount',
-        :'cost_cents' => :'costCents',
         :'retail_cents' => :'retailCents',
-        :'recommendation' => :'recommendation'
+        :'recommendation' => :'recommendation',
+        :'key' => :'key',
+        :'items' => :'items',
+        :'units' => :'units',
+        :'cost_cents' => :'costCents',
+        :'cost_known_items' => :'costKnownItems',
+        :'cost_unknown_items' => :'costUnknownItems',
+        :'listed_value_cents' => :'listedValueCents',
+        :'market_value_cents' => :'marketValueCents'
       }
     end
 
@@ -75,15 +97,23 @@ module Crossly
         :'bucket' => :'String',
         :'item_count' => :'Float',
         :'unit_count' => :'Float',
-        :'cost_cents' => :'Float',
         :'retail_cents' => :'Float',
-        :'recommendation' => :'String'
+        :'recommendation' => :'String',
+        :'key' => :'String',
+        :'items' => :'Float',
+        :'units' => :'Float',
+        :'cost_cents' => :'Float',
+        :'cost_known_items' => :'Float',
+        :'cost_unknown_items' => :'Float',
+        :'listed_value_cents' => :'Float',
+        :'market_value_cents' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'market_value_cents'
       ])
     end
 
@@ -114,16 +144,44 @@ module Crossly
         self.unit_count = attributes[:'unit_count']
       end
 
-      if attributes.key?(:'cost_cents')
-        self.cost_cents = attributes[:'cost_cents']
-      end
-
       if attributes.key?(:'retail_cents')
         self.retail_cents = attributes[:'retail_cents']
       end
 
       if attributes.key?(:'recommendation')
         self.recommendation = attributes[:'recommendation']
+      end
+
+      if attributes.key?(:'key')
+        self.key = attributes[:'key']
+      end
+
+      if attributes.key?(:'items')
+        self.items = attributes[:'items']
+      end
+
+      if attributes.key?(:'units')
+        self.units = attributes[:'units']
+      end
+
+      if attributes.key?(:'cost_cents')
+        self.cost_cents = attributes[:'cost_cents']
+      end
+
+      if attributes.key?(:'cost_known_items')
+        self.cost_known_items = attributes[:'cost_known_items']
+      end
+
+      if attributes.key?(:'cost_unknown_items')
+        self.cost_unknown_items = attributes[:'cost_unknown_items']
+      end
+
+      if attributes.key?(:'listed_value_cents')
+        self.listed_value_cents = attributes[:'listed_value_cents']
+      end
+
+      if attributes.key?(:'market_value_cents')
+        self.market_value_cents = attributes[:'market_value_cents']
       end
     end
 
@@ -143,16 +201,40 @@ module Crossly
         invalid_properties.push('invalid value for "unit_count", unit_count cannot be nil.')
       end
 
-      if @cost_cents.nil?
-        invalid_properties.push('invalid value for "cost_cents", cost_cents cannot be nil.')
-      end
-
       if @retail_cents.nil?
         invalid_properties.push('invalid value for "retail_cents", retail_cents cannot be nil.')
       end
 
       if @recommendation.nil?
         invalid_properties.push('invalid value for "recommendation", recommendation cannot be nil.')
+      end
+
+      if @key.nil?
+        invalid_properties.push('invalid value for "key", key cannot be nil.')
+      end
+
+      if @items.nil?
+        invalid_properties.push('invalid value for "items", items cannot be nil.')
+      end
+
+      if @units.nil?
+        invalid_properties.push('invalid value for "units", units cannot be nil.')
+      end
+
+      if @cost_cents.nil?
+        invalid_properties.push('invalid value for "cost_cents", cost_cents cannot be nil.')
+      end
+
+      if @cost_known_items.nil?
+        invalid_properties.push('invalid value for "cost_known_items", cost_known_items cannot be nil.')
+      end
+
+      if @cost_unknown_items.nil?
+        invalid_properties.push('invalid value for "cost_unknown_items", cost_unknown_items cannot be nil.')
+      end
+
+      if @listed_value_cents.nil?
+        invalid_properties.push('invalid value for "listed_value_cents", listed_value_cents cannot be nil.')
       end
 
       invalid_properties
@@ -162,24 +244,42 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @bucket.nil?
-      bucket_validator = EnumAttributeValidator.new('String', ["0-7", "7-30", "30-90", "90+", "unlisted"])
+      bucket_validator = EnumAttributeValidator.new('String', ["unlisted", "90+", "0-7", "7-30", "30-90"])
       return false unless bucket_validator.valid?(@bucket)
       return false if @item_count.nil?
       return false if @unit_count.nil?
-      return false if @cost_cents.nil?
       return false if @retail_cents.nil?
       return false if @recommendation.nil?
+      return false if @key.nil?
+      key_validator = EnumAttributeValidator.new('String', ["unlisted", "lt7", "d7_30", "d30_90", "gt90"])
+      return false unless key_validator.valid?(@key)
+      return false if @items.nil?
+      return false if @units.nil?
+      return false if @cost_cents.nil?
+      return false if @cost_known_items.nil?
+      return false if @cost_unknown_items.nil?
+      return false if @listed_value_cents.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] bucket Object to be assigned
     def bucket=(bucket)
-      validator = EnumAttributeValidator.new('String', ["0-7", "7-30", "30-90", "90+", "unlisted"])
+      validator = EnumAttributeValidator.new('String', ["unlisted", "90+", "0-7", "7-30", "30-90"])
       unless validator.valid?(bucket)
         fail ArgumentError, "invalid value for \"bucket\", must be one of #{validator.allowable_values}."
       end
       @bucket = bucket
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] key Object to be assigned
+    def key=(key)
+      validator = EnumAttributeValidator.new('String', ["unlisted", "lt7", "d7_30", "d30_90", "gt90"])
+      unless validator.valid?(key)
+        fail ArgumentError, "invalid value for \"key\", must be one of #{validator.allowable_values}."
+      end
+      @key = key
     end
 
     # Checks equality by comparing each attribute.
@@ -190,9 +290,16 @@ module Crossly
           bucket == o.bucket &&
           item_count == o.item_count &&
           unit_count == o.unit_count &&
-          cost_cents == o.cost_cents &&
           retail_cents == o.retail_cents &&
-          recommendation == o.recommendation
+          recommendation == o.recommendation &&
+          key == o.key &&
+          items == o.items &&
+          units == o.units &&
+          cost_cents == o.cost_cents &&
+          cost_known_items == o.cost_known_items &&
+          cost_unknown_items == o.cost_unknown_items &&
+          listed_value_cents == o.listed_value_cents &&
+          market_value_cents == o.market_value_cents
     end
 
     # @see the `==` method
@@ -204,7 +311,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [bucket, item_count, unit_count, cost_cents, retail_cents, recommendation].hash
+      [bucket, item_count, unit_count, retail_cents, recommendation, key, items, units, cost_cents, cost_known_items, cost_unknown_items, listed_value_cents, market_value_cents].hash
     end
 
     # Builds the object from hash

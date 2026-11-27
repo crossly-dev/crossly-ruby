@@ -32,7 +32,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'summary' => :'CreateWeb3WalletSyncResponseSummary'
+        :'summary' => :'CreateWeb3StoreWalletSyncResponseData'
       }
     end
 

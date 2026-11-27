@@ -21,6 +21,8 @@ module Crossly
 
     attr_accessor :sort_key
 
+    attr_accessor :sku_id
+
     attr_accessor :external_id
 
     attr_accessor :external_source
@@ -30,8 +32,6 @@ module Crossly
     attr_accessor :last_sale_cents
 
     attr_accessor :trades_count
-
-    attr_accessor :sku_id
 
     attr_accessor :last_sale_at
 
@@ -45,12 +45,12 @@ module Crossly
         :'id' => :'id',
         :'label' => :'label',
         :'sort_key' => :'sortKey',
+        :'sku_id' => :'skuId',
         :'external_id' => :'externalId',
         :'external_source' => :'externalSource',
         :'external_synced_at' => :'externalSyncedAt',
         :'last_sale_cents' => :'lastSaleCents',
         :'trades_count' => :'tradesCount',
-        :'sku_id' => :'skuId',
         :'last_sale_at' => :'lastSaleAt',
         :'best_bid_cents' => :'bestBidCents',
         :'best_ask_cents' => :'bestAskCents'
@@ -68,12 +68,12 @@ module Crossly
         :'id' => :'String',
         :'label' => :'String',
         :'sort_key' => :'Float',
+        :'sku_id' => :'String',
         :'external_id' => :'String',
         :'external_source' => :'String',
         :'external_synced_at' => :'Time',
         :'last_sale_cents' => :'Float',
         :'trades_count' => :'Float',
-        :'sku_id' => :'String',
         :'last_sale_at' => :'Time',
         :'best_bid_cents' => :'Float',
         :'best_ask_cents' => :'Float'
@@ -120,6 +120,10 @@ module Crossly
         self.sort_key = attributes[:'sort_key']
       end
 
+      if attributes.key?(:'sku_id')
+        self.sku_id = attributes[:'sku_id']
+      end
+
       if attributes.key?(:'external_id')
         self.external_id = attributes[:'external_id']
       end
@@ -138,10 +142,6 @@ module Crossly
 
       if attributes.key?(:'trades_count')
         self.trades_count = attributes[:'trades_count']
-      end
-
-      if attributes.key?(:'sku_id')
-        self.sku_id = attributes[:'sku_id']
       end
 
       if attributes.key?(:'last_sale_at')
@@ -173,12 +173,12 @@ module Crossly
         invalid_properties.push('invalid value for "sort_key", sort_key cannot be nil.')
       end
 
-      if @trades_count.nil?
-        invalid_properties.push('invalid value for "trades_count", trades_count cannot be nil.')
-      end
-
       if @sku_id.nil?
         invalid_properties.push('invalid value for "sku_id", sku_id cannot be nil.')
+      end
+
+      if @trades_count.nil?
+        invalid_properties.push('invalid value for "trades_count", trades_count cannot be nil.')
       end
 
       invalid_properties
@@ -190,8 +190,8 @@ module Crossly
       return false if @id.nil?
       return false if @label.nil?
       return false if @sort_key.nil?
-      return false if @trades_count.nil?
       return false if @sku_id.nil?
+      return false if @trades_count.nil?
       true
     end
 
@@ -203,12 +203,12 @@ module Crossly
           id == o.id &&
           label == o.label &&
           sort_key == o.sort_key &&
+          sku_id == o.sku_id &&
           external_id == o.external_id &&
           external_source == o.external_source &&
           external_synced_at == o.external_synced_at &&
           last_sale_cents == o.last_sale_cents &&
           trades_count == o.trades_count &&
-          sku_id == o.sku_id &&
           last_sale_at == o.last_sale_at &&
           best_bid_cents == o.best_bid_cents &&
           best_ask_cents == o.best_ask_cents
@@ -223,7 +223,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, label, sort_key, external_id, external_source, external_synced_at, last_sale_cents, trades_count, sku_id, last_sale_at, best_bid_cents, best_ask_cents].hash
+      [id, label, sort_key, sku_id, external_id, external_source, external_synced_at, last_sale_cents, trades_count, last_sale_at, best_bid_cents, best_ask_cents].hash
     end
 
     # Builds the object from hash

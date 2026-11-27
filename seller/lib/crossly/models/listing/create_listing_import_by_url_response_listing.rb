@@ -50,7 +50,7 @@ module Crossly
     # The platform's OWN category, as a top-down path (e.g. Poshmark's [\"Kids\", \"Toys\", \"Dolls & Accessories\"] from department → category → feature). Only set when the platform's list/scrape response actually carries this — never guessed. Mapped onto Crossly's category.main/ sub/sub2 (listings) or categoryMain/categorySub (inventory_items) at create/enrich time.
     attr_accessor :category
 
-    # The platform's raw numeric category id, same space as overrides.<platform>.categoryId — distinct from `category`'s human-readable path. Only set by platforms whose id space is directly comparable to what we publish (currently eBay's drift-check second call — see diff-fields/second-call.ts's ebayRemoteFields). eBay's own CategoryName wording/depth is a different vocabulary from Crossly's master taxonomy breadcrumb and will essentially never string-match it, so drift-detection compares ids instead of names.
+    # The platform's raw numeric category id, same space as overrides.<platform>.categoryId — distinct from `category`'s human-readable path. Only set by platforms whose id space is directly comparable to what we publish (currently eBay's drift-check second call — see platform-parsers/ebay/listing-detail.ts). eBay's own CategoryName wording/depth is a different vocabulary from Crossly's master taxonomy breadcrumb and will essentially never string-match it, so drift-detection compares ids instead of names.
     attr_accessor :category_id
 
     # Tag-like strings the platform's own response exposes (e.g. Poshmark's marketing \"experience\" tags). Distinct from a full search-tag generator — just whatever real tag data the scrape already carries.

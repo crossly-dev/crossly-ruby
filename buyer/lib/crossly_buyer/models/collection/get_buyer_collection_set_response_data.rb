@@ -17,34 +17,34 @@ module CrosslyBuyer
   class GetBuyerCollectionSetResponseData
     attr_accessor :group
 
-    attr_accessor :leaderboard
-
-    attr_accessor :missing
+    attr_accessor :pct
 
     attr_accessor :pieces
 
-    attr_accessor :leaderboard_opt_in
-
-    attr_accessor :pct
+    attr_accessor :missing
 
     attr_accessor :missing_cost_cents
 
     attr_accessor :missing_unpriced
 
+    attr_accessor :leaderboard
+
     attr_accessor :my_rank
+
+    attr_accessor :leaderboard_opt_in
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'group' => :'group',
-        :'leaderboard' => :'leaderboard',
-        :'missing' => :'missing',
-        :'pieces' => :'pieces',
-        :'leaderboard_opt_in' => :'leaderboardOptIn',
         :'pct' => :'pct',
+        :'pieces' => :'pieces',
+        :'missing' => :'missing',
         :'missing_cost_cents' => :'missingCostCents',
         :'missing_unpriced' => :'missingUnpriced',
-        :'my_rank' => :'myRank'
+        :'leaderboard' => :'leaderboard',
+        :'my_rank' => :'myRank',
+        :'leaderboard_opt_in' => :'leaderboardOptIn'
       }
     end
 
@@ -57,21 +57,21 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'group' => :'GetBuyerCollectionSetResponseDataGroup',
-        :'leaderboard' => :'Array<GetBuyerCollectionSetResponseDataLeaderboard>',
-        :'missing' => :'Float',
-        :'pieces' => :'Array<GetBuyerCollectionSetResponseDataPieces>',
-        :'leaderboard_opt_in' => :'Boolean',
         :'pct' => :'Float',
+        :'pieces' => :'Array<GetBuyerCollectionSetResponseDataPieces>',
+        :'missing' => :'Float',
         :'missing_cost_cents' => :'Float',
         :'missing_unpriced' => :'Float',
-        :'my_rank' => :'Float'
+        :'leaderboard' => :'Array<GetBuyerCollectionSetResponseDataLeaderboard>',
+        :'my_rank' => :'Float',
+        :'leaderboard_opt_in' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'my_rank'
+        :'my_rank',
       ])
     end
 
@@ -94,14 +94,8 @@ module CrosslyBuyer
         self.group = attributes[:'group']
       end
 
-      if attributes.key?(:'leaderboard')
-        if (value = attributes[:'leaderboard']).is_a?(Array)
-          self.leaderboard = value
-        end
-      end
-
-      if attributes.key?(:'missing')
-        self.missing = attributes[:'missing']
+      if attributes.key?(:'pct')
+        self.pct = attributes[:'pct']
       end
 
       if attributes.key?(:'pieces')
@@ -110,12 +104,8 @@ module CrosslyBuyer
         end
       end
 
-      if attributes.key?(:'leaderboard_opt_in')
-        self.leaderboard_opt_in = attributes[:'leaderboard_opt_in']
-      end
-
-      if attributes.key?(:'pct')
-        self.pct = attributes[:'pct']
+      if attributes.key?(:'missing')
+        self.missing = attributes[:'missing']
       end
 
       if attributes.key?(:'missing_cost_cents')
@@ -126,8 +116,18 @@ module CrosslyBuyer
         self.missing_unpriced = attributes[:'missing_unpriced']
       end
 
+      if attributes.key?(:'leaderboard')
+        if (value = attributes[:'leaderboard']).is_a?(Array)
+          self.leaderboard = value
+        end
+      end
+
       if attributes.key?(:'my_rank')
         self.my_rank = attributes[:'my_rank']
+      end
+
+      if attributes.key?(:'leaderboard_opt_in')
+        self.leaderboard_opt_in = attributes[:'leaderboard_opt_in']
       end
     end
 
@@ -139,24 +139,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "group", group cannot be nil.')
       end
 
-      if @leaderboard.nil?
-        invalid_properties.push('invalid value for "leaderboard", leaderboard cannot be nil.')
-      end
-
-      if @missing.nil?
-        invalid_properties.push('invalid value for "missing", missing cannot be nil.')
+      if @pct.nil?
+        invalid_properties.push('invalid value for "pct", pct cannot be nil.')
       end
 
       if @pieces.nil?
         invalid_properties.push('invalid value for "pieces", pieces cannot be nil.')
       end
 
-      if @leaderboard_opt_in.nil?
-        invalid_properties.push('invalid value for "leaderboard_opt_in", leaderboard_opt_in cannot be nil.')
-      end
-
-      if @pct.nil?
-        invalid_properties.push('invalid value for "pct", pct cannot be nil.')
+      if @missing.nil?
+        invalid_properties.push('invalid value for "missing", missing cannot be nil.')
       end
 
       if @missing_cost_cents.nil?
@@ -167,6 +159,14 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "missing_unpriced", missing_unpriced cannot be nil.')
       end
 
+      if @leaderboard.nil?
+        invalid_properties.push('invalid value for "leaderboard", leaderboard cannot be nil.')
+      end
+
+      if @leaderboard_opt_in.nil?
+        invalid_properties.push('invalid value for "leaderboard_opt_in", leaderboard_opt_in cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -174,13 +174,13 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @group.nil?
-      return false if @leaderboard.nil?
-      return false if @missing.nil?
-      return false if @pieces.nil?
-      return false if @leaderboard_opt_in.nil?
       return false if @pct.nil?
+      return false if @pieces.nil?
+      return false if @missing.nil?
       return false if @missing_cost_cents.nil?
       return false if @missing_unpriced.nil?
+      return false if @leaderboard.nil?
+      return false if @leaderboard_opt_in.nil?
       true
     end
 
@@ -190,14 +190,14 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           group == o.group &&
-          leaderboard == o.leaderboard &&
-          missing == o.missing &&
-          pieces == o.pieces &&
-          leaderboard_opt_in == o.leaderboard_opt_in &&
           pct == o.pct &&
+          pieces == o.pieces &&
+          missing == o.missing &&
           missing_cost_cents == o.missing_cost_cents &&
           missing_unpriced == o.missing_unpriced &&
-          my_rank == o.my_rank
+          leaderboard == o.leaderboard &&
+          my_rank == o.my_rank &&
+          leaderboard_opt_in == o.leaderboard_opt_in
     end
 
     # @see the `==` method
@@ -209,7 +209,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [group, leaderboard, missing, pieces, leaderboard_opt_in, pct, missing_cost_cents, missing_unpriced, my_rank].hash
+      [group, pct, pieces, missing, missing_cost_cents, missing_unpriced, leaderboard, my_rank, leaderboard_opt_in].hash
     end
 
     # Builds the object from hash

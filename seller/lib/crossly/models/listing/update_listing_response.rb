@@ -15,11 +15,14 @@ require 'time'
 
 module Crossly
   class UpdateListingResponse
+    attr_accessor :warnings
+
     attr_accessor :jobs
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'warnings' => :'warnings',
         :'jobs' => :'jobs'
       }
     end
@@ -32,6 +35,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'warnings' => :'Array<CreateListingResponseWarnings>',
         :'jobs' => :'Array<UpdateListingResponseJobs>'
       }
     end
@@ -39,6 +43,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'warnings',
       ])
     end
 
@@ -56,6 +61,12 @@ module Crossly
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'warnings')
+        if (value = attributes[:'warnings']).is_a?(Array)
+          self.warnings = value
+        end
+      end
 
       if attributes.key?(:'jobs')
         if (value = attributes[:'jobs']).is_a?(Array)
@@ -87,6 +98,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          warnings == o.warnings &&
           jobs == o.jobs
     end
 
@@ -99,7 +111,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [jobs].hash
+      [warnings, jobs].hash
     end
 
     # Builds the object from hash

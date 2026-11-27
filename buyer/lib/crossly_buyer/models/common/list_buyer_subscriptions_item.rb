@@ -19,26 +19,26 @@ module CrosslyBuyer
 
     attr_accessor :status
 
-    attr_accessor :title
-
-    attr_accessor :slug
-
-    attr_accessor :next_run_at
-
     attr_accessor :interval_days
 
     attr_accessor :discount_bps
+
+    attr_accessor :next_run_at
+
+    attr_accessor :slug
+
+    attr_accessor :title
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'status' => :'status',
-        :'title' => :'title',
-        :'slug' => :'slug',
-        :'next_run_at' => :'nextRunAt',
         :'interval_days' => :'intervalDays',
-        :'discount_bps' => :'discountBps'
+        :'discount_bps' => :'discountBps',
+        :'next_run_at' => :'nextRunAt',
+        :'slug' => :'slug',
+        :'title' => :'title'
       }
     end
 
@@ -52,19 +52,19 @@ module CrosslyBuyer
       {
         :'id' => :'String',
         :'status' => :'String',
-        :'title' => :'String',
-        :'slug' => :'String',
-        :'next_run_at' => :'String',
         :'interval_days' => :'Float',
-        :'discount_bps' => :'Float'
+        :'discount_bps' => :'Float',
+        :'next_run_at' => :'String',
+        :'slug' => :'String',
+        :'title' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'title',
         :'slug',
+        :'title'
       ])
     end
 
@@ -91,24 +91,24 @@ module CrosslyBuyer
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
-      if attributes.key?(:'slug')
-        self.slug = attributes[:'slug']
-      end
-
-      if attributes.key?(:'next_run_at')
-        self.next_run_at = attributes[:'next_run_at']
-      end
-
       if attributes.key?(:'interval_days')
         self.interval_days = attributes[:'interval_days']
       end
 
       if attributes.key?(:'discount_bps')
         self.discount_bps = attributes[:'discount_bps']
+      end
+
+      if attributes.key?(:'next_run_at')
+        self.next_run_at = attributes[:'next_run_at']
+      end
+
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
     end
 
@@ -124,16 +124,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @next_run_at.nil?
-        invalid_properties.push('invalid value for "next_run_at", next_run_at cannot be nil.')
-      end
-
       if @interval_days.nil?
         invalid_properties.push('invalid value for "interval_days", interval_days cannot be nil.')
       end
 
       if @discount_bps.nil?
         invalid_properties.push('invalid value for "discount_bps", discount_bps cannot be nil.')
+      end
+
+      if @next_run_at.nil?
+        invalid_properties.push('invalid value for "next_run_at", next_run_at cannot be nil.')
       end
 
       invalid_properties
@@ -144,9 +144,9 @@ module CrosslyBuyer
     def valid?
       return false if @id.nil?
       return false if @status.nil?
-      return false if @next_run_at.nil?
       return false if @interval_days.nil?
       return false if @discount_bps.nil?
+      return false if @next_run_at.nil?
       true
     end
 
@@ -157,11 +157,11 @@ module CrosslyBuyer
       self.class == o.class &&
           id == o.id &&
           status == o.status &&
-          title == o.title &&
-          slug == o.slug &&
-          next_run_at == o.next_run_at &&
           interval_days == o.interval_days &&
-          discount_bps == o.discount_bps
+          discount_bps == o.discount_bps &&
+          next_run_at == o.next_run_at &&
+          slug == o.slug &&
+          title == o.title
     end
 
     # @see the `==` method
@@ -173,7 +173,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, title, slug, next_run_at, interval_days, discount_bps].hash
+      [id, status, interval_days, discount_bps, next_run_at, slug, title].hash
     end
 
     # Builds the object from hash

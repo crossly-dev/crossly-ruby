@@ -115,12 +115,11 @@ module CrosslyWebhooks
 
         case key
         when 't'
-          # Strict: Integer('1e9') raises, String#to_i would silently give 1.
-          begin
-            t = Integer(value, 10)
-          rescue ArgumentError, TypeError
-            return [nil, nil]
-          end
+          # Digits only: String#to_i would turn '1e9' into 1, and Integer()
+          # still accepts '-5', '+5' and '1_700', none of which is a timestamp.
+          return [nil, nil] unless value.match?(/\A[0-9]+\z/)
+
+          t = value.to_i
         when 'v1'
           v1 = value
         end

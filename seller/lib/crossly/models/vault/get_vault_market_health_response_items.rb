@@ -206,10 +206,10 @@ module Crossly
       return false if @grade.nil?
       return false if @units.nil?
       return false if @quality.nil?
-      quality_validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      quality_validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       return false unless quality_validator.valid?(@quality)
       return false if @tier.nil?
-      tier_validator = EnumAttributeValidator.new('String', ["A", "B", "C", "D", "unclassified"])
+      tier_validator = EnumAttributeValidator.new('String', ["C", "A", "B", "D", "unclassified"])
       return false unless tier_validator.valid?(@tier)
       return false if @value_cents.nil?
       true
@@ -218,7 +218,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] quality Object to be assigned
     def quality=(quality)
-      validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       unless validator.valid?(quality)
         fail ArgumentError, "invalid value for \"quality\", must be one of #{validator.allowable_values}."
       end
@@ -228,7 +228,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["A", "B", "C", "D", "unclassified"])
+      validator = EnumAttributeValidator.new('String', ["C", "A", "B", "D", "unclassified"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end

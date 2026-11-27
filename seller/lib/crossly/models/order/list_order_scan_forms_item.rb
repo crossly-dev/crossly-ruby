@@ -27,13 +27,13 @@ module Crossly
 
     attr_accessor :order_ids
 
-    attr_accessor :document_url
-
-    attr_accessor :shippo_manifest_id
+    attr_accessor :warnings
 
     attr_accessor :ship_date
 
-    attr_accessor :warnings
+    attr_accessor :shippo_manifest_id
+
+    attr_accessor :document_url
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -44,10 +44,10 @@ module Crossly
         :'status' => :'status',
         :'carrier' => :'carrier',
         :'order_ids' => :'orderIds',
-        :'document_url' => :'documentUrl',
-        :'shippo_manifest_id' => :'shippoManifestId',
+        :'warnings' => :'warnings',
         :'ship_date' => :'shipDate',
-        :'warnings' => :'warnings'
+        :'shippo_manifest_id' => :'shippoManifestId',
+        :'document_url' => :'documentUrl'
       }
     end
 
@@ -65,17 +65,17 @@ module Crossly
         :'status' => :'String',
         :'carrier' => :'String',
         :'order_ids' => :'Array<String>',
-        :'document_url' => :'String',
-        :'shippo_manifest_id' => :'String',
+        :'warnings' => :'Array<String>',
         :'ship_date' => :'String',
-        :'warnings' => :'Array<String>'
+        :'shippo_manifest_id' => :'String',
+        :'document_url' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'document_url',
+        :'document_url'
       ])
     end
 
@@ -120,22 +120,22 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'document_url')
-        self.document_url = attributes[:'document_url']
-      end
-
-      if attributes.key?(:'shippo_manifest_id')
-        self.shippo_manifest_id = attributes[:'shippo_manifest_id']
+      if attributes.key?(:'warnings')
+        if (value = attributes[:'warnings']).is_a?(Array)
+          self.warnings = value
+        end
       end
 
       if attributes.key?(:'ship_date')
         self.ship_date = attributes[:'ship_date']
       end
 
-      if attributes.key?(:'warnings')
-        if (value = attributes[:'warnings']).is_a?(Array)
-          self.warnings = value
-        end
+      if attributes.key?(:'shippo_manifest_id')
+        self.shippo_manifest_id = attributes[:'shippo_manifest_id']
+      end
+
+      if attributes.key?(:'document_url')
+        self.document_url = attributes[:'document_url']
       end
     end
 
@@ -167,16 +167,16 @@ module Crossly
         invalid_properties.push('invalid value for "order_ids", order_ids cannot be nil.')
       end
 
-      if @shippo_manifest_id.nil?
-        invalid_properties.push('invalid value for "shippo_manifest_id", shippo_manifest_id cannot be nil.')
+      if @warnings.nil?
+        invalid_properties.push('invalid value for "warnings", warnings cannot be nil.')
       end
 
       if @ship_date.nil?
         invalid_properties.push('invalid value for "ship_date", ship_date cannot be nil.')
       end
 
-      if @warnings.nil?
-        invalid_properties.push('invalid value for "warnings", warnings cannot be nil.')
+      if @shippo_manifest_id.nil?
+        invalid_properties.push('invalid value for "shippo_manifest_id", shippo_manifest_id cannot be nil.')
       end
 
       invalid_properties
@@ -191,9 +191,9 @@ module Crossly
       return false if @status.nil?
       return false if @carrier.nil?
       return false if @order_ids.nil?
-      return false if @shippo_manifest_id.nil?
-      return false if @ship_date.nil?
       return false if @warnings.nil?
+      return false if @ship_date.nil?
+      return false if @shippo_manifest_id.nil?
       true
     end
 
@@ -208,10 +208,10 @@ module Crossly
           status == o.status &&
           carrier == o.carrier &&
           order_ids == o.order_ids &&
-          document_url == o.document_url &&
-          shippo_manifest_id == o.shippo_manifest_id &&
+          warnings == o.warnings &&
           ship_date == o.ship_date &&
-          warnings == o.warnings
+          shippo_manifest_id == o.shippo_manifest_id &&
+          document_url == o.document_url
     end
 
     # @see the `==` method
@@ -223,7 +223,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, carrier, order_ids, document_url, shippo_manifest_id, ship_date, warnings].hash
+      [id, created_at, user_id, status, carrier, order_ids, warnings, ship_date, shippo_manifest_id, document_url].hash
     end
 
     # Builds the object from hash

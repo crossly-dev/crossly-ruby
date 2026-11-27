@@ -19,20 +19,20 @@ module CrosslyBuyer
 
     attr_accessor :name
 
-    attr_accessor :created_at
+    attr_accessor :me
 
     attr_accessor :body
 
-    attr_accessor :me
+    attr_accessor :created_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'name' => :'name',
-        :'created_at' => :'createdAt',
+        :'me' => :'me',
         :'body' => :'body',
-        :'me' => :'me'
+        :'created_at' => :'createdAt'
       }
     end
 
@@ -46,9 +46,9 @@ module CrosslyBuyer
       {
         :'id' => :'String',
         :'name' => :'String',
-        :'created_at' => :'String',
+        :'me' => :'Boolean',
         :'body' => :'String',
-        :'me' => :'Boolean'
+        :'created_at' => :'String'
       }
     end
 
@@ -81,16 +81,16 @@ module CrosslyBuyer
         self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'me')
+        self.me = attributes[:'me']
       end
 
       if attributes.key?(:'body')
         self.body = attributes[:'body']
       end
 
-      if attributes.key?(:'me')
-        self.me = attributes[:'me']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
     end
 
@@ -106,16 +106,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @me.nil?
+        invalid_properties.push('invalid value for "me", me cannot be nil.')
       end
 
       if @body.nil?
         invalid_properties.push('invalid value for "body", body cannot be nil.')
       end
 
-      if @me.nil?
-        invalid_properties.push('invalid value for "me", me cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       invalid_properties
@@ -126,9 +126,9 @@ module CrosslyBuyer
     def valid?
       return false if @id.nil?
       return false if @name.nil?
-      return false if @created_at.nil?
-      return false if @body.nil?
       return false if @me.nil?
+      return false if @body.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -139,9 +139,9 @@ module CrosslyBuyer
       self.class == o.class &&
           id == o.id &&
           name == o.name &&
-          created_at == o.created_at &&
+          me == o.me &&
           body == o.body &&
-          me == o.me
+          created_at == o.created_at
     end
 
     # @see the `==` method
@@ -153,7 +153,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, body, me].hash
+      [id, name, me, body, created_at].hash
     end
 
     # Builds the object from hash

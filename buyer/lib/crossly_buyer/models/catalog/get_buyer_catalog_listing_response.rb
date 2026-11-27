@@ -21,6 +21,8 @@ module CrosslyBuyer
 
     attr_accessor :description
 
+    attr_accessor :description_blocks
+
     attr_accessor :price_cents
 
     attr_accessor :compare_at_cents
@@ -32,6 +34,8 @@ module CrosslyBuyer
     attr_accessor :available
 
     attr_accessor :quantity_available
+
+    attr_accessor :variants
 
     attr_accessor :condition
 
@@ -53,18 +57,22 @@ module CrosslyBuyer
 
     attr_accessor :listed_at
 
+    attr_accessor :token_gate
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'slug' => :'slug',
         :'title' => :'title',
         :'description' => :'description',
+        :'description_blocks' => :'descriptionBlocks',
         :'price_cents' => :'priceCents',
         :'compare_at_cents' => :'compareAtCents',
         :'currency' => :'currency',
         :'status' => :'status',
         :'available' => :'available',
         :'quantity_available' => :'quantityAvailable',
+        :'variants' => :'variants',
         :'condition' => :'condition',
         :'brand' => :'brand',
         :'size' => :'size',
@@ -74,7 +82,8 @@ module CrosslyBuyer
         :'images' => :'images',
         :'seller_username' => :'sellerUsername',
         :'seller_display_name' => :'sellerDisplayName',
-        :'listed_at' => :'listedAt'
+        :'listed_at' => :'listedAt',
+        :'token_gate' => :'tokenGate'
       }
     end
 
@@ -89,12 +98,14 @@ module CrosslyBuyer
         :'slug' => :'String',
         :'title' => :'String',
         :'description' => :'String',
+        :'description_blocks' => :'Array<GetBuyerCatalogListingResponseDescriptionBlocksItem>',
         :'price_cents' => :'Float',
         :'compare_at_cents' => :'Float',
         :'currency' => :'String',
         :'status' => :'String',
         :'available' => :'Boolean',
         :'quantity_available' => :'Float',
+        :'variants' => :'Array<GetBuyerCatalogListingResponseVariants>',
         :'condition' => :'String',
         :'brand' => :'String',
         :'size' => :'String',
@@ -104,7 +115,8 @@ module CrosslyBuyer
         :'images' => :'Array<String>',
         :'seller_username' => :'String',
         :'seller_display_name' => :'String',
-        :'listed_at' => :'String'
+        :'listed_at' => :'String',
+        :'token_gate' => :'GetBuyerCatalogListingResponseTokenGate'
       }
     end
 
@@ -113,6 +125,7 @@ module CrosslyBuyer
       Set.new([
         :'description',
         :'compare_at_cents',
+        :'variants',
         :'condition',
         :'brand',
         :'size',
@@ -121,7 +134,8 @@ module CrosslyBuyer
         :'category_sub',
         :'seller_username',
         :'seller_display_name',
-        :'listed_at'
+        :'listed_at',
+        :'token_gate'
       ])
     end
 
@@ -152,6 +166,12 @@ module CrosslyBuyer
         self.description = attributes[:'description']
       end
 
+      if attributes.key?(:'description_blocks')
+        if (value = attributes[:'description_blocks']).is_a?(Array)
+          self.description_blocks = value
+        end
+      end
+
       if attributes.key?(:'price_cents')
         self.price_cents = attributes[:'price_cents']
       end
@@ -174,6 +194,12 @@ module CrosslyBuyer
 
       if attributes.key?(:'quantity_available')
         self.quantity_available = attributes[:'quantity_available']
+      end
+
+      if attributes.key?(:'variants')
+        if (value = attributes[:'variants']).is_a?(Array)
+          self.variants = value
+        end
       end
 
       if attributes.key?(:'condition')
@@ -219,6 +245,10 @@ module CrosslyBuyer
       if attributes.key?(:'listed_at')
         self.listed_at = attributes[:'listed_at']
       end
+
+      if attributes.key?(:'token_gate')
+        self.token_gate = attributes[:'token_gate']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -231,6 +261,10 @@ module CrosslyBuyer
 
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
+      end
+
+      if @description_blocks.nil?
+        invalid_properties.push('invalid value for "description_blocks", description_blocks cannot be nil.')
       end
 
       if @price_cents.nil?
@@ -265,6 +299,7 @@ module CrosslyBuyer
     def valid?
       return false if @slug.nil?
       return false if @title.nil?
+      return false if @description_blocks.nil?
       return false if @price_cents.nil?
       return false if @currency.nil?
       return false if @status.nil?
@@ -282,12 +317,14 @@ module CrosslyBuyer
           slug == o.slug &&
           title == o.title &&
           description == o.description &&
+          description_blocks == o.description_blocks &&
           price_cents == o.price_cents &&
           compare_at_cents == o.compare_at_cents &&
           currency == o.currency &&
           status == o.status &&
           available == o.available &&
           quantity_available == o.quantity_available &&
+          variants == o.variants &&
           condition == o.condition &&
           brand == o.brand &&
           size == o.size &&
@@ -297,7 +334,8 @@ module CrosslyBuyer
           images == o.images &&
           seller_username == o.seller_username &&
           seller_display_name == o.seller_display_name &&
-          listed_at == o.listed_at
+          listed_at == o.listed_at &&
+          token_gate == o.token_gate
     end
 
     # @see the `==` method
@@ -309,7 +347,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, title, description, price_cents, compare_at_cents, currency, status, available, quantity_available, condition, brand, size, color, category_main, category_sub, images, seller_username, seller_display_name, listed_at].hash
+      [slug, title, description, description_blocks, price_cents, compare_at_cents, currency, status, available, quantity_available, variants, condition, brand, size, color, category_main, category_sub, images, seller_username, seller_display_name, listed_at, token_gate].hash
     end
 
     # Builds the object from hash

@@ -43,6 +43,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'collecting_since'
       ])
     end
 
@@ -80,10 +81,6 @@ module Crossly
         invalid_properties.push('invalid value for "points", points cannot be nil.')
       end
 
-      if @collecting_since.nil?
-        invalid_properties.push('invalid value for "collecting_since", collecting_since cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -91,7 +88,6 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @points.nil?
-      return false if @collecting_since.nil?
       true
     end
 

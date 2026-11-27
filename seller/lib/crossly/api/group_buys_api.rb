@@ -19,7 +19,7 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Run a group buy on a listing with stock: price tiers by buyer count, a minimum, up to 6 days. Below the minimum nobody pays.
+    # Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
     # @param [Hash] opts the optional parameters
     # @return [CreateBreakResponse]
     def create_group_buy(opts = {})
@@ -27,7 +27,7 @@ module Crossly
       data
     end
 
-    # Run a group buy on a listing with stock: price tiers by buyer count, a minimum, up to 6 days. Below the minimum nobody pays.
+    # Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBreakResponse, Integer, Hash)>] CreateBreakResponse data, response status code and response headers
     def create_group_buy_with_http_info(opts = {})
@@ -70,6 +70,488 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GroupBuysApi#create_group_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a group buy: every hold is released and every charge refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateGroupBuyCancelResponse]
+    def create_group_buy_cancel(id, opts = {})
+      data, _status_code, _headers = create_group_buy_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a group buy: every hold is released and every charge refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateGroupBuyCancelResponse, Integer, Hash)>] CreateGroupBuyCancelResponse data, response status code and response headers
+    def create_group_buy_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.create_group_buy_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.create_group_buy_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateGroupBuyCancelResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.create_group_buy_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#create_group_buy_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Close a group buy now: every buyer pays the price reached (the minimum and goal-miss policy still apply).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateGroupBuyCloseResponse]
+    def create_group_buy_close(id, opts = {})
+      data, _status_code, _headers = create_group_buy_close_with_http_info(id, opts)
+      data
+    end
+
+    # Close a group buy now: every buyer pays the price reached (the minimum and goal-miss policy still apply).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateGroupBuyCloseResponse, Integer, Hash)>] CreateGroupBuyCloseResponse data, response status code and response headers
+    def create_group_buy_close_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.create_group_buy_close ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.create_group_buy_close"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}/close'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateGroupBuyCloseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.create_group_buy_close",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#create_group_buy_close\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateGroupBuyExtendResponse]
+    def create_group_buy_extend(id, opts = {})
+      data, _status_code, _headers = create_group_buy_extend_with_http_info(id, opts)
+      data
+    end
+
+    # Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateGroupBuyExtendResponse, Integer, Hash)>] CreateGroupBuyExtendResponse data, response status code and response headers
+    def create_group_buy_extend_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.create_group_buy_extend ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.create_group_buy_extend"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}/extend'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateGroupBuyExtendResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.create_group_buy_extend",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#create_group_buy_extend\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Send a notification to every buyer committed to the group buy.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateGroupBuyMessageResponse]
+    def create_group_buy_message(id, opts = {})
+      data, _status_code, _headers = create_group_buy_message_with_http_info(id, opts)
+      data
+    end
+
+    # Send a notification to every buyer committed to the group buy.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateGroupBuyMessageResponse, Integer, Hash)>] CreateGroupBuyMessageResponse data, response status code and response headers
+    def create_group_buy_message_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.create_group_buy_message ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.create_group_buy_message"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}/message'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateGroupBuyMessageResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.create_group_buy_message",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#create_group_buy_message\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One group buy: progress towards each tier, committed buyers (masked), time left, revenue at the current tier and the activity feed.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetGroupBuyResponse]
+    def get_group_buy(id, opts = {})
+      data, _status_code, _headers = get_group_buy_with_http_info(id, opts)
+      data
+    end
+
+    # One group buy: progress towards each tier, committed buyers (masked), time left, revenue at the current tier and the activity feed.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetGroupBuyResponse, Integer, Hash)>] GetGroupBuyResponse data, response status code and response headers
+    def get_group_buy_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.get_group_buy ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.get_group_buy"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.get_group_buy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#get_group_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every participant of a group buy as CSV: quantity, status, amounts and ship-to.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [String]
+    def get_group_buy_participants_csv(id, opts = {})
+      data, _status_code, _headers = get_group_buy_participants_csv_with_http_info(id, opts)
+      data
+    end
+
+    # Every participant of a group buy as CSV: quantity, status, amounts and ship-to.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
+    def get_group_buy_participants_csv_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.get_group_buy_participants_csv ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.get_group_buy_participants_csv"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}/participants.csv'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'String'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.get_group_buy_participants_csv",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#get_group_buy_participants_csv\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your group buys, open ones first: tiers, buyers joined, the price reached and when it ends.
+    # @param [Hash] opts the optional parameters
+    # @return [ListGroupBuysResponse]
+    def list_group_buys(opts = {})
+      data, _status_code, _headers = list_group_buys_with_http_info(opts)
+      data
+    end
+
+    # Your group buys, open ones first: tiers, buyers joined, the price reached and when it ends.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListGroupBuysResponse, Integer, Hash)>] ListGroupBuysResponse data, response status code and response headers
+    def list_group_buys_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.list_group_buys ...'
+      end
+      # resource path
+      local_var_path = '/v1/group-buys'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListGroupBuysResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.list_group_buys",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#list_group_buys\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def update_group_buy(id, opts = {})
+      data, _status_code, _headers = update_group_buy_with_http_info(id, opts)
+      data
+    end
+
+    # Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def update_group_buy_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupBuysApi.update_group_buy ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GroupBuysApi.update_group_buy"
+      end
+      # resource path
+      local_var_path = '/v1/group-buys/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GroupBuysApi.update_group_buy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupBuysApi#update_group_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

@@ -23,6 +23,8 @@ module Crossly
 
     attr_accessor :at
 
+    attr_accessor :by
+
     attr_accessor :book_key
 
     attr_accessor :name
@@ -66,6 +68,7 @@ module Crossly
         :'kind' => :'kind',
         :'verb' => :'verb',
         :'at' => :'at',
+        :'by' => :'by',
         :'book_key' => :'bookKey',
         :'name' => :'name',
         :'label' => :'label',
@@ -88,11 +91,12 @@ module Crossly
         :'kind' => :'String',
         :'verb' => :'String',
         :'at' => :'String',
+        :'by' => :'ListVaultMarketFollowFeedItemBy',
         :'book_key' => :'String',
         :'name' => :'String',
         :'label' => :'String',
         :'image_url' => :'String',
-        :'mark' => :'ListVaultMarketFeedItemMark',
+        :'mark' => :'ListVaultMarketOpeningItemMark',
         :'exhibition' => :'ListVaultMarketFollowFeedItemExhibition',
         :'buy_href' => :'String'
       }
@@ -137,6 +141,10 @@ module Crossly
 
       if attributes.key?(:'at')
         self.at = attributes[:'at']
+      end
+
+      if attributes.key?(:'by')
+        self.by = attributes[:'by']
       end
 
       if attributes.key?(:'book_key')
@@ -188,6 +196,10 @@ module Crossly
         invalid_properties.push('invalid value for "at", at cannot be nil.')
       end
 
+      if @by.nil?
+        invalid_properties.push('invalid value for "by", by cannot be nil.')
+      end
+
       if @book_key.nil?
         invalid_properties.push('invalid value for "book_key", book_key cannot be nil.')
       end
@@ -208,10 +220,11 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["deposit", "sale", "buy", "hall_loan"])
+      kind_validator = EnumAttributeValidator.new('String', ["sale", "deposit", "buy", "hall_loan"])
       return false unless kind_validator.valid?(@kind)
       return false if @verb.nil?
       return false if @at.nil?
+      return false if @by.nil?
       return false if @book_key.nil?
       return false if @mark.nil?
       return false if @buy_href.nil?
@@ -221,7 +234,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["deposit", "sale", "buy", "hall_loan"])
+      validator = EnumAttributeValidator.new('String', ["sale", "deposit", "buy", "hall_loan"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -237,6 +250,7 @@ module Crossly
           kind == o.kind &&
           verb == o.verb &&
           at == o.at &&
+          by == o.by &&
           book_key == o.book_key &&
           name == o.name &&
           label == o.label &&
@@ -255,7 +269,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, kind, verb, at, book_key, name, label, image_url, mark, exhibition, buy_href].hash
+      [id, kind, verb, at, by, book_key, name, label, image_url, mark, exhibition, buy_href].hash
     end
 
     # Builds the object from hash

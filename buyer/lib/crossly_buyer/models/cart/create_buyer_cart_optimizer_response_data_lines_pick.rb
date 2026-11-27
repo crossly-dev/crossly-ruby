@@ -15,11 +15,11 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerCartOptimizerResponseDataLinesPick
+    attr_accessor :slug
+
     attr_accessor :title
 
     attr_accessor :seller_user_id
-
-    attr_accessor :slug
 
     attr_accessor :seller_name
 
@@ -30,9 +30,9 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'slug' => :'slug',
         :'title' => :'title',
         :'seller_user_id' => :'sellerUserId',
-        :'slug' => :'slug',
         :'seller_name' => :'sellerName',
         :'unit_cents' => :'unitCents',
         :'ship_cents' => :'shipCents'
@@ -47,9 +47,9 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'slug' => :'String',
         :'title' => :'String',
         :'seller_user_id' => :'String',
-        :'slug' => :'String',
         :'seller_name' => :'String',
         :'unit_cents' => :'Float',
         :'ship_cents' => :'Float'
@@ -78,16 +78,16 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
+      end
+
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
 
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
-      end
-
-      if attributes.key?(:'slug')
-        self.slug = attributes[:'slug']
       end
 
       if attributes.key?(:'seller_name')
@@ -107,16 +107,16 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @slug.nil?
+        invalid_properties.push('invalid value for "slug", slug cannot be nil.')
+      end
+
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @seller_user_id.nil?
         invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
-      end
-
-      if @slug.nil?
-        invalid_properties.push('invalid value for "slug", slug cannot be nil.')
       end
 
       if @unit_cents.nil?
@@ -133,9 +133,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @slug.nil?
       return false if @title.nil?
       return false if @seller_user_id.nil?
-      return false if @slug.nil?
       return false if @unit_cents.nil?
       return false if @ship_cents.nil?
       true
@@ -146,9 +146,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          slug == o.slug &&
           title == o.title &&
           seller_user_id == o.seller_user_id &&
-          slug == o.slug &&
           seller_name == o.seller_name &&
           unit_cents == o.unit_cents &&
           ship_cents == o.ship_cents
@@ -163,7 +163,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [title, seller_user_id, slug, seller_name, unit_cents, ship_cents].hash
+      [slug, title, seller_user_id, seller_name, unit_cents, ship_cents].hash
     end
 
     # Builds the object from hash

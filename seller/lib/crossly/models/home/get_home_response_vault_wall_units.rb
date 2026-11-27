@@ -24,7 +24,7 @@ module Crossly
 
     attr_accessor :units
 
-    # The book key, for a click through to its market (/shop/vault/markets/<bookKey>).
+    # The book key, for a click through to its market (/trading/<bookKey>).
     attr_accessor :book_key
 
     # One unit's mark, cents -- only when the viewer may see values (else absent).

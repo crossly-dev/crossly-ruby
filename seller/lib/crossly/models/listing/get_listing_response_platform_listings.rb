@@ -19,19 +19,21 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :quantity
+    attr_accessor :platform
+
+    attr_accessor :account_slot
 
     attr_accessor :status
 
-    attr_accessor :platform
-
-    attr_accessor :error_message
-
-    attr_accessor :listing_id
-
     attr_accessor :marketplace_id
 
-    attr_accessor :account_slot
+    attr_accessor :origin
+
+    attr_accessor :views
+
+    attr_accessor :favorites
+
+    attr_accessor :quantity
 
     attr_accessor :inventory_item_id
 
@@ -40,6 +42,8 @@ module Crossly
     attr_accessor :delisted_at
 
     attr_accessor :sold_at
+
+    attr_accessor :listing_id
 
     attr_accessor :platform_listing_id
 
@@ -55,19 +59,37 @@ module Crossly
 
     attr_accessor :last_checked_at
 
-    attr_accessor :views
-
-    attr_accessor :favorites
-
     attr_accessor :comments_count
 
+    attr_accessor :impressions
+
+    attr_accessor :ctr_bps
+
+    attr_accessor :views_semantics
+
     attr_accessor :last_stats_synced_at
+
+    attr_accessor :error_message
+
+    attr_accessor :delist_requested_at
+
+    attr_accessor :delist_requested_reason
+
+    attr_accessor :delist_failed_at
+
+    attr_accessor :delist_error
+
+    attr_accessor :delist_error_code
 
     attr_accessor :listed_price
 
     attr_accessor :crossly_price_usd_cents
 
     attr_accessor :crossly_price_fx_as_of
+
+    attr_accessor :bundle_promo
+
+    attr_accessor :storefront_id
 
     attr_accessor :hashtags
 
@@ -106,8 +128,6 @@ module Crossly
     attr_accessor :aesthetic_tags
 
     attr_accessor :personalization
-
-    attr_accessor :digital_file
 
     attr_accessor :try_days
 
@@ -187,22 +207,50 @@ module Crossly
 
     attr_accessor :published_overrides
 
+    attr_accessor :delist_state
+
+    attr_accessor :unmatched_sale
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'user_id' => :'userId',
-        :'quantity' => :'quantity',
-        :'status' => :'status',
         :'platform' => :'platform',
-        :'error_message' => :'errorMessage',
-        :'listing_id' => :'listingId',
-        :'marketplace_id' => :'marketplaceId',
         :'account_slot' => :'accountSlot',
+        :'status' => :'status',
+        :'marketplace_id' => :'marketplaceId',
+        :'origin' => :'origin',
+        :'views' => :'views',
+        :'favorites' => :'favorites',
+        :'quantity' => :'quantity',
         :'inventory_item_id' => :'inventoryItemId',
         :'currency' => :'currency',
         :'delisted_at' => :'delistedAt',
         :'sold_at' => :'soldAt',
+        :'listing_id' => :'listingId',
         :'platform_listing_id' => :'platformListingId',
         :'platform_listing_url' => :'platformListingUrl',
         :'stock_location' => :'stockLocation',
@@ -210,13 +258,22 @@ module Crossly
         :'shared_at' => :'sharedAt',
         :'delist_reason' => :'delistReason',
         :'last_checked_at' => :'lastCheckedAt',
-        :'views' => :'views',
-        :'favorites' => :'favorites',
         :'comments_count' => :'commentsCount',
+        :'impressions' => :'impressions',
+        :'ctr_bps' => :'ctrBps',
+        :'views_semantics' => :'viewsSemantics',
         :'last_stats_synced_at' => :'lastStatsSyncedAt',
+        :'error_message' => :'errorMessage',
+        :'delist_requested_at' => :'delistRequestedAt',
+        :'delist_requested_reason' => :'delistRequestedReason',
+        :'delist_failed_at' => :'delistFailedAt',
+        :'delist_error' => :'delistError',
+        :'delist_error_code' => :'delistErrorCode',
         :'listed_price' => :'listedPrice',
         :'crossly_price_usd_cents' => :'crosslyPriceUsdCents',
         :'crossly_price_fx_as_of' => :'crosslyPriceFxAsOf',
+        :'bundle_promo' => :'bundlePromo',
+        :'storefront_id' => :'storefrontId',
         :'hashtags' => :'hashtags',
         :'is_draft' => :'isDraft',
         :'scheduled_publish_at' => :'scheduledPublishAt',
@@ -236,7 +293,6 @@ module Crossly
         :'best_offer_auto_decline_cents' => :'bestOfferAutoDeclineCents',
         :'aesthetic_tags' => :'aestheticTags',
         :'personalization' => :'personalization',
-        :'digital_file' => :'digitalFile',
         :'try_days' => :'tryDays',
         :'try_fee_cents' => :'tryFeeCents',
         :'subscribe_discount_bps' => :'subscribeDiscountBps',
@@ -275,7 +331,9 @@ module Crossly
         :'web3_order_id' => :'web3OrderId',
         :'verification_failed' => :'verificationFailed',
         :'details_pending' => :'detailsPending',
-        :'published_overrides' => :'publishedOverrides'
+        :'published_overrides' => :'publishedOverrides',
+        :'delist_state' => :'delistState',
+        :'unmatched_sale' => :'unmatchedSale'
       }
     end
 
@@ -289,17 +347,19 @@ module Crossly
       {
         :'id' => :'String',
         :'user_id' => :'String',
-        :'quantity' => :'Float',
-        :'status' => :'String',
         :'platform' => :'String',
-        :'error_message' => :'String',
-        :'listing_id' => :'String',
-        :'marketplace_id' => :'String',
         :'account_slot' => :'Float',
+        :'status' => :'String',
+        :'marketplace_id' => :'String',
+        :'origin' => :'String',
+        :'views' => :'Float',
+        :'favorites' => :'Float',
+        :'quantity' => :'Float',
         :'inventory_item_id' => :'String',
         :'currency' => :'String',
         :'delisted_at' => :'Time',
         :'sold_at' => :'Time',
+        :'listing_id' => :'String',
         :'platform_listing_id' => :'String',
         :'platform_listing_url' => :'String',
         :'stock_location' => :'String',
@@ -307,13 +367,22 @@ module Crossly
         :'shared_at' => :'Time',
         :'delist_reason' => :'String',
         :'last_checked_at' => :'Time',
-        :'views' => :'Float',
-        :'favorites' => :'Float',
         :'comments_count' => :'Float',
+        :'impressions' => :'Float',
+        :'ctr_bps' => :'Float',
+        :'views_semantics' => :'String',
         :'last_stats_synced_at' => :'Time',
+        :'error_message' => :'String',
+        :'delist_requested_at' => :'Time',
+        :'delist_requested_reason' => :'String',
+        :'delist_failed_at' => :'Time',
+        :'delist_error' => :'String',
+        :'delist_error_code' => :'String',
         :'listed_price' => :'String',
         :'crossly_price_usd_cents' => :'Float',
         :'crossly_price_fx_as_of' => :'String',
+        :'bundle_promo' => :'GetInventoryResponsePlatformListingsBundlePromo',
+        :'storefront_id' => :'String',
         :'hashtags' => :'Array<String>',
         :'is_draft' => :'Boolean',
         :'scheduled_publish_at' => :'Time',
@@ -333,7 +402,6 @@ module Crossly
         :'best_offer_auto_decline_cents' => :'Float',
         :'aesthetic_tags' => :'Array<String>',
         :'personalization' => :'GetInventoryResponsePlatformListingsPersonalization',
-        :'digital_file' => :'GetInventoryResponsePlatformListingsDigitalFile',
         :'try_days' => :'Float',
         :'try_fee_cents' => :'Float',
         :'subscribe_discount_bps' => :'Float',
@@ -372,14 +440,15 @@ module Crossly
         :'web3_order_id' => :'String',
         :'verification_failed' => :'Boolean',
         :'details_pending' => :'Boolean',
-        :'published_overrides' => :'Hash<String, Object>'
+        :'published_overrides' => :'Hash<String, Object>',
+        :'delist_state' => :'String',
+        :'unmatched_sale' => :'GetListingResponsePlatformListingsUnmatchedSale'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'error_message',
         :'marketplace_id',
         :'inventory_item_id',
         :'currency',
@@ -390,10 +459,21 @@ module Crossly
         :'shared_at',
         :'delist_reason',
         :'last_checked_at',
+        :'impressions',
+        :'ctr_bps',
+        :'views_semantics',
         :'last_stats_synced_at',
+        :'error_message',
+        :'delist_requested_at',
+        :'delist_requested_reason',
+        :'delist_failed_at',
+        :'delist_error',
+        :'delist_error_code',
         :'listed_price',
         :'crossly_price_usd_cents',
         :'crossly_price_fx_as_of',
+        :'bundle_promo',
+        :'storefront_id',
         :'hashtags',
         :'scheduled_publish_at',
         :'dutch_start_cents',
@@ -409,7 +489,6 @@ module Crossly
         :'best_offer_auto_decline_cents',
         :'aesthetic_tags',
         :'personalization',
-        :'digital_file',
         :'try_days',
         :'try_fee_cents',
         :'subscribe_discount_bps',
@@ -440,7 +519,9 @@ module Crossly
         :'return_policy_text',
         :'last_drift_checked_at',
         :'web3_order_id',
-        :'published_overrides'
+        :'published_overrides',
+        :'delist_state',
+        :'unmatched_sale'
       ])
     end
 
@@ -467,32 +548,36 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
+      if attributes.key?(:'platform')
+        self.platform = attributes[:'platform']
+      end
+
+      if attributes.key?(:'account_slot')
+        self.account_slot = attributes[:'account_slot']
       end
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'platform')
-        self.platform = attributes[:'platform']
-      end
-
-      if attributes.key?(:'error_message')
-        self.error_message = attributes[:'error_message']
-      end
-
-      if attributes.key?(:'listing_id')
-        self.listing_id = attributes[:'listing_id']
-      end
-
       if attributes.key?(:'marketplace_id')
         self.marketplace_id = attributes[:'marketplace_id']
       end
 
-      if attributes.key?(:'account_slot')
-        self.account_slot = attributes[:'account_slot']
+      if attributes.key?(:'origin')
+        self.origin = attributes[:'origin']
+      end
+
+      if attributes.key?(:'views')
+        self.views = attributes[:'views']
+      end
+
+      if attributes.key?(:'favorites')
+        self.favorites = attributes[:'favorites']
+      end
+
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'inventory_item_id')
@@ -509,6 +594,10 @@ module Crossly
 
       if attributes.key?(:'sold_at')
         self.sold_at = attributes[:'sold_at']
+      end
+
+      if attributes.key?(:'listing_id')
+        self.listing_id = attributes[:'listing_id']
       end
 
       if attributes.key?(:'platform_listing_id')
@@ -539,20 +628,48 @@ module Crossly
         self.last_checked_at = attributes[:'last_checked_at']
       end
 
-      if attributes.key?(:'views')
-        self.views = attributes[:'views']
-      end
-
-      if attributes.key?(:'favorites')
-        self.favorites = attributes[:'favorites']
-      end
-
       if attributes.key?(:'comments_count')
         self.comments_count = attributes[:'comments_count']
       end
 
+      if attributes.key?(:'impressions')
+        self.impressions = attributes[:'impressions']
+      end
+
+      if attributes.key?(:'ctr_bps')
+        self.ctr_bps = attributes[:'ctr_bps']
+      end
+
+      if attributes.key?(:'views_semantics')
+        self.views_semantics = attributes[:'views_semantics']
+      end
+
       if attributes.key?(:'last_stats_synced_at')
         self.last_stats_synced_at = attributes[:'last_stats_synced_at']
+      end
+
+      if attributes.key?(:'error_message')
+        self.error_message = attributes[:'error_message']
+      end
+
+      if attributes.key?(:'delist_requested_at')
+        self.delist_requested_at = attributes[:'delist_requested_at']
+      end
+
+      if attributes.key?(:'delist_requested_reason')
+        self.delist_requested_reason = attributes[:'delist_requested_reason']
+      end
+
+      if attributes.key?(:'delist_failed_at')
+        self.delist_failed_at = attributes[:'delist_failed_at']
+      end
+
+      if attributes.key?(:'delist_error')
+        self.delist_error = attributes[:'delist_error']
+      end
+
+      if attributes.key?(:'delist_error_code')
+        self.delist_error_code = attributes[:'delist_error_code']
       end
 
       if attributes.key?(:'listed_price')
@@ -565,6 +682,14 @@ module Crossly
 
       if attributes.key?(:'crossly_price_fx_as_of')
         self.crossly_price_fx_as_of = attributes[:'crossly_price_fx_as_of']
+      end
+
+      if attributes.key?(:'bundle_promo')
+        self.bundle_promo = attributes[:'bundle_promo']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'hashtags')
@@ -645,10 +770,6 @@ module Crossly
 
       if attributes.key?(:'personalization')
         self.personalization = attributes[:'personalization']
-      end
-
-      if attributes.key?(:'digital_file')
-        self.digital_file = attributes[:'digital_file']
       end
 
       if attributes.key?(:'try_days')
@@ -810,6 +931,14 @@ module Crossly
           self.published_overrides = value
         end
       end
+
+      if attributes.key?(:'delist_state')
+        self.delist_state = attributes[:'delist_state']
+      end
+
+      if attributes.key?(:'unmatched_sale')
+        self.unmatched_sale = attributes[:'unmatched_sale']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -824,32 +953,20 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @platform.nil?
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
-      end
-
-      if @listing_id.nil?
-        invalid_properties.push('invalid value for "listing_id", listing_id cannot be nil.')
       end
 
       if @account_slot.nil?
         invalid_properties.push('invalid value for "account_slot", account_slot cannot be nil.')
       end
 
-      if @platform_listing_id.nil?
-        invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @stock_location.nil?
-        invalid_properties.push('invalid value for "stock_location", stock_location cannot be nil.')
+      if @origin.nil?
+        invalid_properties.push('invalid value for "origin", origin cannot be nil.')
       end
 
       if @views.nil?
@@ -858,6 +975,22 @@ module Crossly
 
       if @favorites.nil?
         invalid_properties.push('invalid value for "favorites", favorites cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
+      end
+
+      if @listing_id.nil?
+        invalid_properties.push('invalid value for "listing_id", listing_id cannot be nil.')
+      end
+
+      if @platform_listing_id.nil?
+        invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
+      end
+
+      if @stock_location.nil?
+        invalid_properties.push('invalid value for "stock_location", stock_location cannot be nil.')
       end
 
       if @comments_count.nil?
@@ -920,16 +1053,21 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @user_id.nil?
-      return false if @quantity.nil?
-      return false if @status.nil?
       return false if @platform.nil?
-      return false if @listing_id.nil?
       return false if @account_slot.nil?
-      return false if @platform_listing_id.nil?
-      return false if @stock_location.nil?
+      return false if @status.nil?
+      return false if @origin.nil?
+      origin_validator = EnumAttributeValidator.new('String', ["unknown", "published", "imported", "external_stub", "app_linked"])
+      return false unless origin_validator.valid?(@origin)
       return false if @views.nil?
       return false if @favorites.nil?
+      return false if @quantity.nil?
+      return false if @listing_id.nil?
+      return false if @platform_listing_id.nil?
+      return false if @stock_location.nil?
       return false if @comments_count.nil?
+      views_semantics_validator = EnumAttributeValidator.new('String', ["lifetime", "rolling7d", "rolling30d", "clicks"])
+      return false unless views_semantics_validator.valid?(@views_semantics)
       return false if @is_draft.nil?
       return false if @is_dutch_auction.nil?
       return false if @is_pre_order.nil?
@@ -942,7 +1080,39 @@ module Crossly
       return false if @handling_time_days.nil?
       return false if @verification_failed.nil?
       return false if @details_pending.nil?
+      delist_state_validator = EnumAttributeValidator.new('String', ["pending", "failed"])
+      return false unless delist_state_validator.valid?(@delist_state)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] origin Object to be assigned
+    def origin=(origin)
+      validator = EnumAttributeValidator.new('String', ["unknown", "published", "imported", "external_stub", "app_linked"])
+      unless validator.valid?(origin)
+        fail ArgumentError, "invalid value for \"origin\", must be one of #{validator.allowable_values}."
+      end
+      @origin = origin
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] views_semantics Object to be assigned
+    def views_semantics=(views_semantics)
+      validator = EnumAttributeValidator.new('String', ["lifetime", "rolling7d", "rolling30d", "clicks"])
+      unless validator.valid?(views_semantics)
+        fail ArgumentError, "invalid value for \"views_semantics\", must be one of #{validator.allowable_values}."
+      end
+      @views_semantics = views_semantics
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] delist_state Object to be assigned
+    def delist_state=(delist_state)
+      validator = EnumAttributeValidator.new('String', ["pending", "failed"])
+      unless validator.valid?(delist_state)
+        fail ArgumentError, "invalid value for \"delist_state\", must be one of #{validator.allowable_values}."
+      end
+      @delist_state = delist_state
     end
 
     # Checks equality by comparing each attribute.
@@ -952,17 +1122,19 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           user_id == o.user_id &&
-          quantity == o.quantity &&
-          status == o.status &&
           platform == o.platform &&
-          error_message == o.error_message &&
-          listing_id == o.listing_id &&
-          marketplace_id == o.marketplace_id &&
           account_slot == o.account_slot &&
+          status == o.status &&
+          marketplace_id == o.marketplace_id &&
+          origin == o.origin &&
+          views == o.views &&
+          favorites == o.favorites &&
+          quantity == o.quantity &&
           inventory_item_id == o.inventory_item_id &&
           currency == o.currency &&
           delisted_at == o.delisted_at &&
           sold_at == o.sold_at &&
+          listing_id == o.listing_id &&
           platform_listing_id == o.platform_listing_id &&
           platform_listing_url == o.platform_listing_url &&
           stock_location == o.stock_location &&
@@ -970,13 +1142,22 @@ module Crossly
           shared_at == o.shared_at &&
           delist_reason == o.delist_reason &&
           last_checked_at == o.last_checked_at &&
-          views == o.views &&
-          favorites == o.favorites &&
           comments_count == o.comments_count &&
+          impressions == o.impressions &&
+          ctr_bps == o.ctr_bps &&
+          views_semantics == o.views_semantics &&
           last_stats_synced_at == o.last_stats_synced_at &&
+          error_message == o.error_message &&
+          delist_requested_at == o.delist_requested_at &&
+          delist_requested_reason == o.delist_requested_reason &&
+          delist_failed_at == o.delist_failed_at &&
+          delist_error == o.delist_error &&
+          delist_error_code == o.delist_error_code &&
           listed_price == o.listed_price &&
           crossly_price_usd_cents == o.crossly_price_usd_cents &&
           crossly_price_fx_as_of == o.crossly_price_fx_as_of &&
+          bundle_promo == o.bundle_promo &&
+          storefront_id == o.storefront_id &&
           hashtags == o.hashtags &&
           is_draft == o.is_draft &&
           scheduled_publish_at == o.scheduled_publish_at &&
@@ -996,7 +1177,6 @@ module Crossly
           best_offer_auto_decline_cents == o.best_offer_auto_decline_cents &&
           aesthetic_tags == o.aesthetic_tags &&
           personalization == o.personalization &&
-          digital_file == o.digital_file &&
           try_days == o.try_days &&
           try_fee_cents == o.try_fee_cents &&
           subscribe_discount_bps == o.subscribe_discount_bps &&
@@ -1035,7 +1215,9 @@ module Crossly
           web3_order_id == o.web3_order_id &&
           verification_failed == o.verification_failed &&
           details_pending == o.details_pending &&
-          published_overrides == o.published_overrides
+          published_overrides == o.published_overrides &&
+          delist_state == o.delist_state &&
+          unmatched_sale == o.unmatched_sale
     end
 
     # @see the `==` method
@@ -1047,7 +1229,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, user_id, quantity, status, platform, error_message, listing_id, marketplace_id, account_slot, inventory_item_id, currency, delisted_at, sold_at, platform_listing_id, platform_listing_url, stock_location, listed_at, shared_at, delist_reason, last_checked_at, views, favorites, comments_count, last_stats_synced_at, listed_price, crossly_price_usd_cents, crossly_price_fx_as_of, hashtags, is_draft, scheduled_publish_at, is_dutch_auction, dutch_start_cents, dutch_floor_cents, dutch_ends_at, is_pre_order, expected_ship_by, preorder_deposit_percent_bps, boosted_at, image_caption, duration_days, ends_at, best_offer_enabled, best_offer_auto_accept_cents, best_offer_auto_decline_cents, aesthetic_tags, personalization, digital_file, try_days, try_fee_cents, subscribe_discount_bps, measurements, allows_local_pickup, pickup_radius_miles, pickup_lat, pickup_lng, refurbished_tier, refurb_warranty_months, refurb_battery_pct, charity_slug, charity_percent_bps, crossly_return_policy_id, crossly_shipping_policy_id, crossly_payment_policy_id, retail_price_cents, restricted_countries, auction_extend_seconds, authentication_provider_slug, authentication_required, has_variants, charity_id, min_order_quantity, wholesale_unit_price_cents, wholesale_min_quantity, auction_reserve_cents, is_gtc, handling_time_days, item_location, item_location_zip, item_location_country, declared_shipping_cost, return_policy_text, last_drift_checked_at, web3_order_id, verification_failed, details_pending, published_overrides].hash
+      [id, user_id, platform, account_slot, status, marketplace_id, origin, views, favorites, quantity, inventory_item_id, currency, delisted_at, sold_at, listing_id, platform_listing_id, platform_listing_url, stock_location, listed_at, shared_at, delist_reason, last_checked_at, comments_count, impressions, ctr_bps, views_semantics, last_stats_synced_at, error_message, delist_requested_at, delist_requested_reason, delist_failed_at, delist_error, delist_error_code, listed_price, crossly_price_usd_cents, crossly_price_fx_as_of, bundle_promo, storefront_id, hashtags, is_draft, scheduled_publish_at, is_dutch_auction, dutch_start_cents, dutch_floor_cents, dutch_ends_at, is_pre_order, expected_ship_by, preorder_deposit_percent_bps, boosted_at, image_caption, duration_days, ends_at, best_offer_enabled, best_offer_auto_accept_cents, best_offer_auto_decline_cents, aesthetic_tags, personalization, try_days, try_fee_cents, subscribe_discount_bps, measurements, allows_local_pickup, pickup_radius_miles, pickup_lat, pickup_lng, refurbished_tier, refurb_warranty_months, refurb_battery_pct, charity_slug, charity_percent_bps, crossly_return_policy_id, crossly_shipping_policy_id, crossly_payment_policy_id, retail_price_cents, restricted_countries, auction_extend_seconds, authentication_provider_slug, authentication_required, has_variants, charity_id, min_order_quantity, wholesale_unit_price_cents, wholesale_min_quantity, auction_reserve_cents, is_gtc, handling_time_days, item_location, item_location_zip, item_location_country, declared_shipping_cost, return_policy_text, last_drift_checked_at, web3_order_id, verification_failed, details_pending, published_overrides, delist_state, unmatched_sale].hash
     end
 
     # Builds the object from hash

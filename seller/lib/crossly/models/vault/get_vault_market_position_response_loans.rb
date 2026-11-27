@@ -21,11 +21,13 @@ module Crossly
 
     attr_accessor :closed_at
 
+    attr_accessor :opened_at
+
     attr_accessor :vault_item_id
 
     attr_accessor :holder_account_id
 
-    attr_accessor :opened_at
+    attr_accessor :position_id
 
     attr_accessor :book_key
 
@@ -34,8 +36,6 @@ module Crossly
     attr_accessor :late_penalty_paid_cents
 
     attr_accessor :lender_user_id
-
-    attr_accessor :position_id
 
     attr_accessor :apr_bps
 
@@ -59,14 +59,14 @@ module Crossly
         :'id' => :'id',
         :'status' => :'status',
         :'closed_at' => :'closedAt',
+        :'opened_at' => :'openedAt',
         :'vault_item_id' => :'vaultItemId',
         :'holder_account_id' => :'holderAccountId',
-        :'opened_at' => :'openedAt',
+        :'position_id' => :'positionId',
         :'book_key' => :'bookKey',
         :'fees_paid_cents' => :'feesPaidCents',
         :'late_penalty_paid_cents' => :'latePenaltyPaidCents',
         :'lender_user_id' => :'lenderUserId',
-        :'position_id' => :'positionId',
         :'apr_bps' => :'aprBps',
         :'mark_cents_at_open' => :'markCentsAtOpen',
         :'fees_accrued_cents' => :'feesAccruedCents',
@@ -89,14 +89,14 @@ module Crossly
         :'id' => :'String',
         :'status' => :'String',
         :'closed_at' => :'Time',
+        :'opened_at' => :'Time',
         :'vault_item_id' => :'String',
         :'holder_account_id' => :'String',
-        :'opened_at' => :'Time',
+        :'position_id' => :'String',
         :'book_key' => :'String',
         :'fees_paid_cents' => :'Float',
         :'late_penalty_paid_cents' => :'Float',
         :'lender_user_id' => :'String',
-        :'position_id' => :'String',
         :'apr_bps' => :'Float',
         :'mark_cents_at_open' => :'Float',
         :'fees_accrued_cents' => :'String',
@@ -146,6 +146,10 @@ module Crossly
         self.closed_at = attributes[:'closed_at']
       end
 
+      if attributes.key?(:'opened_at')
+        self.opened_at = attributes[:'opened_at']
+      end
+
       if attributes.key?(:'vault_item_id')
         self.vault_item_id = attributes[:'vault_item_id']
       end
@@ -154,8 +158,8 @@ module Crossly
         self.holder_account_id = attributes[:'holder_account_id']
       end
 
-      if attributes.key?(:'opened_at')
-        self.opened_at = attributes[:'opened_at']
+      if attributes.key?(:'position_id')
+        self.position_id = attributes[:'position_id']
       end
 
       if attributes.key?(:'book_key')
@@ -172,10 +176,6 @@ module Crossly
 
       if attributes.key?(:'lender_user_id')
         self.lender_user_id = attributes[:'lender_user_id']
-      end
-
-      if attributes.key?(:'position_id')
-        self.position_id = attributes[:'position_id']
       end
 
       if attributes.key?(:'apr_bps')
@@ -223,12 +223,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @opened_at.nil?
+        invalid_properties.push('invalid value for "opened_at", opened_at cannot be nil.')
+      end
+
       if @vault_item_id.nil?
         invalid_properties.push('invalid value for "vault_item_id", vault_item_id cannot be nil.')
       end
 
-      if @opened_at.nil?
-        invalid_properties.push('invalid value for "opened_at", opened_at cannot be nil.')
+      if @position_id.nil?
+        invalid_properties.push('invalid value for "position_id", position_id cannot be nil.')
       end
 
       if @book_key.nil?
@@ -245,10 +249,6 @@ module Crossly
 
       if @lender_user_id.nil?
         invalid_properties.push('invalid value for "lender_user_id", lender_user_id cannot be nil.')
-      end
-
-      if @position_id.nil?
-        invalid_properties.push('invalid value for "position_id", position_id cannot be nil.')
       end
 
       if @apr_bps.nil?
@@ -279,13 +279,13 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @status.nil?
-      return false if @vault_item_id.nil?
       return false if @opened_at.nil?
+      return false if @vault_item_id.nil?
+      return false if @position_id.nil?
       return false if @book_key.nil?
       return false if @fees_paid_cents.nil?
       return false if @late_penalty_paid_cents.nil?
       return false if @lender_user_id.nil?
-      return false if @position_id.nil?
       return false if @apr_bps.nil?
       return false if @mark_cents_at_open.nil?
       return false if @fees_accrued_cents.nil?
@@ -302,14 +302,14 @@ module Crossly
           id == o.id &&
           status == o.status &&
           closed_at == o.closed_at &&
+          opened_at == o.opened_at &&
           vault_item_id == o.vault_item_id &&
           holder_account_id == o.holder_account_id &&
-          opened_at == o.opened_at &&
+          position_id == o.position_id &&
           book_key == o.book_key &&
           fees_paid_cents == o.fees_paid_cents &&
           late_penalty_paid_cents == o.late_penalty_paid_cents &&
           lender_user_id == o.lender_user_id &&
-          position_id == o.position_id &&
           apr_bps == o.apr_bps &&
           mark_cents_at_open == o.mark_cents_at_open &&
           fees_accrued_cents == o.fees_accrued_cents &&
@@ -329,7 +329,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, closed_at, vault_item_id, holder_account_id, opened_at, book_key, fees_paid_cents, late_penalty_paid_cents, lender_user_id, position_id, apr_bps, mark_cents_at_open, fees_accrued_cents, lender_storage_cents, recalled_at, recall_due_at, returned_vault_item_id, late_penalty_accrued_cents].hash
+      [id, status, closed_at, opened_at, vault_item_id, holder_account_id, position_id, book_key, fees_paid_cents, late_penalty_paid_cents, lender_user_id, apr_bps, mark_cents_at_open, fees_accrued_cents, lender_storage_cents, recalled_at, recall_due_at, returned_vault_item_id, late_penalty_accrued_cents].hash
     end
 
     # Builds the object from hash

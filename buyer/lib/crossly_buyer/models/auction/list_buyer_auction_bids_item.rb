@@ -15,18 +15,18 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerAuctionBidsItem
-    attr_accessor :amount_cents
-
     # \"You\" for your own bids; otherwise anonymised, e.g. \"a***e (12)\".
     attr_accessor :bidder
+
+    attr_accessor :amount_cents
 
     attr_accessor :placed_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'amount_cents' => :'amountCents',
         :'bidder' => :'bidder',
+        :'amount_cents' => :'amountCents',
         :'placed_at' => :'placedAt'
       }
     end
@@ -39,8 +39,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'amount_cents' => :'Float',
         :'bidder' => :'String',
+        :'amount_cents' => :'Float',
         :'placed_at' => :'String'
       }
     end
@@ -67,12 +67,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'amount_cents')
-        self.amount_cents = attributes[:'amount_cents']
-      end
-
       if attributes.key?(:'bidder')
         self.bidder = attributes[:'bidder']
+      end
+
+      if attributes.key?(:'amount_cents')
+        self.amount_cents = attributes[:'amount_cents']
       end
 
       if attributes.key?(:'placed_at')
@@ -84,12 +84,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @amount_cents.nil?
-        invalid_properties.push('invalid value for "amount_cents", amount_cents cannot be nil.')
-      end
-
       if @bidder.nil?
         invalid_properties.push('invalid value for "bidder", bidder cannot be nil.')
+      end
+
+      if @amount_cents.nil?
+        invalid_properties.push('invalid value for "amount_cents", amount_cents cannot be nil.')
       end
 
       invalid_properties
@@ -98,8 +98,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @amount_cents.nil?
       return false if @bidder.nil?
+      return false if @amount_cents.nil?
       true
     end
 
@@ -108,8 +108,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          amount_cents == o.amount_cents &&
           bidder == o.bidder &&
+          amount_cents == o.amount_cents &&
           placed_at == o.placed_at
     end
 
@@ -122,7 +122,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount_cents, bidder, placed_at].hash
+      [bidder, amount_cents, placed_at].hash
     end
 
     # Builds the object from hash

@@ -167,7 +167,7 @@ module Crossly
       return false if @slug.nil?
       return false if @name.nil?
       return false if @venue.nil?
-      venue_validator = EnumAttributeValidator.new('String', ["gallery", "card_club", "sneaker_meet", "vintage_market", "stage", "clubhouse"])
+      venue_validator = EnumAttributeValidator.new('String', ["stage", "gallery", "card_club", "sneaker_meet", "vintage_market", "clubhouse"])
       return false unless venue_validator.valid?(@venue)
       return false if @members.nil?
       return false if @here.nil?
@@ -177,7 +177,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] venue Object to be assigned
     def venue=(venue)
-      validator = EnumAttributeValidator.new('String', ["gallery", "card_club", "sneaker_meet", "vintage_market", "stage", "clubhouse"])
+      validator = EnumAttributeValidator.new('String', ["stage", "gallery", "card_club", "sneaker_meet", "vintage_market", "clubhouse"])
       unless validator.valid?(venue)
         fail ArgumentError, "invalid value for \"venue\", must be one of #{validator.allowable_values}."
       end

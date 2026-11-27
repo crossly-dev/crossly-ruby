@@ -40,11 +40,14 @@ module Crossly
     # The thing ITSELF as a 3D object in a case or on a shelf (shared listing-space.ts): never a flat photo. Not for NFTs.
     attr_accessor :object
 
-    # A `vault` ref: the unit's market (a book key), so a click opens /shop/vault/markets/<market>.
+    # A `vault` ref: the unit's market (a book key), so a click opens /trading/<market>.
     attr_accessor :market
 
     # A `vault` ref, to its OWNER only: visitors may see it (vm_home_display.visitors).
     attr_accessor :visitors
+
+    # The owner's open Trade Block post for this same product (trade-posts.ts): \"Offer a trade\" opens it.
+    attr_accessor :trade_post_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -59,7 +62,8 @@ module Crossly
         :'found' => :'found',
         :'object' => :'object',
         :'market' => :'market',
-        :'visitors' => :'visitors'
+        :'visitors' => :'visitors',
+        :'trade_post_id' => :'tradePostId'
       }
     end
 
@@ -81,7 +85,8 @@ module Crossly
         :'found' => :'String',
         :'object' => :'String',
         :'market' => :'String',
-        :'visitors' => :'Boolean'
+        :'visitors' => :'Boolean',
+        :'trade_post_id' => :'String'
       }
     end
 
@@ -97,7 +102,8 @@ module Crossly
         :'found',
         :'object',
         :'market',
-        :'visitors'
+        :'visitors',
+        :'trade_post_id'
       ])
     end
 
@@ -159,6 +165,10 @@ module Crossly
       if attributes.key?(:'visitors')
         self.visitors = attributes[:'visitors']
       end
+
+      if attributes.key?(:'trade_post_id')
+        self.trade_post_id = attributes[:'trade_post_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -194,7 +204,8 @@ module Crossly
           found == o.found &&
           object == o.object &&
           market == o.market &&
-          visitors == o.visitors
+          visitors == o.visitors &&
+          trade_post_id == o.trade_post_id
     end
 
     # @see the `==` method
@@ -206,7 +217,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [title, image_url, grade, listing_slug, model, crossly, space, found, object, market, visitors].hash
+      [title, image_url, grade, listing_slug, model, crossly, space, found, object, market, visitors, trade_post_id].hash
     end
 
     # Builds the object from hash

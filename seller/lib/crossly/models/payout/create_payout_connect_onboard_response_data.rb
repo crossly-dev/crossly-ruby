@@ -21,8 +21,9 @@ module Crossly
 
     attr_accessor :agreement
 
-    # False when Stripe offers no way for Crossly to pay this account (see connect.ts).
     attr_accessor :payouts_supported
+
+    attr_accessor :account_source
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -52,7 +53,8 @@ module Crossly
         :'url' => :'url',
         :'country' => :'country',
         :'agreement' => :'agreement',
-        :'payouts_supported' => :'payoutsSupported'
+        :'payouts_supported' => :'payoutsSupported',
+        :'account_source' => :'accountSource'
       }
     end
 
@@ -67,7 +69,8 @@ module Crossly
         :'url' => :'String',
         :'country' => :'String',
         :'agreement' => :'String',
-        :'payouts_supported' => :'Boolean'
+        :'payouts_supported' => :'Boolean',
+        :'account_source' => :'String'
       }
     end
 
@@ -107,6 +110,10 @@ module Crossly
       if attributes.key?(:'payouts_supported')
         self.payouts_supported = attributes[:'payouts_supported']
       end
+
+      if attributes.key?(:'account_source')
+        self.account_source = attributes[:'account_source']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -129,6 +136,10 @@ module Crossly
         invalid_properties.push('invalid value for "payouts_supported", payouts_supported cannot be nil.')
       end
 
+      if @account_source.nil?
+        invalid_properties.push('invalid value for "account_source", account_source cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -141,6 +152,7 @@ module Crossly
       agreement_validator = EnumAttributeValidator.new('String', ["full", "recipient"])
       return false unless agreement_validator.valid?(@agreement)
       return false if @payouts_supported.nil?
+      return false if @account_source.nil?
       true
     end
 
@@ -162,7 +174,8 @@ module Crossly
           url == o.url &&
           country == o.country &&
           agreement == o.agreement &&
-          payouts_supported == o.payouts_supported
+          payouts_supported == o.payouts_supported &&
+          account_source == o.account_source
     end
 
     # @see the `==` method
@@ -174,7 +187,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, country, agreement, payouts_supported].hash
+      [url, country, agreement, payouts_supported, account_source].hash
     end
 
     # Builds the object from hash

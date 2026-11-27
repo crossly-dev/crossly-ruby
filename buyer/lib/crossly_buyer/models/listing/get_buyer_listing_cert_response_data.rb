@@ -203,7 +203,7 @@ module CrosslyBuyer
       return false if @grader_name.nil?
       return false if @grade.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["verified", "not_found", "mismatch", "unchecked"])
+      status_validator = EnumAttributeValidator.new('String', ["verified", "mismatch", "not_found", "unchecked"])
       return false unless status_validator.valid?(@status)
       true
     end
@@ -211,7 +211,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["verified", "not_found", "mismatch", "unchecked"])
+      validator = EnumAttributeValidator.new('String', ["verified", "mismatch", "not_found", "unchecked"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

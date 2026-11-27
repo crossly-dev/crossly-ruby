@@ -19,13 +19,13 @@ module CrosslyBuyer
 
     attr_accessor :name
 
-    attr_accessor :available
-
-    attr_accessor :min_value_cents
-
     attr_accessor :weight
 
     attr_accessor :odds_pct
+
+    attr_accessor :available
+
+    attr_accessor :min_value_cents
 
     attr_accessor :max_value_cents
 
@@ -36,10 +36,10 @@ module CrosslyBuyer
       {
         :'id' => :'id',
         :'name' => :'name',
-        :'available' => :'available',
-        :'min_value_cents' => :'minValueCents',
         :'weight' => :'weight',
         :'odds_pct' => :'oddsPct',
+        :'available' => :'available',
+        :'min_value_cents' => :'minValueCents',
         :'max_value_cents' => :'maxValueCents',
         :'avg_value_cents' => :'avgValueCents'
       }
@@ -55,10 +55,10 @@ module CrosslyBuyer
       {
         :'id' => :'String',
         :'name' => :'String',
-        :'available' => :'Float',
-        :'min_value_cents' => :'Float',
         :'weight' => :'Float',
         :'odds_pct' => :'Float',
+        :'available' => :'Float',
+        :'min_value_cents' => :'Float',
         :'max_value_cents' => :'Float',
         :'avg_value_cents' => :'Float'
       }
@@ -95,20 +95,20 @@ module CrosslyBuyer
         self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'available')
-        self.available = attributes[:'available']
-      end
-
-      if attributes.key?(:'min_value_cents')
-        self.min_value_cents = attributes[:'min_value_cents']
-      end
-
       if attributes.key?(:'weight')
         self.weight = attributes[:'weight']
       end
 
       if attributes.key?(:'odds_pct')
         self.odds_pct = attributes[:'odds_pct']
+      end
+
+      if attributes.key?(:'available')
+        self.available = attributes[:'available']
+      end
+
+      if attributes.key?(:'min_value_cents')
+        self.min_value_cents = attributes[:'min_value_cents']
       end
 
       if attributes.key?(:'max_value_cents')
@@ -132,16 +132,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
-      if @available.nil?
-        invalid_properties.push('invalid value for "available", available cannot be nil.')
-      end
-
       if @weight.nil?
         invalid_properties.push('invalid value for "weight", weight cannot be nil.')
       end
 
       if @odds_pct.nil?
         invalid_properties.push('invalid value for "odds_pct", odds_pct cannot be nil.')
+      end
+
+      if @available.nil?
+        invalid_properties.push('invalid value for "available", available cannot be nil.')
       end
 
       if @avg_value_cents.nil?
@@ -156,9 +156,9 @@ module CrosslyBuyer
     def valid?
       return false if @id.nil?
       return false if @name.nil?
-      return false if @available.nil?
       return false if @weight.nil?
       return false if @odds_pct.nil?
+      return false if @available.nil?
       return false if @avg_value_cents.nil?
       true
     end
@@ -170,10 +170,10 @@ module CrosslyBuyer
       self.class == o.class &&
           id == o.id &&
           name == o.name &&
-          available == o.available &&
-          min_value_cents == o.min_value_cents &&
           weight == o.weight &&
           odds_pct == o.odds_pct &&
+          available == o.available &&
+          min_value_cents == o.min_value_cents &&
           max_value_cents == o.max_value_cents &&
           avg_value_cents == o.avg_value_cents
     end
@@ -187,7 +187,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, available, min_value_cents, weight, odds_pct, max_value_cents, avg_value_cents].hash
+      [id, name, weight, odds_pct, available, min_value_cents, max_value_cents, avg_value_cents].hash
     end
 
     # Builds the object from hash

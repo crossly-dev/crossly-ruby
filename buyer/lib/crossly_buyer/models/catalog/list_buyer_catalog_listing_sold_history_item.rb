@@ -15,19 +15,19 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerCatalogListingSoldHistoryItem
+    # Per-unit item price the buyer paid, in cents — excludes shipping and tax.
+    attr_accessor :price_cents
+
     attr_accessor :quantity
 
     attr_accessor :sold_at
 
-    # Per-unit item price the buyer paid, in cents — excludes shipping and tax.
-    attr_accessor :price_cents
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'price_cents' => :'priceCents',
         :'quantity' => :'quantity',
-        :'sold_at' => :'soldAt',
-        :'price_cents' => :'priceCents'
+        :'sold_at' => :'soldAt'
       }
     end
 
@@ -39,9 +39,9 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'price_cents' => :'Float',
         :'quantity' => :'Float',
-        :'sold_at' => :'String',
-        :'price_cents' => :'Float'
+        :'sold_at' => :'String'
       }
     end
 
@@ -66,6 +66,10 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'price_cents')
+        self.price_cents = attributes[:'price_cents']
+      end
+
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
       end
@@ -73,16 +77,16 @@ module CrosslyBuyer
       if attributes.key?(:'sold_at')
         self.sold_at = attributes[:'sold_at']
       end
-
-      if attributes.key?(:'price_cents')
-        self.price_cents = attributes[:'price_cents']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @price_cents.nil?
+        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      end
+
       if @quantity.nil?
         invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
@@ -91,19 +95,15 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "sold_at", sold_at cannot be nil.')
       end
 
-      if @price_cents.nil?
-        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @price_cents.nil?
       return false if @quantity.nil?
       return false if @sold_at.nil?
-      return false if @price_cents.nil?
       true
     end
 
@@ -112,9 +112,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          price_cents == o.price_cents &&
           quantity == o.quantity &&
-          sold_at == o.sold_at &&
-          price_cents == o.price_cents
+          sold_at == o.sold_at
     end
 
     # @see the `==` method
@@ -126,7 +126,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [quantity, sold_at, price_cents].hash
+      [price_cents, quantity, sold_at].hash
     end
 
     # Builds the object from hash

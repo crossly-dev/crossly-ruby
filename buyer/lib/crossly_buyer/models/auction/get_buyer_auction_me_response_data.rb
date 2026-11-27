@@ -17,11 +17,11 @@ module CrosslyBuyer
   class GetBuyerAuctionMeResponseData
     attr_accessor :bidding
 
-    attr_accessor :won
-
     attr_accessor :my_max_cents
 
     attr_accessor :leading
+
+    attr_accessor :won
 
     # Won, and the charge at close did not go through — call pay.
     attr_accessor :needs_payment
@@ -30,9 +30,9 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'bidding' => :'bidding',
-        :'won' => :'won',
         :'my_max_cents' => :'myMaxCents',
         :'leading' => :'leading',
+        :'won' => :'won',
         :'needs_payment' => :'needsPayment'
       }
     end
@@ -46,9 +46,9 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'bidding' => :'Boolean',
-        :'won' => :'Boolean',
         :'my_max_cents' => :'Float',
         :'leading' => :'Boolean',
+        :'won' => :'Boolean',
         :'needs_payment' => :'Boolean'
       }
     end
@@ -56,9 +56,9 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'won',
         :'my_max_cents',
         :'leading',
+        :'won',
         :'needs_payment'
       ])
     end
@@ -82,16 +82,16 @@ module CrosslyBuyer
         self.bidding = attributes[:'bidding']
       end
 
-      if attributes.key?(:'won')
-        self.won = attributes[:'won']
-      end
-
       if attributes.key?(:'my_max_cents')
         self.my_max_cents = attributes[:'my_max_cents']
       end
 
       if attributes.key?(:'leading')
         self.leading = attributes[:'leading']
+      end
+
+      if attributes.key?(:'won')
+        self.won = attributes[:'won']
       end
 
       if attributes.key?(:'needs_payment')
@@ -123,9 +123,9 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           bidding == o.bidding &&
-          won == o.won &&
           my_max_cents == o.my_max_cents &&
           leading == o.leading &&
+          won == o.won &&
           needs_payment == o.needs_payment
     end
 
@@ -138,7 +138,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [bidding, won, my_max_cents, leading, needs_payment].hash
+      [bidding, my_max_cents, leading, won, needs_payment].hash
     end
 
     # Builds the object from hash

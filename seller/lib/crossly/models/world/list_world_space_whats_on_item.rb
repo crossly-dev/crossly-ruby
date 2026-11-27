@@ -200,7 +200,7 @@ module Crossly
       return false if @slug.nil?
       return false if @space_name.nil?
       return false if @place.nil?
-      place_validator = EnumAttributeValidator.new('String', ["street", "festival", "space", "stage"])
+      place_validator = EnumAttributeValidator.new('String', ["stage", "street", "festival", "space"])
       return false unless place_validator.valid?(@place)
       true
     end
@@ -208,7 +208,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] place Object to be assigned
     def place=(place)
-      validator = EnumAttributeValidator.new('String', ["street", "festival", "space", "stage"])
+      validator = EnumAttributeValidator.new('String', ["stage", "street", "festival", "space"])
       unless validator.valid?(place)
         fail ArgumentError, "invalid value for \"place\", must be one of #{validator.allowable_values}."
       end

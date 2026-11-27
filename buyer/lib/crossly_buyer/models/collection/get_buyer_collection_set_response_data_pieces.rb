@@ -15,27 +15,27 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCollectionSetResponseDataPieces
-    attr_accessor :number
+    attr_accessor :sku_id
 
     attr_accessor :title
 
     attr_accessor :image_url
 
-    attr_accessor :sku_id
-
-    attr_accessor :best_ask_cents
+    attr_accessor :number
 
     attr_accessor :owned
+
+    attr_accessor :best_ask_cents
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'number' => :'number',
+        :'sku_id' => :'skuId',
         :'title' => :'title',
         :'image_url' => :'imageUrl',
-        :'sku_id' => :'skuId',
-        :'best_ask_cents' => :'bestAskCents',
-        :'owned' => :'owned'
+        :'number' => :'number',
+        :'owned' => :'owned',
+        :'best_ask_cents' => :'bestAskCents'
       }
     end
 
@@ -47,12 +47,12 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'number' => :'Float',
+        :'sku_id' => :'String',
         :'title' => :'String',
         :'image_url' => :'String',
-        :'sku_id' => :'String',
-        :'best_ask_cents' => :'Float',
-        :'owned' => :'Boolean'
+        :'number' => :'Float',
+        :'owned' => :'Boolean',
+        :'best_ask_cents' => :'Float'
       }
     end
 
@@ -60,7 +60,7 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'image_url',
-        :'best_ask_cents',
+        :'best_ask_cents'
       ])
     end
 
@@ -79,8 +79,8 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'number')
-        self.number = attributes[:'number']
+      if attributes.key?(:'sku_id')
+        self.sku_id = attributes[:'sku_id']
       end
 
       if attributes.key?(:'title')
@@ -91,16 +91,16 @@ module CrosslyBuyer
         self.image_url = attributes[:'image_url']
       end
 
-      if attributes.key?(:'sku_id')
-        self.sku_id = attributes[:'sku_id']
-      end
-
-      if attributes.key?(:'best_ask_cents')
-        self.best_ask_cents = attributes[:'best_ask_cents']
+      if attributes.key?(:'number')
+        self.number = attributes[:'number']
       end
 
       if attributes.key?(:'owned')
         self.owned = attributes[:'owned']
+      end
+
+      if attributes.key?(:'best_ask_cents')
+        self.best_ask_cents = attributes[:'best_ask_cents']
       end
     end
 
@@ -108,16 +108,16 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @number.nil?
-        invalid_properties.push('invalid value for "number", number cannot be nil.')
+      if @sku_id.nil?
+        invalid_properties.push('invalid value for "sku_id", sku_id cannot be nil.')
       end
 
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
-      if @sku_id.nil?
-        invalid_properties.push('invalid value for "sku_id", sku_id cannot be nil.')
+      if @number.nil?
+        invalid_properties.push('invalid value for "number", number cannot be nil.')
       end
 
       if @owned.nil?
@@ -130,9 +130,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @number.nil?
-      return false if @title.nil?
       return false if @sku_id.nil?
+      return false if @title.nil?
+      return false if @number.nil?
       return false if @owned.nil?
       true
     end
@@ -142,12 +142,12 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          number == o.number &&
+          sku_id == o.sku_id &&
           title == o.title &&
           image_url == o.image_url &&
-          sku_id == o.sku_id &&
-          best_ask_cents == o.best_ask_cents &&
-          owned == o.owned
+          number == o.number &&
+          owned == o.owned &&
+          best_ask_cents == o.best_ask_cents
     end
 
     # @see the `==` method
@@ -159,7 +159,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [number, title, image_url, sku_id, best_ask_cents, owned].hash
+      [sku_id, title, image_url, number, owned, best_ask_cents].hash
     end
 
     # Builds the object from hash

@@ -15,18 +15,26 @@ require 'time'
 
 module Crossly
   class GetInventorySellThroughResponseDataComparison
+    # Always null: a relative change of a rate is not reported. Read `pp`.
     attr_accessor :pct_change
+
+    # Percentage points, null when not comparable.
+    attr_accessor :pp
 
     attr_accessor :comparable
 
     attr_accessor :reason
 
+    attr_accessor :delta
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'pct_change' => :'pctChange',
+        :'pp' => :'pp',
         :'comparable' => :'comparable',
-        :'reason' => :'reason'
+        :'reason' => :'reason',
+        :'delta' => :'delta'
       }
     end
 
@@ -38,9 +46,11 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'pct_change' => :'Float',
+        :'pct_change' => :'Object',
+        :'pp' => :'Float',
         :'comparable' => :'Boolean',
-        :'reason' => :'String'
+        :'reason' => :'String',
+        :'delta' => :'GetAnalyticOverviewResponseDataKpisNetSalesDelta'
       }
     end
 
@@ -48,7 +58,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'pct_change',
-        :'reason'
+        :'pp',
+        :'reason',
       ])
     end
 
@@ -71,12 +82,20 @@ module Crossly
         self.pct_change = attributes[:'pct_change']
       end
 
+      if attributes.key?(:'pp')
+        self.pp = attributes[:'pp']
+      end
+
       if attributes.key?(:'comparable')
         self.comparable = attributes[:'comparable']
       end
 
       if attributes.key?(:'reason')
         self.reason = attributes[:'reason']
+      end
+
+      if attributes.key?(:'delta')
+        self.delta = attributes[:'delta']
       end
     end
 
@@ -88,6 +107,10 @@ module Crossly
         invalid_properties.push('invalid value for "comparable", comparable cannot be nil.')
       end
 
+      if @delta.nil?
+        invalid_properties.push('invalid value for "delta", delta cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -95,6 +118,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @comparable.nil?
+      return false if @delta.nil?
       true
     end
 
@@ -104,8 +128,10 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           pct_change == o.pct_change &&
+          pp == o.pp &&
           comparable == o.comparable &&
-          reason == o.reason
+          reason == o.reason &&
+          delta == o.delta
     end
 
     # @see the `==` method
@@ -117,7 +143,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [pct_change, comparable, reason].hash
+      [pct_change, pp, comparable, reason, delta].hash
     end
 
     # Builds the object from hash

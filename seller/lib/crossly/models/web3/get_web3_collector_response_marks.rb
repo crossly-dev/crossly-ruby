@@ -163,7 +163,7 @@ module Crossly
       return false if @contract.nil?
       return false if @token_id.nil?
       return false if @source.nil?
-      source_validator = EnumAttributeValidator.new('String', ["crossly", "card", "tensor", "magic_eden", "rarible"])
+      source_validator = EnumAttributeValidator.new('String', ["crossly", "card", "rarible", "magic_eden", "tensor"])
       return false unless source_validator.valid?(@source)
       return false if @bought_at.nil?
       return false if @relist_reward.nil?
@@ -173,7 +173,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source Object to be assigned
     def source=(source)
-      validator = EnumAttributeValidator.new('String', ["crossly", "card", "tensor", "magic_eden", "rarible"])
+      validator = EnumAttributeValidator.new('String', ["crossly", "card", "rarible", "magic_eden", "tensor"])
       unless validator.valid?(source)
         fail ArgumentError, "invalid value for \"source\", must be one of #{validator.allowable_values}."
       end

@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerListingFitResponseDataChartRows
-    attr_accessor :label
-
     attr_accessor :key
+
+    attr_accessor :label
 
     attr_accessor :inches
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'label' => :'label',
         :'key' => :'key',
+        :'label' => :'label',
         :'inches' => :'inches'
       }
     end
@@ -38,8 +38,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'label' => :'String',
         :'key' => :'String',
+        :'label' => :'String',
         :'inches' => :'Float'
       }
     end
@@ -65,12 +65,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'label')
-        self.label = attributes[:'label']
-      end
-
       if attributes.key?(:'key')
         self.key = attributes[:'key']
+      end
+
+      if attributes.key?(:'label')
+        self.label = attributes[:'label']
       end
 
       if attributes.key?(:'inches')
@@ -82,12 +82,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @label.nil?
-        invalid_properties.push('invalid value for "label", label cannot be nil.')
-      end
-
       if @key.nil?
         invalid_properties.push('invalid value for "key", key cannot be nil.')
+      end
+
+      if @label.nil?
+        invalid_properties.push('invalid value for "label", label cannot be nil.')
       end
 
       if @inches.nil?
@@ -100,8 +100,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @label.nil?
       return false if @key.nil?
+      return false if @label.nil?
       return false if @inches.nil?
       true
     end
@@ -111,8 +111,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          label == o.label &&
           key == o.key &&
+          label == o.label &&
           inches == o.inches
     end
 
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [label, key, inches].hash
+      [key, label, inches].hash
     end
 
     # Builds the object from hash

@@ -29,25 +29,35 @@ module Crossly
 
     attr_accessor :active
 
+    attr_accessor :quantity
+
     attr_accessor :platform_listing_id
+
+    attr_accessor :storefront_id
+
+    attr_accessor :options
 
     attr_accessor :seller_user_id
 
     attr_accessor :deposit_cents
 
-    attr_accessor :daily_cents
-
-    attr_accessor :weekly_cents
-
     attr_accessor :min_days
 
     attr_accessor :max_days
+
+    attr_accessor :daily_cents
+
+    attr_accessor :weekly_cents
 
     attr_accessor :buffer_days
 
     attr_accessor :rent_only
 
     attr_accessor :require_approval
+
+    attr_accessor :blackout_ranges
+
+    attr_accessor :return_policy
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -59,16 +69,21 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'active' => :'active',
+        :'quantity' => :'quantity',
         :'platform_listing_id' => :'platformListingId',
+        :'storefront_id' => :'storefrontId',
+        :'options' => :'options',
         :'seller_user_id' => :'sellerUserId',
         :'deposit_cents' => :'depositCents',
-        :'daily_cents' => :'dailyCents',
-        :'weekly_cents' => :'weeklyCents',
         :'min_days' => :'minDays',
         :'max_days' => :'maxDays',
+        :'daily_cents' => :'dailyCents',
+        :'weekly_cents' => :'weeklyCents',
         :'buffer_days' => :'bufferDays',
         :'rent_only' => :'rentOnly',
-        :'require_approval' => :'requireApproval'
+        :'require_approval' => :'requireApproval',
+        :'blackout_ranges' => :'blackoutRanges',
+        :'return_policy' => :'returnPolicy'
       }
     end
 
@@ -87,23 +102,30 @@ module Crossly
         :'created_at' => :'String',
         :'updated_at' => :'String',
         :'active' => :'Boolean',
+        :'quantity' => :'Float',
         :'platform_listing_id' => :'String',
+        :'storefront_id' => :'String',
+        :'options' => :'Hash<String, Object>',
         :'seller_user_id' => :'String',
         :'deposit_cents' => :'Float',
-        :'daily_cents' => :'Float',
-        :'weekly_cents' => :'Float',
         :'min_days' => :'Float',
         :'max_days' => :'Float',
+        :'daily_cents' => :'Float',
+        :'weekly_cents' => :'Float',
         :'buffer_days' => :'Float',
         :'rent_only' => :'Boolean',
-        :'require_approval' => :'Boolean'
+        :'require_approval' => :'Boolean',
+        :'blackout_ranges' => :'Array<StartEnd>',
+        :'return_policy' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'storefront_id',
         :'weekly_cents',
+        :'return_policy'
       ])
     end
 
@@ -150,8 +172,22 @@ module Crossly
         self.active = attributes[:'active']
       end
 
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
+      end
+
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'options')
+        if (value = attributes[:'options']).is_a?(Hash)
+          self.options = value
+        end
       end
 
       if attributes.key?(:'seller_user_id')
@@ -162,20 +198,20 @@ module Crossly
         self.deposit_cents = attributes[:'deposit_cents']
       end
 
-      if attributes.key?(:'daily_cents')
-        self.daily_cents = attributes[:'daily_cents']
-      end
-
-      if attributes.key?(:'weekly_cents')
-        self.weekly_cents = attributes[:'weekly_cents']
-      end
-
       if attributes.key?(:'min_days')
         self.min_days = attributes[:'min_days']
       end
 
       if attributes.key?(:'max_days')
         self.max_days = attributes[:'max_days']
+      end
+
+      if attributes.key?(:'daily_cents')
+        self.daily_cents = attributes[:'daily_cents']
+      end
+
+      if attributes.key?(:'weekly_cents')
+        self.weekly_cents = attributes[:'weekly_cents']
       end
 
       if attributes.key?(:'buffer_days')
@@ -188,6 +224,16 @@ module Crossly
 
       if attributes.key?(:'require_approval')
         self.require_approval = attributes[:'require_approval']
+      end
+
+      if attributes.key?(:'blackout_ranges')
+        if (value = attributes[:'blackout_ranges']).is_a?(Array)
+          self.blackout_ranges = value
+        end
+      end
+
+      if attributes.key?(:'return_policy')
+        self.return_policy = attributes[:'return_policy']
       end
     end
 
@@ -223,8 +269,16 @@ module Crossly
         invalid_properties.push('invalid value for "active", active cannot be nil.')
       end
 
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
+      end
+
       if @platform_listing_id.nil?
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
+      end
+
+      if @options.nil?
+        invalid_properties.push('invalid value for "options", options cannot be nil.')
       end
 
       if @seller_user_id.nil?
@@ -235,16 +289,16 @@ module Crossly
         invalid_properties.push('invalid value for "deposit_cents", deposit_cents cannot be nil.')
       end
 
-      if @daily_cents.nil?
-        invalid_properties.push('invalid value for "daily_cents", daily_cents cannot be nil.')
-      end
-
       if @min_days.nil?
         invalid_properties.push('invalid value for "min_days", min_days cannot be nil.')
       end
 
       if @max_days.nil?
         invalid_properties.push('invalid value for "max_days", max_days cannot be nil.')
+      end
+
+      if @daily_cents.nil?
+        invalid_properties.push('invalid value for "daily_cents", daily_cents cannot be nil.')
       end
 
       if @buffer_days.nil?
@@ -257,6 +311,10 @@ module Crossly
 
       if @require_approval.nil?
         invalid_properties.push('invalid value for "require_approval", require_approval cannot be nil.')
+      end
+
+      if @blackout_ranges.nil?
+        invalid_properties.push('invalid value for "blackout_ranges", blackout_ranges cannot be nil.')
       end
 
       invalid_properties
@@ -272,15 +330,18 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @active.nil?
+      return false if @quantity.nil?
       return false if @platform_listing_id.nil?
+      return false if @options.nil?
       return false if @seller_user_id.nil?
       return false if @deposit_cents.nil?
-      return false if @daily_cents.nil?
       return false if @min_days.nil?
       return false if @max_days.nil?
+      return false if @daily_cents.nil?
       return false if @buffer_days.nil?
       return false if @rent_only.nil?
       return false if @require_approval.nil?
+      return false if @blackout_ranges.nil?
       true
     end
 
@@ -296,16 +357,21 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           active == o.active &&
+          quantity == o.quantity &&
           platform_listing_id == o.platform_listing_id &&
+          storefront_id == o.storefront_id &&
+          options == o.options &&
           seller_user_id == o.seller_user_id &&
           deposit_cents == o.deposit_cents &&
-          daily_cents == o.daily_cents &&
-          weekly_cents == o.weekly_cents &&
           min_days == o.min_days &&
           max_days == o.max_days &&
+          daily_cents == o.daily_cents &&
+          weekly_cents == o.weekly_cents &&
           buffer_days == o.buffer_days &&
           rent_only == o.rent_only &&
-          require_approval == o.require_approval
+          require_approval == o.require_approval &&
+          blackout_ranges == o.blackout_ranges &&
+          return_policy == o.return_policy
     end
 
     # @see the `==` method
@@ -317,7 +383,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, listing_id, title, image_url, created_at, updated_at, active, platform_listing_id, seller_user_id, deposit_cents, daily_cents, weekly_cents, min_days, max_days, buffer_days, rent_only, require_approval].hash
+      [slug, listing_id, title, image_url, created_at, updated_at, active, quantity, platform_listing_id, storefront_id, options, seller_user_id, deposit_cents, min_days, max_days, daily_cents, weekly_cents, buffer_days, rent_only, require_approval, blackout_ranges, return_policy].hash
     end
 
     # Builds the object from hash

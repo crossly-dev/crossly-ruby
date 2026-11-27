@@ -236,13 +236,13 @@ module Crossly
       return false if @slug.nil?
       return false if @name.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["custom", "brand", "category", "curated", "composite", "segment"])
+      kind_validator = EnumAttributeValidator.new('String', ["custom", "brand", "category", "segment", "curated", "composite"])
       return false unless kind_validator.valid?(@kind)
       return false if @weighting.nil?
       weighting_validator = EnumAttributeValidator.new('String', ["mark", "equal", "vault_cap", "turnover"])
       return false unless weighting_validator.valid?(@weighting)
       return false if @quality.nil?
-      quality_validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      quality_validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       return false unless quality_validator.valid?(@quality)
       return false if @n.nil?
       return false if @insufficient.nil?
@@ -255,7 +255,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["custom", "brand", "category", "curated", "composite", "segment"])
+      validator = EnumAttributeValidator.new('String', ["custom", "brand", "category", "segment", "curated", "composite"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -275,7 +275,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] quality Object to be assigned
     def quality=(quality)
-      validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       unless validator.valid?(quality)
         fail ArgumentError, "invalid value for \"quality\", must be one of #{validator.allowable_values}."
       end

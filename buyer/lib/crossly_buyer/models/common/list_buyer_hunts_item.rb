@@ -21,11 +21,11 @@ module CrosslyBuyer
 
     attr_accessor :mode
 
-    attr_accessor :status
-
     attr_accessor :max_price_cents
 
     attr_accessor :buys_left
+
+    attr_accessor :status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -33,9 +33,9 @@ module CrosslyBuyer
         :'id' => :'id',
         :'name' => :'name',
         :'mode' => :'mode',
-        :'status' => :'status',
         :'max_price_cents' => :'maxPriceCents',
-        :'buys_left' => :'buysLeft'
+        :'buys_left' => :'buysLeft',
+        :'status' => :'status'
       }
     end
 
@@ -50,9 +50,9 @@ module CrosslyBuyer
         :'id' => :'String',
         :'name' => :'String',
         :'mode' => :'String',
-        :'status' => :'String',
         :'max_price_cents' => :'Float',
-        :'buys_left' => :'Float'
+        :'buys_left' => :'Float',
+        :'status' => :'String'
       }
     end
 
@@ -89,16 +89,16 @@ module CrosslyBuyer
         self.mode = attributes[:'mode']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'max_price_cents')
         self.max_price_cents = attributes[:'max_price_cents']
       end
 
       if attributes.key?(:'buys_left')
         self.buys_left = attributes[:'buys_left']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
     end
 
@@ -118,16 +118,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "mode", mode cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @max_price_cents.nil?
         invalid_properties.push('invalid value for "max_price_cents", max_price_cents cannot be nil.')
       end
 
       if @buys_left.nil?
         invalid_properties.push('invalid value for "buys_left", buys_left cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       invalid_properties
@@ -139,9 +139,9 @@ module CrosslyBuyer
       return false if @id.nil?
       return false if @name.nil?
       return false if @mode.nil?
-      return false if @status.nil?
       return false if @max_price_cents.nil?
       return false if @buys_left.nil?
+      return false if @status.nil?
       true
     end
 
@@ -153,9 +153,9 @@ module CrosslyBuyer
           id == o.id &&
           name == o.name &&
           mode == o.mode &&
-          status == o.status &&
           max_price_cents == o.max_price_cents &&
-          buys_left == o.buys_left
+          buys_left == o.buys_left &&
+          status == o.status
     end
 
     # @see the `==` method
@@ -167,7 +167,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, mode, status, max_price_cents, buys_left].hash
+      [id, name, mode, max_price_cents, buys_left, status].hash
     end
 
     # Builds the object from hash

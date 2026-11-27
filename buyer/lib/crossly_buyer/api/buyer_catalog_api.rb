@@ -730,10 +730,11 @@ module CrosslyBuyer
     end
 
     # Shipping services and prices to a destination.
-    # Lists every shipping service the seller offers to `country` (default: the seller’s own country) with its price for `quantity` units and its delivery window in business days (handling included). `zip` is required for a domestic quote. `shipsToCountry: false` means the seller does not ship there. Pass a service `id` as `shippingServiceId` to POST /api/v1/buyer/checkout, or in `shippingServiceBySeller` to POST /api/v1/buyer/cart/quote.
+    # Lists every shipping service the seller offers to `country` (default: the seller’s own country) with its price for `quantity` units and its delivery window in business days (handling included). `zip` is required for a domestic quote; `state` is optional. `shipsToCountry: false` means the seller does not ship there (`noShipMessage` says why); `partial: true` means a ZIP or postcode could change the answer. Pass a service `id` as `shippingServiceId` to POST /api/v1/buyer/checkout, or in `shippingServiceBySeller` to POST /api/v1/buyer/cart/quote. A seller on \"buyer pays: calculated\" prices each allowed carrier service from the live label rate for this parcel plus their handling fee (rates cached 15 minutes): those services carry `carrier` and `carrierService`, and `calculatedAtCheckout: true` means a ZIP is needed first.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :zip 
+    # @option opts [String] :state 
     # @option opts [String] :country 
     # @option opts [Integer] :quantity 
     # @return [GetBuyerCatalogListingShippingResponse]
@@ -743,10 +744,11 @@ module CrosslyBuyer
     end
 
     # Shipping services and prices to a destination.
-    # Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote. &#x60;shipsToCountry: false&#x60; means the seller does not ship there. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote.
+    # Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote; &#x60;state&#x60; is optional. &#x60;shipsToCountry: false&#x60; means the seller does not ship there (&#x60;noShipMessage&#x60; says why); &#x60;partial: true&#x60; means a ZIP or postcode could change the answer. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote. A seller on \&quot;buyer pays: calculated\&quot; prices each allowed carrier service from the live label rate for this parcel plus their handling fee (rates cached 15 minutes): those services carry &#x60;carrier&#x60; and &#x60;carrierService&#x60;, and &#x60;calculatedAtCheckout: true&#x60; means a ZIP is needed first.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :zip 
+    # @option opts [String] :state 
     # @option opts [String] :country 
     # @option opts [Integer] :quantity 
     # @return [Array<(GetBuyerCatalogListingShippingResponse, Integer, Hash)>] GetBuyerCatalogListingShippingResponse data, response status code and response headers
@@ -758,6 +760,10 @@ module CrosslyBuyer
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerCatalogApi.get_buyer_catalog_listing_shipping"
       end
+      if @api_client.config.client_side_validation && !opts[:'state'].nil? && opts[:'state'].to_s.length > 60
+        fail ArgumentError, 'invalid value for "opts[:"state"]" when calling BuyerCatalogApi.get_buyer_catalog_listing_shipping, the character length must be smaller than or equal to 60.'
+      end
+
       if @api_client.config.client_side_validation && !opts[:'country'].nil? && opts[:'country'].to_s.length > 2
         fail ArgumentError, 'invalid value for "opts[:"country"]" when calling BuyerCatalogApi.get_buyer_catalog_listing_shipping, the character length must be smaller than or equal to 2.'
       end
@@ -780,6 +786,7 @@ module CrosslyBuyer
       # query parameters
       query_params = opts[:query_params] || {}
       query_params[:'zip'] = opts[:'zip'] if !opts[:'zip'].nil?
+      query_params[:'state'] = opts[:'state'] if !opts[:'state'].nil?
       query_params[:'country'] = opts[:'country'] if !opts[:'country'].nil?
       query_params[:'quantity'] = opts[:'quantity'] if !opts[:'quantity'].nil?
 

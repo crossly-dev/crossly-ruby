@@ -17,9 +17,9 @@ module CrosslyBuyer
   class ListBuyerLiveShipmentsItemOrders
     attr_accessor :order_id
 
-    attr_accessor :title
-
     attr_accessor :purchase_id
+
+    attr_accessor :title
 
     attr_accessor :shipping_cents
 
@@ -29,8 +29,8 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'order_id' => :'orderId',
-        :'title' => :'title',
         :'purchase_id' => :'purchaseId',
+        :'title' => :'title',
         :'shipping_cents' => :'shippingCents',
         :'order_status' => :'orderStatus'
       }
@@ -45,8 +45,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'order_id' => :'String',
-        :'title' => :'String',
         :'purchase_id' => :'String',
+        :'title' => :'String',
         :'shipping_cents' => :'Float',
         :'order_status' => :'String'
       }
@@ -79,12 +79,12 @@ module CrosslyBuyer
         self.order_id = attributes[:'order_id']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'purchase_id')
         self.purchase_id = attributes[:'purchase_id']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'shipping_cents')
@@ -130,8 +130,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           order_id == o.order_id &&
-          title == o.title &&
           purchase_id == o.purchase_id &&
+          title == o.title &&
           shipping_cents == o.shipping_cents &&
           order_status == o.order_status
     end
@@ -145,7 +145,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [order_id, title, purchase_id, shipping_cents, order_status].hash
+      [order_id, purchase_id, title, shipping_cents, order_status].hash
     end
 
     # Builds the object from hash

@@ -88,7 +88,7 @@ module Crossly
       {
         :'unit' => :'GetVaultMarketUnitStoryResponseUnit',
         :'holder' => :'GetVaultMarketUnitStoryResponseHolder',
-        :'mark' => :'ListVaultMarketFeedItemMark',
+        :'mark' => :'ListVaultMarketOpeningItemMark',
         :'viewer' => :'String',
         :'shareable' => :'Boolean',
         :'share_url' => :'String',
@@ -222,7 +222,7 @@ module Crossly
       return false if @holder.nil?
       return false if @mark.nil?
       return false if @viewer.nil?
-      viewer_validator = EnumAttributeValidator.new('String', ["holder", "public"])
+      viewer_validator = EnumAttributeValidator.new('String', ["public", "holder"])
       return false unless viewer_validator.valid?(@viewer)
       return false if @shareable.nil?
       return false if @share_url.nil?
@@ -235,7 +235,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] viewer Object to be assigned
     def viewer=(viewer)
-      validator = EnumAttributeValidator.new('String', ["holder", "public"])
+      validator = EnumAttributeValidator.new('String', ["public", "holder"])
       unless validator.valid?(viewer)
         fail ArgumentError, "invalid value for \"viewer\", must be one of #{validator.allowable_values}."
       end

@@ -21,11 +21,13 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :seller_user_id
+    attr_accessor :storefront_id
 
     attr_accessor :buyer_user_id
 
     attr_accessor :price_cents
+
+    attr_accessor :seller_user_id
 
     attr_accessor :closed_at
 
@@ -37,9 +39,10 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
-        :'seller_user_id' => :'sellerUserId',
+        :'storefront_id' => :'storefrontId',
         :'buyer_user_id' => :'buyerUserId',
         :'price_cents' => :'priceCents',
+        :'seller_user_id' => :'sellerUserId',
         :'closed_at' => :'closedAt',
         :'deed_id' => :'deedId'
       }
@@ -56,9 +59,10 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'status' => :'String',
-        :'seller_user_id' => :'String',
+        :'storefront_id' => :'String',
         :'buyer_user_id' => :'String',
         :'price_cents' => :'Float',
+        :'seller_user_id' => :'String',
         :'closed_at' => :'Time',
         :'deed_id' => :'String'
       }
@@ -67,6 +71,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'storefront_id',
         :'buyer_user_id',
         :'closed_at',
       ])
@@ -99,8 +104,8 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'buyer_user_id')
@@ -109,6 +114,10 @@ module Crossly
 
       if attributes.key?(:'price_cents')
         self.price_cents = attributes[:'price_cents']
+      end
+
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'closed_at')
@@ -136,12 +145,12 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @seller_user_id.nil?
-        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
-      end
-
       if @price_cents.nil?
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      end
+
+      if @seller_user_id.nil?
+        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       if @deed_id.nil?
@@ -157,8 +166,8 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @status.nil?
-      return false if @seller_user_id.nil?
       return false if @price_cents.nil?
+      return false if @seller_user_id.nil?
       return false if @deed_id.nil?
       true
     end
@@ -171,9 +180,10 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
-          seller_user_id == o.seller_user_id &&
+          storefront_id == o.storefront_id &&
           buyer_user_id == o.buyer_user_id &&
           price_cents == o.price_cents &&
+          seller_user_id == o.seller_user_id &&
           closed_at == o.closed_at &&
           deed_id == o.deed_id
     end
@@ -187,7 +197,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, seller_user_id, buyer_user_id, price_cents, closed_at, deed_id].hash
+      [id, created_at, status, storefront_id, buyer_user_id, price_cents, seller_user_id, closed_at, deed_id].hash
     end
 
     # Builds the object from hash

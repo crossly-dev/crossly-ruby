@@ -28,13 +28,17 @@ module Crossly
     # Derived from total and limit.
     attr_accessor :total_pages
 
+    # Deprecated alias of `totalPages`, sent only by GET /v1/inventory (its original name). Read `totalPages`.
+    attr_accessor :pages
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'page' => :'page',
         :'limit' => :'limit',
         :'total' => :'total',
-        :'total_pages' => :'totalPages'
+        :'total_pages' => :'totalPages',
+        :'pages' => :'pages'
       }
     end
 
@@ -49,7 +53,8 @@ module Crossly
         :'page' => :'Integer',
         :'limit' => :'Integer',
         :'total' => :'Integer',
-        :'total_pages' => :'Integer'
+        :'total_pages' => :'Integer',
+        :'pages' => :'Integer'
       }
     end
 
@@ -88,6 +93,10 @@ module Crossly
 
       if attributes.key?(:'total_pages')
         self.total_pages = attributes[:'total_pages']
+      end
+
+      if attributes.key?(:'pages')
+        self.pages = attributes[:'pages']
       end
     end
 
@@ -160,7 +169,8 @@ module Crossly
           page == o.page &&
           limit == o.limit &&
           total == o.total &&
-          total_pages == o.total_pages
+          total_pages == o.total_pages &&
+          pages == o.pages
     end
 
     # @see the `==` method
@@ -172,7 +182,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [page, limit, total, total_pages].hash
+      [page, limit, total, total_pages, pages].hash
     end
 
     # Builds the object from hash

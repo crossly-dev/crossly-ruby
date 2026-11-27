@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class ListVaultMarketFollowCopyWatchItem
+    attr_accessor :person
+
     attr_accessor :since
 
     attr_accessor :active
@@ -22,6 +24,7 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'person' => :'person',
         :'since' => :'since',
         :'active' => :'active'
       }
@@ -35,6 +38,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'person' => :'ListVaultMarketFollowCopyWatchItemPerson',
         :'since' => :'String',
         :'active' => :'Boolean'
       }
@@ -61,6 +65,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'person')
+        self.person = attributes[:'person']
+      end
+
       if attributes.key?(:'since')
         self.since = attributes[:'since']
       end
@@ -74,6 +82,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @person.nil?
+        invalid_properties.push('invalid value for "person", person cannot be nil.')
+      end
+
       if @since.nil?
         invalid_properties.push('invalid value for "since", since cannot be nil.')
       end
@@ -88,6 +100,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @person.nil?
       return false if @since.nil?
       return false if @active.nil?
       true
@@ -98,6 +111,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          person == o.person &&
           since == o.since &&
           active == o.active
     end
@@ -111,7 +125,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [since, active].hash
+      [person, since, active].hash
     end
 
     # Builds the object from hash

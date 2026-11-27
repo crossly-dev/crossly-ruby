@@ -15,19 +15,17 @@ require 'time'
 
 module Crossly
   class CreateSpatialSceneNodeResponseData
+    attr_accessor :transform
+
     attr_accessor :id
 
     attr_accessor :created_at
 
     attr_accessor :updated_at
 
-    attr_accessor :transform
-
     attr_accessor :label
 
     attr_accessor :sort
-
-    attr_accessor :segment
 
     attr_accessor :scene_id
 
@@ -35,19 +33,21 @@ module Crossly
 
     attr_accessor :unit_key
 
+    attr_accessor :segment
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'transform' => :'transform',
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
-        :'transform' => :'transform',
         :'label' => :'label',
         :'sort' => :'sort',
-        :'segment' => :'segment',
         :'scene_id' => :'sceneId',
         :'parent_id' => :'parentId',
-        :'unit_key' => :'unitKey'
+        :'unit_key' => :'unitKey',
+        :'segment' => :'segment'
       }
     end
 
@@ -59,16 +59,16 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'transform' => :'CreateSpatialSceneNodeResponseDataTransform',
         :'id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
-        :'transform' => :'CreateSpatialSceneNodeResponseDataTransform',
         :'label' => :'String',
         :'sort' => :'Float',
-        :'segment' => :'String',
         :'scene_id' => :'String',
         :'parent_id' => :'String',
-        :'unit_key' => :'String'
+        :'unit_key' => :'String',
+        :'segment' => :'String'
       }
     end
 
@@ -76,8 +76,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'label',
-        :'segment',
         :'parent_id',
+        :'segment'
       ])
     end
 
@@ -96,6 +96,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'transform')
+        self.transform = attributes[:'transform']
+      end
+
       if attributes.key?(:'id')
         self.id = attributes[:'id']
       end
@@ -108,20 +112,12 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'transform')
-        self.transform = attributes[:'transform']
-      end
-
       if attributes.key?(:'label')
         self.label = attributes[:'label']
       end
 
       if attributes.key?(:'sort')
         self.sort = attributes[:'sort']
-      end
-
-      if attributes.key?(:'segment')
-        self.segment = attributes[:'segment']
       end
 
       if attributes.key?(:'scene_id')
@@ -135,12 +131,20 @@ module Crossly
       if attributes.key?(:'unit_key')
         self.unit_key = attributes[:'unit_key']
       end
+
+      if attributes.key?(:'segment')
+        self.segment = attributes[:'segment']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @transform.nil?
+        invalid_properties.push('invalid value for "transform", transform cannot be nil.')
+      end
+
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
@@ -151,10 +155,6 @@ module Crossly
 
       if @updated_at.nil?
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
-      end
-
-      if @transform.nil?
-        invalid_properties.push('invalid value for "transform", transform cannot be nil.')
       end
 
       if @sort.nil?
@@ -175,10 +175,10 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @transform.nil?
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
-      return false if @transform.nil?
       return false if @sort.nil?
       return false if @scene_id.nil?
       return false if @unit_key.nil?
@@ -190,16 +190,16 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          transform == o.transform &&
           id == o.id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
-          transform == o.transform &&
           label == o.label &&
           sort == o.sort &&
-          segment == o.segment &&
           scene_id == o.scene_id &&
           parent_id == o.parent_id &&
-          unit_key == o.unit_key
+          unit_key == o.unit_key &&
+          segment == o.segment
     end
 
     # @see the `==` method
@@ -211,7 +211,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, transform, label, sort, segment, scene_id, parent_id, unit_key].hash
+      [transform, id, created_at, updated_at, label, sort, scene_id, parent_id, unit_key, segment].hash
     end
 
     # Builds the object from hash

@@ -17,22 +17,22 @@ module CrosslyBuyer
   class GetBuyerMarketPurchaseOptionResponseDataGradingRuns
     attr_accessor :id
 
-    attr_accessor :price_cents
+    attr_accessor :grader_name
 
     attr_accessor :tier_name
 
-    attr_accessor :cutoff_at
+    attr_accessor :price_cents
 
-    attr_accessor :grader_name
+    attr_accessor :cutoff_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'price_cents' => :'priceCents',
+        :'grader_name' => :'graderName',
         :'tier_name' => :'tierName',
-        :'cutoff_at' => :'cutoffAt',
-        :'grader_name' => :'graderName'
+        :'price_cents' => :'priceCents',
+        :'cutoff_at' => :'cutoffAt'
       }
     end
 
@@ -45,10 +45,10 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'price_cents' => :'Float',
+        :'grader_name' => :'String',
         :'tier_name' => :'String',
-        :'cutoff_at' => :'String',
-        :'grader_name' => :'String'
+        :'price_cents' => :'Float',
+        :'cutoff_at' => :'String'
       }
     end
 
@@ -77,20 +77,20 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'price_cents')
-        self.price_cents = attributes[:'price_cents']
+      if attributes.key?(:'grader_name')
+        self.grader_name = attributes[:'grader_name']
       end
 
       if attributes.key?(:'tier_name')
         self.tier_name = attributes[:'tier_name']
       end
 
-      if attributes.key?(:'cutoff_at')
-        self.cutoff_at = attributes[:'cutoff_at']
+      if attributes.key?(:'price_cents')
+        self.price_cents = attributes[:'price_cents']
       end
 
-      if attributes.key?(:'grader_name')
-        self.grader_name = attributes[:'grader_name']
+      if attributes.key?(:'cutoff_at')
+        self.cutoff_at = attributes[:'cutoff_at']
       end
     end
 
@@ -102,20 +102,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @price_cents.nil?
-        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      if @grader_name.nil?
+        invalid_properties.push('invalid value for "grader_name", grader_name cannot be nil.')
       end
 
       if @tier_name.nil?
         invalid_properties.push('invalid value for "tier_name", tier_name cannot be nil.')
       end
 
-      if @cutoff_at.nil?
-        invalid_properties.push('invalid value for "cutoff_at", cutoff_at cannot be nil.')
+      if @price_cents.nil?
+        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
-      if @grader_name.nil?
-        invalid_properties.push('invalid value for "grader_name", grader_name cannot be nil.')
+      if @cutoff_at.nil?
+        invalid_properties.push('invalid value for "cutoff_at", cutoff_at cannot be nil.')
       end
 
       invalid_properties
@@ -125,10 +125,10 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @price_cents.nil?
-      return false if @tier_name.nil?
-      return false if @cutoff_at.nil?
       return false if @grader_name.nil?
+      return false if @tier_name.nil?
+      return false if @price_cents.nil?
+      return false if @cutoff_at.nil?
       true
     end
 
@@ -138,10 +138,10 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          price_cents == o.price_cents &&
+          grader_name == o.grader_name &&
           tier_name == o.tier_name &&
-          cutoff_at == o.cutoff_at &&
-          grader_name == o.grader_name
+          price_cents == o.price_cents &&
+          cutoff_at == o.cutoff_at
     end
 
     # @see the `==` method
@@ -153,7 +153,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, price_cents, tier_name, cutoff_at, grader_name].hash
+      [id, grader_name, tier_name, price_cents, cutoff_at].hash
     end
 
     # Builds the object from hash

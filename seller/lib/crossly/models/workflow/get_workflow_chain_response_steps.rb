@@ -17,13 +17,15 @@ module Crossly
   class GetWorkflowChainResponseSteps
     attr_accessor :id
 
-    attr_accessor :position
-
     attr_accessor :chain_id
+
+    attr_accessor :position
 
     attr_accessor :step_type
 
     attr_accessor :action_id
+
+    attr_accessor :action_config
 
     attr_accessor :wait_ms
 
@@ -31,10 +33,11 @@ module Crossly
     def self.attribute_map
       {
         :'id' => :'id',
-        :'position' => :'position',
         :'chain_id' => :'chainId',
+        :'position' => :'position',
         :'step_type' => :'stepType',
         :'action_id' => :'actionId',
+        :'action_config' => :'actionConfig',
         :'wait_ms' => :'waitMs'
       }
     end
@@ -48,10 +51,11 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
-        :'position' => :'Float',
         :'chain_id' => :'String',
+        :'position' => :'Float',
         :'step_type' => :'String',
         :'action_id' => :'String',
+        :'action_config' => :'Hash<String, Object>',
         :'wait_ms' => :'Float'
       }
     end
@@ -83,12 +87,12 @@ module Crossly
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'position')
-        self.position = attributes[:'position']
-      end
-
       if attributes.key?(:'chain_id')
         self.chain_id = attributes[:'chain_id']
+      end
+
+      if attributes.key?(:'position')
+        self.position = attributes[:'position']
       end
 
       if attributes.key?(:'step_type')
@@ -97,6 +101,12 @@ module Crossly
 
       if attributes.key?(:'action_id')
         self.action_id = attributes[:'action_id']
+      end
+
+      if attributes.key?(:'action_config')
+        if (value = attributes[:'action_config']).is_a?(Hash)
+          self.action_config = value
+        end
       end
 
       if attributes.key?(:'wait_ms')
@@ -112,16 +122,20 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @position.nil?
-        invalid_properties.push('invalid value for "position", position cannot be nil.')
-      end
-
       if @chain_id.nil?
         invalid_properties.push('invalid value for "chain_id", chain_id cannot be nil.')
       end
 
+      if @position.nil?
+        invalid_properties.push('invalid value for "position", position cannot be nil.')
+      end
+
       if @step_type.nil?
         invalid_properties.push('invalid value for "step_type", step_type cannot be nil.')
+      end
+
+      if @action_config.nil?
+        invalid_properties.push('invalid value for "action_config", action_config cannot be nil.')
       end
 
       invalid_properties
@@ -131,9 +145,10 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @position.nil?
       return false if @chain_id.nil?
+      return false if @position.nil?
       return false if @step_type.nil?
+      return false if @action_config.nil?
       true
     end
 
@@ -143,10 +158,11 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          position == o.position &&
           chain_id == o.chain_id &&
+          position == o.position &&
           step_type == o.step_type &&
           action_id == o.action_id &&
+          action_config == o.action_config &&
           wait_ms == o.wait_ms
     end
 
@@ -159,7 +175,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, position, chain_id, step_type, action_id, wait_ms].hash
+      [id, chain_id, position, step_type, action_id, action_config, wait_ms].hash
     end
 
     # Builds the object from hash

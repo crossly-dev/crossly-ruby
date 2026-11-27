@@ -15,10 +15,10 @@ require 'time'
 
 module Crossly
   class GetWorldCapabilityCatalogueResponseDataKindsClientsItem
-    WEB = "web".freeze
     APP = "app".freeze
-    GODOT = "godot".freeze
     API = "api".freeze
+    WEB = "web".freeze
+    GODOT = "godot".freeze
     RUNNER = "runner".freeze
 
     # Builds the enum from string

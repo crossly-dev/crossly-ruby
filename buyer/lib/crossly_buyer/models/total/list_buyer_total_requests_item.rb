@@ -17,41 +17,41 @@ module CrosslyBuyer
   class ListBuyerTotalRequestsItem
     attr_accessor :id
 
-    attr_accessor :created_at
+    attr_accessor :seller_user_id
 
     # requested | quoted | declined | expired.
     attr_accessor :status
 
-    attr_accessor :seller_user_id
-
     # The cart lines the request covers.
     attr_accessor :lines
+
+    attr_accessor :created_at
 
     # Your cart still holds exactly the quoted items, so checkout applies the quote.
     attr_accessor :matches_cart
 
-    attr_accessor :expires_at
+    attr_accessor :seller_display_name
 
     # The seller's combined shipping for these items, in cents, once quoted.
     attr_accessor :quoted_shipping_cents
 
     attr_accessor :seller_message
 
-    attr_accessor :seller_display_name
+    attr_accessor :expires_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'status' => :'status',
         :'seller_user_id' => :'sellerUserId',
+        :'status' => :'status',
         :'lines' => :'lines',
+        :'created_at' => :'createdAt',
         :'matches_cart' => :'matchesCart',
-        :'expires_at' => :'expiresAt',
+        :'seller_display_name' => :'sellerDisplayName',
         :'quoted_shipping_cents' => :'quotedShippingCents',
         :'seller_message' => :'sellerMessage',
-        :'seller_display_name' => :'sellerDisplayName'
+        :'expires_at' => :'expiresAt'
       }
     end
 
@@ -64,25 +64,25 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'status' => :'String',
         :'seller_user_id' => :'String',
+        :'status' => :'String',
         :'lines' => :'Array<ListBuyerTotalRequestsItemLines>',
+        :'created_at' => :'String',
         :'matches_cart' => :'Boolean',
-        :'expires_at' => :'String',
+        :'seller_display_name' => :'String',
         :'quoted_shipping_cents' => :'Float',
         :'seller_message' => :'String',
-        :'seller_display_name' => :'String'
+        :'expires_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'expires_at',
+        :'seller_display_name',
         :'quoted_shipping_cents',
         :'seller_message',
-        :'seller_display_name'
+        :'expires_at'
       ])
     end
 
@@ -105,16 +105,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'lines')
@@ -123,12 +119,16 @@ module CrosslyBuyer
         end
       end
 
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
       if attributes.key?(:'matches_cart')
         self.matches_cart = attributes[:'matches_cart']
       end
 
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
+      if attributes.key?(:'seller_display_name')
+        self.seller_display_name = attributes[:'seller_display_name']
       end
 
       if attributes.key?(:'quoted_shipping_cents')
@@ -139,8 +139,8 @@ module CrosslyBuyer
         self.seller_message = attributes[:'seller_message']
       end
 
-      if attributes.key?(:'seller_display_name')
-        self.seller_display_name = attributes[:'seller_display_name']
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
       end
     end
 
@@ -152,20 +152,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @seller_user_id.nil?
+        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @seller_user_id.nil?
-        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
-      end
-
       if @lines.nil?
         invalid_properties.push('invalid value for "lines", lines cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @matches_cart.nil?
@@ -179,10 +179,10 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @status.nil?
       return false if @seller_user_id.nil?
+      return false if @status.nil?
       return false if @lines.nil?
+      return false if @created_at.nil?
       return false if @matches_cart.nil?
       true
     end
@@ -193,15 +193,15 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          status == o.status &&
           seller_user_id == o.seller_user_id &&
+          status == o.status &&
           lines == o.lines &&
+          created_at == o.created_at &&
           matches_cart == o.matches_cart &&
-          expires_at == o.expires_at &&
+          seller_display_name == o.seller_display_name &&
           quoted_shipping_cents == o.quoted_shipping_cents &&
           seller_message == o.seller_message &&
-          seller_display_name == o.seller_display_name
+          expires_at == o.expires_at
     end
 
     # @see the `==` method
@@ -213,7 +213,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, seller_user_id, lines, matches_cart, expires_at, quoted_shipping_cents, seller_message, seller_display_name].hash
+      [id, seller_user_id, status, lines, created_at, matches_cart, seller_display_name, quoted_shipping_cents, seller_message, expires_at].hash
     end
 
     # Builds the object from hash

@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerListingFitResponseDataComparisons
-    attr_accessor :label
-
     attr_accessor :ref_id
+
+    attr_accessor :label
 
     attr_accessor :result
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'label' => :'label',
         :'ref_id' => :'refId',
+        :'label' => :'label',
         :'result' => :'result'
       }
     end
@@ -38,8 +38,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'label' => :'String',
         :'ref_id' => :'String',
+        :'label' => :'String',
         :'result' => :'GetBuyerListingFitResponseDataComparisonsResult'
       }
     end
@@ -65,12 +65,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'label')
-        self.label = attributes[:'label']
-      end
-
       if attributes.key?(:'ref_id')
         self.ref_id = attributes[:'ref_id']
+      end
+
+      if attributes.key?(:'label')
+        self.label = attributes[:'label']
       end
 
       if attributes.key?(:'result')
@@ -82,12 +82,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @label.nil?
-        invalid_properties.push('invalid value for "label", label cannot be nil.')
-      end
-
       if @ref_id.nil?
         invalid_properties.push('invalid value for "ref_id", ref_id cannot be nil.')
+      end
+
+      if @label.nil?
+        invalid_properties.push('invalid value for "label", label cannot be nil.')
       end
 
       if @result.nil?
@@ -100,8 +100,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @label.nil?
       return false if @ref_id.nil?
+      return false if @label.nil?
       return false if @result.nil?
       true
     end
@@ -111,8 +111,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          label == o.label &&
           ref_id == o.ref_id &&
+          label == o.label &&
           result == o.result
     end
 
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [label, ref_id, result].hash
+      [ref_id, label, result].hash
     end
 
     # Builds the object from hash

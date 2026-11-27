@@ -17,16 +17,16 @@ module Crossly
   class CreateAutomationRuleValidateRecipeResponse
     attr_accessor :valid
 
-    attr_accessor :error
+    attr_accessor :count
 
-    attr_accessor :details
+    attr_accessor :results
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'valid' => :'valid',
-        :'error' => :'error',
-        :'details' => :'details'
+        :'count' => :'count',
+        :'results' => :'results'
       }
     end
 
@@ -39,8 +39,8 @@ module Crossly
     def self.openapi_types
       {
         :'valid' => :'Boolean',
-        :'error' => :'String',
-        :'details' => :'CreateAutomationRuleValidateRecipeResponseDetails'
+        :'count' => :'Float',
+        :'results' => :'Array<CreateAutomationRuleValidateRecipeResponseResults>'
       }
     end
 
@@ -69,12 +69,14 @@ module Crossly
         self.valid = attributes[:'valid']
       end
 
-      if attributes.key?(:'error')
-        self.error = attributes[:'error']
+      if attributes.key?(:'count')
+        self.count = attributes[:'count']
       end
 
-      if attributes.key?(:'details')
-        self.details = attributes[:'details']
+      if attributes.key?(:'results')
+        if (value = attributes[:'results']).is_a?(Array)
+          self.results = value
+        end
       end
     end
 
@@ -86,12 +88,12 @@ module Crossly
         invalid_properties.push('invalid value for "valid", valid cannot be nil.')
       end
 
-      if @error.nil?
-        invalid_properties.push('invalid value for "error", error cannot be nil.')
+      if @count.nil?
+        invalid_properties.push('invalid value for "count", count cannot be nil.')
       end
 
-      if @details.nil?
-        invalid_properties.push('invalid value for "details", details cannot be nil.')
+      if @results.nil?
+        invalid_properties.push('invalid value for "results", results cannot be nil.')
       end
 
       invalid_properties
@@ -101,8 +103,8 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @valid.nil?
-      return false if @error.nil?
-      return false if @details.nil?
+      return false if @count.nil?
+      return false if @results.nil?
       true
     end
 
@@ -112,8 +114,8 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           valid == o.valid &&
-          error == o.error &&
-          details == o.details
+          count == o.count &&
+          results == o.results
     end
 
     # @see the `==` method
@@ -125,7 +127,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [valid, error, details].hash
+      [valid, count, results].hash
     end
 
     # Builds the object from hash

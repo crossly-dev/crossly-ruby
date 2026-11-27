@@ -268,7 +268,7 @@ module CrosslyBuyer
     def valid?
       return false if @lockon_id.nil?
       return false if @status.nil?
-      identity_source_validator = EnumAttributeValidator.new('String', ["confirmed", "visual", "ocr", "barcode"])
+      identity_source_validator = EnumAttributeValidator.new('String', ["confirmed", "barcode", "visual", "ocr"])
       return false unless identity_source_validator.valid?(@identity_source)
       return false if @candidates.nil?
       return false if @observation_count.nil?
@@ -286,7 +286,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] identity_source Object to be assigned
     def identity_source=(identity_source)
-      validator = EnumAttributeValidator.new('String', ["confirmed", "visual", "ocr", "barcode"])
+      validator = EnumAttributeValidator.new('String', ["confirmed", "barcode", "visual", "ocr"])
       unless validator.valid?(identity_source)
         fail ArgumentError, "invalid value for \"identity_source\", must be one of #{validator.allowable_values}."
       end

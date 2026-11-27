@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerOrderPriceProtectionResponseData
-    attr_accessor :active
-
     attr_accessor :_until
+
+    attr_accessor :active
 
     attr_accessor :credited_cents
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'active' => :'active',
         :'_until' => :'until',
+        :'active' => :'active',
         :'credited_cents' => :'creditedCents'
       }
     end
@@ -38,8 +38,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'active' => :'Boolean',
         :'_until' => :'String',
+        :'active' => :'Boolean',
         :'credited_cents' => :'Float'
       }
     end
@@ -65,12 +65,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'active')
-        self.active = attributes[:'active']
-      end
-
       if attributes.key?(:'_until')
         self._until = attributes[:'_until']
+      end
+
+      if attributes.key?(:'active')
+        self.active = attributes[:'active']
       end
 
       if attributes.key?(:'credited_cents')
@@ -82,12 +82,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @active.nil?
-        invalid_properties.push('invalid value for "active", active cannot be nil.')
-      end
-
       if @_until.nil?
         invalid_properties.push('invalid value for "_until", _until cannot be nil.')
+      end
+
+      if @active.nil?
+        invalid_properties.push('invalid value for "active", active cannot be nil.')
       end
 
       if @credited_cents.nil?
@@ -100,8 +100,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @active.nil?
       return false if @_until.nil?
+      return false if @active.nil?
       return false if @credited_cents.nil?
       true
     end
@@ -111,8 +111,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          active == o.active &&
           _until == o._until &&
+          active == o.active &&
           credited_cents == o.credited_cents
     end
 
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [active, _until, credited_cents].hash
+      [_until, active, credited_cents].hash
     end
 
     # Builds the object from hash

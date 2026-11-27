@@ -208,7 +208,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @purpose.nil?
-      purpose_validator = EnumAttributeValidator.new('String', ["insurance", "appraisal"])
+      purpose_validator = EnumAttributeValidator.new('String', ["appraisal", "insurance"])
       return false unless purpose_validator.valid?(@purpose)
       return false if @title.nil?
       return false if @as_of.nil?
@@ -224,7 +224,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] purpose Object to be assigned
     def purpose=(purpose)
-      validator = EnumAttributeValidator.new('String', ["insurance", "appraisal"])
+      validator = EnumAttributeValidator.new('String', ["appraisal", "insurance"])
       unless validator.valid?(purpose)
         fail ArgumentError, "invalid value for \"purpose\", must be one of #{validator.allowable_values}."
       end

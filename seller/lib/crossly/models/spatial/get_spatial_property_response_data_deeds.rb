@@ -17,6 +17,8 @@ module Crossly
   class GetSpatialPropertyResponseDataDeeds
     attr_accessor :id
 
+    attr_accessor :plot_id
+
     attr_accessor :address
 
     attr_accessor :label
@@ -61,6 +63,7 @@ module Crossly
     def self.attribute_map
       {
         :'id' => :'id',
+        :'plot_id' => :'plotId',
         :'address' => :'address',
         :'label' => :'label',
         :'price_cents' => :'priceCents',
@@ -82,6 +85,7 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
+        :'plot_id' => :'String',
         :'address' => :'String',
         :'label' => :'String',
         :'price_cents' => :'Float',
@@ -119,6 +123,10 @@ module Crossly
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'plot_id')
+        self.plot_id = attributes[:'plot_id']
       end
 
       if attributes.key?(:'address')
@@ -166,6 +174,10 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
+      if @plot_id.nil?
+        invalid_properties.push('invalid value for "plot_id", plot_id cannot be nil.')
+      end
+
       if @address.nil?
         invalid_properties.push('invalid value for "address", address cannot be nil.')
       end
@@ -201,13 +213,14 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      return false if @plot_id.nil?
       return false if @address.nil?
       return false if @label.nil?
       return false if @price_cents.nil?
       return false if @maintenance_weekly_cents.nil?
       return false if @paid_through.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["active", "foreclosed", "grace", "delinquent"])
+      status_validator = EnumAttributeValidator.new('String', ["active", "grace", "delinquent", "foreclosed"])
       return false unless status_validator.valid?(@status)
       return false if @occupied.nil?
       true
@@ -216,7 +229,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["active", "foreclosed", "grace", "delinquent"])
+      validator = EnumAttributeValidator.new('String', ["active", "grace", "delinquent", "foreclosed"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -229,6 +242,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          plot_id == o.plot_id &&
           address == o.address &&
           label == o.label &&
           price_cents == o.price_cents &&
@@ -249,7 +263,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, address, label, price_cents, maintenance_weekly_cents, paid_through, status, occupied, lease, listing].hash
+      [id, plot_id, address, label, price_cents, maintenance_weekly_cents, paid_through, status, occupied, lease, listing].hash
     end
 
     # Builds the object from hash

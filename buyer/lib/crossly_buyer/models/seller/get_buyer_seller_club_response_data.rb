@@ -15,24 +15,24 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerSellerClubResponseData
+    attr_accessor :seller_user_id
+
     attr_accessor :name
 
     attr_accessor :description
 
-    attr_accessor :seller_user_id
+    attr_accessor :tiers
 
     attr_accessor :member
-
-    attr_accessor :tiers
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'seller_user_id' => :'sellerUserId',
         :'name' => :'name',
         :'description' => :'description',
-        :'seller_user_id' => :'sellerUserId',
-        :'member' => :'member',
-        :'tiers' => :'tiers'
+        :'tiers' => :'tiers',
+        :'member' => :'member'
       }
     end
 
@@ -44,11 +44,11 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'seller_user_id' => :'String',
         :'name' => :'String',
         :'description' => :'String',
-        :'seller_user_id' => :'String',
-        :'member' => :'CreateBuyerSellerClubJoinResponseDataMember',
-        :'tiers' => :'Array<CreateBuyerSellerClubJoinResponseDataTiers>'
+        :'tiers' => :'Array<CreateBuyerSellerClubJoinResponseDataTiers>',
+        :'member' => :'CreateBuyerSellerClubJoinResponseDataMember'
       }
     end
 
@@ -56,7 +56,7 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'description',
-        :'member',
+        :'member'
       ])
     end
 
@@ -75,6 +75,10 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
       end
@@ -83,18 +87,14 @@ module CrosslyBuyer
         self.description = attributes[:'description']
       end
 
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
-      end
-
-      if attributes.key?(:'member')
-        self.member = attributes[:'member']
-      end
-
       if attributes.key?(:'tiers')
         if (value = attributes[:'tiers']).is_a?(Array)
           self.tiers = value
         end
+      end
+
+      if attributes.key?(:'member')
+        self.member = attributes[:'member']
       end
     end
 
@@ -102,12 +102,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
       if @seller_user_id.nil?
         invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
+      end
+
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
       if @tiers.nil?
@@ -120,8 +120,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @name.nil?
       return false if @seller_user_id.nil?
+      return false if @name.nil?
       return false if @tiers.nil?
       true
     end
@@ -131,11 +131,11 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          seller_user_id == o.seller_user_id &&
           name == o.name &&
           description == o.description &&
-          seller_user_id == o.seller_user_id &&
-          member == o.member &&
-          tiers == o.tiers
+          tiers == o.tiers &&
+          member == o.member
     end
 
     # @see the `==` method
@@ -147,7 +147,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, description, seller_user_id, member, tiers].hash
+      [seller_user_id, name, description, tiers, member].hash
     end
 
     # Builds the object from hash

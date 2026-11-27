@@ -21,12 +21,15 @@ module Crossly
 
     attr_accessor :pct_change
 
+    attr_accessor :delta
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'current' => :'current',
         :'previous' => :'previous',
-        :'pct_change' => :'pctChange'
+        :'pct_change' => :'pctChange',
+        :'delta' => :'delta'
       }
     end
 
@@ -40,14 +43,15 @@ module Crossly
       {
         :'current' => :'Float',
         :'previous' => :'Float',
-        :'pct_change' => :'Float'
+        :'pct_change' => :'Float',
+        :'delta' => :'GetAnalyticOverviewResponseDataKpisNetSalesDelta'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'pct_change'
+        :'pct_change',
       ])
     end
 
@@ -77,6 +81,10 @@ module Crossly
       if attributes.key?(:'pct_change')
         self.pct_change = attributes[:'pct_change']
       end
+
+      if attributes.key?(:'delta')
+        self.delta = attributes[:'delta']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -91,6 +99,10 @@ module Crossly
         invalid_properties.push('invalid value for "previous", previous cannot be nil.')
       end
 
+      if @delta.nil?
+        invalid_properties.push('invalid value for "delta", delta cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -99,6 +111,7 @@ module Crossly
     def valid?
       return false if @current.nil?
       return false if @previous.nil?
+      return false if @delta.nil?
       true
     end
 
@@ -109,7 +122,8 @@ module Crossly
       self.class == o.class &&
           current == o.current &&
           previous == o.previous &&
-          pct_change == o.pct_change
+          pct_change == o.pct_change &&
+          delta == o.delta
     end
 
     # @see the `==` method
@@ -121,7 +135,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [current, previous, pct_change].hash
+      [current, previous, pct_change, delta].hash
     end
 
     # Builds the object from hash

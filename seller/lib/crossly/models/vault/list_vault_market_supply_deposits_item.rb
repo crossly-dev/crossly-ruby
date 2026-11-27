@@ -17,6 +17,8 @@ module Crossly
   class ListVaultMarketSupplyDepositsItem
     attr_accessor :id
 
+    attr_accessor :storefront_id
+
     attr_accessor :vault_item_id
 
     attr_accessor :inventory_item_id
@@ -83,6 +85,7 @@ module Crossly
     def self.attribute_map
       {
         :'id' => :'id',
+        :'storefront_id' => :'storefrontId',
         :'vault_item_id' => :'vaultItemId',
         :'inventory_item_id' => :'inventoryItemId',
         :'batch_id' => :'batchId',
@@ -115,6 +118,7 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
+        :'storefront_id' => :'String',
         :'vault_item_id' => :'String',
         :'inventory_item_id' => :'String',
         :'batch_id' => :'String',
@@ -141,6 +145,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'storefront_id',
         :'inventory_item_id',
         :'batch_id',
         :'partner_id',
@@ -174,6 +179,10 @@ module Crossly
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'vault_item_id')
@@ -303,7 +312,7 @@ module Crossly
       return false if @vault_item_id.nil?
       return false if @book_key.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["stored", "listed", "inbound", "cancelled", "sold_on_book", "channel_sold", "shipped"])
+      status_validator = EnumAttributeValidator.new('String', ["stored", "cancelled", "listed", "shipped", "inbound", "sold_on_book", "channel_sold"])
       return false unless status_validator.valid?(@status)
       return false if @unit_status.nil?
       return false if @lend_enabled.nil?
@@ -315,7 +324,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["stored", "listed", "inbound", "cancelled", "sold_on_book", "channel_sold", "shipped"])
+      validator = EnumAttributeValidator.new('String', ["stored", "cancelled", "listed", "shipped", "inbound", "sold_on_book", "channel_sold"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -328,6 +337,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          storefront_id == o.storefront_id &&
           vault_item_id == o.vault_item_id &&
           inventory_item_id == o.inventory_item_id &&
           batch_id == o.batch_id &&
@@ -359,7 +369,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, vault_item_id, inventory_item_id, batch_id, partner_id, book_key, status, unit_status, lend_enabled, name, image_url, variant_label, auto_list_bps, lend_when_idle, setup_note, set_up_at, channel_platform, channel_sold_at, outbound_tracking, exit, created_at].hash
+      [id, storefront_id, vault_item_id, inventory_item_id, batch_id, partner_id, book_key, status, unit_status, lend_enabled, name, image_url, variant_label, auto_list_bps, lend_when_idle, setup_note, set_up_at, channel_platform, channel_sold_at, outbound_tracking, exit, created_at].hash
     end
 
     # Builds the object from hash

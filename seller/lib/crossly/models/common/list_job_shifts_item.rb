@@ -100,7 +100,7 @@ module Crossly
         :'id' => :'String',
         :'role' => :'String',
         :'title' => :'String',
-        :'place' => :'SlugName',
+        :'place' => :'NameSlug',
         :'starts_at' => :'String',
         :'ends_at' => :'String',
         :'pay_cents' => :'Float',
@@ -274,10 +274,10 @@ module Crossly
       return false if @ends_at.nil?
       return false if @pay_cents.nil?
       return false if @rail.nil?
-      rail_validator = EnumAttributeValidator.new('String', ["bucks", "cbx"])
+      rail_validator = EnumAttributeValidator.new('String', ["cbx", "bucks"])
       return false unless rail_validator.valid?(@rail)
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["open", "cancelled", "paid", "claimed", "worked", "missed"])
+      status_validator = EnumAttributeValidator.new('String', ["cancelled", "open", "paid", "claimed", "worked", "missed"])
       return false unless status_validator.valid?(@status)
       return false if @present_seconds.nil?
       return false if @required_seconds.nil?
@@ -300,7 +300,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] rail Object to be assigned
     def rail=(rail)
-      validator = EnumAttributeValidator.new('String', ["bucks", "cbx"])
+      validator = EnumAttributeValidator.new('String', ["cbx", "bucks"])
       unless validator.valid?(rail)
         fail ArgumentError, "invalid value for \"rail\", must be one of #{validator.allowable_values}."
       end
@@ -310,7 +310,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["open", "cancelled", "paid", "claimed", "worked", "missed"])
+      validator = EnumAttributeValidator.new('String', ["cancelled", "open", "paid", "claimed", "worked", "missed"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

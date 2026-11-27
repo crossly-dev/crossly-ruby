@@ -21,9 +21,9 @@ module CrosslyBuyer
 
     attr_accessor :name
 
-    attr_accessor :created_at
-
     attr_accessor :is_public
+
+    attr_accessor :created_at
 
     attr_accessor :share_token
 
@@ -33,8 +33,8 @@ module CrosslyBuyer
         :'share_url' => :'shareUrl',
         :'id' => :'id',
         :'name' => :'name',
-        :'created_at' => :'createdAt',
         :'is_public' => :'isPublic',
+        :'created_at' => :'createdAt',
         :'share_token' => :'shareToken'
       }
     end
@@ -50,8 +50,8 @@ module CrosslyBuyer
         :'share_url' => :'String',
         :'id' => :'String',
         :'name' => :'String',
-        :'created_at' => :'String',
         :'is_public' => :'Boolean',
+        :'created_at' => :'String',
         :'share_token' => :'String'
       }
     end
@@ -91,12 +91,12 @@ module CrosslyBuyer
         self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
       if attributes.key?(:'is_public')
         self.is_public = attributes[:'is_public']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'share_token')
@@ -116,12 +116,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
       if @is_public.nil?
         invalid_properties.push('invalid value for "is_public", is_public cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       invalid_properties
@@ -132,8 +132,8 @@ module CrosslyBuyer
     def valid?
       return false if @id.nil?
       return false if @name.nil?
-      return false if @created_at.nil?
       return false if @is_public.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -145,8 +145,8 @@ module CrosslyBuyer
           share_url == o.share_url &&
           id == o.id &&
           name == o.name &&
-          created_at == o.created_at &&
           is_public == o.is_public &&
+          created_at == o.created_at &&
           share_token == o.share_token
     end
 
@@ -159,7 +159,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [share_url, id, name, created_at, is_public, share_token].hash
+      [share_url, id, name, is_public, created_at, share_token].hash
     end
 
     # Builds the object from hash

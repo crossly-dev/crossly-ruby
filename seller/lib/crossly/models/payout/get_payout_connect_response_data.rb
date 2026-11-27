@@ -19,6 +19,8 @@ module Crossly
 
     attr_accessor :default_country
 
+    attr_accessor :account_source
+
     attr_accessor :payouts_enabled
 
     attr_accessor :charges_enabled
@@ -71,6 +73,7 @@ module Crossly
       {
         :'status' => :'status',
         :'default_country' => :'defaultCountry',
+        :'account_source' => :'accountSource',
         :'payouts_enabled' => :'payoutsEnabled',
         :'charges_enabled' => :'chargesEnabled',
         :'transfers_active' => :'transfersActive',
@@ -95,6 +98,7 @@ module Crossly
       {
         :'status' => :'String',
         :'default_country' => :'String',
+        :'account_source' => :'String',
         :'payouts_enabled' => :'Boolean',
         :'charges_enabled' => :'Boolean',
         :'transfers_active' => :'Boolean',
@@ -139,6 +143,10 @@ module Crossly
 
       if attributes.key?(:'default_country')
         self.default_country = attributes[:'default_country']
+      end
+
+      if attributes.key?(:'account_source')
+        self.account_source = attributes[:'account_source']
       end
 
       if attributes.key?(:'payouts_enabled')
@@ -194,6 +202,10 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @account_source.nil?
+        invalid_properties.push('invalid value for "account_source", account_source cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -201,6 +213,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @status.nil?
+      return false if @account_source.nil?
       agreement_validator = EnumAttributeValidator.new('String', ["full", "recipient"])
       return false unless agreement_validator.valid?(@agreement)
       true
@@ -223,6 +236,7 @@ module Crossly
       self.class == o.class &&
           status == o.status &&
           default_country == o.default_country &&
+          account_source == o.account_source &&
           payouts_enabled == o.payouts_enabled &&
           charges_enabled == o.charges_enabled &&
           transfers_active == o.transfers_active &&
@@ -245,7 +259,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [status, default_country, payouts_enabled, charges_enabled, transfers_active, details_submitted, tax_reporting1099k_ready, country, agreement, default_currency, account_id, payouts_supported, message].hash
+      [status, default_country, account_source, payouts_enabled, charges_enabled, transfers_active, details_submitted, tax_reporting1099k_ready, country, agreement, default_currency, account_id, payouts_supported, message].hash
     end
 
     # Builds the object from hash

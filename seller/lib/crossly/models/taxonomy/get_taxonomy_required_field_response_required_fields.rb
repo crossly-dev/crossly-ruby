@@ -23,9 +23,9 @@ module Crossly
 
     attr_accessor :key
 
-    attr_accessor :required
-
     attr_accessor :hint
+
+    attr_accessor :required
 
     attr_accessor :master
 
@@ -60,8 +60,8 @@ module Crossly
         :'enum_values' => :'enumValues',
         :'label' => :'label',
         :'key' => :'key',
-        :'required' => :'required',
         :'hint' => :'hint',
+        :'required' => :'required',
         :'master' => :'master',
         :'selection_only' => :'selectionOnly'
       }
@@ -79,8 +79,8 @@ module Crossly
         :'enum_values' => :'Array<String>',
         :'label' => :'String',
         :'key' => :'String',
-        :'required' => :'Boolean',
         :'hint' => :'String',
+        :'required' => :'Boolean',
         :'master' => :'Boolean',
         :'selection_only' => :'Boolean'
       }
@@ -127,12 +127,12 @@ module Crossly
         self.key = attributes[:'key']
       end
 
-      if attributes.key?(:'required')
-        self.required = attributes[:'required']
-      end
-
       if attributes.key?(:'hint')
         self.hint = attributes[:'hint']
+      end
+
+      if attributes.key?(:'required')
+        self.required = attributes[:'required']
       end
 
       if attributes.key?(:'master')
@@ -208,8 +208,8 @@ module Crossly
           enum_values == o.enum_values &&
           label == o.label &&
           key == o.key &&
-          required == o.required &&
           hint == o.hint &&
+          required == o.required &&
           master == o.master &&
           selection_only == o.selection_only
     end
@@ -223,7 +223,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [data_type, enum_values, label, key, required, hint, master, selection_only].hash
+      [data_type, enum_values, label, key, hint, required, master, selection_only].hash
     end
 
     # Builds the object from hash

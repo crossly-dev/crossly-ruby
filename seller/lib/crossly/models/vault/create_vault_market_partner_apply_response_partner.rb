@@ -41,6 +41,14 @@ module Crossly
 
     attr_accessor :decision_note
 
+    attr_accessor :postal_code
+
+    attr_accessor :hours
+
+    attr_accessor :services
+
+    attr_accessor :listed
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -78,7 +86,11 @@ module Crossly
         :'cap_cents' => :'capCents',
         :'applied_at' => :'appliedAt',
         :'decided_at' => :'decidedAt',
-        :'decision_note' => :'decisionNote'
+        :'decision_note' => :'decisionNote',
+        :'postal_code' => :'postalCode',
+        :'hours' => :'hours',
+        :'services' => :'services',
+        :'listed' => :'listed'
       }
     end
 
@@ -102,7 +114,11 @@ module Crossly
         :'cap_cents' => :'Float',
         :'applied_at' => :'String',
         :'decided_at' => :'String',
-        :'decision_note' => :'String'
+        :'decision_note' => :'String',
+        :'postal_code' => :'String',
+        :'hours' => :'Hash<String, Object>',
+        :'services' => :'Array<String>',
+        :'listed' => :'Boolean'
       }
     end
 
@@ -114,7 +130,9 @@ module Crossly
         :'note',
         :'code',
         :'decided_at',
-        :'decision_note'
+        :'decision_note',
+        :'postal_code',
+        :'hours',
       ])
     end
 
@@ -186,6 +204,26 @@ module Crossly
       if attributes.key?(:'decision_note')
         self.decision_note = attributes[:'decision_note']
       end
+
+      if attributes.key?(:'postal_code')
+        self.postal_code = attributes[:'postal_code']
+      end
+
+      if attributes.key?(:'hours')
+        if (value = attributes[:'hours']).is_a?(Hash)
+          self.hours = value
+        end
+      end
+
+      if attributes.key?(:'services')
+        if (value = attributes[:'services']).is_a?(Array)
+          self.services = value
+        end
+      end
+
+      if attributes.key?(:'listed')
+        self.listed = attributes[:'listed']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -220,6 +258,14 @@ module Crossly
         invalid_properties.push('invalid value for "applied_at", applied_at cannot be nil.')
       end
 
+      if @services.nil?
+        invalid_properties.push('invalid value for "services", services cannot be nil.')
+      end
+
+      if @listed.nil?
+        invalid_properties.push('invalid value for "listed", listed cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -229,19 +275,21 @@ module Crossly
       return false if @id.nil?
       return false if @user_id.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["applied", "approved", "rejected", "suspended"])
+      status_validator = EnumAttributeValidator.new('String', ["applied", "rejected", "approved", "suspended"])
       return false unless status_validator.valid?(@status)
       return false if @shop_name.nil?
       return false if @share_bps.nil?
       return false if @cap_cents.nil?
       return false if @applied_at.nil?
+      return false if @services.nil?
+      return false if @listed.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["applied", "approved", "rejected", "suspended"])
+      validator = EnumAttributeValidator.new('String', ["applied", "rejected", "approved", "suspended"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -265,7 +313,11 @@ module Crossly
           cap_cents == o.cap_cents &&
           applied_at == o.applied_at &&
           decided_at == o.decided_at &&
-          decision_note == o.decision_note
+          decision_note == o.decision_note &&
+          postal_code == o.postal_code &&
+          hours == o.hours &&
+          services == o.services &&
+          listed == o.listed
     end
 
     # @see the `==` method
@@ -277,7 +329,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, user_id, status, shop_name, address, website, note, code, share_bps, cap_cents, applied_at, decided_at, decision_note].hash
+      [id, user_id, status, shop_name, address, website, note, code, share_bps, cap_cents, applied_at, decided_at, decision_note, postal_code, hours, services, listed].hash
     end
 
     # Builds the object from hash

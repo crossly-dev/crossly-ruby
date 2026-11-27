@@ -15,37 +15,37 @@ require 'time'
 
 module Crossly
   class GetAutomationRuleExportByIdResponse
-    attr_accessor :name
-
-    attr_accessor :action
-
     attr_accessor :schema_version
+
+    attr_accessor :name
 
     attr_accessor :trigger
 
-    attr_accessor :condition
-
-    attr_accessor :metadata
-
-    attr_accessor :description
-
-    attr_accessor :platforms
+    attr_accessor :action
 
     # Optional reference to the public schema URL — purely cosmetic.
     attr_accessor :schema
 
+    attr_accessor :description
+
+    attr_accessor :condition
+
+    attr_accessor :platforms
+
+    attr_accessor :metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'name' => :'name',
-        :'action' => :'action',
         :'schema_version' => :'schemaVersion',
+        :'name' => :'name',
         :'trigger' => :'trigger',
-        :'condition' => :'condition',
-        :'metadata' => :'metadata',
+        :'action' => :'action',
+        :'schema' => :'$schema',
         :'description' => :'description',
+        :'condition' => :'condition',
         :'platforms' => :'platforms',
-        :'schema' => :'$schema'
+        :'metadata' => :'metadata'
       }
     end
 
@@ -57,26 +57,26 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'name' => :'String',
-        :'action' => :'GetAutomationRuleExportByIdResponseAction',
         :'schema_version' => :'Float',
-        :'trigger' => :'GetAutomationRuleExportByIdResponseAction',
-        :'condition' => :'GetAutomationRuleExportByIdResponseCondition',
-        :'metadata' => :'GetAutomationRuleExportByIdResponseMetadata',
+        :'name' => :'String',
+        :'trigger' => :'GetAutomationRuleExportByIdResponseTrigger',
+        :'action' => :'GetAutomationRuleExportByIdResponseTrigger',
+        :'schema' => :'String',
         :'description' => :'String',
+        :'condition' => :'GetAutomationRuleExportByIdResponseCondition',
         :'platforms' => :'Array<String>',
-        :'schema' => :'String'
+        :'metadata' => :'GetAutomationRuleExportByIdResponseMetadata'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'condition',
-        :'metadata',
+        :'schema',
         :'description',
+        :'condition',
         :'platforms',
-        :'schema'
+        :'metadata'
       ])
     end
 
@@ -95,32 +95,32 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
-      end
-
-      if attributes.key?(:'action')
-        self.action = attributes[:'action']
-      end
-
       if attributes.key?(:'schema_version')
         self.schema_version = attributes[:'schema_version']
+      end
+
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
       if attributes.key?(:'trigger')
         self.trigger = attributes[:'trigger']
       end
 
-      if attributes.key?(:'condition')
-        self.condition = attributes[:'condition']
+      if attributes.key?(:'action')
+        self.action = attributes[:'action']
       end
 
-      if attributes.key?(:'metadata')
-        self.metadata = attributes[:'metadata']
+      if attributes.key?(:'schema')
+        self.schema = attributes[:'schema']
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'condition')
+        self.condition = attributes[:'condition']
       end
 
       if attributes.key?(:'platforms')
@@ -129,8 +129,8 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'schema')
-        self.schema = attributes[:'schema']
+      if attributes.key?(:'metadata')
+        self.metadata = attributes[:'metadata']
       end
     end
 
@@ -138,20 +138,20 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
-      if @action.nil?
-        invalid_properties.push('invalid value for "action", action cannot be nil.')
-      end
-
       if @schema_version.nil?
         invalid_properties.push('invalid value for "schema_version", schema_version cannot be nil.')
       end
 
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
+      end
+
       if @trigger.nil?
         invalid_properties.push('invalid value for "trigger", trigger cannot be nil.')
+      end
+
+      if @action.nil?
+        invalid_properties.push('invalid value for "action", action cannot be nil.')
       end
 
       invalid_properties
@@ -160,10 +160,10 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @name.nil?
-      return false if @action.nil?
       return false if @schema_version.nil?
+      return false if @name.nil?
       return false if @trigger.nil?
+      return false if @action.nil?
       true
     end
 
@@ -172,15 +172,15 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          name == o.name &&
-          action == o.action &&
           schema_version == o.schema_version &&
+          name == o.name &&
           trigger == o.trigger &&
-          condition == o.condition &&
-          metadata == o.metadata &&
+          action == o.action &&
+          schema == o.schema &&
           description == o.description &&
+          condition == o.condition &&
           platforms == o.platforms &&
-          schema == o.schema
+          metadata == o.metadata
     end
 
     # @see the `==` method
@@ -192,7 +192,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, action, schema_version, trigger, condition, metadata, description, platforms, schema].hash
+      [schema_version, name, trigger, action, schema, description, condition, platforms, metadata].hash
     end
 
     # Builds the object from hash

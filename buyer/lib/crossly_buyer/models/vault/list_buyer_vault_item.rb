@@ -17,33 +17,33 @@ module CrosslyBuyer
   class ListBuyerVaultItem
     attr_accessor :id
 
-    attr_accessor :condition
-
-    attr_accessor :grade_key
-
     attr_accessor :status
 
-    attr_accessor :received_at
+    attr_accessor :sku_id
+
+    attr_accessor :sku_name
 
     attr_accessor :image_url
 
     attr_accessor :variant_id
 
+    attr_accessor :variant_label
+
+    attr_accessor :condition
+
+    attr_accessor :grade_key
+
+    attr_accessor :location
+
     attr_accessor :last_sale_cents
 
-    attr_accessor :sku_id
+    attr_accessor :ask_price_cents
 
     attr_accessor :withdraw_speed
 
     attr_accessor :withdraw_tracking
 
-    attr_accessor :location
-
-    attr_accessor :sku_name
-
-    attr_accessor :variant_label
-
-    attr_accessor :ask_price_cents
+    attr_accessor :received_at
 
     # What is really going on with it: in_auction, pledged, collateral, lent, in_grading, gift_pending, else the status.
     attr_accessor :situation
@@ -54,20 +54,20 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'condition' => :'condition',
-        :'grade_key' => :'gradeKey',
         :'status' => :'status',
-        :'received_at' => :'receivedAt',
+        :'sku_id' => :'skuId',
+        :'sku_name' => :'skuName',
         :'image_url' => :'imageUrl',
         :'variant_id' => :'variantId',
+        :'variant_label' => :'variantLabel',
+        :'condition' => :'condition',
+        :'grade_key' => :'gradeKey',
+        :'location' => :'location',
         :'last_sale_cents' => :'lastSaleCents',
-        :'sku_id' => :'skuId',
+        :'ask_price_cents' => :'askPriceCents',
         :'withdraw_speed' => :'withdrawSpeed',
         :'withdraw_tracking' => :'withdrawTracking',
-        :'location' => :'location',
-        :'sku_name' => :'skuName',
-        :'variant_label' => :'variantLabel',
-        :'ask_price_cents' => :'askPriceCents',
+        :'received_at' => :'receivedAt',
         :'situation' => :'situation',
         :'early_withdraw_fee_cents' => :'earlyWithdrawFeeCents'
       }
@@ -82,20 +82,20 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'condition' => :'String',
-        :'grade_key' => :'String',
         :'status' => :'String',
-        :'received_at' => :'String',
+        :'sku_id' => :'String',
+        :'sku_name' => :'String',
         :'image_url' => :'String',
         :'variant_id' => :'String',
+        :'variant_label' => :'String',
+        :'condition' => :'String',
+        :'grade_key' => :'String',
+        :'location' => :'String',
         :'last_sale_cents' => :'Float',
-        :'sku_id' => :'String',
+        :'ask_price_cents' => :'Float',
         :'withdraw_speed' => :'String',
         :'withdraw_tracking' => :'String',
-        :'location' => :'String',
-        :'sku_name' => :'String',
-        :'variant_label' => :'String',
-        :'ask_price_cents' => :'Float',
+        :'received_at' => :'String',
         :'situation' => :'String',
         :'early_withdraw_fee_cents' => :'Float'
       }
@@ -104,17 +104,17 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'grade_key',
-        :'received_at',
+        :'sku_name',
         :'image_url',
         :'variant_id',
+        :'variant_label',
+        :'grade_key',
+        :'location',
         :'last_sale_cents',
+        :'ask_price_cents',
         :'withdraw_speed',
         :'withdraw_tracking',
-        :'location',
-        :'sku_name',
-        :'variant_label',
-        :'ask_price_cents',
+        :'received_at',
         :'situation',
         :'early_withdraw_fee_cents'
       ])
@@ -139,20 +139,16 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'condition')
-        self.condition = attributes[:'condition']
-      end
-
-      if attributes.key?(:'grade_key')
-        self.grade_key = attributes[:'grade_key']
-      end
-
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'received_at')
-        self.received_at = attributes[:'received_at']
+      if attributes.key?(:'sku_id')
+        self.sku_id = attributes[:'sku_id']
+      end
+
+      if attributes.key?(:'sku_name')
+        self.sku_name = attributes[:'sku_name']
       end
 
       if attributes.key?(:'image_url')
@@ -163,12 +159,28 @@ module CrosslyBuyer
         self.variant_id = attributes[:'variant_id']
       end
 
+      if attributes.key?(:'variant_label')
+        self.variant_label = attributes[:'variant_label']
+      end
+
+      if attributes.key?(:'condition')
+        self.condition = attributes[:'condition']
+      end
+
+      if attributes.key?(:'grade_key')
+        self.grade_key = attributes[:'grade_key']
+      end
+
+      if attributes.key?(:'location')
+        self.location = attributes[:'location']
+      end
+
       if attributes.key?(:'last_sale_cents')
         self.last_sale_cents = attributes[:'last_sale_cents']
       end
 
-      if attributes.key?(:'sku_id')
-        self.sku_id = attributes[:'sku_id']
+      if attributes.key?(:'ask_price_cents')
+        self.ask_price_cents = attributes[:'ask_price_cents']
       end
 
       if attributes.key?(:'withdraw_speed')
@@ -179,20 +191,8 @@ module CrosslyBuyer
         self.withdraw_tracking = attributes[:'withdraw_tracking']
       end
 
-      if attributes.key?(:'location')
-        self.location = attributes[:'location']
-      end
-
-      if attributes.key?(:'sku_name')
-        self.sku_name = attributes[:'sku_name']
-      end
-
-      if attributes.key?(:'variant_label')
-        self.variant_label = attributes[:'variant_label']
-      end
-
-      if attributes.key?(:'ask_price_cents')
-        self.ask_price_cents = attributes[:'ask_price_cents']
+      if attributes.key?(:'received_at')
+        self.received_at = attributes[:'received_at']
       end
 
       if attributes.key?(:'situation')
@@ -212,16 +212,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @condition.nil?
-        invalid_properties.push('invalid value for "condition", condition cannot be nil.')
-      end
-
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       if @sku_id.nil?
         invalid_properties.push('invalid value for "sku_id", sku_id cannot be nil.')
+      end
+
+      if @condition.nil?
+        invalid_properties.push('invalid value for "condition", condition cannot be nil.')
       end
 
       invalid_properties
@@ -231,9 +231,9 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @condition.nil?
       return false if @status.nil?
       return false if @sku_id.nil?
+      return false if @condition.nil?
       true
     end
 
@@ -243,20 +243,20 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          condition == o.condition &&
-          grade_key == o.grade_key &&
           status == o.status &&
-          received_at == o.received_at &&
+          sku_id == o.sku_id &&
+          sku_name == o.sku_name &&
           image_url == o.image_url &&
           variant_id == o.variant_id &&
+          variant_label == o.variant_label &&
+          condition == o.condition &&
+          grade_key == o.grade_key &&
+          location == o.location &&
           last_sale_cents == o.last_sale_cents &&
-          sku_id == o.sku_id &&
+          ask_price_cents == o.ask_price_cents &&
           withdraw_speed == o.withdraw_speed &&
           withdraw_tracking == o.withdraw_tracking &&
-          location == o.location &&
-          sku_name == o.sku_name &&
-          variant_label == o.variant_label &&
-          ask_price_cents == o.ask_price_cents &&
+          received_at == o.received_at &&
           situation == o.situation &&
           early_withdraw_fee_cents == o.early_withdraw_fee_cents
     end
@@ -270,7 +270,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, condition, grade_key, status, received_at, image_url, variant_id, last_sale_cents, sku_id, withdraw_speed, withdraw_tracking, location, sku_name, variant_label, ask_price_cents, situation, early_withdraw_fee_cents].hash
+      [id, status, sku_id, sku_name, image_url, variant_id, variant_label, condition, grade_key, location, last_sale_cents, ask_price_cents, withdraw_speed, withdraw_tracking, received_at, situation, early_withdraw_fee_cents].hash
     end
 
     # Builds the object from hash

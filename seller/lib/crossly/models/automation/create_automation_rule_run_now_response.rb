@@ -43,7 +43,6 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'job_id'
       ])
     end
 
@@ -79,6 +78,10 @@ module Crossly
         invalid_properties.push('invalid value for "success", success cannot be nil.')
       end
 
+      if @job_id.nil?
+        invalid_properties.push('invalid value for "job_id", job_id cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -86,6 +89,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @success.nil?
+      return false if @job_id.nil?
       true
     end
 

@@ -25,6 +25,8 @@ module Crossly
 
     attr_accessor :holdings
 
+    attr_accessor :options
+
     attr_accessor :policy
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -35,6 +37,7 @@ module Crossly
         :'currency' => :'currency',
         :'totals' => :'totals',
         :'holdings' => :'holdings',
+        :'options' => :'options',
         :'policy' => :'policy'
       }
     end
@@ -52,6 +55,7 @@ module Crossly
         :'currency' => :'String',
         :'totals' => :'GetVaultMarketNavResponseTotals',
         :'holdings' => :'Array<GetVaultMarketNavResponseHoldings>',
+        :'options' => :'GetVaultMarketNavResponseOptions',
         :'policy' => :'Array<String>'
       }
     end
@@ -59,6 +63,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'options',
       ])
     end
 
@@ -97,6 +102,10 @@ module Crossly
         if (value = attributes[:'holdings']).is_a?(Array)
           self.holdings = value
         end
+      end
+
+      if attributes.key?(:'options')
+        self.options = attributes[:'options']
       end
 
       if attributes.key?(:'policy')
@@ -159,6 +168,7 @@ module Crossly
           currency == o.currency &&
           totals == o.totals &&
           holdings == o.holdings &&
+          options == o.options &&
           policy == o.policy
     end
 
@@ -171,7 +181,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [account, as_of, currency, totals, holdings, policy].hash
+      [account, as_of, currency, totals, holdings, options, policy].hash
     end
 
     # Builds the object from hash

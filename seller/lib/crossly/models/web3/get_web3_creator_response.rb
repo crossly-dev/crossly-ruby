@@ -69,10 +69,10 @@ module Crossly
         :'royalty_bps' => :'Float',
         :'royalty_estimate_wei' => :'String',
         :'sales' => :'GetWeb3CreatorResponseSales',
-        :'daily' => :'Array<GetWeb3CreatorResponseDaily>',
-        :'recent' => :'Array<GetWeb3CreatorResponseRecent>',
+        :'daily' => :'Array<GetCreatorCollectionResponseDataDashboardDaily>',
+        :'recent' => :'Array<GetCreatorCollectionResponseDataDashboardRecent>',
         :'holders' => :'GetWeb3CreatorResponseHolders',
-        :'mint' => :'GetWeb3CreatorResponseMint'
+        :'mint' => :'GetCreatorCollectionResponseDataDashboardMint'
       }
     end
 

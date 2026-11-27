@@ -19,6 +19,12 @@ module Crossly
 
     attr_accessor :sent
 
+    # True when the managing app was asked to send it (action authority).
+    attr_accessor :relayed
+
+    # The managing-app command id, on a relay.
+    attr_accessor :command_id
+
     attr_accessor :platform_conversation_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -26,6 +32,8 @@ module Crossly
       {
         :'order_id' => :'orderId',
         :'sent' => :'sent',
+        :'relayed' => :'relayed',
+        :'command_id' => :'commandId',
         :'platform_conversation_id' => :'platformConversationId'
       }
     end
@@ -40,6 +48,8 @@ module Crossly
       {
         :'order_id' => :'String',
         :'sent' => :'Boolean',
+        :'relayed' => :'Boolean',
+        :'command_id' => :'String',
         :'platform_conversation_id' => :'String'
       }
     end
@@ -47,6 +57,9 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'relayed',
+        :'command_id',
+        :'platform_conversation_id'
       ])
     end
 
@@ -73,6 +86,14 @@ module Crossly
         self.sent = attributes[:'sent']
       end
 
+      if attributes.key?(:'relayed')
+        self.relayed = attributes[:'relayed']
+      end
+
+      if attributes.key?(:'command_id')
+        self.command_id = attributes[:'command_id']
+      end
+
       if attributes.key?(:'platform_conversation_id')
         self.platform_conversation_id = attributes[:'platform_conversation_id']
       end
@@ -90,10 +111,6 @@ module Crossly
         invalid_properties.push('invalid value for "sent", sent cannot be nil.')
       end
 
-      if @platform_conversation_id.nil?
-        invalid_properties.push('invalid value for "platform_conversation_id", platform_conversation_id cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -102,7 +119,6 @@ module Crossly
     def valid?
       return false if @order_id.nil?
       return false if @sent.nil?
-      return false if @platform_conversation_id.nil?
       true
     end
 
@@ -113,6 +129,8 @@ module Crossly
       self.class == o.class &&
           order_id == o.order_id &&
           sent == o.sent &&
+          relayed == o.relayed &&
+          command_id == o.command_id &&
           platform_conversation_id == o.platform_conversation_id
     end
 
@@ -125,7 +143,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [order_id, sent, platform_conversation_id].hash
+      [order_id, sent, relayed, command_id, platform_conversation_id].hash
     end
 
     # Builds the object from hash

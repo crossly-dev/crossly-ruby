@@ -17,10 +17,13 @@ module Crossly
   class GetVaultMarketPartnerMeResponse
     attr_accessor :partnership
 
+    attr_accessor :identity
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'partnership' => :'partnership'
+        :'partnership' => :'partnership',
+        :'identity' => :'identity'
       }
     end
 
@@ -32,14 +35,15 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'partnership' => :'GetVaultMarketPartnerMeResponsePartnership'
+        :'partnership' => :'GetVaultMarketPartnerMeResponsePartnership',
+        :'identity' => :'GetVaultMarketPartnerMeResponseIdentity'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'partnership'
+        :'partnership',
       ])
     end
 
@@ -61,18 +65,27 @@ module Crossly
       if attributes.key?(:'partnership')
         self.partnership = attributes[:'partnership']
       end
+
+      if attributes.key?(:'identity')
+        self.identity = attributes[:'identity']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @identity.nil?
+        invalid_properties.push('invalid value for "identity", identity cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @identity.nil?
       true
     end
 
@@ -81,7 +94,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          partnership == o.partnership
+          partnership == o.partnership &&
+          identity == o.identity
     end
 
     # @see the `==` method
@@ -93,7 +107,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [partnership].hash
+      [partnership, identity].hash
     end
 
     # Builds the object from hash

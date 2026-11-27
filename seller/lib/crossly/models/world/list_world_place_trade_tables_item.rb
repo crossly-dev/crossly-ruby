@@ -97,7 +97,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'visitor' => :'ListWorldPlaceTradeTablesItemVisitor',
+        :'visitor' => :'GetWorldExperiencePlaceCollabOpResponseDataFramesBy',
         :'totals' => :'ListWorldPlaceTradeTablesItemTotals',
         :'you' => :'String',
         :'line' => :'ListWorldPlaceTradeTablesItemLine',
@@ -261,7 +261,7 @@ module Crossly
       return false if @cash.nil?
       return false if @shook.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["open", "done", "closed"])
+      status_validator = EnumAttributeValidator.new('String', ["open", "closed", "done"])
       return false unless status_validator.valid?(@status)
       return false if @version.nil?
       true
@@ -280,7 +280,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["open", "done", "closed"])
+      validator = EnumAttributeValidator.new('String', ["open", "closed", "done"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

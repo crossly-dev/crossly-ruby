@@ -25,11 +25,11 @@ module Crossly
 
     attr_accessor :user_id
 
+    attr_accessor :platform
+
     attr_accessor :condition
 
     attr_accessor :category_main
-
-    attr_accessor :platform
 
     attr_accessor :min_price
 
@@ -47,9 +47,9 @@ module Crossly
         :'name' => :'name',
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
+        :'platform' => :'platform',
         :'condition' => :'condition',
         :'category_main' => :'categoryMain',
-        :'platform' => :'platform',
         :'min_price' => :'minPrice',
         :'max_price' => :'maxPrice',
         :'last_matched_at' => :'lastMatchedAt',
@@ -70,9 +70,9 @@ module Crossly
         :'name' => :'String',
         :'created_at' => :'Time',
         :'user_id' => :'String',
+        :'platform' => :'String',
         :'condition' => :'String',
         :'category_main' => :'String',
-        :'platform' => :'String',
         :'min_price' => :'String',
         :'max_price' => :'String',
         :'last_matched_at' => :'Time',
@@ -84,9 +84,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'brand',
+        :'platform',
         :'condition',
         :'category_main',
-        :'platform',
         :'min_price',
         :'max_price',
         :'last_matched_at',
@@ -129,16 +129,16 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
+      if attributes.key?(:'platform')
+        self.platform = attributes[:'platform']
+      end
+
       if attributes.key?(:'condition')
         self.condition = attributes[:'condition']
       end
 
       if attributes.key?(:'category_main')
         self.category_main = attributes[:'category_main']
-      end
-
-      if attributes.key?(:'platform')
-        self.platform = attributes[:'platform']
       end
 
       if attributes.key?(:'min_price')
@@ -201,9 +201,9 @@ module Crossly
           name == o.name &&
           created_at == o.created_at &&
           user_id == o.user_id &&
+          platform == o.platform &&
           condition == o.condition &&
           category_main == o.category_main &&
-          platform == o.platform &&
           min_price == o.min_price &&
           max_price == o.max_price &&
           last_matched_at == o.last_matched_at &&
@@ -219,7 +219,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, brand, name, created_at, user_id, condition, category_main, platform, min_price, max_price, last_matched_at, last_scraped_at].hash
+      [id, brand, name, created_at, user_id, platform, condition, category_main, min_price, max_price, last_matched_at, last_scraped_at].hash
     end
 
     # Builds the object from hash

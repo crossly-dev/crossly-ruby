@@ -15,24 +15,24 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerAuctionBidResponseData
-    # Possibly extended by anti-sniping.
-    attr_accessor :ends_at
-
-    # The price now, in cents, after proxy bidding resolved.
-    attr_accessor :current_bid_cents
-
     attr_accessor :ok
 
     # false = a standing proxy bid outbid you straight away.
     attr_accessor :leading
 
+    # The price now, in cents, after proxy bidding resolved.
+    attr_accessor :current_bid_cents
+
+    # Possibly extended by anti-sniping.
+    attr_accessor :ends_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'ends_at' => :'endsAt',
-        :'current_bid_cents' => :'currentBidCents',
         :'ok' => :'ok',
-        :'leading' => :'leading'
+        :'leading' => :'leading',
+        :'current_bid_cents' => :'currentBidCents',
+        :'ends_at' => :'endsAt'
       }
     end
 
@@ -44,10 +44,10 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'ends_at' => :'String',
-        :'current_bid_cents' => :'Float',
         :'ok' => :'Boolean',
-        :'leading' => :'Boolean'
+        :'leading' => :'Boolean',
+        :'current_bid_cents' => :'Float',
+        :'ends_at' => :'String'
       }
     end
 
@@ -72,14 +72,6 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'ends_at')
-        self.ends_at = attributes[:'ends_at']
-      end
-
-      if attributes.key?(:'current_bid_cents')
-        self.current_bid_cents = attributes[:'current_bid_cents']
-      end
-
       if attributes.key?(:'ok')
         self.ok = attributes[:'ok']
       end
@@ -87,20 +79,20 @@ module CrosslyBuyer
       if attributes.key?(:'leading')
         self.leading = attributes[:'leading']
       end
+
+      if attributes.key?(:'current_bid_cents')
+        self.current_bid_cents = attributes[:'current_bid_cents']
+      end
+
+      if attributes.key?(:'ends_at')
+        self.ends_at = attributes[:'ends_at']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @ends_at.nil?
-        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
-      end
-
-      if @current_bid_cents.nil?
-        invalid_properties.push('invalid value for "current_bid_cents", current_bid_cents cannot be nil.')
-      end
-
       if @ok.nil?
         invalid_properties.push('invalid value for "ok", ok cannot be nil.')
       end
@@ -109,16 +101,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "leading", leading cannot be nil.')
       end
 
+      if @current_bid_cents.nil?
+        invalid_properties.push('invalid value for "current_bid_cents", current_bid_cents cannot be nil.')
+      end
+
+      if @ends_at.nil?
+        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @ends_at.nil?
-      return false if @current_bid_cents.nil?
       return false if @ok.nil?
       return false if @leading.nil?
+      return false if @current_bid_cents.nil?
+      return false if @ends_at.nil?
       true
     end
 
@@ -127,10 +127,10 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          ends_at == o.ends_at &&
-          current_bid_cents == o.current_bid_cents &&
           ok == o.ok &&
-          leading == o.leading
+          leading == o.leading &&
+          current_bid_cents == o.current_bid_cents &&
+          ends_at == o.ends_at
     end
 
     # @see the `==` method
@@ -142,7 +142,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ends_at, current_bid_cents, ok, leading].hash
+      [ok, leading, current_bid_cents, ends_at].hash
     end
 
     # Builds the object from hash

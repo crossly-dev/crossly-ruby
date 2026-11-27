@@ -111,7 +111,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @source.nil?
-      source_validator = EnumAttributeValidator.new('String', ["granted", "earned", "connected"])
+      source_validator = EnumAttributeValidator.new('String', ["earned", "connected", "granted"])
       return false unless source_validator.valid?(@source)
       return false if @base_units.nil?
       true
@@ -120,7 +120,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source Object to be assigned
     def source=(source)
-      validator = EnumAttributeValidator.new('String', ["granted", "earned", "connected"])
+      validator = EnumAttributeValidator.new('String', ["earned", "connected", "granted"])
       unless validator.valid?(source)
         fail ArgumentError, "invalid value for \"source\", must be one of #{validator.allowable_values}."
       end

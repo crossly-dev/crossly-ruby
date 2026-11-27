@@ -230,7 +230,7 @@ module Crossly
       return false if @id.nil?
       return false if @book_key.nil?
       return false if @metric.nil?
-      metric_validator = EnumAttributeValidator.new('String', ["mark", "ask", "bid", "last"])
+      metric_validator = EnumAttributeValidator.new('String', ["ask", "last", "mark", "bid"])
       return false unless metric_validator.valid?(@metric)
       return false if @direction.nil?
       direction_validator = EnumAttributeValidator.new('String', ["above", "below"])
@@ -247,7 +247,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] metric Object to be assigned
     def metric=(metric)
-      validator = EnumAttributeValidator.new('String', ["mark", "ask", "bid", "last"])
+      validator = EnumAttributeValidator.new('String', ["ask", "last", "mark", "bid"])
       unless validator.valid?(metric)
         fail ArgumentError, "invalid value for \"metric\", must be one of #{validator.allowable_values}."
       end

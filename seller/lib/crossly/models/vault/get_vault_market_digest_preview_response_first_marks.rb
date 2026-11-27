@@ -134,7 +134,7 @@ module Crossly
       return false if @book_key.nil?
       return false if @cents.nil?
       return false if @quality.nil?
-      quality_validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      quality_validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       return false unless quality_validator.valid?(@quality)
       true
     end
@@ -142,7 +142,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] quality Object to be assigned
     def quality=(quality)
-      validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       unless validator.valid?(quality)
         fail ArgumentError, "invalid value for \"quality\", must be one of #{validator.allowable_values}."
       end

@@ -15,8 +15,8 @@ require 'time'
 
 module Crossly
   class ListWorldDecorCatalogueItemBuyWithItem
-    CBX = "cbx".freeze
     COSM = "cosm".freeze
+    CBX = "cbx".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

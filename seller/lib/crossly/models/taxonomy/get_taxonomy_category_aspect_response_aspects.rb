@@ -24,13 +24,13 @@ module Crossly
 
     attr_accessor :required
 
-    # Cardinality — SINGLE_VALUE / MULTIPLE_VALUES.
-    attr_accessor :cardinality
-
     attr_accessor :varies_by_aspect
 
     # Helpful for client validation — max length when supplied.
     attr_accessor :max_length
+
+    # Cardinality — SINGLE_VALUE / MULTIPLE_VALUES.
+    attr_accessor :cardinality
 
     attr_accessor :selection_only
 
@@ -41,9 +41,9 @@ module Crossly
         :'data_type' => :'dataType',
         :'enum_values' => :'enumValues',
         :'required' => :'required',
-        :'cardinality' => :'cardinality',
         :'varies_by_aspect' => :'variesByAspect',
         :'max_length' => :'maxLength',
+        :'cardinality' => :'cardinality',
         :'selection_only' => :'selectionOnly'
       }
     end
@@ -60,9 +60,9 @@ module Crossly
         :'data_type' => :'String',
         :'enum_values' => :'Array<String>',
         :'required' => :'Boolean',
-        :'cardinality' => :'String',
         :'varies_by_aspect' => :'Boolean',
         :'max_length' => :'Float',
+        :'cardinality' => :'String',
         :'selection_only' => :'Boolean'
       }
     end
@@ -109,16 +109,16 @@ module Crossly
         self.required = attributes[:'required']
       end
 
-      if attributes.key?(:'cardinality')
-        self.cardinality = attributes[:'cardinality']
-      end
-
       if attributes.key?(:'varies_by_aspect')
         self.varies_by_aspect = attributes[:'varies_by_aspect']
       end
 
       if attributes.key?(:'max_length')
         self.max_length = attributes[:'max_length']
+      end
+
+      if attributes.key?(:'cardinality')
+        self.cardinality = attributes[:'cardinality']
       end
 
       if attributes.key?(:'selection_only')
@@ -173,9 +173,9 @@ module Crossly
           data_type == o.data_type &&
           enum_values == o.enum_values &&
           required == o.required &&
-          cardinality == o.cardinality &&
           varies_by_aspect == o.varies_by_aspect &&
           max_length == o.max_length &&
+          cardinality == o.cardinality &&
           selection_only == o.selection_only
     end
 
@@ -188,7 +188,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, data_type, enum_values, required, cardinality, varies_by_aspect, max_length, selection_only].hash
+      [name, data_type, enum_values, required, varies_by_aspect, max_length, cardinality, selection_only].hash
     end
 
     # Builds the object from hash

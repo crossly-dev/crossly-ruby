@@ -19,6 +19,9 @@ module Crossly
 
     attr_accessor :axis_value
 
+    # The member's value on every axis of a multi-axis group; null on a single-axis member.
+    attr_accessor :options
+
     attr_accessor :sort_key
 
     attr_accessor :title
@@ -38,6 +41,7 @@ module Crossly
       {
         :'listing_id' => :'listingId',
         :'axis_value' => :'axisValue',
+        :'options' => :'options',
         :'sort_key' => :'sortKey',
         :'title' => :'title',
         :'price' => :'price',
@@ -58,6 +62,7 @@ module Crossly
       {
         :'listing_id' => :'String',
         :'axis_value' => :'String',
+        :'options' => :'Hash<String, Object>',
         :'sort_key' => :'Float',
         :'title' => :'String',
         :'price' => :'String',
@@ -72,6 +77,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'axis_value',
+        :'options',
         :'title',
         :'price',
         :'images',
@@ -100,6 +106,12 @@ module Crossly
 
       if attributes.key?(:'axis_value')
         self.axis_value = attributes[:'axis_value']
+      end
+
+      if attributes.key?(:'options')
+        if (value = attributes[:'options']).is_a?(Hash)
+          self.options = value
+        end
       end
 
       if attributes.key?(:'sort_key')
@@ -173,6 +185,7 @@ module Crossly
       self.class == o.class &&
           listing_id == o.listing_id &&
           axis_value == o.axis_value &&
+          options == o.options &&
           sort_key == o.sort_key &&
           title == o.title &&
           price == o.price &&
@@ -191,7 +204,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [listing_id, axis_value, sort_key, title, price, images, status, sku, quantity_available].hash
+      [listing_id, axis_value, options, sort_key, title, price, images, status, sku, quantity_available].hash
     end
 
     # Builds the object from hash

@@ -15,21 +15,64 @@ require 'time'
 
 module Crossly
   class CreateOrderCancelResponse
-    attr_accessor :order_id
+    # The marketplace outcome, or already_cancelled when the order was cancelled before this call.
+    attr_accessor :platform_cancel
+
+    attr_accessor :refund
 
     attr_accessor :platform
 
+    attr_accessor :order_id
+
+    # The platform's error, VERBATIM. Deliberately not summarised — the marketplace names what it objected to, and summarising throws that away. eBay reason codes are now fetched per order via checkCancelEligibility rather than guessed, but a rejection can still happen (order state changed between the probe and the cancel), and this is how it gets diagnosed.
+    attr_accessor :error
+
+    # Cookie track only.
+    attr_accessor :job_id
+
+    # True unless the cancel was relayed to the managing app (then false until it completes).
     attr_accessor :cancelled_in_crossly
 
-    attr_accessor :platform_cancel
+    # platformCancel 'relayed': the app command tracking it.
+    attr_accessor :command_id
+
+    # Platform payload (e.g. eBay's cancellationId) when it answered.
+    attr_accessor :platform_result
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'order_id' => :'orderId',
+        :'platform_cancel' => :'platformCancel',
+        :'refund' => :'refund',
         :'platform' => :'platform',
+        :'order_id' => :'orderId',
+        :'error' => :'error',
+        :'job_id' => :'jobId',
         :'cancelled_in_crossly' => :'cancelledInCrossly',
-        :'platform_cancel' => :'platformCancel'
+        :'command_id' => :'commandId',
+        :'platform_result' => :'platformResult'
       }
     end
 
@@ -41,16 +84,26 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'order_id' => :'String',
+        :'platform_cancel' => :'String',
+        :'refund' => :'CreateOrderCancelResponseRefund',
         :'platform' => :'String',
+        :'order_id' => :'String',
+        :'error' => :'String',
+        :'job_id' => :'String',
         :'cancelled_in_crossly' => :'Boolean',
-        :'platform_cancel' => :'String'
+        :'command_id' => :'String',
+        :'platform_result' => :'Hash<String, Object>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'refund',
+        :'error',
+        :'job_id',
+        :'command_id',
+        :'platform_result'
       ])
     end
 
@@ -69,20 +122,42 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'order_id')
-        self.order_id = attributes[:'order_id']
+      if attributes.key?(:'platform_cancel')
+        self.platform_cancel = attributes[:'platform_cancel']
+      end
+
+      if attributes.key?(:'refund')
+        self.refund = attributes[:'refund']
       end
 
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
       end
 
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
+      end
+
+      if attributes.key?(:'error')
+        self.error = attributes[:'error']
+      end
+
+      if attributes.key?(:'job_id')
+        self.job_id = attributes[:'job_id']
+      end
+
       if attributes.key?(:'cancelled_in_crossly')
         self.cancelled_in_crossly = attributes[:'cancelled_in_crossly']
       end
 
-      if attributes.key?(:'platform_cancel')
-        self.platform_cancel = attributes[:'platform_cancel']
+      if attributes.key?(:'command_id')
+        self.command_id = attributes[:'command_id']
+      end
+
+      if attributes.key?(:'platform_result')
+        if (value = attributes[:'platform_result']).is_a?(Hash)
+          self.platform_result = value
+        end
       end
     end
 
@@ -90,20 +165,20 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @order_id.nil?
-        invalid_properties.push('invalid value for "order_id", order_id cannot be nil.')
+      if @platform_cancel.nil?
+        invalid_properties.push('invalid value for "platform_cancel", platform_cancel cannot be nil.')
       end
 
       if @platform.nil?
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
-      if @cancelled_in_crossly.nil?
-        invalid_properties.push('invalid value for "cancelled_in_crossly", cancelled_in_crossly cannot be nil.')
+      if @order_id.nil?
+        invalid_properties.push('invalid value for "order_id", order_id cannot be nil.')
       end
 
-      if @platform_cancel.nil?
-        invalid_properties.push('invalid value for "platform_cancel", platform_cancel cannot be nil.')
+      if @cancelled_in_crossly.nil?
+        invalid_properties.push('invalid value for "cancelled_in_crossly", cancelled_in_crossly cannot be nil.')
       end
 
       invalid_properties
@@ -112,11 +187,23 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @order_id.nil?
-      return false if @platform.nil?
-      return false if @cancelled_in_crossly.nil?
       return false if @platform_cancel.nil?
+      platform_cancel_validator = EnumAttributeValidator.new('String', ["sent", "failed", "queued", "relayed", "unsupported", "no_platform_order_id", "recorded_only", "already_cancelled"])
+      return false unless platform_cancel_validator.valid?(@platform_cancel)
+      return false if @platform.nil?
+      return false if @order_id.nil?
+      return false if @cancelled_in_crossly.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] platform_cancel Object to be assigned
+    def platform_cancel=(platform_cancel)
+      validator = EnumAttributeValidator.new('String', ["sent", "failed", "queued", "relayed", "unsupported", "no_platform_order_id", "recorded_only", "already_cancelled"])
+      unless validator.valid?(platform_cancel)
+        fail ArgumentError, "invalid value for \"platform_cancel\", must be one of #{validator.allowable_values}."
+      end
+      @platform_cancel = platform_cancel
     end
 
     # Checks equality by comparing each attribute.
@@ -124,10 +211,15 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          order_id == o.order_id &&
+          platform_cancel == o.platform_cancel &&
+          refund == o.refund &&
           platform == o.platform &&
+          order_id == o.order_id &&
+          error == o.error &&
+          job_id == o.job_id &&
           cancelled_in_crossly == o.cancelled_in_crossly &&
-          platform_cancel == o.platform_cancel
+          command_id == o.command_id &&
+          platform_result == o.platform_result
     end
 
     # @see the `==` method
@@ -139,7 +231,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [order_id, platform, cancelled_in_crossly, platform_cancel].hash
+      [platform_cancel, refund, platform, order_id, error, job_id, cancelled_in_crossly, command_id, platform_result].hash
     end
 
     # Builds the object from hash

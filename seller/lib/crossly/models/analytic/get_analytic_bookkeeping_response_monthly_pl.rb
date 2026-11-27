@@ -25,6 +25,9 @@ module Crossly
 
     attr_accessor :shipping_costs
 
+    # Mileage and manual expenses.
+    attr_accessor :other_expenses
+
     attr_accessor :net_profit
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -35,6 +38,7 @@ module Crossly
         :'cogs' => :'cogs',
         :'platform_fees' => :'platformFees',
         :'shipping_costs' => :'shippingCosts',
+        :'other_expenses' => :'otherExpenses',
         :'net_profit' => :'netProfit'
       }
     end
@@ -52,6 +56,7 @@ module Crossly
         :'cogs' => :'Float',
         :'platform_fees' => :'Float',
         :'shipping_costs' => :'Float',
+        :'other_expenses' => :'Float',
         :'net_profit' => :'Float'
       }
     end
@@ -97,6 +102,10 @@ module Crossly
         self.shipping_costs = attributes[:'shipping_costs']
       end
 
+      if attributes.key?(:'other_expenses')
+        self.other_expenses = attributes[:'other_expenses']
+      end
+
       if attributes.key?(:'net_profit')
         self.net_profit = attributes[:'net_profit']
       end
@@ -126,6 +135,10 @@ module Crossly
         invalid_properties.push('invalid value for "shipping_costs", shipping_costs cannot be nil.')
       end
 
+      if @other_expenses.nil?
+        invalid_properties.push('invalid value for "other_expenses", other_expenses cannot be nil.')
+      end
+
       if @net_profit.nil?
         invalid_properties.push('invalid value for "net_profit", net_profit cannot be nil.')
       end
@@ -141,6 +154,7 @@ module Crossly
       return false if @cogs.nil?
       return false if @platform_fees.nil?
       return false if @shipping_costs.nil?
+      return false if @other_expenses.nil?
       return false if @net_profit.nil?
       true
     end
@@ -155,6 +169,7 @@ module Crossly
           cogs == o.cogs &&
           platform_fees == o.platform_fees &&
           shipping_costs == o.shipping_costs &&
+          other_expenses == o.other_expenses &&
           net_profit == o.net_profit
     end
 
@@ -167,7 +182,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [month, revenue, cogs, platform_fees, shipping_costs, net_profit].hash
+      [month, revenue, cogs, platform_fees, shipping_costs, other_expenses, net_profit].hash
     end
 
     # Builds the object from hash

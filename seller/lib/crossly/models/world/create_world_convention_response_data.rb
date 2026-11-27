@@ -21,19 +21,29 @@ module Crossly
 
     attr_accessor :updated_at
 
+    attr_accessor :description
+
     attr_accessor :status
 
     attr_accessor :title
 
+    attr_accessor :storefront_id
+
     attr_accessor :ends_at
-
-    attr_accessor :category_slug
-
-    attr_accessor :host_user_id
 
     attr_accessor :starts_at
 
+    attr_accessor :timezone
+
+    attr_accessor :category_slug
+
+    attr_accessor :theme
+
+    attr_accessor :seller_event_id
+
     attr_accessor :scene_id
+
+    attr_accessor :host_user_id
 
     attr_accessor :entry_model
 
@@ -42,6 +52,18 @@ module Crossly
     attr_accessor :revenue_share_bps
 
     attr_accessor :table_count
+
+    attr_accessor :venue_booking_id
+
+    attr_accessor :opens_hour
+
+    attr_accessor :closes_hour
+
+    attr_accessor :floor_plan_version
+
+    attr_accessor :booking_mode
+
+    attr_accessor :walk_ins
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -71,17 +93,28 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
+        :'description' => :'description',
         :'status' => :'status',
         :'title' => :'title',
+        :'storefront_id' => :'storefrontId',
         :'ends_at' => :'endsAt',
-        :'category_slug' => :'categorySlug',
-        :'host_user_id' => :'hostUserId',
         :'starts_at' => :'startsAt',
+        :'timezone' => :'timezone',
+        :'category_slug' => :'categorySlug',
+        :'theme' => :'theme',
+        :'seller_event_id' => :'sellerEventId',
         :'scene_id' => :'sceneId',
+        :'host_user_id' => :'hostUserId',
         :'entry_model' => :'entryModel',
         :'entry_fee_cents' => :'entryFeeCents',
         :'revenue_share_bps' => :'revenueShareBps',
-        :'table_count' => :'tableCount'
+        :'table_count' => :'tableCount',
+        :'venue_booking_id' => :'venueBookingId',
+        :'opens_hour' => :'opensHour',
+        :'closes_hour' => :'closesHour',
+        :'floor_plan_version' => :'floorPlanVersion',
+        :'booking_mode' => :'bookingMode',
+        :'walk_ins' => :'walkIns'
       }
     end
 
@@ -96,26 +129,41 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
+        :'description' => :'String',
         :'status' => :'String',
         :'title' => :'String',
+        :'storefront_id' => :'String',
         :'ends_at' => :'Time',
-        :'category_slug' => :'String',
-        :'host_user_id' => :'String',
         :'starts_at' => :'Time',
+        :'timezone' => :'String',
+        :'category_slug' => :'String',
+        :'theme' => :'String',
+        :'seller_event_id' => :'String',
         :'scene_id' => :'String',
+        :'host_user_id' => :'String',
         :'entry_model' => :'String',
         :'entry_fee_cents' => :'Float',
         :'revenue_share_bps' => :'Float',
-        :'table_count' => :'Float'
+        :'table_count' => :'Float',
+        :'venue_booking_id' => :'String',
+        :'opens_hour' => :'Float',
+        :'closes_hour' => :'Float',
+        :'floor_plan_version' => :'Float',
+        :'booking_mode' => :'String',
+        :'walk_ins' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'description',
+        :'storefront_id',
         :'category_slug',
+        :'seller_event_id',
         :'entry_fee_cents',
         :'revenue_share_bps',
+        :'venue_booking_id',
       ])
     end
 
@@ -146,6 +194,10 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
@@ -154,24 +206,40 @@ module Crossly
         self.title = attributes[:'title']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
-      end
-
-      if attributes.key?(:'category_slug')
-        self.category_slug = attributes[:'category_slug']
-      end
-
-      if attributes.key?(:'host_user_id')
-        self.host_user_id = attributes[:'host_user_id']
       end
 
       if attributes.key?(:'starts_at')
         self.starts_at = attributes[:'starts_at']
       end
 
+      if attributes.key?(:'timezone')
+        self.timezone = attributes[:'timezone']
+      end
+
+      if attributes.key?(:'category_slug')
+        self.category_slug = attributes[:'category_slug']
+      end
+
+      if attributes.key?(:'theme')
+        self.theme = attributes[:'theme']
+      end
+
+      if attributes.key?(:'seller_event_id')
+        self.seller_event_id = attributes[:'seller_event_id']
+      end
+
       if attributes.key?(:'scene_id')
         self.scene_id = attributes[:'scene_id']
+      end
+
+      if attributes.key?(:'host_user_id')
+        self.host_user_id = attributes[:'host_user_id']
       end
 
       if attributes.key?(:'entry_model')
@@ -188,6 +256,30 @@ module Crossly
 
       if attributes.key?(:'table_count')
         self.table_count = attributes[:'table_count']
+      end
+
+      if attributes.key?(:'venue_booking_id')
+        self.venue_booking_id = attributes[:'venue_booking_id']
+      end
+
+      if attributes.key?(:'opens_hour')
+        self.opens_hour = attributes[:'opens_hour']
+      end
+
+      if attributes.key?(:'closes_hour')
+        self.closes_hour = attributes[:'closes_hour']
+      end
+
+      if attributes.key?(:'floor_plan_version')
+        self.floor_plan_version = attributes[:'floor_plan_version']
+      end
+
+      if attributes.key?(:'booking_mode')
+        self.booking_mode = attributes[:'booking_mode']
+      end
+
+      if attributes.key?(:'walk_ins')
+        self.walk_ins = attributes[:'walk_ins']
       end
     end
 
@@ -219,16 +311,24 @@ module Crossly
         invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
       end
 
-      if @host_user_id.nil?
-        invalid_properties.push('invalid value for "host_user_id", host_user_id cannot be nil.')
-      end
-
       if @starts_at.nil?
         invalid_properties.push('invalid value for "starts_at", starts_at cannot be nil.')
       end
 
+      if @timezone.nil?
+        invalid_properties.push('invalid value for "timezone", timezone cannot be nil.')
+      end
+
+      if @theme.nil?
+        invalid_properties.push('invalid value for "theme", theme cannot be nil.')
+      end
+
       if @scene_id.nil?
         invalid_properties.push('invalid value for "scene_id", scene_id cannot be nil.')
+      end
+
+      if @host_user_id.nil?
+        invalid_properties.push('invalid value for "host_user_id", host_user_id cannot be nil.')
       end
 
       if @entry_model.nil?
@@ -237,6 +337,26 @@ module Crossly
 
       if @table_count.nil?
         invalid_properties.push('invalid value for "table_count", table_count cannot be nil.')
+      end
+
+      if @opens_hour.nil?
+        invalid_properties.push('invalid value for "opens_hour", opens_hour cannot be nil.')
+      end
+
+      if @closes_hour.nil?
+        invalid_properties.push('invalid value for "closes_hour", closes_hour cannot be nil.')
+      end
+
+      if @floor_plan_version.nil?
+        invalid_properties.push('invalid value for "floor_plan_version", floor_plan_version cannot be nil.')
+      end
+
+      if @booking_mode.nil?
+        invalid_properties.push('invalid value for "booking_mode", booking_mode cannot be nil.')
+      end
+
+      if @walk_ins.nil?
+        invalid_properties.push('invalid value for "walk_ins", walk_ins cannot be nil.')
       end
 
       invalid_properties
@@ -249,24 +369,31 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["live", "draft", "open", "cancelled", "ended"])
+      status_validator = EnumAttributeValidator.new('String', ["draft", "live", "cancelled", "open", "ended"])
       return false unless status_validator.valid?(@status)
       return false if @title.nil?
       return false if @ends_at.nil?
-      return false if @host_user_id.nil?
       return false if @starts_at.nil?
+      return false if @timezone.nil?
+      return false if @theme.nil?
       return false if @scene_id.nil?
+      return false if @host_user_id.nil?
       return false if @entry_model.nil?
-      entry_model_validator = EnumAttributeValidator.new('String', ["free", "invite", "fee", "revenue_share"])
+      entry_model_validator = EnumAttributeValidator.new('String', ["free", "fee", "invite", "revenue_share"])
       return false unless entry_model_validator.valid?(@entry_model)
       return false if @table_count.nil?
+      return false if @opens_hour.nil?
+      return false if @closes_hour.nil?
+      return false if @floor_plan_version.nil?
+      return false if @booking_mode.nil?
+      return false if @walk_ins.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["live", "draft", "open", "cancelled", "ended"])
+      validator = EnumAttributeValidator.new('String', ["draft", "live", "cancelled", "open", "ended"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -276,7 +403,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] entry_model Object to be assigned
     def entry_model=(entry_model)
-      validator = EnumAttributeValidator.new('String', ["free", "invite", "fee", "revenue_share"])
+      validator = EnumAttributeValidator.new('String', ["free", "fee", "invite", "revenue_share"])
       unless validator.valid?(entry_model)
         fail ArgumentError, "invalid value for \"entry_model\", must be one of #{validator.allowable_values}."
       end
@@ -291,17 +418,28 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
+          description == o.description &&
           status == o.status &&
           title == o.title &&
+          storefront_id == o.storefront_id &&
           ends_at == o.ends_at &&
-          category_slug == o.category_slug &&
-          host_user_id == o.host_user_id &&
           starts_at == o.starts_at &&
+          timezone == o.timezone &&
+          category_slug == o.category_slug &&
+          theme == o.theme &&
+          seller_event_id == o.seller_event_id &&
           scene_id == o.scene_id &&
+          host_user_id == o.host_user_id &&
           entry_model == o.entry_model &&
           entry_fee_cents == o.entry_fee_cents &&
           revenue_share_bps == o.revenue_share_bps &&
-          table_count == o.table_count
+          table_count == o.table_count &&
+          venue_booking_id == o.venue_booking_id &&
+          opens_hour == o.opens_hour &&
+          closes_hour == o.closes_hour &&
+          floor_plan_version == o.floor_plan_version &&
+          booking_mode == o.booking_mode &&
+          walk_ins == o.walk_ins
     end
 
     # @see the `==` method
@@ -313,7 +451,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, status, title, ends_at, category_slug, host_user_id, starts_at, scene_id, entry_model, entry_fee_cents, revenue_share_bps, table_count].hash
+      [id, created_at, updated_at, description, status, title, storefront_id, ends_at, starts_at, timezone, category_slug, theme, seller_event_id, scene_id, host_user_id, entry_model, entry_fee_cents, revenue_share_bps, table_count, venue_booking_id, opens_hour, closes_hour, floor_plan_version, booking_mode, walk_ins].hash
     end
 
     # Builds the object from hash

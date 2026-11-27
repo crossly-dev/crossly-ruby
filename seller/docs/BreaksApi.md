@@ -79,7 +79,7 @@ This endpoint does not need any parameter.
 
 ## create_break_cancel
 
-> <CreateBreakCancelResponse> create_break_cancel(id)
+> <UpdateGroupBuyResponse> create_break_cancel(id)
 
 Cancel a break before any spot is paid for; after that, refund those orders instead (409).
 
@@ -110,7 +110,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBreakCancelResponse>, Integer, Hash)> create_break_cancel_with_http_info(id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_break_cancel_with_http_info(id)
 
 ```ruby
 begin
@@ -118,7 +118,7 @@ begin
   data, status_code, headers = api_instance.create_break_cancel_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateBreakCancelResponse>
+  p data # => <UpdateGroupBuyResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling BreaksApi->create_break_cancel_with_http_info: #{e}"
 end
@@ -132,7 +132,7 @@ end
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -213,7 +213,7 @@ end
 
 ## create_break_opened
 
-> <CreateBreakCancelResponse> create_break_opened(id)
+> <UpdateGroupBuyResponse> create_break_opened(id)
 
 Mark the product opened on stream.
 
@@ -244,7 +244,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBreakCancelResponse>, Integer, Hash)> create_break_opened_with_http_info(id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_break_opened_with_http_info(id)
 
 ```ruby
 begin
@@ -252,7 +252,7 @@ begin
   data, status_code, headers = api_instance.create_break_opened_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateBreakCancelResponse>
+  p data # => <UpdateGroupBuyResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling BreaksApi->create_break_opened_with_http_info: #{e}"
 end
@@ -266,7 +266,7 @@ end
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -280,7 +280,7 @@ end
 
 ## create_break_spot_hit
 
-> <CreateBreakCancelResponse> create_break_spot_hit(id, spot_id)
+> <UpdateGroupBuyResponse> create_break_spot_hit(id, spot_id)
 
 Record what a spot pulled.
 
@@ -312,7 +312,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBreakCancelResponse>, Integer, Hash)> create_break_spot_hit_with_http_info(id, spot_id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_break_spot_hit_with_http_info(id, spot_id)
 
 ```ruby
 begin
@@ -320,7 +320,7 @@ begin
   data, status_code, headers = api_instance.create_break_spot_hit_with_http_info(id, spot_id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateBreakCancelResponse>
+  p data # => <UpdateGroupBuyResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling BreaksApi->create_break_spot_hit_with_http_info: #{e}"
 end
@@ -335,7 +335,7 @@ end
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 

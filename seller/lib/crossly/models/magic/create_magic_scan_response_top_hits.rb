@@ -25,14 +25,35 @@ module Crossly
 
     attr_accessor :listing_url
 
-    # Origin marker for the UI badge.
+    # Origin marker for the UI badge. Every eBay hit is an image-search hit ('ebay-image'); 'ebay-text' is kept in the union only for rows cached before that was fixed.
     attr_accessor :origin
 
-    # CLIP cosine [0,1]; populated after the visual-rank pass.
+    # CLIP cosine [0,1]; populated after the visual-rank pass. ABSENT = unscored (no image, CLIP down) — never filled in with a made-up value.
     attr_accessor :visual_sim
+
+    # Title agreement with the match reference after the hard gates (rank.ts).
+    attr_accessor :agreement
+
+    # True when the comp states the photo's own identifier (GTIN / style code).
+    attr_accessor :carries_identifier
+
+    # Price outlier within its condition / grade bucket: shown, but not used for pricing.
+    attr_accessor :price_outlier
+
+    # Condition text the platform reported, for the pricing buckets.
+    attr_accessor :condition
+
+    # Brand the platform reported, for the brand gate at verdict time.
+    attr_accessor :brand
 
     # 'active' = currently for sale; 'sold' = historical comp. UI renders distinct badges so the seller can see both at a glance.
     attr_accessor :state
+
+    # Shipping in cents (0 = free), where the platform reports it (ExternalSoldComp.shippingCents).
+    attr_accessor :shipping_cents
+
+    # Auction vs fixed price, where the platform says; an active auction's price is a bid (compPriceIsBid).
+    attr_accessor :format
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -66,7 +87,14 @@ module Crossly
         :'listing_url' => :'listingUrl',
         :'origin' => :'origin',
         :'visual_sim' => :'visualSim',
-        :'state' => :'state'
+        :'agreement' => :'agreement',
+        :'carries_identifier' => :'carriesIdentifier',
+        :'price_outlier' => :'priceOutlier',
+        :'condition' => :'condition',
+        :'brand' => :'brand',
+        :'state' => :'state',
+        :'shipping_cents' => :'shippingCents',
+        :'format' => :'format'
       }
     end
 
@@ -85,7 +113,14 @@ module Crossly
         :'listing_url' => :'String',
         :'origin' => :'String',
         :'visual_sim' => :'Float',
-        :'state' => :'String'
+        :'agreement' => :'Float',
+        :'carries_identifier' => :'Boolean',
+        :'price_outlier' => :'Boolean',
+        :'condition' => :'String',
+        :'brand' => :'String',
+        :'state' => :'String',
+        :'shipping_cents' => :'Float',
+        :'format' => :'String'
       }
     end
 
@@ -95,6 +130,13 @@ module Crossly
         :'image_url',
         :'listing_url',
         :'visual_sim',
+        :'agreement',
+        :'carries_identifier',
+        :'price_outlier',
+        :'condition',
+        :'brand',
+        :'shipping_cents',
+        :'format'
       ])
     end
 
@@ -141,8 +183,36 @@ module Crossly
         self.visual_sim = attributes[:'visual_sim']
       end
 
+      if attributes.key?(:'agreement')
+        self.agreement = attributes[:'agreement']
+      end
+
+      if attributes.key?(:'carries_identifier')
+        self.carries_identifier = attributes[:'carries_identifier']
+      end
+
+      if attributes.key?(:'price_outlier')
+        self.price_outlier = attributes[:'price_outlier']
+      end
+
+      if attributes.key?(:'condition')
+        self.condition = attributes[:'condition']
+      end
+
+      if attributes.key?(:'brand')
+        self.brand = attributes[:'brand']
+      end
+
       if attributes.key?(:'state')
         self.state = attributes[:'state']
+      end
+
+      if attributes.key?(:'shipping_cents')
+        self.shipping_cents = attributes[:'shipping_cents']
+      end
+
+      if attributes.key?(:'format')
+        self.format = attributes[:'format']
       end
     end
 
@@ -183,6 +253,8 @@ module Crossly
       return false if @state.nil?
       state_validator = EnumAttributeValidator.new('String', ["active", "sold"])
       return false unless state_validator.valid?(@state)
+      format_validator = EnumAttributeValidator.new('String', ["auction", "fixed_price"])
+      return false unless format_validator.valid?(@format)
       true
     end
 
@@ -194,6 +266,16 @@ module Crossly
         fail ArgumentError, "invalid value for \"state\", must be one of #{validator.allowable_values}."
       end
       @state = state
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] format Object to be assigned
+    def format=(format)
+      validator = EnumAttributeValidator.new('String', ["auction", "fixed_price"])
+      unless validator.valid?(format)
+        fail ArgumentError, "invalid value for \"format\", must be one of #{validator.allowable_values}."
+      end
+      @format = format
     end
 
     # Checks equality by comparing each attribute.
@@ -208,7 +290,14 @@ module Crossly
           listing_url == o.listing_url &&
           origin == o.origin &&
           visual_sim == o.visual_sim &&
-          state == o.state
+          agreement == o.agreement &&
+          carries_identifier == o.carries_identifier &&
+          price_outlier == o.price_outlier &&
+          condition == o.condition &&
+          brand == o.brand &&
+          state == o.state &&
+          shipping_cents == o.shipping_cents &&
+          format == o.format
     end
 
     # @see the `==` method
@@ -220,7 +309,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, title, price_cents, image_url, listing_url, origin, visual_sim, state].hash
+      [platform, title, price_cents, image_url, listing_url, origin, visual_sim, agreement, carries_identifier, price_outlier, condition, brand, state, shipping_cents, format].hash
     end
 
     # Builds the object from hash

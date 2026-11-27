@@ -161,7 +161,7 @@ module Crossly
       return false if @label.nil?
       return false if @model.nil?
       return false if @size.nil?
-      segment_kind_validator = EnumAttributeValidator.new('String', ["level", "zone", "aisle", "bay", "bin"])
+      segment_kind_validator = EnumAttributeValidator.new('String', ["level", "bin", "zone", "aisle", "bay"])
       return false unless segment_kind_validator.valid?(@segment_kind)
       return false if @capacity.nil?
       true
@@ -170,7 +170,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] segment_kind Object to be assigned
     def segment_kind=(segment_kind)
-      validator = EnumAttributeValidator.new('String', ["level", "zone", "aisle", "bay", "bin"])
+      validator = EnumAttributeValidator.new('String', ["level", "bin", "zone", "aisle", "bay"])
       unless validator.valid?(segment_kind)
         fail ArgumentError, "invalid value for \"segment_kind\", must be one of #{validator.allowable_values}."
       end

@@ -183,12 +183,12 @@ module Crossly
       return false if @parent_position_id.nil?
       return false if @units.nil?
       return false if @reason.nil?
-      reason_validator = EnumAttributeValidator.new('String', ["auction", "close", "recall"])
+      reason_validator = EnumAttributeValidator.new('String', ["close", "auction", "recall"])
       return false unless reason_validator.valid?(@reason)
       return false if @status.nil?
       status_validator = EnumAttributeValidator.new('String', ["split", "pending", "refused", "merged"])
       return false unless status_validator.valid?(@status)
-      action_validator = EnumAttributeValidator.new('String', ["auction", "close"])
+      action_validator = EnumAttributeValidator.new('String', ["close", "auction"])
       return false unless action_validator.valid?(@action)
       return false if @acted.nil?
       return false if @created_at.nil?
@@ -198,7 +198,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] reason Object to be assigned
     def reason=(reason)
-      validator = EnumAttributeValidator.new('String', ["auction", "close", "recall"])
+      validator = EnumAttributeValidator.new('String', ["close", "auction", "recall"])
       unless validator.valid?(reason)
         fail ArgumentError, "invalid value for \"reason\", must be one of #{validator.allowable_values}."
       end
@@ -218,7 +218,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] action Object to be assigned
     def action=(action)
-      validator = EnumAttributeValidator.new('String', ["auction", "close"])
+      validator = EnumAttributeValidator.new('String', ["close", "auction"])
       unless validator.valid?(action)
         fail ArgumentError, "invalid value for \"action\", must be one of #{validator.allowable_values}."
       end

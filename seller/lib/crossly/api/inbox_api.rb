@@ -74,7 +74,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Create a canned response.
+    # Create a canned response (added to the end of the list).
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxCannedResponseResponse]
     def create_inbox_canned_response(opts = {})
@@ -82,7 +82,7 @@ module Crossly
       data
     end
 
-    # Create a canned response.
+    # Create a canned response (added to the end of the list).
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxCannedResponseResponse, Integer, Hash)>] CreateInboxCannedResponseResponse data, response status code and response headers
     def create_inbox_canned_response_with_http_info(opts = {})
@@ -483,6 +483,78 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Make the buyer an offer inside a conversation (seller → buyer). Only where the conversation's canSendOffer is true (Grailed today). `amount` is in the listing's currency, above 0 and below the listing price (whole dollars on Grailed). The offer is in the thread at once as a message with offerAmount + offerStatus, deliveryStatus 'sending' until the platform confirms.
+    # @param id [String] 
+    # @param create_inbox_send_offer_request [CreateInboxSendOfferRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateInboxSendOfferResponse]
+    def create_inbox_send_offer(id, create_inbox_send_offer_request, opts = {})
+      data, _status_code, _headers = create_inbox_send_offer_with_http_info(id, create_inbox_send_offer_request, opts)
+      data
+    end
+
+    # Make the buyer an offer inside a conversation (seller → buyer). Only where the conversation&#39;s canSendOffer is true (Grailed today). &#x60;amount&#x60; is in the listing&#39;s currency, above 0 and below the listing price (whole dollars on Grailed). The offer is in the thread at once as a message with offerAmount + offerStatus, deliveryStatus &#39;sending&#39; until the platform confirms.
+    # @param id [String] 
+    # @param create_inbox_send_offer_request [CreateInboxSendOfferRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateInboxSendOfferResponse, Integer, Hash)>] CreateInboxSendOfferResponse data, response status code and response headers
+    def create_inbox_send_offer_with_http_info(id, create_inbox_send_offer_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_send_offer ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.create_inbox_send_offer"
+      end
+      # verify the required parameter 'create_inbox_send_offer_request' is set
+      if @api_client.config.client_side_validation && create_inbox_send_offer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_send_offer_request' when calling InboxApi.create_inbox_send_offer"
+      end
+      # resource path
+      local_var_path = '/v1/inbox/{id}/send-offer'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_send_offer_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateInboxSendOfferResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InboxApi.create_inbox_send_offer",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InboxApi#create_inbox_send_offer\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -663,16 +735,16 @@ module Crossly
     # Delete a canned response.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateOrderDisputeResponse]
+    # @return [nil]
     def delete_inbox_canned_response(id, opts = {})
-      data, _status_code, _headers = delete_inbox_canned_response_with_http_info(id, opts)
-      data
+      delete_inbox_canned_response_with_http_info(id, opts)
+      nil
     end
 
     # Delete a canned response.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateOrderDisputeResponse, Integer, Hash)>] CreateOrderDisputeResponse data, response status code and response headers
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def delete_inbox_canned_response_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.delete_inbox_canned_response ...'
@@ -699,7 +771,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateOrderDisputeResponse'
+      return_type = opts[:debug_return_type]
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -721,7 +793,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Get one conversation with its messages.
+    # Get one conversation with its messages and the item it is about (itemTitle, itemThumbnail, itemPrice, itemCurrency, itemUrl on the platform, listingId in Crossly, crosslyListingSlug, canSendOffer). An offer made in the thread is a message with offerAmount + offerStatus.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetInboxResponse]
@@ -730,7 +802,7 @@ module Crossly
       data
     end
 
-    # Get one conversation with its messages.
+    # Get one conversation with its messages and the item it is about (itemTitle, itemThumbnail, itemPrice, itemCurrency, itemUrl on the platform, listingId in Crossly, crosslyListingSlug, canSendOffer). An offer made in the thread is a message with offerAmount + offerStatus.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetInboxResponse, Integer, Hash)>] GetInboxResponse data, response status code and response headers
@@ -782,7 +854,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List canned responses.
+    # List canned responses in the seller's order.
     # @param [Hash] opts the optional parameters
     # @return [GetInboxCannedResponseResponse]
     def get_inbox_canned_response(opts = {})
@@ -790,7 +862,7 @@ module Crossly
       data
     end
 
-    # List canned responses.
+    # List canned responses in the seller&#39;s order.
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetInboxCannedResponseResponse, Integer, Hash)>] GetInboxCannedResponseResponse data, response status code and response headers
     def get_inbox_canned_response_with_http_info(opts = {})
@@ -898,7 +970,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Sidebar badge: unread conversation count.
+    # Unread conversation count (threads only; /v1/inbox/counts adds offers).
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3LaunchArtResponse]
     def get_inbox_conversation_unread_count(opts = {})
@@ -906,7 +978,7 @@ module Crossly
       data
     end
 
-    # Sidebar badge: unread conversation count.
+    # Unread conversation count (threads only; /v1/inbox/counts adds offers).
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3LaunchArtResponse, Integer, Hash)>] CreateWeb3LaunchArtResponse data, response status code and response headers
     def get_inbox_conversation_unread_count_with_http_info(opts = {})
@@ -953,20 +1025,77 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List conversations.
+    # Inbox badges: unread and needs-reply, split into conversations and offers.
+    # @param [Hash] opts the optional parameters
+    # @return [GetInboxCountResponse]
+    def get_inbox_count(opts = {})
+      data, _status_code, _headers = get_inbox_count_with_http_info(opts)
+      data
+    end
+
+    # Inbox badges: unread and needs-reply, split into conversations and offers.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetInboxCountResponse, Integer, Hash)>] GetInboxCountResponse data, response status code and response headers
+    def get_inbox_count_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InboxApi.get_inbox_count ...'
+      end
+      # resource path
+      local_var_path = '/v1/inbox/counts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetInboxCountResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InboxApi.get_inbox_count",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InboxApi#get_inbox_count\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List conversations. `filter` narrows to the rows GET /v1/inbox/counts counts.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page  (default to 1)
     # @option opts [Integer] :limit  (default to 25)
+    # @option opts [String] :filter unread | needs_reply (services/inbox/attention.ts). Omit for all.
     # @return [ListInboxResponse]
     def list_inbox(opts = {})
       data, _status_code, _headers = list_inbox_with_http_info(opts)
       data
     end
 
-    # List conversations.
+    # List conversations. &#x60;filter&#x60; narrows to the rows GET /v1/inbox/counts counts.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page 
     # @option opts [Integer] :limit 
+    # @option opts [String] :filter unread | needs_reply (services/inbox/attention.ts). Omit for all.
     # @return [Array<(ListInboxResponse, Integer, Hash)>] ListInboxResponse data, response status code and response headers
     def list_inbox_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -984,6 +1113,10 @@ module Crossly
         fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling InboxApi.list_inbox, must be greater than or equal to 1.'
       end
 
+      allowable_values = ["unread", "needs_reply"]
+      if @api_client.config.client_side_validation && opts[:'filter'] && !allowable_values.include?(opts[:'filter'])
+        fail ArgumentError, "invalid value for \"filter\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/inbox'
 
@@ -991,6 +1124,7 @@ module Crossly
       query_params = opts[:query_params] || {}
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'filter'] = opts[:'filter'] if !opts[:'filter'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1138,6 +1272,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: InboxApi#update_inbox_canned_response\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Reorder canned responses.
+    # Pass EVERY canned response id in the new order (first = top of the picker). A list with an unknown, missing or repeated id is refused with a validation error and nothing changes.
+    # @param update_inbox_canned_response_order_request [UpdateInboxCannedResponseOrderRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetInboxCannedResponseResponse]
+    def update_inbox_canned_response_order(update_inbox_canned_response_order_request, opts = {})
+      data, _status_code, _headers = update_inbox_canned_response_order_with_http_info(update_inbox_canned_response_order_request, opts)
+      data
+    end
+
+    # Reorder canned responses.
+    # Pass EVERY canned response id in the new order (first &#x3D; top of the picker). A list with an unknown, missing or repeated id is refused with a validation error and nothing changes.
+    # @param update_inbox_canned_response_order_request [UpdateInboxCannedResponseOrderRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetInboxCannedResponseResponse, Integer, Hash)>] GetInboxCannedResponseResponse data, response status code and response headers
+    def update_inbox_canned_response_order_with_http_info(update_inbox_canned_response_order_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InboxApi.update_inbox_canned_response_order ...'
+      end
+      # verify the required parameter 'update_inbox_canned_response_order_request' is set
+      if @api_client.config.client_side_validation && update_inbox_canned_response_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_inbox_canned_response_order_request' when calling InboxApi.update_inbox_canned_response_order"
+      end
+      # resource path
+      local_var_path = '/v1/inbox/canned-responses/order'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_inbox_canned_response_order_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetInboxCannedResponseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InboxApi.update_inbox_canned_response_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InboxApi#update_inbox_canned_response_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

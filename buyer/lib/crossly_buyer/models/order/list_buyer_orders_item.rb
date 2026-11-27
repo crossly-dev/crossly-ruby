@@ -17,6 +17,8 @@ module CrosslyBuyer
   class ListBuyerOrdersItem
     attr_accessor :id
 
+    attr_accessor :order_number
+
     attr_accessor :status
 
     attr_accessor :buyer_paid_cents
@@ -27,6 +29,7 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
+        :'order_number' => :'orderNumber',
         :'status' => :'status',
         :'buyer_paid_cents' => :'buyerPaidCents',
         :'created_at' => :'createdAt'
@@ -42,6 +45,7 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
+        :'order_number' => :'String',
         :'status' => :'String',
         :'buyer_paid_cents' => :'Float',
         :'created_at' => :'Time'
@@ -51,6 +55,7 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'order_number',
       ])
     end
 
@@ -71,6 +76,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'order_number')
+        self.order_number = attributes[:'order_number']
       end
 
       if attributes.key?(:'status')
@@ -125,6 +134,7 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          order_number == o.order_number &&
           status == o.status &&
           buyer_paid_cents == o.buyer_paid_cents &&
           created_at == o.created_at
@@ -139,7 +149,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, buyer_paid_cents, created_at].hash
+      [id, order_number, status, buyer_paid_cents, created_at].hash
     end
 
     # Builds the object from hash

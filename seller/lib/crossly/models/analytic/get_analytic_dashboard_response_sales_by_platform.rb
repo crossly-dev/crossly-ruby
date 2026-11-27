@@ -39,7 +39,7 @@ module Crossly
     def self.openapi_types
       {
         :'platform' => :'String',
-        :'count' => :'String',
+        :'count' => :'Float',
         :'revenue' => :'Float'
       }
     end

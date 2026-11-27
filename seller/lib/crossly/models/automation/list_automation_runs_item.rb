@@ -17,34 +17,41 @@ module Crossly
   class ListAutomationRunsItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
     attr_accessor :user_id
 
+    attr_accessor :rule_id
+
+    attr_accessor :chain_id
+
     attr_accessor :status
+
+    attr_accessor :action_type
+
+    attr_accessor :summary
 
     attr_accessor :error_message
 
     attr_accessor :duration_ms
 
-    attr_accessor :rule_id
+    attr_accessor :created_at
 
-    attr_accessor :action_type
-
-    attr_accessor :chain_id
+    # Set for runs of the converted workflow.
+    attr_accessor :workflow_run_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
         :'user_id' => :'userId',
+        :'rule_id' => :'ruleId',
+        :'chain_id' => :'chainId',
         :'status' => :'status',
+        :'action_type' => :'actionType',
+        :'summary' => :'summary',
         :'error_message' => :'errorMessage',
         :'duration_ms' => :'durationMs',
-        :'rule_id' => :'ruleId',
-        :'action_type' => :'actionType',
-        :'chain_id' => :'chainId'
+        :'created_at' => :'createdAt',
+        :'workflow_run_id' => :'workflowRunId'
       }
     end
 
@@ -57,24 +64,27 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'Time',
         :'user_id' => :'String',
+        :'rule_id' => :'String',
+        :'chain_id' => :'String',
         :'status' => :'String',
+        :'action_type' => :'String',
+        :'summary' => :'Hash<String, Object>',
         :'error_message' => :'String',
         :'duration_ms' => :'Float',
-        :'rule_id' => :'String',
-        :'action_type' => :'String',
-        :'chain_id' => :'String'
+        :'created_at' => :'Time',
+        :'workflow_run_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'rule_id',
+        :'chain_id',
         :'error_message',
         :'duration_ms',
-        :'rule_id',
-        :'chain_id'
+        :'workflow_run_id'
       ])
     end
 
@@ -97,16 +107,30 @@ module Crossly
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
       if attributes.key?(:'user_id')
         self.user_id = attributes[:'user_id']
       end
 
+      if attributes.key?(:'rule_id')
+        self.rule_id = attributes[:'rule_id']
+      end
+
+      if attributes.key?(:'chain_id')
+        self.chain_id = attributes[:'chain_id']
+      end
+
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'action_type')
+        self.action_type = attributes[:'action_type']
+      end
+
+      if attributes.key?(:'summary')
+        if (value = attributes[:'summary']).is_a?(Hash)
+          self.summary = value
+        end
       end
 
       if attributes.key?(:'error_message')
@@ -117,16 +141,12 @@ module Crossly
         self.duration_ms = attributes[:'duration_ms']
       end
 
-      if attributes.key?(:'rule_id')
-        self.rule_id = attributes[:'rule_id']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'action_type')
-        self.action_type = attributes[:'action_type']
-      end
-
-      if attributes.key?(:'chain_id')
-        self.chain_id = attributes[:'chain_id']
+      if attributes.key?(:'workflow_run_id')
+        self.workflow_run_id = attributes[:'workflow_run_id']
       end
     end
 
@@ -136,10 +156,6 @@ module Crossly
       invalid_properties = Array.new
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @user_id.nil?
@@ -154,6 +170,14 @@ module Crossly
         invalid_properties.push('invalid value for "action_type", action_type cannot be nil.')
       end
 
+      if @summary.nil?
+        invalid_properties.push('invalid value for "summary", summary cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -161,10 +185,11 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
       return false if @user_id.nil?
       return false if @status.nil?
       return false if @action_type.nil?
+      return false if @summary.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -174,14 +199,16 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
           user_id == o.user_id &&
+          rule_id == o.rule_id &&
+          chain_id == o.chain_id &&
           status == o.status &&
+          action_type == o.action_type &&
+          summary == o.summary &&
           error_message == o.error_message &&
           duration_ms == o.duration_ms &&
-          rule_id == o.rule_id &&
-          action_type == o.action_type &&
-          chain_id == o.chain_id
+          created_at == o.created_at &&
+          workflow_run_id == o.workflow_run_id
     end
 
     # @see the `==` method
@@ -193,7 +220,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, error_message, duration_ms, rule_id, action_type, chain_id].hash
+      [id, user_id, rule_id, chain_id, status, action_type, summary, error_message, duration_ms, created_at, workflow_run_id].hash
     end
 
     # Builds the object from hash

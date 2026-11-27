@@ -121,7 +121,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @marketplace.nil?
-      marketplace_validator = EnumAttributeValidator.new('String', ["opensea", "tensor", "magic_eden", "rarible"])
+      marketplace_validator = EnumAttributeValidator.new('String', ["rarible", "magic_eden", "tensor", "opensea"])
       return false unless marketplace_validator.valid?(@marketplace)
       return false if @platform_key.nil?
       true
@@ -130,7 +130,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] marketplace Object to be assigned
     def marketplace=(marketplace)
-      validator = EnumAttributeValidator.new('String', ["opensea", "tensor", "magic_eden", "rarible"])
+      validator = EnumAttributeValidator.new('String', ["rarible", "magic_eden", "tensor", "opensea"])
       unless validator.valid?(marketplace)
         fail ArgumentError, "invalid value for \"marketplace\", must be one of #{validator.allowable_values}."
       end

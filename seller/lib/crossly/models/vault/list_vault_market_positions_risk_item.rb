@@ -246,14 +246,14 @@ module Crossly
       return false unless direction_validator.valid?(@direction)
       return false if @position_id.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["long", "short"])
+      kind_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless kind_validator.valid?(@kind)
       return false if @status.nil?
       return false if @book_key.nil?
       return false if @tier.nil?
-      tier_validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      tier_validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       return false unless tier_validator.valid?(@tier)
-      margin_state_validator = EnumAttributeValidator.new('String', ["buy_in", "healthy", "call"])
+      margin_state_validator = EnumAttributeValidator.new('String', ["healthy", "call", "buy_in"])
       return false unless margin_state_validator.valid?(@margin_state)
       return false if @maintenance_bps.nil?
       true
@@ -272,7 +272,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["long", "short"])
+      validator = EnumAttributeValidator.new('String', ["short", "long"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -282,7 +282,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["standard", "closed", "deep", "thin"])
+      validator = EnumAttributeValidator.new('String', ["closed", "standard", "deep", "thin"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end
@@ -292,7 +292,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] margin_state Object to be assigned
     def margin_state=(margin_state)
-      validator = EnumAttributeValidator.new('String', ["buy_in", "healthy", "call"])
+      validator = EnumAttributeValidator.new('String', ["healthy", "call", "buy_in"])
       unless validator.valid?(margin_state)
         fail ArgumentError, "invalid value for \"margin_state\", must be one of #{validator.allowable_values}."
       end

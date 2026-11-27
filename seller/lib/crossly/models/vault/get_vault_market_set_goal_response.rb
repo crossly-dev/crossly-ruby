@@ -21,43 +21,43 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :title
-
     attr_accessor :category
+
+    attr_accessor :title
 
     attr_accessor :options
 
     attr_accessor :completed_at
 
-    attr_accessor :progress
-
-    attr_accessor :brand_slug
-
-    attr_accessor :model_slug
-
     attr_accessor :target
-
-    attr_accessor :held
-
-    attr_accessor :complete
-
-    attr_accessor :href
 
     attr_accessor :total
 
-    attr_accessor :set_found
+    attr_accessor :href
+
+    attr_accessor :brand_slug
+
+    attr_accessor :progress
+
+    attr_accessor :missing
+
+    attr_accessor :held
+
+    attr_accessor :model_slug
 
     attr_accessor :basket
 
-    attr_accessor :missing
+    attr_accessor :pieces
+
+    attr_accessor :complete
+
+    attr_accessor :set_found
 
     attr_accessor :priced
 
     attr_accessor :missing_mark_cents
 
     attr_accessor :too_big
-
-    attr_accessor :pieces
 
     attr_accessor :card_set_href
 
@@ -89,25 +89,25 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
-        :'title' => :'title',
         :'category' => :'category',
+        :'title' => :'title',
         :'options' => :'options',
         :'completed_at' => :'completedAt',
-        :'progress' => :'progress',
-        :'brand_slug' => :'brandSlug',
-        :'model_slug' => :'modelSlug',
         :'target' => :'target',
-        :'held' => :'held',
-        :'complete' => :'complete',
-        :'href' => :'href',
         :'total' => :'total',
-        :'set_found' => :'setFound',
-        :'basket' => :'basket',
+        :'href' => :'href',
+        :'brand_slug' => :'brandSlug',
+        :'progress' => :'progress',
         :'missing' => :'missing',
+        :'held' => :'held',
+        :'model_slug' => :'modelSlug',
+        :'basket' => :'basket',
+        :'pieces' => :'pieces',
+        :'complete' => :'complete',
+        :'set_found' => :'setFound',
         :'priced' => :'priced',
         :'missing_mark_cents' => :'missingMarkCents',
         :'too_big' => :'tooBig',
-        :'pieces' => :'pieces',
         :'card_set_href' => :'cardSetHref'
       }
     end
@@ -123,25 +123,25 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'String',
         :'status' => :'String',
-        :'title' => :'String',
         :'category' => :'String',
+        :'title' => :'String',
         :'options' => :'GetVaultMarketSetGoalResponseOptions',
         :'completed_at' => :'String',
-        :'progress' => :'String',
-        :'brand_slug' => :'String',
-        :'model_slug' => :'String',
         :'target' => :'GetVaultMarketSetGoalResponseTarget',
-        :'held' => :'Float',
-        :'complete' => :'Boolean',
-        :'href' => :'String',
         :'total' => :'Float',
-        :'set_found' => :'Boolean',
-        :'basket' => :'GetVaultMarketSetGoalResponseBasket',
+        :'href' => :'String',
+        :'brand_slug' => :'String',
+        :'progress' => :'String',
         :'missing' => :'Float',
+        :'held' => :'Float',
+        :'model_slug' => :'String',
+        :'basket' => :'GetVaultMarketSetGoalResponseBasket',
+        :'pieces' => :'Array<GetVaultMarketSetGoalResponsePieces>',
+        :'complete' => :'Boolean',
+        :'set_found' => :'Boolean',
         :'priced' => :'Float',
         :'missing_mark_cents' => :'Float',
         :'too_big' => :'Boolean',
-        :'pieces' => :'Array<GetVaultMarketSetGoalResponsePieces>',
         :'card_set_href' => :'String'
       }
     end
@@ -181,12 +181,12 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'category')
         self.category = attributes[:'category']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'options')
@@ -197,48 +197,54 @@ module Crossly
         self.completed_at = attributes[:'completed_at']
       end
 
-      if attributes.key?(:'progress')
-        self.progress = attributes[:'progress']
-      end
-
-      if attributes.key?(:'brand_slug')
-        self.brand_slug = attributes[:'brand_slug']
-      end
-
-      if attributes.key?(:'model_slug')
-        self.model_slug = attributes[:'model_slug']
-      end
-
       if attributes.key?(:'target')
         self.target = attributes[:'target']
-      end
-
-      if attributes.key?(:'held')
-        self.held = attributes[:'held']
-      end
-
-      if attributes.key?(:'complete')
-        self.complete = attributes[:'complete']
-      end
-
-      if attributes.key?(:'href')
-        self.href = attributes[:'href']
       end
 
       if attributes.key?(:'total')
         self.total = attributes[:'total']
       end
 
-      if attributes.key?(:'set_found')
-        self.set_found = attributes[:'set_found']
+      if attributes.key?(:'href')
+        self.href = attributes[:'href']
+      end
+
+      if attributes.key?(:'brand_slug')
+        self.brand_slug = attributes[:'brand_slug']
+      end
+
+      if attributes.key?(:'progress')
+        self.progress = attributes[:'progress']
+      end
+
+      if attributes.key?(:'missing')
+        self.missing = attributes[:'missing']
+      end
+
+      if attributes.key?(:'held')
+        self.held = attributes[:'held']
+      end
+
+      if attributes.key?(:'model_slug')
+        self.model_slug = attributes[:'model_slug']
       end
 
       if attributes.key?(:'basket')
         self.basket = attributes[:'basket']
       end
 
-      if attributes.key?(:'missing')
-        self.missing = attributes[:'missing']
+      if attributes.key?(:'pieces')
+        if (value = attributes[:'pieces']).is_a?(Array)
+          self.pieces = value
+        end
+      end
+
+      if attributes.key?(:'complete')
+        self.complete = attributes[:'complete']
+      end
+
+      if attributes.key?(:'set_found')
+        self.set_found = attributes[:'set_found']
       end
 
       if attributes.key?(:'priced')
@@ -251,12 +257,6 @@ module Crossly
 
       if attributes.key?(:'too_big')
         self.too_big = attributes[:'too_big']
-      end
-
-      if attributes.key?(:'pieces')
-        if (value = attributes[:'pieces']).is_a?(Array)
-          self.pieces = value
-        end
       end
 
       if attributes.key?(:'card_set_href')
@@ -280,56 +280,60 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
       if @category.nil?
         invalid_properties.push('invalid value for "category", category cannot be nil.')
+      end
+
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @options.nil?
         invalid_properties.push('invalid value for "options", options cannot be nil.')
       end
 
-      if @progress.nil?
-        invalid_properties.push('invalid value for "progress", progress cannot be nil.')
-      end
-
-      if @brand_slug.nil?
-        invalid_properties.push('invalid value for "brand_slug", brand_slug cannot be nil.')
-      end
-
-      if @model_slug.nil?
-        invalid_properties.push('invalid value for "model_slug", model_slug cannot be nil.')
-      end
-
       if @target.nil?
         invalid_properties.push('invalid value for "target", target cannot be nil.')
-      end
-
-      if @held.nil?
-        invalid_properties.push('invalid value for "held", held cannot be nil.')
-      end
-
-      if @complete.nil?
-        invalid_properties.push('invalid value for "complete", complete cannot be nil.')
-      end
-
-      if @href.nil?
-        invalid_properties.push('invalid value for "href", href cannot be nil.')
       end
 
       if @total.nil?
         invalid_properties.push('invalid value for "total", total cannot be nil.')
       end
 
-      if @set_found.nil?
-        invalid_properties.push('invalid value for "set_found", set_found cannot be nil.')
+      if @href.nil?
+        invalid_properties.push('invalid value for "href", href cannot be nil.')
+      end
+
+      if @brand_slug.nil?
+        invalid_properties.push('invalid value for "brand_slug", brand_slug cannot be nil.')
+      end
+
+      if @progress.nil?
+        invalid_properties.push('invalid value for "progress", progress cannot be nil.')
       end
 
       if @missing.nil?
         invalid_properties.push('invalid value for "missing", missing cannot be nil.')
+      end
+
+      if @held.nil?
+        invalid_properties.push('invalid value for "held", held cannot be nil.')
+      end
+
+      if @model_slug.nil?
+        invalid_properties.push('invalid value for "model_slug", model_slug cannot be nil.')
+      end
+
+      if @pieces.nil?
+        invalid_properties.push('invalid value for "pieces", pieces cannot be nil.')
+      end
+
+      if @complete.nil?
+        invalid_properties.push('invalid value for "complete", complete cannot be nil.')
+      end
+
+      if @set_found.nil?
+        invalid_properties.push('invalid value for "set_found", set_found cannot be nil.')
       end
 
       if @priced.nil?
@@ -342,10 +346,6 @@ module Crossly
 
       if @too_big.nil?
         invalid_properties.push('invalid value for "too_big", too_big cannot be nil.')
-      end
-
-      if @pieces.nil?
-        invalid_properties.push('invalid value for "pieces", pieces cannot be nil.')
       end
 
       if @card_set_href.nil?
@@ -361,25 +361,25 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["active", "complete", "archived"])
+      status_validator = EnumAttributeValidator.new('String', ["active", "archived", "complete"])
       return false unless status_validator.valid?(@status)
-      return false if @title.nil?
       return false if @category.nil?
+      return false if @title.nil?
       return false if @options.nil?
-      return false if @progress.nil?
-      return false if @brand_slug.nil?
-      return false if @model_slug.nil?
       return false if @target.nil?
-      return false if @held.nil?
-      return false if @complete.nil?
-      return false if @href.nil?
       return false if @total.nil?
-      return false if @set_found.nil?
+      return false if @href.nil?
+      return false if @brand_slug.nil?
+      return false if @progress.nil?
       return false if @missing.nil?
+      return false if @held.nil?
+      return false if @model_slug.nil?
+      return false if @pieces.nil?
+      return false if @complete.nil?
+      return false if @set_found.nil?
       return false if @priced.nil?
       return false if @missing_mark_cents.nil?
       return false if @too_big.nil?
-      return false if @pieces.nil?
       return false if @card_set_href.nil?
       true
     end
@@ -387,7 +387,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["active", "complete", "archived"])
+      validator = EnumAttributeValidator.new('String', ["active", "archived", "complete"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -402,25 +402,25 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
-          title == o.title &&
           category == o.category &&
+          title == o.title &&
           options == o.options &&
           completed_at == o.completed_at &&
-          progress == o.progress &&
-          brand_slug == o.brand_slug &&
-          model_slug == o.model_slug &&
           target == o.target &&
-          held == o.held &&
-          complete == o.complete &&
-          href == o.href &&
           total == o.total &&
-          set_found == o.set_found &&
-          basket == o.basket &&
+          href == o.href &&
+          brand_slug == o.brand_slug &&
+          progress == o.progress &&
           missing == o.missing &&
+          held == o.held &&
+          model_slug == o.model_slug &&
+          basket == o.basket &&
+          pieces == o.pieces &&
+          complete == o.complete &&
+          set_found == o.set_found &&
           priced == o.priced &&
           missing_mark_cents == o.missing_mark_cents &&
           too_big == o.too_big &&
-          pieces == o.pieces &&
           card_set_href == o.card_set_href
     end
 
@@ -433,7 +433,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, title, category, options, completed_at, progress, brand_slug, model_slug, target, held, complete, href, total, set_found, basket, missing, priced, missing_mark_cents, too_big, pieces, card_set_href].hash
+      [id, created_at, status, category, title, options, completed_at, target, total, href, brand_slug, progress, missing, held, model_slug, basket, pieces, complete, set_found, priced, missing_mark_cents, too_big, card_set_href].hash
     end
 
     # Builds the object from hash

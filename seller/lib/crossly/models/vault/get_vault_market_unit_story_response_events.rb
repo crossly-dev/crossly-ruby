@@ -215,10 +215,10 @@ module Crossly
       return false if @id.nil?
       return false if @at.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["transfer", "evidence", "sale", "graded", "pledged", "released", "received", "receipt", "lent", "recalled", "foreclosed", "sent_in", "vaulted_from_grading", "bought_in", "grading_sent", "grading_returned", "loan_returned", "hall_on_show", "hall_ended", "token_exported", "token_redeemed", "shipped_out"])
+      kind_validator = EnumAttributeValidator.new('String', ["sale", "receipt", "received", "released", "evidence", "graded", "transfer", "pledged", "lent", "foreclosed", "recalled", "sent_in", "vaulted_from_grading", "bought_in", "grading_sent", "grading_returned", "loan_returned", "hall_on_show", "hall_ended", "token_exported", "token_redeemed", "shipped_out"])
       return false unless kind_validator.valid?(@kind)
       return false if @group.nil?
-      group_validator = EnumAttributeValidator.new('String', ["token", "grade", "loan", "hall", "receipt", "intake", "owner", "custody"])
+      group_validator = EnumAttributeValidator.new('String', ["grade", "token", "receipt", "owner", "hall", "intake", "custody", "loan"])
       return false unless group_validator.valid?(@group)
       return false if @title.nil?
       true
@@ -227,7 +227,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["transfer", "evidence", "sale", "graded", "pledged", "released", "received", "receipt", "lent", "recalled", "foreclosed", "sent_in", "vaulted_from_grading", "bought_in", "grading_sent", "grading_returned", "loan_returned", "hall_on_show", "hall_ended", "token_exported", "token_redeemed", "shipped_out"])
+      validator = EnumAttributeValidator.new('String', ["sale", "receipt", "received", "released", "evidence", "graded", "transfer", "pledged", "lent", "foreclosed", "recalled", "sent_in", "vaulted_from_grading", "bought_in", "grading_sent", "grading_returned", "loan_returned", "hall_on_show", "hall_ended", "token_exported", "token_redeemed", "shipped_out"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -237,7 +237,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] group Object to be assigned
     def group=(group)
-      validator = EnumAttributeValidator.new('String', ["token", "grade", "loan", "hall", "receipt", "intake", "owner", "custody"])
+      validator = EnumAttributeValidator.new('String', ["grade", "token", "receipt", "owner", "hall", "intake", "custody", "loan"])
       unless validator.valid?(group)
         fail ArgumentError, "invalid value for \"group\", must be one of #{validator.allowable_values}."
       end

@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class CreateVaultMarketSupplySendResponse
+    attr_accessor :batch_id
+
     attr_accessor :created
 
     attr_accessor :skipped
@@ -23,13 +25,17 @@ module Crossly
 
     attr_accessor :label_error
 
+    attr_accessor :storefront_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'batch_id' => :'batchId',
         :'created' => :'created',
         :'skipped' => :'skipped',
         :'label' => :'label',
-        :'label_error' => :'labelError'
+        :'label_error' => :'labelError',
+        :'storefront_id' => :'storefrontId'
       }
     end
 
@@ -41,18 +47,23 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'created' => :'Array<CreateVaultMarketSupplySendResponseCreated>',
-        :'skipped' => :'Array<CreateVaultMarketSupplySendResponseSkipped>',
-        :'label' => :'CreateVaultMarketPartnerBatchResponseLabel',
-        :'label_error' => :'String'
+        :'batch_id' => :'Object',
+        :'created' => :'Object',
+        :'skipped' => :'Array<InventoryItemIdReason>',
+        :'label' => :'Object',
+        :'label_error' => :'Object',
+        :'storefront_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'batch_id',
+        :'created',
         :'label',
-        :'label_error'
+        :'label_error',
+        :'storefront_id'
       ])
     end
 
@@ -71,10 +82,12 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'batch_id')
+        self.batch_id = attributes[:'batch_id']
+      end
+
       if attributes.key?(:'created')
-        if (value = attributes[:'created']).is_a?(Array)
-          self.created = value
-        end
+        self.created = attributes[:'created']
       end
 
       if attributes.key?(:'skipped')
@@ -90,16 +103,16 @@ module Crossly
       if attributes.key?(:'label_error')
         self.label_error = attributes[:'label_error']
       end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @created.nil?
-        invalid_properties.push('invalid value for "created", created cannot be nil.')
-      end
-
       if @skipped.nil?
         invalid_properties.push('invalid value for "skipped", skipped cannot be nil.')
       end
@@ -110,7 +123,6 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @created.nil?
       return false if @skipped.nil?
       true
     end
@@ -120,10 +132,12 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          batch_id == o.batch_id &&
           created == o.created &&
           skipped == o.skipped &&
           label == o.label &&
-          label_error == o.label_error
+          label_error == o.label_error &&
+          storefront_id == o.storefront_id
     end
 
     # @see the `==` method
@@ -135,7 +149,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created, skipped, label, label_error].hash
+      [batch_id, created, skipped, label, label_error, storefront_id].hash
     end
 
     # Builds the object from hash

@@ -19,26 +19,26 @@ module CrosslyBuyer
 
     attr_accessor :item_title
 
-    attr_accessor :shipped_at
+    attr_accessor :image_url
 
     attr_accessor :delivered_at
 
-    attr_accessor :image_url
-
-    attr_accessor :seller_name
+    attr_accessor :shipped_at
 
     attr_accessor :ordered_at
+
+    attr_accessor :seller_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'purchase_id' => :'purchaseId',
         :'item_title' => :'itemTitle',
-        :'shipped_at' => :'shippedAt',
-        :'delivered_at' => :'deliveredAt',
         :'image_url' => :'imageUrl',
-        :'seller_name' => :'sellerName',
-        :'ordered_at' => :'orderedAt'
+        :'delivered_at' => :'deliveredAt',
+        :'shipped_at' => :'shippedAt',
+        :'ordered_at' => :'orderedAt',
+        :'seller_name' => :'sellerName'
       }
     end
 
@@ -52,22 +52,22 @@ module CrosslyBuyer
       {
         :'purchase_id' => :'String',
         :'item_title' => :'String',
-        :'shipped_at' => :'String',
-        :'delivered_at' => :'String',
         :'image_url' => :'String',
-        :'seller_name' => :'String',
-        :'ordered_at' => :'String'
+        :'delivered_at' => :'String',
+        :'shipped_at' => :'String',
+        :'ordered_at' => :'String',
+        :'seller_name' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'shipped_at',
-        :'delivered_at',
         :'image_url',
-        :'seller_name',
-        :'ordered_at'
+        :'delivered_at',
+        :'shipped_at',
+        :'ordered_at',
+        :'seller_name'
       ])
     end
 
@@ -94,24 +94,24 @@ module CrosslyBuyer
         self.item_title = attributes[:'item_title']
       end
 
-      if attributes.key?(:'shipped_at')
-        self.shipped_at = attributes[:'shipped_at']
+      if attributes.key?(:'image_url')
+        self.image_url = attributes[:'image_url']
       end
 
       if attributes.key?(:'delivered_at')
         self.delivered_at = attributes[:'delivered_at']
       end
 
-      if attributes.key?(:'image_url')
-        self.image_url = attributes[:'image_url']
-      end
-
-      if attributes.key?(:'seller_name')
-        self.seller_name = attributes[:'seller_name']
+      if attributes.key?(:'shipped_at')
+        self.shipped_at = attributes[:'shipped_at']
       end
 
       if attributes.key?(:'ordered_at')
         self.ordered_at = attributes[:'ordered_at']
+      end
+
+      if attributes.key?(:'seller_name')
+        self.seller_name = attributes[:'seller_name']
       end
     end
 
@@ -145,11 +145,11 @@ module CrosslyBuyer
       self.class == o.class &&
           purchase_id == o.purchase_id &&
           item_title == o.item_title &&
-          shipped_at == o.shipped_at &&
-          delivered_at == o.delivered_at &&
           image_url == o.image_url &&
-          seller_name == o.seller_name &&
-          ordered_at == o.ordered_at
+          delivered_at == o.delivered_at &&
+          shipped_at == o.shipped_at &&
+          ordered_at == o.ordered_at &&
+          seller_name == o.seller_name
     end
 
     # @see the `==` method
@@ -161,7 +161,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [purchase_id, item_title, shipped_at, delivered_at, image_url, seller_name, ordered_at].hash
+      [purchase_id, item_title, image_url, delivered_at, shipped_at, ordered_at, seller_name].hash
     end
 
     # Builds the object from hash

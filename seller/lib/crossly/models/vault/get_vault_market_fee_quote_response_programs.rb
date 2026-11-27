@@ -134,7 +134,7 @@ module Crossly
       return false if @lp.nil?
       return false if @dmm.nil?
       return false if @volume_tier.nil?
-      member_tier_validator = EnumAttributeValidator.new('String', ["classic", "pro"])
+      member_tier_validator = EnumAttributeValidator.new('String', ["pro", "classic"])
       return false unless member_tier_validator.valid?(@member_tier)
       true
     end
@@ -142,7 +142,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] member_tier Object to be assigned
     def member_tier=(member_tier)
-      validator = EnumAttributeValidator.new('String', ["classic", "pro"])
+      validator = EnumAttributeValidator.new('String', ["pro", "classic"])
       unless validator.valid?(member_tier)
         fail ArgumentError, "invalid value for \"member_tier\", must be one of #{validator.allowable_values}."
       end

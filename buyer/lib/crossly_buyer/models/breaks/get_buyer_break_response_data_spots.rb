@@ -17,15 +17,9 @@ module CrosslyBuyer
   class GetBuyerBreakResponseDataSpots
     attr_accessor :id
 
-    attr_accessor :label
-
     attr_accessor :position
 
-    attr_accessor :held_until
-
-    attr_accessor :hits
-
-    attr_accessor :buyer
+    attr_accessor :label
 
     attr_accessor :taken
 
@@ -35,19 +29,25 @@ module CrosslyBuyer
 
     attr_accessor :held_by_other
 
+    attr_accessor :held_until
+
+    attr_accessor :buyer
+
+    attr_accessor :hits
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'label' => :'label',
         :'position' => :'position',
-        :'held_until' => :'heldUntil',
-        :'hits' => :'hits',
-        :'buyer' => :'buyer',
+        :'label' => :'label',
         :'taken' => :'taken',
         :'mine' => :'mine',
         :'held_by_me' => :'heldByMe',
-        :'held_by_other' => :'heldByOther'
+        :'held_by_other' => :'heldByOther',
+        :'held_until' => :'heldUntil',
+        :'buyer' => :'buyer',
+        :'hits' => :'hits'
       }
     end
 
@@ -60,15 +60,15 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'label' => :'String',
         :'position' => :'Float',
-        :'held_until' => :'String',
-        :'hits' => :'String',
-        :'buyer' => :'String',
+        :'label' => :'String',
         :'taken' => :'Boolean',
         :'mine' => :'Boolean',
         :'held_by_me' => :'Boolean',
-        :'held_by_other' => :'Boolean'
+        :'held_by_other' => :'Boolean',
+        :'held_until' => :'String',
+        :'buyer' => :'String',
+        :'hits' => :'String'
       }
     end
 
@@ -76,8 +76,8 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'held_until',
-        :'hits',
         :'buyer',
+        :'hits'
       ])
     end
 
@@ -100,24 +100,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'label')
-        self.label = attributes[:'label']
-      end
-
       if attributes.key?(:'position')
         self.position = attributes[:'position']
       end
 
-      if attributes.key?(:'held_until')
-        self.held_until = attributes[:'held_until']
-      end
-
-      if attributes.key?(:'hits')
-        self.hits = attributes[:'hits']
-      end
-
-      if attributes.key?(:'buyer')
-        self.buyer = attributes[:'buyer']
+      if attributes.key?(:'label')
+        self.label = attributes[:'label']
       end
 
       if attributes.key?(:'taken')
@@ -135,6 +123,18 @@ module CrosslyBuyer
       if attributes.key?(:'held_by_other')
         self.held_by_other = attributes[:'held_by_other']
       end
+
+      if attributes.key?(:'held_until')
+        self.held_until = attributes[:'held_until']
+      end
+
+      if attributes.key?(:'buyer')
+        self.buyer = attributes[:'buyer']
+      end
+
+      if attributes.key?(:'hits')
+        self.hits = attributes[:'hits']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -145,12 +145,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @label.nil?
-        invalid_properties.push('invalid value for "label", label cannot be nil.')
-      end
-
       if @position.nil?
         invalid_properties.push('invalid value for "position", position cannot be nil.')
+      end
+
+      if @label.nil?
+        invalid_properties.push('invalid value for "label", label cannot be nil.')
       end
 
       if @taken.nil?
@@ -176,8 +176,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @label.nil?
       return false if @position.nil?
+      return false if @label.nil?
       return false if @taken.nil?
       return false if @mine.nil?
       return false if @held_by_me.nil?
@@ -191,15 +191,15 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          label == o.label &&
           position == o.position &&
-          held_until == o.held_until &&
-          hits == o.hits &&
-          buyer == o.buyer &&
+          label == o.label &&
           taken == o.taken &&
           mine == o.mine &&
           held_by_me == o.held_by_me &&
-          held_by_other == o.held_by_other
+          held_by_other == o.held_by_other &&
+          held_until == o.held_until &&
+          buyer == o.buyer &&
+          hits == o.hits
     end
 
     # @see the `==` method
@@ -211,7 +211,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, label, position, held_until, hits, buyer, taken, mine, held_by_me, held_by_other].hash
+      [id, position, label, taken, mine, held_by_me, held_by_other, held_until, buyer, hits].hash
     end
 
     # Builds the object from hash

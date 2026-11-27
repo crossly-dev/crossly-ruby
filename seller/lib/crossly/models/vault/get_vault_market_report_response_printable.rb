@@ -15,9 +15,6 @@ require 'time'
 
 module Crossly
   class GetVaultMarketReportResponsePrintable
-    # Closing paragraphs, small and grey.
-    attr_accessor :notes
-
     attr_accessor :title
 
     # Small grey lines under the title (order id, date, seller…).
@@ -25,6 +22,9 @@ module Crossly
 
     # Labelled blocks: \"Shipped to\" + its lines.
     attr_accessor :sections
+
+    # Closing paragraphs, small and grey.
+    attr_accessor :notes
 
     attr_accessor :paper
 
@@ -57,10 +57,10 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'notes' => :'notes',
         :'title' => :'title',
         :'meta' => :'meta',
         :'sections' => :'sections',
+        :'notes' => :'notes',
         :'paper' => :'paper',
         :'table' => :'table',
         :'qr' => :'qr'
@@ -75,10 +75,10 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'notes' => :'Array<String>',
         :'title' => :'String',
         :'meta' => :'Array<String>',
         :'sections' => :'Array<GetVaultMarketOrderHandlingResponseSections>',
+        :'notes' => :'Array<String>',
         :'paper' => :'String',
         :'table' => :'GetVaultMarketReportResponsePrintableTable',
         :'qr' => :'GetVaultMarketReportResponsePrintableQr'
@@ -108,12 +108,6 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'notes')
-        if (value = attributes[:'notes']).is_a?(Array)
-          self.notes = value
-        end
-      end
-
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
@@ -127,6 +121,12 @@ module Crossly
       if attributes.key?(:'sections')
         if (value = attributes[:'sections']).is_a?(Array)
           self.sections = value
+        end
+      end
+
+      if attributes.key?(:'notes')
+        if (value = attributes[:'notes']).is_a?(Array)
+          self.notes = value
         end
       end
 
@@ -147,10 +147,6 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @notes.nil?
-        invalid_properties.push('invalid value for "notes", notes cannot be nil.')
-      end
-
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
@@ -163,6 +159,10 @@ module Crossly
         invalid_properties.push('invalid value for "sections", sections cannot be nil.')
       end
 
+      if @notes.nil?
+        invalid_properties.push('invalid value for "notes", notes cannot be nil.')
+      end
+
       if @paper.nil?
         invalid_properties.push('invalid value for "paper", paper cannot be nil.')
       end
@@ -173,10 +173,10 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @notes.nil?
       return false if @title.nil?
       return false if @meta.nil?
       return false if @sections.nil?
+      return false if @notes.nil?
       return false if @paper.nil?
       paper_validator = EnumAttributeValidator.new('String', ["letter", "a4"])
       return false unless paper_validator.valid?(@paper)
@@ -198,10 +198,10 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          notes == o.notes &&
           title == o.title &&
           meta == o.meta &&
           sections == o.sections &&
+          notes == o.notes &&
           paper == o.paper &&
           table == o.table &&
           qr == o.qr
@@ -216,7 +216,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [notes, title, meta, sections, paper, table, qr].hash
+      [title, meta, sections, notes, paper, table, qr].hash
     end
 
     # Builds the object from hash

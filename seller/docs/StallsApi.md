@@ -6,7 +6,10 @@ All URIs are relative to *https://crossly.net/api*
 | ------ | ------------ | ----------- |
 | [**create_stall_book**](StallsApi.md#create_stall_book) | **POST** /v1/stalls/book | Book and pay for a pop-up stall: { street, spotIndex, rail, unit: \&quot;day\&quot;, startDate, days } or { ..., unit: \&quot;event\&quot;, eventIds }, optional booth { canopy, pattern, lights, counter, piece } (premium values need holding; checked before paying). Paid up front; full-access token and Idempotency-Key required. |
 | [**create_stall_booking_cancel**](StallsApi.md#create_stall_booking_cancel) | **POST** /v1/stalls/bookings/{id}/cancel | Cancel a stall before it opens: a full refund on the rail it was paid on. Final once it has opened. |
+| [**get_stall_booking_counter**](StallsApi.md#get_stall_booking_counter) | **GET** /v1/stalls/bookings/{id}/counter | A stall counter: the listings you picked (in order), its booth kind and capacity. |
 | [**get_stall_quote**](StallsApi.md#get_stall_quote) | **GET** /v1/stalls/quote | Quote a stall: street, spot, and either unit&#x3D;day with start (YYYY-MM-DD) and days, or unit&#x3D;event with events (comma-separated event ids). Returns the line items in cents, the rails the spot accepts and whether it is bookable. |
+| [**get_stall_street_aerial**](StallsApi.md#get_stall_street_aerial) | **GET** /v1/stalls/streets/{slug}/aerial | A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date. |
+| [**list_stall_listing_search**](StallsApi.md#list_stall_listing_search) | **GET** /v1/stalls/listing-search | Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset. |
 | [**list_stall_mine**](StallsApi.md#list_stall_mine) | **GET** /v1/stalls/mine | Your stall bookings, newest first, with visits, offers and sales while the stall was up. |
 | [**list_street_events**](StallsApi.md#list_street_events) | **GET** /v1/streets/{slug}/events | Current and upcoming street events (Night Market, Swap Meet) on a street, soonest first. |
 | [**list_street_stalls**](StallsApi.md#list_street_stalls) | **GET** /v1/streets/{slug}/stalls | Today&#39;s pop-up stalls on a street (each with its live listings, awning, sign and seller), plus the spots still free today. meta carries the street, the phase (day / night_market / swap_meet) and the free spots. |
@@ -144,6 +147,73 @@ end
 - **Accept**: application/json
 
 
+## get_stall_booking_counter
+
+> <GetStallBookingCounterResponse> get_stall_booking_counter(id)
+
+A stall counter: the listings you picked (in order), its booth kind and capacity.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::StallsApi.new
+id = 'id_example' # String | 
+
+begin
+  # A stall counter: the listings you picked (in order), its booth kind and capacity.
+  result = api_instance.get_stall_booking_counter(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling StallsApi->get_stall_booking_counter: #{e}"
+end
+```
+
+#### Using the get_stall_booking_counter_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetStallBookingCounterResponse>, Integer, Hash)> get_stall_booking_counter_with_http_info(id)
+
+```ruby
+begin
+  # A stall counter: the listings you picked (in order), its booth kind and capacity.
+  data, status_code, headers = api_instance.get_stall_booking_counter_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetStallBookingCounterResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling StallsApi->get_stall_booking_counter_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetStallBookingCounterResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_stall_quote
 
 > <GetStallQuoteResponse> get_stall_quote(street, spot, opts)
@@ -212,6 +282,137 @@ end
 ### Return type
 
 **GetStallQuoteResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_stall_street_aerial
+
+> <GetStallStreetAerialResponse> get_stall_street_aerial(slug)
+
+A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::StallsApi.new
+slug = 'slug_example' # String | 
+
+begin
+  # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+  result = api_instance.get_stall_street_aerial(slug)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling StallsApi->get_stall_street_aerial: #{e}"
+end
+```
+
+#### Using the get_stall_street_aerial_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetStallStreetAerialResponse>, Integer, Hash)> get_stall_street_aerial_with_http_info(slug)
+
+```ruby
+begin
+  # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+  data, status_code, headers = api_instance.get_stall_street_aerial_with_http_info(slug)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetStallStreetAerialResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling StallsApi->get_stall_street_aerial_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** |  |  |
+
+### Return type
+
+**GetStallStreetAerialResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_stall_listing_search
+
+> <ListStallListingSearchResponse> list_stall_listing_search
+
+Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::StallsApi.new
+
+begin
+  # Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+  result = api_instance.list_stall_listing_search
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling StallsApi->list_stall_listing_search: #{e}"
+end
+```
+
+#### Using the list_stall_listing_search_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListStallListingSearchResponse>, Integer, Hash)> list_stall_listing_search_with_http_info
+
+```ruby
+begin
+  # Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+  data, status_code, headers = api_instance.list_stall_listing_search_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListStallListingSearchResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling StallsApi->list_stall_listing_search_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListStallListingSearchResponse**
 
 ### Authorization
 

@@ -243,14 +243,14 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["unit", "cash"])
+      kind_validator = EnumAttributeValidator.new('String', ["cash", "unit"])
       return false unless kind_validator.valid?(@kind)
       return false if @book_key.nil?
       return false if @role.nil?
       role_validator = EnumAttributeValidator.new('String', ["bankrupt", "counterparty"])
       return false unless role_validator.valid?(@role)
       return false if @side.nil?
-      side_validator = EnumAttributeValidator.new('String', ["long", "short"])
+      side_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless side_validator.valid?(@side)
       return false if @position_id.nil?
       return false if @price_cents.nil?
@@ -265,7 +265,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["unit", "cash"])
+      validator = EnumAttributeValidator.new('String', ["cash", "unit"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -285,7 +285,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] side Object to be assigned
     def side=(side)
-      validator = EnumAttributeValidator.new('String', ["long", "short"])
+      validator = EnumAttributeValidator.new('String', ["short", "long"])
       unless validator.valid?(side)
         fail ArgumentError, "invalid value for \"side\", must be one of #{validator.allowable_values}."
       end

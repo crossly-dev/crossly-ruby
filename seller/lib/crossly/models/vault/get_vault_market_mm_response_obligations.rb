@@ -25,13 +25,13 @@ module Crossly
 
     attr_accessor :reasons
 
+    attr_accessor :program
+
     attr_accessor :tier
 
     attr_accessor :book_key
 
     attr_accessor :level
-
-    attr_accessor :program
 
     attr_accessor :samples
 
@@ -59,10 +59,10 @@ module Crossly
         :'user_id' => :'userId',
         :'day' => :'day',
         :'reasons' => :'reasons',
+        :'program' => :'program',
         :'tier' => :'tier',
         :'book_key' => :'bookKey',
         :'level' => :'level',
-        :'program' => :'program',
         :'samples' => :'samples',
         :'in_spread' => :'inSpread',
         :'in_half_spread' => :'inHalfSpread',
@@ -88,10 +88,10 @@ module Crossly
         :'user_id' => :'String',
         :'day' => :'String',
         :'reasons' => :'Array<String>',
+        :'program' => :'String',
         :'tier' => :'String',
         :'book_key' => :'String',
         :'level' => :'String',
-        :'program' => :'String',
         :'samples' => :'Float',
         :'in_spread' => :'Float',
         :'in_half_spread' => :'Float',
@@ -153,6 +153,10 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'program')
+        self.program = attributes[:'program']
+      end
+
       if attributes.key?(:'tier')
         self.tier = attributes[:'tier']
       end
@@ -163,10 +167,6 @@ module Crossly
 
       if attributes.key?(:'level')
         self.level = attributes[:'level']
-      end
-
-      if attributes.key?(:'program')
-        self.program = attributes[:'program']
       end
 
       if attributes.key?(:'samples')
@@ -222,12 +222,12 @@ module Crossly
         invalid_properties.push('invalid value for "day", day cannot be nil.')
       end
 
-      if @book_key.nil?
-        invalid_properties.push('invalid value for "book_key", book_key cannot be nil.')
-      end
-
       if @program.nil?
         invalid_properties.push('invalid value for "program", program cannot be nil.')
+      end
+
+      if @book_key.nil?
+        invalid_properties.push('invalid value for "book_key", book_key cannot be nil.')
       end
 
       if @samples.nil?
@@ -267,8 +267,8 @@ module Crossly
       return false if @updated_at.nil?
       return false if @user_id.nil?
       return false if @day.nil?
-      return false if @book_key.nil?
       return false if @program.nil?
+      return false if @book_key.nil?
       return false if @samples.nil?
       return false if @in_spread.nil?
       return false if @in_half_spread.nil?
@@ -289,10 +289,10 @@ module Crossly
           user_id == o.user_id &&
           day == o.day &&
           reasons == o.reasons &&
+          program == o.program &&
           tier == o.tier &&
           book_key == o.book_key &&
           level == o.level &&
-          program == o.program &&
           samples == o.samples &&
           in_spread == o.in_spread &&
           in_half_spread == o.in_half_spread &&
@@ -313,7 +313,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [coverage_pct, updated_at, user_id, day, reasons, tier, book_key, level, program, samples, in_spread, in_half_spread, calls_total, calls_joined, rfq_invited, rfq_answered_fast, met, coverage_bps].hash
+      [coverage_pct, updated_at, user_id, day, reasons, program, tier, book_key, level, samples, in_spread, in_half_spread, calls_total, calls_joined, rfq_invited, rfq_answered_fast, met, coverage_bps].hash
     end
 
     # Builds the object from hash

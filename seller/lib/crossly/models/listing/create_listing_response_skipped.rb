@@ -19,11 +19,14 @@ module Crossly
 
     attr_accessor :reason
 
+    attr_accessor :code
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'platform' => :'platform',
-        :'reason' => :'reason'
+        :'reason' => :'reason',
+        :'code' => :'code'
       }
     end
 
@@ -36,13 +39,15 @@ module Crossly
     def self.openapi_types
       {
         :'platform' => :'String',
-        :'reason' => :'String'
+        :'reason' => :'String',
+        :'code' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'code'
       ])
     end
 
@@ -67,6 +72,10 @@ module Crossly
 
       if attributes.key?(:'reason')
         self.reason = attributes[:'reason']
+      end
+
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       end
     end
 
@@ -99,7 +108,8 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           platform == o.platform &&
-          reason == o.reason
+          reason == o.reason &&
+          code == o.code
     end
 
     # @see the `==` method
@@ -111,7 +121,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, reason].hash
+      [platform, reason, code].hash
     end
 
     # Builds the object from hash

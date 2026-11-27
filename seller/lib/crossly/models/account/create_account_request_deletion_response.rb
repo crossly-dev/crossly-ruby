@@ -21,12 +21,15 @@ module Crossly
 
     attr_accessor :grace_days
 
+    attr_accessor :subscriptions_ending
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'scheduled_for' => :'scheduledFor',
-        :'grace_days' => :'graceDays'
+        :'grace_days' => :'graceDays',
+        :'subscriptions_ending' => :'subscriptionsEnding'
       }
     end
 
@@ -40,7 +43,8 @@ module Crossly
       {
         :'id' => :'String',
         :'scheduled_for' => :'Time',
-        :'grace_days' => :'Float'
+        :'grace_days' => :'Float',
+        :'subscriptions_ending' => :'Float'
       }
     end
 
@@ -76,6 +80,10 @@ module Crossly
       if attributes.key?(:'grace_days')
         self.grace_days = attributes[:'grace_days']
       end
+
+      if attributes.key?(:'subscriptions_ending')
+        self.subscriptions_ending = attributes[:'subscriptions_ending']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -94,6 +102,10 @@ module Crossly
         invalid_properties.push('invalid value for "grace_days", grace_days cannot be nil.')
       end
 
+      if @subscriptions_ending.nil?
+        invalid_properties.push('invalid value for "subscriptions_ending", subscriptions_ending cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -103,6 +115,7 @@ module Crossly
       return false if @id.nil?
       return false if @scheduled_for.nil?
       return false if @grace_days.nil?
+      return false if @subscriptions_ending.nil?
       true
     end
 
@@ -113,7 +126,8 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           scheduled_for == o.scheduled_for &&
-          grace_days == o.grace_days
+          grace_days == o.grace_days &&
+          subscriptions_ending == o.subscriptions_ending
     end
 
     # @see the `==` method
@@ -125,7 +139,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, scheduled_for, grace_days].hash
+      [id, scheduled_for, grace_days, subscriptions_ending].hash
     end
 
     # Builds the object from hash

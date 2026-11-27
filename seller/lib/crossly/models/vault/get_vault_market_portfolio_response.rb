@@ -17,6 +17,8 @@ module Crossly
   class GetVaultMarketPortfolioResponse
     attr_accessor :holdings
 
+    attr_accessor :shares
+
     attr_accessor :on_loan
 
     attr_accessor :totals
@@ -25,6 +27,7 @@ module Crossly
     def self.attribute_map
       {
         :'holdings' => :'holdings',
+        :'shares' => :'shares',
         :'on_loan' => :'onLoan',
         :'totals' => :'totals'
       }
@@ -39,6 +42,7 @@ module Crossly
     def self.openapi_types
       {
         :'holdings' => :'Array<GetVaultMarketPortfolioResponseHoldings>',
+        :'shares' => :'GetVaultMarketPortfolioResponseShares',
         :'on_loan' => :'Array<GetVaultMarketPortfolioResponseOnLoan>',
         :'totals' => :'GetVaultMarketPortfolioResponseTotals'
       }
@@ -71,6 +75,10 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'shares')
+        self.shares = attributes[:'shares']
+      end
+
       if attributes.key?(:'on_loan')
         if (value = attributes[:'on_loan']).is_a?(Array)
           self.on_loan = value
@@ -90,6 +98,10 @@ module Crossly
         invalid_properties.push('invalid value for "holdings", holdings cannot be nil.')
       end
 
+      if @shares.nil?
+        invalid_properties.push('invalid value for "shares", shares cannot be nil.')
+      end
+
       if @on_loan.nil?
         invalid_properties.push('invalid value for "on_loan", on_loan cannot be nil.')
       end
@@ -105,6 +117,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @holdings.nil?
+      return false if @shares.nil?
       return false if @on_loan.nil?
       return false if @totals.nil?
       true
@@ -116,6 +129,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           holdings == o.holdings &&
+          shares == o.shares &&
           on_loan == o.on_loan &&
           totals == o.totals
     end
@@ -129,7 +143,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [holdings, on_loan, totals].hash
+      [holdings, shares, on_loan, totals].hash
     end
 
     # Builds the object from hash

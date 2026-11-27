@@ -146,7 +146,7 @@ module CrosslyBuyer
       return false if @gift_card_id.nil?
       return false if @amount_cents.nil?
       return false if @rail.nil?
-      rail_validator = EnumAttributeValidator.new('String', ["bucks", "cbx"])
+      rail_validator = EnumAttributeValidator.new('String', ["cbx", "bucks"])
       return false unless rail_validator.valid?(@rail)
       return false if @expires_at.nil?
       true
@@ -155,7 +155,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] rail Object to be assigned
     def rail=(rail)
-      validator = EnumAttributeValidator.new('String', ["bucks", "cbx"])
+      validator = EnumAttributeValidator.new('String', ["cbx", "bucks"])
       unless validator.valid?(rail)
         fail ArgumentError, "invalid value for \"rail\", must be one of #{validator.allowable_values}."
       end

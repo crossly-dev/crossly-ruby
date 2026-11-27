@@ -173,7 +173,7 @@ module Crossly
     def valid?
       return false if @book_key.nil?
       return false if @bankrupt_side.nil?
-      bankrupt_side_validator = EnumAttributeValidator.new('String', ["long", "short"])
+      bankrupt_side_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless bankrupt_side_validator.valid?(@bankrupt_side)
       return false if @price_cents.nil?
       return false if @units.nil?
@@ -186,7 +186,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] bankrupt_side Object to be assigned
     def bankrupt_side=(bankrupt_side)
-      validator = EnumAttributeValidator.new('String', ["long", "short"])
+      validator = EnumAttributeValidator.new('String', ["short", "long"])
       unless validator.valid?(bankrupt_side)
         fail ArgumentError, "invalid value for \"bankrupt_side\", must be one of #{validator.allowable_values}."
       end

@@ -144,6 +144,11 @@ module Crossly
 
     attr_accessor :automation_blocked_chain_ids
 
+    # Per-listing workflow overrides (migration 1099, docs/WORKFLOWS.md §10): the automation_* rule/chain ids above map here on conversion; `find.listings` and listing action nodes honour them.   workflowBlockedIds  — workflows (workflows.id) this listing is exempt from  workflowAssignedIds — workflows this listing is force-included in
+    attr_accessor :workflow_blocked_ids
+
+    attr_accessor :workflow_assigned_ids
+
     # Harmonised System customs code — international shipping declarations.
     attr_accessor :hs_code
 
@@ -171,6 +176,14 @@ module Crossly
 
     # UUID minted on a seller's machine for a draft written offline.  The idempotency key for desktop sync. The failure it guards is a POST that succeeds server-side whose reply is lost — the client cannot tell that from a failure, retries, and one item becomes two live listings against one piece of stock. Unique per user (partial index, migration 0268); null for every listing that did not come from an offline draft.
     attr_accessor :client_draft_id
+
+    # The third-party OAuth app that created this listing (via its access token), if any — the anchor for developer revenue-share: the app that created the item earns a cut of its sales. Stamped once at create time (first writer wins, never overwritten); null for the web app, a PAT, or anything first-party. `attributedGrantId` pins the specific install whose agreed terms apply. See services/developer-earnings/.
+    attr_accessor :attributed_oauth_app_id
+
+    attr_accessor :attributed_grant_id
+
+    # Which quota this listing is counted in (migration 1064): 'app_allowance' = the attributed app's per-seller allowance (services/app-allowance/), 'plan' = the seller's plan, null = created before allowances / by no app (plan rules). Stays 'app_allowance' after an unlink (grandfathered, no longer counted).
+    attr_accessor :quota_bucket
 
     attr_accessor :created_at
 
@@ -259,6 +272,8 @@ module Crossly
         :'automation_blocked_rule_ids' => :'automationBlockedRuleIds',
         :'automation_assigned_chain_ids' => :'automationAssignedChainIds',
         :'automation_blocked_chain_ids' => :'automationBlockedChainIds',
+        :'workflow_blocked_ids' => :'workflowBlockedIds',
+        :'workflow_assigned_ids' => :'workflowAssignedIds',
         :'hs_code' => :'hsCode',
         :'country_of_origin' => :'countryOfOrigin',
         :'price_floor_cents' => :'priceFloorCents',
@@ -269,6 +284,9 @@ module Crossly
         :'source' => :'source',
         :'duplicate_of_listing_id' => :'duplicateOfListingId',
         :'client_draft_id' => :'clientDraftId',
+        :'attributed_oauth_app_id' => :'attributedOauthAppId',
+        :'attributed_grant_id' => :'attributedGrantId',
+        :'quota_bucket' => :'quotaBucket',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt'
       }
@@ -310,7 +328,7 @@ module Crossly
         :'status' => :'String',
         :'condition' => :'String',
         :'grade_key' => :'String',
-        :'grading' => :'ListGradingSubmissionsItemGrading',
+        :'grading' => :'CreateBulkBatchItemResponseGrading',
         :'brand' => :'String',
         :'size' => :'String',
         :'material' => :'String',
@@ -340,6 +358,8 @@ module Crossly
         :'automation_blocked_rule_ids' => :'Array<String>',
         :'automation_assigned_chain_ids' => :'Array<String>',
         :'automation_blocked_chain_ids' => :'Array<String>',
+        :'workflow_blocked_ids' => :'Array<String>',
+        :'workflow_assigned_ids' => :'Array<String>',
         :'hs_code' => :'String',
         :'country_of_origin' => :'String',
         :'price_floor_cents' => :'Float',
@@ -350,6 +370,9 @@ module Crossly
         :'source' => :'String',
         :'duplicate_of_listing_id' => :'String',
         :'client_draft_id' => :'String',
+        :'attributed_oauth_app_id' => :'String',
+        :'attributed_grant_id' => :'String',
+        :'quota_bucket' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time'
       }
@@ -403,6 +426,9 @@ module Crossly
         :'ebay_attributes_enriched_at',
         :'duplicate_of_listing_id',
         :'client_draft_id',
+        :'attributed_oauth_app_id',
+        :'attributed_grant_id',
+        :'quota_bucket',
       ])
     end
 
@@ -681,6 +707,18 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'workflow_blocked_ids')
+        if (value = attributes[:'workflow_blocked_ids']).is_a?(Array)
+          self.workflow_blocked_ids = value
+        end
+      end
+
+      if attributes.key?(:'workflow_assigned_ids')
+        if (value = attributes[:'workflow_assigned_ids']).is_a?(Array)
+          self.workflow_assigned_ids = value
+        end
+      end
+
       if attributes.key?(:'hs_code')
         self.hs_code = attributes[:'hs_code']
       end
@@ -719,6 +757,18 @@ module Crossly
 
       if attributes.key?(:'client_draft_id')
         self.client_draft_id = attributes[:'client_draft_id']
+      end
+
+      if attributes.key?(:'attributed_oauth_app_id')
+        self.attributed_oauth_app_id = attributes[:'attributed_oauth_app_id']
+      end
+
+      if attributes.key?(:'attributed_grant_id')
+        self.attributed_grant_id = attributes[:'attributed_grant_id']
+      end
+
+      if attributes.key?(:'quota_bucket')
+        self.quota_bucket = attributes[:'quota_bucket']
       end
 
       if attributes.key?(:'created_at')
@@ -818,6 +868,14 @@ module Crossly
         invalid_properties.push('invalid value for "automation_blocked_chain_ids", automation_blocked_chain_ids cannot be nil.')
       end
 
+      if @workflow_blocked_ids.nil?
+        invalid_properties.push('invalid value for "workflow_blocked_ids", workflow_blocked_ids cannot be nil.')
+      end
+
+      if @workflow_assigned_ids.nil?
+        invalid_properties.push('invalid value for "workflow_assigned_ids", workflow_assigned_ids cannot be nil.')
+      end
+
       if @floor_is_net.nil?
         invalid_properties.push('invalid value for "floor_is_net", floor_is_net cannot be nil.')
       end
@@ -863,6 +921,8 @@ module Crossly
       return false if @automation_blocked_rule_ids.nil?
       return false if @automation_assigned_chain_ids.nil?
       return false if @automation_blocked_chain_ids.nil?
+      return false if @workflow_blocked_ids.nil?
+      return false if @workflow_assigned_ids.nil?
       return false if @floor_is_net.nil?
       return false if @source.nil?
       return false if @created_at.nil?
@@ -943,6 +1003,8 @@ module Crossly
           automation_blocked_rule_ids == o.automation_blocked_rule_ids &&
           automation_assigned_chain_ids == o.automation_assigned_chain_ids &&
           automation_blocked_chain_ids == o.automation_blocked_chain_ids &&
+          workflow_blocked_ids == o.workflow_blocked_ids &&
+          workflow_assigned_ids == o.workflow_assigned_ids &&
           hs_code == o.hs_code &&
           country_of_origin == o.country_of_origin &&
           price_floor_cents == o.price_floor_cents &&
@@ -953,6 +1015,9 @@ module Crossly
           source == o.source &&
           duplicate_of_listing_id == o.duplicate_of_listing_id &&
           client_draft_id == o.client_draft_id &&
+          attributed_oauth_app_id == o.attributed_oauth_app_id &&
+          attributed_grant_id == o.attributed_grant_id &&
+          quota_bucket == o.quota_bucket &&
           created_at == o.created_at &&
           updated_at == o.updated_at
     end
@@ -966,7 +1031,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [effective_title, effective_price, effective_description, effective_images, effective_brand, effective_condition, effective_size, effective_sku, effective_color, effective_tags, platform_listings, inventory_item_id, id, user_id, name, title, description, description_html, price, currency, images, video_url, ai_media_urls, ai_media_declared, ai_media_detected_urls, status, condition, grade_key, grading, brand, size, material, style, pattern, department, gender, item_type, size_system, color, tags, sku, is_digital, quantity, quantity_available, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, publish_at, scheduled_platforms, parent_listing_id, group_kind, is_bundle, automation_assigned_rule_ids, automation_blocked_rule_ids, automation_assigned_chain_ids, automation_blocked_chain_ids, hs_code, country_of_origin, price_floor_cents, floor_is_net, delisted_at, sold_at, ebay_attributes_enriched_at, source, duplicate_of_listing_id, client_draft_id, created_at, updated_at].hash
+      [effective_title, effective_price, effective_description, effective_images, effective_brand, effective_condition, effective_size, effective_sku, effective_color, effective_tags, platform_listings, inventory_item_id, id, user_id, name, title, description, description_html, price, currency, images, video_url, ai_media_urls, ai_media_declared, ai_media_detected_urls, status, condition, grade_key, grading, brand, size, material, style, pattern, department, gender, item_type, size_system, color, tags, sku, is_digital, quantity, quantity_available, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, publish_at, scheduled_platforms, parent_listing_id, group_kind, is_bundle, automation_assigned_rule_ids, automation_blocked_rule_ids, automation_assigned_chain_ids, automation_blocked_chain_ids, workflow_blocked_ids, workflow_assigned_ids, hs_code, country_of_origin, price_floor_cents, floor_is_net, delisted_at, sold_at, ebay_attributes_enriched_at, source, duplicate_of_listing_id, client_draft_id, attributed_oauth_app_id, attributed_grant_id, quota_bucket, created_at, updated_at].hash
     end
 
     # Builds the object from hash

@@ -27,6 +27,12 @@ module Crossly
 
     attr_accessor :user_id
 
+    attr_accessor :description
+
+    attr_accessor :notes
+
+    attr_accessor :is_default
+
     attr_accessor :condition
 
     attr_accessor :size
@@ -49,27 +55,21 @@ module Crossly
 
     attr_accessor :tags
 
-    attr_accessor :notes
-
     attr_accessor :weight_oz
-
-    attr_accessor :description
-
-    attr_accessor :is_default
 
     attr_accessor :title
 
-    attr_accessor :scope
-
-    attr_accessor :share_token
-
     attr_accessor :sort_order
+
+    attr_accessor :scope
 
     attr_accessor :description_variants
 
     attr_accessor :title_variants
 
     attr_accessor :default_for_category
+
+    attr_accessor :share_token
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -80,6 +80,9 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
+        :'description' => :'description',
+        :'notes' => :'notes',
+        :'is_default' => :'isDefault',
         :'condition' => :'condition',
         :'size' => :'size',
         :'material' => :'material',
@@ -91,17 +94,14 @@ module Crossly
         :'size_system' => :'sizeSystem',
         :'color' => :'color',
         :'tags' => :'tags',
-        :'notes' => :'notes',
         :'weight_oz' => :'weightOz',
-        :'description' => :'description',
-        :'is_default' => :'isDefault',
         :'title' => :'title',
-        :'scope' => :'scope',
-        :'share_token' => :'shareToken',
         :'sort_order' => :'sortOrder',
+        :'scope' => :'scope',
         :'description_variants' => :'descriptionVariants',
         :'title_variants' => :'titleVariants',
-        :'default_for_category' => :'defaultForCategory'
+        :'default_for_category' => :'defaultForCategory',
+        :'share_token' => :'shareToken'
       }
     end
 
@@ -119,6 +119,9 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
+        :'description' => :'String',
+        :'notes' => :'String',
+        :'is_default' => :'Boolean',
         :'condition' => :'String',
         :'size' => :'String',
         :'material' => :'String',
@@ -130,17 +133,14 @@ module Crossly
         :'size_system' => :'String',
         :'color' => :'String',
         :'tags' => :'Array<String>',
-        :'notes' => :'String',
         :'weight_oz' => :'Float',
-        :'description' => :'String',
-        :'is_default' => :'Boolean',
         :'title' => :'String',
-        :'scope' => :'String',
-        :'share_token' => :'String',
         :'sort_order' => :'Float',
+        :'scope' => :'String',
         :'description_variants' => :'Array<String>',
         :'title_variants' => :'Array<String>',
-        :'default_for_category' => :'String'
+        :'default_for_category' => :'String',
+        :'share_token' => :'String'
       }
     end
 
@@ -148,6 +148,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'brand',
+        :'description',
+        :'notes',
         :'condition',
         :'size',
         :'material',
@@ -159,14 +161,12 @@ module Crossly
         :'size_system',
         :'color',
         :'tags',
-        :'notes',
         :'weight_oz',
-        :'description',
         :'title',
-        :'share_token',
         :'description_variants',
         :'title_variants',
-        :'default_for_category'
+        :'default_for_category',
+        :'share_token'
       ])
     end
 
@@ -207,6 +207,18 @@ module Crossly
 
       if attributes.key?(:'user_id')
         self.user_id = attributes[:'user_id']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'notes')
+        self.notes = attributes[:'notes']
+      end
+
+      if attributes.key?(:'is_default')
+        self.is_default = attributes[:'is_default']
       end
 
       if attributes.key?(:'condition')
@@ -255,36 +267,20 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'notes')
-        self.notes = attributes[:'notes']
-      end
-
       if attributes.key?(:'weight_oz')
         self.weight_oz = attributes[:'weight_oz']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
-      end
-
-      if attributes.key?(:'is_default')
-        self.is_default = attributes[:'is_default']
       end
 
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'scope')
-        self.scope = attributes[:'scope']
-      end
-
-      if attributes.key?(:'share_token')
-        self.share_token = attributes[:'share_token']
-      end
-
       if attributes.key?(:'sort_order')
         self.sort_order = attributes[:'sort_order']
+      end
+
+      if attributes.key?(:'scope')
+        self.scope = attributes[:'scope']
       end
 
       if attributes.key?(:'description_variants')
@@ -301,6 +297,10 @@ module Crossly
 
       if attributes.key?(:'default_for_category')
         self.default_for_category = attributes[:'default_for_category']
+      end
+
+      if attributes.key?(:'share_token')
+        self.share_token = attributes[:'share_token']
       end
     end
 
@@ -332,12 +332,12 @@ module Crossly
         invalid_properties.push('invalid value for "is_default", is_default cannot be nil.')
       end
 
-      if @scope.nil?
-        invalid_properties.push('invalid value for "scope", scope cannot be nil.')
-      end
-
       if @sort_order.nil?
         invalid_properties.push('invalid value for "sort_order", sort_order cannot be nil.')
+      end
+
+      if @scope.nil?
+        invalid_properties.push('invalid value for "scope", scope cannot be nil.')
       end
 
       invalid_properties
@@ -352,8 +352,8 @@ module Crossly
       return false if @updated_at.nil?
       return false if @user_id.nil?
       return false if @is_default.nil?
-      return false if @scope.nil?
       return false if @sort_order.nil?
+      return false if @scope.nil?
       true
     end
 
@@ -368,6 +368,9 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
+          description == o.description &&
+          notes == o.notes &&
+          is_default == o.is_default &&
           condition == o.condition &&
           size == o.size &&
           material == o.material &&
@@ -379,17 +382,14 @@ module Crossly
           size_system == o.size_system &&
           color == o.color &&
           tags == o.tags &&
-          notes == o.notes &&
           weight_oz == o.weight_oz &&
-          description == o.description &&
-          is_default == o.is_default &&
           title == o.title &&
-          scope == o.scope &&
-          share_token == o.share_token &&
           sort_order == o.sort_order &&
+          scope == o.scope &&
           description_variants == o.description_variants &&
           title_variants == o.title_variants &&
-          default_for_category == o.default_for_category
+          default_for_category == o.default_for_category &&
+          share_token == o.share_token
     end
 
     # @see the `==` method
@@ -401,7 +401,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, brand, name, created_at, updated_at, user_id, condition, size, material, style, pattern, department, gender, item_type, size_system, color, tags, notes, weight_oz, description, is_default, title, scope, share_token, sort_order, description_variants, title_variants, default_for_category].hash
+      [id, brand, name, created_at, updated_at, user_id, description, notes, is_default, condition, size, material, style, pattern, department, gender, item_type, size_system, color, tags, weight_oz, title, sort_order, scope, description_variants, title_variants, default_for_category, share_token].hash
     end
 
     # Builds the object from hash

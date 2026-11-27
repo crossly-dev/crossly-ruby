@@ -35,6 +35,9 @@ module Crossly
 
     attr_accessor :developer_email
 
+    # The share of take-home THIS install agreed to (frozen at consent), not the app's current terms. Null = free.
+    attr_accessor :rev_share_bps
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -47,7 +50,8 @@ module Crossly
         :'app_description' => :'appDescription',
         :'homepage_url' => :'homepageUrl',
         :'developer_name' => :'developerName',
-        :'developer_email' => :'developerEmail'
+        :'developer_email' => :'developerEmail',
+        :'rev_share_bps' => :'revShareBps'
       }
     end
 
@@ -68,7 +72,8 @@ module Crossly
         :'app_description' => :'String',
         :'homepage_url' => :'String',
         :'developer_name' => :'String',
-        :'developer_email' => :'String'
+        :'developer_email' => :'String',
+        :'rev_share_bps' => :'Float'
       }
     end
 
@@ -79,6 +84,7 @@ module Crossly
         :'app_description',
         :'homepage_url',
         :'developer_name',
+        :'rev_share_bps'
       ])
     end
 
@@ -137,6 +143,10 @@ module Crossly
 
       if attributes.key?(:'developer_email')
         self.developer_email = attributes[:'developer_email']
+      end
+
+      if attributes.key?(:'rev_share_bps')
+        self.rev_share_bps = attributes[:'rev_share_bps']
       end
     end
 
@@ -197,7 +207,8 @@ module Crossly
           app_description == o.app_description &&
           homepage_url == o.homepage_url &&
           developer_name == o.developer_name &&
-          developer_email == o.developer_email
+          developer_email == o.developer_email &&
+          rev_share_bps == o.rev_share_bps
     end
 
     # @see the `==` method
@@ -209,7 +220,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [grant_id, scopes, connected_at, last_used_at, app_id, app_name, app_description, homepage_url, developer_name, developer_email].hash
+      [grant_id, scopes, connected_at, last_used_at, app_id, app_name, app_description, homepage_url, developer_name, developer_email, rev_share_bps].hash
     end
 
     # Builds the object from hash

@@ -107,7 +107,7 @@ module Crossly
         :'floor' => :'String',
         :'cove_colour' => :'String',
         :'cove_intensity' => :'Float',
-        :'props' => :'Array<UpdateSpatialSceneCosmeticResponseDataProps>',
+        :'props' => :'Array<GetShowroomResponseDataRoomProps>',
         :'shopfront' => :'String',
         :'shopfront_colour' => :'String',
         :'facade' => :'String',
@@ -221,7 +221,7 @@ module Crossly
       return false unless wall_validator.valid?(@wall)
       floor_validator = EnumAttributeValidator.new('String', ["metal", "plaster", "concrete", "wood", "walnut", "leather", "felt", "cardboard", "marble", "oak", "brushed_steel", "carpet", "tile", "painted_metal"])
       return false unless floor_validator.valid?(@floor)
-      shopfront_validator = EnumAttributeValidator.new('String', ["full", "none", "awning", "fascia", "neon_fascia", "gilded_fascia", "scalloped_awning"])
+      shopfront_validator = EnumAttributeValidator.new('String', ["full", "none", "fascia", "awning", "neon_fascia", "gilded_fascia", "scalloped_awning"])
       return false unless shopfront_validator.valid?(@shopfront)
       facade_validator = EnumAttributeValidator.new('String', ["market", "classic", "modern", "boutique", "art_deco", "victorian", "brutalist"])
       return false unless facade_validator.valid?(@facade)
@@ -259,7 +259,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] shopfront Object to be assigned
     def shopfront=(shopfront)
-      validator = EnumAttributeValidator.new('String', ["full", "none", "awning", "fascia", "neon_fascia", "gilded_fascia", "scalloped_awning"])
+      validator = EnumAttributeValidator.new('String', ["full", "none", "fascia", "awning", "neon_fascia", "gilded_fascia", "scalloped_awning"])
       unless validator.valid?(shopfront)
         fail ArgumentError, "invalid value for \"shopfront\", must be one of #{validator.allowable_values}."
       end

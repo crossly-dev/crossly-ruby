@@ -1375,6 +1375,232 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def create_buyer_company(opts = {})
+      data, _status_code, _headers = create_buyer_company_with_http_info(opts)
+      data
+    end
+
+    # Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def create_buyer_company_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_company ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_company",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_company\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerCompanyApprovalResponse]
+    def create_buyer_company_approval(opts = {})
+      data, _status_code, _headers = create_buyer_company_approval_with_http_info(opts)
+      data
+    end
+
+    # Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerCompanyApprovalResponse, Integer, Hash)>] CreateBuyerCompanyApprovalResponse data, response status code and response headers
+    def create_buyer_company_approval_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_company_approval ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/approvals'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerCompanyApprovalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_company_approval",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_company_approval\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerCompanyApprovalResponse]
+    def create_buyer_company_approval_decide(id, opts = {})
+      data, _status_code, _headers = create_buyer_company_approval_decide_with_http_info(id, opts)
+      data
+    end
+
+    # Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerCompanyApprovalResponse, Integer, Hash)>] CreateBuyerCompanyApprovalResponse data, response status code and response headers
+    def create_buyer_company_approval_decide_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_company_approval_decide ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_company_approval_decide"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/approvals/{id}/decide'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerCompanyApprovalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_company_approval_decide",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_company_approval_decide\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def create_buyer_company_member(opts = {})
+      data, _status_code, _headers = create_buyer_company_member_with_http_info(opts)
+      data
+    end
+
+    # Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def create_buyer_company_member_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_company_member ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/members'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_company_member",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_company_member\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Invite a friend into a chat with a seller: a single-use link (7 days) that makes whoever opens it a guest who can read and post. Only the thread’s buyer can invite; at most 5 guests.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -1493,6 +1719,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_conversation_join\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # RSVP to an event: going (counts against its capacity) or interested.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerEventRsvpResponse]
+    def create_buyer_event_rsvp(slug, opts = {})
+      data, _status_code, _headers = create_buyer_event_rsvp_with_http_info(slug, opts)
+      data
+    end
+
+    # RSVP to an event: going (counts against its capacity) or interested.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerEventRsvpResponse, Integer, Hash)>] CreateBuyerEventRsvpResponse data, response status code and response headers
+    def create_buyer_event_rsvp_with_http_info(slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_event_rsvp ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.create_buyer_event_rsvp"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/events/{slug}/rsvp'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerEventRsvpResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_event_rsvp",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_event_rsvp\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1822,7 +2109,7 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
-    # Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+    # Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. `linkToken` opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerGroupBuyJoinResponse]
@@ -1831,7 +2118,7 @@ module CrosslyBuyer
       data
     end
 
-    # Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+    # Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. &#x60;linkToken&#x60; opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerGroupBuyJoinResponse, Integer, Hash)>] CreateBuyerGroupBuyJoinResponse data, response status code and response headers
@@ -3116,7 +3403,7 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
-    # Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+    # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetBuyerPassportResponse]
@@ -3125,7 +3412,7 @@ module CrosslyBuyer
       data
     end
 
-    # Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+    # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetBuyerPassportResponse, Integer, Hash)>] GetBuyerPassportResponse data, response status code and response headers
@@ -3234,67 +3521,6 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_protection_plan_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
-    # A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-    # @param id [String] 
-    # @param [Hash] opts the optional parameters
-    # @return [CreateBuyerPurchaseDownloadResponse]
-    def create_buyer_purchase_download(id, opts = {})
-      data, _status_code, _headers = create_buyer_purchase_download_with_http_info(id, opts)
-      data
-    end
-
-    # A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-    # @param id [String] 
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBuyerPurchaseDownloadResponse, Integer, Hash)>] CreateBuyerPurchaseDownloadResponse data, response status code and response headers
-    def create_buyer_purchase_download_with_http_info(id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_purchase_download ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_purchase_download"
-      end
-      # resource path
-      local_var_path = '/v1/buyer/purchases/{id}/download'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'CreateBuyerPurchaseDownloadResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
-
-      new_options = opts.merge(
-        :operation => :"BuyerApi.create_buyer_purchase_download",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_purchase_download\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -3546,7 +3772,7 @@ module CrosslyBuyer
     # Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBuyerRentalArrivalPhotoResponse]
+    # @return [BuyerRentalResponse]
     def create_buyer_rental_arrival_photo(id, opts = {})
       data, _status_code, _headers = create_buyer_rental_arrival_photo_with_http_info(id, opts)
       data
@@ -3555,7 +3781,7 @@ module CrosslyBuyer
     # Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBuyerRentalArrivalPhotoResponse, Integer, Hash)>] CreateBuyerRentalArrivalPhotoResponse data, response status code and response headers
+    # @return [Array<(BuyerRentalResponse, Integer, Hash)>] BuyerRentalResponse data, response status code and response headers
     def create_buyer_rental_arrival_photo_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_arrival_photo ...'
@@ -3582,7 +3808,7 @@ module CrosslyBuyer
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBuyerRentalArrivalPhotoResponse'
+      return_type = opts[:debug_return_type] || 'BuyerRentalResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
@@ -3600,6 +3826,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_arrival_photo\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerRentalBuyoutResponse]
+    def create_buyer_rental_buyout(id, opts = {})
+      data, _status_code, _headers = create_buyer_rental_buyout_with_http_info(id, opts)
+      data
+    end
+
+    # Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerRentalBuyoutResponse, Integer, Hash)>] CreateBuyerRentalBuyoutResponse data, response status code and response headers
+    def create_buyer_rental_buyout_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_buyout ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_buyout"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/rentals/{id}/buyout'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerRentalBuyoutResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_rental_buyout",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_buyout\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -3726,6 +4013,195 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Confirm your rental arrived.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerRentalResponse]
+    def create_buyer_rental_delivered(id, opts = {})
+      data, _status_code, _headers = create_buyer_rental_delivered_with_http_info(id, opts)
+      data
+    end
+
+    # Confirm your rental arrived.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerRentalResponse, Integer, Hash)>] BuyerRentalResponse data, response status code and response headers
+    def create_buyer_rental_delivered_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_delivered ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_delivered"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/rentals/{id}/delivered'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerRentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_rental_delivered",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_delivered\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerRentalExtensionResponse]
+    def create_buyer_rental_extension(id, opts = {})
+      data, _status_code, _headers = create_buyer_rental_extension_with_http_info(id, opts)
+      data
+    end
+
+    # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerRentalExtensionResponse, Integer, Hash)>] CreateBuyerRentalExtensionResponse data, response status code and response headers
+    def create_buyer_rental_extension_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_extension ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_extension"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/rentals/{id}/extensions'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerRentalExtensionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_rental_extension",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_extension\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Pay for an extension the seller approved → clientSecret.
+    # @param id [String] 
+    # @param extension_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerRentalExtensionPayResponse]
+    def create_buyer_rental_extension_pay(id, extension_id, opts = {})
+      data, _status_code, _headers = create_buyer_rental_extension_pay_with_http_info(id, extension_id, opts)
+      data
+    end
+
+    # Pay for an extension the seller approved → clientSecret.
+    # @param id [String] 
+    # @param extension_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerRentalExtensionPayResponse, Integer, Hash)>] CreateBuyerRentalExtensionPayResponse data, response status code and response headers
+    def create_buyer_rental_extension_pay_with_http_info(id, extension_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_extension_pay ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_extension_pay"
+      end
+      # verify the required parameter 'extension_id' is set
+      if @api_client.config.client_side_validation && extension_id.nil?
+        fail ArgumentError, "Missing the required parameter 'extension_id' when calling BuyerApi.create_buyer_rental_extension_pay"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/rentals/{id}/extensions/{extensionId}/pay'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'extensionId' + '}', CGI.escape(extension_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerRentalExtensionPayResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_rental_extension_pay",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_extension_pay\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Start the ID check renting needs (Stripe Identity: photo ID + selfie). Open `url` (hosted) or use `clientSecret` with Stripe.js.
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerRentalIdentityStartResponse]
@@ -3777,6 +4253,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_identity_start\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Say you sent your rental back (optionally with photos).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerRentalResponse]
+    def create_buyer_rental_return_shipped(id, opts = {})
+      data, _status_code, _headers = create_buyer_rental_return_shipped_with_http_info(id, opts)
+      data
+    end
+
+    # Say you sent your rental back (optionally with photos).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerRentalResponse, Integer, Hash)>] BuyerRentalResponse data, response status code and response headers
+    def create_buyer_rental_return_shipped_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_return_shipped ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_return_shipped"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/rentals/{id}/return-shipped'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerRentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_rental_return_shipped",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_rental_return_shipped\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -3964,12 +4501,73 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+    # @param seller_user_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerSellerLoyaltyResponse]
+    def create_buyer_seller_loyalty_join(seller_user_id, opts = {})
+      data, _status_code, _headers = create_buyer_seller_loyalty_join_with_http_info(seller_user_id, opts)
+      data
+    end
+
+    # Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+    # @param seller_user_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerSellerLoyaltyResponse, Integer, Hash)>] GetBuyerSellerLoyaltyResponse data, response status code and response headers
+    def create_buyer_seller_loyalty_join_with_http_info(seller_user_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_seller_loyalty_join ...'
+      end
+      # verify the required parameter 'seller_user_id' is set
+      if @api_client.config.client_side_validation && seller_user_id.nil?
+        fail ArgumentError, "Missing the required parameter 'seller_user_id' when calling BuyerApi.create_buyer_seller_loyalty_join"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/sellers/{sellerUserId}/loyalty/join'.sub('{' + 'sellerUserId' + '}', CGI.escape(seller_user_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerSellerLoyaltyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_seller_loyalty_join",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_seller_loyalty_join\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Report a seller to Crossly’s trust team.
     # A second report while your first is still under review updates that report instead of filing another. `purchaseId` is attached only if it is your order from this seller.
     # @param username [String] The seller’s shop handle.
     # @param create_buyer_seller_report_request [CreateBuyerSellerReportRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBuyerSellerReportResponse]
+    # @return [CreateBuyerStoreReportResponse]
     def create_buyer_seller_report(username, create_buyer_seller_report_request, opts = {})
       data, _status_code, _headers = create_buyer_seller_report_with_http_info(username, create_buyer_seller_report_request, opts)
       data
@@ -3980,7 +4578,7 @@ module CrosslyBuyer
     # @param username [String] The seller’s shop handle.
     # @param create_buyer_seller_report_request [CreateBuyerSellerReportRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBuyerSellerReportResponse, Integer, Hash)>] CreateBuyerSellerReportResponse data, response status code and response headers
+    # @return [Array<(CreateBuyerStoreReportResponse, Integer, Hash)>] CreateBuyerStoreReportResponse data, response status code and response headers
     def create_buyer_seller_report_with_http_info(username, create_buyer_seller_report_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_seller_report ...'
@@ -4016,7 +4614,7 @@ module CrosslyBuyer
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_seller_report_request)
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBuyerSellerReportResponse'
+      return_type = opts[:debug_return_type] || 'CreateBuyerStoreReportResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
@@ -4095,6 +4693,80 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_split_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Report a store to Crossly’s trust team.
+    # Files against whoever runs the store. A second report while your first is still under review updates that report instead of filing another. `purchaseId` is attached only if it is your order from this seller.
+    # @param slug [String] The store’s slug (its /shop/s/&lt;slug&gt; address).
+    # @param create_buyer_seller_report_request [CreateBuyerSellerReportRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerStoreReportResponse]
+    def create_buyer_store_report(slug, create_buyer_seller_report_request, opts = {})
+      data, _status_code, _headers = create_buyer_store_report_with_http_info(slug, create_buyer_seller_report_request, opts)
+      data
+    end
+
+    # Report a store to Crossly’s trust team.
+    # Files against whoever runs the store. A second report while your first is still under review updates that report instead of filing another. &#x60;purchaseId&#x60; is attached only if it is your order from this seller.
+    # @param slug [String] The store’s slug (its /shop/s/&lt;slug&gt; address).
+    # @param create_buyer_seller_report_request [CreateBuyerSellerReportRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerStoreReportResponse, Integer, Hash)>] CreateBuyerStoreReportResponse data, response status code and response headers
+    def create_buyer_store_report_with_http_info(slug, create_buyer_seller_report_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_store_report ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.create_buyer_store_report"
+      end
+      # verify the required parameter 'create_buyer_seller_report_request' is set
+      if @api_client.config.client_side_validation && create_buyer_seller_report_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_seller_report_request' when calling BuyerApi.create_buyer_store_report"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/stores/{slug}/report'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_seller_report_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerStoreReportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_store_report",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_store_report\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -4712,6 +5384,476 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_vault_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Apply to a store's wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller's requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+    # @param store_slug [String] 
+    # @param catalog_slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerWholesaleCatalogApplyResponse]
+    def create_buyer_wholesale_catalog_apply(store_slug, catalog_slug, opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug, opts)
+      data
+    end
+
+    # Apply to a store&#39;s wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller&#39;s requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+    # @param store_slug [String] 
+    # @param catalog_slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerWholesaleCatalogApplyResponse, Integer, Hash)>] CreateBuyerWholesaleCatalogApplyResponse data, response status code and response headers
+    def create_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_catalog_apply ...'
+      end
+      # verify the required parameter 'store_slug' is set
+      if @api_client.config.client_side_validation && store_slug.nil?
+        fail ArgumentError, "Missing the required parameter 'store_slug' when calling BuyerApi.create_buyer_wholesale_catalog_apply"
+      end
+      # verify the required parameter 'catalog_slug' is set
+      if @api_client.config.client_side_validation && catalog_slug.nil?
+        fail ArgumentError, "Missing the required parameter 'catalog_slug' when calling BuyerApi.create_buyer_wholesale_catalog_apply"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/catalogs/{storeSlug}/{catalogSlug}/apply'.sub('{' + 'storeSlug' + '}', CGI.escape(store_slug.to_s)).sub('{' + 'catalogSlug' + '}', CGI.escape(catalog_slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerWholesaleCatalogApplyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_catalog_apply",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_catalog_apply\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerWholesaleFreightRequestResponse]
+    def create_buyer_wholesale_freight_request(opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_freight_request_with_http_info(opts)
+      data
+    end
+
+    # Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerWholesaleFreightRequestResponse, Integer, Hash)>] CreateBuyerWholesaleFreightRequestResponse data, response status code and response headers
+    def create_buyer_wholesale_freight_request_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_freight_request ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/freight-requests'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerWholesaleFreightRequestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_freight_request",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_freight_request\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerWholesaleInvoicePayLinkResponse]
+    def create_buyer_wholesale_invoice_pay_link(id, opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_invoice_pay_link_with_http_info(id, opts)
+      data
+    end
+
+    # A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerWholesaleInvoicePayLinkResponse, Integer, Hash)>] CreateBuyerWholesaleInvoicePayLinkResponse data, response status code and response headers
+    def create_buyer_wholesale_invoice_pay_link_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_invoice_pay_link ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_wholesale_invoice_pay_link"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/invoices/{id}/pay-link'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerWholesaleInvoicePayLinkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_invoice_pay_link",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_invoice_pay_link\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerWholesaleOrderSheetResponse]
+    def create_buyer_wholesale_order_sheet(opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_order_sheet_with_http_info(opts)
+      data
+    end
+
+    # Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerWholesaleOrderSheetResponse, Integer, Hash)>] BuyerWholesaleOrderSheetResponse data, response status code and response headers
+    def create_buyer_wholesale_order_sheet_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_order_sheet ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/order-sheets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerWholesaleOrderSheetResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_order_sheet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_order_sheet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerWholesaleQuoteResponse]
+    def create_buyer_wholesale_quote(opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_quote_with_http_info(opts)
+      data
+    end
+
+    # Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerWholesaleQuoteResponse, Integer, Hash)>] BuyerWholesaleQuoteResponse data, response status code and response headers
+    def create_buyer_wholesale_quote_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_quote ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/quotes'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerWholesaleQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line's quantity drops the lock). Paying happens at checkout on Crossly.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerWholesaleQuoteAcceptResponse]
+    def create_buyer_wholesale_quote_accept(id, opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_quote_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line&#39;s quantity drops the lock). Paying happens at checkout on Crossly.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerWholesaleQuoteAcceptResponse, Integer, Hash)>] CreateBuyerWholesaleQuoteAcceptResponse data, response status code and response headers
+    def create_buyer_wholesale_quote_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_quote_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_wholesale_quote_accept"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/quotes/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerWholesaleQuoteAcceptResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_quote_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_quote_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw a quote request that is still requested or answered.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerWholesaleQuoteResponse]
+    def create_buyer_wholesale_quote_withdraw(id, opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_quote_withdraw_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw a quote request that is still requested or answered.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerWholesaleQuoteResponse, Integer, Hash)>] BuyerWholesaleQuoteResponse data, response status code and response headers
+    def create_buyer_wholesale_quote_withdraw_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_quote_withdraw ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_wholesale_quote_withdraw"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/quotes/{id}/withdraw'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerWholesaleQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_quote_withdraw",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_quote_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerWholesaleUploadValidateResponse]
+    def create_buyer_wholesale_upload_validate(opts = {})
+      data, _status_code, _headers = create_buyer_wholesale_upload_validate_with_http_info(opts)
+      data
+    end
+
+    # Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerWholesaleUploadValidateResponse, Integer, Hash)>] CreateBuyerWholesaleUploadValidateResponse data, response status code and response headers
+    def create_buyer_wholesale_upload_validate_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_wholesale_upload_validate ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/upload/validate'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerWholesaleUploadValidateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_wholesale_upload_validate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_wholesale_upload_validate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -5367,6 +6509,67 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Remove a member or cancel an invite (owner), or leave the company (your own member id).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def delete_buyer_company_member(id, opts = {})
+      data, _status_code, _headers = delete_buyer_company_member_with_http_info(id, opts)
+      data
+    end
+
+    # Remove a member or cancel an invite (owner), or leave the company (your own member id).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def delete_buyer_company_member_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.delete_buyer_company_member ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.delete_buyer_company_member"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/members/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.delete_buyer_company_member",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_company_member\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Remove a guest (the thread’s buyer), or leave (a guest, with your own user id).
     # @param id [String] 
     # @param user_id [String] 
@@ -5434,6 +6637,139 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Remove your review of a creation (its vote leaves the rating with it).
+    # @param format [String] The creation format.
+    # @param id [String] The creation id (a card is &lt;setId&gt;.&lt;slug&gt;).
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse]
+    def delete_buyer_creation_review(format, id, opts = {})
+      data, _status_code, _headers = delete_buyer_creation_review_with_http_info(format, id, opts)
+      data
+    end
+
+    # Remove your review of a creation (its vote leaves the rating with it).
+    # @param format [String] The creation format.
+    # @param id [String] The creation id (a card is &lt;setId&gt;.&lt;slug&gt;).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
+    def delete_buyer_creation_review_with_http_info(format, id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.delete_buyer_creation_review ...'
+      end
+      # verify the required parameter 'format' is set
+      if @api_client.config.client_side_validation && format.nil?
+        fail ArgumentError, "Missing the required parameter 'format' when calling BuyerApi.delete_buyer_creation_review"
+      end
+      # verify enum value
+      allowable_values = ["wearable", "decor", "interactive", "card"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(format)
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.delete_buyer_creation_review"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/creations/{format}/{id}/review'.sub('{' + 'format' + '}', CGI.escape(format.to_s)).sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.delete_buyer_creation_review",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_creation_review\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take back your RSVP.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse]
+    def delete_buyer_event_rsvp(slug, opts = {})
+      data, _status_code, _headers = delete_buyer_event_rsvp_with_http_info(slug, opts)
+      data
+    end
+
+    # Take back your RSVP.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
+    def delete_buyer_event_rsvp_with_http_info(slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.delete_buyer_event_rsvp ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.delete_buyer_event_rsvp"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/events/{slug}/rsvp'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.delete_buyer_event_rsvp",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_event_rsvp\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Delete a reference garment.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -5491,6 +6827,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_fit_ref\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Hide a line from your home’s guestbook.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_buyer_home_guestbook(id, opts = {})
+      delete_buyer_home_guestbook_with_http_info(id, opts)
+      nil
+    end
+
+    # Hide a line from your home’s guestbook.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def delete_buyer_home_guestbook_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.delete_buyer_home_guestbook ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.delete_buyer_home_guestbook"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/guestbook/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type]
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.delete_buyer_home_guestbook",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_home_guestbook\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -5920,6 +7317,67 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Leave a seller’s loyalty club.
+    # @param seller_user_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse]
+    def delete_buyer_seller_loyalty_join(seller_user_id, opts = {})
+      data, _status_code, _headers = delete_buyer_seller_loyalty_join_with_http_info(seller_user_id, opts)
+      data
+    end
+
+    # Leave a seller’s loyalty club.
+    # @param seller_user_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
+    def delete_buyer_seller_loyalty_join_with_http_info(seller_user_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.delete_buyer_seller_loyalty_join ...'
+      end
+      # verify the required parameter 'seller_user_id' is set
+      if @api_client.config.client_side_validation && seller_user_id.nil?
+        fail ArgumentError, "Missing the required parameter 'seller_user_id' when calling BuyerApi.delete_buyer_seller_loyalty_join"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/sellers/{sellerUserId}/loyalty/join'.sub('{' + 'sellerUserId' + '}', CGI.escape(seller_user_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.delete_buyer_seller_loyalty_join",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_seller_loyalty_join\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Take an item you added off a room’s board.
     # @param code [String] 
     # @param id [String] 
@@ -6105,6 +7563,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_try_on\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete an order sheet.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteBuyerWholesaleOrderSheetResponse]
+    def delete_buyer_wholesale_order_sheet(id, opts = {})
+      data, _status_code, _headers = delete_buyer_wholesale_order_sheet_with_http_info(id, opts)
+      data
+    end
+
+    # Delete an order sheet.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteBuyerWholesaleOrderSheetResponse, Integer, Hash)>] DeleteBuyerWholesaleOrderSheetResponse data, response status code and response headers
+    def delete_buyer_wholesale_order_sheet_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.delete_buyer_wholesale_order_sheet ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.delete_buyer_wholesale_order_sheet"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/order-sheets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteBuyerWholesaleOrderSheetResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.delete_buyer_wholesale_order_sheet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#delete_buyer_wholesale_order_sheet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -7036,6 +8555,133 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def get_buyer_company(opts = {})
+      data, _status_code, _headers = get_buyer_company_with_http_info(opts)
+      data
+    end
+
+    # Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def get_buyer_company_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_company ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_company",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_company\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A live creation's public page: its rating breakdown, recent reviews and whether you can review it.
+    # @param format [String] The creation format.
+    # @param id [String] The creation id (a card is &lt;setId&gt;.&lt;slug&gt;).
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerCreationResponse]
+    def get_buyer_creation(format, id, opts = {})
+      data, _status_code, _headers = get_buyer_creation_with_http_info(format, id, opts)
+      data
+    end
+
+    # A live creation&#39;s public page: its rating breakdown, recent reviews and whether you can review it.
+    # @param format [String] The creation format.
+    # @param id [String] The creation id (a card is &lt;setId&gt;.&lt;slug&gt;).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerCreationResponse, Integer, Hash)>] GetBuyerCreationResponse data, response status code and response headers
+    def get_buyer_creation_with_http_info(format, id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_creation ...'
+      end
+      # verify the required parameter 'format' is set
+      if @api_client.config.client_side_validation && format.nil?
+        fail ArgumentError, "Missing the required parameter 'format' when calling BuyerApi.get_buyer_creation"
+      end
+      # verify enum value
+      allowable_values = ["wearable", "decor", "interactive", "card"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(format)
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_creation"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/creations/{format}/{id}'.sub('{' + 'format' + '}', CGI.escape(format.to_s)).sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerCreationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_creation",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_creation\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # A creator storefront: profile, affiliate code, and shelves of live picks.
     # @param handle [String] 
     # @param [Hash] opts the optional parameters
@@ -7093,6 +8739,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#get_buyer_creator\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerEventResponse]
+    def get_buyer_event(slug, opts = {})
+      data, _status_code, _headers = get_buyer_event_with_http_info(slug, opts)
+      data
+    end
+
+    # A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerEventResponse, Integer, Hash)>] GetBuyerEventResponse data, response status code and response headers
+    def get_buyer_event_with_http_info(slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_event ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.get_buyer_event"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/events/{slug}'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -7203,6 +8910,116 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#get_buyer_gift_finder_option\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your home in Crossly World (made on first read).
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerHomeResponse]
+    def get_buyer_home(opts = {})
+      data, _status_code, _headers = get_buyer_home_with_http_info(opts)
+      data
+    end
+
+    # Your home in Crossly World (made on first read).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerHomeResponse, Integer, Hash)>] BuyerHomeResponse data, response status code and response headers
+    def get_buyer_home_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_home ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerHomeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_home",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_home\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What you could place in your home: your items and delivered furniture.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerHomePlaceableResponse]
+    def get_buyer_home_placeable(opts = {})
+      data, _status_code, _headers = get_buyer_home_placeable_with_http_info(opts)
+      data
+    end
+
+    # What you could place in your home: your items and delivered furniture.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerHomePlaceableResponse, Integer, Hash)>] GetBuyerHomePlaceableResponse data, response status code and response headers
+    def get_buyer_home_placeable_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_home_placeable ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/placeable'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerHomePlaceableResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_home_placeable",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_home_placeable\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -8413,7 +10230,7 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
-    # What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+    # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetBuyerPassportResponse]
@@ -8422,7 +10239,7 @@ module CrosslyBuyer
       data
     end
 
-    # What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+    # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid&#x3D;, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetBuyerPassportResponse, Integer, Hash)>] GetBuyerPassportResponse data, response status code and response headers
@@ -9007,6 +10824,67 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerRentalResponse]
+    def get_buyer_rental(id, opts = {})
+      data, _status_code, _headers = get_buyer_rental_with_http_info(id, opts)
+      data
+    end
+
+    # One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerRentalResponse, Integer, Hash)>] GetBuyerRentalResponse data, response status code and response headers
+    def get_buyer_rental_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_rental ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_rental"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/rentals/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerRentalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_rental",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_rental\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Can you rent right now: ID-verified (a photo ID and a matching selfie, once), the verified name rentals ship to, and your standing (one rental at a time until your first comes back; none after one that never did).
     # @param [Hash] opts the optional parameters
     # @return [GetBuyerRentalEligibilityResponse]
@@ -9119,6 +10997,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#get_buyer_seller_club\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+    # @param seller_user_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerSellerLoyaltyResponse]
+    def get_buyer_seller_loyalty(seller_user_id, opts = {})
+      data, _status_code, _headers = get_buyer_seller_loyalty_with_http_info(seller_user_id, opts)
+      data
+    end
+
+    # A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+    # @param seller_user_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerSellerLoyaltyResponse, Integer, Hash)>] GetBuyerSellerLoyaltyResponse data, response status code and response headers
+    def get_buyer_seller_loyalty_with_http_info(seller_user_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_seller_loyalty ...'
+      end
+      # verify the required parameter 'seller_user_id' is set
+      if @api_client.config.client_side_validation && seller_user_id.nil?
+        fail ArgumentError, "Missing the required parameter 'seller_user_id' when calling BuyerApi.get_buyer_seller_loyalty"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/sellers/{sellerUserId}/loyalty'.sub('{' + 'sellerUserId' + '}', CGI.escape(seller_user_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerSellerLoyaltyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_seller_loyalty",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_seller_loyalty\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -9422,6 +11361,891 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketOptionAnalyticResponse]
+    def get_buyer_vault_market_option_analytic(underlying, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_option_analytic_with_http_info(underlying, opts)
+      data
+    end
+
+    # Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketOptionAnalyticResponse, Integer, Hash)>] GetBuyerVaultMarketOptionAnalyticResponse data, response status code and response headers
+    def get_buyer_vault_market_option_analytic_with_http_info(underlying, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_option_analytic ...'
+      end
+      # verify the required parameter 'underlying' is set
+      if @api_client.config.client_side_validation && underlying.nil?
+        fail ArgumentError, "Missing the required parameter 'underlying' when calling BuyerApi.get_buyer_vault_market_option_analytic"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/analytics/{underlying}'.sub('{' + 'underlying' + '}', CGI.escape(underlying.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketOptionAnalyticResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_option_analytic",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_option_analytic\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketOptionChainResponse]
+    def get_buyer_vault_market_option_chain(underlying, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_option_chain_with_http_info(underlying, opts)
+      data
+    end
+
+    # The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketOptionChainResponse, Integer, Hash)>] GetBuyerVaultMarketOptionChainResponse data, response status code and response headers
+    def get_buyer_vault_market_option_chain_with_http_info(underlying, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_option_chain ...'
+      end
+      # verify the required parameter 'underlying' is set
+      if @api_client.config.client_side_validation && underlying.nil?
+        fail ArgumentError, "Missing the required parameter 'underlying' when calling BuyerApi.get_buyer_vault_market_option_chain"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/chain/{underlying}'.sub('{' + 'underlying' + '}', CGI.escape(underlying.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketOptionChainResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_option_chain",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_option_chain\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketOptionIvResponse]
+    def get_buyer_vault_market_option_iv(underlying, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_option_iv_with_http_info(underlying, opts)
+      data
+    end
+
+    # The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketOptionIvResponse, Integer, Hash)>] GetBuyerVaultMarketOptionIvResponse data, response status code and response headers
+    def get_buyer_vault_market_option_iv_with_http_info(underlying, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_option_iv ...'
+      end
+      # verify the required parameter 'underlying' is set
+      if @api_client.config.client_side_validation && underlying.nil?
+        fail ArgumentError, "Missing the required parameter 'underlying' when calling BuyerApi.get_buyer_vault_market_option_iv"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/iv/{underlying}'.sub('{' + 'underlying' + '}', CGI.escape(underlying.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketOptionIvResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_option_iv",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_option_iv\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your fractional options positions with their marks, P&L and Greeks (open by default; `status` all for closed and settled too). Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketOptionPositionResponse]
+    def get_buyer_vault_market_option_position(opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_option_position_with_http_info(opts)
+      data
+    end
+
+    # Your fractional options positions with their marks, P&amp;L and Greeks (open by default; &#x60;status&#x60; all for closed and settled too). Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketOptionPositionResponse, Integer, Hash)>] GetBuyerVaultMarketOptionPositionResponse data, response status code and response headers
+    def get_buyer_vault_market_option_position_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_option_position ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/positions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketOptionPositionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_option_position",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_option_position\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options portfolio Greeks, a scenario's P&L (`priceShift`, `volShift`, `daysForward`) and the beta-weighted delta against an index. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketOptionRiskResponse]
+    def get_buyer_vault_market_option_risk(opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_option_risk_with_http_info(opts)
+      data
+    end
+
+    # Your options portfolio Greeks, a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;) and the beta-weighted delta against an index. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketOptionRiskResponse, Integer, Hash)>] GetBuyerVaultMarketOptionRiskResponse data, response status code and response headers
+    def get_buyer_vault_market_option_risk_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_option_risk ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/risk'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketOptionRiskResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_option_risk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_option_risk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketPredictionBoardResponse]
+    def get_buyer_vault_market_prediction_board(opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_prediction_board_with_http_info(opts)
+      data
+    end
+
+    # The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketPredictionBoardResponse, Integer, Hash)>] GetBuyerVaultMarketPredictionBoardResponse data, response status code and response headers
+    def get_buyer_vault_market_prediction_board_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_prediction_board ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/board'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketPredictionBoardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_prediction_board",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_prediction_board\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One expiry’s markets with your holdings in each and their real worst and best case across them.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketPredictionEventResponse]
+    def get_buyer_vault_market_prediction_event(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_prediction_event_with_http_info(id, opts)
+      data
+    end
+
+    # One expiry’s markets with your holdings in each and their real worst and best case across them.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketPredictionEventResponse, Integer, Hash)>] GetBuyerVaultMarketPredictionEventResponse data, response status code and response headers
+    def get_buyer_vault_market_prediction_event_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_prediction_event ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_prediction_event"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/events/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketPredictionEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_prediction_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_prediction_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Opt-in forecaster leaderboards (`period` week | month | all; `metric` pnl | accuracy | brier; `venue` live | paper).
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketPredictionLeaderboardResponse]
+    def get_buyer_vault_market_prediction_leaderboard(opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_prediction_leaderboard_with_http_info(opts)
+      data
+    end
+
+    # Opt-in forecaster leaderboards (&#x60;period&#x60; week | month | all; &#x60;metric&#x60; pnl | accuracy | brier; &#x60;venue&#x60; live | paper).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketPredictionLeaderboardResponse, Integer, Hash)>] GetBuyerVaultMarketPredictionLeaderboardResponse data, response status code and response headers
+    def get_buyer_vault_market_prediction_leaderboard_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_prediction_leaderboard ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/leaderboard'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketPredictionLeaderboardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_prediction_leaderboard",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_prediction_leaderboard\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketPredictionMarketResponse]
+    def get_buyer_vault_market_prediction_market(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_prediction_market_with_http_info(id, opts)
+      data
+    end
+
+    # One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketPredictionMarketResponse, Integer, Hash)>] GetBuyerVaultMarketPredictionMarketResponse data, response status code and response headers
+    def get_buyer_vault_market_prediction_market_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_prediction_market ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_prediction_market"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/markets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketPredictionMarketResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_prediction_market",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_prediction_market\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (`range` 1d, 1w, 1m, all; `venue` live or paper).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketPredictionMarketHistoryResponse]
+    def get_buyer_vault_market_prediction_market_history(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_prediction_market_history_with_http_info(id, opts)
+      data
+    end
+
+    # A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (&#x60;range&#x60; 1d, 1w, 1m, all; &#x60;venue&#x60; live or paper).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketPredictionMarketHistoryResponse, Integer, Hash)>] GetBuyerVaultMarketPredictionMarketHistoryResponse data, response status code and response headers
+    def get_buyer_vault_market_prediction_market_history_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_prediction_market_history ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_prediction_market_history"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/markets/{id}/history'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketPredictionMarketHistoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_prediction_market_history",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_prediction_market_history\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketShareResponse]
+    def get_buyer_vault_market_share(opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_share_with_http_info(opts)
+      data
+    end
+
+    # Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketShareResponse, Integer, Hash)>] GetBuyerVaultMarketShareResponse data, response status code and response headers
+    def get_buyer_vault_market_share_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_share ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketShareResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_share",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_share\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One theme basket: its series, weights and prices, and your holdings against them.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketShareBasketResponse]
+    def get_buyer_vault_market_share_basket(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_share_basket_with_http_info(id, opts)
+      data
+    end
+
+    # One theme basket: its series, weights and prices, and your holdings against them.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketShareBasketResponse, Integer, Hash)>] GetBuyerVaultMarketShareBasketResponse data, response status code and response headers
+    def get_buyer_vault_market_share_basket_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_share_basket ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_share_basket"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/baskets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketShareBasketResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_share_basket",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_share_basket\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketShareSeryResponse]
+    def get_buyer_vault_market_share_sery(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_share_sery_with_http_info(id, opts)
+      data
+    end
+
+    # One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketShareSeryResponse, Integer, Hash)>] GetBuyerVaultMarketShareSeryResponse data, response status code and response headers
+    def get_buyer_vault_market_share_sery_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_share_sery ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_share_sery"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/series/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketShareSeryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_share_sery",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_share_sery\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketShareSeryHistoryResponse]
+    def get_buyer_vault_market_share_sery_history(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_share_sery_history_with_http_info(id, opts)
+      data
+    end
+
+    # A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketShareSeryHistoryResponse, Integer, Hash)>] GetBuyerVaultMarketShareSeryHistoryResponse data, response status code and response headers
+    def get_buyer_vault_market_share_sery_history_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_share_sery_history ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_share_sery_history"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/series/{id}/history'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketShareSeryHistoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_share_sery_history",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_share_sery_history\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your holder perks on a series: badge, visit links, viewing days and your bookings.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerVaultMarketShareSeryPerkResponse]
+    def get_buyer_vault_market_share_sery_perk(id, opts = {})
+      data, _status_code, _headers = get_buyer_vault_market_share_sery_perk_with_http_info(id, opts)
+      data
+    end
+
+    # Your holder perks on a series: badge, visit links, viewing days and your bookings.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerVaultMarketShareSeryPerkResponse, Integer, Hash)>] GetBuyerVaultMarketShareSeryPerkResponse data, response status code and response headers
+    def get_buyer_vault_market_share_sery_perk_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_vault_market_share_sery_perk ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_vault_market_share_sery_perk"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/series/{id}/perks'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerVaultMarketShareSeryPerkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_vault_market_share_sery_perk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_share_sery_perk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # What your vault is worth now: value at the market prices (marks come only from trades) split into reliable and indicative marks, cost and P&L, today’s change, and an estimate of what the units free to sell would fetch from the bids resting on the book now. Read only.
     # @param [Hash] opts the optional parameters
     # @return [GetBuyerVaultMarketWorthResponse]
@@ -9473,6 +12297,433 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#get_buyer_vault_market_worth\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerWholesaleCartResponse]
+    def get_buyer_wholesale_cart(opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_cart_with_http_info(opts)
+      data
+    end
+
+    # Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerWholesaleCartResponse, Integer, Hash)>] GetBuyerWholesaleCartResponse data, response status code and response headers
+    def get_buyer_wholesale_cart_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_cart ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/cart'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerWholesaleCartResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_cart",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_cart\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The application form for a store's wholesale catalog: the seller's requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable=false for a catalog you cannot apply to.
+    # @param store_slug [String] 
+    # @param catalog_slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerWholesaleCatalogApplyResponse]
+    def get_buyer_wholesale_catalog_apply(store_slug, catalog_slug, opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug, opts)
+      data
+    end
+
+    # The application form for a store&#39;s wholesale catalog: the seller&#39;s requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable&#x3D;false for a catalog you cannot apply to.
+    # @param store_slug [String] 
+    # @param catalog_slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerWholesaleCatalogApplyResponse, Integer, Hash)>] GetBuyerWholesaleCatalogApplyResponse data, response status code and response headers
+    def get_buyer_wholesale_catalog_apply_with_http_info(store_slug, catalog_slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_catalog_apply ...'
+      end
+      # verify the required parameter 'store_slug' is set
+      if @api_client.config.client_side_validation && store_slug.nil?
+        fail ArgumentError, "Missing the required parameter 'store_slug' when calling BuyerApi.get_buyer_wholesale_catalog_apply"
+      end
+      # verify the required parameter 'catalog_slug' is set
+      if @api_client.config.client_side_validation && catalog_slug.nil?
+        fail ArgumentError, "Missing the required parameter 'catalog_slug' when calling BuyerApi.get_buyer_wholesale_catalog_apply"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/catalogs/{storeSlug}/{catalogSlug}/apply'.sub('{' + 'storeSlug' + '}', CGI.escape(store_slug.to_s)).sub('{' + 'catalogSlug' + '}', CGI.escape(catalog_slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerWholesaleCatalogApplyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_catalog_apply",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_catalog_apply\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerWholesaleDropResponse]
+    def get_buyer_wholesale_drop(id, opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_drop_with_http_info(id, opts)
+      data
+    end
+
+    # One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerWholesaleDropResponse, Integer, Hash)>] GetBuyerWholesaleDropResponse data, response status code and response headers
+    def get_buyer_wholesale_drop_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_drop ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_wholesale_drop"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/drops/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerWholesaleDropResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_drop",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_drop\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerWholesaleInvoicePayQuoteResponse]
+    def get_buyer_wholesale_invoice_pay_quote(id, opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_invoice_pay_quote_with_http_info(id, opts)
+      data
+    end
+
+    # What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerWholesaleInvoicePayQuoteResponse, Integer, Hash)>] GetBuyerWholesaleInvoicePayQuoteResponse data, response status code and response headers
+    def get_buyer_wholesale_invoice_pay_quote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_invoice_pay_quote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_wholesale_invoice_pay_quote"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/invoices/{id}/pay-quote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerWholesaleInvoicePayQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_invoice_pay_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_invoice_pay_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerWholesaleOrderSheetResponse]
+    def get_buyer_wholesale_order_sheet(id, opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_order_sheet_with_http_info(id, opts)
+      data
+    end
+
+    # One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerWholesaleOrderSheetResponse, Integer, Hash)>] BuyerWholesaleOrderSheetResponse data, response status code and response headers
+    def get_buyer_wholesale_order_sheet_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_order_sheet ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_wholesale_order_sheet"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/order-sheets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerWholesaleOrderSheetResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_order_sheet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_order_sheet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One of your quotes with its items, the seller's prices and expiry.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerWholesaleQuoteResponse]
+    def get_buyer_wholesale_quote(id, opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_quote_with_http_info(id, opts)
+      data
+    end
+
+    # One of your quotes with its items, the seller&#39;s prices and expiry.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerWholesaleQuoteResponse, Integer, Hash)>] BuyerWholesaleQuoteResponse data, response status code and response headers
+    def get_buyer_wholesale_quote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_quote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_wholesale_quote"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/quotes/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerWholesaleQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerWholesaleReorderResponse]
+    def get_buyer_wholesale_reorder(id, opts = {})
+      data, _status_code, _headers = get_buyer_wholesale_reorder_with_http_info(id, opts)
+      data
+    end
+
+    # Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerWholesaleReorderResponse, Integer, Hash)>] GetBuyerWholesaleReorderResponse data, response status code and response headers
+    def get_buyer_wholesale_reorder_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_wholesale_reorder ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_wholesale_reorder"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/reorder/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerWholesaleReorderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_wholesale_reorder",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_wholesale_reorder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -10251,6 +13502,61 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Spend approval requests (owners and accounts payable see all; others their own). ?status=pending|approved|declined|used|expired.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_company_approvals(opts = {})
+      data, _status_code, _headers = list_buyer_company_approvals_with_http_info(opts)
+      data
+    end
+
+    # Spend approval requests (owners and accounts payable see all; others their own). ?status&#x3D;pending|approved|declined|used|expired.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_company_approvals_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_company_approvals ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/approvals'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_company_approvals",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_company_approvals\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your ship-together orders: parcels at the hub, and the one box out.
     # @param [Hash] opts the optional parameters
     # @return [BuyerResponse3]
@@ -10363,6 +13669,119 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#list_buyer_conversation_guests\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :purchase_ref Only the creation this purchase bought.
+    # @return [ListBuyerCreationReviewableResponse]
+    def list_buyer_creation_reviewable(opts = {})
+      data, _status_code, _headers = list_buyer_creation_reviewable_with_http_info(opts)
+      data
+    end
+
+    # Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :purchase_ref Only the creation this purchase bought.
+    # @return [Array<(ListBuyerCreationReviewableResponse, Integer, Hash)>] ListBuyerCreationReviewableResponse data, response status code and response headers
+    def list_buyer_creation_reviewable_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_creation_reviewable ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/creations/reviewable'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'purchaseRef'] = opts[:'purchase_ref'] if !opts[:'purchase_ref'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerCreationReviewableResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_creation_reviewable",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_creation_reviewable\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Upcoming and live seller events across Crossly, soonest first.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerEventsResponse]
+    def list_buyer_events(opts = {})
+      data, _status_code, _headers = list_buyer_events_with_http_info(opts)
+      data
+    end
+
+    # Upcoming and live seller events across Crossly, soonest first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerEventsResponse, Integer, Hash)>] ListBuyerEventsResponse data, response status code and response headers
+    def list_buyer_events_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_events ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/events'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerEventsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_events",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_events\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -10807,6 +14226,116 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#list_buyer_gift_sent\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your co-builders: friends who may arrange your home with you.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerHomeBuildersResponse]
+    def list_buyer_home_builders(opts = {})
+      data, _status_code, _headers = list_buyer_home_builders_with_http_info(opts)
+      data
+    end
+
+    # Your co-builders: friends who may arrange your home with you.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerHomeBuildersResponse, Integer, Hash)>] ListBuyerHomeBuildersResponse data, response status code and response headers
+    def list_buyer_home_builders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_home_builders ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/builders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerHomeBuildersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_home_builders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_home_builders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The homes you co-build, to visit and arrange.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerHomeBuildingResponse]
+    def list_buyer_home_building(opts = {})
+      data, _status_code, _headers = list_buyer_home_building_with_http_info(opts)
+      data
+    end
+
+    # The homes you co-build, to visit and arrange.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerHomeBuildingResponse, Integer, Hash)>] ListBuyerHomeBuildingResponse data, response status code and response headers
+    def list_buyer_home_building_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_home_building ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/homes/building'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerHomeBuildingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_home_building",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_home_building\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -11265,6 +14794,61 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#list_buyer_live_stream_lineup\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerLoyaltyResponse]
+    def list_buyer_loyalty(opts = {})
+      data, _status_code, _headers = list_buyer_loyalty_with_http_info(opts)
+      data
+    end
+
+    # Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerLoyaltyResponse, Integer, Hash)>] ListBuyerLoyaltyResponse data, response status code and response headers
+    def list_buyer_loyalty_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_loyalty ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/loyalty'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerLoyaltyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_loyalty",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_loyalty\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -11738,6 +15322,63 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#list_buyer_party_listings\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your saved cards, the default first.
+    # Brand, last 4, expiry and whether it is your default. The `id` is what checkout and auction bids take as `paymentMethodId`.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerPaymentMethodsResponse]
+    def list_buyer_payment_methods(opts = {})
+      data, _status_code, _headers = list_buyer_payment_methods_with_http_info(opts)
+      data
+    end
+
+    # Your saved cards, the default first.
+    # Brand, last 4, expiry and whether it is your default. The &#x60;id&#x60; is what checkout and auction bids take as &#x60;paymentMethodId&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerPaymentMethodsResponse, Integer, Hash)>] ListBuyerPaymentMethodsResponse data, response status code and response headers
+    def list_buyer_payment_methods_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_payment_methods ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/payment-methods'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerPaymentMethodsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_payment_methods",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_payment_methods\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -12243,6 +15884,67 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerStoreListingsResponse]
+    def list_buyer_store_listings(slug, opts = {})
+      data, _status_code, _headers = list_buyer_store_listings_with_http_info(slug, opts)
+      data
+    end
+
+    # A store&#39;s live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+    # @param slug [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerStoreListingsResponse, Integer, Hash)>] ListBuyerStoreListingsResponse data, response status code and response headers
+    def list_buyer_store_listings_with_http_info(slug, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_store_listings ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.list_buyer_store_listings"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/stores/{slug}/listings'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerStoreListingsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_store_listings",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_store_listings\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your subscribe & save standing orders.
     # @param [Hash] opts the optional parameters
     # @return [ListBuyerSubscriptionsResponse]
@@ -12685,6 +16387,666 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketOptionCombosResponse]
+    def list_buyer_vault_market_option_combos(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_option_combos_with_http_info(opts)
+      data
+    end
+
+    # Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketOptionCombosResponse, Integer, Hash)>] ListBuyerVaultMarketOptionCombosResponse data, response status code and response headers
+    def list_buyer_vault_market_option_combos_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_option_combos ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/combos'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketOptionCombosResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_option_combos",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_option_combos\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketOptionNoticesResponse]
+    def list_buyer_vault_market_option_notices(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_option_notices_with_http_info(opts)
+      data
+    end
+
+    # Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketOptionNoticesResponse, Integer, Hash)>] ListBuyerVaultMarketOptionNoticesResponse data, response status code and response headers
+    def list_buyer_vault_market_option_notices_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_option_notices ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/notices'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketOptionNoticesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_option_notices",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_option_notices\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketOptionSeriesResponse]
+    def list_buyer_vault_market_option_series(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_option_series_with_http_info(opts)
+      data
+    end
+
+    # Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketOptionSeriesResponse, Integer, Hash)>] ListBuyerVaultMarketOptionSeriesResponse data, response status code and response headers
+    def list_buyer_vault_market_option_series_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_option_series ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/series'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketOptionSeriesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_option_series",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_option_series\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketOptionStrategiesResponse]
+    def list_buyer_vault_market_option_strategies(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_option_strategies_with_http_info(opts)
+      data
+    end
+
+    # The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketOptionStrategiesResponse, Integer, Hash)>] ListBuyerVaultMarketOptionStrategiesResponse data, response status code and response headers
+    def list_buyer_vault_market_option_strategies_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_option_strategies ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/options/strategies'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketOptionStrategiesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_option_strategies",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_option_strategies\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A prediction market’s (or series’) discussion thread. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketPredictionCommentsResponse]
+    def list_buyer_vault_market_prediction_comments(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_prediction_comments_with_http_info(opts)
+      data
+    end
+
+    # A prediction market’s (or series’) discussion thread. Read only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketPredictionCommentsResponse, Integer, Hash)>] ListBuyerVaultMarketPredictionCommentsResponse data, response status code and response headers
+    def list_buyer_vault_market_prediction_comments_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_prediction_comments ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/comments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketPredictionCommentsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_prediction_comments",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_prediction_comments\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # \"Will it hit?\" prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market's own price, display only).
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketPredictionMarketsResponse]
+    def list_buyer_vault_market_prediction_markets(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_prediction_markets_with_http_info(opts)
+      data
+    end
+
+    # \&quot;Will it hit?\&quot; prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market&#39;s own price, display only).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketPredictionMarketsResponse, Integer, Hash)>] ListBuyerVaultMarketPredictionMarketsResponse data, response status code and response headers
+    def list_buyer_vault_market_prediction_markets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_prediction_markets ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/markets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketPredictionMarketsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_prediction_markets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_prediction_markets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketPredictionPositionsResponse]
+    def list_buyer_vault_market_prediction_positions(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_prediction_positions_with_http_info(opts)
+      data
+    end
+
+    # Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketPredictionPositionsResponse, Integer, Hash)>] ListBuyerVaultMarketPredictionPositionsResponse data, response status code and response headers
+    def list_buyer_vault_market_prediction_positions_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_prediction_positions ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/predictions/positions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketPredictionPositionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_prediction_positions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_prediction_positions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your recurring Vault Shares auto-invest plans.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketShareAutoInvestResponse]
+    def list_buyer_vault_market_share_auto_invest(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_share_auto_invest_with_http_info(opts)
+      data
+    end
+
+    # Your recurring Vault Shares auto-invest plans.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketShareAutoInvestResponse, Integer, Hash)>] ListBuyerVaultMarketShareAutoInvestResponse data, response status code and response headers
+    def list_buyer_vault_market_share_auto_invest_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_share_auto_invest ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/auto-invest'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketShareAutoInvestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_share_auto_invest",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_share_auto_invest\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketShareBasketsResponse]
+    def list_buyer_vault_market_share_baskets(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_share_baskets_with_http_info(opts)
+      data
+    end
+
+    # Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketShareBasketsResponse, Integer, Hash)>] ListBuyerVaultMarketShareBasketsResponse data, response status code and response headers
+    def list_buyer_vault_market_share_baskets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_share_baskets ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/baskets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketShareBasketsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_share_baskets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_share_baskets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketShareDropsResponse]
+    def list_buyer_vault_market_share_drops(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_share_drops_with_http_info(opts)
+      data
+    end
+
+    # Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketShareDropsResponse, Integer, Hash)>] ListBuyerVaultMarketShareDropsResponse data, response status code and response headers
+    def list_buyer_vault_market_share_drops_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_share_drops ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/drops'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketShareDropsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_share_drops",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_share_drops\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Vault Shares gifts you sent or were offered.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketShareGiftsResponse]
+    def list_buyer_vault_market_share_gifts(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_share_gifts_with_http_info(opts)
+      data
+    end
+
+    # Vault Shares gifts you sent or were offered.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketShareGiftsResponse, Integer, Hash)>] ListBuyerVaultMarketShareGiftsResponse data, response status code and response headers
+    def list_buyer_vault_market_share_gifts_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_share_gifts ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/gifts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketShareGiftsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_share_gifts",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_share_gifts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerVaultMarketShareSeriesResponse]
+    def list_buyer_vault_market_share_series(opts = {})
+      data, _status_code, _headers = list_buyer_vault_market_share_series_with_http_info(opts)
+      data
+    end
+
+    # Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerVaultMarketShareSeriesResponse, Integer, Hash)>] ListBuyerVaultMarketShareSeriesResponse data, response status code and response headers
+    def list_buyer_vault_market_share_series_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_vault_market_share_series ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/vault-markets/shares/series'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerVaultMarketShareSeriesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_vault_market_share_series",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_vault_market_share_series\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # The book keys you watch, with mark and its quality, 24 h and 7 d change, and the last 30 daily marks.
     # @param [Hash] opts the optional parameters
     # @return [ListBuyerVaultMarketWatchlistResponse]
@@ -12791,6 +17153,501 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#list_buyer_video_requests\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerWalletPerksResponse]
+    def list_buyer_wallet_perks(opts = {})
+      data, _status_code, _headers = list_buyer_wallet_perks_with_http_info(opts)
+      data
+    end
+
+    # The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerWalletPerksResponse, Integer, Hash)>] ListBuyerWalletPerksResponse data, response status code and response headers
+    def list_buyer_wallet_perks_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wallet_perks ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wallet/perks'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerWalletPerksResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wallet_perks",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wallet_perks\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook = reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerWholesaleDropsResponse]
+    def list_buyer_wholesale_drops(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_drops_with_http_info(opts)
+      data
+    end
+
+    # Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook &#x3D; reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerWholesaleDropsResponse, Integer, Hash)>] ListBuyerWholesaleDropsResponse data, response status code and response headers
+    def list_buyer_wholesale_drops_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_drops ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/drops'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerWholesaleDropsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_drops",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_drops\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your freight (LTL) quote requests to sellers, with the seller's figure in cents once quoted.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_wholesale_freight_requests(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_freight_requests_with_http_info(opts)
+      data
+    end
+
+    # Your freight (LTL) quote requests to sellers, with the seller&#39;s figure in cents once quoted.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_wholesale_freight_requests_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_freight_requests ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/freight-requests'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_freight_requests",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_freight_requests\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your saved wholesale order sheets (one seller each), newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_wholesale_order_sheets(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_order_sheets_with_http_info(opts)
+      data
+    end
+
+    # Your saved wholesale order sheets (one seller each), newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_wholesale_order_sheets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_order_sheets ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/order-sheets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_order_sheets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_order_sheets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_wholesale_orders(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_orders_with_http_info(opts)
+      data
+    end
+
+    # Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_wholesale_orders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_orders ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_orders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerWholesalePrebooksResponse]
+    def list_buyer_wholesale_prebooks(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_prebooks_with_http_info(opts)
+      data
+    end
+
+    # Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerWholesalePrebooksResponse, Integer, Hash)>] ListBuyerWholesalePrebooksResponse data, response status code and response headers
+    def list_buyer_wholesale_prebooks_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_prebooks ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/prebooks'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerWholesalePrebooksResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_prebooks",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_prebooks\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your requests for a quote (RFQ) to wholesale sellers. ?status=open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_wholesale_quotes(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_quotes_with_http_info(opts)
+      data
+    end
+
+    # Your requests for a quote (RFQ) to wholesale sellers. ?status&#x3D;open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_wholesale_quotes_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_quotes ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/quotes'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_quotes",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_quotes\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_wholesale_statement(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_statement_with_http_info(opts)
+      data
+    end
+
+    # Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_wholesale_statement_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_statement ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/statement'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_statement",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_statement\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerResponse3]
+    def list_buyer_wholesale_suppliers(opts = {})
+      data, _status_code, _headers = list_buyer_wholesale_suppliers_with_http_info(opts)
+      data
+    end
+
+    # The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerResponse3, Integer, Hash)>] BuyerResponse3 data, response status code and response headers
+    def list_buyer_wholesale_suppliers_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_wholesale_suppliers ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/suppliers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerResponse3'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_wholesale_suppliers",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_wholesale_suppliers\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -13149,6 +18006,262 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Rename the company or change its tax id / website (owner).
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def update_buyer_company(opts = {})
+      data, _status_code, _headers = update_buyer_company_with_http_info(opts)
+      data
+    end
+
+    # Rename the company or change its tax id / website (owner).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def update_buyer_company_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_company ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_company",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_company\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def update_buyer_company_address(opts = {})
+      data, _status_code, _headers = update_buyer_company_address_with_http_info(opts)
+      data
+    end
+
+    # Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def update_buyer_company_address_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_company_address ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/addresses'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_company_address",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_company_address\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change a member's role or approval limit (owner). The last owner stays an owner.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerCompanyResponse]
+    def update_buyer_company_member(id, opts = {})
+      data, _status_code, _headers = update_buyer_company_member_with_http_info(id, opts)
+      data
+    end
+
+    # Change a member&#39;s role or approval limit (owner). The last owner stays an owner.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerCompanyResponse, Integer, Hash)>] BuyerCompanyResponse data, response status code and response headers
+    def update_buyer_company_member_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_company_member ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.update_buyer_company_member"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/company/members/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerCompanyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_company_member",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_company_member\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+    # Only a buyer of it may review it (a bought copy, or a pack that held the card). One review per creation; a second call replaces it. The comment is moderated.
+    # @param format [String] The creation format.
+    # @param id [String] The creation id (a card is &lt;setId&gt;.&lt;slug&gt;).
+    # @param update_buyer_creation_review_request [UpdateBuyerCreationReviewRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateBuyerCreationReviewResponse]
+    def update_buyer_creation_review(format, id, update_buyer_creation_review_request, opts = {})
+      data, _status_code, _headers = update_buyer_creation_review_with_http_info(format, id, update_buyer_creation_review_request, opts)
+      data
+    end
+
+    # Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+    # Only a buyer of it may review it (a bought copy, or a pack that held the card). One review per creation; a second call replaces it. The comment is moderated.
+    # @param format [String] The creation format.
+    # @param id [String] The creation id (a card is &lt;setId&gt;.&lt;slug&gt;).
+    # @param update_buyer_creation_review_request [UpdateBuyerCreationReviewRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateBuyerCreationReviewResponse, Integer, Hash)>] UpdateBuyerCreationReviewResponse data, response status code and response headers
+    def update_buyer_creation_review_with_http_info(format, id, update_buyer_creation_review_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_creation_review ...'
+      end
+      # verify the required parameter 'format' is set
+      if @api_client.config.client_side_validation && format.nil?
+        fail ArgumentError, "Missing the required parameter 'format' when calling BuyerApi.update_buyer_creation_review"
+      end
+      # verify enum value
+      allowable_values = ["wearable", "decor", "interactive", "card"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(format)
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.update_buyer_creation_review"
+      end
+      # verify the required parameter 'update_buyer_creation_review_request' is set
+      if @api_client.config.client_side_validation && update_buyer_creation_review_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_buyer_creation_review_request' when calling BuyerApi.update_buyer_creation_review"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/creations/{format}/{id}/review'.sub('{' + 'format' + '}', CGI.escape(format.to_s)).sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_buyer_creation_review_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateBuyerCreationReviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_creation_review",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_creation_review\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Revise feedback you left, within 60 days.
     # Replaces the stars and comment; detailed ratings you omit stay as they were.
     # @param id [String] The id.
@@ -13223,6 +18336,171 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerHomeResponse]
+    def update_buyer_home(opts = {})
+      data, _status_code, _headers = update_buyer_home_with_http_info(opts)
+      data
+    end
+
+    # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerHomeResponse, Integer, Hash)>] BuyerHomeResponse data, response status code and response headers
+    def update_buyer_home_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_home ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerHomeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_home",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_home\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set your co-builders (friends only, at most 4).
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerHomeBuildersResponse]
+    def update_buyer_home_builder(opts = {})
+      data, _status_code, _headers = update_buyer_home_builder_with_http_info(opts)
+      data
+    end
+
+    # Set your co-builders (friends only, at most 4).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerHomeBuildersResponse, Integer, Hash)>] ListBuyerHomeBuildersResponse data, response status code and response headers
+    def update_buyer_home_builder_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_home_builder ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/builders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerHomeBuildersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_home_builder",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_home_builder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Arrange your home: the whole layout, checked against what you own.
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerHomeResponse]
+    def update_buyer_home_layout(opts = {})
+      data, _status_code, _headers = update_buyer_home_layout_with_http_info(opts)
+      data
+    end
+
+    # Arrange your home: the whole layout, checked against what you own.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerHomeResponse, Integer, Hash)>] BuyerHomeResponse data, response status code and response headers
+    def update_buyer_home_layout_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_home_layout ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/layout'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerHomeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_home_layout",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_home_layout\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Pause, resume or stop a hunt.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -13280,6 +18558,69 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#update_buyer_hunt\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Make one of your saved cards the default.
+    # The default is the card express checkout offers first. Only your own saved card: any other id is a 404.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateBuyerPaymentMethodDefaultResponse]
+    def update_buyer_payment_method_default(id, opts = {})
+      data, _status_code, _headers = update_buyer_payment_method_default_with_http_info(id, opts)
+      data
+    end
+
+    # Make one of your saved cards the default.
+    # The default is the card express checkout offers first. Only your own saved card: any other id is a 404.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateBuyerPaymentMethodDefaultResponse, Integer, Hash)>] UpdateBuyerPaymentMethodDefaultResponse data, response status code and response headers
+    def update_buyer_payment_method_default_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_payment_method_default ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.update_buyer_payment_method_default"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/payment-methods/{id}/default'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateBuyerPaymentMethodDefaultResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_payment_method_default",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_payment_method_default\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -13530,6 +18871,122 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#update_buyer_subscription\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the PO reference for one seller's group of your cart: { sellerUserId, poReference } (empty clears it).
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateBuyerWholesaleCartPoResponse]
+    def update_buyer_wholesale_cart_po(opts = {})
+      data, _status_code, _headers = update_buyer_wholesale_cart_po_with_http_info(opts)
+      data
+    end
+
+    # Set the PO reference for one seller&#39;s group of your cart: { sellerUserId, poReference } (empty clears it).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateBuyerWholesaleCartPoResponse, Integer, Hash)>] UpdateBuyerWholesaleCartPoResponse data, response status code and response headers
+    def update_buyer_wholesale_cart_po_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_wholesale_cart_po ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/cart/po'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateBuyerWholesaleCartPoResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_wholesale_cart_po",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_wholesale_cart_po\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename an order sheet, change its PO reference or note, or replace its lines.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [BuyerWholesaleOrderSheetResponse]
+    def update_buyer_wholesale_order_sheet(id, opts = {})
+      data, _status_code, _headers = update_buyer_wholesale_order_sheet_with_http_info(id, opts)
+      data
+    end
+
+    # Rename an order sheet, change its PO reference or note, or replace its lines.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(BuyerWholesaleOrderSheetResponse, Integer, Hash)>] BuyerWholesaleOrderSheetResponse data, response status code and response headers
+    def update_buyer_wholesale_order_sheet_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_wholesale_order_sheet ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.update_buyer_wholesale_order_sheet"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/wholesale/order-sheets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'BuyerWholesaleOrderSheetResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_wholesale_order_sheet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_wholesale_order_sheet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

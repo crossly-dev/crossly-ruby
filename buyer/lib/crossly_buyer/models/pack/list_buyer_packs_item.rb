@@ -17,23 +17,23 @@ module CrosslyBuyer
   class ListBuyerPacksItem
     attr_accessor :id
 
-    attr_accessor :status
-
-    attr_accessor :description
+    attr_accessor :slug
 
     attr_accessor :title
 
-    attr_accessor :slug
-
-    attr_accessor :price_cents
+    attr_accessor :description
 
     attr_accessor :image_url
 
-    attr_accessor :tiers
+    attr_accessor :price_cents
+
+    attr_accessor :status
 
     attr_accessor :buyback_bps
 
     attr_accessor :buyback_days
+
+    attr_accessor :tiers
 
     attr_accessor :expected_value_cents
 
@@ -45,15 +45,15 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
-        :'description' => :'description',
-        :'title' => :'title',
         :'slug' => :'slug',
-        :'price_cents' => :'priceCents',
+        :'title' => :'title',
+        :'description' => :'description',
         :'image_url' => :'imageUrl',
-        :'tiers' => :'tiers',
+        :'price_cents' => :'priceCents',
+        :'status' => :'status',
         :'buyback_bps' => :'buybackBps',
         :'buyback_days' => :'buybackDays',
+        :'tiers' => :'tiers',
         :'expected_value_cents' => :'expectedValueCents',
         :'openable' => :'openable',
         :'chase' => :'chase'
@@ -69,15 +69,15 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
-        :'description' => :'String',
-        :'title' => :'String',
         :'slug' => :'String',
-        :'price_cents' => :'Float',
+        :'title' => :'String',
+        :'description' => :'String',
         :'image_url' => :'String',
-        :'tiers' => :'Array<ListBuyerPacksItemTiers>',
+        :'price_cents' => :'Float',
+        :'status' => :'String',
         :'buyback_bps' => :'Float',
         :'buyback_days' => :'Float',
+        :'tiers' => :'Array<ListBuyerPacksItemTiers>',
         :'expected_value_cents' => :'Float',
         :'openable' => :'Boolean',
         :'chase' => :'Array<ListBuyerPacksItemChase>'
@@ -111,34 +111,28 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
       end
 
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'slug')
-        self.slug = attributes[:'slug']
-      end
-
-      if attributes.key?(:'price_cents')
-        self.price_cents = attributes[:'price_cents']
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
       end
 
       if attributes.key?(:'image_url')
         self.image_url = attributes[:'image_url']
       end
 
-      if attributes.key?(:'tiers')
-        if (value = attributes[:'tiers']).is_a?(Array)
-          self.tiers = value
-        end
+      if attributes.key?(:'price_cents')
+        self.price_cents = attributes[:'price_cents']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'buyback_bps')
@@ -147,6 +141,12 @@ module CrosslyBuyer
 
       if attributes.key?(:'buyback_days')
         self.buyback_days = attributes[:'buyback_days']
+      end
+
+      if attributes.key?(:'tiers')
+        if (value = attributes[:'tiers']).is_a?(Array)
+          self.tiers = value
+        end
       end
 
       if attributes.key?(:'expected_value_cents')
@@ -172,24 +172,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      if @slug.nil?
+        invalid_properties.push('invalid value for "slug", slug cannot be nil.')
       end
 
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
-      if @slug.nil?
-        invalid_properties.push('invalid value for "slug", slug cannot be nil.')
-      end
-
       if @price_cents.nil?
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
-      if @tiers.nil?
-        invalid_properties.push('invalid value for "tiers", tiers cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       if @buyback_bps.nil?
@@ -198,6 +194,10 @@ module CrosslyBuyer
 
       if @buyback_days.nil?
         invalid_properties.push('invalid value for "buyback_days", buyback_days cannot be nil.')
+      end
+
+      if @tiers.nil?
+        invalid_properties.push('invalid value for "tiers", tiers cannot be nil.')
       end
 
       if @expected_value_cents.nil?
@@ -219,13 +219,13 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
-      return false if @title.nil?
       return false if @slug.nil?
+      return false if @title.nil?
       return false if @price_cents.nil?
-      return false if @tiers.nil?
+      return false if @status.nil?
       return false if @buyback_bps.nil?
       return false if @buyback_days.nil?
+      return false if @tiers.nil?
       return false if @expected_value_cents.nil?
       return false if @openable.nil?
       return false if @chase.nil?
@@ -238,15 +238,15 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
-          description == o.description &&
-          title == o.title &&
           slug == o.slug &&
-          price_cents == o.price_cents &&
+          title == o.title &&
+          description == o.description &&
           image_url == o.image_url &&
-          tiers == o.tiers &&
+          price_cents == o.price_cents &&
+          status == o.status &&
           buyback_bps == o.buyback_bps &&
           buyback_days == o.buyback_days &&
+          tiers == o.tiers &&
           expected_value_cents == o.expected_value_cents &&
           openable == o.openable &&
           chase == o.chase
@@ -261,7 +261,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, description, title, slug, price_cents, image_url, tiers, buyback_bps, buyback_days, expected_value_cents, openable, chase].hash
+      [id, slug, title, description, image_url, price_cents, status, buyback_bps, buyback_days, tiers, expected_value_cents, openable, chase].hash
     end
 
     # Builds the object from hash

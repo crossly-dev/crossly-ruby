@@ -139,7 +139,7 @@ module Crossly
     def valid?
       return false if @slot.nil?
       return false if @door.nil?
-      door_validator = EnumAttributeValidator.new('String', ["receipt", "cosmetic", "stock"])
+      door_validator = EnumAttributeValidator.new('String', ["receipt", "stock", "cosmetic"])
       return false unless door_validator.valid?(@door)
       return false if @id.nil?
       return false if @label.nil?
@@ -149,7 +149,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] door Object to be assigned
     def door=(door)
-      validator = EnumAttributeValidator.new('String', ["receipt", "cosmetic", "stock"])
+      validator = EnumAttributeValidator.new('String', ["receipt", "stock", "cosmetic"])
       unless validator.valid?(door)
         fail ArgumentError, "invalid value for \"door\", must be one of #{validator.allowable_values}."
       end

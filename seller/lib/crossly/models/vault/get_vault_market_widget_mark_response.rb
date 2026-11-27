@@ -68,7 +68,7 @@ module Crossly
         :'image_url' => :'String',
         :'condition' => :'String',
         :'grade_key' => :'String',
-        :'mark' => :'ListVaultMarketFeedItemMark',
+        :'mark' => :'ListVaultMarketOpeningItemMark',
         :'trades30d' => :'Float',
         :'insufficient' => :'Boolean',
         :'points' => :'Array<GetVaultMarketWidgetMarkResponsePoints>',

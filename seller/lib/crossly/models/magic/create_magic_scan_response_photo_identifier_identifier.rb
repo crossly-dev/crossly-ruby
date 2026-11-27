@@ -111,7 +111,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @namespace.nil?
-      namespace_validator = EnumAttributeValidator.new('String', ["style_code", "gtin", "lego_set", "tcgplayer", "discogs", "asin"])
+      namespace_validator = EnumAttributeValidator.new('String', ["gtin", "style_code", "lego_set", "tcgplayer", "discogs", "asin"])
       return false unless namespace_validator.valid?(@namespace)
       return false if @value.nil?
       true
@@ -120,7 +120,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] namespace Object to be assigned
     def namespace=(namespace)
-      validator = EnumAttributeValidator.new('String', ["style_code", "gtin", "lego_set", "tcgplayer", "discogs", "asin"])
+      validator = EnumAttributeValidator.new('String', ["gtin", "style_code", "lego_set", "tcgplayer", "discogs", "asin"])
       unless validator.valid?(namespace)
         fail ArgumentError, "invalid value for \"namespace\", must be one of #{validator.allowable_values}."
       end

@@ -31,7 +31,13 @@ module Crossly
 
     attr_accessor :positions
 
+    attr_accessor :options
+
     attr_accessor :notes
+
+    attr_accessor :shares
+
+    attr_accessor :predictions
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -44,7 +50,10 @@ module Crossly
         :'gifts_out' => :'giftsOut',
         :'income' => :'income',
         :'positions' => :'positions',
-        :'notes' => :'notes'
+        :'options' => :'options',
+        :'notes' => :'notes',
+        :'shares' => :'shares',
+        :'predictions' => :'predictions'
       }
     end
 
@@ -64,13 +73,19 @@ module Crossly
         :'gifts_out' => :'Array<GetVaultMarketTaxResponseGiftsOut>',
         :'income' => :'GetVaultMarketTaxResponseIncome',
         :'positions' => :'Array<GetVaultMarketTaxResponsePositions>',
-        :'notes' => :'Array<String>'
+        :'options' => :'GetVaultMarketTaxResponseOptions',
+        :'notes' => :'Array<String>',
+        :'shares' => :'GetVaultMarketTaxResponseShares',
+        :'predictions' => :'GetVaultMarketTaxResponsePredictions'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'options',
+        :'shares',
+        :'predictions'
       ])
     end
 
@@ -129,10 +144,22 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'options')
+        self.options = attributes[:'options']
+      end
+
       if attributes.key?(:'notes')
         if (value = attributes[:'notes']).is_a?(Array)
           self.notes = value
         end
+      end
+
+      if attributes.key?(:'shares')
+        self.shares = attributes[:'shares']
+      end
+
+      if attributes.key?(:'predictions')
+        self.predictions = attributes[:'predictions']
       end
     end
 
@@ -207,7 +234,10 @@ module Crossly
           gifts_out == o.gifts_out &&
           income == o.income &&
           positions == o.positions &&
-          notes == o.notes
+          options == o.options &&
+          notes == o.notes &&
+          shares == o.shares &&
+          predictions == o.predictions
     end
 
     # @see the `==` method
@@ -219,7 +249,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [files, year, totals, sales, purchases, gifts_out, income, positions, notes].hash
+      [files, year, totals, sales, purchases, gifts_out, income, positions, options, notes, shares, predictions].hash
     end
 
     # Builds the object from hash

@@ -19,61 +19,6 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Track a card you sent on your own grader account (Direct). Crossly takes no money; it verifies the cert when it comes back.
-    # @param [Hash] opts the optional parameters
-    # @return [IdResponse]
-    def create_grading_direct(opts = {})
-      data, _status_code, _headers = create_grading_direct_with_http_info(opts)
-      data
-    end
-
-    # Track a card you sent on your own grader account (Direct). Crossly takes no money; it verifies the cert when it comes back.
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
-    def create_grading_direct_with_http_info(opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: GradingApi.create_grading_direct ...'
-      end
-      # resource path
-      local_var_path = '/v1/grading/direct'
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'IdResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
-
-      new_options = opts.merge(
-        :operation => :"GradingApi.create_grading_direct",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: GradingApi#create_grading_direct\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -196,67 +141,6 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Direct only: enter the grade that came back. Writes it to the item and its listings, verified when the cert agrees.
-    # @param id [String] 
-    # @param [Hash] opts the optional parameters
-    # @return [CreateGradingSubmissionResultResponse]
-    def create_grading_submission_result(id, opts = {})
-      data, _status_code, _headers = create_grading_submission_result_with_http_info(id, opts)
-      data
-    end
-
-    # Direct only: enter the grade that came back. Writes it to the item and its listings, verified when the cert agrees.
-    # @param id [String] 
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateGradingSubmissionResultResponse, Integer, Hash)>] CreateGradingSubmissionResultResponse data, response status code and response headers
-    def create_grading_submission_result_with_http_info(id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: GradingApi.create_grading_submission_result ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling GradingApi.create_grading_submission_result"
-      end
-      # resource path
-      local_var_path = '/v1/grading/submissions/{id}/result'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'CreateGradingSubmissionResultResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
-
-      new_options = opts.merge(
-        :operation => :"GradingApi.create_grading_submission_result",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: GradingApi#create_grading_submission_result\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # Say you mailed a charged card to the hub, with optional tracking.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -373,6 +257,299 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketGradingOrderResponse]
+    def create_vault_market_grading_order(opts = {})
+      data, _status_code, _headers = create_vault_market_grading_order_with_http_info(opts)
+      data
+    end
+
+    # Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketGradingOrderResponse, Integer, Hash)>] CreateVaultMarketGradingOrderResponse data, response status code and response headers
+    def create_vault_market_grading_order_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.create_vault_market_grading_order ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketGradingOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.create_vault_market_grading_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#create_vault_market_grading_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a draft submission; its vault units go back on their shelf. A paid submission cannot be cancelled here.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StatusResponse]
+    def create_vault_market_grading_order_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_grading_order_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a draft submission; its vault units go back on their shelf. A paid submission cannot be cancelled here.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StatusResponse, Integer, Hash)>] StatusResponse data, response status code and response headers
+    def create_vault_market_grading_order_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.create_vault_market_grading_order_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GradingApi.create_vault_market_grading_order_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/orders/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.create_vault_market_grading_order_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#create_vault_market_grading_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketGradingOrderPayResponse]
+    def create_vault_market_grading_order_pay(id, opts = {})
+      data, _status_code, _headers = create_vault_market_grading_order_pay_with_http_info(id, opts)
+      data
+    end
+
+    # Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketGradingOrderPayResponse, Integer, Hash)>] CreateVaultMarketGradingOrderPayResponse data, response status code and response headers
+    def create_vault_market_grading_order_pay_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.create_vault_market_grading_order_pay ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GradingApi.create_vault_market_grading_order_pay"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/orders/{id}/pay'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketGradingOrderPayResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.create_vault_market_grading_order_pay",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#create_vault_market_grading_order_pay\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StatusResponse]
+    def create_vault_market_grading_order_pay_confirm(id, opts = {})
+      data, _status_code, _headers = create_vault_market_grading_order_pay_confirm_with_http_info(id, opts)
+      data
+    end
+
+    # After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StatusResponse, Integer, Hash)>] StatusResponse data, response status code and response headers
+    def create_vault_market_grading_order_pay_confirm_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.create_vault_market_grading_order_pay_confirm ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GradingApi.create_vault_market_grading_order_pay_confirm"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/orders/{id}/pay/confirm'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.create_vault_market_grading_order_pay_confirm",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#create_vault_market_grading_order_pay_confirm\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from.
+    # @param [Hash] opts the optional parameters
+    # @return [GetGradingPriceBookResponse]
+    def get_grading_price_book(opts = {})
+      data, _status_code, _headers = get_grading_price_book_with_http_info(opts)
+      data
+    end
+
+    # The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetGradingPriceBookResponse, Integer, Hash)>] GetGradingPriceBookResponse data, response status code and response headers
+    def get_grading_price_book_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.get_grading_price_book ...'
+      end
+      # resource path
+      local_var_path = '/v1/grading/price-book'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetGradingPriceBookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.get_grading_price_book",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#get_grading_price_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Worth grading? Raw value vs what each grade is worth at each grader, against the cost. Never predicts the grade.
     # @param inventory_item_id [String] 
     # @param [Hash] opts the optional parameters
@@ -430,6 +607,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GradingApi#get_grading_worth\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketGradingOrderResponse]
+    def get_vault_market_grading_order(id, opts = {})
+      data, _status_code, _headers = get_vault_market_grading_order_with_http_info(id, opts)
+      data
+    end
+
+    # One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketGradingOrderResponse, Integer, Hash)>] GetVaultMarketGradingOrderResponse data, response status code and response headers
+    def get_vault_market_grading_order_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.get_vault_market_grading_order ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling GradingApi.get_vault_market_grading_order"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/orders/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketGradingOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.get_vault_market_grading_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#get_vault_market_grading_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -602,6 +840,116 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GradingApi#list_grading_submissions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketGradingCandidatesResponse]
+    def list_vault_market_grading_candidates(opts = {})
+      data, _status_code, _headers = list_vault_market_grading_candidates_with_http_info(opts)
+      data
+    end
+
+    # What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketGradingCandidatesResponse, Integer, Hash)>] ListVaultMarketGradingCandidatesResponse data, response status code and response headers
+    def list_vault_market_grading_candidates_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.list_vault_market_grading_candidates ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/candidates'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketGradingCandidatesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.list_vault_market_grading_candidates",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#list_vault_market_grading_candidates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketGradingOrdersResponse]
+    def list_vault_market_grading_orders(opts = {})
+      data, _status_code, _headers = list_vault_market_grading_orders_with_http_info(opts)
+      data
+    end
+
+    # Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketGradingOrdersResponse, Integer, Hash)>] ListVaultMarketGradingOrdersResponse data, response status code and response headers
+    def list_vault_market_grading_orders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.list_vault_market_grading_orders ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/grading/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketGradingOrdersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.list_vault_market_grading_orders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#list_vault_market_grading_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

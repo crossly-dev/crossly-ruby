@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class GetVaultAttestationResponseLatest
+    attr_accessor :other
+
     attr_accessor :physical_count
 
     attr_accessor :insurance_certificate
@@ -23,16 +25,14 @@ module Crossly
 
     attr_accessor :soc2
 
-    attr_accessor :other
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'other' => :'other',
         :'physical_count' => :'physical_count',
         :'insurance_certificate' => :'insurance_certificate',
         :'soc1_type2' => :'soc1_type2',
-        :'soc2' => :'soc2',
-        :'other' => :'other'
+        :'soc2' => :'soc2'
       }
     end
 
@@ -44,22 +44,22 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'physical_count' => :'GetVaultAttestationResponseLatestPhysicalCount',
-        :'insurance_certificate' => :'GetVaultAttestationResponseLatestPhysicalCount',
-        :'soc1_type2' => :'GetVaultAttestationResponseLatestPhysicalCount',
-        :'soc2' => :'GetVaultAttestationResponseLatestPhysicalCount',
-        :'other' => :'GetVaultAttestationResponseLatestPhysicalCount'
+        :'other' => :'GetVaultAttestationResponseLatestOther',
+        :'physical_count' => :'GetVaultAttestationResponseLatestOther',
+        :'insurance_certificate' => :'GetVaultAttestationResponseLatestOther',
+        :'soc1_type2' => :'GetVaultAttestationResponseLatestOther',
+        :'soc2' => :'GetVaultAttestationResponseLatestOther'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'other',
         :'physical_count',
         :'insurance_certificate',
         :'soc1_type2',
-        :'soc2',
-        :'other'
+        :'soc2'
       ])
     end
 
@@ -78,6 +78,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'other')
+        self.other = attributes[:'other']
+      end
+
       if attributes.key?(:'physical_count')
         self.physical_count = attributes[:'physical_count']
       end
@@ -92,10 +96,6 @@ module Crossly
 
       if attributes.key?(:'soc2')
         self.soc2 = attributes[:'soc2']
-      end
-
-      if attributes.key?(:'other')
-        self.other = attributes[:'other']
       end
     end
 
@@ -117,11 +117,11 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          other == o.other &&
           physical_count == o.physical_count &&
           insurance_certificate == o.insurance_certificate &&
           soc1_type2 == o.soc1_type2 &&
-          soc2 == o.soc2 &&
-          other == o.other
+          soc2 == o.soc2
     end
 
     # @see the `==` method
@@ -133,7 +133,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [physical_count, insurance_certificate, soc1_type2, soc2, other].hash
+      [other, physical_count, insurance_certificate, soc1_type2, soc2].hash
     end
 
     # Builds the object from hash

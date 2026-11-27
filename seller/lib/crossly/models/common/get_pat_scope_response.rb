@@ -32,7 +32,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'scopes' => :'Array<GetPatScopeResponseScopes>'
+        :'scopes' => :'Array<ListAppsItemCapabilities>'
       }
     end
 

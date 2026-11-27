@@ -17,11 +17,13 @@ module CrosslyBuyer
   class GetBuyerTogetherResponseData
     attr_accessor :id
 
+    attr_accessor :code
+
     attr_accessor :name
 
-    attr_accessor :ends_at
+    attr_accessor :is_host
 
-    attr_accessor :code
+    attr_accessor :ends_at
 
     attr_accessor :members
 
@@ -29,19 +31,17 @@ module CrosslyBuyer
 
     attr_accessor :messages
 
-    attr_accessor :is_host
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'name' => :'name',
-        :'ends_at' => :'endsAt',
         :'code' => :'code',
+        :'name' => :'name',
+        :'is_host' => :'isHost',
+        :'ends_at' => :'endsAt',
         :'members' => :'members',
         :'items' => :'items',
-        :'messages' => :'messages',
-        :'is_host' => :'isHost'
+        :'messages' => :'messages'
       }
     end
 
@@ -54,13 +54,13 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'name' => :'String',
-        :'ends_at' => :'String',
         :'code' => :'String',
+        :'name' => :'String',
+        :'is_host' => :'Boolean',
+        :'ends_at' => :'String',
         :'members' => :'Array<GetBuyerTogetherResponseDataMembers>',
         :'items' => :'Array<GetBuyerTogetherResponseDataItems>',
-        :'messages' => :'Array<GetBuyerTogetherResponseDataMessages>',
-        :'is_host' => :'Boolean'
+        :'messages' => :'Array<GetBuyerTogetherResponseDataMessages>'
       }
     end
 
@@ -89,16 +89,20 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'ends_at')
-        self.ends_at = attributes[:'ends_at']
+      if attributes.key?(:'is_host')
+        self.is_host = attributes[:'is_host']
       end
 
-      if attributes.key?(:'code')
-        self.code = attributes[:'code']
+      if attributes.key?(:'ends_at')
+        self.ends_at = attributes[:'ends_at']
       end
 
       if attributes.key?(:'members')
@@ -118,10 +122,6 @@ module CrosslyBuyer
           self.messages = value
         end
       end
-
-      if attributes.key?(:'is_host')
-        self.is_host = attributes[:'is_host']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -132,16 +132,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
+      if @code.nil?
+        invalid_properties.push('invalid value for "code", code cannot be nil.')
+      end
+
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
-      if @ends_at.nil?
-        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
+      if @is_host.nil?
+        invalid_properties.push('invalid value for "is_host", is_host cannot be nil.')
       end
 
-      if @code.nil?
-        invalid_properties.push('invalid value for "code", code cannot be nil.')
+      if @ends_at.nil?
+        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
       end
 
       if @members.nil?
@@ -156,10 +160,6 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "messages", messages cannot be nil.')
       end
 
-      if @is_host.nil?
-        invalid_properties.push('invalid value for "is_host", is_host cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -167,13 +167,13 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @name.nil?
-      return false if @ends_at.nil?
       return false if @code.nil?
+      return false if @name.nil?
+      return false if @is_host.nil?
+      return false if @ends_at.nil?
       return false if @members.nil?
       return false if @items.nil?
       return false if @messages.nil?
-      return false if @is_host.nil?
       true
     end
 
@@ -183,13 +183,13 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          name == o.name &&
-          ends_at == o.ends_at &&
           code == o.code &&
+          name == o.name &&
+          is_host == o.is_host &&
+          ends_at == o.ends_at &&
           members == o.members &&
           items == o.items &&
-          messages == o.messages &&
-          is_host == o.is_host
+          messages == o.messages
     end
 
     # @see the `==` method
@@ -201,7 +201,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, ends_at, code, members, items, messages, is_host].hash
+      [id, code, name, is_host, ends_at, members, items, messages].hash
     end
 
     # Builds the object from hash

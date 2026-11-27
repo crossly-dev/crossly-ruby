@@ -17,15 +17,15 @@ module CrosslyBuyer
   class GetBuyerCaseResponseDataMessages
     attr_accessor :id
 
-    attr_accessor :created_at
+    # buyer | seller | ops | system.
+    attr_accessor :author_role
+
+    attr_accessor :body
 
     # message | offer | decision | state_change.
     attr_accessor :kind
 
-    attr_accessor :body
-
-    # buyer | seller | ops | system.
-    attr_accessor :author_role
+    attr_accessor :created_at
 
     attr_accessor :attachment_urls
 
@@ -33,10 +33,10 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'kind' => :'kind',
-        :'body' => :'body',
         :'author_role' => :'authorRole',
+        :'body' => :'body',
+        :'kind' => :'kind',
+        :'created_at' => :'createdAt',
         :'attachment_urls' => :'attachmentUrls'
       }
     end
@@ -50,10 +50,10 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'kind' => :'String',
-        :'body' => :'String',
         :'author_role' => :'String',
+        :'body' => :'String',
+        :'kind' => :'String',
+        :'created_at' => :'String',
         :'attachment_urls' => :'Array<String>'
       }
     end
@@ -84,20 +84,20 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
+      if attributes.key?(:'author_role')
+        self.author_role = attributes[:'author_role']
       end
 
       if attributes.key?(:'body')
         self.body = attributes[:'body']
       end
 
-      if attributes.key?(:'author_role')
-        self.author_role = attributes[:'author_role']
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'attachment_urls')
@@ -115,20 +115,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @kind.nil?
-        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      if @author_role.nil?
+        invalid_properties.push('invalid value for "author_role", author_role cannot be nil.')
       end
 
       if @body.nil?
         invalid_properties.push('invalid value for "body", body cannot be nil.')
       end
 
-      if @author_role.nil?
-        invalid_properties.push('invalid value for "author_role", author_role cannot be nil.')
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       invalid_properties
@@ -138,10 +138,10 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @kind.nil?
-      return false if @body.nil?
       return false if @author_role.nil?
+      return false if @body.nil?
+      return false if @kind.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -151,10 +151,10 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          kind == o.kind &&
-          body == o.body &&
           author_role == o.author_role &&
+          body == o.body &&
+          kind == o.kind &&
+          created_at == o.created_at &&
           attachment_urls == o.attachment_urls
     end
 
@@ -167,7 +167,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, kind, body, author_role, attachment_urls].hash
+      [id, author_role, body, kind, created_at, attachment_urls].hash
     end
 
     # Builds the object from hash

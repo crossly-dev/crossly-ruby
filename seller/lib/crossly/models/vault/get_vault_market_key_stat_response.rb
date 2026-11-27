@@ -17,10 +17,13 @@ module Crossly
   class GetVaultMarketKeyStatResponse
     attr_accessor :book_key
 
+    attr_accessor :gem_rate
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'book_key' => :'bookKey'
+        :'book_key' => :'bookKey',
+        :'gem_rate' => :'gemRate'
       }
     end
 
@@ -32,7 +35,8 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'book_key' => :'String'
+        :'book_key' => :'String',
+        :'gem_rate' => :'GetVaultMarketKeyStatResponseGemRate'
       }
     end
 
@@ -60,6 +64,10 @@ module Crossly
       if attributes.key?(:'book_key')
         self.book_key = attributes[:'book_key']
       end
+
+      if attributes.key?(:'gem_rate')
+        self.gem_rate = attributes[:'gem_rate']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -70,6 +78,10 @@ module Crossly
         invalid_properties.push('invalid value for "book_key", book_key cannot be nil.')
       end
 
+      if @gem_rate.nil?
+        invalid_properties.push('invalid value for "gem_rate", gem_rate cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -77,6 +89,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @book_key.nil?
+      return false if @gem_rate.nil?
       true
     end
 
@@ -85,7 +98,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          book_key == o.book_key
+          book_key == o.book_key &&
+          gem_rate == o.gem_rate
     end
 
     # @see the `==` method
@@ -97,7 +111,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [book_key].hash
+      [book_key, gem_rate].hash
     end
 
     # Builds the object from hash

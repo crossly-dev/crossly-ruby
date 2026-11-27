@@ -21,15 +21,15 @@ module CrosslyBuyer
 
     attr_accessor :updated_at
 
-    attr_accessor :token
+    attr_accessor :owner_user_id
 
     attr_accessor :kind
 
     attr_accessor :message
 
-    attr_accessor :owner_user_id
-
     attr_accessor :wishlist_id
+
+    attr_accessor :token
 
     attr_accessor :event_date
 
@@ -41,11 +41,11 @@ module CrosslyBuyer
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
-        :'token' => :'token',
+        :'owner_user_id' => :'ownerUserId',
         :'kind' => :'kind',
         :'message' => :'message',
-        :'owner_user_id' => :'ownerUserId',
         :'wishlist_id' => :'wishlistId',
+        :'token' => :'token',
         :'event_date' => :'eventDate',
         :'ship_address_id' => :'shipAddressId'
       }
@@ -62,11 +62,11 @@ module CrosslyBuyer
         :'id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
-        :'token' => :'String',
+        :'owner_user_id' => :'String',
         :'kind' => :'String',
         :'message' => :'String',
-        :'owner_user_id' => :'String',
         :'wishlist_id' => :'String',
+        :'token' => :'String',
         :'event_date' => :'String',
         :'ship_address_id' => :'String'
       }
@@ -108,8 +108,8 @@ module CrosslyBuyer
         self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'token')
-        self.token = attributes[:'token']
+      if attributes.key?(:'owner_user_id')
+        self.owner_user_id = attributes[:'owner_user_id']
       end
 
       if attributes.key?(:'kind')
@@ -120,12 +120,12 @@ module CrosslyBuyer
         self.message = attributes[:'message']
       end
 
-      if attributes.key?(:'owner_user_id')
-        self.owner_user_id = attributes[:'owner_user_id']
-      end
-
       if attributes.key?(:'wishlist_id')
         self.wishlist_id = attributes[:'wishlist_id']
+      end
+
+      if attributes.key?(:'token')
+        self.token = attributes[:'token']
       end
 
       if attributes.key?(:'event_date')
@@ -153,20 +153,20 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
-      if @token.nil?
-        invalid_properties.push('invalid value for "token", token cannot be nil.')
+      if @owner_user_id.nil?
+        invalid_properties.push('invalid value for "owner_user_id", owner_user_id cannot be nil.')
       end
 
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
-      if @owner_user_id.nil?
-        invalid_properties.push('invalid value for "owner_user_id", owner_user_id cannot be nil.')
-      end
-
       if @wishlist_id.nil?
         invalid_properties.push('invalid value for "wishlist_id", wishlist_id cannot be nil.')
+      end
+
+      if @token.nil?
+        invalid_properties.push('invalid value for "token", token cannot be nil.')
       end
 
       invalid_properties
@@ -178,10 +178,10 @@ module CrosslyBuyer
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
-      return false if @token.nil?
-      return false if @kind.nil?
       return false if @owner_user_id.nil?
+      return false if @kind.nil?
       return false if @wishlist_id.nil?
+      return false if @token.nil?
       true
     end
 
@@ -193,11 +193,11 @@ module CrosslyBuyer
           id == o.id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
-          token == o.token &&
+          owner_user_id == o.owner_user_id &&
           kind == o.kind &&
           message == o.message &&
-          owner_user_id == o.owner_user_id &&
           wishlist_id == o.wishlist_id &&
+          token == o.token &&
           event_date == o.event_date &&
           ship_address_id == o.ship_address_id
     end
@@ -211,7 +211,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, token, kind, message, owner_user_id, wishlist_id, event_date, ship_address_id].hash
+      [id, created_at, updated_at, owner_user_id, kind, message, wishlist_id, token, event_date, ship_address_id].hash
     end
 
     # Builds the object from hash

@@ -15,6 +15,14 @@ require 'time'
 
 module Crossly
   class CreateSpatialStreetPlotBuyResponseData
+    attr_accessor :done
+
+    attr_accessor :payment_id
+
+    attr_accessor :requires_action
+
+    attr_accessor :client_secret
+
     attr_accessor :deed_id
 
     attr_accessor :address
@@ -23,13 +31,20 @@ module Crossly
 
     attr_accessor :paid_through
 
+    attr_accessor :placed
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'done' => :'done',
+        :'payment_id' => :'paymentId',
+        :'requires_action' => :'requiresAction',
+        :'client_secret' => :'clientSecret',
         :'deed_id' => :'deedId',
         :'address' => :'address',
         :'price_cents' => :'priceCents',
-        :'paid_through' => :'paidThrough'
+        :'paid_through' => :'paidThrough',
+        :'placed' => :'placed'
       }
     end
 
@@ -41,16 +56,23 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'done' => :'Boolean',
+        :'payment_id' => :'String',
+        :'requires_action' => :'Boolean',
+        :'client_secret' => :'String',
         :'deed_id' => :'String',
         :'address' => :'String',
         :'price_cents' => :'Float',
-        :'paid_through' => :'String'
+        :'paid_through' => :'String',
+        :'placed' => :'CreateWorldMarketPlotRentResponseDataOneOf2Placed'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'client_secret',
+        :'placed'
       ])
     end
 
@@ -69,6 +91,22 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'done')
+        self.done = attributes[:'done']
+      end
+
+      if attributes.key?(:'payment_id')
+        self.payment_id = attributes[:'payment_id']
+      end
+
+      if attributes.key?(:'requires_action')
+        self.requires_action = attributes[:'requires_action']
+      end
+
+      if attributes.key?(:'client_secret')
+        self.client_secret = attributes[:'client_secret']
+      end
+
       if attributes.key?(:'deed_id')
         self.deed_id = attributes[:'deed_id']
       end
@@ -84,38 +122,22 @@ module Crossly
       if attributes.key?(:'paid_through')
         self.paid_through = attributes[:'paid_through']
       end
+
+      if attributes.key?(:'placed')
+        self.placed = attributes[:'placed']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @deed_id.nil?
-        invalid_properties.push('invalid value for "deed_id", deed_id cannot be nil.')
-      end
-
-      if @address.nil?
-        invalid_properties.push('invalid value for "address", address cannot be nil.')
-      end
-
-      if @price_cents.nil?
-        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
-      end
-
-      if @paid_through.nil?
-        invalid_properties.push('invalid value for "paid_through", paid_through cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @deed_id.nil?
-      return false if @address.nil?
-      return false if @price_cents.nil?
-      return false if @paid_through.nil?
       true
     end
 
@@ -124,10 +146,15 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          done == o.done &&
+          payment_id == o.payment_id &&
+          requires_action == o.requires_action &&
+          client_secret == o.client_secret &&
           deed_id == o.deed_id &&
           address == o.address &&
           price_cents == o.price_cents &&
-          paid_through == o.paid_through
+          paid_through == o.paid_through &&
+          placed == o.placed
     end
 
     # @see the `==` method
@@ -139,7 +166,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [deed_id, address, price_cents, paid_through].hash
+      [done, payment_id, requires_action, client_secret, deed_id, address, price_cents, paid_through, placed].hash
     end
 
     # Builds the object from hash

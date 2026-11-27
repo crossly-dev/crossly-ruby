@@ -11,5 +11,5 @@ OpenAPI Generator version: 5.4.0
 =end
 
 module Crossly
-  VERSION = '1.0.0'
+  VERSION = '0.2.0'
 end

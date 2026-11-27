@@ -19,11 +19,14 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :_retry
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'verified' => :'verified',
-        :'status' => :'status'
+        :'status' => :'status',
+        :'_retry' => :'retry'
       }
     end
 
@@ -36,14 +39,15 @@ module Crossly
     def self.openapi_types
       {
         :'verified' => :'Boolean',
-        :'status' => :'String'
+        :'status' => :'String',
+        :'_retry' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'status'
+        :'status',
       ])
     end
 
@@ -69,6 +73,10 @@ module Crossly
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
+
+      if attributes.key?(:'_retry')
+        self._retry = attributes[:'_retry']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -79,6 +87,10 @@ module Crossly
         invalid_properties.push('invalid value for "verified", verified cannot be nil.')
       end
 
+      if @_retry.nil?
+        invalid_properties.push('invalid value for "_retry", _retry cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -86,6 +98,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @verified.nil?
+      return false if @_retry.nil?
       true
     end
 
@@ -95,7 +108,8 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           verified == o.verified &&
-          status == o.status
+          status == o.status &&
+          _retry == o._retry
     end
 
     # @see the `==` method
@@ -107,7 +121,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [verified, status].hash
+      [verified, status, _retry].hash
     end
 
     # Builds the object from hash

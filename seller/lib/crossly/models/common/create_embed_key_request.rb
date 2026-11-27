@@ -21,6 +21,7 @@ module Crossly
     # Origins permitted to use this key, e.g. [\"https://shop.example.com\"]. LEAVE EMPTY to allow any origin — necessary when embedding on a platform whose domain you do not control, and the reason this is not locked by default.
     attr_accessor :allowed_origins
 
+    # Omit for this server's own: live on crossly.net, test on sandbox.crossly.net. The other one is refused.
     attr_accessor :environment
 
     class EnumAttributeValidator
@@ -101,8 +102,6 @@ module Crossly
 
       if attributes.key?(:'environment')
         self.environment = attributes[:'environment']
-      else
-        self.environment = 'live'
       end
     end
 

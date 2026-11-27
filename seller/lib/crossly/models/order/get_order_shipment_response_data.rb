@@ -23,23 +23,25 @@ module Crossly
 
     attr_accessor :source
 
-    attr_accessor :order_id
-
     attr_accessor :carrier
 
     attr_accessor :service
 
     attr_accessor :tracking_number
 
-    attr_accessor :voided_at
+    attr_accessor :order_id
 
     attr_accessor :label_cost_cents
 
     attr_accessor :label_url
 
+    attr_accessor :label_qr_url
+
     attr_accessor :shippo_shipment_id
 
     attr_accessor :tracking_registered_at
+
+    attr_accessor :voided_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -48,15 +50,16 @@ module Crossly
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
         :'source' => :'source',
-        :'order_id' => :'orderId',
         :'carrier' => :'carrier',
         :'service' => :'service',
         :'tracking_number' => :'trackingNumber',
-        :'voided_at' => :'voidedAt',
+        :'order_id' => :'orderId',
         :'label_cost_cents' => :'labelCostCents',
         :'label_url' => :'labelUrl',
+        :'label_qr_url' => :'labelQrUrl',
         :'shippo_shipment_id' => :'shippoShipmentId',
-        :'tracking_registered_at' => :'trackingRegisteredAt'
+        :'tracking_registered_at' => :'trackingRegisteredAt',
+        :'voided_at' => :'voidedAt'
       }
     end
 
@@ -72,15 +75,16 @@ module Crossly
         :'created_at' => :'Time',
         :'user_id' => :'String',
         :'source' => :'String',
-        :'order_id' => :'String',
         :'carrier' => :'String',
         :'service' => :'String',
         :'tracking_number' => :'String',
-        :'voided_at' => :'Time',
+        :'order_id' => :'String',
         :'label_cost_cents' => :'Float',
         :'label_url' => :'String',
+        :'label_qr_url' => :'String',
         :'shippo_shipment_id' => :'String',
-        :'tracking_registered_at' => :'Time'
+        :'tracking_registered_at' => :'Time',
+        :'voided_at' => :'Time'
       }
     end
 
@@ -90,11 +94,12 @@ module Crossly
         :'carrier',
         :'service',
         :'tracking_number',
-        :'voided_at',
         :'label_cost_cents',
         :'label_url',
+        :'label_qr_url',
         :'shippo_shipment_id',
-        :'tracking_registered_at'
+        :'tracking_registered_at',
+        :'voided_at'
       ])
     end
 
@@ -129,10 +134,6 @@ module Crossly
         self.source = attributes[:'source']
       end
 
-      if attributes.key?(:'order_id')
-        self.order_id = attributes[:'order_id']
-      end
-
       if attributes.key?(:'carrier')
         self.carrier = attributes[:'carrier']
       end
@@ -145,8 +146,8 @@ module Crossly
         self.tracking_number = attributes[:'tracking_number']
       end
 
-      if attributes.key?(:'voided_at')
-        self.voided_at = attributes[:'voided_at']
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
       end
 
       if attributes.key?(:'label_cost_cents')
@@ -157,12 +158,20 @@ module Crossly
         self.label_url = attributes[:'label_url']
       end
 
+      if attributes.key?(:'label_qr_url')
+        self.label_qr_url = attributes[:'label_qr_url']
+      end
+
       if attributes.key?(:'shippo_shipment_id')
         self.shippo_shipment_id = attributes[:'shippo_shipment_id']
       end
 
       if attributes.key?(:'tracking_registered_at')
         self.tracking_registered_at = attributes[:'tracking_registered_at']
+      end
+
+      if attributes.key?(:'voided_at')
+        self.voided_at = attributes[:'voided_at']
       end
     end
 
@@ -213,15 +222,16 @@ module Crossly
           created_at == o.created_at &&
           user_id == o.user_id &&
           source == o.source &&
-          order_id == o.order_id &&
           carrier == o.carrier &&
           service == o.service &&
           tracking_number == o.tracking_number &&
-          voided_at == o.voided_at &&
+          order_id == o.order_id &&
           label_cost_cents == o.label_cost_cents &&
           label_url == o.label_url &&
+          label_qr_url == o.label_qr_url &&
           shippo_shipment_id == o.shippo_shipment_id &&
-          tracking_registered_at == o.tracking_registered_at
+          tracking_registered_at == o.tracking_registered_at &&
+          voided_at == o.voided_at
     end
 
     # @see the `==` method
@@ -233,7 +243,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, source, order_id, carrier, service, tracking_number, voided_at, label_cost_cents, label_url, shippo_shipment_id, tracking_registered_at].hash
+      [id, created_at, user_id, source, carrier, service, tracking_number, order_id, label_cost_cents, label_url, label_qr_url, shippo_shipment_id, tracking_registered_at, voided_at].hash
     end
 
     # Builds the object from hash

@@ -195,7 +195,7 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @in_line.nil?
-      outcome_validator = EnumAttributeValidator.new('String', ["won", "expired", "waitlist", "claimed"])
+      outcome_validator = EnumAttributeValidator.new('String', ["expired", "won", "waitlist", "claimed"])
       return false unless outcome_validator.valid?(@outcome)
       return false if @eligible.nil?
       true
@@ -204,7 +204,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] outcome Object to be assigned
     def outcome=(outcome)
-      validator = EnumAttributeValidator.new('String', ["won", "expired", "waitlist", "claimed"])
+      validator = EnumAttributeValidator.new('String', ["expired", "won", "waitlist", "claimed"])
       unless validator.valid?(outcome)
         fail ArgumentError, "invalid value for \"outcome\", must be one of #{validator.allowable_values}."
       end

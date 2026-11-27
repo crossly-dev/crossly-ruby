@@ -45,7 +45,7 @@ module Crossly
     def self.openapi_types
       {
         :'ok' => :'Boolean',
-        :'issues' => :'Array<CreateWorldGamePackageCheckResponseDataIssues>',
+        :'issues' => :'Array<PathMessage>',
         :'fits' => :'CreateWorldGamePackageCheckResponseDataFits',
         :'total_bytes' => :'Float',
         :'manifest' => :'CreateWorldGamePackageCheckResponseDataManifest'

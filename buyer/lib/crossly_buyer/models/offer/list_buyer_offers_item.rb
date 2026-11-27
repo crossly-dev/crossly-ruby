@@ -17,14 +17,6 @@ module CrosslyBuyer
   class ListBuyerOffersItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
-    attr_accessor :status
-
-    attr_accessor :expires_at
-
-    attr_accessor :is_bundle
-
     attr_accessor :platform_listing_id
 
     attr_accessor :seller_user_id
@@ -32,54 +24,62 @@ module CrosslyBuyer
     # The offer amount for the whole set, in cents.
     attr_accessor :amount_cents
 
-    attr_accessor :expired
+    attr_accessor :status
+
+    attr_accessor :expires_at
+
+    attr_accessor :created_at
 
     attr_accessor :items
 
-    # A seller counter waiting on YOU: accept, decline or counter back.
-    attr_accessor :awaiting_buyer
+    attr_accessor :is_bundle
 
     # Accepted, unpaid, unexpired and every item still live — pay for it now.
     attr_accessor :redeemable
 
-    attr_accessor :decided_at
+    attr_accessor :expired
+
+    # A seller counter waiting on YOU: accept, decline or counter back.
+    attr_accessor :awaiting_buyer
+
+    attr_accessor :platform_listing_ids
+
+    # Asking-price total when the offer was made, in cents.
+    attr_accessor :listed_total_cents
 
     attr_accessor :message
 
     attr_accessor :parent_offer_id
 
-    attr_accessor :platform_listing_ids
-
-    attr_accessor :consumed_at
-
-    # Asking-price total when the offer was made, in cents.
-    attr_accessor :listed_total_cents
-
     # null = you made it; seller_counter / buyer_counter / second_chance / seller_offer (to watchers) / live_auction otherwise.
     attr_accessor :origin
+
+    attr_accessor :decided_at
+
+    attr_accessor :consumed_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'status' => :'status',
-        :'expires_at' => :'expiresAt',
-        :'is_bundle' => :'isBundle',
         :'platform_listing_id' => :'platformListingId',
         :'seller_user_id' => :'sellerUserId',
         :'amount_cents' => :'amountCents',
-        :'expired' => :'expired',
+        :'status' => :'status',
+        :'expires_at' => :'expiresAt',
+        :'created_at' => :'createdAt',
         :'items' => :'items',
-        :'awaiting_buyer' => :'awaitingBuyer',
+        :'is_bundle' => :'isBundle',
         :'redeemable' => :'redeemable',
-        :'decided_at' => :'decidedAt',
+        :'expired' => :'expired',
+        :'awaiting_buyer' => :'awaitingBuyer',
+        :'platform_listing_ids' => :'platformListingIds',
+        :'listed_total_cents' => :'listedTotalCents',
         :'message' => :'message',
         :'parent_offer_id' => :'parentOfferId',
-        :'platform_listing_ids' => :'platformListingIds',
-        :'consumed_at' => :'consumedAt',
-        :'listed_total_cents' => :'listedTotalCents',
-        :'origin' => :'origin'
+        :'origin' => :'origin',
+        :'decided_at' => :'decidedAt',
+        :'consumed_at' => :'consumedAt'
       }
     end
 
@@ -92,37 +92,37 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'status' => :'String',
-        :'expires_at' => :'String',
-        :'is_bundle' => :'Boolean',
         :'platform_listing_id' => :'String',
         :'seller_user_id' => :'String',
         :'amount_cents' => :'Float',
-        :'expired' => :'Boolean',
+        :'status' => :'String',
+        :'expires_at' => :'String',
+        :'created_at' => :'String',
         :'items' => :'Array<ListBuyerOffersItemItems>',
-        :'awaiting_buyer' => :'Boolean',
+        :'is_bundle' => :'Boolean',
         :'redeemable' => :'Boolean',
-        :'decided_at' => :'String',
+        :'expired' => :'Boolean',
+        :'awaiting_buyer' => :'Boolean',
+        :'platform_listing_ids' => :'Array<String>',
+        :'listed_total_cents' => :'Float',
         :'message' => :'String',
         :'parent_offer_id' => :'String',
-        :'platform_listing_ids' => :'Array<String>',
-        :'consumed_at' => :'String',
-        :'listed_total_cents' => :'Float',
-        :'origin' => :'String'
+        :'origin' => :'String',
+        :'decided_at' => :'String',
+        :'consumed_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'decided_at',
+        :'platform_listing_ids',
+        :'listed_total_cents',
         :'message',
         :'parent_offer_id',
-        :'platform_listing_ids',
-        :'consumed_at',
-        :'listed_total_cents',
-        :'origin'
+        :'origin',
+        :'decided_at',
+        :'consumed_at'
       ])
     end
 
@@ -145,22 +145,6 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
-      end
-
-      if attributes.key?(:'is_bundle')
-        self.is_bundle = attributes[:'is_bundle']
-      end
-
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
@@ -173,8 +157,16 @@ module CrosslyBuyer
         self.amount_cents = attributes[:'amount_cents']
       end
 
-      if attributes.key?(:'expired')
-        self.expired = attributes[:'expired']
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'items')
@@ -183,16 +175,30 @@ module CrosslyBuyer
         end
       end
 
-      if attributes.key?(:'awaiting_buyer')
-        self.awaiting_buyer = attributes[:'awaiting_buyer']
+      if attributes.key?(:'is_bundle')
+        self.is_bundle = attributes[:'is_bundle']
       end
 
       if attributes.key?(:'redeemable')
         self.redeemable = attributes[:'redeemable']
       end
 
-      if attributes.key?(:'decided_at')
-        self.decided_at = attributes[:'decided_at']
+      if attributes.key?(:'expired')
+        self.expired = attributes[:'expired']
+      end
+
+      if attributes.key?(:'awaiting_buyer')
+        self.awaiting_buyer = attributes[:'awaiting_buyer']
+      end
+
+      if attributes.key?(:'platform_listing_ids')
+        if (value = attributes[:'platform_listing_ids']).is_a?(Array)
+          self.platform_listing_ids = value
+        end
+      end
+
+      if attributes.key?(:'listed_total_cents')
+        self.listed_total_cents = attributes[:'listed_total_cents']
       end
 
       if attributes.key?(:'message')
@@ -203,22 +209,16 @@ module CrosslyBuyer
         self.parent_offer_id = attributes[:'parent_offer_id']
       end
 
-      if attributes.key?(:'platform_listing_ids')
-        if (value = attributes[:'platform_listing_ids']).is_a?(Array)
-          self.platform_listing_ids = value
-        end
+      if attributes.key?(:'origin')
+        self.origin = attributes[:'origin']
+      end
+
+      if attributes.key?(:'decided_at')
+        self.decided_at = attributes[:'decided_at']
       end
 
       if attributes.key?(:'consumed_at')
         self.consumed_at = attributes[:'consumed_at']
-      end
-
-      if attributes.key?(:'listed_total_cents')
-        self.listed_total_cents = attributes[:'listed_total_cents']
-      end
-
-      if attributes.key?(:'origin')
-        self.origin = attributes[:'origin']
       end
     end
 
@@ -228,22 +228,6 @@ module CrosslyBuyer
       invalid_properties = Array.new
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @expires_at.nil?
-        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
-      end
-
-      if @is_bundle.nil?
-        invalid_properties.push('invalid value for "is_bundle", is_bundle cannot be nil.')
       end
 
       if @platform_listing_id.nil?
@@ -258,20 +242,36 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "amount_cents", amount_cents cannot be nil.')
       end
 
-      if @expired.nil?
-        invalid_properties.push('invalid value for "expired", expired cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @expires_at.nil?
+        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @items.nil?
         invalid_properties.push('invalid value for "items", items cannot be nil.')
       end
 
-      if @awaiting_buyer.nil?
-        invalid_properties.push('invalid value for "awaiting_buyer", awaiting_buyer cannot be nil.')
+      if @is_bundle.nil?
+        invalid_properties.push('invalid value for "is_bundle", is_bundle cannot be nil.')
       end
 
       if @redeemable.nil?
         invalid_properties.push('invalid value for "redeemable", redeemable cannot be nil.')
+      end
+
+      if @expired.nil?
+        invalid_properties.push('invalid value for "expired", expired cannot be nil.')
+      end
+
+      if @awaiting_buyer.nil?
+        invalid_properties.push('invalid value for "awaiting_buyer", awaiting_buyer cannot be nil.')
       end
 
       invalid_properties
@@ -281,17 +281,17 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @status.nil?
-      return false if @expires_at.nil?
-      return false if @is_bundle.nil?
       return false if @platform_listing_id.nil?
       return false if @seller_user_id.nil?
       return false if @amount_cents.nil?
-      return false if @expired.nil?
+      return false if @status.nil?
+      return false if @expires_at.nil?
+      return false if @created_at.nil?
       return false if @items.nil?
-      return false if @awaiting_buyer.nil?
+      return false if @is_bundle.nil?
       return false if @redeemable.nil?
+      return false if @expired.nil?
+      return false if @awaiting_buyer.nil?
       true
     end
 
@@ -301,24 +301,24 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          status == o.status &&
-          expires_at == o.expires_at &&
-          is_bundle == o.is_bundle &&
           platform_listing_id == o.platform_listing_id &&
           seller_user_id == o.seller_user_id &&
           amount_cents == o.amount_cents &&
-          expired == o.expired &&
+          status == o.status &&
+          expires_at == o.expires_at &&
+          created_at == o.created_at &&
           items == o.items &&
-          awaiting_buyer == o.awaiting_buyer &&
+          is_bundle == o.is_bundle &&
           redeemable == o.redeemable &&
-          decided_at == o.decided_at &&
+          expired == o.expired &&
+          awaiting_buyer == o.awaiting_buyer &&
+          platform_listing_ids == o.platform_listing_ids &&
+          listed_total_cents == o.listed_total_cents &&
           message == o.message &&
           parent_offer_id == o.parent_offer_id &&
-          platform_listing_ids == o.platform_listing_ids &&
-          consumed_at == o.consumed_at &&
-          listed_total_cents == o.listed_total_cents &&
-          origin == o.origin
+          origin == o.origin &&
+          decided_at == o.decided_at &&
+          consumed_at == o.consumed_at
     end
 
     # @see the `==` method
@@ -330,7 +330,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, expires_at, is_bundle, platform_listing_id, seller_user_id, amount_cents, expired, items, awaiting_buyer, redeemable, decided_at, message, parent_offer_id, platform_listing_ids, consumed_at, listed_total_cents, origin].hash
+      [id, platform_listing_id, seller_user_id, amount_cents, status, expires_at, created_at, items, is_bundle, redeemable, expired, awaiting_buyer, platform_listing_ids, listed_total_cents, message, parent_offer_id, origin, decided_at, consumed_at].hash
     end
 
     # Builds the object from hash

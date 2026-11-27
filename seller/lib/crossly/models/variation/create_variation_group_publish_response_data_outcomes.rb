@@ -27,6 +27,18 @@ module Crossly
     # Dispatcher job ids, on the separate path.
     attr_accessor :job_ids
 
+    # Grouped: every option that went live, with its own id on the platform. publishGroupToPlatform records one platform_listings row per entry (variation-publish-members.ts), so a sale or delist acts on that option.
+    attr_accessor :members
+
+    # Grouped: options that did not go live. Reported in `warnings`; the live ones are still recorded.
+    attr_accessor :failed
+
+    # Grouped: work that needs the option rows to exist (a POS stock base, markPosPushed), run right after they are recorded. Returns warnings for the seller; must not throw for one option.
+    attr_accessor :after_recorded
+
+    # The publisher tracks its options itself, not as platform_listings rows (Crossly: crossly_listing_variants with the member listing id, variation-publish-crossly.ts), so no `members` is not a gap.
+    attr_accessor :own_option_rows
+
     attr_accessor :warnings
 
     attr_accessor :error
@@ -61,6 +73,10 @@ module Crossly
         :'ok' => :'ok',
         :'listing_id' => :'listingId',
         :'job_ids' => :'jobIds',
+        :'members' => :'members',
+        :'failed' => :'failed',
+        :'after_recorded' => :'afterRecorded',
+        :'own_option_rows' => :'ownOptionRows',
         :'warnings' => :'warnings',
         :'error' => :'error'
       }
@@ -79,6 +95,10 @@ module Crossly
         :'ok' => :'Boolean',
         :'listing_id' => :'String',
         :'job_ids' => :'Array<String>',
+        :'members' => :'Array<Hash<String, Object>>',
+        :'failed' => :'Array<Hash<String, Object>>',
+        :'after_recorded' => :'Hash<String, Object>',
+        :'own_option_rows' => :'Boolean',
         :'warnings' => :'Array<String>',
         :'error' => :'String'
       }
@@ -89,6 +109,10 @@ module Crossly
       Set.new([
         :'listing_id',
         :'job_ids',
+        :'members',
+        :'failed',
+        :'after_recorded',
+        :'own_option_rows',
         :'error'
       ])
     end
@@ -130,6 +154,28 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'members')
+        if (value = attributes[:'members']).is_a?(Array)
+          self.members = value
+        end
+      end
+
+      if attributes.key?(:'failed')
+        if (value = attributes[:'failed']).is_a?(Array)
+          self.failed = value
+        end
+      end
+
+      if attributes.key?(:'after_recorded')
+        if (value = attributes[:'after_recorded']).is_a?(Hash)
+          self.after_recorded = value
+        end
+      end
+
+      if attributes.key?(:'own_option_rows')
+        self.own_option_rows = attributes[:'own_option_rows']
+      end
+
       if attributes.key?(:'warnings')
         if (value = attributes[:'warnings']).is_a?(Array)
           self.warnings = value
@@ -169,7 +215,7 @@ module Crossly
     def valid?
       return false if @platform.nil?
       return false if @mode.nil?
-      mode_validator = EnumAttributeValidator.new('String', ["grouped", "separate"])
+      mode_validator = EnumAttributeValidator.new('String', ["separate", "grouped"])
       return false unless mode_validator.valid?(@mode)
       return false if @ok.nil?
       return false if @warnings.nil?
@@ -179,7 +225,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] mode Object to be assigned
     def mode=(mode)
-      validator = EnumAttributeValidator.new('String', ["grouped", "separate"])
+      validator = EnumAttributeValidator.new('String', ["separate", "grouped"])
       unless validator.valid?(mode)
         fail ArgumentError, "invalid value for \"mode\", must be one of #{validator.allowable_values}."
       end
@@ -196,6 +242,10 @@ module Crossly
           ok == o.ok &&
           listing_id == o.listing_id &&
           job_ids == o.job_ids &&
+          members == o.members &&
+          failed == o.failed &&
+          after_recorded == o.after_recorded &&
+          own_option_rows == o.own_option_rows &&
           warnings == o.warnings &&
           error == o.error
     end
@@ -209,7 +259,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, mode, ok, listing_id, job_ids, warnings, error].hash
+      [platform, mode, ok, listing_id, job_ids, members, failed, after_recorded, own_option_rows, warnings, error].hash
     end
 
     # Builds the object from hash

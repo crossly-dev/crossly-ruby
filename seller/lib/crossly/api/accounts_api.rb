@@ -74,6 +74,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Connect CardNexus with a personal API key (validated live before it is stored).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateConnectionCardnexusApiKeyResponse]
+    def create_connection_cardnexus_api_key(opts = {})
+      data, _status_code, _headers = create_connection_cardnexus_api_key_with_http_info(opts)
+      data
+    end
+
+    # Connect CardNexus with a personal API key (validated live before it is stored).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateConnectionCardnexusApiKeyResponse, Integer, Hash)>] CreateConnectionCardnexusApiKeyResponse data, response status code and response headers
+    def create_connection_cardnexus_api_key_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_cardnexus_api_key ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/cardnexus/api-key'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateConnectionCardnexusApiKeyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.create_connection_cardnexus_api_key",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#create_connection_cardnexus_api_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Add an IMAP mailbox connection.
     # @param [Hash] opts the optional parameters
     # @return [CreateConnectionEmailImapResponse]
@@ -180,6 +235,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AccountsApi#create_connection_email_imap_test\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+    # @param create_connection_lightspeed_x_token_request [CreateConnectionLightspeedXTokenRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateConnectionLightspeedXTokenResponse]
+    def create_connection_lightspeed_x_token(create_connection_lightspeed_x_token_request, opts = {})
+      data, _status_code, _headers = create_connection_lightspeed_x_token_with_http_info(create_connection_lightspeed_x_token_request, opts)
+      data
+    end
+
+    # Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+    # @param create_connection_lightspeed_x_token_request [CreateConnectionLightspeedXTokenRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateConnectionLightspeedXTokenResponse, Integer, Hash)>] CreateConnectionLightspeedXTokenResponse data, response status code and response headers
+    def create_connection_lightspeed_x_token_with_http_info(create_connection_lightspeed_x_token_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_lightspeed_x_token ...'
+      end
+      # verify the required parameter 'create_connection_lightspeed_x_token_request' is set
+      if @api_client.config.client_side_validation && create_connection_lightspeed_x_token_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_connection_lightspeed_x_token_request' when calling AccountsApi.create_connection_lightspeed_x_token"
+      end
+      # resource path
+      local_var_path = '/v1/connections/lightspeed_x/token'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_connection_lightspeed_x_token_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateConnectionLightspeedXTokenResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.create_connection_lightspeed_x_token",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#create_connection_lightspeed_x_token\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -306,7 +427,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Archive every active account row for a platform.
+    # Disconnect every account of a platform (archives the rows and deletes their stored sessions).
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreatePlatformAccountDisconnectResponse]
@@ -315,7 +436,7 @@ module Crossly
       data
     end
 
-    # Archive every active account row for a platform.
+    # Disconnect every account of a platform (archives the rows and deletes their stored sessions).
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreatePlatformAccountDisconnectResponse, Integer, Hash)>] CreatePlatformAccountDisconnectResponse data, response status code and response headers
@@ -787,8 +908,77 @@ module Crossly
       return data, status_code, headers
     end
 
+    # List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+    # For one of your managed connections, the choices a preset's `platformFields` picker offers, from the marketplace (`source` is the field's `optionsSource`, e.g. `delivery-methods`). An unknown connection or source is a 404.
+    # @param connection_id [String] 
+    # @param source [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetConnectionPolicyManagementOptionResponse]
+    def get_connection_policy_management_option(connection_id, source, opts = {})
+      data, _status_code, _headers = get_connection_policy_management_option_with_http_info(connection_id, source, opts)
+      data
+    end
+
+    # List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+    # For one of your managed connections, the choices a preset&#39;s &#x60;platformFields&#x60; picker offers, from the marketplace (&#x60;source&#x60; is the field&#39;s &#x60;optionsSource&#x60;, e.g. &#x60;delivery-methods&#x60;). An unknown connection or source is a 404.
+    # @param connection_id [String] 
+    # @param source [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetConnectionPolicyManagementOptionResponse, Integer, Hash)>] GetConnectionPolicyManagementOptionResponse data, response status code and response headers
+    def get_connection_policy_management_option_with_http_info(connection_id, source, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.get_connection_policy_management_option ...'
+      end
+      # verify the required parameter 'connection_id' is set
+      if @api_client.config.client_side_validation && connection_id.nil?
+        fail ArgumentError, "Missing the required parameter 'connection_id' when calling AccountsApi.get_connection_policy_management_option"
+      end
+      # verify the required parameter 'source' is set
+      if @api_client.config.client_side_validation && source.nil?
+        fail ArgumentError, "Missing the required parameter 'source' when calling AccountsApi.get_connection_policy_management_option"
+      end
+      # resource path
+      local_var_path = '/v1/connections/policy-management/{connectionId}/options/{source}'.sub('{' + 'connectionId' + '}', CGI.escape(connection_id.to_s)).sub('{' + 'source' + '}', CGI.escape(source.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetConnectionPolicyManagementOptionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.get_connection_policy_management_option",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#get_connection_policy_management_option\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Return the OAuth authorize URL for an API-track platform.
-    # Most platforms return `{ url }`. Etsy adds `{ correlationId }` (PKCE verifier stashed in Redis). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
+    # Most platforms return `{ url }` (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :shop 
@@ -801,7 +991,7 @@ module Crossly
     end
 
     # Return the OAuth authorize URL for an API-track platform.
-    # Most platforms return &#x60;{ url }&#x60;. Etsy adds &#x60;{ correlationId }&#x60; (PKCE verifier stashed in Redis). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
+    # Most platforms return &#x60;{ url }&#x60; (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :shop 
@@ -969,6 +1159,63 @@ module Crossly
       return data, status_code, headers
     end
 
+    # List eBay and Etsy accounts with whether Crossly manages their policies.
+    # One row per connected eBay or Etsy account: `eligible` (eBay only on EBAY_US), `managed` (Crossly keeps its policies / shipping profiles in step with your default presets) and sync `notes`.
+    # @param [Hash] opts the optional parameters
+    # @return [ListConnectionPolicyManagementResponse]
+    def list_connection_policy_management(opts = {})
+      data, _status_code, _headers = list_connection_policy_management_with_http_info(opts)
+      data
+    end
+
+    # List eBay and Etsy accounts with whether Crossly manages their policies.
+    # One row per connected eBay or Etsy account: &#x60;eligible&#x60; (eBay only on EBAY_US), &#x60;managed&#x60; (Crossly keeps its policies / shipping profiles in step with your default presets) and sync &#x60;notes&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListConnectionPolicyManagementResponse, Integer, Hash)>] ListConnectionPolicyManagementResponse data, response status code and response headers
+    def list_connection_policy_management_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.list_connection_policy_management ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/policy-management'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListConnectionPolicyManagementResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.list_connection_policy_management",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#list_connection_policy_management\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List OAuth-connected API platforms.
     # @param [Hash] opts the optional parameters
     # @return [ListConnectionsResponse]
@@ -1081,6 +1328,69 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AccountsApi#update_connection_email_imap\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Turn Crossly policy management on or off for one eBay or Etsy account.
+    # Body `{ managed: boolean }`. On: Crossly may overwrite that account's own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+    # @param connection_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListConnectionPolicyManagementItem]
+    def update_connection_policy_management(connection_id, opts = {})
+      data, _status_code, _headers = update_connection_policy_management_with_http_info(connection_id, opts)
+      data
+    end
+
+    # Turn Crossly policy management on or off for one eBay or Etsy account.
+    # Body &#x60;{ managed: boolean }&#x60;. On: Crossly may overwrite that account&#39;s own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+    # @param connection_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListConnectionPolicyManagementItem, Integer, Hash)>] ListConnectionPolicyManagementItem data, response status code and response headers
+    def update_connection_policy_management_with_http_info(connection_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.update_connection_policy_management ...'
+      end
+      # verify the required parameter 'connection_id' is set
+      if @api_client.config.client_side_validation && connection_id.nil?
+        fail ArgumentError, "Missing the required parameter 'connection_id' when calling AccountsApi.update_connection_policy_management"
+      end
+      # resource path
+      local_var_path = '/v1/connections/policy-management/{connectionId}'.sub('{' + 'connectionId' + '}', CGI.escape(connection_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListConnectionPolicyManagementItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.update_connection_policy_management",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#update_connection_policy_management\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

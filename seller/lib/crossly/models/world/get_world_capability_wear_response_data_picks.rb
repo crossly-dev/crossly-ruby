@@ -17,9 +17,9 @@ module Crossly
   class GetWorldCapabilityWearResponseDataPicks
     attr_accessor :body
 
-    attr_accessor :legs
-
     attr_accessor :head
+
+    attr_accessor :legs
 
     attr_accessor :feet
 
@@ -29,8 +29,8 @@ module Crossly
     def self.attribute_map
       {
         :'body' => :'body',
-        :'legs' => :'legs',
         :'head' => :'head',
+        :'legs' => :'legs',
         :'feet' => :'feet',
         :'back' => :'back'
       }
@@ -45,8 +45,8 @@ module Crossly
     def self.openapi_types
       {
         :'body' => :'String',
-        :'legs' => :'String',
         :'head' => :'String',
+        :'legs' => :'String',
         :'feet' => :'String',
         :'back' => :'String'
       }
@@ -56,8 +56,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'body',
-        :'legs',
         :'head',
+        :'legs',
         :'feet',
         :'back'
       ])
@@ -82,12 +82,12 @@ module Crossly
         self.body = attributes[:'body']
       end
 
-      if attributes.key?(:'legs')
-        self.legs = attributes[:'legs']
-      end
-
       if attributes.key?(:'head')
         self.head = attributes[:'head']
+      end
+
+      if attributes.key?(:'legs')
+        self.legs = attributes[:'legs']
       end
 
       if attributes.key?(:'feet')
@@ -118,8 +118,8 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           body == o.body &&
-          legs == o.legs &&
           head == o.head &&
+          legs == o.legs &&
           feet == o.feet &&
           back == o.back
     end
@@ -133,7 +133,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [body, legs, head, feet, back].hash
+      [body, head, legs, feet, back].hash
     end
 
     # Builds the object from hash

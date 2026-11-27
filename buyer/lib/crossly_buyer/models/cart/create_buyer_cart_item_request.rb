@@ -19,6 +19,9 @@ module CrosslyBuyer
 
     attr_accessor :quantity
 
+    # The option (variants[].id) on a listing with options.
+    attr_accessor :listing_variant_id
+
     # Where in Crossly World it was added, e.g. room:<publicSlug>.
     attr_accessor :via
 
@@ -27,6 +30,7 @@ module CrosslyBuyer
       {
         :'listing_slug' => :'listingSlug',
         :'quantity' => :'quantity',
+        :'listing_variant_id' => :'listingVariantId',
         :'via' => :'via'
       }
     end
@@ -41,6 +45,7 @@ module CrosslyBuyer
       {
         :'listing_slug' => :'String',
         :'quantity' => :'Integer',
+        :'listing_variant_id' => :'String',
         :'via' => :'String'
       }
     end
@@ -74,6 +79,10 @@ module CrosslyBuyer
         self.quantity = attributes[:'quantity']
       else
         self.quantity = 1
+      end
+
+      if attributes.key?(:'listing_variant_id')
+        self.listing_variant_id = attributes[:'listing_variant_id']
       end
 
       if attributes.key?(:'via')
@@ -130,6 +139,7 @@ module CrosslyBuyer
       self.class == o.class &&
           listing_slug == o.listing_slug &&
           quantity == o.quantity &&
+          listing_variant_id == o.listing_variant_id &&
           via == o.via
     end
 
@@ -142,7 +152,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [listing_slug, quantity, via].hash
+      [listing_slug, quantity, listing_variant_id, via].hash
     end
 
     # Builds the object from hash

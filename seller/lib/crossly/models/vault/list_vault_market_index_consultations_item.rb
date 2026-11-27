@@ -232,7 +232,7 @@ module Crossly
       return false if @opens_at.nil?
       return false if @closes_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["open", "closed", "adopted", "withdrawn"])
+      status_validator = EnumAttributeValidator.new('String', ["open", "closed", "withdrawn", "adopted"])
       return false unless status_validator.valid?(@status)
       true
     end
@@ -240,7 +240,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["open", "closed", "adopted", "withdrawn"])
+      validator = EnumAttributeValidator.new('String', ["open", "closed", "withdrawn", "adopted"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

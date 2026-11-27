@@ -19,11 +19,14 @@ module CrosslyBuyer
 
     attr_accessor :now
 
+    attr_accessor :today
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'series' => :'series',
-        :'now' => :'now'
+        :'now' => :'now',
+        :'today' => :'today'
       }
     end
 
@@ -36,7 +39,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'series' => :'Array<GetBuyerVaultMarketHistoryResponseSeries>',
-        :'now' => :'GetBuyerVaultMarketHistoryResponseNow'
+        :'now' => :'GetBuyerVaultMarketHistoryResponseNow',
+        :'today' => :'GetBuyerVaultMarketHistoryResponseToday'
       }
     end
 
@@ -70,6 +74,10 @@ module CrosslyBuyer
       if attributes.key?(:'now')
         self.now = attributes[:'now']
       end
+
+      if attributes.key?(:'today')
+        self.today = attributes[:'today']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -84,6 +92,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "now", now cannot be nil.')
       end
 
+      if @today.nil?
+        invalid_properties.push('invalid value for "today", today cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -92,6 +104,7 @@ module CrosslyBuyer
     def valid?
       return false if @series.nil?
       return false if @now.nil?
+      return false if @today.nil?
       true
     end
 
@@ -101,7 +114,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           series == o.series &&
-          now == o.now
+          now == o.now &&
+          today == o.today
     end
 
     # @see the `==` method
@@ -113,7 +127,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [series, now].hash
+      [series, now, today].hash
     end
 
     # Builds the object from hash

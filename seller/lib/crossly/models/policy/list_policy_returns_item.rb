@@ -23,33 +23,33 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :reason
-
-    attr_accessor :received_at
-
     attr_accessor :carrier
 
     attr_accessor :shipped_at
 
     attr_accessor :refunded_at
 
-    attr_accessor :fit
-
-    attr_accessor :seller_user_id
-
     attr_accessor :buyer_user_id
 
-    attr_accessor :purchase_id
+    attr_accessor :reason
+
+    attr_accessor :received_at
 
     attr_accessor :label_url
 
+    attr_accessor :seller_user_id
+
     attr_accessor :refund_stripe_id
+
+    attr_accessor :purchase_id
 
     attr_accessor :note
 
     attr_accessor :fee_cents
 
     attr_accessor :tracking_code
+
+    attr_accessor :fit
 
     attr_accessor :refund_cents
 
@@ -62,20 +62,20 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
-        :'reason' => :'reason',
-        :'received_at' => :'receivedAt',
         :'carrier' => :'carrier',
         :'shipped_at' => :'shippedAt',
         :'refunded_at' => :'refundedAt',
-        :'fit' => :'fit',
-        :'seller_user_id' => :'sellerUserId',
         :'buyer_user_id' => :'buyerUserId',
-        :'purchase_id' => :'purchaseId',
+        :'reason' => :'reason',
+        :'received_at' => :'receivedAt',
         :'label_url' => :'labelUrl',
+        :'seller_user_id' => :'sellerUserId',
         :'refund_stripe_id' => :'refundStripeId',
+        :'purchase_id' => :'purchaseId',
         :'note' => :'note',
         :'fee_cents' => :'feeCents',
         :'tracking_code' => :'trackingCode',
+        :'fit' => :'fit',
         :'refund_cents' => :'refundCents',
         :'prepaid_label' => :'prepaidLabel'
       }
@@ -93,20 +93,20 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'status' => :'String',
-        :'reason' => :'String',
-        :'received_at' => :'Time',
         :'carrier' => :'String',
         :'shipped_at' => :'Time',
         :'refunded_at' => :'Time',
-        :'fit' => :'String',
-        :'seller_user_id' => :'String',
         :'buyer_user_id' => :'String',
-        :'purchase_id' => :'String',
+        :'reason' => :'String',
+        :'received_at' => :'Time',
         :'label_url' => :'String',
+        :'seller_user_id' => :'String',
         :'refund_stripe_id' => :'String',
+        :'purchase_id' => :'String',
         :'note' => :'String',
         :'fee_cents' => :'Float',
         :'tracking_code' => :'String',
+        :'fit' => :'String',
         :'refund_cents' => :'Float',
         :'prepaid_label' => :'Boolean'
       }
@@ -116,15 +116,15 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'order_id',
-        :'received_at',
         :'carrier',
         :'shipped_at',
         :'refunded_at',
-        :'fit',
+        :'received_at',
         :'label_url',
         :'refund_stripe_id',
         :'note',
         :'tracking_code',
+        :'fit',
       ])
     end
 
@@ -159,14 +159,6 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'reason')
-        self.reason = attributes[:'reason']
-      end
-
-      if attributes.key?(:'received_at')
-        self.received_at = attributes[:'received_at']
-      end
-
       if attributes.key?(:'carrier')
         self.carrier = attributes[:'carrier']
       end
@@ -179,28 +171,32 @@ module Crossly
         self.refunded_at = attributes[:'refunded_at']
       end
 
-      if attributes.key?(:'fit')
-        self.fit = attributes[:'fit']
-      end
-
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
-      end
-
       if attributes.key?(:'buyer_user_id')
         self.buyer_user_id = attributes[:'buyer_user_id']
       end
 
-      if attributes.key?(:'purchase_id')
-        self.purchase_id = attributes[:'purchase_id']
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
+      end
+
+      if attributes.key?(:'received_at')
+        self.received_at = attributes[:'received_at']
       end
 
       if attributes.key?(:'label_url')
         self.label_url = attributes[:'label_url']
       end
 
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
+      end
+
       if attributes.key?(:'refund_stripe_id')
         self.refund_stripe_id = attributes[:'refund_stripe_id']
+      end
+
+      if attributes.key?(:'purchase_id')
+        self.purchase_id = attributes[:'purchase_id']
       end
 
       if attributes.key?(:'note')
@@ -213,6 +209,10 @@ module Crossly
 
       if attributes.key?(:'tracking_code')
         self.tracking_code = attributes[:'tracking_code']
+      end
+
+      if attributes.key?(:'fit')
+        self.fit = attributes[:'fit']
       end
 
       if attributes.key?(:'refund_cents')
@@ -240,16 +240,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @buyer_user_id.nil?
+        invalid_properties.push('invalid value for "buyer_user_id", buyer_user_id cannot be nil.')
+      end
+
       if @reason.nil?
         invalid_properties.push('invalid value for "reason", reason cannot be nil.')
       end
 
       if @seller_user_id.nil?
         invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
-      end
-
-      if @buyer_user_id.nil?
-        invalid_properties.push('invalid value for "buyer_user_id", buyer_user_id cannot be nil.')
       end
 
       if @purchase_id.nil?
@@ -277,9 +277,9 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @status.nil?
+      return false if @buyer_user_id.nil?
       return false if @reason.nil?
       return false if @seller_user_id.nil?
-      return false if @buyer_user_id.nil?
       return false if @purchase_id.nil?
       return false if @fee_cents.nil?
       return false if @refund_cents.nil?
@@ -296,20 +296,20 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
-          reason == o.reason &&
-          received_at == o.received_at &&
           carrier == o.carrier &&
           shipped_at == o.shipped_at &&
           refunded_at == o.refunded_at &&
-          fit == o.fit &&
-          seller_user_id == o.seller_user_id &&
           buyer_user_id == o.buyer_user_id &&
-          purchase_id == o.purchase_id &&
+          reason == o.reason &&
+          received_at == o.received_at &&
           label_url == o.label_url &&
+          seller_user_id == o.seller_user_id &&
           refund_stripe_id == o.refund_stripe_id &&
+          purchase_id == o.purchase_id &&
           note == o.note &&
           fee_cents == o.fee_cents &&
           tracking_code == o.tracking_code &&
+          fit == o.fit &&
           refund_cents == o.refund_cents &&
           prepaid_label == o.prepaid_label
     end
@@ -323,7 +323,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [order_id, id, created_at, status, reason, received_at, carrier, shipped_at, refunded_at, fit, seller_user_id, buyer_user_id, purchase_id, label_url, refund_stripe_id, note, fee_cents, tracking_code, refund_cents, prepaid_label].hash
+      [order_id, id, created_at, status, carrier, shipped_at, refunded_at, buyer_user_id, reason, received_at, label_url, seller_user_id, refund_stripe_id, purchase_id, note, fee_cents, tracking_code, fit, refund_cents, prepaid_label].hash
     end
 
     # Builds the object from hash

@@ -20,6 +20,7 @@ module Crossly
       @api_client = api_client
     end
     # Create an automation rule.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [ListAutomationRulesItem]
     def create_automation_rule(opts = {})
@@ -28,6 +29,7 @@ module Crossly
     end
 
     # Create an automation rule.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListAutomationRulesItem, Integer, Hash)>] ListAutomationRulesItem data, response status code and response headers
     def create_automation_rule_with_http_info(opts = {})
@@ -75,6 +77,7 @@ module Crossly
     end
 
     # Import one or more rules from recipe JSON (single or bundle).
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :activate  (default to false)
     # @return [CreateAutomationRuleImportResponse]
@@ -84,6 +87,7 @@ module Crossly
     end
 
     # Import one or more rules from recipe JSON (single or bundle).
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :activate 
     # @return [Array<(CreateAutomationRuleImportResponse, Integer, Hash)>] CreateAutomationRuleImportResponse data, response status code and response headers
@@ -133,6 +137,7 @@ module Crossly
     end
 
     # Fire an automation rule immediately.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAutomationRuleRunNowResponse]
@@ -142,6 +147,7 @@ module Crossly
     end
 
     # Fire an automation rule immediately.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAutomationRuleRunNowResponse, Integer, Hash)>] CreateAutomationRuleRunNowResponse data, response status code and response headers
@@ -194,18 +200,20 @@ module Crossly
     end
 
     # Flip an automation rule between active and inactive.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [UpdateAutomationRuleResponse]
+    # @return [GetAutomationRuleResponse]
     def create_automation_rule_toggle(id, opts = {})
       data, _status_code, _headers = create_automation_rule_toggle_with_http_info(id, opts)
       data
     end
 
     # Flip an automation rule between active and inactive.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(UpdateAutomationRuleResponse, Integer, Hash)>] UpdateAutomationRuleResponse data, response status code and response headers
+    # @return [Array<(GetAutomationRuleResponse, Integer, Hash)>] GetAutomationRuleResponse data, response status code and response headers
     def create_automation_rule_toggle_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutomationApi.create_automation_rule_toggle ...'
@@ -232,7 +240,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'UpdateAutomationRuleResponse'
+      return_type = opts[:debug_return_type] || 'GetAutomationRuleResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -255,6 +263,7 @@ module Crossly
     end
 
     # Dry-run validate one or more recipes against the live catalog.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [CreateAutomationRuleValidateRecipeResponse]
     def create_automation_rule_validate_recipe(opts = {})
@@ -263,6 +272,7 @@ module Crossly
     end
 
     # Dry-run validate one or more recipes against the live catalog.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAutomationRuleValidateRecipeResponse, Integer, Hash)>] CreateAutomationRuleValidateRecipeResponse data, response status code and response headers
     def create_automation_rule_validate_recipe_with_http_info(opts = {})
@@ -432,6 +442,7 @@ module Crossly
     end
 
     # Delete an automation rule.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
@@ -441,6 +452,7 @@ module Crossly
     end
 
     # Delete an automation rule.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
@@ -548,6 +560,7 @@ module Crossly
     end
 
     # Get a single automation rule.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetAutomationRuleResponse]
@@ -557,6 +570,7 @@ module Crossly
     end
 
     # Get a single automation rule.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetAutomationRuleResponse, Integer, Hash)>] GetAutomationRuleResponse data, response status code and response headers
@@ -609,6 +623,7 @@ module Crossly
     end
 
     # Export the user's full rule library as a portable recipe bundle.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [GetAutomationRuleExportResponse]
     def get_automation_rule_export(opts = {})
@@ -617,6 +632,7 @@ module Crossly
     end
 
     # Export the user&#39;s full rule library as a portable recipe bundle.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetAutomationRuleExportResponse, Integer, Hash)>] GetAutomationRuleExportResponse data, response status code and response headers
     def get_automation_rule_export_with_http_info(opts = {})
@@ -664,6 +680,7 @@ module Crossly
     end
 
     # Export a single automation rule as a portable recipe.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetAutomationRuleExportByIdResponse]
@@ -673,6 +690,7 @@ module Crossly
     end
 
     # Export a single automation rule as a portable recipe.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetAutomationRuleExportByIdResponse, Integer, Hash)>] GetAutomationRuleExportByIdResponse data, response status code and response headers
@@ -725,6 +743,7 @@ module Crossly
     end
 
     # List automation rules.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [ListAutomationRulesResponse]
     def list_automation_rules(opts = {})
@@ -733,6 +752,7 @@ module Crossly
     end
 
     # List automation rules.
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListAutomationRulesResponse, Integer, Hash)>] ListAutomationRulesResponse data, response status code and response headers
     def list_automation_rules_with_http_info(opts = {})
@@ -780,6 +800,7 @@ module Crossly
     end
 
     # Per-fire history for automation rules and workflow chain runs.
+    # Deprecated: use /v1/workflow-runs.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :rule_id 
     # @option opts [String] :chain_id 
@@ -791,6 +812,7 @@ module Crossly
     end
 
     # Per-fire history for automation rules and workflow chain runs.
+    # Deprecated: use /v1/workflow-runs.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :rule_id 
     # @option opts [String] :chain_id 
@@ -907,18 +929,20 @@ module Crossly
     end
 
     # Update an automation rule (full replace).
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [UpdateAutomationRuleResponse]
+    # @return [GetAutomationRuleResponse]
     def update_automation_rule(id, opts = {})
       data, _status_code, _headers = update_automation_rule_with_http_info(id, opts)
       data
     end
 
     # Update an automation rule (full replace).
+    # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(UpdateAutomationRuleResponse, Integer, Hash)>] UpdateAutomationRuleResponse data, response status code and response headers
+    # @return [Array<(GetAutomationRuleResponse, Integer, Hash)>] GetAutomationRuleResponse data, response status code and response headers
     def update_automation_rule_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutomationApi.update_automation_rule ...'
@@ -945,7 +969,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'UpdateAutomationRuleResponse'
+      return_type = opts[:debug_return_type] || 'GetAutomationRuleResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']

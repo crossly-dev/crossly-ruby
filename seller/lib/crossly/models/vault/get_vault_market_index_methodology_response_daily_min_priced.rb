@@ -21,11 +21,11 @@ module Crossly
 
     attr_accessor :category
 
+    attr_accessor :segment
+
     attr_accessor :curated
 
     attr_accessor :composite
-
-    attr_accessor :segment
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -33,9 +33,9 @@ module Crossly
         :'custom' => :'custom',
         :'brand' => :'brand',
         :'category' => :'category',
+        :'segment' => :'segment',
         :'curated' => :'curated',
-        :'composite' => :'composite',
-        :'segment' => :'segment'
+        :'composite' => :'composite'
       }
     end
 
@@ -50,9 +50,9 @@ module Crossly
         :'custom' => :'Float',
         :'brand' => :'Float',
         :'category' => :'Float',
+        :'segment' => :'Float',
         :'curated' => :'Float',
-        :'composite' => :'Float',
-        :'segment' => :'Float'
+        :'composite' => :'Float'
       }
     end
 
@@ -89,16 +89,16 @@ module Crossly
         self.category = attributes[:'category']
       end
 
+      if attributes.key?(:'segment')
+        self.segment = attributes[:'segment']
+      end
+
       if attributes.key?(:'curated')
         self.curated = attributes[:'curated']
       end
 
       if attributes.key?(:'composite')
         self.composite = attributes[:'composite']
-      end
-
-      if attributes.key?(:'segment')
-        self.segment = attributes[:'segment']
       end
     end
 
@@ -118,16 +118,16 @@ module Crossly
         invalid_properties.push('invalid value for "category", category cannot be nil.')
       end
 
+      if @segment.nil?
+        invalid_properties.push('invalid value for "segment", segment cannot be nil.')
+      end
+
       if @curated.nil?
         invalid_properties.push('invalid value for "curated", curated cannot be nil.')
       end
 
       if @composite.nil?
         invalid_properties.push('invalid value for "composite", composite cannot be nil.')
-      end
-
-      if @segment.nil?
-        invalid_properties.push('invalid value for "segment", segment cannot be nil.')
       end
 
       invalid_properties
@@ -139,9 +139,9 @@ module Crossly
       return false if @custom.nil?
       return false if @brand.nil?
       return false if @category.nil?
+      return false if @segment.nil?
       return false if @curated.nil?
       return false if @composite.nil?
-      return false if @segment.nil?
       true
     end
 
@@ -153,9 +153,9 @@ module Crossly
           custom == o.custom &&
           brand == o.brand &&
           category == o.category &&
+          segment == o.segment &&
           curated == o.curated &&
-          composite == o.composite &&
-          segment == o.segment
+          composite == o.composite
     end
 
     # @see the `==` method
@@ -167,7 +167,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [custom, brand, category, curated, composite, segment].hash
+      [custom, brand, category, segment, curated, composite].hash
     end
 
     # Builds the object from hash

@@ -258,10 +258,10 @@ module Crossly
       return false if @liveness.nil?
       return false if @platform.nil?
       return false if @state.nil?
-      state_validator = EnumAttributeValidator.new('String', ["stale", "unknown", "healthy", "unmonitored", "disconnected", "partial_blank", "blank_credential", "signed_out", "anchor_drift", "no_cookies"])
+      state_validator = EnumAttributeValidator.new('String', ["unknown", "unmonitored", "disconnected", "healthy", "stale", "partial_blank", "blank_credential", "signed_out", "anchor_drift", "no_cookies"])
       return false unless state_validator.valid?(@state)
       return false if @severity.nil?
-      severity_validator = EnumAttributeValidator.new('String', ["error", "unknown", "ok", "warn", "info"])
+      severity_validator = EnumAttributeValidator.new('String', ["info", "unknown", "error", "warn", "ok"])
       return false unless severity_validator.valid?(@severity)
       return false if @audience.nil?
       audience_validator = EnumAttributeValidator.new('String', ["seller", "crossly", "nobody"])
@@ -273,7 +273,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ["stale", "unknown", "healthy", "unmonitored", "disconnected", "partial_blank", "blank_credential", "signed_out", "anchor_drift", "no_cookies"])
+      validator = EnumAttributeValidator.new('String', ["unknown", "unmonitored", "disconnected", "healthy", "stale", "partial_blank", "blank_credential", "signed_out", "anchor_drift", "no_cookies"])
       unless validator.valid?(state)
         fail ArgumentError, "invalid value for \"state\", must be one of #{validator.allowable_values}."
       end
@@ -283,7 +283,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] severity Object to be assigned
     def severity=(severity)
-      validator = EnumAttributeValidator.new('String', ["error", "unknown", "ok", "warn", "info"])
+      validator = EnumAttributeValidator.new('String', ["info", "unknown", "error", "warn", "ok"])
       unless validator.valid?(severity)
         fail ArgumentError, "invalid value for \"severity\", must be one of #{validator.allowable_values}."
       end

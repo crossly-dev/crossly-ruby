@@ -15,13 +15,13 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerPriceGuideResponseData
+    attr_accessor :count
+
     attr_accessor :median_cents
 
     attr_accessor :p25_cents
 
     attr_accessor :p75_cents
-
-    attr_accessor :count
 
     attr_accessor :by_month
 
@@ -30,10 +30,10 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'count' => :'count',
         :'median_cents' => :'medianCents',
         :'p25_cents' => :'p25Cents',
         :'p75_cents' => :'p75Cents',
-        :'count' => :'count',
         :'by_month' => :'byMonth',
         :'recent' => :'recent'
       }
@@ -47,10 +47,10 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'count' => :'Float',
         :'median_cents' => :'Float',
         :'p25_cents' => :'Float',
         :'p75_cents' => :'Float',
-        :'count' => :'Float',
         :'by_month' => :'Array<Hash<String, Object>>',
         :'recent' => :'Array<Hash<String, Object>>'
       }
@@ -80,6 +80,10 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'count')
+        self.count = attributes[:'count']
+      end
+
       if attributes.key?(:'median_cents')
         self.median_cents = attributes[:'median_cents']
       end
@@ -90,10 +94,6 @@ module CrosslyBuyer
 
       if attributes.key?(:'p75_cents')
         self.p75_cents = attributes[:'p75_cents']
-      end
-
-      if attributes.key?(:'count')
-        self.count = attributes[:'count']
       end
 
       if attributes.key?(:'by_month')
@@ -142,10 +142,10 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          count == o.count &&
           median_cents == o.median_cents &&
           p25_cents == o.p25_cents &&
           p75_cents == o.p75_cents &&
-          count == o.count &&
           by_month == o.by_month &&
           recent == o.recent
     end
@@ -159,7 +159,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [median_cents, p25_cents, p75_cents, count, by_month, recent].hash
+      [count, median_cents, p25_cents, p75_cents, by_month, recent].hash
     end
 
     # Builds the object from hash

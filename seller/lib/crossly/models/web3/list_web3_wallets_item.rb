@@ -27,6 +27,9 @@ module Crossly
 
     attr_accessor :last_synced_at
 
+    # A sync adds new NFTs to inventory (migration 0740); off, it only refreshes the ones already there.
+    attr_accessor :auto_import
+
     attr_accessor :created_at
 
     class EnumAttributeValidator
@@ -60,6 +63,7 @@ module Crossly
         :'label' => :'label',
         :'verified_at' => :'verifiedAt',
         :'last_synced_at' => :'lastSyncedAt',
+        :'auto_import' => :'autoImport',
         :'created_at' => :'createdAt'
       }
     end
@@ -78,6 +82,7 @@ module Crossly
         :'label' => :'String',
         :'verified_at' => :'Time',
         :'last_synced_at' => :'Time',
+        :'auto_import' => :'Boolean',
         :'created_at' => :'Time'
       }
     end
@@ -130,6 +135,10 @@ module Crossly
         self.last_synced_at = attributes[:'last_synced_at']
       end
 
+      if attributes.key?(:'auto_import')
+        self.auto_import = attributes[:'auto_import']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -151,6 +160,10 @@ module Crossly
         invalid_properties.push('invalid value for "address", address cannot be nil.')
       end
 
+      if @auto_import.nil?
+        invalid_properties.push('invalid value for "auto_import", auto_import cannot be nil.')
+      end
+
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
@@ -163,9 +176,10 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @family.nil?
-      family_validator = EnumAttributeValidator.new('String', ["evm", "solana"])
+      family_validator = EnumAttributeValidator.new('String', ["solana", "evm"])
       return false unless family_validator.valid?(@family)
       return false if @address.nil?
+      return false if @auto_import.nil?
       return false if @created_at.nil?
       true
     end
@@ -173,7 +187,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] family Object to be assigned
     def family=(family)
-      validator = EnumAttributeValidator.new('String', ["evm", "solana"])
+      validator = EnumAttributeValidator.new('String', ["solana", "evm"])
       unless validator.valid?(family)
         fail ArgumentError, "invalid value for \"family\", must be one of #{validator.allowable_values}."
       end
@@ -191,6 +205,7 @@ module Crossly
           label == o.label &&
           verified_at == o.verified_at &&
           last_synced_at == o.last_synced_at &&
+          auto_import == o.auto_import &&
           created_at == o.created_at
     end
 
@@ -203,7 +218,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, family, address, label, verified_at, last_synced_at, created_at].hash
+      [id, family, address, label, verified_at, last_synced_at, auto_import, created_at].hash
     end
 
     # Builds the object from hash

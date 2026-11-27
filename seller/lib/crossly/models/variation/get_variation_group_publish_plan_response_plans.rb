@@ -138,7 +138,7 @@ module Crossly
     def valid?
       return false if @platform.nil?
       return false if @mode.nil?
-      mode_validator = EnumAttributeValidator.new('String', ["grouped", "separate"])
+      mode_validator = EnumAttributeValidator.new('String', ["separate", "grouped"])
       return false unless mode_validator.valid?(@mode)
       return false if @listings_produced.nil?
       return false if @explanation.nil?
@@ -148,7 +148,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] mode Object to be assigned
     def mode=(mode)
-      validator = EnumAttributeValidator.new('String', ["grouped", "separate"])
+      validator = EnumAttributeValidator.new('String', ["separate", "grouped"])
       unless validator.valid?(mode)
         fail ArgumentError, "invalid value for \"mode\", must be one of #{validator.allowable_values}."
       end

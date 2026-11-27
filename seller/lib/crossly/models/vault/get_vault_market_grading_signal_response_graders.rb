@@ -157,7 +157,7 @@ module Crossly
     def valid?
       return false if @grader_slug.nil?
       return false if @grader_name.nil?
-      via_validator = EnumAttributeValidator.new('String', ["run", "single"])
+      via_validator = EnumAttributeValidator.new('String', ["single", "run"])
       return false unless via_validator.valid?(@via)
       true
     end
@@ -165,7 +165,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] via Object to be assigned
     def via=(via)
-      validator = EnumAttributeValidator.new('String', ["run", "single"])
+      validator = EnumAttributeValidator.new('String', ["single", "run"])
       unless validator.valid?(via)
         fail ArgumentError, "invalid value for \"via\", must be one of #{validator.allowable_values}."
       end

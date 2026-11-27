@@ -314,7 +314,7 @@ module Crossly
       source_validator = EnumAttributeValidator.new('String', ["crossly", "order", "profile_fetch"])
       return false unless source_validator.valid?(@source)
       return false if @fetch_status.nil?
-      fetch_status_validator = EnumAttributeValidator.new('String', ["error", "unsupported", "ok", "not_found"])
+      fetch_status_validator = EnumAttributeValidator.new('String', ["error", "ok", "unsupported", "not_found"])
       return false unless fetch_status_validator.valid?(@fetch_status)
       true
     end
@@ -332,7 +332,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] fetch_status Object to be assigned
     def fetch_status=(fetch_status)
-      validator = EnumAttributeValidator.new('String', ["error", "unsupported", "ok", "not_found"])
+      validator = EnumAttributeValidator.new('String', ["error", "ok", "unsupported", "not_found"])
       unless validator.valid?(fetch_status)
         fail ArgumentError, "invalid value for \"fetch_status\", must be one of #{validator.allowable_values}."
       end

@@ -16,8 +16,8 @@ require 'time'
 module Crossly
   class GetWorldGameResponseDataContestsEntryItem
     FREE = "free".freeze
-    SPONSORED = "sponsored".freeze
     PAID = "paid".freeze
+    SPONSORED = "sponsored".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

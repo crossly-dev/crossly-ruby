@@ -21,19 +21,15 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :reason
-
     attr_accessor :platform
 
     attr_accessor :listing_id
 
     attr_accessor :platform_listing_id
 
-    attr_accessor :decided_at
+    attr_accessor :reason
 
     attr_accessor :rule_id
-
-    attr_accessor :floor_cents
 
     attr_accessor :strategy
 
@@ -43,9 +39,13 @@ module Crossly
 
     attr_accessor :changed
 
+    attr_accessor :floor_cents
+
     attr_accessor :floor_was_net
 
     attr_accessor :approval
+
+    attr_accessor :decided_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -53,19 +53,19 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
-        :'reason' => :'reason',
         :'platform' => :'platform',
         :'listing_id' => :'listingId',
         :'platform_listing_id' => :'platformListingId',
-        :'decided_at' => :'decidedAt',
+        :'reason' => :'reason',
         :'rule_id' => :'ruleId',
-        :'floor_cents' => :'floorCents',
         :'strategy' => :'strategy',
         :'old_price_cents' => :'oldPriceCents',
         :'new_price_cents' => :'newPriceCents',
         :'changed' => :'changed',
+        :'floor_cents' => :'floorCents',
         :'floor_was_net' => :'floorWasNet',
-        :'approval' => :'approval'
+        :'approval' => :'approval',
+        :'decided_at' => :'decidedAt'
       }
     end
 
@@ -80,19 +80,19 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'user_id' => :'String',
-        :'reason' => :'String',
         :'platform' => :'String',
         :'listing_id' => :'String',
         :'platform_listing_id' => :'String',
-        :'decided_at' => :'Time',
+        :'reason' => :'String',
         :'rule_id' => :'String',
-        :'floor_cents' => :'Float',
         :'strategy' => :'String',
         :'old_price_cents' => :'Float',
         :'new_price_cents' => :'Float',
         :'changed' => :'Boolean',
+        :'floor_cents' => :'Float',
         :'floor_was_net' => :'Boolean',
-        :'approval' => :'String'
+        :'approval' => :'String',
+        :'decided_at' => :'Time'
       }
     end
 
@@ -102,12 +102,12 @@ module Crossly
         :'platform',
         :'listing_id',
         :'platform_listing_id',
-        :'decided_at',
         :'rule_id',
-        :'floor_cents',
         :'old_price_cents',
         :'new_price_cents',
-        :'approval'
+        :'floor_cents',
+        :'approval',
+        :'decided_at'
       ])
     end
 
@@ -138,10 +138,6 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'reason')
-        self.reason = attributes[:'reason']
-      end
-
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
       end
@@ -154,16 +150,12 @@ module Crossly
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
 
-      if attributes.key?(:'decided_at')
-        self.decided_at = attributes[:'decided_at']
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
       end
 
       if attributes.key?(:'rule_id')
         self.rule_id = attributes[:'rule_id']
-      end
-
-      if attributes.key?(:'floor_cents')
-        self.floor_cents = attributes[:'floor_cents']
       end
 
       if attributes.key?(:'strategy')
@@ -182,12 +174,20 @@ module Crossly
         self.changed = attributes[:'changed']
       end
 
+      if attributes.key?(:'floor_cents')
+        self.floor_cents = attributes[:'floor_cents']
+      end
+
       if attributes.key?(:'floor_was_net')
         self.floor_was_net = attributes[:'floor_was_net']
       end
 
       if attributes.key?(:'approval')
         self.approval = attributes[:'approval']
+      end
+
+      if attributes.key?(:'decided_at')
+        self.decided_at = attributes[:'decided_at']
       end
     end
 
@@ -247,19 +247,19 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           user_id == o.user_id &&
-          reason == o.reason &&
           platform == o.platform &&
           listing_id == o.listing_id &&
           platform_listing_id == o.platform_listing_id &&
-          decided_at == o.decided_at &&
+          reason == o.reason &&
           rule_id == o.rule_id &&
-          floor_cents == o.floor_cents &&
           strategy == o.strategy &&
           old_price_cents == o.old_price_cents &&
           new_price_cents == o.new_price_cents &&
           changed == o.changed &&
+          floor_cents == o.floor_cents &&
           floor_was_net == o.floor_was_net &&
-          approval == o.approval
+          approval == o.approval &&
+          decided_at == o.decided_at
     end
 
     # @see the `==` method
@@ -271,7 +271,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, reason, platform, listing_id, platform_listing_id, decided_at, rule_id, floor_cents, strategy, old_price_cents, new_price_cents, changed, floor_was_net, approval].hash
+      [id, created_at, user_id, platform, listing_id, platform_listing_id, reason, rule_id, strategy, old_price_cents, new_price_cents, changed, floor_cents, floor_was_net, approval, decided_at].hash
     end
 
     # Builds the object from hash

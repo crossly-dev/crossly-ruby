@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class GetVaultMarketAccountResponseGates
+    attr_accessor :shares
+
     attr_accessor :custody
 
     attr_accessor :lending
@@ -23,13 +25,32 @@ module Crossly
 
     attr_accessor :staking
 
+    attr_accessor :shares_partner
+
+    attr_accessor :shares_self
+
+    attr_accessor :options_routing
+
+    attr_accessor :options_venue
+
+    attr_accessor :prediction_partner
+
+    attr_accessor :prediction_self
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'shares' => :'shares',
         :'custody' => :'custody',
         :'lending' => :'lending',
         :'leverage' => :'leverage',
-        :'staking' => :'staking'
+        :'staking' => :'staking',
+        :'shares_partner' => :'shares_partner',
+        :'shares_self' => :'shares_self',
+        :'options_routing' => :'options_routing',
+        :'options_venue' => :'options_venue',
+        :'prediction_partner' => :'prediction_partner',
+        :'prediction_self' => :'prediction_self'
       }
     end
 
@@ -41,10 +62,17 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'shares' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
         :'custody' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
         :'lending' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
         :'leverage' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
-        :'staking' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns'
+        :'staking' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
+        :'shares_partner' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
+        :'shares_self' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
+        :'options_routing' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
+        :'options_venue' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
+        :'prediction_partner' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns',
+        :'prediction_self' => :'ListVaultMarketGradeToVaultItemGatesGradingRuns'
       }
     end
 
@@ -69,6 +97,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'shares')
+        self.shares = attributes[:'shares']
+      end
+
       if attributes.key?(:'custody')
         self.custody = attributes[:'custody']
       end
@@ -84,12 +116,40 @@ module Crossly
       if attributes.key?(:'staking')
         self.staking = attributes[:'staking']
       end
+
+      if attributes.key?(:'shares_partner')
+        self.shares_partner = attributes[:'shares_partner']
+      end
+
+      if attributes.key?(:'shares_self')
+        self.shares_self = attributes[:'shares_self']
+      end
+
+      if attributes.key?(:'options_routing')
+        self.options_routing = attributes[:'options_routing']
+      end
+
+      if attributes.key?(:'options_venue')
+        self.options_venue = attributes[:'options_venue']
+      end
+
+      if attributes.key?(:'prediction_partner')
+        self.prediction_partner = attributes[:'prediction_partner']
+      end
+
+      if attributes.key?(:'prediction_self')
+        self.prediction_self = attributes[:'prediction_self']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @shares.nil?
+        invalid_properties.push('invalid value for "shares", shares cannot be nil.')
+      end
+
       if @custody.nil?
         invalid_properties.push('invalid value for "custody", custody cannot be nil.')
       end
@@ -106,16 +166,47 @@ module Crossly
         invalid_properties.push('invalid value for "staking", staking cannot be nil.')
       end
 
+      if @shares_partner.nil?
+        invalid_properties.push('invalid value for "shares_partner", shares_partner cannot be nil.')
+      end
+
+      if @shares_self.nil?
+        invalid_properties.push('invalid value for "shares_self", shares_self cannot be nil.')
+      end
+
+      if @options_routing.nil?
+        invalid_properties.push('invalid value for "options_routing", options_routing cannot be nil.')
+      end
+
+      if @options_venue.nil?
+        invalid_properties.push('invalid value for "options_venue", options_venue cannot be nil.')
+      end
+
+      if @prediction_partner.nil?
+        invalid_properties.push('invalid value for "prediction_partner", prediction_partner cannot be nil.')
+      end
+
+      if @prediction_self.nil?
+        invalid_properties.push('invalid value for "prediction_self", prediction_self cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @shares.nil?
       return false if @custody.nil?
       return false if @lending.nil?
       return false if @leverage.nil?
       return false if @staking.nil?
+      return false if @shares_partner.nil?
+      return false if @shares_self.nil?
+      return false if @options_routing.nil?
+      return false if @options_venue.nil?
+      return false if @prediction_partner.nil?
+      return false if @prediction_self.nil?
       true
     end
 
@@ -124,10 +215,17 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          shares == o.shares &&
           custody == o.custody &&
           lending == o.lending &&
           leverage == o.leverage &&
-          staking == o.staking
+          staking == o.staking &&
+          shares_partner == o.shares_partner &&
+          shares_self == o.shares_self &&
+          options_routing == o.options_routing &&
+          options_venue == o.options_venue &&
+          prediction_partner == o.prediction_partner &&
+          prediction_self == o.prediction_self
     end
 
     # @see the `==` method
@@ -139,7 +237,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [custody, lending, leverage, staking].hash
+      [shares, custody, lending, leverage, staking, shares_partner, shares_self, options_routing, options_venue, prediction_partner, prediction_self].hash
     end
 
     # Builds the object from hash

@@ -15,16 +15,16 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerOrderCancelResponseData
+    attr_accessor :ok
+
     # false only for an order paid entirely with credit, which has no card charge to refund.
     attr_accessor :refunded
-
-    attr_accessor :ok
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'refunded' => :'refunded',
-        :'ok' => :'ok'
+        :'ok' => :'ok',
+        :'refunded' => :'refunded'
       }
     end
 
@@ -36,8 +36,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'refunded' => :'Boolean',
-        :'ok' => :'Boolean'
+        :'ok' => :'Boolean',
+        :'refunded' => :'Boolean'
       }
     end
 
@@ -62,12 +62,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'refunded')
-        self.refunded = attributes[:'refunded']
-      end
-
       if attributes.key?(:'ok')
         self.ok = attributes[:'ok']
+      end
+
+      if attributes.key?(:'refunded')
+        self.refunded = attributes[:'refunded']
       end
     end
 
@@ -75,12 +75,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @refunded.nil?
-        invalid_properties.push('invalid value for "refunded", refunded cannot be nil.')
-      end
-
       if @ok.nil?
         invalid_properties.push('invalid value for "ok", ok cannot be nil.')
+      end
+
+      if @refunded.nil?
+        invalid_properties.push('invalid value for "refunded", refunded cannot be nil.')
       end
 
       invalid_properties
@@ -89,8 +89,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @refunded.nil?
       return false if @ok.nil?
+      return false if @refunded.nil?
       true
     end
 
@@ -99,8 +99,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          refunded == o.refunded &&
-          ok == o.ok
+          ok == o.ok &&
+          refunded == o.refunded
     end
 
     # @see the `==` method
@@ -112,7 +112,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [refunded, ok].hash
+      [ok, refunded].hash
     end
 
     # Builds the object from hash

@@ -80,7 +80,124 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Create an event. A draft unless publish:true. Linked listings, the live show, the drop and the discount code must all be yours.
+    # @param [Hash] opts the optional parameters
+    # @return [EventResponse]
+    def create_event(opts = {})
+      data, _status_code, _headers = create_event_with_http_info(opts)
+      data
+    end
+
+    # Create an event. A draft unless publish:true. Linked listings, the live show, the drop and the discount code must all be yours.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(EventResponse, Integer, Hash)>] EventResponse data, response status code and response headers
+    def create_event_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_event ...'
+      end
+      # resource path
+      local_var_path = '/v1/events'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'EventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Publish an event: its page goes live, and with notifyFollowers your followers are told once.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [EventResponse]
+    def create_event_publish(id, opts = {})
+      data, _status_code, _headers = create_event_publish_with_http_info(id, opts)
+      data
+    end
+
+    # Publish an event: its page goes live, and with notifyFollowers your followers are told once.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(EventResponse, Integer, Hash)>] EventResponse data, response status code and response headers
+    def create_event_publish_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_event_publish ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_event_publish"
+      end
+      # resource path
+      local_var_path = '/v1/events/{id}/publish'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'EventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_event_publish",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_event_publish\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create a listing and fan out crosspost jobs across platforms.
+    # Listing fields go in `data`. Channel apps can also send `categoryId` (GET /v1/categories/search), `itemSpecifics` (validated against GET /v1/categories/:id/aspects; `warnings` lists soft problems), `condition`, `brand`, per-marketplace `overrides` and `policies` (preset ids from GET /v1/policies), folded in the way the web form does: an override replaces the master value on that marketplace, anything derived only fills blanks.
     # @param [Hash] opts the optional parameters
     # @return [CreateListingResponse]
     def create_listing(opts = {})
@@ -89,6 +206,7 @@ module Crossly
     end
 
     # Create a listing and fan out crosspost jobs across platforms.
+    # Listing fields go in &#x60;data&#x60;. Channel apps can also send &#x60;categoryId&#x60; (GET /v1/categories/search), &#x60;itemSpecifics&#x60; (validated against GET /v1/categories/:id/aspects; &#x60;warnings&#x60; lists soft problems), &#x60;condition&#x60;, &#x60;brand&#x60;, per-marketplace &#x60;overrides&#x60; and &#x60;policies&#x60; (preset ids from GET /v1/policies), folded in the way the web form does: an override replaces the master value on that marketplace, anything derived only fills blanks.
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingResponse, Integer, Hash)>] CreateListingResponse data, response status code and response headers
     def create_listing_with_http_info(opts = {})
@@ -131,6 +249,63 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#create_listing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create up to 50 listings in one call, with a result per item.
+    # Each item is a POST /v1/listings body plus a required `clientReferenceId` (your id for it). Items run in order and independently: `data[i].status` is `created`, `existing` (that reference was already used — the listing is returned, nothing is created) or `error` with the code the single route would give. `error` means no listing exists for the item. A listing that was saved but could not be sent to a platform (e.g. no weight) is `created`, with that platform in `skipped` (reason, code, details). `meta` counts each. Retrying a batch only creates what is missing.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingBulkResponse]
+    def create_listing_bulk(opts = {})
+      data, _status_code, _headers = create_listing_bulk_with_http_info(opts)
+      data
+    end
+
+    # Create up to 50 listings in one call, with a result per item.
+    # Each item is a POST /v1/listings body plus a required &#x60;clientReferenceId&#x60; (your id for it). Items run in order and independently: &#x60;data[i].status&#x60; is &#x60;created&#x60;, &#x60;existing&#x60; (that reference was already used — the listing is returned, nothing is created) or &#x60;error&#x60; with the code the single route would give. &#x60;error&#x60; means no listing exists for the item. A listing that was saved but could not be sent to a platform (e.g. no weight) is &#x60;created&#x60;, with that platform in &#x60;skipped&#x60; (reason, code, details). &#x60;meta&#x60; counts each. Retrying a batch only creates what is missing.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingBulkResponse, Integer, Hash)>] CreateListingBulkResponse data, response status code and response headers
+    def create_listing_bulk_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_listing_bulk ...'
+      end
+      # resource path
+      local_var_path = '/v1/listings/bulk'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingBulkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_listing_bulk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_listing_bulk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -984,6 +1159,354 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Add and/or remove tags on many listings (yours only; max 30 tags a listing, 40 chars a tag). `dryRun` reports what would change.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingTagBulkResponse]
+    def create_listing_tag_bulk(opts = {})
+      data, _status_code, _headers = create_listing_tag_bulk_with_http_info(opts)
+      data
+    end
+
+    # Add and/or remove tags on many listings (yours only; max 30 tags a listing, 40 chars a tag). &#x60;dryRun&#x60; reports what would change.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingTagBulkResponse, Integer, Hash)>] CreateListingTagBulkResponse data, response status code and response headers
+    def create_listing_tag_bulk_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_listing_tag_bulk ...'
+      end
+      # resource path
+      local_var_path = '/v1/listings/tags/bulk'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingTagBulkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_listing_tag_bulk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_listing_tag_bulk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename a tag on every listing; merges into `to` when it already exists.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingTagRenameResponse]
+    def create_listing_tag_rename(opts = {})
+      data, _status_code, _headers = create_listing_tag_rename_with_http_info(opts)
+      data
+    end
+
+    # Rename a tag on every listing; merges into &#x60;to&#x60; when it already exists.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingTagRenameResponse, Integer, Hash)>] CreateListingTagRenameResponse data, response status code and response headers
+    def create_listing_tag_rename_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_listing_tag_rename ...'
+      end
+      # resource path
+      local_var_path = '/v1/listings/tags/rename'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingTagRenameResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_listing_tag_rename",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_listing_tag_rename\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Schedule a live show: title, start time, optional cover, category and the listings to feature (becomes the lineup, in order).
+    # @param [Hash] opts the optional parameters
+    # @return [LiveStreamResponse]
+    def create_live_stream(opts = {})
+      data, _status_code, _headers = create_live_stream_with_http_info(opts)
+      data
+    end
+
+    # Schedule a live show: title, start time, optional cover, category and the listings to feature (becomes the lineup, in order).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LiveStreamResponse, Integer, Hash)>] LiveStreamResponse data, response status code and response headers
+    def create_live_stream_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_live_stream ...'
+      end
+      # resource path
+      local_var_path = '/v1/live-streams'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LiveStreamResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_live_stream",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_live_stream\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The show’s video connection, minted on first call and identical after: RTMP(S) server + stream key, SRT URL, WHIP URL for browser publishing (null where the ingest has none) and the HLS playback URL. configured=false (with a reason) when the deployment has no streaming provider.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateLiveStreamConnectionResponse]
+    def create_live_stream_connection(id, opts = {})
+      data, _status_code, _headers = create_live_stream_connection_with_http_info(id, opts)
+      data
+    end
+
+    # The show’s video connection, minted on first call and identical after: RTMP(S) server + stream key, SRT URL, WHIP URL for browser publishing (null where the ingest has none) and the HLS playback URL. configured&#x3D;false (with a reason) when the deployment has no streaming provider.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateLiveStreamConnectionResponse, Integer, Hash)>] CreateLiveStreamConnectionResponse data, response status code and response headers
+    def create_live_stream_connection_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_live_stream_connection ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_live_stream_connection"
+      end
+      # resource path
+      local_var_path = '/v1/live-streams/{id}/connection'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateLiveStreamConnectionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_live_stream_connection",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_live_stream_connection\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace the show’s stream key (e.g. after it was shown on screen). Refused while the show is live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateLiveStreamConnectionResponse]
+    def create_live_stream_connection_rotate(id, opts = {})
+      data, _status_code, _headers = create_live_stream_connection_rotate_with_http_info(id, opts)
+      data
+    end
+
+    # Replace the show’s stream key (e.g. after it was shown on screen). Refused while the show is live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateLiveStreamConnectionResponse, Integer, Hash)>] CreateLiveStreamConnectionResponse data, response status code and response headers
+    def create_live_stream_connection_rotate_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_live_stream_connection_rotate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_live_stream_connection_rotate"
+      end
+      # resource path
+      local_var_path = '/v1/live-streams/{id}/connection/rotate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateLiveStreamConnectionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_live_stream_connection_rotate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_live_stream_connection_rotate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # End the show. Idempotent.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LiveStreamResponse]
+    def create_live_stream_end(id, opts = {})
+      data, _status_code, _headers = create_live_stream_end_with_http_info(id, opts)
+      data
+    end
+
+    # End the show. Idempotent.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LiveStreamResponse, Integer, Hash)>] LiveStreamResponse data, response status code and response headers
+    def create_live_stream_end_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_live_stream_end ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_live_stream_end"
+      end
+      # resource path
+      local_var_path = '/v1/live-streams/{id}/end'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LiveStreamResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_live_stream_end",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_live_stream_end\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Pin one of your live NFT launches on your live show; viewers mint it from the stream. Returns `{ ok }`.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -1045,7 +1568,68 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Register a product passport for a Crossly listing you sell, optionally bound to an NFC tag UID (hex). Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s paid sales.
+    # Go live: the show’s status becomes live and followers are notified once. Idempotent while live; refused once ended.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LiveStreamResponse]
+    def create_live_stream_start(id, opts = {})
+      data, _status_code, _headers = create_live_stream_start_with_http_info(id, opts)
+      data
+    end
+
+    # Go live: the show’s status becomes live and followers are notified once. Idempotent while live; refused once ended.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LiveStreamResponse, Integer, Hash)>] LiveStreamResponse data, response status code and response headers
+    def create_live_stream_start_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_live_stream_start ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_live_stream_start"
+      end
+      # resource path
+      local_var_path = '/v1/live-streams/{id}/start'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LiveStreamResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_live_stream_start",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_live_stream_start\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Register a product passport for a Crossly listing or an inventory item you sell, optionally bound to an NFC tag UID (hex). Active at once. Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s sales. For several items with photos and labels, use the drafts flow (POST /passports/drafts).
     # @param [Hash] opts the optional parameters
     # @return [PassportResponse]
     def create_passport(opts = {})
@@ -1053,7 +1637,7 @@ module Crossly
       data
     end
 
-    # Register a product passport for a Crossly listing you sell, optionally bound to an NFC tag UID (hex). Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s paid sales.
+    # Register a product passport for a Crossly listing or an inventory item you sell, optionally bound to an NFC tag UID (hex). Active at once. Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s sales. For several items with photos and labels, use the drafts flow (POST /passports/drafts).
     # @param [Hash] opts the optional parameters
     # @return [Array<(PassportResponse, Integer, Hash)>] PassportResponse data, response status code and response headers
     def create_passport_with_http_info(opts = {})
@@ -1096,6 +1680,238 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#create_passport\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Start a passport draft for up to 100 inventory items (or Crossly listings): one draft passport per item with its code reserved. Items whose every unit already has a passport come back in skipped.
+    # @param [Hash] opts the optional parameters
+    # @return [PassportDraftResponse]
+    def create_passport_draft(opts = {})
+      data, _status_code, _headers = create_passport_draft_with_http_info(opts)
+      data
+    end
+
+    # Start a passport draft for up to 100 inventory items (or Crossly listings): one draft passport per item with its code reserved. Items whose every unit already has a passport come back in skipped.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(PassportDraftResponse, Integer, Hash)>] PassportDraftResponse data, response status code and response headers
+    def create_passport_draft_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_passport_draft ...'
+      end
+      # resource path
+      local_var_path = '/v1/passports/drafts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'PassportDraftResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_passport_draft",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_passport_draft\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Activate every passport of a draft: their pages open for anyone who scans the tag or QR. Closes the draft’s capture link.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [PassportDraftResponse]
+    def create_passport_draft_activate(id, opts = {})
+      data, _status_code, _headers = create_passport_draft_activate_with_http_info(id, opts)
+      data
+    end
+
+    # Activate every passport of a draft: their pages open for anyone who scans the tag or QR. Closes the draft’s capture link.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(PassportDraftResponse, Integer, Hash)>] PassportDraftResponse data, response status code and response headers
+    def create_passport_draft_activate_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_passport_draft_activate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_passport_draft_activate"
+      end
+      # resource path
+      local_var_path = '/v1/passports/drafts/{id}/activate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'PassportDraftResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_passport_draft_activate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_passport_draft_activate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A link (and its QR as SVG) any phone opens with no sign-in to add photos, serials and NFC tags to this draft. Open 30 minutes after its last use, 4 hours at most; minting a new one closes the old.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatePassportDraftCaptureLinkResponse]
+    def create_passport_draft_capture_link(id, opts = {})
+      data, _status_code, _headers = create_passport_draft_capture_link_with_http_info(id, opts)
+      data
+    end
+
+    # A link (and its QR as SVG) any phone opens with no sign-in to add photos, serials and NFC tags to this draft. Open 30 minutes after its last use, 4 hours at most; minting a new one closes the old.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatePassportDraftCaptureLinkResponse, Integer, Hash)>] CreatePassportDraftCaptureLinkResponse data, response status code and response headers
+    def create_passport_draft_capture_link_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_passport_draft_capture_link ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.create_passport_draft_capture_link"
+      end
+      # resource path
+      local_var_path = '/v1/passports/drafts/{id}/capture-link'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePassportDraftCaptureLinkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_passport_draft_capture_link",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_passport_draft_capture_link\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Print passport labels: sent to your printer agent (the Crossly desktop app includes one) when it is online and prints the template, else a signed PDF link with the reason. Templates: sticker-2in, sticker-1in, label-4x6, hang-tag, sheet-letter, sheet-a4, transfer-card.
+    # @param [Hash] opts the optional parameters
+    # @return [CreatePassportPrintResponse]
+    def create_passport_print(opts = {})
+      data, _status_code, _headers = create_passport_print_with_http_info(opts)
+      data
+    end
+
+    # Print passport labels: sent to your printer agent (the Crossly desktop app includes one) when it is online and prints the template, else a signed PDF link with the reason. Templates: sticker-2in, sticker-1in, label-4x6, hang-tag, sheet-letter, sheet-a4, transfer-card.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatePassportPrintResponse, Integer, Hash)>] CreatePassportPrintResponse data, response status code and response headers
+    def create_passport_print_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_passport_print ...'
+      end
+      # resource path
+      local_var_path = '/v1/passports/print'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePassportPrintResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_passport_print",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_passport_print\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1222,6 +2038,184 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Make up to 200 Crossly listings rentable with the same options (a day rate, or a share of each price).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateRentalBulkRentableResponse]
+    def create_rental_bulk_rentable(opts = {})
+      data, _status_code, _headers = create_rental_bulk_rentable_with_http_info(opts)
+      data
+    end
+
+    # Make up to 200 Crossly listings rentable with the same options (a day rate, or a share of each price).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateRentalBulkRentableResponse, Integer, Hash)>] CreateRentalBulkRentableResponse data, response status code and response headers
+    def create_rental_bulk_rentable_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_rental_bulk_rentable ...'
+      end
+      # resource path
+      local_var_path = '/v1/rentals/bulk-rentable'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateRentalBulkRentableResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_rental_bulk_rentable",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_rental_bulk_rentable\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask for a higher Crossly Shop selling limit.
+    # One pending request at a time (409 otherwise). Approved on the spot when your last 90 days are clean (no auto-cancelled orders, disputes lost or chargebacks lost) and every number asked is at most twice your current limit; otherwise Crossly staff review it. `valueCents` is US cents.
+    # @param create_shop_limit_request_request [CreateShopLimitRequestRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateShopLimitRequestResponse]
+    def create_shop_limit_request(create_shop_limit_request_request, opts = {})
+      data, _status_code, _headers = create_shop_limit_request_with_http_info(create_shop_limit_request_request, opts)
+      data
+    end
+
+    # Ask for a higher Crossly Shop selling limit.
+    # One pending request at a time (409 otherwise). Approved on the spot when your last 90 days are clean (no auto-cancelled orders, disputes lost or chargebacks lost) and every number asked is at most twice your current limit; otherwise Crossly staff review it. &#x60;valueCents&#x60; is US cents.
+    # @param create_shop_limit_request_request [CreateShopLimitRequestRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateShopLimitRequestResponse, Integer, Hash)>] CreateShopLimitRequestResponse data, response status code and response headers
+    def create_shop_limit_request_with_http_info(create_shop_limit_request_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_shop_limit_request ...'
+      end
+      # verify the required parameter 'create_shop_limit_request_request' is set
+      if @api_client.config.client_side_validation && create_shop_limit_request_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_shop_limit_request_request' when calling ListingsApi.create_shop_limit_request"
+      end
+      # resource path
+      local_var_path = '/v1/shop-limits/requests'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_shop_limit_request_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateShopLimitRequestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_shop_limit_request",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_shop_limit_request\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Share a story: 1–10 slides played in order. Each slide is a photo or video plus optional overlays (positions are fractions of the 9:16 frame). Listing stickers must be your own Crossly listings and also tag the slide; @mentions must be real shops. audience: everyone | followers; expiresInHours: 6, 12, 24 or 48.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateStoryResponse]
+    def create_story(opts = {})
+      data, _status_code, _headers = create_story_with_http_info(opts)
+      data
+    end
+
+    # Share a story: 1–10 slides played in order. Each slide is a photo or video plus optional overlays (positions are fractions of the 9:16 frame). Listing stickers must be your own Crossly listings and also tag the slide; @mentions must be real shops. audience: everyone | followers; expiresInHours: 6, 12, 24 or 48.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateStoryResponse, Integer, Hash)>] CreateStoryResponse data, response status code and response headers
+    def create_story_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_story ...'
+      end
+      # resource path
+      local_var_path = '/v1/stories'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateStoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_story",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_story\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Group listings you already have: a variation (one product, an axis such as Size) or a purchase-rule group (\"buy any 3\").
     # @param [Hash] opts the optional parameters
     # @return [CreateVariationGroupResponse]
@@ -1332,6 +2326,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Turn one listing into a variation group over up to three axes (Size × Color): each other cell is a listing you already have (listingId) or a new copy of this one with its own price, quantity and SKU.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVariationGroupGenerateMatrixResponse]
+    def create_variation_group_generate_matrix(opts = {})
+      data, _status_code, _headers = create_variation_group_generate_matrix_with_http_info(opts)
+      data
+    end
+
+    # Turn one listing into a variation group over up to three axes (Size × Color): each other cell is a listing you already have (listingId) or a new copy of this one with its own price, quantity and SKU.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVariationGroupGenerateMatrixResponse, Integer, Hash)>] CreateVariationGroupGenerateMatrixResponse data, response status code and response headers
+    def create_variation_group_generate_matrix_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_variation_group_generate_matrix ...'
+      end
+      # resource path
+      local_var_path = '/v1/variation-groups/generate-matrix'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVariationGroupGenerateMatrixResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_variation_group_generate_matrix",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_variation_group_generate_matrix\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Publish a variation group per platform: one listing with a variation picker where the platform supports it (eBay, Shopify, Etsy), one per option elsewhere. Each platform reports its own outcome.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -1389,6 +2438,177 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#create_variation_group_publish\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Check an uploaded listing video (exists, MP4, size) and, with listingId, set it as that listing's video.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVideoStudioFinalizeResponse]
+    def create_video_studio_finalize(opts = {})
+      data, _status_code, _headers = create_video_studio_finalize_with_http_info(opts)
+      data
+    end
+
+    # Check an uploaded listing video (exists, MP4, size) and, with listingId, set it as that listing&#39;s video.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVideoStudioFinalizeResponse, Integer, Hash)>] CreateVideoStudioFinalizeResponse data, response status code and response headers
+    def create_video_studio_finalize_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_video_studio_finalize ...'
+      end
+      # resource path
+      local_var_path = '/v1/video-studio/finalize'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVideoStudioFinalizeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_video_studio_finalize",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_video_studio_finalize\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Presign an R2 PUT (video/mp4, 15 min) for a listing video; finalize it after the upload.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVideoStudioUploadUrlResponse]
+    def create_video_studio_upload_url(opts = {})
+      data, _status_code, _headers = create_video_studio_upload_url_with_http_info(opts)
+      data
+    end
+
+    # Presign an R2 PUT (video/mp4, 15 min) for a listing video; finalize it after the upload.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVideoStudioUploadUrlResponse, Integer, Hash)>] CreateVideoStudioUploadUrlResponse data, response status code and response headers
+    def create_video_studio_upload_url_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.create_video_studio_upload_url ...'
+      end
+      # resource path
+      local_var_path = '/v1/video-studio/upload-url'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVideoStudioUploadUrlResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.create_video_studio_upload_url",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#create_video_studio_upload_url\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a draft, or cancel a published event (its page then says it was called off).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteEventResponse]
+    def delete_event(id, opts = {})
+      data, _status_code, _headers = delete_event_with_http_info(id, opts)
+      data
+    end
+
+    # Delete a draft, or cancel a published event (its page then says it was called off).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteEventResponse, Integer, Hash)>] DeleteEventResponse data, response status code and response headers
+    def delete_event_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.delete_event ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.delete_event"
+      end
+      # resource path
+      local_var_path = '/v1/events/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.delete_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#delete_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1460,6 +2680,71 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Remove a tag (any case) from every listing.
+    # @param tag [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdatedResponse]
+    def delete_listing_tag(tag, opts = {})
+      data, _status_code, _headers = delete_listing_tag_with_http_info(tag, opts)
+      data
+    end
+
+    # Remove a tag (any case) from every listing.
+    # @param tag [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdatedResponse, Integer, Hash)>] UpdatedResponse data, response status code and response headers
+    def delete_listing_tag_with_http_info(tag, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.delete_listing_tag ...'
+      end
+      # verify the required parameter 'tag' is set
+      if @api_client.config.client_side_validation && tag.nil?
+        fail ArgumentError, "Missing the required parameter 'tag' when calling ListingsApi.delete_listing_tag"
+      end
+      if @api_client.config.client_side_validation && tag.to_s.length < 1
+        fail ArgumentError, 'invalid value for "tag" when calling ListingsApi.delete_listing_tag, the character length must be great than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/listings/tags/{tag}'.sub('{' + 'tag' + '}', CGI.escape(tag.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdatedResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.delete_listing_tag",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#delete_listing_tag\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Unpin the launch from your live show. Returns `{ ok }`.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -1524,7 +2809,7 @@ module Crossly
     # Stop offering a listing for rent (existing bookings stand).
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBreakCancelResponse]
+    # @return [UpdateGroupBuyResponse]
     def delete_rental_offer(platform_listing_id, opts = {})
       data, _status_code, _headers = delete_rental_offer_with_http_info(platform_listing_id, opts)
       data
@@ -1533,7 +2818,7 @@ module Crossly
     # Stop offering a listing for rent (existing bookings stand).
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBreakCancelResponse, Integer, Hash)>] CreateBreakCancelResponse data, response status code and response headers
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def delete_rental_offer_with_http_info(platform_listing_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ListingsApi.delete_rental_offer ...'
@@ -1560,7 +2845,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBreakCancelResponse'
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1582,10 +2867,71 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Take one story slide down before it expires.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteStoryResponse]
+    def delete_story(id, opts = {})
+      data, _status_code, _headers = delete_story_with_http_info(id, opts)
+      data
+    end
+
+    # Take one story slide down before it expires.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteStoryResponse, Integer, Hash)>] DeleteStoryResponse data, response status code and response headers
+    def delete_story_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.delete_story ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.delete_story"
+      end
+      # resource path
+      local_var_path = '/v1/stories/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteStoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.delete_story",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#delete_story\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Dissolve a group. Its options stay as ordinary listings.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBreakCancelResponse]
+    # @return [UpdateGroupBuyResponse]
     def delete_variation_group(id, opts = {})
       data, _status_code, _headers = delete_variation_group_with_http_info(id, opts)
       data
@@ -1594,7 +2940,7 @@ module Crossly
     # Dissolve a group. Its options stay as ordinary listings.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBreakCancelResponse, Integer, Hash)>] CreateBreakCancelResponse data, response status code and response headers
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def delete_variation_group_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ListingsApi.delete_variation_group ...'
@@ -1621,7 +2967,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBreakCancelResponse'
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1639,6 +2985,128 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#delete_variation_group\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One of your events.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [EventResponse]
+    def get_event(id, opts = {})
+      data, _status_code, _headers = get_event_with_http_info(id, opts)
+      data
+    end
+
+    # One of your events.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(EventResponse, Integer, Hash)>] EventResponse data, response status code and response headers
+    def get_event_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_event ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.get_event"
+      end
+      # resource path
+      local_var_path = '/v1/events/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'EventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Views, RSVPs, and what the linked listings sold on Crossly during the event (orders, units, revenue in cents).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetEventAnalyticResponse]
+    def get_event_analytic(id, opts = {})
+      data, _status_code, _headers = get_event_analytic_with_http_info(id, opts)
+      data
+    end
+
+    # Views, RSVPs, and what the linked listings sold on Crossly during the event (orders, units, revenue in cents).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetEventAnalyticResponse, Integer, Hash)>] GetEventAnalyticResponse data, response status code and response headers
+    def get_event_analytic_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_event_analytic ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.get_event_analytic"
+      end
+      # resource path
+      local_var_path = '/v1/events/{id}/analytics'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetEventAnalyticResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_event_analytic",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_event_analytic\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1821,6 +3289,250 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The show’s numbers: duration, peak viewers, items sold and gross, tips, chat messages, auctions run, lineup size and the replay URL.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetLiveStreamRecapResponse]
+    def get_live_stream_recap(id, opts = {})
+      data, _status_code, _headers = get_live_stream_recap_with_http_info(id, opts)
+      data
+    end
+
+    # The show’s numbers: duration, peak viewers, items sold and gross, tips, chat messages, auctions run, lineup size and the replay URL.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetLiveStreamRecapResponse, Integer, Hash)>] GetLiveStreamRecapResponse data, response status code and response headers
+    def get_live_stream_recap_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_live_stream_recap ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.get_live_stream_recap"
+      end
+      # resource path
+      local_var_path = '/v1/live-streams/{id}/recap'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetLiveStreamRecapResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_live_stream_recap",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_live_stream_recap\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One passport: its item and every listing of it, the event history (created, printed, tag bound, transferred, claimed…), scans per day for 30 days, custody, grading.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetPassportResponse]
+    def get_passport(id, opts = {})
+      data, _status_code, _headers = get_passport_with_http_info(id, opts)
+      data
+    end
+
+    # One passport: its item and every listing of it, the event history (created, printed, tag bound, transferred, claimed…), scans per day for 30 days, custody, grading.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetPassportResponse, Integer, Hash)>] GetPassportResponse data, response status code and response headers
+    def get_passport_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_passport ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.get_passport"
+      end
+      # resource path
+      local_var_path = '/v1/passports/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetPassportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_passport",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_passport\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A passport draft and its passports (photos, serial, tag and label state of each).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [PassportDraftResponse]
+    def get_passport_draft(id, opts = {})
+      data, _status_code, _headers = get_passport_draft_with_http_info(id, opts)
+      data
+    end
+
+    # A passport draft and its passports (photos, serial, tag and label state of each).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(PassportDraftResponse, Integer, Hash)>] PassportDraftResponse data, response status code and response headers
+    def get_passport_draft_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_passport_draft ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.get_passport_draft"
+      end
+      # resource path
+      local_var_path = '/v1/passports/drafts/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'PassportDraftResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_passport_draft",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_passport_draft\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Where a passport print job sent to your agent is: queued, sent, done, failed, expired or duplicate.
+    # @param job_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetPassportPrintResponse]
+    def get_passport_print(job_id, opts = {})
+      data, _status_code, _headers = get_passport_print_with_http_info(job_id, opts)
+      data
+    end
+
+    # Where a passport print job sent to your agent is: queued, sent, done, failed, expired or duplicate.
+    # @param job_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetPassportPrintResponse, Integer, Hash)>] GetPassportPrintResponse data, response status code and response headers
+    def get_passport_print_with_http_info(job_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_passport_print ...'
+      end
+      # verify the required parameter 'job_id' is set
+      if @api_client.config.client_side_validation && job_id.nil?
+        fail ArgumentError, "Missing the required parameter 'job_id' when calling ListingsApi.get_passport_print"
+      end
+      # resource path
+      local_var_path = '/v1/passports/print/{jobId}'.sub('{' + 'jobId' + '}', CGI.escape(job_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetPassportPrintResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_passport_print",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_passport_print\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Selling options: own-price match (Crossly sells your items at your own lower price for the same item on another marketplace; dollar-priced copies only) and layaway (buyers may put items on layaway). Both on by default.
     # @param [Hash] opts the optional parameters
     # @return [GetPricingSettingResponse]
@@ -1927,6 +3639,234 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#get_pricing_sold_comp\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The store’s rental defaults (every item inherits them) and its payout timing.
+    # @param [Hash] opts the optional parameters
+    # @return [GetRentalSettingResponse]
+    def get_rental_setting(opts = {})
+      data, _status_code, _headers = get_rental_setting_with_http_info(opts)
+      data
+    end
+
+    # The store’s rental defaults (every item inherits them) and its payout timing.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRentalSettingResponse, Integer, Hash)>] GetRentalSettingResponse data, response status code and response headers
+    def get_rental_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_rental_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/rentals/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRentalSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_rental_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_rental_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your Crossly Shop selling limit: live listings and listed value, used of limit, per store, and the next step.
+    # Per seller account, shared by all your stores. Counts live + scheduled Crossly Shop listings once each; value is the US-dollar shop price x quantity (an auction at max(start, reserve, buy-now)). Drafts, sold/ended listings and Trade Block posts are not counted, and selling frees space at once. `unlimited` is true for sandbox sellers.
+    # @param [Hash] opts the optional parameters
+    # @return [GetShopLimitResponse]
+    def get_shop_limit(opts = {})
+      data, _status_code, _headers = get_shop_limit_with_http_info(opts)
+      data
+    end
+
+    # Your Crossly Shop selling limit: live listings and listed value, used of limit, per store, and the next step.
+    # Per seller account, shared by all your stores. Counts live + scheduled Crossly Shop listings once each; value is the US-dollar shop price x quantity (an auction at max(start, reserve, buy-now)). Drafts, sold/ended listings and Trade Block posts are not counted, and selling frees space at once. &#x60;unlimited&#x60; is true for sandbox sellers.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetShopLimitResponse, Integer, Hash)>] GetShopLimitResponse data, response status code and response headers
+    def get_shop_limit_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.get_shop_limit ...'
+      end
+      # resource path
+      local_var_path = '/v1/shop-limits'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetShopLimitResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.get_shop_limit",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#get_shop_limit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Who RSVPd: display name, avatar, going or interested, and when. No contact details.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListEventAttendeesResponse]
+    def list_event_attendees(id, opts = {})
+      data, _status_code, _headers = list_event_attendees_with_http_info(id, opts)
+      data
+    end
+
+    # Who RSVPd: display name, avatar, going or interested, and when. No contact details.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListEventAttendeesResponse, Integer, Hash)>] ListEventAttendeesResponse data, response status code and response headers
+    def list_event_attendees_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_event_attendees ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.list_event_attendees"
+      end
+      # resource path
+      local_var_path = '/v1/events/{id}/attendees'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListEventAttendeesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_event_attendees",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_event_attendees\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your events (launches, sales, live shows, drops, meetups, pop-ups, workshops, parties): schedule, status, phase, and going/interested counts.
+    # @param [Hash] opts the optional parameters
+    # @return [ListEventsResponse]
+    def list_events(opts = {})
+      data, _status_code, _headers = list_events_with_http_info(opts)
+      data
+    end
+
+    # Your events (launches, sales, live shows, drops, meetups, pop-ups, workshops, parties): schedule, status, phase, and going/interested counts.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListEventsResponse, Integer, Hash)>] ListEventsResponse data, response status code and response headers
+    def list_events_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_events ...'
+      end
+      # resource path
+      local_var_path = '/v1/events'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListEventsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_events",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_events\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2108,13 +4048,149 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Deterministic tag suggestions for one listing (brand, category, size, condition, colors, style tags, era words in the title); `known` = you already use the tag.
+    # @param listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListListingTagSuggestResponse]
+    def list_listing_tag_suggest(listing_id, opts = {})
+      data, _status_code, _headers = list_listing_tag_suggest_with_http_info(listing_id, opts)
+      data
+    end
+
+    # Deterministic tag suggestions for one listing (brand, category, size, condition, colors, style tags, era words in the title); &#x60;known&#x60; &#x3D; you already use the tag.
+    # @param listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListListingTagSuggestResponse, Integer, Hash)>] ListListingTagSuggestResponse data, response status code and response headers
+    def list_listing_tag_suggest_with_http_info(listing_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_listing_tag_suggest ...'
+      end
+      # verify the required parameter 'listing_id' is set
+      if @api_client.config.client_side_validation && listing_id.nil?
+        fail ArgumentError, "Missing the required parameter 'listing_id' when calling ListingsApi.list_listing_tag_suggest"
+      end
+      # resource path
+      local_var_path = '/v1/listings/tags/suggest'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'listingId'] = listing_id
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListListingTagSuggestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_listing_tag_suggest",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_listing_tag_suggest\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your listing tags with how many listings carry each, most used first (case-insensitive; `q` filters).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [Integer] :limit 
+    # @return [ListListingTagsResponse]
+    def list_listing_tags(opts = {})
+      data, _status_code, _headers = list_listing_tags_with_http_info(opts)
+      data
+    end
+
+    # Your listing tags with how many listings carry each, most used first (case-insensitive; &#x60;q&#x60; filters).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [Integer] :limit 
+    # @return [Array<(ListListingTagsResponse, Integer, Hash)>] ListListingTagsResponse data, response status code and response headers
+    def list_listing_tags_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_listing_tags ...'
+      end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 1000
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ListingsApi.list_listing_tags, must be smaller than or equal to 1000.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ListingsApi.list_listing_tags, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/listings/tags'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListListingTagsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_listing_tags",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_listing_tags\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List active platform listings.
+    # Each row carries `pricing`: `avgAsking` (average price across its active marketplace rows, per-platform overrides and price rules applied) and `avgSale` (average price per unit sold, refunds netted), each `{ amount, currency, count }` or null. Never averaged across currencies.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page  (default to 1)
     # @option opts [Integer] :limit  (default to 25)
     # @option opts [String] :platform 
     # @option opts [String] :status 
+    # @option opts [String] :sku Exact SKU match: look up the row a supplier product maps to.
+    # @option opts [Time] :updated_since Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
     # @option opts [String] :kind Physical goods or Web3 assets (NFT listings). Omit for both.
+    # @option opts [AnyOfstringarray] :tag Only listings carrying ANY of these tags (case-insensitive): repeat &#x60;tag&#x60; or comma-separate.
+    # @option opts [Boolean] :still_live Only listings still active on at least one marketplace. With status&#x3D;sold: sold items still buyable somewhere (a delist failed, is pending or never ran).
     # @return [ListListingsResponse]
     def list_listings(opts = {})
       data, _status_code, _headers = list_listings_with_http_info(opts)
@@ -2122,12 +4198,17 @@ module Crossly
     end
 
     # List active platform listings.
+    # Each row carries &#x60;pricing&#x60;: &#x60;avgAsking&#x60; (average price across its active marketplace rows, per-platform overrides and price rules applied) and &#x60;avgSale&#x60; (average price per unit sold, refunds netted), each &#x60;{ amount, currency, count }&#x60; or null. Never averaged across currencies.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page 
     # @option opts [Integer] :limit 
     # @option opts [String] :platform 
     # @option opts [String] :status 
+    # @option opts [String] :sku Exact SKU match: look up the row a supplier product maps to.
+    # @option opts [Time] :updated_since Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
     # @option opts [String] :kind Physical goods or Web3 assets (NFT listings). Omit for both.
+    # @option opts [AnyOfstringarray] :tag Only listings carrying ANY of these tags (case-insensitive): repeat &#x60;tag&#x60; or comma-separate.
+    # @option opts [Boolean] :still_live Only listings still active on at least one marketplace. With status&#x3D;sold: sold items still buyable somewhere (a delist failed, is pending or never ran).
     # @return [Array<(ListListingsResponse, Integer, Hash)>] ListListingsResponse data, response status code and response headers
     def list_listings_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2145,6 +4226,10 @@ module Crossly
         fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ListingsApi.list_listings, must be greater than or equal to 1.'
       end
 
+      if @api_client.config.client_side_validation && !opts[:'sku'].nil? && opts[:'sku'].to_s.length > 200
+        fail ArgumentError, 'invalid value for "opts[:"sku"]" when calling ListingsApi.list_listings, the character length must be smaller than or equal to 200.'
+      end
+
       allowable_values = ["physical", "web3"]
       if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
         fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
@@ -2158,7 +4243,11 @@ module Crossly
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'platform'] = opts[:'platform'] if !opts[:'platform'].nil?
       query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'sku'] = opts[:'sku'] if !opts[:'sku'].nil?
+      query_params[:'updatedSince'] = opts[:'updated_since'] if !opts[:'updated_since'].nil?
       query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
+      query_params[:'tag'] = opts[:'tag'] if !opts[:'tag'].nil?
+      query_params[:'stillLive'] = opts[:'still_live'] if !opts[:'still_live'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2190,6 +4279,177 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#list_listings\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your live shows, newest scheduled first: status, cover, category, connection method and peak viewers.
+    # @param [Hash] opts the optional parameters
+    # @return [ListLiveStreamsResponse]
+    def list_live_streams(opts = {})
+      data, _status_code, _headers = list_live_streams_with_http_info(opts)
+      data
+    end
+
+    # Your live shows, newest scheduled first: status, cover, category, connection method and peak viewers.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListLiveStreamsResponse, Integer, Hash)>] ListLiveStreamsResponse data, response status code and response headers
+    def list_live_streams_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_live_streams ...'
+      end
+      # resource path
+      local_var_path = '/v1/live-streams'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListLiveStreamsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_live_streams",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_live_streams\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A passport’s event history, newest first (never a buyer or a price).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListPassportEventsResponse]
+    def list_passport_events(id, opts = {})
+      data, _status_code, _headers = list_passport_events_with_http_info(id, opts)
+      data
+    end
+
+    # A passport’s event history, newest first (never a buyer or a price).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListPassportEventsResponse, Integer, Hash)>] ListPassportEventsResponse data, response status code and response headers
+    def list_passport_events_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_passport_events ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.list_passport_events"
+      end
+      # resource path
+      local_var_path = '/v1/passports/{id}/events'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListPassportEventsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_passport_events",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_passport_events\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your printer agents (online, printers, default) and the passport label templates each can print.
+    # @param [Hash] opts the optional parameters
+    # @return [ListPassportPrintTargetsResponse]
+    def list_passport_print_targets(opts = {})
+      data, _status_code, _headers = list_passport_print_targets_with_http_info(opts)
+      data
+    end
+
+    # Your printer agents (online, printers, default) and the passport label templates each can print.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListPassportPrintTargetsResponse, Integer, Hash)>] ListPassportPrintTargetsResponse data, response status code and response headers
+    def list_passport_print_targets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_passport_print_targets ...'
+      end
+      # resource path
+      local_var_path = '/v1/passports/print-targets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListPassportPrintTargetsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_passport_print_targets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_passport_print_targets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2304,6 +4564,122 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your active story slides (newest run first, each run in play order), with their overlays: text, listing stickers, @mentions, links, emoji and drawing.
+    # @param [Hash] opts the optional parameters
+    # @return [ListStoriesResponse]
+    def list_stories(opts = {})
+      data, _status_code, _headers = list_stories_with_http_info(opts)
+      data
+    end
+
+    # Your active story slides (newest run first, each run in play order), with their overlays: text, listing stickers, @mentions, links, emoji and drawing.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListStoriesResponse, Integer, Hash)>] ListStoriesResponse data, response status code and response headers
+    def list_stories_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.list_stories ...'
+      end
+      # resource path
+      local_var_path = '/v1/stories'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListStoriesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.list_stories",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#list_stories\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit an event. Omitted fields are unchanged; null clears.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [EventResponse]
+    def update_event(id, opts = {})
+      data, _status_code, _headers = update_event_with_http_info(id, opts)
+      data
+    end
+
+    # Edit an event. Omitted fields are unchanged; null clears.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(EventResponse, Integer, Hash)>] EventResponse data, response status code and response headers
+    def update_event_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.update_event ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.update_event"
+      end
+      # resource path
+      local_var_path = '/v1/events/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'EventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.update_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#update_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Tag your listings at points on a story or lookbook photo (shop the look). Replaces that photo’s tags; at most 12.
     # @param [Hash] opts the optional parameters
     # @return [UpdateHotspotResponse]
@@ -2360,6 +4736,7 @@ module Crossly
     end
 
     # Edit a listing and fan out update jobs to existing platform listings.
+    # The fields to change go in `changes` (a sparse object, e.g. `{ \"changes\": { \"price\": 24.99 } }`). `data` is accepted as an alias of `changes` (the name create and bulk create use); sending both is a 400. Omit `platforms` to push the edit everywhere the listing is live.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateListingResponse]
@@ -2369,6 +4746,7 @@ module Crossly
     end
 
     # Edit a listing and fan out update jobs to existing platform listings.
+    # The fields to change go in &#x60;changes&#x60; (a sparse object, e.g. &#x60;{ \&quot;changes\&quot;: { \&quot;price\&quot;: 24.99 } }&#x60;). &#x60;data&#x60; is accepted as an alias of &#x60;changes&#x60; (the name create and bulk create use); sending both is a 400. Omit &#x60;platforms&#x60; to push the edit everywhere the listing is live.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateListingResponse, Integer, Hash)>] UpdateListingResponse data, response status code and response headers
@@ -2548,6 +4926,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Edit a show that has not ended: title, description, cover, category, start time (not once live) or connection method (browser | phone | encoder).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LiveStreamResponse]
+    def update_live_stream(id, opts = {})
+      data, _status_code, _headers = update_live_stream_with_http_info(id, opts)
+      data
+    end
+
+    # Edit a show that has not ended: title, description, cover, category, start time (not once live) or connection method (browser | phone | encoder).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LiveStreamResponse, Integer, Hash)>] LiveStreamResponse data, response status code and response headers
+    def update_live_stream_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.update_live_stream ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.update_live_stream"
+      end
+      # resource path
+      local_var_path = '/v1/live-streams/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LiveStreamResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.update_live_stream",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#update_live_stream\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Set a live show’s lineup: your Crossly listings, in the order you will sell them. Buyers see it before they join; a sale of a lineup item while the show is live is recorded at its replay moment.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -2609,7 +5048,129 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Turn own-price match and/or layaway on or off.
+    # Change what a passport says (title, condition, maker, year, materials, notes) or add photo URLs (photos append: a passport keeps the ones it was registered with).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdatePassportResponse]
+    def update_passport(id, opts = {})
+      data, _status_code, _headers = update_passport_with_http_info(id, opts)
+      data
+    end
+
+    # Change what a passport says (title, condition, maker, year, materials, notes) or add photo URLs (photos append: a passport keeps the ones it was registered with).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdatePassportResponse, Integer, Hash)>] UpdatePassportResponse data, response status code and response headers
+    def update_passport_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.update_passport ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.update_passport"
+      end
+      # resource path
+      local_var_path = '/v1/passports/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdatePassportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.update_passport",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#update_passport\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Move a draft to a step, pick its label template, add items or remove draft passports.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [PassportDraftResponse]
+    def update_passport_draft(id, opts = {})
+      data, _status_code, _headers = update_passport_draft_with_http_info(id, opts)
+      data
+    end
+
+    # Move a draft to a step, pick its label template, add items or remove draft passports.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(PassportDraftResponse, Integer, Hash)>] PassportDraftResponse data, response status code and response headers
+    def update_passport_draft_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.update_passport_draft ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ListingsApi.update_passport_draft"
+      end
+      # resource path
+      local_var_path = '/v1/passports/drafts/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'PassportDraftResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.update_passport_draft",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#update_passport_draft\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Turn own-price match and/or layaway on or off for every one of your stores. One store: PUT /v1/storefronts/{id}/settings.
     # @param [Hash] opts the optional parameters
     # @return [GetPricingSettingResponse]
     def update_pricing_setting(opts = {})
@@ -2617,7 +5178,7 @@ module Crossly
       data
     end
 
-    # Turn own-price match and/or layaway on or off.
+    # Turn own-price match and/or layaway on or off for every one of your stores. One store: PUT /v1/storefronts/{id}/settings.
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetPricingSettingResponse, Integer, Hash)>] GetPricingSettingResponse data, response status code and response headers
     def update_pricing_setting_with_http_info(opts = {})
@@ -2664,7 +5225,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, and rent-only (off sale while offered). Needs a ship-from address.
+    # Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, rent-only (off sale while offered), seller approval, unavailable date ranges (blackoutRanges, inclusive YYYY-MM-DD) and a return policy. Keeps the listing’s own rental terms in step. Needs a ship-from address.
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateRentalOfferResponse]
@@ -2673,7 +5234,7 @@ module Crossly
       data
     end
 
-    # Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, and rent-only (off sale while offered). Needs a ship-from address.
+    # Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, rent-only (off sale while offered), seller approval, unavailable date ranges (blackoutRanges, inclusive YYYY-MM-DD) and a return policy. Keeps the listing’s own rental terms in step. Needs a ship-from address.
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateRentalOfferResponse, Integer, Hash)>] UpdateRentalOfferResponse data, response status code and response headers
@@ -2721,6 +5282,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ListingsApi#update_rental_offer\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the store’s rental defaults and payout timing (on_start needs 3 rentals that came back).
+    # @param [Hash] opts the optional parameters
+    # @return [GetRentalSettingResponse]
+    def update_rental_setting(opts = {})
+      data, _status_code, _headers = update_rental_setting_with_http_info(opts)
+      data
+    end
+
+    # Set the store’s rental defaults and payout timing (on_start needs 3 rentals that came back).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRentalSettingResponse, Integer, Hash)>] GetRentalSettingResponse data, response status code and response headers
+    def update_rental_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ListingsApi.update_rental_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/rentals/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRentalSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ListingsApi.update_rental_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ListingsApi#update_rental_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

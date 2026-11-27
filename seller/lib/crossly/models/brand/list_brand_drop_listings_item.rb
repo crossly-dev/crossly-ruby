@@ -27,6 +27,12 @@ module Crossly
 
     attr_accessor :status
 
+    # The Crossly listing's slug (platform_listings.platform_listing_id): what the cart adds by.
+    attr_accessor :slug
+
+    # Units the listing offers (null = untracked): a pre-book's reservable quantity.
+    attr_accessor :quantity
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +41,9 @@ module Crossly
         :'title' => :'title',
         :'image_url' => :'imageUrl',
         :'price_cents' => :'priceCents',
-        :'status' => :'status'
+        :'status' => :'status',
+        :'slug' => :'slug',
+        :'quantity' => :'quantity'
       }
     end
 
@@ -52,7 +60,9 @@ module Crossly
         :'title' => :'String',
         :'image_url' => :'String',
         :'price_cents' => :'Float',
-        :'status' => :'String'
+        :'status' => :'String',
+        :'slug' => :'String',
+        :'quantity' => :'Float'
       }
     end
 
@@ -62,6 +72,8 @@ module Crossly
         :'title',
         :'image_url',
         :'price_cents',
+        :'slug',
+        :'quantity'
       ])
     end
 
@@ -103,6 +115,14 @@ module Crossly
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
+
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
+      end
+
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -143,7 +163,9 @@ module Crossly
           title == o.title &&
           image_url == o.image_url &&
           price_cents == o.price_cents &&
-          status == o.status
+          status == o.status &&
+          slug == o.slug &&
+          quantity == o.quantity
     end
 
     # @see the `==` method
@@ -155,7 +177,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform_listing_id, listing_id, title, image_url, price_cents, status].hash
+      [platform_listing_id, listing_id, title, image_url, price_cents, status, slug, quantity].hash
     end
 
     # Builds the object from hash

@@ -55,6 +55,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'bulk_job_id'
       ])
     end
 
@@ -120,10 +121,6 @@ module Crossly
         invalid_properties.push('invalid value for "job_ids", job_ids cannot be nil.')
       end
 
-      if @bulk_job_id.nil?
-        invalid_properties.push('invalid value for "bulk_job_id", bulk_job_id cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -134,7 +131,6 @@ module Crossly
       return false if @platforms.nil?
       return false if @remaining_platforms.nil?
       return false if @job_ids.nil?
-      return false if @bulk_job_id.nil?
       true
     end
 

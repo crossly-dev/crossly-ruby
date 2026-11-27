@@ -5,12 +5,16 @@ All URIs are relative to *https://crossly.net/api*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_account_cancel_deletion**](AccountApi.md#create_account_cancel_deletion) | **POST** /v1/account/cancel-deletion | Cancel a pending account deletion. |
+| [**create_account_identity_verification_start**](AccountApi.md#create_account_identity_verification_start) | **POST** /v1/account/identity-verification/start | Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes. |
 | [**create_account_logout_all**](AccountApi.md#create_account_logout_all) | **POST** /v1/account/logout-all | Revoke every browser auth session for this user. |
-| [**create_account_request_deletion**](AccountApi.md#create_account_request_deletion) | **POST** /v1/account/request-deletion | Schedule account deletion after a grace period. |
+| [**create_account_reconfirm_deletion**](AccountApi.md#create_account_reconfirm_deletion) | **POST** /v1/account/reconfirm-deletion | Confirm again a deletion paused because the account was in use. |
+| [**create_account_request_deletion**](AccountApi.md#create_account_request_deletion) | **POST** /v1/account/request-deletion | Schedule account deletion after a grace period. Requires confirmEmail. |
 | [**delete_auth_session**](AccountApi.md#delete_auth_session) | **DELETE** /v1/auth/sessions | Revoke all active browser sessions. |
 | [**delete_auth_session_by_session_id**](AccountApi.md#delete_auth_session_by_session_id) | **DELETE** /v1/auth/sessions/{sessionId} | Revoke a single browser session by id. |
 | [**delete_connected_app**](AccountApi.md#delete_connected_app) | **DELETE** /v1/connected-apps/{grantId} | Disconnect a third-party app. Its tokens stop working immediately. |
+| [**get_account_closure_checklist**](AccountApi.md#get_account_closure_checklist) | **GET** /v1/account/closure-checklist | What closing the account will and will not do, before you request it. |
 | [**get_account_deletion_status**](AccountApi.md#get_account_deletion_status) | **GET** /v1/account/deletion-status | Get the currently-pending deletion request, if any. |
+| [**get_account_identity_verification**](AccountApi.md#get_account_identity_verification) | **GET** /v1/account/identity-verification | Your identity verification: one status for the whole account, read by every feature that needs ID. |
 | [**get_me**](AccountApi.md#get_me) | **GET** /v1/me | Identity check — authenticated user + PAT scopes + account state. |
 | [**get_membership**](AccountApi.md#get_membership) | **GET** /v1/membership | The caller&#39;s Crossly One membership status and benefits. |
 | [**list_auth_sessions**](AccountApi.md#list_auth_sessions) | **GET** /v1/auth/sessions | List active browser auth sessions. |
@@ -19,7 +23,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_account_cancel_deletion
 
-> <DeleteDropResponse> create_account_cancel_deletion
+> <CreateAccountCancelDeletionResponse> create_account_cancel_deletion
 
 Cancel a pending account deletion.
 
@@ -49,7 +53,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteDropResponse>, Integer, Hash)> create_account_cancel_deletion_with_http_info
+> <Array(<CreateAccountCancelDeletionResponse>, Integer, Hash)> create_account_cancel_deletion_with_http_info
 
 ```ruby
 begin
@@ -57,7 +61,7 @@ begin
   data, status_code, headers = api_instance.create_account_cancel_deletion_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <DeleteDropResponse>
+  p data # => <CreateAccountCancelDeletionResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling AccountApi->create_account_cancel_deletion_with_http_info: #{e}"
 end
@@ -69,7 +73,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**DeleteDropResponse**
+**CreateAccountCancelDeletionResponse**
 
 ### Authorization
 
@@ -78,6 +82,75 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_account_identity_verification_start
+
+> <CreateWorldMatureVerifyResponse> create_account_identity_verification_start(create_account_identity_verification_start_request)
+
+Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+
+alreadyVerified:true when there is nothing to do. Nothing is verified until a person completes the link.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountApi.new
+create_account_identity_verification_start_request = Crossly::CreateAccountIdentityVerificationStartRequest.new # CreateAccountIdentityVerificationStartRequest | 
+
+begin
+  # Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+  result = api_instance.create_account_identity_verification_start(create_account_identity_verification_start_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->create_account_identity_verification_start: #{e}"
+end
+```
+
+#### Using the create_account_identity_verification_start_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateWorldMatureVerifyResponse>, Integer, Hash)> create_account_identity_verification_start_with_http_info(create_account_identity_verification_start_request)
+
+```ruby
+begin
+  # Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+  data, status_code, headers = api_instance.create_account_identity_verification_start_with_http_info(create_account_identity_verification_start_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateWorldMatureVerifyResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->create_account_identity_verification_start_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_account_identity_verification_start_request** | **CreateAccountIdentityVerificationStartRequest** |  |  |
+
+### Return type
+
+**CreateWorldMatureVerifyResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -145,11 +218,11 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
-## create_account_request_deletion
+## create_account_reconfirm_deletion
 
-> <CreateAccountRequestDeletionResponse> create_account_request_deletion
+> <CreateAccountReconfirmDeletionResponse> create_account_reconfirm_deletion
 
-Schedule account deletion after a grace period.
+Confirm again a deletion paused because the account was in use.
 
 ### Examples
 
@@ -165,7 +238,71 @@ end
 api_instance = Crossly::AccountApi.new
 
 begin
-  # Schedule account deletion after a grace period.
+  # Confirm again a deletion paused because the account was in use.
+  result = api_instance.create_account_reconfirm_deletion
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->create_account_reconfirm_deletion: #{e}"
+end
+```
+
+#### Using the create_account_reconfirm_deletion_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateAccountReconfirmDeletionResponse>, Integer, Hash)> create_account_reconfirm_deletion_with_http_info
+
+```ruby
+begin
+  # Confirm again a deletion paused because the account was in use.
+  data, status_code, headers = api_instance.create_account_reconfirm_deletion_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateAccountReconfirmDeletionResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->create_account_reconfirm_deletion_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateAccountReconfirmDeletionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_account_request_deletion
+
+> <CreateAccountRequestDeletionResponse> create_account_request_deletion
+
+Schedule account deletion after a grace period. Requires confirmEmail.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountApi.new
+
+begin
+  # Schedule account deletion after a grace period. Requires confirmEmail.
   result = api_instance.create_account_request_deletion
   p result
 rescue Crossly::ApiError => e
@@ -181,7 +318,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Schedule account deletion after a grace period.
+  # Schedule account deletion after a grace period. Requires confirmEmail.
   data, status_code, headers = api_instance.create_account_request_deletion_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -291,7 +428,7 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AccountApi.new
-session_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+session_id = 'session_id_example' # String | 
 
 begin
   # Revoke a single browser session by id.
@@ -407,6 +544,70 @@ end
 - **Accept**: application/json
 
 
+## get_account_closure_checklist
+
+> <GetAccountClosureChecklistResponse> get_account_closure_checklist
+
+What closing the account will and will not do, before you request it.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountApi.new
+
+begin
+  # What closing the account will and will not do, before you request it.
+  result = api_instance.get_account_closure_checklist
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->get_account_closure_checklist: #{e}"
+end
+```
+
+#### Using the get_account_closure_checklist_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetAccountClosureChecklistResponse>, Integer, Hash)> get_account_closure_checklist_with_http_info
+
+```ruby
+begin
+  # What closing the account will and will not do, before you request it.
+  data, status_code, headers = api_instance.get_account_closure_checklist_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetAccountClosureChecklistResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->get_account_closure_checklist_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetAccountClosureChecklistResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_account_deletion_status
 
 > <GetAccountDeletionStatusResponse> get_account_deletion_status
@@ -460,6 +661,72 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetAccountDeletionStatusResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_account_identity_verification
+
+> <GetAccountIdentityVerificationResponse> get_account_identity_verification
+
+Your identity verification: one status for the whole account, read by every feature that needs ID.
+
+status is unverified, requires_input, processing, verified or canceled. requires_input with a lastError { code, reason } is a failed try the person can redo on the same link (start returns it); processing is being reviewed; neither is a decline, only canceled is. attempts counts the failed tries. ageVerified passes the age-restricted checkout gate. message is the next step in words (null once verified).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountApi.new
+
+begin
+  # Your identity verification: one status for the whole account, read by every feature that needs ID.
+  result = api_instance.get_account_identity_verification
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->get_account_identity_verification: #{e}"
+end
+```
+
+#### Using the get_account_identity_verification_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetAccountIdentityVerificationResponse>, Integer, Hash)> get_account_identity_verification_with_http_info
+
+```ruby
+begin
+  # Your identity verification: one status for the whole account, read by every feature that needs ID.
+  data, status_code, headers = api_instance.get_account_identity_verification_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetAccountIdentityVerificationResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountApi->get_account_identity_verification_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetAccountIdentityVerificationResponse**
 
 ### Authorization
 

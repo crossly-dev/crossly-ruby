@@ -15,10 +15,10 @@ require 'time'
 
 module Crossly
   class GetAnalyticTodayResponseInbox
-    # Conversations not yet opened (hidden threads excluded).
+    # Unread conversations + unopened offers — the Unread tab's rows (services/inbox/attention.ts).
     attr_accessor :unread
 
-    # Open threads whose newest message is the buyer's.
+    # Threads and offers waiting on the seller — the Needs reply tab's rows.
     attr_accessor :awaiting_reply
 
     # Median hours from a buyer's question to the seller's reply, last 90 days; null below MIN_ANSWERED.

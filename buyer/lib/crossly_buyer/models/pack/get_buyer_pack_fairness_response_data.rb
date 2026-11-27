@@ -15,20 +15,20 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerPackFairnessResponseData
-    attr_accessor :nonce
-
     attr_accessor :server_seed_hash
 
     attr_accessor :client_seed
+
+    attr_accessor :nonce
 
     attr_accessor :revealed
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'nonce' => :'nonce',
         :'server_seed_hash' => :'serverSeedHash',
         :'client_seed' => :'clientSeed',
+        :'nonce' => :'nonce',
         :'revealed' => :'revealed'
       }
     end
@@ -41,9 +41,9 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'nonce' => :'Float',
         :'server_seed_hash' => :'String',
         :'client_seed' => :'String',
+        :'nonce' => :'Float',
         :'revealed' => :'Array<GetBuyerPackFairnessResponseDataRevealed>'
       }
     end
@@ -69,16 +69,16 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'nonce')
-        self.nonce = attributes[:'nonce']
-      end
-
       if attributes.key?(:'server_seed_hash')
         self.server_seed_hash = attributes[:'server_seed_hash']
       end
 
       if attributes.key?(:'client_seed')
         self.client_seed = attributes[:'client_seed']
+      end
+
+      if attributes.key?(:'nonce')
+        self.nonce = attributes[:'nonce']
       end
 
       if attributes.key?(:'revealed')
@@ -92,16 +92,16 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @nonce.nil?
-        invalid_properties.push('invalid value for "nonce", nonce cannot be nil.')
-      end
-
       if @server_seed_hash.nil?
         invalid_properties.push('invalid value for "server_seed_hash", server_seed_hash cannot be nil.')
       end
 
       if @client_seed.nil?
         invalid_properties.push('invalid value for "client_seed", client_seed cannot be nil.')
+      end
+
+      if @nonce.nil?
+        invalid_properties.push('invalid value for "nonce", nonce cannot be nil.')
       end
 
       if @revealed.nil?
@@ -114,9 +114,9 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @nonce.nil?
       return false if @server_seed_hash.nil?
       return false if @client_seed.nil?
+      return false if @nonce.nil?
       return false if @revealed.nil?
       true
     end
@@ -126,9 +126,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          nonce == o.nonce &&
           server_seed_hash == o.server_seed_hash &&
           client_seed == o.client_seed &&
+          nonce == o.nonce &&
           revealed == o.revealed
     end
 
@@ -141,7 +141,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [nonce, server_seed_hash, client_seed, revealed].hash
+      [server_seed_hash, client_seed, nonce, revealed].hash
     end
 
     # Builds the object from hash

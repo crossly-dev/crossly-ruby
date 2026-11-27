@@ -39,8 +39,8 @@ module Crossly
     def self.openapi_types
       {
         :'book_key' => :'String',
-        :'bid' => :'CreateVaultMarketProQuoteResponseBid',
-        :'ask' => :'CreateVaultMarketProQuoteResponseBid'
+        :'bid' => :'OrderIdError',
+        :'ask' => :'OrderIdError'
       }
     end
 

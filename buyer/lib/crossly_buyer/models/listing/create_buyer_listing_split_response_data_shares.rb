@@ -17,16 +17,16 @@ module CrosslyBuyer
   class CreateBuyerListingSplitResponseDataShares
     attr_accessor :token
 
-    attr_accessor :position
-
     attr_accessor :share_cents
+
+    attr_accessor :position
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'token' => :'token',
-        :'position' => :'position',
-        :'share_cents' => :'shareCents'
+        :'share_cents' => :'shareCents',
+        :'position' => :'position'
       }
     end
 
@@ -39,8 +39,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'token' => :'String',
-        :'position' => :'Float',
-        :'share_cents' => :'Float'
+        :'share_cents' => :'Float',
+        :'position' => :'Float'
       }
     end
 
@@ -69,12 +69,12 @@ module CrosslyBuyer
         self.token = attributes[:'token']
       end
 
-      if attributes.key?(:'position')
-        self.position = attributes[:'position']
-      end
-
       if attributes.key?(:'share_cents')
         self.share_cents = attributes[:'share_cents']
+      end
+
+      if attributes.key?(:'position')
+        self.position = attributes[:'position']
       end
     end
 
@@ -86,12 +86,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "token", token cannot be nil.')
       end
 
-      if @position.nil?
-        invalid_properties.push('invalid value for "position", position cannot be nil.')
-      end
-
       if @share_cents.nil?
         invalid_properties.push('invalid value for "share_cents", share_cents cannot be nil.')
+      end
+
+      if @position.nil?
+        invalid_properties.push('invalid value for "position", position cannot be nil.')
       end
 
       invalid_properties
@@ -101,8 +101,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @token.nil?
-      return false if @position.nil?
       return false if @share_cents.nil?
+      return false if @position.nil?
       true
     end
 
@@ -112,8 +112,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           token == o.token &&
-          position == o.position &&
-          share_cents == o.share_cents
+          share_cents == o.share_cents &&
+          position == o.position
     end
 
     # @see the `==` method
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [token, position, share_cents].hash
+      [token, share_cents, position].hash
     end
 
     # Builds the object from hash

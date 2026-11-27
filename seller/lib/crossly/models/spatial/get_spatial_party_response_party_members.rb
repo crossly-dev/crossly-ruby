@@ -166,7 +166,7 @@ module Crossly
       return false if @user_id.nil?
       return false if @name.nil?
       return false if @role.nil?
-      role_validator = EnumAttributeValidator.new('String', ["member", "leader"])
+      role_validator = EnumAttributeValidator.new('String', ["leader", "member"])
       return false unless role_validator.valid?(@role)
       return false if @joined_at.nil?
       true
@@ -175,7 +175,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] role Object to be assigned
     def role=(role)
-      validator = EnumAttributeValidator.new('String', ["member", "leader"])
+      validator = EnumAttributeValidator.new('String', ["leader", "member"])
       unless validator.valid?(role)
         fail ArgumentError, "invalid value for \"role\", must be one of #{validator.allowable_values}."
       end

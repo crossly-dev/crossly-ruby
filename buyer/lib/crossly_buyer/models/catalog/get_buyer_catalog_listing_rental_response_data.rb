@@ -33,7 +33,13 @@ module CrosslyBuyer
 
     attr_accessor :available
 
+    attr_accessor :return_policy
+
     attr_accessor :booked
+
+    attr_accessor :options
+
+    attr_accessor :units_free
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -47,7 +53,10 @@ module CrosslyBuyer
         :'rent_only' => :'rentOnly',
         :'require_approval' => :'requireApproval',
         :'available' => :'available',
-        :'booked' => :'booked'
+        :'return_policy' => :'returnPolicy',
+        :'booked' => :'booked',
+        :'options' => :'options',
+        :'units_free' => :'unitsFree'
       }
     end
 
@@ -68,7 +77,10 @@ module CrosslyBuyer
         :'rent_only' => :'Boolean',
         :'require_approval' => :'Boolean',
         :'available' => :'Boolean',
-        :'booked' => :'Array<GetBuyerCatalogListingRentalResponseDataBooked>'
+        :'return_policy' => :'String',
+        :'booked' => :'Array<GetBuyerCatalogListingRentalResponseDataBooked>',
+        :'options' => :'GetBuyerCatalogListingRentalResponseDataOptions',
+        :'units_free' => :'Hash<String, Object>'
       }
     end
 
@@ -76,6 +88,8 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'weekly_cents',
+        :'deposit_cents',
+        :'return_policy',
       ])
     end
 
@@ -130,9 +144,23 @@ module CrosslyBuyer
         self.available = attributes[:'available']
       end
 
+      if attributes.key?(:'return_policy')
+        self.return_policy = attributes[:'return_policy']
+      end
+
       if attributes.key?(:'booked')
         if (value = attributes[:'booked']).is_a?(Array)
           self.booked = value
+        end
+      end
+
+      if attributes.key?(:'options')
+        self.options = attributes[:'options']
+      end
+
+      if attributes.key?(:'units_free')
+        if (value = attributes[:'units_free']).is_a?(Hash)
+          self.units_free = value
         end
       end
     end
@@ -143,10 +171,6 @@ module CrosslyBuyer
       invalid_properties = Array.new
       if @daily_cents.nil?
         invalid_properties.push('invalid value for "daily_cents", daily_cents cannot be nil.')
-      end
-
-      if @deposit_cents.nil?
-        invalid_properties.push('invalid value for "deposit_cents", deposit_cents cannot be nil.')
       end
 
       if @min_days.nil?
@@ -177,6 +201,14 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "booked", booked cannot be nil.')
       end
 
+      if @options.nil?
+        invalid_properties.push('invalid value for "options", options cannot be nil.')
+      end
+
+      if @units_free.nil?
+        invalid_properties.push('invalid value for "units_free", units_free cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -184,7 +216,6 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @daily_cents.nil?
-      return false if @deposit_cents.nil?
       return false if @min_days.nil?
       return false if @max_days.nil?
       return false if @buffer_days.nil?
@@ -192,6 +223,8 @@ module CrosslyBuyer
       return false if @require_approval.nil?
       return false if @available.nil?
       return false if @booked.nil?
+      return false if @options.nil?
+      return false if @units_free.nil?
       true
     end
 
@@ -209,7 +242,10 @@ module CrosslyBuyer
           rent_only == o.rent_only &&
           require_approval == o.require_approval &&
           available == o.available &&
-          booked == o.booked
+          return_policy == o.return_policy &&
+          booked == o.booked &&
+          options == o.options &&
+          units_free == o.units_free
     end
 
     # @see the `==` method
@@ -221,7 +257,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [daily_cents, weekly_cents, deposit_cents, min_days, max_days, buffer_days, rent_only, require_approval, available, booked].hash
+      [daily_cents, weekly_cents, deposit_cents, min_days, max_days, buffer_days, rent_only, require_approval, available, return_policy, booked, options, units_free].hash
     end
 
     # Builds the object from hash

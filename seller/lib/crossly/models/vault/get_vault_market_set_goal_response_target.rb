@@ -130,7 +130,7 @@ module Crossly
     def valid?
       return false if @text.nil?
       return false if @grade_mode.nil?
-      grade_mode_validator = EnumAttributeValidator.new('String', ["exact", "ungraded", "any"])
+      grade_mode_validator = EnumAttributeValidator.new('String', ["any", "exact", "ungraded"])
       return false unless grade_mode_validator.valid?(@grade_mode)
       true
     end
@@ -138,7 +138,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] grade_mode Object to be assigned
     def grade_mode=(grade_mode)
-      validator = EnumAttributeValidator.new('String', ["exact", "ungraded", "any"])
+      validator = EnumAttributeValidator.new('String', ["any", "exact", "ungraded"])
       unless validator.valid?(grade_mode)
         fail ArgumentError, "invalid value for \"grade_mode\", must be one of #{validator.allowable_values}."
       end

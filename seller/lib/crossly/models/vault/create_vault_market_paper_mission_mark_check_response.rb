@@ -157,11 +157,11 @@ module Crossly
     def valid?
       return false if @book_key.nil?
       return false if @answer.nil?
-      answer_validator = EnumAttributeValidator.new('String', ["A", "B", "C"])
+      answer_validator = EnumAttributeValidator.new('String', ["C", "A", "B"])
       return false unless answer_validator.valid?(@answer)
       return false if @correct.nil?
       return false if @quality.nil?
-      quality_validator = EnumAttributeValidator.new('String', ["A", "B", "C"])
+      quality_validator = EnumAttributeValidator.new('String', ["C", "A", "B"])
       return false unless quality_validator.valid?(@quality)
       return false if @mission.nil?
       true
@@ -170,7 +170,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] answer Object to be assigned
     def answer=(answer)
-      validator = EnumAttributeValidator.new('String', ["A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["C", "A", "B"])
       unless validator.valid?(answer)
         fail ArgumentError, "invalid value for \"answer\", must be one of #{validator.allowable_values}."
       end
@@ -180,7 +180,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] quality Object to be assigned
     def quality=(quality)
-      validator = EnumAttributeValidator.new('String', ["A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["C", "A", "B"])
       unless validator.valid?(quality)
         fail ArgumentError, "invalid value for \"quality\", must be one of #{validator.allowable_values}."
       end

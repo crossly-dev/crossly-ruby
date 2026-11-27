@@ -40,6 +40,8 @@ module Crossly
 
     attr_accessor :gift_shelf
 
+    attr_accessor :pulls_shelf
+
     # The owner's earned pins, rarest first, when a pin case stands here (pin-case.ts).
     attr_accessor :pin_case
 
@@ -89,6 +91,7 @@ module Crossly
         :'layout' => :'layout',
         :'guestbook' => :'guestbook',
         :'gift_shelf' => :'giftShelf',
+        :'pulls_shelf' => :'pullsShelf',
         :'pin_case' => :'pinCase',
         :'vault_wall' => :'vaultWall',
         :'set_wall' => :'setWall',
@@ -117,6 +120,7 @@ module Crossly
         :'layout' => :'Array<GetHomeResponseLayout>',
         :'guestbook' => :'Array<GetHomeResponseGuestbook>',
         :'gift_shelf' => :'GetHomeResponseGiftShelf',
+        :'pulls_shelf' => :'GetHomeResponsePullsShelf',
         :'pin_case' => :'Array<GetHomeResponsePinCase>',
         :'vault_wall' => :'GetHomeResponseVaultWall',
         :'set_wall' => :'GetHomeResponseSetWall',
@@ -129,6 +133,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'gift_shelf',
+        :'pulls_shelf',
         :'pin_case',
         :'vault_wall',
         :'set_wall',
@@ -200,6 +205,10 @@ module Crossly
 
       if attributes.key?(:'gift_shelf')
         self.gift_shelf = attributes[:'gift_shelf']
+      end
+
+      if attributes.key?(:'pulls_shelf')
+        self.pulls_shelf = attributes[:'pulls_shelf']
       end
 
       if attributes.key?(:'pin_case')
@@ -291,10 +300,10 @@ module Crossly
       return false if @presence_slug.nil?
       return false if @owner.nil?
       return false if @privacy.nil?
-      privacy_validator = EnumAttributeValidator.new('String', ["open", "locked", "friends"])
+      privacy_validator = EnumAttributeValidator.new('String', ["open", "friends", "locked"])
       return false unless privacy_validator.valid?(@privacy)
       return false if @theme.nil?
-      theme_validator = EnumAttributeValidator.new('String', ["storybook", "studio", "noir", "daylight", "vitrine"])
+      theme_validator = EnumAttributeValidator.new('String', ["studio", "noir", "daylight", "vitrine", "storybook"])
       return false unless theme_validator.valid?(@theme)
       return false if @decor.nil?
       return false if @is_owner.nil?
@@ -310,7 +319,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] privacy Object to be assigned
     def privacy=(privacy)
-      validator = EnumAttributeValidator.new('String', ["open", "locked", "friends"])
+      validator = EnumAttributeValidator.new('String', ["open", "friends", "locked"])
       unless validator.valid?(privacy)
         fail ArgumentError, "invalid value for \"privacy\", must be one of #{validator.allowable_values}."
       end
@@ -320,7 +329,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] theme Object to be assigned
     def theme=(theme)
-      validator = EnumAttributeValidator.new('String', ["storybook", "studio", "noir", "daylight", "vitrine"])
+      validator = EnumAttributeValidator.new('String', ["studio", "noir", "daylight", "vitrine", "storybook"])
       unless validator.valid?(theme)
         fail ArgumentError, "invalid value for \"theme\", must be one of #{validator.allowable_values}."
       end
@@ -344,6 +353,7 @@ module Crossly
           layout == o.layout &&
           guestbook == o.guestbook &&
           gift_shelf == o.gift_shelf &&
+          pulls_shelf == o.pulls_shelf &&
           pin_case == o.pin_case &&
           vault_wall == o.vault_wall &&
           set_wall == o.set_wall &&
@@ -360,7 +370,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, presence_slug, owner, privacy, theme, decor, is_owner, can_build, room, layout, guestbook, gift_shelf, pin_case, vault_wall, set_wall, here, updated_at].hash
+      [slug, presence_slug, owner, privacy, theme, decor, is_owner, can_build, room, layout, guestbook, gift_shelf, pulls_shelf, pin_case, vault_wall, set_wall, here, updated_at].hash
     end
 
     # Builds the object from hash

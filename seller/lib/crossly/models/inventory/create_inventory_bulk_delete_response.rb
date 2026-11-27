@@ -15,18 +15,29 @@ require 'time'
 
 module Crossly
   class CreateInventoryBulkDeleteResponse
-    attr_accessor :success
-
     attr_accessor :deleted
 
+    attr_accessor :deleted_ids
+
+    # Items NOT deleted: a live listing Crossly may not end (action authority).
+    attr_accessor :refused
+
+    # Live rows handed to their managing app as delist commands.
+    attr_accessor :relayed
+
     attr_accessor :bulk_job_id
+
+    attr_accessor :success
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'success' => :'success',
         :'deleted' => :'deleted',
-        :'bulk_job_id' => :'bulkJobId'
+        :'deleted_ids' => :'deletedIds',
+        :'refused' => :'refused',
+        :'relayed' => :'relayed',
+        :'bulk_job_id' => :'bulkJobId',
+        :'success' => :'success'
       }
     end
 
@@ -38,9 +49,12 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'success' => :'Boolean',
         :'deleted' => :'Float',
-        :'bulk_job_id' => :'String'
+        :'deleted_ids' => :'Array<String>',
+        :'refused' => :'Array<CreateInventoryBulkDeleteResponseRefused>',
+        :'relayed' => :'Float',
+        :'bulk_job_id' => :'String',
+        :'success' => :'Boolean'
       }
     end
 
@@ -65,16 +79,32 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'success')
-        self.success = attributes[:'success']
-      end
-
       if attributes.key?(:'deleted')
         self.deleted = attributes[:'deleted']
       end
 
+      if attributes.key?(:'deleted_ids')
+        if (value = attributes[:'deleted_ids']).is_a?(Array)
+          self.deleted_ids = value
+        end
+      end
+
+      if attributes.key?(:'refused')
+        if (value = attributes[:'refused']).is_a?(Array)
+          self.refused = value
+        end
+      end
+
+      if attributes.key?(:'relayed')
+        self.relayed = attributes[:'relayed']
+      end
+
       if attributes.key?(:'bulk_job_id')
         self.bulk_job_id = attributes[:'bulk_job_id']
+      end
+
+      if attributes.key?(:'success')
+        self.success = attributes[:'success']
       end
     end
 
@@ -82,16 +112,28 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @success.nil?
-        invalid_properties.push('invalid value for "success", success cannot be nil.')
-      end
-
       if @deleted.nil?
         invalid_properties.push('invalid value for "deleted", deleted cannot be nil.')
       end
 
+      if @deleted_ids.nil?
+        invalid_properties.push('invalid value for "deleted_ids", deleted_ids cannot be nil.')
+      end
+
+      if @refused.nil?
+        invalid_properties.push('invalid value for "refused", refused cannot be nil.')
+      end
+
+      if @relayed.nil?
+        invalid_properties.push('invalid value for "relayed", relayed cannot be nil.')
+      end
+
       if @bulk_job_id.nil?
         invalid_properties.push('invalid value for "bulk_job_id", bulk_job_id cannot be nil.')
+      end
+
+      if @success.nil?
+        invalid_properties.push('invalid value for "success", success cannot be nil.')
       end
 
       invalid_properties
@@ -100,9 +142,12 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @success.nil?
       return false if @deleted.nil?
+      return false if @deleted_ids.nil?
+      return false if @refused.nil?
+      return false if @relayed.nil?
       return false if @bulk_job_id.nil?
+      return false if @success.nil?
       true
     end
 
@@ -111,9 +156,12 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          success == o.success &&
           deleted == o.deleted &&
-          bulk_job_id == o.bulk_job_id
+          deleted_ids == o.deleted_ids &&
+          refused == o.refused &&
+          relayed == o.relayed &&
+          bulk_job_id == o.bulk_job_id &&
+          success == o.success
     end
 
     # @see the `==` method
@@ -125,7 +173,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [success, deleted, bulk_job_id].hash
+      [deleted, deleted_ids, refused, relayed, bulk_job_id, success].hash
     end
 
     # Builds the object from hash

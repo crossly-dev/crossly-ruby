@@ -17,29 +17,24 @@ module CrosslyBuyer
   class ListBuyerCasesItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
-    attr_accessor :updated_at
+    attr_accessor :purchase_id
 
     # inr, snad, counterfeit, damaged, wrong_item, other.
     attr_accessor :reason
 
     attr_accessor :state
 
+    attr_accessor :created_at
+
+    attr_accessor :updated_at
+
     # not_received | return | problem.
     attr_accessor :kind
-
-    attr_accessor :purchase_id
 
     attr_accessor :closed
 
     # The case is waiting on you.
     attr_accessor :your_turn
-
-    attr_accessor :resolved_at
-
-    # What you paid for the order, in cents.
-    attr_accessor :buyer_paid_cents
 
     attr_accessor :awaiting_party
 
@@ -49,6 +44,8 @@ module CrosslyBuyer
     attr_accessor :offered_refund_cents
 
     attr_accessor :resolved_refund_cents
+
+    attr_accessor :resolved_at
 
     attr_accessor :return_label_url
 
@@ -60,6 +57,9 @@ module CrosslyBuyer
 
     attr_accessor :return_delivered_at
 
+    # What you paid for the order, in cents.
+    attr_accessor :buyer_paid_cents
+
     attr_accessor :item_title
 
     attr_accessor :item_thumbnail
@@ -70,25 +70,25 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'updated_at' => :'updatedAt',
+        :'purchase_id' => :'purchaseId',
         :'reason' => :'reason',
         :'state' => :'state',
+        :'created_at' => :'createdAt',
+        :'updated_at' => :'updatedAt',
         :'kind' => :'kind',
-        :'purchase_id' => :'purchaseId',
         :'closed' => :'closed',
         :'your_turn' => :'yourTurn',
-        :'resolved_at' => :'resolvedAt',
-        :'buyer_paid_cents' => :'buyerPaidCents',
         :'awaiting_party' => :'awaitingParty',
         :'escalate_after' => :'escalateAfter',
         :'offered_refund_cents' => :'offeredRefundCents',
         :'resolved_refund_cents' => :'resolvedRefundCents',
+        :'resolved_at' => :'resolvedAt',
         :'return_label_url' => :'returnLabelUrl',
         :'return_tracking_code' => :'returnTrackingCode',
         :'return_tracking_carrier' => :'returnTrackingCarrier',
         :'return_tracking_status' => :'returnTrackingStatus',
         :'return_delivered_at' => :'returnDeliveredAt',
+        :'buyer_paid_cents' => :'buyerPaidCents',
         :'item_title' => :'itemTitle',
         :'item_thumbnail' => :'itemThumbnail',
         :'seller_name' => :'sellerName'
@@ -104,25 +104,25 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'updated_at' => :'String',
+        :'purchase_id' => :'String',
         :'reason' => :'String',
         :'state' => :'String',
+        :'created_at' => :'String',
+        :'updated_at' => :'String',
         :'kind' => :'String',
-        :'purchase_id' => :'String',
         :'closed' => :'Boolean',
         :'your_turn' => :'Boolean',
-        :'resolved_at' => :'String',
-        :'buyer_paid_cents' => :'Float',
         :'awaiting_party' => :'String',
         :'escalate_after' => :'String',
         :'offered_refund_cents' => :'Float',
         :'resolved_refund_cents' => :'Float',
+        :'resolved_at' => :'String',
         :'return_label_url' => :'String',
         :'return_tracking_code' => :'String',
         :'return_tracking_carrier' => :'String',
         :'return_tracking_status' => :'String',
         :'return_delivered_at' => :'String',
+        :'buyer_paid_cents' => :'Float',
         :'item_title' => :'String',
         :'item_thumbnail' => :'String',
         :'seller_name' => :'String'
@@ -132,17 +132,17 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'resolved_at',
-        :'buyer_paid_cents',
         :'awaiting_party',
         :'escalate_after',
         :'offered_refund_cents',
         :'resolved_refund_cents',
+        :'resolved_at',
         :'return_label_url',
         :'return_tracking_code',
         :'return_tracking_carrier',
         :'return_tracking_status',
         :'return_delivered_at',
+        :'buyer_paid_cents',
         :'item_title',
         :'item_thumbnail',
         :'seller_name'
@@ -168,12 +168,8 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
+      if attributes.key?(:'purchase_id')
+        self.purchase_id = attributes[:'purchase_id']
       end
 
       if attributes.key?(:'reason')
@@ -184,12 +180,16 @@ module CrosslyBuyer
         self.state = attributes[:'state']
       end
 
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'purchase_id')
-        self.purchase_id = attributes[:'purchase_id']
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'closed')
@@ -198,14 +198,6 @@ module CrosslyBuyer
 
       if attributes.key?(:'your_turn')
         self.your_turn = attributes[:'your_turn']
-      end
-
-      if attributes.key?(:'resolved_at')
-        self.resolved_at = attributes[:'resolved_at']
-      end
-
-      if attributes.key?(:'buyer_paid_cents')
-        self.buyer_paid_cents = attributes[:'buyer_paid_cents']
       end
 
       if attributes.key?(:'awaiting_party')
@@ -222,6 +214,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'resolved_refund_cents')
         self.resolved_refund_cents = attributes[:'resolved_refund_cents']
+      end
+
+      if attributes.key?(:'resolved_at')
+        self.resolved_at = attributes[:'resolved_at']
       end
 
       if attributes.key?(:'return_label_url')
@@ -242,6 +238,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'return_delivered_at')
         self.return_delivered_at = attributes[:'return_delivered_at']
+      end
+
+      if attributes.key?(:'buyer_paid_cents')
+        self.buyer_paid_cents = attributes[:'buyer_paid_cents']
       end
 
       if attributes.key?(:'item_title')
@@ -265,12 +265,8 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      if @purchase_id.nil?
+        invalid_properties.push('invalid value for "purchase_id", purchase_id cannot be nil.')
       end
 
       if @reason.nil?
@@ -281,12 +277,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "state", state cannot be nil.')
       end
 
-      if @kind.nil?
-        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
-      if @purchase_id.nil?
-        invalid_properties.push('invalid value for "purchase_id", purchase_id cannot be nil.')
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
       if @closed.nil?
@@ -304,12 +304,12 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @updated_at.nil?
+      return false if @purchase_id.nil?
       return false if @reason.nil?
       return false if @state.nil?
+      return false if @created_at.nil?
+      return false if @updated_at.nil?
       return false if @kind.nil?
-      return false if @purchase_id.nil?
       return false if @closed.nil?
       return false if @your_turn.nil?
       true
@@ -321,25 +321,25 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          updated_at == o.updated_at &&
+          purchase_id == o.purchase_id &&
           reason == o.reason &&
           state == o.state &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
           kind == o.kind &&
-          purchase_id == o.purchase_id &&
           closed == o.closed &&
           your_turn == o.your_turn &&
-          resolved_at == o.resolved_at &&
-          buyer_paid_cents == o.buyer_paid_cents &&
           awaiting_party == o.awaiting_party &&
           escalate_after == o.escalate_after &&
           offered_refund_cents == o.offered_refund_cents &&
           resolved_refund_cents == o.resolved_refund_cents &&
+          resolved_at == o.resolved_at &&
           return_label_url == o.return_label_url &&
           return_tracking_code == o.return_tracking_code &&
           return_tracking_carrier == o.return_tracking_carrier &&
           return_tracking_status == o.return_tracking_status &&
           return_delivered_at == o.return_delivered_at &&
+          buyer_paid_cents == o.buyer_paid_cents &&
           item_title == o.item_title &&
           item_thumbnail == o.item_thumbnail &&
           seller_name == o.seller_name
@@ -354,7 +354,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, reason, state, kind, purchase_id, closed, your_turn, resolved_at, buyer_paid_cents, awaiting_party, escalate_after, offered_refund_cents, resolved_refund_cents, return_label_url, return_tracking_code, return_tracking_carrier, return_tracking_status, return_delivered_at, item_title, item_thumbnail, seller_name].hash
+      [id, purchase_id, reason, state, created_at, updated_at, kind, closed, your_turn, awaiting_party, escalate_after, offered_refund_cents, resolved_refund_cents, resolved_at, return_label_url, return_tracking_code, return_tracking_carrier, return_tracking_status, return_delivered_at, buyer_paid_cents, item_title, item_thumbnail, seller_name].hash
     end
 
     # Builds the object from hash

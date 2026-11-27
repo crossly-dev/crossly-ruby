@@ -159,7 +159,7 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @verdict.nil?
-      verdict_validator = EnumAttributeValidator.new('String', ["high", "fair", "good", "great"])
+      verdict_validator = EnumAttributeValidator.new('String', ["good", "fair", "high", "great"])
       return false unless verdict_validator.valid?(@verdict)
       return false if @median_cents.nil?
       return false if @low_cents.nil?
@@ -172,7 +172,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] verdict Object to be assigned
     def verdict=(verdict)
-      validator = EnumAttributeValidator.new('String', ["high", "fair", "good", "great"])
+      validator = EnumAttributeValidator.new('String', ["good", "fair", "high", "great"])
       unless validator.valid?(verdict)
         fail ArgumentError, "invalid value for \"verdict\", must be one of #{validator.allowable_values}."
       end

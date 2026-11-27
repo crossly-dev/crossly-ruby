@@ -19,11 +19,23 @@ module Crossly
 
     attr_accessor :amount
 
+    attr_accessor :id
+
+    attr_accessor :total_refunded
+
+    attr_accessor :remaining
+
+    attr_accessor :replayed
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'refund_id' => :'refundId',
-        :'amount' => :'amount'
+        :'amount' => :'amount',
+        :'id' => :'id',
+        :'total_refunded' => :'totalRefunded',
+        :'remaining' => :'remaining',
+        :'replayed' => :'replayed'
       }
     end
 
@@ -36,13 +48,18 @@ module Crossly
     def self.openapi_types
       {
         :'refund_id' => :'String',
-        :'amount' => :'Float'
+        :'amount' => :'Float',
+        :'id' => :'String',
+        :'total_refunded' => :'Float',
+        :'remaining' => :'Float',
+        :'replayed' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'remaining',
       ])
     end
 
@@ -68,6 +85,22 @@ module Crossly
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
       end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'total_refunded')
+        self.total_refunded = attributes[:'total_refunded']
+      end
+
+      if attributes.key?(:'remaining')
+        self.remaining = attributes[:'remaining']
+      end
+
+      if attributes.key?(:'replayed')
+        self.replayed = attributes[:'replayed']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -82,6 +115,18 @@ module Crossly
         invalid_properties.push('invalid value for "amount", amount cannot be nil.')
       end
 
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @total_refunded.nil?
+        invalid_properties.push('invalid value for "total_refunded", total_refunded cannot be nil.')
+      end
+
+      if @replayed.nil?
+        invalid_properties.push('invalid value for "replayed", replayed cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -90,6 +135,9 @@ module Crossly
     def valid?
       return false if @refund_id.nil?
       return false if @amount.nil?
+      return false if @id.nil?
+      return false if @total_refunded.nil?
+      return false if @replayed.nil?
       true
     end
 
@@ -99,7 +147,11 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           refund_id == o.refund_id &&
-          amount == o.amount
+          amount == o.amount &&
+          id == o.id &&
+          total_refunded == o.total_refunded &&
+          remaining == o.remaining &&
+          replayed == o.replayed
     end
 
     # @see the `==` method
@@ -111,7 +163,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [refund_id, amount].hash
+      [refund_id, amount, id, total_refunded, remaining, replayed].hash
     end
 
     # Builds the object from hash

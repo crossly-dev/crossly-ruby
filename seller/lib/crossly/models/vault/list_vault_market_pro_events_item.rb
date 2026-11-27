@@ -25,13 +25,13 @@ module Crossly
 
     attr_accessor :kind
 
-    attr_accessor :seq
-
-    attr_accessor :detail
-
     attr_accessor :price_cents
 
     attr_accessor :trade_id
+
+    attr_accessor :detail
+
+    attr_accessor :seq
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -41,10 +41,10 @@ module Crossly
         :'quantity' => :'quantity',
         :'order_id' => :'orderId',
         :'kind' => :'kind',
-        :'seq' => :'seq',
-        :'detail' => :'detail',
         :'price_cents' => :'priceCents',
-        :'trade_id' => :'tradeId'
+        :'trade_id' => :'tradeId',
+        :'detail' => :'detail',
+        :'seq' => :'seq'
       }
     end
 
@@ -61,10 +61,10 @@ module Crossly
         :'quantity' => :'Float',
         :'order_id' => :'String',
         :'kind' => :'String',
-        :'seq' => :'Float',
-        :'detail' => :'Hash<String, Object>',
         :'price_cents' => :'Float',
-        :'trade_id' => :'String'
+        :'trade_id' => :'String',
+        :'detail' => :'Hash<String, Object>',
+        :'seq' => :'Float'
       }
     end
 
@@ -72,9 +72,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'quantity',
-        :'detail',
         :'price_cents',
-        :'trade_id'
+        :'trade_id',
+        :'detail',
       ])
     end
 
@@ -113,8 +113,12 @@ module Crossly
         self.kind = attributes[:'kind']
       end
 
-      if attributes.key?(:'seq')
-        self.seq = attributes[:'seq']
+      if attributes.key?(:'price_cents')
+        self.price_cents = attributes[:'price_cents']
+      end
+
+      if attributes.key?(:'trade_id')
+        self.trade_id = attributes[:'trade_id']
       end
 
       if attributes.key?(:'detail')
@@ -123,12 +127,8 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'price_cents')
-        self.price_cents = attributes[:'price_cents']
-      end
-
-      if attributes.key?(:'trade_id')
-        self.trade_id = attributes[:'trade_id']
+      if attributes.key?(:'seq')
+        self.seq = attributes[:'seq']
       end
     end
 
@@ -180,10 +180,10 @@ module Crossly
           quantity == o.quantity &&
           order_id == o.order_id &&
           kind == o.kind &&
-          seq == o.seq &&
-          detail == o.detail &&
           price_cents == o.price_cents &&
-          trade_id == o.trade_id
+          trade_id == o.trade_id &&
+          detail == o.detail &&
+          seq == o.seq
     end
 
     # @see the `==` method
@@ -195,7 +195,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, user_id, quantity, order_id, kind, seq, detail, price_cents, trade_id].hash
+      [created_at, user_id, quantity, order_id, kind, price_cents, trade_id, detail, seq].hash
     end
 
     # Builds the object from hash

@@ -136,7 +136,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @theme.nil?
-      theme_validator = EnumAttributeValidator.new('String', ["storybook", "studio", "noir", "daylight", "vitrine", "street"])
+      theme_validator = EnumAttributeValidator.new('String', ["studio", "noir", "daylight", "vitrine", "street", "storybook"])
       return false unless theme_validator.valid?(@theme)
       return false if @wall.nil?
       return false if @floor.nil?
@@ -147,7 +147,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] theme Object to be assigned
     def theme=(theme)
-      validator = EnumAttributeValidator.new('String', ["storybook", "studio", "noir", "daylight", "vitrine", "street"])
+      validator = EnumAttributeValidator.new('String', ["studio", "noir", "daylight", "vitrine", "street", "storybook"])
       unless validator.valid?(theme)
         fail ArgumentError, "invalid value for \"theme\", must be one of #{validator.allowable_values}."
       end

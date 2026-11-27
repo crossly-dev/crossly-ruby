@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerCartQuoteResponseData
-    attr_accessor :currency
-
     attr_accessor :kind
 
-    attr_accessor :tax_cents
+    attr_accessor :items_total_cents
 
     attr_accessor :shipping_cents
 
+    attr_accessor :tax_cents
+
     attr_accessor :total_cents
 
-    attr_accessor :items_total_cents
+    attr_accessor :currency
 
     # Lines being collected in person, so a summary can name what ships free.
     attr_accessor :pickup_cart_item_ids
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'currency' => :'currency',
         :'kind' => :'kind',
-        :'tax_cents' => :'taxCents',
-        :'shipping_cents' => :'shippingCents',
-        :'total_cents' => :'totalCents',
         :'items_total_cents' => :'itemsTotalCents',
+        :'shipping_cents' => :'shippingCents',
+        :'tax_cents' => :'taxCents',
+        :'total_cents' => :'totalCents',
+        :'currency' => :'currency',
         :'pickup_cart_item_ids' => :'pickupCartItemIds',
         :'tax_complete' => :'taxComplete',
         :'duties_cents' => :'dutiesCents',
@@ -99,12 +99,12 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'currency' => :'String',
         :'kind' => :'String',
-        :'tax_cents' => :'Float',
-        :'shipping_cents' => :'Float',
-        :'total_cents' => :'Float',
         :'items_total_cents' => :'Float',
+        :'shipping_cents' => :'Float',
+        :'tax_cents' => :'Float',
+        :'total_cents' => :'Float',
+        :'currency' => :'String',
         :'pickup_cart_item_ids' => :'Array<String>',
         :'tax_complete' => :'Boolean',
         :'duties_cents' => :'Float',
@@ -143,28 +143,28 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'currency')
-        self.currency = attributes[:'currency']
-      end
-
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
       end
 
-      if attributes.key?(:'tax_cents')
-        self.tax_cents = attributes[:'tax_cents']
+      if attributes.key?(:'items_total_cents')
+        self.items_total_cents = attributes[:'items_total_cents']
       end
 
       if attributes.key?(:'shipping_cents')
         self.shipping_cents = attributes[:'shipping_cents']
       end
 
+      if attributes.key?(:'tax_cents')
+        self.tax_cents = attributes[:'tax_cents']
+      end
+
       if attributes.key?(:'total_cents')
         self.total_cents = attributes[:'total_cents']
       end
 
-      if attributes.key?(:'items_total_cents')
-        self.items_total_cents = attributes[:'items_total_cents']
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
       end
 
       if attributes.key?(:'pickup_cart_item_ids')
@@ -210,28 +210,28 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @currency.nil?
-        invalid_properties.push('invalid value for "currency", currency cannot be nil.')
-      end
-
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
-      if @tax_cents.nil?
-        invalid_properties.push('invalid value for "tax_cents", tax_cents cannot be nil.')
+      if @items_total_cents.nil?
+        invalid_properties.push('invalid value for "items_total_cents", items_total_cents cannot be nil.')
       end
 
       if @shipping_cents.nil?
         invalid_properties.push('invalid value for "shipping_cents", shipping_cents cannot be nil.')
       end
 
+      if @tax_cents.nil?
+        invalid_properties.push('invalid value for "tax_cents", tax_cents cannot be nil.')
+      end
+
       if @total_cents.nil?
         invalid_properties.push('invalid value for "total_cents", total_cents cannot be nil.')
       end
 
-      if @items_total_cents.nil?
-        invalid_properties.push('invalid value for "items_total_cents", items_total_cents cannot be nil.')
+      if @currency.nil?
+        invalid_properties.push('invalid value for "currency", currency cannot be nil.')
       end
 
       if @pickup_cart_item_ids.nil?
@@ -248,12 +248,12 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @currency.nil?
       return false if @kind.nil?
-      return false if @tax_cents.nil?
-      return false if @shipping_cents.nil?
-      return false if @total_cents.nil?
       return false if @items_total_cents.nil?
+      return false if @shipping_cents.nil?
+      return false if @tax_cents.nil?
+      return false if @total_cents.nil?
+      return false if @currency.nil?
       return false if @pickup_cart_item_ids.nil?
       return false if @tax_complete.nil?
       duties_status_validator = EnumAttributeValidator.new('String', ["none", "included", "unavailable"])
@@ -276,12 +276,12 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          currency == o.currency &&
           kind == o.kind &&
-          tax_cents == o.tax_cents &&
-          shipping_cents == o.shipping_cents &&
-          total_cents == o.total_cents &&
           items_total_cents == o.items_total_cents &&
+          shipping_cents == o.shipping_cents &&
+          tax_cents == o.tax_cents &&
+          total_cents == o.total_cents &&
+          currency == o.currency &&
           pickup_cart_item_ids == o.pickup_cart_item_ids &&
           tax_complete == o.tax_complete &&
           duties_cents == o.duties_cents &&
@@ -301,7 +301,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [currency, kind, tax_cents, shipping_cents, total_cents, items_total_cents, pickup_cart_item_ids, tax_complete, duties_cents, duties_status, duties_notice, shipping_options, shipping_service_by_seller, shipping_destination_country].hash
+      [kind, items_total_cents, shipping_cents, tax_cents, total_cents, currency, pickup_cart_item_ids, tax_complete, duties_cents, duties_status, duties_notice, shipping_options, shipping_service_by_seller, shipping_destination_country].hash
     end
 
     # Builds the object from hash

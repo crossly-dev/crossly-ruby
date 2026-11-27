@@ -51,6 +51,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'design_version',
       ])
     end
 
@@ -98,10 +99,6 @@ module Crossly
         invalid_properties.push('invalid value for "semver", semver cannot be nil.')
       end
 
-      if @design_version.nil?
-        invalid_properties.push('invalid value for "design_version", design_version cannot be nil.')
-      end
-
       if @state.nil?
         invalid_properties.push('invalid value for "state", state cannot be nil.')
       end
@@ -114,7 +111,6 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @semver.nil?
-      return false if @design_version.nil?
       return false if @state.nil?
       true
     end

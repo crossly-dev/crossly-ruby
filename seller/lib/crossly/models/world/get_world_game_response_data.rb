@@ -117,7 +117,7 @@ module Crossly
         :'version' => :'String',
         :'description' => :'String',
         :'mode' => :'String',
-        :'players' => :'GetWorldGameResponseDataPlayers',
+        :'players' => :'MinMax',
         :'places' => :'Array<GetWorldGameResponseDataPlacesItem>',
         :'rating' => :'String',
         :'scoring' => :'GetWorldGameLeaderboardResponseDataScoring',

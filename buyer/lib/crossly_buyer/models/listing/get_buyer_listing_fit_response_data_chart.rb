@@ -17,16 +17,16 @@ module CrosslyBuyer
   class GetBuyerListingFitResponseDataChart
     attr_accessor :kind
 
-    attr_accessor :rows
-
     attr_accessor :kind_label
+
+    attr_accessor :rows
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'kind' => :'kind',
-        :'rows' => :'rows',
-        :'kind_label' => :'kindLabel'
+        :'kind_label' => :'kindLabel',
+        :'rows' => :'rows'
       }
     end
 
@@ -39,8 +39,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'kind' => :'String',
-        :'rows' => :'Array<GetBuyerListingFitResponseDataChartRows>',
-        :'kind_label' => :'String'
+        :'kind_label' => :'String',
+        :'rows' => :'Array<GetBuyerListingFitResponseDataChartRows>'
       }
     end
 
@@ -69,14 +69,14 @@ module CrosslyBuyer
         self.kind = attributes[:'kind']
       end
 
+      if attributes.key?(:'kind_label')
+        self.kind_label = attributes[:'kind_label']
+      end
+
       if attributes.key?(:'rows')
         if (value = attributes[:'rows']).is_a?(Array)
           self.rows = value
         end
-      end
-
-      if attributes.key?(:'kind_label')
-        self.kind_label = attributes[:'kind_label']
       end
     end
 
@@ -88,12 +88,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
-      if @rows.nil?
-        invalid_properties.push('invalid value for "rows", rows cannot be nil.')
-      end
-
       if @kind_label.nil?
         invalid_properties.push('invalid value for "kind_label", kind_label cannot be nil.')
+      end
+
+      if @rows.nil?
+        invalid_properties.push('invalid value for "rows", rows cannot be nil.')
       end
 
       invalid_properties
@@ -103,8 +103,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @kind.nil?
-      return false if @rows.nil?
       return false if @kind_label.nil?
+      return false if @rows.nil?
       true
     end
 
@@ -114,8 +114,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           kind == o.kind &&
-          rows == o.rows &&
-          kind_label == o.kind_label
+          kind_label == o.kind_label &&
+          rows == o.rows
     end
 
     # @see the `==` method
@@ -127,7 +127,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [kind, rows, kind_label].hash
+      [kind, kind_label, rows].hash
     end
 
     # Builds the object from hash

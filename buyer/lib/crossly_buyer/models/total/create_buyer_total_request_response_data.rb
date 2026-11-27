@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerTotalRequestResponseData
-    attr_accessor :id
-
     attr_accessor :ok
+
+    attr_accessor :id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'ok' => :'ok'
+        :'ok' => :'ok',
+        :'id' => :'id'
       }
     end
 
@@ -35,8 +35,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'id' => :'String',
-        :'ok' => :'Boolean'
+        :'ok' => :'Boolean',
+        :'id' => :'String'
       }
     end
 
@@ -61,12 +61,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      end
-
       if attributes.key?(:'ok')
         self.ok = attributes[:'ok']
+      end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
       end
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
       if @ok.nil?
         invalid_properties.push('invalid value for "ok", ok cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
       return false if @ok.nil?
+      return false if @id.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          ok == o.ok
+          ok == o.ok &&
+          id == o.id
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, ok].hash
+      [ok, id].hash
     end
 
     # Builds the object from hash

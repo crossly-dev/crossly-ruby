@@ -155,11 +155,11 @@ module Crossly
       return false if @summary.nil?
       return false if @creator_only.nil?
       return false if @review.nil?
-      review_validator = EnumAttributeValidator.new('String', ["always", "asset", "never"])
+      review_validator = EnumAttributeValidator.new('String', ["always", "never", "asset"])
       return false unless review_validator.valid?(@review)
       return false if @clients.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["portal", "display", "place", "badge", "wear", "emote", "room_theme", "pet", "gate", "quest", "game_pass", "perk", "interactive"])
+      kind_validator = EnumAttributeValidator.new('String', ["portal", "interactive", "place", "display", "badge", "perk", "wear", "emote", "room_theme", "pet", "gate", "quest", "game_pass"])
       return false unless kind_validator.valid?(@kind)
       true
     end
@@ -167,7 +167,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] review Object to be assigned
     def review=(review)
-      validator = EnumAttributeValidator.new('String', ["always", "asset", "never"])
+      validator = EnumAttributeValidator.new('String', ["always", "never", "asset"])
       unless validator.valid?(review)
         fail ArgumentError, "invalid value for \"review\", must be one of #{validator.allowable_values}."
       end
@@ -177,7 +177,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["portal", "display", "place", "badge", "wear", "emote", "room_theme", "pet", "gate", "quest", "game_pass", "perk", "interactive"])
+      validator = EnumAttributeValidator.new('String', ["portal", "interactive", "place", "display", "badge", "perk", "wear", "emote", "room_theme", "pet", "gate", "quest", "game_pass"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end

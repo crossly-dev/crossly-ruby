@@ -15,6 +15,12 @@ require 'time'
 
 module Crossly
   class CreateSpatialPropertyDeedMaintenanceResponseData
+    attr_accessor :requires_action
+
+    attr_accessor :payment_id
+
+    attr_accessor :client_secret
+
     attr_accessor :paid_through
 
     attr_accessor :status
@@ -46,6 +52,9 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'requires_action' => :'requiresAction',
+        :'payment_id' => :'paymentId',
+        :'client_secret' => :'clientSecret',
         :'paid_through' => :'paidThrough',
         :'status' => :'status',
         :'paid_cents' => :'paidCents'
@@ -60,6 +69,9 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'requires_action' => :'Boolean',
+        :'payment_id' => :'String',
+        :'client_secret' => :'String',
         :'paid_through' => :'String',
         :'status' => :'String',
         :'paid_cents' => :'Float'
@@ -69,6 +81,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'client_secret',
       ])
     end
 
@@ -87,6 +100,18 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'requires_action')
+        self.requires_action = attributes[:'requires_action']
+      end
+
+      if attributes.key?(:'payment_id')
+        self.payment_id = attributes[:'payment_id']
+      end
+
+      if attributes.key?(:'client_secret')
+        self.client_secret = attributes[:'client_secret']
+      end
+
       if attributes.key?(:'paid_through')
         self.paid_through = attributes[:'paid_through']
       end
@@ -104,36 +129,21 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @paid_through.nil?
-        invalid_properties.push('invalid value for "paid_through", paid_through cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @paid_cents.nil?
-        invalid_properties.push('invalid value for "paid_cents", paid_cents cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @paid_through.nil?
-      return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["active", "foreclosed", "grace", "delinquent"])
+      status_validator = EnumAttributeValidator.new('String', ["active", "grace", "delinquent", "foreclosed"])
       return false unless status_validator.valid?(@status)
-      return false if @paid_cents.nil?
       true
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["active", "foreclosed", "grace", "delinquent"])
+      validator = EnumAttributeValidator.new('String', ["active", "grace", "delinquent", "foreclosed"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -145,6 +155,9 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          requires_action == o.requires_action &&
+          payment_id == o.payment_id &&
+          client_secret == o.client_secret &&
           paid_through == o.paid_through &&
           status == o.status &&
           paid_cents == o.paid_cents
@@ -159,7 +172,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [paid_through, status, paid_cents].hash
+      [requires_action, payment_id, client_secret, paid_through, status, paid_cents].hash
     end
 
     # Builds the object from hash

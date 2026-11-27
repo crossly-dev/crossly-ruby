@@ -25,6 +25,8 @@ module Crossly
 
     attr_accessor :first_marks
 
+    attr_accessor :learn
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +34,8 @@ module Crossly
         :'week' => :'week',
         :'value' => :'value',
         :'offers' => :'offers',
-        :'first_marks' => :'firstMarks'
+        :'first_marks' => :'firstMarks',
+        :'learn' => :'learn'
       }
     end
 
@@ -48,7 +51,8 @@ module Crossly
         :'week' => :'String',
         :'value' => :'GetVaultMarketDigestPreviewResponseValue',
         :'offers' => :'Array<GetVaultMarketDigestPreviewResponseOffers>',
-        :'first_marks' => :'Array<GetVaultMarketDigestPreviewResponseFirstMarks>'
+        :'first_marks' => :'Array<GetVaultMarketDigestPreviewResponseFirstMarks>',
+        :'learn' => :'GetVaultMarketDigestPreviewResponseLearn'
       }
     end
 
@@ -98,6 +102,10 @@ module Crossly
           self.first_marks = value
         end
       end
+
+      if attributes.key?(:'learn')
+        self.learn = attributes[:'learn']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -124,6 +132,10 @@ module Crossly
         invalid_properties.push('invalid value for "first_marks", first_marks cannot be nil.')
       end
 
+      if @learn.nil?
+        invalid_properties.push('invalid value for "learn", learn cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -135,6 +147,7 @@ module Crossly
       return false if @value.nil?
       return false if @offers.nil?
       return false if @first_marks.nil?
+      return false if @learn.nil?
       true
     end
 
@@ -147,7 +160,8 @@ module Crossly
           week == o.week &&
           value == o.value &&
           offers == o.offers &&
-          first_marks == o.first_marks
+          first_marks == o.first_marks &&
+          learn == o.learn
     end
 
     # @see the `==` method
@@ -159,7 +173,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [lines, week, value, offers, first_marks].hash
+      [lines, week, value, offers, first_marks, learn].hash
     end
 
     # Builds the object from hash

@@ -136,7 +136,7 @@ module Crossly
     def valid?
       return false if @sha256.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["png", "glb", "wav"])
+      kind_validator = EnumAttributeValidator.new('String', ["glb", "png", "wav"])
       return false unless kind_validator.valid?(@kind)
       return false if @bytes.nil?
       return false if @path.nil?
@@ -146,7 +146,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["png", "glb", "wav"])
+      validator = EnumAttributeValidator.new('String', ["glb", "png", "wav"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end

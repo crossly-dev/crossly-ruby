@@ -23,6 +23,10 @@ module Crossly
 
     attr_accessor :provenance
 
+    attr_accessor :shipping_label_url
+
+    attr_accessor :tracking_number
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -51,7 +55,9 @@ module Crossly
         :'url' => :'url',
         :'persisted' => :'persisted',
         :'expires_in_seconds' => :'expiresInSeconds',
-        :'provenance' => :'provenance'
+        :'provenance' => :'provenance',
+        :'shipping_label_url' => :'shippingLabelUrl',
+        :'tracking_number' => :'trackingNumber'
       }
     end
 
@@ -66,13 +72,16 @@ module Crossly
         :'url' => :'String',
         :'persisted' => :'Boolean',
         :'expires_in_seconds' => :'Float',
-        :'provenance' => :'String'
+        :'provenance' => :'String',
+        :'shipping_label_url' => :'String',
+        :'tracking_number' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'tracking_number'
       ])
     end
 
@@ -106,24 +115,20 @@ module Crossly
       if attributes.key?(:'provenance')
         self.provenance = attributes[:'provenance']
       end
+
+      if attributes.key?(:'shipping_label_url')
+        self.shipping_label_url = attributes[:'shipping_label_url']
+      end
+
+      if attributes.key?(:'tracking_number')
+        self.tracking_number = attributes[:'tracking_number']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @url.nil?
-        invalid_properties.push('invalid value for "url", url cannot be nil.')
-      end
-
-      if @persisted.nil?
-        invalid_properties.push('invalid value for "persisted", persisted cannot be nil.')
-      end
-
-      if @expires_in_seconds.nil?
-        invalid_properties.push('invalid value for "expires_in_seconds", expires_in_seconds cannot be nil.')
-      end
-
       if @provenance.nil?
         invalid_properties.push('invalid value for "provenance", provenance cannot be nil.')
       end
@@ -134,9 +139,6 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @url.nil?
-      return false if @persisted.nil?
-      return false if @expires_in_seconds.nil?
       return false if @provenance.nil?
       provenance_validator = EnumAttributeValidator.new('String', ["verified", "provisional"])
       return false unless provenance_validator.valid?(@provenance)
@@ -161,7 +163,9 @@ module Crossly
           url == o.url &&
           persisted == o.persisted &&
           expires_in_seconds == o.expires_in_seconds &&
-          provenance == o.provenance
+          provenance == o.provenance &&
+          shipping_label_url == o.shipping_label_url &&
+          tracking_number == o.tracking_number
     end
 
     # @see the `==` method
@@ -173,7 +177,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, persisted, expires_in_seconds, provenance].hash
+      [url, persisted, expires_in_seconds, provenance, shipping_label_url, tracking_number].hash
     end
 
     # Builds the object from hash

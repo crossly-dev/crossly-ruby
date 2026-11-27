@@ -15,26 +15,26 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerCartOptimizerResponseData
+    attr_accessor :lines
+
+    attr_accessor :items_cents
+
     attr_accessor :shipping_cents
 
     attr_accessor :total_cents
 
-    attr_accessor :lines
-
     attr_accessor :sellers
-
-    attr_accessor :items_cents
 
     attr_accessor :unmatched
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'lines' => :'lines',
+        :'items_cents' => :'itemsCents',
         :'shipping_cents' => :'shippingCents',
         :'total_cents' => :'totalCents',
-        :'lines' => :'lines',
         :'sellers' => :'sellers',
-        :'items_cents' => :'itemsCents',
         :'unmatched' => :'unmatched'
       }
     end
@@ -47,11 +47,11 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'lines' => :'Array<CreateBuyerCartOptimizerResponseDataLines>',
+        :'items_cents' => :'Float',
         :'shipping_cents' => :'Float',
         :'total_cents' => :'Float',
-        :'lines' => :'Array<CreateBuyerCartOptimizerResponseDataLines>',
         :'sellers' => :'Float',
-        :'items_cents' => :'Float',
         :'unmatched' => :'Array<String>'
       }
     end
@@ -77,6 +77,16 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'lines')
+        if (value = attributes[:'lines']).is_a?(Array)
+          self.lines = value
+        end
+      end
+
+      if attributes.key?(:'items_cents')
+        self.items_cents = attributes[:'items_cents']
+      end
+
       if attributes.key?(:'shipping_cents')
         self.shipping_cents = attributes[:'shipping_cents']
       end
@@ -85,18 +95,8 @@ module CrosslyBuyer
         self.total_cents = attributes[:'total_cents']
       end
 
-      if attributes.key?(:'lines')
-        if (value = attributes[:'lines']).is_a?(Array)
-          self.lines = value
-        end
-      end
-
       if attributes.key?(:'sellers')
         self.sellers = attributes[:'sellers']
-      end
-
-      if attributes.key?(:'items_cents')
-        self.items_cents = attributes[:'items_cents']
       end
 
       if attributes.key?(:'unmatched')
@@ -110,6 +110,14 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @lines.nil?
+        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
+      end
+
+      if @items_cents.nil?
+        invalid_properties.push('invalid value for "items_cents", items_cents cannot be nil.')
+      end
+
       if @shipping_cents.nil?
         invalid_properties.push('invalid value for "shipping_cents", shipping_cents cannot be nil.')
       end
@@ -118,16 +126,8 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "total_cents", total_cents cannot be nil.')
       end
 
-      if @lines.nil?
-        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
-      end
-
       if @sellers.nil?
         invalid_properties.push('invalid value for "sellers", sellers cannot be nil.')
-      end
-
-      if @items_cents.nil?
-        invalid_properties.push('invalid value for "items_cents", items_cents cannot be nil.')
       end
 
       if @unmatched.nil?
@@ -140,11 +140,11 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @lines.nil?
+      return false if @items_cents.nil?
       return false if @shipping_cents.nil?
       return false if @total_cents.nil?
-      return false if @lines.nil?
       return false if @sellers.nil?
-      return false if @items_cents.nil?
       return false if @unmatched.nil?
       true
     end
@@ -154,11 +154,11 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          lines == o.lines &&
+          items_cents == o.items_cents &&
           shipping_cents == o.shipping_cents &&
           total_cents == o.total_cents &&
-          lines == o.lines &&
           sellers == o.sellers &&
-          items_cents == o.items_cents &&
           unmatched == o.unmatched
     end
 
@@ -171,7 +171,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [shipping_cents, total_cents, lines, sellers, items_cents, unmatched].hash
+      [lines, items_cents, shipping_cents, total_cents, sellers, unmatched].hash
     end
 
     # Builds the object from hash

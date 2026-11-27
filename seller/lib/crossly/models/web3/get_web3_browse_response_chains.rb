@@ -123,7 +123,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @key.nil?
-      key_validator = EnumAttributeValidator.new('String', ["solana", "ethereum", "base", "polygon", "arbitrum", "optimism"])
+      key_validator = EnumAttributeValidator.new('String', ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"])
       return false unless key_validator.valid?(@key)
       return false if @label.nil?
       return false if @count.nil?
@@ -133,7 +133,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] key Object to be assigned
     def key=(key)
-      validator = EnumAttributeValidator.new('String', ["solana", "ethereum", "base", "polygon", "arbitrum", "optimism"])
+      validator = EnumAttributeValidator.new('String', ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"])
       unless validator.valid?(key)
         fail ArgumentError, "invalid value for \"key\", must be one of #{validator.allowable_values}."
       end

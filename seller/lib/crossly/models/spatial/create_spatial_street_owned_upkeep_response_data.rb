@@ -120,7 +120,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @paid_through.nil?
-      upkeep_validator = EnumAttributeValidator.new('String', ["active", "foreclosed", "grace", "delinquent"])
+      upkeep_validator = EnumAttributeValidator.new('String', ["active", "grace", "delinquent", "foreclosed"])
       return false unless upkeep_validator.valid?(@upkeep)
       return false if @paid_cents.nil?
       true
@@ -129,7 +129,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] upkeep Object to be assigned
     def upkeep=(upkeep)
-      validator = EnumAttributeValidator.new('String', ["active", "foreclosed", "grace", "delinquent"])
+      validator = EnumAttributeValidator.new('String', ["active", "grace", "delinquent", "foreclosed"])
       unless validator.valid?(upkeep)
         fail ArgumentError, "invalid value for \"upkeep\", must be one of #{validator.allowable_values}."
       end

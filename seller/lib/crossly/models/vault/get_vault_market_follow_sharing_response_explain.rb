@@ -19,20 +19,20 @@ module Crossly
 
     attr_accessor :sales
 
-    attr_accessor :hall_loans
-
     attr_accessor :leaderboard
 
     attr_accessor :deposits
+
+    attr_accessor :hall_loans
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'orders' => :'orders',
         :'sales' => :'sales',
-        :'hall_loans' => :'hallLoans',
         :'leaderboard' => :'leaderboard',
-        :'deposits' => :'deposits'
+        :'deposits' => :'deposits',
+        :'hall_loans' => :'hallLoans'
       }
     end
 
@@ -46,9 +46,9 @@ module Crossly
       {
         :'orders' => :'String',
         :'sales' => :'String',
-        :'hall_loans' => :'String',
         :'leaderboard' => :'String',
-        :'deposits' => :'String'
+        :'deposits' => :'String',
+        :'hall_loans' => :'String'
       }
     end
 
@@ -81,16 +81,16 @@ module Crossly
         self.sales = attributes[:'sales']
       end
 
-      if attributes.key?(:'hall_loans')
-        self.hall_loans = attributes[:'hall_loans']
-      end
-
       if attributes.key?(:'leaderboard')
         self.leaderboard = attributes[:'leaderboard']
       end
 
       if attributes.key?(:'deposits')
         self.deposits = attributes[:'deposits']
+      end
+
+      if attributes.key?(:'hall_loans')
+        self.hall_loans = attributes[:'hall_loans']
       end
     end
 
@@ -106,16 +106,16 @@ module Crossly
         invalid_properties.push('invalid value for "sales", sales cannot be nil.')
       end
 
-      if @hall_loans.nil?
-        invalid_properties.push('invalid value for "hall_loans", hall_loans cannot be nil.')
-      end
-
       if @leaderboard.nil?
         invalid_properties.push('invalid value for "leaderboard", leaderboard cannot be nil.')
       end
 
       if @deposits.nil?
         invalid_properties.push('invalid value for "deposits", deposits cannot be nil.')
+      end
+
+      if @hall_loans.nil?
+        invalid_properties.push('invalid value for "hall_loans", hall_loans cannot be nil.')
       end
 
       invalid_properties
@@ -126,9 +126,9 @@ module Crossly
     def valid?
       return false if @orders.nil?
       return false if @sales.nil?
-      return false if @hall_loans.nil?
       return false if @leaderboard.nil?
       return false if @deposits.nil?
+      return false if @hall_loans.nil?
       true
     end
 
@@ -139,9 +139,9 @@ module Crossly
       self.class == o.class &&
           orders == o.orders &&
           sales == o.sales &&
-          hall_loans == o.hall_loans &&
           leaderboard == o.leaderboard &&
-          deposits == o.deposits
+          deposits == o.deposits &&
+          hall_loans == o.hall_loans
     end
 
     # @see the `==` method
@@ -153,7 +153,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [orders, sales, hall_loans, leaderboard, deposits].hash
+      [orders, sales, leaderboard, deposits, hall_loans].hash
     end
 
     # Builds the object from hash

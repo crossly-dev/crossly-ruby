@@ -15,30 +15,30 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCollectionOfferResponseData
-    attr_accessor :pending
+    attr_accessor :portfolio_id
 
     attr_accessor :title
 
     attr_accessor :last_sale_cents
 
-    attr_accessor :sku_id
+    attr_accessor :top_bid_cents
 
-    attr_accessor :portfolio_id
+    attr_accessor :sku_id
 
     attr_accessor :offer
 
-    attr_accessor :top_bid_cents
+    attr_accessor :pending
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'pending' => :'pending',
+        :'portfolio_id' => :'portfolioId',
         :'title' => :'title',
         :'last_sale_cents' => :'lastSaleCents',
+        :'top_bid_cents' => :'topBidCents',
         :'sku_id' => :'skuId',
-        :'portfolio_id' => :'portfolioId',
         :'offer' => :'offer',
-        :'top_bid_cents' => :'topBidCents'
+        :'pending' => :'pending'
       }
     end
 
@@ -50,25 +50,25 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'pending' => :'GetBuyerCollectionOfferResponseDataPending',
+        :'portfolio_id' => :'String',
         :'title' => :'String',
         :'last_sale_cents' => :'Float',
+        :'top_bid_cents' => :'Float',
         :'sku_id' => :'String',
-        :'portfolio_id' => :'String',
         :'offer' => :'GetBuyerCollectionOfferResponseDataOffer',
-        :'top_bid_cents' => :'Float'
+        :'pending' => :'GetBuyerCollectionOfferResponseDataPending'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'pending',
         :'title',
         :'last_sale_cents',
+        :'top_bid_cents',
         :'sku_id',
         :'offer',
-        :'top_bid_cents'
+        :'pending'
       ])
     end
 
@@ -87,8 +87,8 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'pending')
-        self.pending = attributes[:'pending']
+      if attributes.key?(:'portfolio_id')
+        self.portfolio_id = attributes[:'portfolio_id']
       end
 
       if attributes.key?(:'title')
@@ -99,20 +99,20 @@ module CrosslyBuyer
         self.last_sale_cents = attributes[:'last_sale_cents']
       end
 
-      if attributes.key?(:'sku_id')
-        self.sku_id = attributes[:'sku_id']
+      if attributes.key?(:'top_bid_cents')
+        self.top_bid_cents = attributes[:'top_bid_cents']
       end
 
-      if attributes.key?(:'portfolio_id')
-        self.portfolio_id = attributes[:'portfolio_id']
+      if attributes.key?(:'sku_id')
+        self.sku_id = attributes[:'sku_id']
       end
 
       if attributes.key?(:'offer')
         self.offer = attributes[:'offer']
       end
 
-      if attributes.key?(:'top_bid_cents')
-        self.top_bid_cents = attributes[:'top_bid_cents']
+      if attributes.key?(:'pending')
+        self.pending = attributes[:'pending']
       end
     end
 
@@ -139,13 +139,13 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          pending == o.pending &&
+          portfolio_id == o.portfolio_id &&
           title == o.title &&
           last_sale_cents == o.last_sale_cents &&
+          top_bid_cents == o.top_bid_cents &&
           sku_id == o.sku_id &&
-          portfolio_id == o.portfolio_id &&
           offer == o.offer &&
-          top_bid_cents == o.top_bid_cents
+          pending == o.pending
     end
 
     # @see the `==` method
@@ -157,7 +157,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [pending, title, last_sale_cents, sku_id, portfolio_id, offer, top_bid_cents].hash
+      [portfolio_id, title, last_sale_cents, top_bid_cents, sku_id, offer, pending].hash
     end
 
     # Builds the object from hash

@@ -21,10 +21,6 @@ module Crossly
 
     attr_accessor :suggested
 
-    attr_accessor :can_move
-
-    attr_accessor :move
-
     attr_accessor :options
 
     class EnumAttributeValidator
@@ -55,8 +51,6 @@ module Crossly
         :'shop' => :'shop',
         :'home' => :'home',
         :'suggested' => :'suggested',
-        :'can_move' => :'canMove',
-        :'move' => :'move',
         :'options' => :'options'
       }
     end
@@ -72,8 +66,6 @@ module Crossly
         :'shop' => :'Object',
         :'home' => :'Object',
         :'suggested' => :'String',
-        :'can_move' => :'Boolean',
-        :'move' => :'Object',
         :'options' => :'Array<ListNeighbourhoodsItem>'
       }
     end
@@ -84,7 +76,6 @@ module Crossly
         :'shop',
         :'home',
         :'suggested',
-        :'move',
       ])
     end
 
@@ -115,14 +106,6 @@ module Crossly
         self.suggested = attributes[:'suggested']
       end
 
-      if attributes.key?(:'can_move')
-        self.can_move = attributes[:'can_move']
-      end
-
-      if attributes.key?(:'move')
-        self.move = attributes[:'move']
-      end
-
       if attributes.key?(:'options')
         if (value = attributes[:'options']).is_a?(Array)
           self.options = value
@@ -134,10 +117,6 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @can_move.nil?
-        invalid_properties.push('invalid value for "can_move", can_move cannot be nil.')
-      end
-
       if @options.nil?
         invalid_properties.push('invalid value for "options", options cannot be nil.')
       end
@@ -150,7 +129,6 @@ module Crossly
     def valid?
       suggested_validator = EnumAttributeValidator.new('String', ["sneaker-row", "card-district", "vintage-alley", "vinyl-lane"])
       return false unless suggested_validator.valid?(@suggested)
-      return false if @can_move.nil?
       return false if @options.nil?
       true
     end
@@ -173,8 +151,6 @@ module Crossly
           shop == o.shop &&
           home == o.home &&
           suggested == o.suggested &&
-          can_move == o.can_move &&
-          move == o.move &&
           options == o.options
     end
 
@@ -187,7 +163,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [shop, home, suggested, can_move, move, options].hash
+      [shop, home, suggested, options].hash
     end
 
     # Builds the object from hash

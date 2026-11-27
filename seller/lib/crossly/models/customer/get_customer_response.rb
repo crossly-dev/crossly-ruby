@@ -31,6 +31,10 @@ module Crossly
 
     attr_accessor :stats
 
+    attr_accessor :notes
+
+    attr_accessor :notes_updated_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -41,7 +45,9 @@ module Crossly
         :'orders' => :'orders',
         :'contact' => :'contact',
         :'profiles' => :'profiles',
-        :'stats' => :'stats'
+        :'stats' => :'stats',
+        :'notes' => :'notes',
+        :'notes_updated_at' => :'notesUpdatedAt'
       }
     end
 
@@ -60,13 +66,16 @@ module Crossly
         :'orders' => :'Array<GetCustomerResponseOrders>',
         :'contact' => :'GetCustomerResponseContact',
         :'profiles' => :'Array<GetCustomerResponseProfiles>',
-        :'stats' => :'GetCustomerResponseStats'
+        :'stats' => :'GetCustomerResponseStats',
+        :'notes' => :'String',
+        :'notes_updated_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'notes_updated_at'
       ])
     end
 
@@ -122,6 +131,14 @@ module Crossly
       if attributes.key?(:'stats')
         self.stats = attributes[:'stats']
       end
+
+      if attributes.key?(:'notes')
+        self.notes = attributes[:'notes']
+      end
+
+      if attributes.key?(:'notes_updated_at')
+        self.notes_updated_at = attributes[:'notes_updated_at']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -160,6 +177,10 @@ module Crossly
         invalid_properties.push('invalid value for "stats", stats cannot be nil.')
       end
 
+      if @notes.nil?
+        invalid_properties.push('invalid value for "notes", notes cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -174,6 +195,7 @@ module Crossly
       return false if @contact.nil?
       return false if @profiles.nil?
       return false if @stats.nil?
+      return false if @notes.nil?
       true
     end
 
@@ -189,7 +211,9 @@ module Crossly
           orders == o.orders &&
           contact == o.contact &&
           profiles == o.profiles &&
-          stats == o.stats
+          stats == o.stats &&
+          notes == o.notes &&
+          notes_updated_at == o.notes_updated_at
     end
 
     # @see the `==` method
@@ -201,7 +225,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [normalized_handle, platforms, total_orders, total_spent, orders, contact, profiles, stats].hash
+      [normalized_handle, platforms, total_orders, total_spent, orders, contact, profiles, stats, notes, notes_updated_at].hash
     end
 
     # Builds the object from hash

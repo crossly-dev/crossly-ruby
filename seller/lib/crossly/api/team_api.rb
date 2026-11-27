@@ -19,7 +19,7 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Accept a pending team invitation by raw token.
+    # Accept a team invitation by the raw token from its link.
     # @param [Hash] opts the optional parameters
     # @return [CreateTeamAcceptResponse]
     def create_team_accept(opts = {})
@@ -27,7 +27,7 @@ module Crossly
       data
     end
 
-    # Accept a pending team invitation by raw token.
+    # Accept a team invitation by the raw token from its link.
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTeamAcceptResponse, Integer, Hash)>] CreateTeamAcceptResponse data, response status code and response headers
     def create_team_accept_with_http_info(opts = {})
@@ -74,7 +74,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Mint a team invitation; returns the one-time accept URL.
+    # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
     # @param [Hash] opts the optional parameters
     # @return [CreateTeamInviteResponse]
     def create_team_invite(opts = {})
@@ -82,7 +82,7 @@ module Crossly
       data
     end
 
-    # Mint a team invitation; returns the one-time accept URL.
+    # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTeamInviteResponse, Integer, Hash)>] CreateTeamInviteResponse data, response status code and response headers
     def create_team_invite_with_http_info(opts = {})

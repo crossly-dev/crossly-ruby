@@ -15,33 +15,33 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerPackOpeningsItemProof
-    attr_accessor :nonce
-
-    attr_accessor :tier_id
+    attr_accessor :server_seed_hash
 
     attr_accessor :server_seed
 
-    attr_accessor :server_seed_hash
-
     attr_accessor :client_seed
 
-    attr_accessor :pool_item_id
+    attr_accessor :nonce
 
     attr_accessor :tier_item_ids
 
     attr_accessor :tier_weights
 
+    attr_accessor :tier_id
+
+    attr_accessor :pool_item_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'nonce' => :'nonce',
-        :'tier_id' => :'tierId',
-        :'server_seed' => :'serverSeed',
         :'server_seed_hash' => :'serverSeedHash',
+        :'server_seed' => :'serverSeed',
         :'client_seed' => :'clientSeed',
-        :'pool_item_id' => :'poolItemId',
+        :'nonce' => :'nonce',
         :'tier_item_ids' => :'tierItemIds',
-        :'tier_weights' => :'tierWeights'
+        :'tier_weights' => :'tierWeights',
+        :'tier_id' => :'tierId',
+        :'pool_item_id' => :'poolItemId'
       }
     end
 
@@ -53,25 +53,25 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'nonce' => :'Float',
-        :'tier_id' => :'String',
-        :'server_seed' => :'String',
         :'server_seed_hash' => :'String',
+        :'server_seed' => :'String',
         :'client_seed' => :'String',
-        :'pool_item_id' => :'String',
+        :'nonce' => :'Float',
         :'tier_item_ids' => :'Array<String>',
-        :'tier_weights' => :'Array<ListBuyerPackOpeningsItemProofTierWeights>'
+        :'tier_weights' => :'Array<ListBuyerPackOpeningsItemProofTierWeights>',
+        :'tier_id' => :'String',
+        :'pool_item_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'tier_id',
         :'server_seed',
-        :'pool_item_id',
         :'tier_item_ids',
-        :'tier_weights'
+        :'tier_weights',
+        :'tier_id',
+        :'pool_item_id'
       ])
     end
 
@@ -90,28 +90,20 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'nonce')
-        self.nonce = attributes[:'nonce']
-      end
-
-      if attributes.key?(:'tier_id')
-        self.tier_id = attributes[:'tier_id']
+      if attributes.key?(:'server_seed_hash')
+        self.server_seed_hash = attributes[:'server_seed_hash']
       end
 
       if attributes.key?(:'server_seed')
         self.server_seed = attributes[:'server_seed']
       end
 
-      if attributes.key?(:'server_seed_hash')
-        self.server_seed_hash = attributes[:'server_seed_hash']
-      end
-
       if attributes.key?(:'client_seed')
         self.client_seed = attributes[:'client_seed']
       end
 
-      if attributes.key?(:'pool_item_id')
-        self.pool_item_id = attributes[:'pool_item_id']
+      if attributes.key?(:'nonce')
+        self.nonce = attributes[:'nonce']
       end
 
       if attributes.key?(:'tier_item_ids')
@@ -125,16 +117,20 @@ module CrosslyBuyer
           self.tier_weights = value
         end
       end
+
+      if attributes.key?(:'tier_id')
+        self.tier_id = attributes[:'tier_id']
+      end
+
+      if attributes.key?(:'pool_item_id')
+        self.pool_item_id = attributes[:'pool_item_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @nonce.nil?
-        invalid_properties.push('invalid value for "nonce", nonce cannot be nil.')
-      end
-
       if @server_seed_hash.nil?
         invalid_properties.push('invalid value for "server_seed_hash", server_seed_hash cannot be nil.')
       end
@@ -143,15 +139,19 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "client_seed", client_seed cannot be nil.')
       end
 
+      if @nonce.nil?
+        invalid_properties.push('invalid value for "nonce", nonce cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @nonce.nil?
       return false if @server_seed_hash.nil?
       return false if @client_seed.nil?
+      return false if @nonce.nil?
       true
     end
 
@@ -160,14 +160,14 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          nonce == o.nonce &&
-          tier_id == o.tier_id &&
-          server_seed == o.server_seed &&
           server_seed_hash == o.server_seed_hash &&
+          server_seed == o.server_seed &&
           client_seed == o.client_seed &&
-          pool_item_id == o.pool_item_id &&
+          nonce == o.nonce &&
           tier_item_ids == o.tier_item_ids &&
-          tier_weights == o.tier_weights
+          tier_weights == o.tier_weights &&
+          tier_id == o.tier_id &&
+          pool_item_id == o.pool_item_id
     end
 
     # @see the `==` method
@@ -179,7 +179,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [nonce, tier_id, server_seed, server_seed_hash, client_seed, pool_item_id, tier_item_ids, tier_weights].hash
+      [server_seed_hash, server_seed, client_seed, nonce, tier_item_ids, tier_weights, tier_id, pool_item_id].hash
     end
 
     # Builds the object from hash

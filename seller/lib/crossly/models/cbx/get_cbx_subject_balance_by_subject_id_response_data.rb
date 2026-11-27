@@ -17,6 +17,8 @@ module Crossly
   class GetCbxSubjectBalanceBySubjectIdResponseData
     attr_accessor :granted_base_units
 
+    attr_accessor :funding_restricted_base_units
+
     attr_accessor :earned_base_units
 
     attr_accessor :staked_base_units
@@ -31,6 +33,7 @@ module Crossly
     def self.attribute_map
       {
         :'granted_base_units' => :'grantedBaseUnits',
+        :'funding_restricted_base_units' => :'fundingRestrictedBaseUnits',
         :'earned_base_units' => :'earnedBaseUnits',
         :'staked_base_units' => :'stakedBaseUnits',
         :'earned_available_base_units' => :'earnedAvailableBaseUnits',
@@ -48,6 +51,7 @@ module Crossly
     def self.openapi_types
       {
         :'granted_base_units' => :'String',
+        :'funding_restricted_base_units' => :'String',
         :'earned_base_units' => :'String',
         :'staked_base_units' => :'String',
         :'earned_available_base_units' => :'String',
@@ -81,6 +85,10 @@ module Crossly
         self.granted_base_units = attributes[:'granted_base_units']
       end
 
+      if attributes.key?(:'funding_restricted_base_units')
+        self.funding_restricted_base_units = attributes[:'funding_restricted_base_units']
+      end
+
       if attributes.key?(:'earned_base_units')
         self.earned_base_units = attributes[:'earned_base_units']
       end
@@ -110,6 +118,10 @@ module Crossly
         invalid_properties.push('invalid value for "granted_base_units", granted_base_units cannot be nil.')
       end
 
+      if @funding_restricted_base_units.nil?
+        invalid_properties.push('invalid value for "funding_restricted_base_units", funding_restricted_base_units cannot be nil.')
+      end
+
       if @earned_base_units.nil?
         invalid_properties.push('invalid value for "earned_base_units", earned_base_units cannot be nil.')
       end
@@ -137,6 +149,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @granted_base_units.nil?
+      return false if @funding_restricted_base_units.nil?
       return false if @earned_base_units.nil?
       return false if @staked_base_units.nil?
       return false if @earned_available_base_units.nil?
@@ -151,6 +164,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           granted_base_units == o.granted_base_units &&
+          funding_restricted_base_units == o.funding_restricted_base_units &&
           earned_base_units == o.earned_base_units &&
           staked_base_units == o.staked_base_units &&
           earned_available_base_units == o.earned_available_base_units &&
@@ -167,7 +181,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [granted_base_units, earned_base_units, staked_base_units, earned_available_base_units, connected_available_base_units, total_spendable_base_units].hash
+      [granted_base_units, funding_restricted_base_units, earned_base_units, staked_base_units, earned_available_base_units, connected_available_base_units, total_spendable_base_units].hash
     end
 
     # Builds the object from hash

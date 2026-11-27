@@ -23,7 +23,7 @@ module Crossly
 
     attr_accessor :net_profit
 
-    attr_accessor :detected_at
+    attr_accessor :revenue
 
     attr_accessor :item_title
 
@@ -36,7 +36,7 @@ module Crossly
         :'platform' => :'platform',
         :'sale_price' => :'salePrice',
         :'net_profit' => :'netProfit',
-        :'detected_at' => :'detectedAt',
+        :'revenue' => :'revenue',
         :'item_title' => :'itemTitle',
         :'item_image' => :'itemImage'
       }
@@ -54,7 +54,7 @@ module Crossly
         :'platform' => :'String',
         :'sale_price' => :'Float',
         :'net_profit' => :'Float',
-        :'detected_at' => :'Time',
+        :'revenue' => :'Float',
         :'item_title' => :'String',
         :'item_image' => :'String'
       }
@@ -66,6 +66,7 @@ module Crossly
         :'sale_price',
         :'net_profit',
         :'item_title',
+        :'item_image'
       ])
     end
 
@@ -100,8 +101,8 @@ module Crossly
         self.net_profit = attributes[:'net_profit']
       end
 
-      if attributes.key?(:'detected_at')
-        self.detected_at = attributes[:'detected_at']
+      if attributes.key?(:'revenue')
+        self.revenue = attributes[:'revenue']
       end
 
       if attributes.key?(:'item_title')
@@ -125,12 +126,8 @@ module Crossly
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
-      if @detected_at.nil?
-        invalid_properties.push('invalid value for "detected_at", detected_at cannot be nil.')
-      end
-
-      if @item_image.nil?
-        invalid_properties.push('invalid value for "item_image", item_image cannot be nil.')
+      if @revenue.nil?
+        invalid_properties.push('invalid value for "revenue", revenue cannot be nil.')
       end
 
       invalid_properties
@@ -141,8 +138,7 @@ module Crossly
     def valid?
       return false if @sale_id.nil?
       return false if @platform.nil?
-      return false if @detected_at.nil?
-      return false if @item_image.nil?
+      return false if @revenue.nil?
       true
     end
 
@@ -155,7 +151,7 @@ module Crossly
           platform == o.platform &&
           sale_price == o.sale_price &&
           net_profit == o.net_profit &&
-          detected_at == o.detected_at &&
+          revenue == o.revenue &&
           item_title == o.item_title &&
           item_image == o.item_image
     end
@@ -169,7 +165,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [sale_id, platform, sale_price, net_profit, detected_at, item_title, item_image].hash
+      [sale_id, platform, sale_price, net_profit, revenue, item_title, item_image].hash
     end
 
     # Builds the object from hash

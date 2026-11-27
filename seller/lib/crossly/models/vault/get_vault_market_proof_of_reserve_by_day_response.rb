@@ -33,6 +33,8 @@ module Crossly
 
     attr_accessor :memo
 
+    attr_accessor :anchor
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +46,8 @@ module Crossly
         :'units' => :'units',
         :'loans_open' => :'loansOpen',
         :'total_insured_cents' => :'totalInsuredCents',
-        :'memo' => :'memo'
+        :'memo' => :'memo',
+        :'anchor' => :'anchor'
       }
     end
 
@@ -64,7 +67,8 @@ module Crossly
         :'units' => :'GetVaultMarketProofOfReserveByDayResponseUnits',
         :'loans_open' => :'Float',
         :'total_insured_cents' => :'Float',
-        :'memo' => :'String'
+        :'memo' => :'String',
+        :'anchor' => :'GetVaultMarketProofOfReserveByDayResponseAnchor'
       }
     end
 
@@ -124,6 +128,10 @@ module Crossly
       if attributes.key?(:'memo')
         self.memo = attributes[:'memo']
       end
+
+      if attributes.key?(:'anchor')
+        self.anchor = attributes[:'anchor']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -166,6 +174,10 @@ module Crossly
         invalid_properties.push('invalid value for "memo", memo cannot be nil.')
       end
 
+      if @anchor.nil?
+        invalid_properties.push('invalid value for "anchor", anchor cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -181,6 +193,7 @@ module Crossly
       return false if @loans_open.nil?
       return false if @total_insured_cents.nil?
       return false if @memo.nil?
+      return false if @anchor.nil?
       true
     end
 
@@ -197,7 +210,8 @@ module Crossly
           units == o.units &&
           loans_open == o.loans_open &&
           total_insured_cents == o.total_insured_cents &&
-          memo == o.memo
+          memo == o.memo &&
+          anchor == o.anchor
     end
 
     # @see the `==` method
@@ -209,7 +223,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [day, root, leaf_count, method_version, built_at, units, loans_open, total_insured_cents, memo].hash
+      [day, root, leaf_count, method_version, built_at, units, loans_open, total_insured_cents, memo, anchor].hash
     end
 
     # Builds the object from hash

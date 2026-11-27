@@ -42,7 +42,7 @@ module Crossly
     def self.openapi_types
       {
         :'latest' => :'GetVaultMarketProofOfReserveResponseLatest',
-        :'history' => :'Array<GetVaultMarketProofOfReserveByDayResponse>',
+        :'history' => :'Array<GetVaultMarketProofOfReserveResponseHistory>',
         :'anchoring' => :'GetVaultMarketProofOfReserveResponseAnchoring',
         :'method' => :'GetVaultMarketProofOfReserveResponseMethod'
       }

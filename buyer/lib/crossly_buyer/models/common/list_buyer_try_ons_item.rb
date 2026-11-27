@@ -17,13 +17,13 @@ module CrosslyBuyer
   class ListBuyerTryOnsItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
-    attr_accessor :status
-
     attr_accessor :listing_id
 
     attr_accessor :result_url
+
+    attr_accessor :status
+
+    attr_accessor :created_at
 
     attr_accessor :listing_title
 
@@ -31,10 +31,10 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'status' => :'status',
         :'listing_id' => :'listingId',
         :'result_url' => :'resultUrl',
+        :'status' => :'status',
+        :'created_at' => :'createdAt',
         :'listing_title' => :'listingTitle'
       }
     end
@@ -48,10 +48,10 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'status' => :'String',
         :'listing_id' => :'String',
         :'result_url' => :'String',
+        :'status' => :'String',
+        :'created_at' => :'String',
         :'listing_title' => :'String'
       }
     end
@@ -83,20 +83,20 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'listing_id')
         self.listing_id = attributes[:'listing_id']
       end
 
       if attributes.key?(:'result_url')
         self.result_url = attributes[:'result_url']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'listing_title')
@@ -112,16 +112,16 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @listing_id.nil?
+        invalid_properties.push('invalid value for "listing_id", listing_id cannot be nil.')
       end
 
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @listing_id.nil?
-        invalid_properties.push('invalid value for "listing_id", listing_id cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       invalid_properties
@@ -131,9 +131,9 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @status.nil?
       return false if @listing_id.nil?
+      return false if @status.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -143,10 +143,10 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          status == o.status &&
           listing_id == o.listing_id &&
           result_url == o.result_url &&
+          status == o.status &&
+          created_at == o.created_at &&
           listing_title == o.listing_title
     end
 
@@ -159,7 +159,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, listing_id, result_url, listing_title].hash
+      [id, listing_id, result_url, status, created_at, listing_title].hash
     end
 
     # Builds the object from hash

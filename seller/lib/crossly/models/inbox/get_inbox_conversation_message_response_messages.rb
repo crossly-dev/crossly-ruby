@@ -41,6 +41,32 @@ module Crossly
 
     attr_accessor :ai_triaged_at
 
+    attr_accessor :offer_amount
+
+    attr_accessor :offer_status
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +82,9 @@ module Crossly
         :'ai_urgency' => :'aiUrgency',
         :'ai_scam_score' => :'aiScamScore',
         :'ai_suggested_reply' => :'aiSuggestedReply',
-        :'ai_triaged_at' => :'aiTriagedAt'
+        :'ai_triaged_at' => :'aiTriagedAt',
+        :'offer_amount' => :'offerAmount',
+        :'offer_status' => :'offerStatus'
       }
     end
 
@@ -80,7 +108,9 @@ module Crossly
         :'ai_urgency' => :'String',
         :'ai_scam_score' => :'Float',
         :'ai_suggested_reply' => :'String',
-        :'ai_triaged_at' => :'Time'
+        :'ai_triaged_at' => :'Time',
+        :'offer_amount' => :'String',
+        :'offer_status' => :'String'
       }
     end
 
@@ -95,7 +125,9 @@ module Crossly
         :'ai_urgency',
         :'ai_scam_score',
         :'ai_suggested_reply',
-        :'ai_triaged_at'
+        :'ai_triaged_at',
+        :'offer_amount',
+        :'offer_status'
       ])
     end
 
@@ -167,6 +199,14 @@ module Crossly
       if attributes.key?(:'ai_triaged_at')
         self.ai_triaged_at = attributes[:'ai_triaged_at']
       end
+
+      if attributes.key?(:'offer_amount')
+        self.offer_amount = attributes[:'offer_amount']
+      end
+
+      if attributes.key?(:'offer_status')
+        self.offer_status = attributes[:'offer_status']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -199,7 +239,19 @@ module Crossly
       return false if @conversation_id.nil?
       return false if @sender.nil?
       return false if @sent_at.nil?
+      offer_status_validator = EnumAttributeValidator.new('String', ["pending", "accepted", "declined", "expired", "voided"])
+      return false unless offer_status_validator.valid?(@offer_status)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] offer_status Object to be assigned
+    def offer_status=(offer_status)
+      validator = EnumAttributeValidator.new('String', ["pending", "accepted", "declined", "expired", "voided"])
+      unless validator.valid?(offer_status)
+        fail ArgumentError, "invalid value for \"offer_status\", must be one of #{validator.allowable_values}."
+      end
+      @offer_status = offer_status
     end
 
     # Checks equality by comparing each attribute.
@@ -219,7 +271,9 @@ module Crossly
           ai_urgency == o.ai_urgency &&
           ai_scam_score == o.ai_scam_score &&
           ai_suggested_reply == o.ai_suggested_reply &&
-          ai_triaged_at == o.ai_triaged_at
+          ai_triaged_at == o.ai_triaged_at &&
+          offer_amount == o.offer_amount &&
+          offer_status == o.offer_status
     end
 
     # @see the `==` method
@@ -231,7 +285,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, conversation_id, platform_message_id, sender, body, attachments, sent_at, synced_at, ai_intent, ai_urgency, ai_scam_score, ai_suggested_reply, ai_triaged_at].hash
+      [id, conversation_id, platform_message_id, sender, body, attachments, sent_at, synced_at, ai_intent, ai_urgency, ai_scam_score, ai_suggested_reply, ai_triaged_at, offer_amount, offer_status].hash
     end
 
     # Builds the object from hash

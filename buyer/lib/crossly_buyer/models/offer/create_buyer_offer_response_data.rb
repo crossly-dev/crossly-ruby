@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerOfferResponseData
-    attr_accessor :offer
-
     attr_accessor :ok
+
+    attr_accessor :offer
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'offer' => :'offer',
-        :'ok' => :'ok'
+        :'ok' => :'ok',
+        :'offer' => :'offer'
       }
     end
 
@@ -35,8 +35,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'offer' => :'CreateBuyerOfferResponseDataOffer',
-        :'ok' => :'Boolean'
+        :'ok' => :'Boolean',
+        :'offer' => :'CreateBuyerOfferResponseDataOffer'
       }
     end
 
@@ -61,12 +61,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'offer')
-        self.offer = attributes[:'offer']
-      end
-
       if attributes.key?(:'ok')
         self.ok = attributes[:'ok']
+      end
+
+      if attributes.key?(:'offer')
+        self.offer = attributes[:'offer']
       end
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @offer.nil?
-        invalid_properties.push('invalid value for "offer", offer cannot be nil.')
-      end
-
       if @ok.nil?
         invalid_properties.push('invalid value for "ok", ok cannot be nil.')
+      end
+
+      if @offer.nil?
+        invalid_properties.push('invalid value for "offer", offer cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @offer.nil?
       return false if @ok.nil?
+      return false if @offer.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          offer == o.offer &&
-          ok == o.ok
+          ok == o.ok &&
+          offer == o.offer
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [offer, ok].hash
+      [ok, offer].hash
     end
 
     # Builds the object from hash

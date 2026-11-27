@@ -71,7 +71,7 @@ module Crossly
         :'postal_label' => :'String',
         :'state_required' => :'Boolean',
         :'state_label' => :'String',
-        :'subdivisions' => :'Array<ListReferenceCountriesItemSubdivisions>',
+        :'subdivisions' => :'Array<CodeName>',
         :'embargoed' => :'Boolean'
       }
     end

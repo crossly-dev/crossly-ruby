@@ -32,6 +32,8 @@ module Crossly
 
     attr_accessor :finishers
 
+    attr_accessor :rules
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -42,7 +44,8 @@ module Crossly
         :'tokens' => :'tokens',
         :'reward' => :'reward',
         :'ends_at' => :'endsAt',
-        :'finishers' => :'finishers'
+        :'finishers' => :'finishers',
+        :'rules' => :'rules'
       }
     end
 
@@ -56,12 +59,13 @@ module Crossly
       {
         :'id' => :'String',
         :'title' => :'String',
-        :'shop' => :'SlugName',
+        :'shop' => :'NameSlug',
         :'stall' => :'ListGameHuntsItemStall',
         :'tokens' => :'Float',
         :'reward' => :'String',
         :'ends_at' => :'String',
-        :'finishers' => :'Float'
+        :'finishers' => :'Float',
+        :'rules' => :'ListGameHuntsItemRules'
       }
     end
 
@@ -69,6 +73,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'stall',
+        :'rules'
       ])
     end
 
@@ -117,6 +122,10 @@ module Crossly
 
       if attributes.key?(:'finishers')
         self.finishers = attributes[:'finishers']
+      end
+
+      if attributes.key?(:'rules')
+        self.rules = attributes[:'rules']
       end
     end
 
@@ -180,7 +189,8 @@ module Crossly
           tokens == o.tokens &&
           reward == o.reward &&
           ends_at == o.ends_at &&
-          finishers == o.finishers
+          finishers == o.finishers &&
+          rules == o.rules
     end
 
     # @see the `==` method
@@ -192,7 +202,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, title, shop, stall, tokens, reward, ends_at, finishers].hash
+      [id, title, shop, stall, tokens, reward, ends_at, finishers, rules].hash
     end
 
     # Builds the object from hash

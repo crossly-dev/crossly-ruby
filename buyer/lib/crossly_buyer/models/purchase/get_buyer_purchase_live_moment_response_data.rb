@@ -15,30 +15,30 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerPurchaseLiveMomentResponseData
-    attr_accessor :status
+    attr_accessor :stream_id
 
     attr_accessor :title
 
-    attr_accessor :sold_at
-
     attr_accessor :seller_user_id
+
+    attr_accessor :status
 
     attr_accessor :replay_url
 
-    attr_accessor :stream_id
-
     attr_accessor :offset_seconds
+
+    attr_accessor :sold_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'status' => :'status',
-        :'title' => :'title',
-        :'sold_at' => :'soldAt',
-        :'seller_user_id' => :'sellerUserId',
-        :'replay_url' => :'replayUrl',
         :'stream_id' => :'streamId',
-        :'offset_seconds' => :'offsetSeconds'
+        :'title' => :'title',
+        :'seller_user_id' => :'sellerUserId',
+        :'status' => :'status',
+        :'replay_url' => :'replayUrl',
+        :'offset_seconds' => :'offsetSeconds',
+        :'sold_at' => :'soldAt'
       }
     end
 
@@ -50,13 +50,13 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'status' => :'String',
-        :'title' => :'String',
-        :'sold_at' => :'String',
-        :'seller_user_id' => :'String',
-        :'replay_url' => :'String',
         :'stream_id' => :'String',
-        :'offset_seconds' => :'Float'
+        :'title' => :'String',
+        :'seller_user_id' => :'String',
+        :'status' => :'String',
+        :'replay_url' => :'String',
+        :'offset_seconds' => :'Float',
+        :'sold_at' => :'String'
       }
     end
 
@@ -82,32 +82,32 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.key?(:'stream_id')
+        self.stream_id = attributes[:'stream_id']
       end
 
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'sold_at')
-        self.sold_at = attributes[:'sold_at']
-      end
-
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'replay_url')
         self.replay_url = attributes[:'replay_url']
       end
 
-      if attributes.key?(:'stream_id')
-        self.stream_id = attributes[:'stream_id']
-      end
-
       if attributes.key?(:'offset_seconds')
         self.offset_seconds = attributes[:'offset_seconds']
+      end
+
+      if attributes.key?(:'sold_at')
+        self.sold_at = attributes[:'sold_at']
       end
     end
 
@@ -115,28 +115,28 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      if @stream_id.nil?
+        invalid_properties.push('invalid value for "stream_id", stream_id cannot be nil.')
       end
 
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
-      if @sold_at.nil?
-        invalid_properties.push('invalid value for "sold_at", sold_at cannot be nil.')
-      end
-
       if @seller_user_id.nil?
         invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
-      if @stream_id.nil?
-        invalid_properties.push('invalid value for "stream_id", stream_id cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       if @offset_seconds.nil?
         invalid_properties.push('invalid value for "offset_seconds", offset_seconds cannot be nil.')
+      end
+
+      if @sold_at.nil?
+        invalid_properties.push('invalid value for "sold_at", sold_at cannot be nil.')
       end
 
       invalid_properties
@@ -145,12 +145,12 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @status.nil?
-      return false if @title.nil?
-      return false if @sold_at.nil?
-      return false if @seller_user_id.nil?
       return false if @stream_id.nil?
+      return false if @title.nil?
+      return false if @seller_user_id.nil?
+      return false if @status.nil?
       return false if @offset_seconds.nil?
+      return false if @sold_at.nil?
       true
     end
 
@@ -159,13 +159,13 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          status == o.status &&
-          title == o.title &&
-          sold_at == o.sold_at &&
-          seller_user_id == o.seller_user_id &&
-          replay_url == o.replay_url &&
           stream_id == o.stream_id &&
-          offset_seconds == o.offset_seconds
+          title == o.title &&
+          seller_user_id == o.seller_user_id &&
+          status == o.status &&
+          replay_url == o.replay_url &&
+          offset_seconds == o.offset_seconds &&
+          sold_at == o.sold_at
     end
 
     # @see the `==` method
@@ -177,7 +177,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [status, title, sold_at, seller_user_id, replay_url, stream_id, offset_seconds].hash
+      [stream_id, title, seller_user_id, status, replay_url, offset_seconds, sold_at].hash
     end
 
     # Builds the object from hash

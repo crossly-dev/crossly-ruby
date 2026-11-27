@@ -280,7 +280,7 @@ module Crossly
       return false if @id.nil?
       return false if @name.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["mark", "index"])
+      kind_validator = EnumAttributeValidator.new('String', ["index", "mark"])
       return false unless kind_validator.valid?(@kind)
       return false if @range.nil?
       range_validator = EnumAttributeValidator.new('String', ["1y", "1m", "3m", "6m", "5y"])
@@ -303,7 +303,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["mark", "index"])
+      validator = EnumAttributeValidator.new('String', ["index", "mark"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end

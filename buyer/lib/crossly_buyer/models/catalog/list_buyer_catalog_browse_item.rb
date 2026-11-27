@@ -61,6 +61,9 @@ module CrosslyBuyer
     # ISO alpha-2 the seller ships from (storefront ship-from, default US) —  the tile's \"Ships from {country}\" chip when it isn't the buyer's.
     attr_accessor :ships_from_country
 
+    # The item has an active Crossly Passport (the tile's \"Crossly Passport\" chip, docs/PASSPORTS.md §7.4).  Optional: only the main browse query reads it; other row builders leave it out.
+    attr_accessor :has_passport
+
     # ISO timestamp of the sale.
     attr_accessor :sold_at
 
@@ -92,6 +95,7 @@ module CrosslyBuyer
         :'ai_media' => :'aiMedia',
         :'ai_media_detected' => :'aiMediaDetected',
         :'ships_from_country' => :'shipsFromCountry',
+        :'has_passport' => :'hasPassport',
         :'sold_at' => :'soldAt',
         :'sold_price_cents' => :'soldPriceCents',
         :'sold_quantity' => :'soldQuantity'
@@ -125,6 +129,7 @@ module CrosslyBuyer
         :'ai_media' => :'Boolean',
         :'ai_media_detected' => :'Boolean',
         :'ships_from_country' => :'String',
+        :'has_passport' => :'Boolean',
         :'sold_at' => :'String',
         :'sold_price_cents' => :'Float',
         :'sold_quantity' => :'Float'
@@ -143,6 +148,7 @@ module CrosslyBuyer
         :'condition',
         :'sale_price_cents',
         :'sale_ends_at',
+        :'has_passport',
         :'sold_at',
         :'sold_price_cents',
         :'sold_quantity'
@@ -238,6 +244,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'ships_from_country')
         self.ships_from_country = attributes[:'ships_from_country']
+      end
+
+      if attributes.key?(:'has_passport')
+        self.has_passport = attributes[:'has_passport']
       end
 
       if attributes.key?(:'sold_at')
@@ -340,6 +350,7 @@ module CrosslyBuyer
           ai_media == o.ai_media &&
           ai_media_detected == o.ai_media_detected &&
           ships_from_country == o.ships_from_country &&
+          has_passport == o.has_passport &&
           sold_at == o.sold_at &&
           sold_price_cents == o.sold_price_cents &&
           sold_quantity == o.sold_quantity
@@ -354,7 +365,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, title, price_cents, compare_at_cents, thumbnail, seller_display_name, seller_avatar_url, seller_handle, brand, condition, promoted, view_count, watcher_count, sold_count, sale_price_cents, sale_ends_at, ai_media, ai_media_detected, ships_from_country, sold_at, sold_price_cents, sold_quantity].hash
+      [slug, title, price_cents, compare_at_cents, thumbnail, seller_display_name, seller_avatar_url, seller_handle, brand, condition, promoted, view_count, watcher_count, sold_count, sale_price_cents, sale_ends_at, ai_media, ai_media_detected, ships_from_country, has_passport, sold_at, sold_price_cents, sold_quantity].hash
     end
 
     # Builds the object from hash

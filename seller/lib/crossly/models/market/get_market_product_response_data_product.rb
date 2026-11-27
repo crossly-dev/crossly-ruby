@@ -29,11 +29,15 @@ module Crossly
 
     attr_accessor :retail_cents
 
+    attr_accessor :image_url
+
     attr_accessor :category_slug
 
-    attr_accessor :external_id
+    attr_accessor :approved_by_user_id
 
-    attr_accessor :image_url
+    attr_accessor :approved_at
+
+    attr_accessor :external_id
 
     attr_accessor :model
 
@@ -44,10 +48,6 @@ module Crossly
     attr_accessor :release_date
 
     attr_accessor :submitted_by_user_id
-
-    attr_accessor :approved_by_user_id
-
-    attr_accessor :approved_at
 
     attr_accessor :rejection_reason
 
@@ -105,16 +105,16 @@ module Crossly
         :'created_at' => :'createdAt',
         :'status' => :'status',
         :'retail_cents' => :'retailCents',
-        :'category_slug' => :'categorySlug',
-        :'external_id' => :'externalId',
         :'image_url' => :'imageUrl',
+        :'category_slug' => :'categorySlug',
+        :'approved_by_user_id' => :'approvedByUserId',
+        :'approved_at' => :'approvedAt',
+        :'external_id' => :'externalId',
         :'model' => :'model',
         :'colorway' => :'colorway',
         :'style_code' => :'styleCode',
         :'release_date' => :'releaseDate',
         :'submitted_by_user_id' => :'submittedByUserId',
-        :'approved_by_user_id' => :'approvedByUserId',
-        :'approved_at' => :'approvedAt',
         :'rejection_reason' => :'rejectionReason',
         :'proposed_variants' => :'proposedVariants',
         :'verification' => :'verification',
@@ -156,16 +156,16 @@ module Crossly
         :'created_at' => :'Time',
         :'status' => :'String',
         :'retail_cents' => :'Float',
-        :'category_slug' => :'String',
-        :'external_id' => :'String',
         :'image_url' => :'String',
+        :'category_slug' => :'String',
+        :'approved_by_user_id' => :'String',
+        :'approved_at' => :'Time',
+        :'external_id' => :'String',
         :'model' => :'String',
         :'colorway' => :'String',
         :'style_code' => :'String',
         :'release_date' => :'String',
         :'submitted_by_user_id' => :'String',
-        :'approved_by_user_id' => :'String',
-        :'approved_at' => :'Time',
         :'rejection_reason' => :'String',
         :'proposed_variants' => :'Array<GetMarketProductResponseDataProductProposedVariants>',
         :'verification' => :'Hash<String, Object>',
@@ -197,15 +197,15 @@ module Crossly
       Set.new([
         :'brand',
         :'retail_cents',
-        :'external_id',
         :'image_url',
+        :'approved_by_user_id',
+        :'approved_at',
+        :'external_id',
         :'model',
         :'colorway',
         :'style_code',
         :'release_date',
         :'submitted_by_user_id',
-        :'approved_by_user_id',
-        :'approved_at',
         :'rejection_reason',
         :'ai_verdict',
         :'submission_source',
@@ -267,16 +267,24 @@ module Crossly
         self.retail_cents = attributes[:'retail_cents']
       end
 
+      if attributes.key?(:'image_url')
+        self.image_url = attributes[:'image_url']
+      end
+
       if attributes.key?(:'category_slug')
         self.category_slug = attributes[:'category_slug']
       end
 
-      if attributes.key?(:'external_id')
-        self.external_id = attributes[:'external_id']
+      if attributes.key?(:'approved_by_user_id')
+        self.approved_by_user_id = attributes[:'approved_by_user_id']
       end
 
-      if attributes.key?(:'image_url')
-        self.image_url = attributes[:'image_url']
+      if attributes.key?(:'approved_at')
+        self.approved_at = attributes[:'approved_at']
+      end
+
+      if attributes.key?(:'external_id')
+        self.external_id = attributes[:'external_id']
       end
 
       if attributes.key?(:'model')
@@ -297,14 +305,6 @@ module Crossly
 
       if attributes.key?(:'submitted_by_user_id')
         self.submitted_by_user_id = attributes[:'submitted_by_user_id']
-      end
-
-      if attributes.key?(:'approved_by_user_id')
-        self.approved_by_user_id = attributes[:'approved_by_user_id']
-      end
-
-      if attributes.key?(:'approved_at')
-        self.approved_at = attributes[:'approved_at']
       end
 
       if attributes.key?(:'rejection_reason')
@@ -505,16 +505,16 @@ module Crossly
           created_at == o.created_at &&
           status == o.status &&
           retail_cents == o.retail_cents &&
-          category_slug == o.category_slug &&
-          external_id == o.external_id &&
           image_url == o.image_url &&
+          category_slug == o.category_slug &&
+          approved_by_user_id == o.approved_by_user_id &&
+          approved_at == o.approved_at &&
+          external_id == o.external_id &&
           model == o.model &&
           colorway == o.colorway &&
           style_code == o.style_code &&
           release_date == o.release_date &&
           submitted_by_user_id == o.submitted_by_user_id &&
-          approved_by_user_id == o.approved_by_user_id &&
-          approved_at == o.approved_at &&
           rejection_reason == o.rejection_reason &&
           proposed_variants == o.proposed_variants &&
           verification == o.verification &&
@@ -549,7 +549,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [images, id, brand, name, created_at, status, retail_cents, category_slug, external_id, image_url, model, colorway, style_code, release_date, submitted_by_user_id, approved_by_user_id, approved_at, rejection_reason, proposed_variants, verification, ai_verdict, submission_source, duplicate_of_sku_id, preferred_provider_slug, allow_pre_bid, pre_bid_opens_at, featured, external_source, external_synced_at, graded_grade_keys, lowest_ask_cents, highest_bid_cents, last_sale_cents, trades_count, popularity, color_family, metal, gross_weight_mg, fineness_ppm, metal_form].hash
+      [images, id, brand, name, created_at, status, retail_cents, image_url, category_slug, approved_by_user_id, approved_at, external_id, model, colorway, style_code, release_date, submitted_by_user_id, rejection_reason, proposed_variants, verification, ai_verdict, submission_source, duplicate_of_sku_id, preferred_provider_slug, allow_pre_bid, pre_bid_opens_at, featured, external_source, external_synced_at, graded_grade_keys, lowest_ask_cents, highest_bid_cents, last_sale_cents, trades_count, popularity, color_family, metal, gross_weight_mg, fineness_ppm, metal_form].hash
     end
 
     # Builds the object from hash

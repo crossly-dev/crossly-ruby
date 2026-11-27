@@ -15,9 +15,9 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCaseResponseData
-    attr_accessor :messages
-
     attr_accessor :_case
+
+    attr_accessor :messages
 
     attr_accessor :purchase
 
@@ -26,8 +26,8 @@ module CrosslyBuyer
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'messages' => :'messages',
         :'_case' => :'case',
+        :'messages' => :'messages',
         :'purchase' => :'purchase',
         :'return_shipment' => :'returnShipment'
       }
@@ -41,8 +41,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'messages' => :'Array<GetBuyerCaseResponseDataMessages>',
         :'_case' => :'GetBuyerCaseResponseDataCase',
+        :'messages' => :'Array<GetBuyerCaseResponseDataMessages>',
         :'purchase' => :'GetBuyerCaseResponseDataPurchase',
         :'return_shipment' => :'GetBuyerCaseResponseDataReturnShipment'
       }
@@ -71,14 +71,14 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'_case')
+        self._case = attributes[:'_case']
+      end
+
       if attributes.key?(:'messages')
         if (value = attributes[:'messages']).is_a?(Array)
           self.messages = value
         end
-      end
-
-      if attributes.key?(:'_case')
-        self._case = attributes[:'_case']
       end
 
       if attributes.key?(:'purchase')
@@ -94,12 +94,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @messages.nil?
-        invalid_properties.push('invalid value for "messages", messages cannot be nil.')
-      end
-
       if @_case.nil?
         invalid_properties.push('invalid value for "_case", _case cannot be nil.')
+      end
+
+      if @messages.nil?
+        invalid_properties.push('invalid value for "messages", messages cannot be nil.')
       end
 
       invalid_properties
@@ -108,8 +108,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @messages.nil?
       return false if @_case.nil?
+      return false if @messages.nil?
       true
     end
 
@@ -118,8 +118,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          messages == o.messages &&
           _case == o._case &&
+          messages == o.messages &&
           purchase == o.purchase &&
           return_shipment == o.return_shipment
     end
@@ -133,7 +133,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [messages, _case, purchase, return_shipment].hash
+      [_case, messages, purchase, return_shipment].hash
     end
 
     # Builds the object from hash

@@ -36,7 +36,7 @@ module Crossly
     def self.openapi_types
       {
         :'stream' => :'GetWorldPlaceLiveResponseDataStream',
-        :'lot' => :'GetWorldPlaceLiveResponseDataLot'
+        :'lot' => :'GetMainStageResponseStreamLot'
       }
     end
 

@@ -17,13 +17,15 @@ module CrosslyBuyer
   class ListBuyerProtectionPlansItem
     attr_accessor :id
 
-    attr_accessor :created_at
+    attr_accessor :purchase_id
 
     attr_accessor :status
 
     attr_accessor :title
 
-    attr_accessor :purchase_id
+    attr_accessor :term_months
+
+    attr_accessor :coverage
 
     attr_accessor :terms_url
 
@@ -31,29 +33,27 @@ module CrosslyBuyer
 
     attr_accessor :refund_cents
 
-    attr_accessor :term_months
-
-    attr_accessor :coverage
-
     attr_accessor :contract_id
 
     attr_accessor :item_title
+
+    attr_accessor :created_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
+        :'purchase_id' => :'purchaseId',
         :'status' => :'status',
         :'title' => :'title',
-        :'purchase_id' => :'purchaseId',
+        :'term_months' => :'termMonths',
+        :'coverage' => :'coverage',
         :'terms_url' => :'termsUrl',
         :'price_cents' => :'priceCents',
         :'refund_cents' => :'refundCents',
-        :'term_months' => :'termMonths',
-        :'coverage' => :'coverage',
         :'contract_id' => :'contractId',
-        :'item_title' => :'itemTitle'
+        :'item_title' => :'itemTitle',
+        :'created_at' => :'createdAt'
       }
     end
 
@@ -66,17 +66,17 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
+        :'purchase_id' => :'String',
         :'status' => :'String',
         :'title' => :'String',
-        :'purchase_id' => :'String',
+        :'term_months' => :'Float',
+        :'coverage' => :'String',
         :'terms_url' => :'String',
         :'price_cents' => :'Float',
         :'refund_cents' => :'Float',
-        :'term_months' => :'Float',
-        :'coverage' => :'String',
         :'contract_id' => :'String',
-        :'item_title' => :'String'
+        :'item_title' => :'String',
+        :'created_at' => :'String'
       }
     end
 
@@ -84,12 +84,12 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'purchase_id',
-        :'terms_url',
-        :'refund_cents',
         :'term_months',
         :'coverage',
+        :'terms_url',
+        :'refund_cents',
         :'contract_id',
-        :'item_title'
+        :'item_title',
       ])
     end
 
@@ -112,8 +112,8 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'purchase_id')
+        self.purchase_id = attributes[:'purchase_id']
       end
 
       if attributes.key?(:'status')
@@ -124,8 +124,12 @@ module CrosslyBuyer
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'purchase_id')
-        self.purchase_id = attributes[:'purchase_id']
+      if attributes.key?(:'term_months')
+        self.term_months = attributes[:'term_months']
+      end
+
+      if attributes.key?(:'coverage')
+        self.coverage = attributes[:'coverage']
       end
 
       if attributes.key?(:'terms_url')
@@ -140,20 +144,16 @@ module CrosslyBuyer
         self.refund_cents = attributes[:'refund_cents']
       end
 
-      if attributes.key?(:'term_months')
-        self.term_months = attributes[:'term_months']
-      end
-
-      if attributes.key?(:'coverage')
-        self.coverage = attributes[:'coverage']
-      end
-
       if attributes.key?(:'contract_id')
         self.contract_id = attributes[:'contract_id']
       end
 
       if attributes.key?(:'item_title')
         self.item_title = attributes[:'item_title']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
     end
 
@@ -163,10 +163,6 @@ module CrosslyBuyer
       invalid_properties = Array.new
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @status.nil?
@@ -181,6 +177,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -188,10 +188,10 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
       return false if @status.nil?
       return false if @title.nil?
       return false if @price_cents.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -201,17 +201,17 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
+          purchase_id == o.purchase_id &&
           status == o.status &&
           title == o.title &&
-          purchase_id == o.purchase_id &&
+          term_months == o.term_months &&
+          coverage == o.coverage &&
           terms_url == o.terms_url &&
           price_cents == o.price_cents &&
           refund_cents == o.refund_cents &&
-          term_months == o.term_months &&
-          coverage == o.coverage &&
           contract_id == o.contract_id &&
-          item_title == o.item_title
+          item_title == o.item_title &&
+          created_at == o.created_at
     end
 
     # @see the `==` method
@@ -223,7 +223,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, title, purchase_id, terms_url, price_cents, refund_cents, term_months, coverage, contract_id, item_title].hash
+      [id, purchase_id, status, title, term_months, coverage, terms_url, price_cents, refund_cents, contract_id, item_title, created_at].hash
     end
 
     # Builds the object from hash

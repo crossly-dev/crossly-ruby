@@ -35,6 +35,8 @@ module CrosslyBuyer
 
     attr_accessor :pnl_cents
 
+    attr_accessor :today
+
     attr_accessor :sell_now
 
     attr_accessor :note
@@ -52,6 +54,7 @@ module CrosslyBuyer
         :'marks' => :'marks',
         :'cost_cents' => :'costCents',
         :'pnl_cents' => :'pnlCents',
+        :'today' => :'today',
         :'sell_now' => :'sellNow',
         :'note' => :'note'
       }
@@ -75,6 +78,7 @@ module CrosslyBuyer
         :'marks' => :'GetBuyerVaultMarketHistoryResponseNowMarks',
         :'cost_cents' => :'Float',
         :'pnl_cents' => :'Float',
+        :'today' => :'GetBuyerVaultMarketWorthResponseToday',
         :'sell_now' => :'GetBuyerVaultMarketWorthResponseSellNow',
         :'note' => :'String'
       }
@@ -141,6 +145,10 @@ module CrosslyBuyer
         self.pnl_cents = attributes[:'pnl_cents']
       end
 
+      if attributes.key?(:'today')
+        self.today = attributes[:'today']
+      end
+
       if attributes.key?(:'sell_now')
         self.sell_now = attributes[:'sell_now']
       end
@@ -194,6 +202,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "pnl_cents", pnl_cents cannot be nil.')
       end
 
+      if @today.nil?
+        invalid_properties.push('invalid value for "today", today cannot be nil.')
+      end
+
       if @sell_now.nil?
         invalid_properties.push('invalid value for "sell_now", sell_now cannot be nil.')
       end
@@ -218,6 +230,7 @@ module CrosslyBuyer
       return false if @marks.nil?
       return false if @cost_cents.nil?
       return false if @pnl_cents.nil?
+      return false if @today.nil?
       return false if @sell_now.nil?
       return false if @note.nil?
       true
@@ -238,6 +251,7 @@ module CrosslyBuyer
           marks == o.marks &&
           cost_cents == o.cost_cents &&
           pnl_cents == o.pnl_cents &&
+          today == o.today &&
           sell_now == o.sell_now &&
           note == o.note
     end
@@ -251,7 +265,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [as_of, value_cents, vault_cents, on_loan_cents, positions_cents, units, units_on_loan, marks, cost_cents, pnl_cents, sell_now, note].hash
+      [as_of, value_cents, vault_cents, on_loan_cents, positions_cents, units, units_on_loan, marks, cost_cents, pnl_cents, today, sell_now, note].hash
     end
 
     # Builds the object from hash

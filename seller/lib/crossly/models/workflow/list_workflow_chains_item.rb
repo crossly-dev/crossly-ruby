@@ -15,30 +15,36 @@ require 'time'
 
 module Crossly
   class ListWorkflowChainsItem
-    attr_accessor :steps
-
     attr_accessor :id
-
-    attr_accessor :name
-
-    attr_accessor :created_at
 
     attr_accessor :user_id
 
-    attr_accessor :is_active
+    attr_accessor :name
 
     attr_accessor :trigger_id
+
+    attr_accessor :trigger_config
+
+    attr_accessor :is_active
+
+    attr_accessor :created_at
+
+    attr_accessor :workflow_id
+
+    attr_accessor :steps
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'steps' => :'steps',
         :'id' => :'id',
-        :'name' => :'name',
-        :'created_at' => :'createdAt',
         :'user_id' => :'userId',
+        :'name' => :'name',
+        :'trigger_id' => :'triggerId',
+        :'trigger_config' => :'triggerConfig',
         :'is_active' => :'isActive',
-        :'trigger_id' => :'triggerId'
+        :'created_at' => :'createdAt',
+        :'workflow_id' => :'workflowId',
+        :'steps' => :'steps'
       }
     end
 
@@ -50,13 +56,15 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'steps' => :'Array<GetWorkflowChainResponseSteps>',
         :'id' => :'String',
-        :'name' => :'String',
-        :'created_at' => :'Time',
         :'user_id' => :'String',
+        :'name' => :'String',
+        :'trigger_id' => :'String',
+        :'trigger_config' => :'Hash<String, Object>',
         :'is_active' => :'Boolean',
-        :'trigger_id' => :'String'
+        :'created_at' => :'Time',
+        :'workflow_id' => :'String',
+        :'steps' => :'Array<GetWorkflowChainResponseSteps>'
       }
     end
 
@@ -81,34 +89,44 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'steps')
-        if (value = attributes[:'steps']).is_a?(Array)
-          self.steps = value
-        end
-      end
-
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      end
-
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
-      end
-
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'user_id')
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'is_active')
-        self.is_active = attributes[:'is_active']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
       if attributes.key?(:'trigger_id')
         self.trigger_id = attributes[:'trigger_id']
+      end
+
+      if attributes.key?(:'trigger_config')
+        if (value = attributes[:'trigger_config']).is_a?(Hash)
+          self.trigger_config = value
+        end
+      end
+
+      if attributes.key?(:'is_active')
+        self.is_active = attributes[:'is_active']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'workflow_id')
+        self.workflow_id = attributes[:'workflow_id']
+      end
+
+      if attributes.key?(:'steps')
+        if (value = attributes[:'steps']).is_a?(Array)
+          self.steps = value
+        end
       end
     end
 
@@ -116,32 +134,40 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @steps.nil?
-        invalid_properties.push('invalid value for "steps", steps cannot be nil.')
-      end
-
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       if @user_id.nil?
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @is_active.nil?
-        invalid_properties.push('invalid value for "is_active", is_active cannot be nil.')
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
       if @trigger_id.nil?
         invalid_properties.push('invalid value for "trigger_id", trigger_id cannot be nil.')
+      end
+
+      if @trigger_config.nil?
+        invalid_properties.push('invalid value for "trigger_config", trigger_config cannot be nil.')
+      end
+
+      if @is_active.nil?
+        invalid_properties.push('invalid value for "is_active", is_active cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @workflow_id.nil?
+        invalid_properties.push('invalid value for "workflow_id", workflow_id cannot be nil.')
+      end
+
+      if @steps.nil?
+        invalid_properties.push('invalid value for "steps", steps cannot be nil.')
       end
 
       invalid_properties
@@ -150,13 +176,15 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @steps.nil?
       return false if @id.nil?
-      return false if @name.nil?
-      return false if @created_at.nil?
       return false if @user_id.nil?
-      return false if @is_active.nil?
+      return false if @name.nil?
       return false if @trigger_id.nil?
+      return false if @trigger_config.nil?
+      return false if @is_active.nil?
+      return false if @created_at.nil?
+      return false if @workflow_id.nil?
+      return false if @steps.nil?
       true
     end
 
@@ -165,13 +193,15 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          steps == o.steps &&
           id == o.id &&
-          name == o.name &&
-          created_at == o.created_at &&
           user_id == o.user_id &&
+          name == o.name &&
+          trigger_id == o.trigger_id &&
+          trigger_config == o.trigger_config &&
           is_active == o.is_active &&
-          trigger_id == o.trigger_id
+          created_at == o.created_at &&
+          workflow_id == o.workflow_id &&
+          steps == o.steps
     end
 
     # @see the `==` method
@@ -183,7 +213,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [steps, id, name, created_at, user_id, is_active, trigger_id].hash
+      [id, user_id, name, trigger_id, trigger_config, is_active, created_at, workflow_id, steps].hash
     end
 
     # Builds the object from hash

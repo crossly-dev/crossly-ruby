@@ -77,7 +77,7 @@ module Crossly
     # Cancel a break before any spot is paid for; after that, refund those orders instead (409).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBreakCancelResponse]
+    # @return [UpdateGroupBuyResponse]
     def create_break_cancel(id, opts = {})
       data, _status_code, _headers = create_break_cancel_with_http_info(id, opts)
       data
@@ -86,7 +86,7 @@ module Crossly
     # Cancel a break before any spot is paid for; after that, refund those orders instead (409).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBreakCancelResponse, Integer, Hash)>] CreateBreakCancelResponse data, response status code and response headers
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def create_break_cancel_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BreaksApi.create_break_cancel ...'
@@ -113,7 +113,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBreakCancelResponse'
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -199,7 +199,7 @@ module Crossly
     # Mark the product opened on stream.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBreakCancelResponse]
+    # @return [UpdateGroupBuyResponse]
     def create_break_opened(id, opts = {})
       data, _status_code, _headers = create_break_opened_with_http_info(id, opts)
       data
@@ -208,7 +208,7 @@ module Crossly
     # Mark the product opened on stream.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBreakCancelResponse, Integer, Hash)>] CreateBreakCancelResponse data, response status code and response headers
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def create_break_opened_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BreaksApi.create_break_opened ...'
@@ -235,7 +235,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBreakCancelResponse'
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -261,7 +261,7 @@ module Crossly
     # @param id [String] 
     # @param spot_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateBreakCancelResponse]
+    # @return [UpdateGroupBuyResponse]
     def create_break_spot_hit(id, spot_id, opts = {})
       data, _status_code, _headers = create_break_spot_hit_with_http_info(id, spot_id, opts)
       data
@@ -271,7 +271,7 @@ module Crossly
     # @param id [String] 
     # @param spot_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateBreakCancelResponse, Integer, Hash)>] CreateBreakCancelResponse data, response status code and response headers
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def create_break_spot_hit_with_http_info(id, spot_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BreaksApi.create_break_spot_hit ...'
@@ -302,7 +302,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateBreakCancelResponse'
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']

@@ -17,46 +17,59 @@ module Crossly
   class ListAutomationRulesItem
     attr_accessor :id
 
+    attr_accessor :user_id
+
     attr_accessor :name
+
+    attr_accessor :is_active
+
+    attr_accessor :trigger_type
+
+    attr_accessor :trigger_config
+
+    attr_accessor :condition_type
+
+    attr_accessor :condition_config
+
+    attr_accessor :action_type
+
+    attr_accessor :action_config
+
+    attr_accessor :platforms
+
+    attr_accessor :last_run_at
+
+    attr_accessor :next_run_at
+
+    attr_accessor :run_count
 
     attr_accessor :created_at
 
     attr_accessor :updated_at
 
-    attr_accessor :user_id
-
-    attr_accessor :is_active
-
-    attr_accessor :platforms
-
-    attr_accessor :next_run_at
-
-    attr_accessor :last_run_at
-
-    attr_accessor :trigger_type
-
-    attr_accessor :condition_type
-
-    attr_accessor :action_type
-
-    attr_accessor :run_count
+    # The workflow this rule is (open it in /v1/workflows).
+    attr_accessor :workflow_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
+        :'user_id' => :'userId',
         :'name' => :'name',
+        :'is_active' => :'isActive',
+        :'trigger_type' => :'triggerType',
+        :'trigger_config' => :'triggerConfig',
+        :'condition_type' => :'conditionType',
+        :'condition_config' => :'conditionConfig',
+        :'action_type' => :'actionType',
+        :'action_config' => :'actionConfig',
+        :'platforms' => :'platforms',
+        :'last_run_at' => :'lastRunAt',
+        :'next_run_at' => :'nextRunAt',
+        :'run_count' => :'runCount',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
-        :'user_id' => :'userId',
-        :'is_active' => :'isActive',
-        :'platforms' => :'platforms',
-        :'next_run_at' => :'nextRunAt',
-        :'last_run_at' => :'lastRunAt',
-        :'trigger_type' => :'triggerType',
-        :'condition_type' => :'conditionType',
-        :'action_type' => :'actionType',
-        :'run_count' => :'runCount'
+        :'workflow_id' => :'workflowId'
       }
     end
 
@@ -69,28 +82,33 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
+        :'user_id' => :'String',
         :'name' => :'String',
+        :'is_active' => :'Boolean',
+        :'trigger_type' => :'String',
+        :'trigger_config' => :'Hash<String, Object>',
+        :'condition_type' => :'String',
+        :'condition_config' => :'Hash<String, Object>',
+        :'action_type' => :'String',
+        :'action_config' => :'Hash<String, Object>',
+        :'platforms' => :'Array<String>',
+        :'last_run_at' => :'Time',
+        :'next_run_at' => :'Time',
+        :'run_count' => :'Float',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
-        :'user_id' => :'String',
-        :'is_active' => :'Boolean',
-        :'platforms' => :'Array<String>',
-        :'next_run_at' => :'Time',
-        :'last_run_at' => :'Time',
-        :'trigger_type' => :'String',
-        :'condition_type' => :'String',
-        :'action_type' => :'String',
-        :'run_count' => :'Float'
+        :'workflow_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'platforms',
-        :'next_run_at',
-        :'last_run_at',
         :'condition_type',
+        :'condition_config',
+        :'platforms',
+        :'last_run_at',
+        :'next_run_at',
       ])
     end
 
@@ -113,8 +131,64 @@ module Crossly
         self.id = attributes[:'id']
       end
 
+      if attributes.key?(:'user_id')
+        self.user_id = attributes[:'user_id']
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'is_active')
+        self.is_active = attributes[:'is_active']
+      end
+
+      if attributes.key?(:'trigger_type')
+        self.trigger_type = attributes[:'trigger_type']
+      end
+
+      if attributes.key?(:'trigger_config')
+        if (value = attributes[:'trigger_config']).is_a?(Hash)
+          self.trigger_config = value
+        end
+      end
+
+      if attributes.key?(:'condition_type')
+        self.condition_type = attributes[:'condition_type']
+      end
+
+      if attributes.key?(:'condition_config')
+        if (value = attributes[:'condition_config']).is_a?(Hash)
+          self.condition_config = value
+        end
+      end
+
+      if attributes.key?(:'action_type')
+        self.action_type = attributes[:'action_type']
+      end
+
+      if attributes.key?(:'action_config')
+        if (value = attributes[:'action_config']).is_a?(Hash)
+          self.action_config = value
+        end
+      end
+
+      if attributes.key?(:'platforms')
+        if (value = attributes[:'platforms']).is_a?(Array)
+          self.platforms = value
+        end
+      end
+
+      if attributes.key?(:'last_run_at')
+        self.last_run_at = attributes[:'last_run_at']
+      end
+
+      if attributes.key?(:'next_run_at')
+        self.next_run_at = attributes[:'next_run_at']
+      end
+
+      if attributes.key?(:'run_count')
+        self.run_count = attributes[:'run_count']
       end
 
       if attributes.key?(:'created_at')
@@ -125,42 +199,8 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'user_id')
-        self.user_id = attributes[:'user_id']
-      end
-
-      if attributes.key?(:'is_active')
-        self.is_active = attributes[:'is_active']
-      end
-
-      if attributes.key?(:'platforms')
-        if (value = attributes[:'platforms']).is_a?(Array)
-          self.platforms = value
-        end
-      end
-
-      if attributes.key?(:'next_run_at')
-        self.next_run_at = attributes[:'next_run_at']
-      end
-
-      if attributes.key?(:'last_run_at')
-        self.last_run_at = attributes[:'last_run_at']
-      end
-
-      if attributes.key?(:'trigger_type')
-        self.trigger_type = attributes[:'trigger_type']
-      end
-
-      if attributes.key?(:'condition_type')
-        self.condition_type = attributes[:'condition_type']
-      end
-
-      if attributes.key?(:'action_type')
-        self.action_type = attributes[:'action_type']
-      end
-
-      if attributes.key?(:'run_count')
-        self.run_count = attributes[:'run_count']
+      if attributes.key?(:'workflow_id')
+        self.workflow_id = attributes[:'workflow_id']
       end
     end
 
@@ -172,20 +212,12 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
-      end
-
       if @user_id.nil?
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
+      end
+
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
       if @is_active.nil?
@@ -196,12 +228,32 @@ module Crossly
         invalid_properties.push('invalid value for "trigger_type", trigger_type cannot be nil.')
       end
 
+      if @trigger_config.nil?
+        invalid_properties.push('invalid value for "trigger_config", trigger_config cannot be nil.')
+      end
+
       if @action_type.nil?
         invalid_properties.push('invalid value for "action_type", action_type cannot be nil.')
       end
 
+      if @action_config.nil?
+        invalid_properties.push('invalid value for "action_config", action_config cannot be nil.')
+      end
+
       if @run_count.nil?
         invalid_properties.push('invalid value for "run_count", run_count cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
+      if @workflow_id.nil?
+        invalid_properties.push('invalid value for "workflow_id", workflow_id cannot be nil.')
       end
 
       invalid_properties
@@ -211,14 +263,17 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @name.nil?
-      return false if @created_at.nil?
-      return false if @updated_at.nil?
       return false if @user_id.nil?
+      return false if @name.nil?
       return false if @is_active.nil?
       return false if @trigger_type.nil?
+      return false if @trigger_config.nil?
       return false if @action_type.nil?
+      return false if @action_config.nil?
       return false if @run_count.nil?
+      return false if @created_at.nil?
+      return false if @updated_at.nil?
+      return false if @workflow_id.nil?
       true
     end
 
@@ -228,18 +283,22 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          user_id == o.user_id &&
           name == o.name &&
+          is_active == o.is_active &&
+          trigger_type == o.trigger_type &&
+          trigger_config == o.trigger_config &&
+          condition_type == o.condition_type &&
+          condition_config == o.condition_config &&
+          action_type == o.action_type &&
+          action_config == o.action_config &&
+          platforms == o.platforms &&
+          last_run_at == o.last_run_at &&
+          next_run_at == o.next_run_at &&
+          run_count == o.run_count &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
-          user_id == o.user_id &&
-          is_active == o.is_active &&
-          platforms == o.platforms &&
-          next_run_at == o.next_run_at &&
-          last_run_at == o.last_run_at &&
-          trigger_type == o.trigger_type &&
-          condition_type == o.condition_type &&
-          action_type == o.action_type &&
-          run_count == o.run_count
+          workflow_id == o.workflow_id
     end
 
     # @see the `==` method
@@ -251,7 +310,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, user_id, is_active, platforms, next_run_at, last_run_at, trigger_type, condition_type, action_type, run_count].hash
+      [id, user_id, name, is_active, trigger_type, trigger_config, condition_type, condition_config, action_type, action_config, platforms, last_run_at, next_run_at, run_count, created_at, updated_at, workflow_id].hash
     end
 
     # Builds the object from hash

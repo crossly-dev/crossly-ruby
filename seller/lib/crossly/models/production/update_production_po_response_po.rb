@@ -21,17 +21,17 @@ module Crossly
 
     attr_accessor :updated_at
 
+    attr_accessor :status
+
     attr_accessor :notes
 
-    attr_accessor :status
+    attr_accessor :supplier_name
+
+    attr_accessor :tracking_code
 
     attr_accessor :merchant_id
 
     attr_accessor :candidate_id
-
-    attr_accessor :tracking_code
-
-    attr_accessor :supplier_name
 
     attr_accessor :supplier_contact
 
@@ -67,12 +67,12 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
-        :'notes' => :'notes',
         :'status' => :'status',
+        :'notes' => :'notes',
+        :'supplier_name' => :'supplierName',
+        :'tracking_code' => :'trackingCode',
         :'merchant_id' => :'merchantId',
         :'candidate_id' => :'candidateId',
-        :'tracking_code' => :'trackingCode',
-        :'supplier_name' => :'supplierName',
         :'supplier_contact' => :'supplierContact',
         :'freight_mode' => :'freightMode',
         :'estimate_landed_cents' => :'estimateLandedCents',
@@ -101,12 +101,12 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
-        :'notes' => :'String',
         :'status' => :'String',
+        :'notes' => :'String',
+        :'supplier_name' => :'String',
+        :'tracking_code' => :'String',
         :'merchant_id' => :'String',
         :'candidate_id' => :'String',
-        :'tracking_code' => :'String',
-        :'supplier_name' => :'String',
         :'supplier_contact' => :'String',
         :'freight_mode' => :'String',
         :'estimate_landed_cents' => :'Float',
@@ -128,8 +128,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'notes',
-        :'tracking_code',
         :'supplier_name',
+        :'tracking_code',
         :'supplier_contact',
         :'freight_mode',
         :'estimate_landed_cents',
@@ -173,12 +173,20 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
       if attributes.key?(:'notes')
         self.notes = attributes[:'notes']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.key?(:'supplier_name')
+        self.supplier_name = attributes[:'supplier_name']
+      end
+
+      if attributes.key?(:'tracking_code')
+        self.tracking_code = attributes[:'tracking_code']
       end
 
       if attributes.key?(:'merchant_id')
@@ -187,14 +195,6 @@ module Crossly
 
       if attributes.key?(:'candidate_id')
         self.candidate_id = attributes[:'candidate_id']
-      end
-
-      if attributes.key?(:'tracking_code')
-        self.tracking_code = attributes[:'tracking_code']
-      end
-
-      if attributes.key?(:'supplier_name')
-        self.supplier_name = attributes[:'supplier_name']
       end
 
       if attributes.key?(:'supplier_contact')
@@ -310,12 +310,12 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
-          notes == o.notes &&
           status == o.status &&
+          notes == o.notes &&
+          supplier_name == o.supplier_name &&
+          tracking_code == o.tracking_code &&
           merchant_id == o.merchant_id &&
           candidate_id == o.candidate_id &&
-          tracking_code == o.tracking_code &&
-          supplier_name == o.supplier_name &&
           supplier_contact == o.supplier_contact &&
           freight_mode == o.freight_mode &&
           estimate_landed_cents == o.estimate_landed_cents &&
@@ -341,7 +341,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, notes, status, merchant_id, candidate_id, tracking_code, supplier_name, supplier_contact, freight_mode, estimate_landed_cents, actual_unit_fob_cents, actual_tooling_cents, actual_samples_cents, actual_freight_cents, actual_duty_cents, actual_qc_cents, actual_threepl_cents, actual_landed_cents, sample_rounds, qc_status, qc_notes].hash
+      [id, created_at, updated_at, status, notes, supplier_name, tracking_code, merchant_id, candidate_id, supplier_contact, freight_mode, estimate_landed_cents, actual_unit_fob_cents, actual_tooling_cents, actual_samples_cents, actual_freight_cents, actual_duty_cents, actual_qc_cents, actual_threepl_cents, actual_landed_cents, sample_rounds, qc_status, qc_notes].hash
     end
 
     # Builds the object from hash

@@ -15,6 +15,12 @@ require 'time'
 
 module Crossly
   class ListPolicyPresetsItem
+    attr_accessor :summary
+
+    attr_accessor :incomplete
+
+    attr_accessor :listing_count
+
     attr_accessor :id
 
     attr_accessor :name
@@ -29,16 +35,25 @@ module Crossly
 
     attr_accessor :kind
 
+    attr_accessor :revision
+
+    attr_accessor :has_domestic_rules
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'summary' => :'summary',
+        :'incomplete' => :'incomplete',
+        :'listing_count' => :'listingCount',
         :'id' => :'id',
         :'name' => :'name',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
         :'is_default' => :'isDefault',
-        :'kind' => :'kind'
+        :'kind' => :'kind',
+        :'revision' => :'revision',
+        :'has_domestic_rules' => :'hasDomesticRules'
       }
     end
 
@@ -50,13 +65,18 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'summary' => :'String',
+        :'incomplete' => :'Boolean',
+        :'listing_count' => :'Float',
         :'id' => :'String',
         :'name' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
         :'is_default' => :'Boolean',
-        :'kind' => :'String'
+        :'kind' => :'String',
+        :'revision' => :'Float',
+        :'has_domestic_rules' => :'Boolean'
       }
     end
 
@@ -80,6 +100,18 @@ module Crossly
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'summary')
+        self.summary = attributes[:'summary']
+      end
+
+      if attributes.key?(:'incomplete')
+        self.incomplete = attributes[:'incomplete']
+      end
+
+      if attributes.key?(:'listing_count')
+        self.listing_count = attributes[:'listing_count']
+      end
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
@@ -108,12 +140,32 @@ module Crossly
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
       end
+
+      if attributes.key?(:'revision')
+        self.revision = attributes[:'revision']
+      end
+
+      if attributes.key?(:'has_domestic_rules')
+        self.has_domestic_rules = attributes[:'has_domestic_rules']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @summary.nil?
+        invalid_properties.push('invalid value for "summary", summary cannot be nil.')
+      end
+
+      if @incomplete.nil?
+        invalid_properties.push('invalid value for "incomplete", incomplete cannot be nil.')
+      end
+
+      if @listing_count.nil?
+        invalid_properties.push('invalid value for "listing_count", listing_count cannot be nil.')
+      end
+
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
@@ -142,12 +194,23 @@ module Crossly
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
+      if @revision.nil?
+        invalid_properties.push('invalid value for "revision", revision cannot be nil.')
+      end
+
+      if @has_domestic_rules.nil?
+        invalid_properties.push('invalid value for "has_domestic_rules", has_domestic_rules cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @summary.nil?
+      return false if @incomplete.nil?
+      return false if @listing_count.nil?
       return false if @id.nil?
       return false if @name.nil?
       return false if @created_at.nil?
@@ -155,6 +218,8 @@ module Crossly
       return false if @user_id.nil?
       return false if @is_default.nil?
       return false if @kind.nil?
+      return false if @revision.nil?
+      return false if @has_domestic_rules.nil?
       true
     end
 
@@ -163,13 +228,18 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          summary == o.summary &&
+          incomplete == o.incomplete &&
+          listing_count == o.listing_count &&
           id == o.id &&
           name == o.name &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
           is_default == o.is_default &&
-          kind == o.kind
+          kind == o.kind &&
+          revision == o.revision &&
+          has_domestic_rules == o.has_domestic_rules
     end
 
     # @see the `==` method
@@ -181,7 +251,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, user_id, is_default, kind].hash
+      [summary, incomplete, listing_count, id, name, created_at, updated_at, user_id, is_default, kind, revision, has_domestic_rules].hash
     end
 
     # Builds the object from hash

@@ -361,7 +361,8 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Set / add / subtract stock across many items, syncing live listings.
+    # Set / add / subtract stock across many items, or set a stock per item; syncs live listings.
+    # Two bodies. {ids, mode: \"set\"|\"increase\"|\"decrease\", value, syncMarketplaces?} applies one value to every id. {mode: \"set\", items: [{id, quantity}], syncMarketplaces?} sets each item to its own quantity (1-5000 items, each id once; a repeated id, more than 5000 items, or a body mixing items with ids/value is a 400 naming both shapes). The value is the AVAILABLE stock (reserved units of open orders are kept). Stock changes at once; live listings are pushed in the background against the returned bulkJobId (anything dropping to 0 is delisted). Response: {affected, skipped, bulkJobId?}: skipped = ids that did not move (already at that number, or not yours). Send an Idempotency-Key to retry safely.
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryBulkQuantityResponse]
     def create_inventory_bulk_quantity(opts = {})
@@ -369,7 +370,8 @@ module Crossly
       data
     end
 
-    # Set / add / subtract stock across many items, syncing live listings.
+    # Set / add / subtract stock across many items, or set a stock per item; syncs live listings.
+    # Two bodies. {ids, mode: \&quot;set\&quot;|\&quot;increase\&quot;|\&quot;decrease\&quot;, value, syncMarketplaces?} applies one value to every id. {mode: \&quot;set\&quot;, items: [{id, quantity}], syncMarketplaces?} sets each item to its own quantity (1-5000 items, each id once; a repeated id, more than 5000 items, or a body mixing items with ids/value is a 400 naming both shapes). The value is the AVAILABLE stock (reserved units of open orders are kept). Stock changes at once; live listings are pushed in the background against the returned bulkJobId (anything dropping to 0 is delisted). Response: {affected, skipped, bulkJobId?}: skipped &#x3D; ids that did not move (already at that number, or not yours). Send an Idempotency-Key to retry safely.
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryBulkQuantityResponse, Integer, Hash)>] CreateInventoryBulkQuantityResponse data, response status code and response headers
     def create_inventory_bulk_quantity_with_http_info(opts = {})
@@ -412,6 +414,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: InventoryApi#create_inventory_bulk_quantity\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Restore archived inventory items (status returns to active, or sold_out when no stock).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateInventoryBulkRestoreResponse]
+    def create_inventory_bulk_restore(opts = {})
+      data, _status_code, _headers = create_inventory_bulk_restore_with_http_info(opts)
+      data
+    end
+
+    # Restore archived inventory items (status returns to active, or sold_out when no stock).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateInventoryBulkRestoreResponse, Integer, Hash)>] CreateInventoryBulkRestoreResponse data, response status code and response headers
+    def create_inventory_bulk_restore_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_bulk_restore ...'
+      end
+      # resource path
+      local_var_path = '/v1/inventory/bulk-restore'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateInventoryBulkRestoreResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.create_inventory_bulk_restore",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#create_inventory_bulk_restore\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -589,7 +646,7 @@ module Crossly
 
     # Rename a label across every inventory item.
     # @param [Hash] opts the optional parameters
-    # @return [CreateInventoryLabelRenameResponse]
+    # @return [UpdatedResponse]
     def create_inventory_label_rename(opts = {})
       data, _status_code, _headers = create_inventory_label_rename_with_http_info(opts)
       data
@@ -597,7 +654,7 @@ module Crossly
 
     # Rename a label across every inventory item.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateInventoryLabelRenameResponse, Integer, Hash)>] CreateInventoryLabelRenameResponse data, response status code and response headers
+    # @return [Array<(UpdatedResponse, Integer, Hash)>] UpdatedResponse data, response status code and response headers
     def create_inventory_label_rename_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_label_rename ...'
@@ -620,7 +677,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateInventoryLabelRenameResponse'
+      return_type = opts[:debug_return_type] || 'UpdatedResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1010,7 +1067,7 @@ module Crossly
     # Pays the first week to the owner from your EARNED CBX and moves your (public) shop onto the plot.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateSpatialPropertyLeaseAcceptResponse]
+    # @return [CreateWorldMarketPlotRentResponse]
     def create_spatial_property_lease_accept(id, opts = {})
       data, _status_code, _headers = create_spatial_property_lease_accept_with_http_info(id, opts)
       data
@@ -1020,7 +1077,7 @@ module Crossly
     # Pays the first week to the owner from your EARNED CBX and moves your (public) shop onto the plot.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateSpatialPropertyLeaseAcceptResponse, Integer, Hash)>] CreateSpatialPropertyLeaseAcceptResponse data, response status code and response headers
+    # @return [Array<(CreateWorldMarketPlotRentResponse, Integer, Hash)>] CreateWorldMarketPlotRentResponse data, response status code and response headers
     def create_spatial_property_lease_accept_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_spatial_property_lease_accept ...'
@@ -1047,7 +1104,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateSpatialPropertyLeaseAcceptResponse'
+      return_type = opts[:debug_return_type] || 'CreateWorldMarketPlotRentResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1070,7 +1127,7 @@ module Crossly
     end
 
     # End a lease (owner or tenant).
-    # The tenant's shop gets a free Main Street address again.
+    # The tenant's showroom leaves the plot.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialPropertyLeaseEndResponse]
@@ -1080,7 +1137,7 @@ module Crossly
     end
 
     # End a lease (owner or tenant).
-    # The tenant&#39;s shop gets a free Main Street address again.
+    # The tenant&#39;s showroom leaves the plot.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialPropertyLeaseEndResponse, Integer, Hash)>] CreateSpatialPropertyLeaseEndResponse data, response status code and response headers
@@ -1839,6 +1896,231 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [Integer] :maturity Days an item has to sell within to count as sold in the cohort. Default 30.
+    # @return [GetAnalyticInventoryResponse]
+    def get_analytic_inventory(opts = {})
+      data, _status_code, _headers = get_analytic_inventory_with_http_info(opts)
+      data
+    end
+
+    # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
+    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
+    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
+    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
+    # @option opts [String] :labels Comma-separated inventory labels (any of them).
+    # @option opts [String] :platforms Comma-separated platform ids.
+    # @option opts [String] :category Canonical main-category key.
+    # @option opts [String] :brand Brand name.
+    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
+    # @option opts [Integer] :maturity Days an item has to sell within to count as sold in the cohort. Default 30.
+    # @return [Array<(GetAnalyticInventoryResponse, Integer, Hash)>] GetAnalyticInventoryResponse data, response status code and response headers
+    def get_analytic_inventory_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.get_analytic_inventory ...'
+      end
+      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["prev", "yoy", "none", "custom"]
+      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
+        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
+      end
+      allowable_values = [30, 60, 90]
+      if @api_client.config.client_side_validation && opts[:'maturity'] && !allowable_values.include?(opts[:'maturity'])
+        fail ArgumentError, "invalid value for \"maturity\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/analytics/inventory'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
+      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
+      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
+      query_params[:'maturity'] = opts[:'maturity'] if !opts[:'maturity'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAnalyticInventoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.get_analytic_inventory",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#get_analytic_inventory\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
+    # @param event_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetGameEventSummaryResponse]
+    def get_game_event_summary(event_id, opts = {})
+      data, _status_code, _headers = get_game_event_summary_with_http_info(event_id, opts)
+      data
+    end
+
+    # The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
+    # @param event_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetGameEventSummaryResponse, Integer, Hash)>] GetGameEventSummaryResponse data, response status code and response headers
+    def get_game_event_summary_with_http_info(event_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.get_game_event_summary ...'
+      end
+      # verify the required parameter 'event_id' is set
+      if @api_client.config.client_side_validation && event_id.nil?
+        fail ArgumentError, "Missing the required parameter 'event_id' when calling InventoryApi.get_game_event_summary"
+      end
+      # resource path
+      local_var_path = '/v1/games/events/{eventId}/summary'.sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetGameEventSummaryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.get_game_event_summary",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#get_game_event_summary\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetGameHuntBuildResponse]
+    def get_game_hunt_build(id, opts = {})
+      data, _status_code, _headers = get_game_hunt_build_with_http_info(id, opts)
+      data
+    end
+
+    # One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetGameHuntBuildResponse, Integer, Hash)>] GetGameHuntBuildResponse data, response status code and response headers
+    def get_game_hunt_build_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.get_game_hunt_build ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling InventoryApi.get_game_hunt_build"
+      end
+      # resource path
+      local_var_path = '/v1/games/hunts/{id}/build'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetGameHuntBuildResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.get_game_hunt_build",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#get_game_hunt_build\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Game leaderboards: for each of Price Guess (wins, then points), scavenger hunts (finished) and speed trades (won), the top ten this week (Monday 00:00 UTC on) under week and of all time under all -- rank, name, named, value and, for Price Guess, score. A name appears only for somebody who chose to be seen by name in Crossly World; everyone else is \"A player\" in their place.
     # @param [Hash] opts the optional parameters
     # @return [GetGameLeaderboardResponse]
@@ -2071,7 +2353,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Unsold stock by age (0-7, 7-30, 30-90, 90+ days, unlisted), each bucket with a recommendation.
+    # Unsold stock by days since first listed (unlisted, 0-7, 7-30, 30-90, 90+), each bucket with items, units, known cost (items without a cost counted separately) and listed value.
     # @param [Hash] opts the optional parameters
     # @return [GetInventoryAgingResponse]
     def get_inventory_aging(opts = {})
@@ -2079,7 +2361,7 @@ module Crossly
       data
     end
 
-    # Unsold stock by age (0-7, 7-30, 30-90, 90+ days, unlisted), each bucket with a recommendation.
+    # Unsold stock by days since first listed (unlisted, 0-7, 7-30, 30-90, 90+), each bucket with items, units, known cost (items without a cost counted separately) and listed value.
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetInventoryAgingResponse, Integer, Hash)>] GetInventoryAgingResponse data, response status code and response headers
     def get_inventory_aging_with_http_info(opts = {})
@@ -2352,7 +2634,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Cohort sell-through for a window (default: the 30 days ending 30 days ago) against the previous window of the same length.
+    # Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
     # @param [Hash] opts the optional parameters
     # @return [GetInventorySellThroughResponse]
     def get_inventory_sell_through(opts = {})
@@ -2360,7 +2642,7 @@ module Crossly
       data
     end
 
-    # Cohort sell-through for a window (default: the 30 days ending 30 days ago) against the previous window of the same length.
+    # Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetInventorySellThroughResponse, Integer, Hash)>] GetInventorySellThroughResponse data, response status code and response headers
     def get_inventory_sell_through_with_http_info(opts = {})
@@ -2469,7 +2751,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Portfolio value of unsold stock over time, oldest first (one point per nightly snapshot).
+    # Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
     # @param [Hash] opts the optional parameters
     # @return [GetInventoryValueHistoryResponse]
     def get_inventory_value_history(opts = {})
@@ -2477,7 +2759,7 @@ module Crossly
       data
     end
 
-    # Portfolio value of unsold stock over time, oldest first (one point per nightly snapshot).
+    # Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetInventoryValueHistoryResponse, Integer, Hash)>] GetInventoryValueHistoryResponse data, response status code and response headers
     def get_inventory_value_history_with_http_info(opts = {})
@@ -3635,6 +3917,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Crossly World's pulse, aggregated with no people in it: the public world shops that made a sale today (slugs only -- never counts, amounts or buyers), the times the world's shops passed each sales milestone today (each fires a fireworks show), and what Crossly Cares took in this month against the Commons fountain's mark.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWorldPulseResponse]
+    def get_world_pulse(opts = {})
+      data, _status_code, _headers = get_world_pulse_with_http_info(opts)
+      data
+    end
+
+    # Crossly World&#39;s pulse, aggregated with no people in it: the public world shops that made a sale today (slugs only -- never counts, amounts or buyers), the times the world&#39;s shops passed each sales milestone today (each fires a fireworks show), and what Crossly Cares took in this month against the Commons fountain&#39;s mark.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWorldPulseResponse, Integer, Hash)>] GetWorldPulseResponse data, response status code and response headers
+    def get_world_pulse_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.get_world_pulse ...'
+      end
+      # resource path
+      local_var_path = '/v1/world/pulse'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorldPulseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.get_world_pulse",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#get_world_pulse\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your room's funnel over the last `days` (1-35, default 30): visitors (people, once a day), looks, items opened, checkouts started from the room, paid sales and revenueCents. Sales count only lines the room itself put in a cart.
     # @param scene_id [String] 
     # @param [Hash] opts the optional parameters
@@ -4008,6 +4345,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your scavenger hunts (spec WD6: made from Branding events, built in Crossly World), newest first: title, place slug, the event it belongs to (eventId), your discount code if it rewards one, whether it is a draft (not yet built and published), live or ended, its coins, and how many people finished.
+    # @param [Hash] opts the optional parameters
+    # @return [ListGameHuntMineResponse]
+    def list_game_hunt_mine(opts = {})
+      data, _status_code, _headers = list_game_hunt_mine_with_http_info(opts)
+      data
+    end
+
+    # Your scavenger hunts (spec WD6: made from Branding events, built in Crossly World), newest first: title, place slug, the event it belongs to (eventId), your discount code if it rewards one, whether it is a draft (not yet built and published), live or ended, its coins, and how many people finished.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListGameHuntMineResponse, Integer, Hash)>] ListGameHuntMineResponse data, response status code and response headers
+    def list_game_hunt_mine_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.list_game_hunt_mine ...'
+      end
+      # resource path
+      local_var_path = '/v1/games/hunts/mine'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListGameHuntMineResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.list_game_hunt_mine",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#list_game_hunt_mine\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Scavenger hunts running now in Crossly World shops and pop-up stalls, ending soonest first: title, shop (name and slug -- for a hunt at a stall, the street slug, with stall.bookingId set), how many tokens, what finishing unlocks (\"10% off\" -- never the code), when it ends and how many people have finished. Optional place filters to one shop or street slug.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :place 
@@ -4240,6 +4632,8 @@ module Crossly
     # @option opts [String] :kind Physical goods or Web3 assets (NFTs). Omit for both.
     # @option opts [String] :platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them.
     # @option opts [String] :platform_mode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;.
+    # @option opts [String] :sku Exact SKU match: look up the row a supplier product maps to.
+    # @option opts [Time] :updated_since Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
     # @return [ListInventoryResponse]
     def list_inventory(opts = {})
       data, _status_code, _headers = list_inventory_with_http_info(opts)
@@ -4255,6 +4649,8 @@ module Crossly
     # @option opts [String] :kind Physical goods or Web3 assets (NFTs). Omit for both.
     # @option opts [String] :platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them.
     # @option opts [String] :platform_mode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;.
+    # @option opts [String] :sku Exact SKU match: look up the row a supplier product maps to.
+    # @option opts [Time] :updated_since Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
     # @return [Array<(ListInventoryResponse, Integer, Hash)>] ListInventoryResponse data, response status code and response headers
     def list_inventory_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -4280,6 +4676,10 @@ module Crossly
       if @api_client.config.client_side_validation && opts[:'platform_mode'] && !allowable_values.include?(opts[:'platform_mode'])
         fail ArgumentError, "invalid value for \"platform_mode\", must be one of #{allowable_values}"
       end
+      if @api_client.config.client_side_validation && !opts[:'sku'].nil? && opts[:'sku'].to_s.length > 200
+        fail ArgumentError, 'invalid value for "opts[:"sku"]" when calling InventoryApi.list_inventory, the character length must be smaller than or equal to 200.'
+      end
+
       # resource path
       local_var_path = '/v1/inventory'
 
@@ -4292,6 +4692,8 @@ module Crossly
       query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
       query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
       query_params[:'platformMode'] = opts[:'platform_mode'] if !opts[:'platform_mode'].nil?
+      query_params[:'sku'] = opts[:'sku'] if !opts[:'sku'].nil?
+      query_params[:'updatedSince'] = opts[:'updated_since'] if !opts[:'updated_since'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

@@ -5,11 +5,13 @@ All URIs are relative to *https://crossly.net/api*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_account**](AccountsApi.md#create_account) | **POST** /v1/accounts | Connect a new platform account (kicks off OAuth or extension handshake). |
+| [**create_connection_cardnexus_api_key**](AccountsApi.md#create_connection_cardnexus_api_key) | **POST** /v1/connections/cardnexus/api-key | Connect CardNexus with a personal API key (validated live before it is stored). |
 | [**create_connection_email_imap**](AccountsApi.md#create_connection_email_imap) | **POST** /v1/connections/email/imap | Add an IMAP mailbox connection. |
 | [**create_connection_email_imap_test**](AccountsApi.md#create_connection_email_imap_test) | **POST** /v1/connections/email/imap/test | Validate IMAP credentials without persisting. |
+| [**create_connection_lightspeed_x_token**](AccountsApi.md#create_connection_lightspeed_x_token) | **POST** /v1/connections/lightspeed_x/token | Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix. |
 | [**create_connection_request**](AccountsApi.md#create_connection_request) | **POST** /v1/connections/{platform}/request | Express interest in a request_only platform. |
 | [**create_platform_account_connect**](AccountsApi.md#create_platform_account_connect) | **POST** /v1/platform-accounts/{platform}/connect | Revive or initiate connection for a cookie platform. |
-| [**create_platform_account_disconnect**](AccountsApi.md#create_platform_account_disconnect) | **POST** /v1/platform-accounts/{platform}/disconnect | Archive every active account row for a platform. |
+| [**create_platform_account_disconnect**](AccountsApi.md#create_platform_account_disconnect) | **POST** /v1/platform-accounts/{platform}/disconnect | Disconnect every account of a platform (archives the rows and deletes their stored sessions). |
 | [**create_platform_account_history_import**](AccountsApi.md#create_platform_account_history_import) | **POST** /v1/platform-accounts/{platform}/history-import | Set how far back to backfill order history + active listings for a platform, and run it now. |
 | [**create_platform_account_refresh_status**](AccountsApi.md#create_platform_account_refresh_status) | **POST** /v1/platform-accounts/refresh-status | Run on-demand healthchecks across cookie accounts. |
 | [**delete_account**](AccountsApi.md#delete_account) | **DELETE** /v1/accounts/{id} | Disconnect a platform account. |
@@ -17,11 +19,14 @@ All URIs are relative to *https://crossly.net/api*
 | [**delete_connection_email_imap**](AccountsApi.md#delete_connection_email_imap) | **DELETE** /v1/connections/email/imap/{id} | Remove an IMAP mailbox connection. |
 | [**get_connection_email**](AccountsApi.md#get_connection_email) | **GET** /v1/connections/email | List IMAP and email-OAuth connections. |
 | [**get_connection_extension_online**](AccountsApi.md#get_connection_extension_online) | **GET** /v1/connections/extension-online | Check if the browser extension is online. |
+| [**get_connection_policy_management_option**](AccountsApi.md#get_connection_policy_management_option) | **GET** /v1/connections/policy-management/{connectionId}/options/{source} | List the live options a marketplace policy field offers (e.g. Allegro delivery methods). |
 | [**get_oauth_init**](AccountsApi.md#get_oauth_init) | **GET** /v1/oauth/{platform}/init | Return the OAuth authorize URL for an API-track platform. |
 | [**get_platform_limit**](AccountsApi.md#get_platform_limit) | **GET** /v1/platforms/limits | eBay free-tier + Etsy fees aggregate. |
 | [**list_accounts**](AccountsApi.md#list_accounts) | **GET** /v1/accounts | List your connected platform accounts. |
+| [**list_connection_policy_management**](AccountsApi.md#list_connection_policy_management) | **GET** /v1/connections/policy-management | List eBay and Etsy accounts with whether Crossly manages their policies. |
 | [**list_connections**](AccountsApi.md#list_connections) | **GET** /v1/connections | List OAuth-connected API platforms. |
 | [**update_connection_email_imap**](AccountsApi.md#update_connection_email_imap) | **PATCH** /v1/connections/email/imap/{id} | Edit an IMAP mailbox connection. |
+| [**update_connection_policy_management**](AccountsApi.md#update_connection_policy_management) | **PUT** /v1/connections/policy-management/{connectionId} | Turn Crossly policy management on or off for one eBay or Etsy account. |
 | [**update_platform_preference**](AccountsApi.md#update_platform_preference) | **PATCH** /v1/platforms/{platform}/preferences | Update per-platform connection preferences. |
 
 
@@ -78,6 +83,70 @@ This endpoint does not need any parameter.
 ### Return type
 
 **CreateAccountResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_connection_cardnexus_api_key
+
+> <CreateConnectionCardnexusApiKeyResponse> create_connection_cardnexus_api_key
+
+Connect CardNexus with a personal API key (validated live before it is stored).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountsApi.new
+
+begin
+  # Connect CardNexus with a personal API key (validated live before it is stored).
+  result = api_instance.create_connection_cardnexus_api_key
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->create_connection_cardnexus_api_key: #{e}"
+end
+```
+
+#### Using the create_connection_cardnexus_api_key_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateConnectionCardnexusApiKeyResponse>, Integer, Hash)> create_connection_cardnexus_api_key_with_http_info
+
+```ruby
+begin
+  # Connect CardNexus with a personal API key (validated live before it is stored).
+  data, status_code, headers = api_instance.create_connection_cardnexus_api_key_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateConnectionCardnexusApiKeyResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->create_connection_cardnexus_api_key_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateConnectionCardnexusApiKeyResponse**
 
 ### Authorization
 
@@ -214,6 +283,73 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_connection_lightspeed_x_token
+
+> <CreateConnectionLightspeedXTokenResponse> create_connection_lightspeed_x_token(create_connection_lightspeed_x_token_request)
+
+Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountsApi.new
+create_connection_lightspeed_x_token_request = Crossly::CreateConnectionLightspeedXTokenRequest.new({domain_prefix: 'domain_prefix_example', access_token: 'access_token_example'}) # CreateConnectionLightspeedXTokenRequest | 
+
+begin
+  # Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+  result = api_instance.create_connection_lightspeed_x_token(create_connection_lightspeed_x_token_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->create_connection_lightspeed_x_token: #{e}"
+end
+```
+
+#### Using the create_connection_lightspeed_x_token_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateConnectionLightspeedXTokenResponse>, Integer, Hash)> create_connection_lightspeed_x_token_with_http_info(create_connection_lightspeed_x_token_request)
+
+```ruby
+begin
+  # Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+  data, status_code, headers = api_instance.create_connection_lightspeed_x_token_with_http_info(create_connection_lightspeed_x_token_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateConnectionLightspeedXTokenResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->create_connection_lightspeed_x_token_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_connection_lightspeed_x_token_request** | **CreateConnectionLightspeedXTokenRequest** |  |  |
+
+### Return type
+
+**CreateConnectionLightspeedXTokenResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -355,7 +491,7 @@ end
 
 > <CreatePlatformAccountDisconnectResponse> create_platform_account_disconnect(platform)
 
-Archive every active account row for a platform.
+Disconnect every account of a platform (archives the rows and deletes their stored sessions).
 
 ### Examples
 
@@ -372,7 +508,7 @@ api_instance = Crossly::AccountsApi.new
 platform = 'platform_example' # String | 
 
 begin
-  # Archive every active account row for a platform.
+  # Disconnect every account of a platform (archives the rows and deletes their stored sessions).
   result = api_instance.create_platform_account_disconnect(platform)
   p result
 rescue Crossly::ApiError => e
@@ -388,7 +524,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Archive every active account row for a platform.
+  # Disconnect every account of a platform (archives the rows and deletes their stored sessions).
   data, status_code, headers = api_instance.create_platform_account_disconnect_with_http_info(platform)
   p status_code # => 2xx
   p headers # => { ... }
@@ -880,13 +1016,84 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## get_connection_policy_management_option
+
+> <GetConnectionPolicyManagementOptionResponse> get_connection_policy_management_option(connection_id, source)
+
+List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+
+For one of your managed connections, the choices a preset's `platformFields` picker offers, from the marketplace (`source` is the field's `optionsSource`, e.g. `delivery-methods`). An unknown connection or source is a 404.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountsApi.new
+connection_id = 'connection_id_example' # String | 
+source = 'source_example' # String | 
+
+begin
+  # List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+  result = api_instance.get_connection_policy_management_option(connection_id, source)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->get_connection_policy_management_option: #{e}"
+end
+```
+
+#### Using the get_connection_policy_management_option_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetConnectionPolicyManagementOptionResponse>, Integer, Hash)> get_connection_policy_management_option_with_http_info(connection_id, source)
+
+```ruby
+begin
+  # List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+  data, status_code, headers = api_instance.get_connection_policy_management_option_with_http_info(connection_id, source)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetConnectionPolicyManagementOptionResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->get_connection_policy_management_option_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **connection_id** | **String** |  |  |
+| **source** | **String** |  |  |
+
+### Return type
+
+**GetConnectionPolicyManagementOptionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_oauth_init
 
 > <GetOauthInitResponse> get_oauth_init(platform, opts)
 
 Return the OAuth authorize URL for an API-track platform.
 
-Most platforms return `{ url }`. Etsy adds `{ correlationId }` (PKCE verifier stashed in Redis). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
+Most platforms return `{ url }` (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
 
 ### Examples
 
@@ -1085,6 +1292,72 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## list_connection_policy_management
+
+> <ListConnectionPolicyManagementResponse> list_connection_policy_management
+
+List eBay and Etsy accounts with whether Crossly manages their policies.
+
+One row per connected eBay or Etsy account: `eligible` (eBay only on EBAY_US), `managed` (Crossly keeps its policies / shipping profiles in step with your default presets) and sync `notes`.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountsApi.new
+
+begin
+  # List eBay and Etsy accounts with whether Crossly manages their policies.
+  result = api_instance.list_connection_policy_management
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->list_connection_policy_management: #{e}"
+end
+```
+
+#### Using the list_connection_policy_management_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListConnectionPolicyManagementResponse>, Integer, Hash)> list_connection_policy_management_with_http_info
+
+```ruby
+begin
+  # List eBay and Etsy accounts with whether Crossly manages their policies.
+  data, status_code, headers = api_instance.list_connection_policy_management_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListConnectionPolicyManagementResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->list_connection_policy_management_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListConnectionPolicyManagementResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_connections
 
 > <ListConnectionsResponse> list_connections
@@ -1205,6 +1478,75 @@ end
 ### Return type
 
 **SuccessResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_connection_policy_management
+
+> <ListConnectionPolicyManagementItem> update_connection_policy_management(connection_id)
+
+Turn Crossly policy management on or off for one eBay or Etsy account.
+
+Body `{ managed: boolean }`. On: Crossly may overwrite that account's own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::AccountsApi.new
+connection_id = 'connection_id_example' # String | 
+
+begin
+  # Turn Crossly policy management on or off for one eBay or Etsy account.
+  result = api_instance.update_connection_policy_management(connection_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->update_connection_policy_management: #{e}"
+end
+```
+
+#### Using the update_connection_policy_management_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListConnectionPolicyManagementItem>, Integer, Hash)> update_connection_policy_management_with_http_info(connection_id)
+
+```ruby
+begin
+  # Turn Crossly policy management on or off for one eBay or Etsy account.
+  data, status_code, headers = api_instance.update_connection_policy_management_with_http_info(connection_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListConnectionPolicyManagementItem>
+rescue Crossly::ApiError => e
+  puts "Error when calling AccountsApi->update_connection_policy_management_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **connection_id** | **String** |  |  |
+
+### Return type
+
+**ListConnectionPolicyManagementItem**
 
 ### Authorization
 

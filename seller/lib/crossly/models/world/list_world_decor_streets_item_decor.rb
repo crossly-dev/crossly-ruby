@@ -131,7 +131,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      banner_colour_validator = EnumAttributeValidator.new('String', ["red", "green", "teal", "blue", "purple", "cream", "amber", "ink"])
+      banner_colour_validator = EnumAttributeValidator.new('String', ["blue", "green", "purple", "red", "teal", "cream", "ink", "amber"])
       return false unless banner_colour_validator.valid?(@banner_colour)
       true
     end
@@ -139,7 +139,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] banner_colour Object to be assigned
     def banner_colour=(banner_colour)
-      validator = EnumAttributeValidator.new('String', ["red", "green", "teal", "blue", "purple", "cream", "amber", "ink"])
+      validator = EnumAttributeValidator.new('String', ["blue", "green", "purple", "red", "teal", "cream", "ink", "amber"])
       unless validator.valid?(banner_colour)
         fail ArgumentError, "invalid value for \"banner_colour\", must be one of #{validator.allowable_values}."
       end

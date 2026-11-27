@@ -25,9 +25,11 @@ module Crossly
 
     attr_accessor :title
 
+    attr_accessor :body
+
     attr_accessor :surface
 
-    attr_accessor :body
+    attr_accessor :sort_order
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -37,8 +39,9 @@ module Crossly
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
         :'title' => :'title',
+        :'body' => :'body',
         :'surface' => :'surface',
-        :'body' => :'body'
+        :'sort_order' => :'sortOrder'
       }
     end
 
@@ -55,8 +58,9 @@ module Crossly
         :'created_at' => :'Time',
         :'user_id' => :'String',
         :'title' => :'String',
+        :'body' => :'String',
         :'surface' => :'String',
-        :'body' => :'String'
+        :'sort_order' => :'Float'
       }
     end
 
@@ -102,12 +106,16 @@ module Crossly
         self.title = attributes[:'title']
       end
 
+      if attributes.key?(:'body')
+        self.body = attributes[:'body']
+      end
+
       if attributes.key?(:'surface')
         self.surface = attributes[:'surface']
       end
 
-      if attributes.key?(:'body')
-        self.body = attributes[:'body']
+      if attributes.key?(:'sort_order')
+        self.sort_order = attributes[:'sort_order']
       end
     end
 
@@ -131,12 +139,16 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
+      if @body.nil?
+        invalid_properties.push('invalid value for "body", body cannot be nil.')
+      end
+
       if @surface.nil?
         invalid_properties.push('invalid value for "surface", surface cannot be nil.')
       end
 
-      if @body.nil?
-        invalid_properties.push('invalid value for "body", body cannot be nil.')
+      if @sort_order.nil?
+        invalid_properties.push('invalid value for "sort_order", sort_order cannot be nil.')
       end
 
       invalid_properties
@@ -149,8 +161,9 @@ module Crossly
       return false if @name.nil?
       return false if @created_at.nil?
       return false if @user_id.nil?
-      return false if @surface.nil?
       return false if @body.nil?
+      return false if @surface.nil?
+      return false if @sort_order.nil?
       true
     end
 
@@ -164,8 +177,9 @@ module Crossly
           created_at == o.created_at &&
           user_id == o.user_id &&
           title == o.title &&
+          body == o.body &&
           surface == o.surface &&
-          body == o.body
+          sort_order == o.sort_order
     end
 
     # @see the `==` method
@@ -177,7 +191,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, user_id, title, surface, body].hash
+      [id, name, created_at, user_id, title, body, surface, sort_order].hash
     end
 
     # Builds the object from hash

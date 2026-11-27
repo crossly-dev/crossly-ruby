@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerListingSellerReviewsItemMedia
-    attr_accessor :url
-
     attr_accessor :kind
+
+    attr_accessor :url
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'url' => :'url',
-        :'kind' => :'kind'
+        :'kind' => :'kind',
+        :'url' => :'url'
       }
     end
 
@@ -35,8 +35,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'url' => :'String',
-        :'kind' => :'String'
+        :'kind' => :'String',
+        :'url' => :'String'
       }
     end
 
@@ -61,12 +61,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'url')
-        self.url = attributes[:'url']
-      end
-
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'url')
+        self.url = attributes[:'url']
       end
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @url.nil?
-        invalid_properties.push('invalid value for "url", url cannot be nil.')
-      end
-
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @url.nil?
       return false if @kind.nil?
+      return false if @url.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          url == o.url &&
-          kind == o.kind
+          kind == o.kind &&
+          url == o.url
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, kind].hash
+      [kind, url].hash
     end
 
     # Builds the object from hash

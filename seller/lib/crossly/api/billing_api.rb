@@ -86,5 +86,119 @@ module Crossly
       end
       return data, status_code, headers
     end
+
+    # Your listing allowances through OAuth apps (used of limit, per app, with its platform scope).
+    # Staff can let an OAuth app list above a seller's plan, counted apart from the plan's itemsPerMonth and only on the allowance's platforms. `label` is the sentence to show (12 of 10,000 managed by Infinity; ... this month via Infinity (resets Dec 1); or counts toward your plan for limitMode shared).
+    # @param [Hash] opts the optional parameters
+    # @return [ListBillingAppAllowancesResponse]
+    def list_billing_app_allowances(opts = {})
+      data, _status_code, _headers = list_billing_app_allowances_with_http_info(opts)
+      data
+    end
+
+    # Your listing allowances through OAuth apps (used of limit, per app, with its platform scope).
+    # Staff can let an OAuth app list above a seller&#39;s plan, counted apart from the plan&#39;s itemsPerMonth and only on the allowance&#39;s platforms. &#x60;label&#x60; is the sentence to show (12 of 10,000 managed by Infinity; ... this month via Infinity (resets Dec 1); or counts toward your plan for limitMode shared).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBillingAppAllowancesResponse, Integer, Hash)>] ListBillingAppAllowancesResponse data, response status code and response headers
+    def list_billing_app_allowances_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BillingApi.list_billing_app_allowances ...'
+      end
+      # resource path
+      local_var_path = '/v1/billing/app-allowances'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBillingAppAllowancesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BillingApi.list_billing_app_allowances",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BillingApi#list_billing_app_allowances\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the plans with their prices, limits and features.
+    # Prices are the Stripe Prices checkout charges (whole USD). A null limit means no cap.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBillingPlansResponse]
+    def list_billing_plans(opts = {})
+      data, _status_code, _headers = list_billing_plans_with_http_info(opts)
+      data
+    end
+
+    # List the plans with their prices, limits and features.
+    # Prices are the Stripe Prices checkout charges (whole USD). A null limit means no cap.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBillingPlansResponse, Integer, Hash)>] ListBillingPlansResponse data, response status code and response headers
+    def list_billing_plans_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BillingApi.list_billing_plans ...'
+      end
+      # resource path
+      local_var_path = '/v1/billing/plans'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBillingPlansResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BillingApi.list_billing_plans",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BillingApi#list_billing_plans\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
   end
 end

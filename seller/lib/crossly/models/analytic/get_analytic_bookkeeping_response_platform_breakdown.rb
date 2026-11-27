@@ -25,6 +25,10 @@ module Crossly
 
     attr_accessor :net_profit
 
+    attr_accessor :refunds
+
+    attr_accessor :tax_collected
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +36,9 @@ module Crossly
         :'revenue' => :'revenue',
         :'count' => :'count',
         :'platform_fees' => :'platformFees',
-        :'net_profit' => :'netProfit'
+        :'net_profit' => :'netProfit',
+        :'refunds' => :'refunds',
+        :'tax_collected' => :'taxCollected'
       }
     end
 
@@ -48,7 +54,9 @@ module Crossly
         :'revenue' => :'Float',
         :'count' => :'Float',
         :'platform_fees' => :'Float',
-        :'net_profit' => :'Float'
+        :'net_profit' => :'Float',
+        :'refunds' => :'Float',
+        :'tax_collected' => :'Float'
       }
     end
 
@@ -92,6 +100,14 @@ module Crossly
       if attributes.key?(:'net_profit')
         self.net_profit = attributes[:'net_profit']
       end
+
+      if attributes.key?(:'refunds')
+        self.refunds = attributes[:'refunds']
+      end
+
+      if attributes.key?(:'tax_collected')
+        self.tax_collected = attributes[:'tax_collected']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -118,6 +134,14 @@ module Crossly
         invalid_properties.push('invalid value for "net_profit", net_profit cannot be nil.')
       end
 
+      if @refunds.nil?
+        invalid_properties.push('invalid value for "refunds", refunds cannot be nil.')
+      end
+
+      if @tax_collected.nil?
+        invalid_properties.push('invalid value for "tax_collected", tax_collected cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -129,6 +153,8 @@ module Crossly
       return false if @count.nil?
       return false if @platform_fees.nil?
       return false if @net_profit.nil?
+      return false if @refunds.nil?
+      return false if @tax_collected.nil?
       true
     end
 
@@ -141,7 +167,9 @@ module Crossly
           revenue == o.revenue &&
           count == o.count &&
           platform_fees == o.platform_fees &&
-          net_profit == o.net_profit
+          net_profit == o.net_profit &&
+          refunds == o.refunds &&
+          tax_collected == o.tax_collected
     end
 
     # @see the `==` method
@@ -153,7 +181,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, revenue, count, platform_fees, net_profit].hash
+      [platform, revenue, count, platform_fees, net_profit, refunds, tax_collected].hash
     end
 
     # Builds the object from hash

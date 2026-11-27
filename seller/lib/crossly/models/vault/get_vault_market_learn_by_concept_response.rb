@@ -175,7 +175,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @slug.nil?
-      slug_validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks"])
+      slug_validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks", "vault-shares"])
       return false unless slug_validator.valid?(@slug)
       return false if @title.nil?
       return false if @summary.nil?
@@ -188,7 +188,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] slug Object to be assigned
     def slug=(slug)
-      validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks"])
+      validator = EnumAttributeValidator.new('String', ["lending", "instant-exit", "shorts", "liens", "auctions", "indexes", "marks", "vault-shares"])
       unless validator.valid?(slug)
         fail ArgumentError, "invalid value for \"slug\", must be one of #{validator.allowable_values}."
       end

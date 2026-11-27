@@ -73,7 +73,7 @@ module Crossly
         :'followers' => :'Float',
         :'following' => :'Boolean',
         :'is_me' => :'Boolean',
-        :'recent_buys' => :'Array<ListVaultMarketFeedItem>',
+        :'recent_buys' => :'Array<GetVaultMarketProfileByHandleResponseOneOfRecentBuys>',
         :'display_name' => :'String',
         :'avatar_url' => :'Object',
         :'profile_url' => :'Object'

@@ -16,8 +16,8 @@ require 'time'
 module Crossly
   class GetStallQuoteResponseQuoteRailsItem
     CARD = "card".freeze
-    BUCKS = "bucks".freeze
     CBX = "cbx".freeze
+    BUCKS = "bucks".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

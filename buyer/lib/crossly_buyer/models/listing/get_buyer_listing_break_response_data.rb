@@ -17,34 +17,34 @@ module CrosslyBuyer
   class GetBuyerListingBreakResponseData
     attr_accessor :id
 
-    attr_accessor :status
-
     attr_accessor :title
+
+    attr_accessor :format
+
+    attr_accessor :status
 
     attr_accessor :slug
 
     attr_accessor :price_cents
 
-    attr_accessor :format
-
-    attr_accessor :seed
+    attr_accessor :spots_left
 
     attr_accessor :seed_commit
 
-    attr_accessor :spots_left
+    attr_accessor :seed
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
         :'title' => :'title',
+        :'format' => :'format',
+        :'status' => :'status',
         :'slug' => :'slug',
         :'price_cents' => :'priceCents',
-        :'format' => :'format',
-        :'seed' => :'seed',
+        :'spots_left' => :'spotsLeft',
         :'seed_commit' => :'seedCommit',
-        :'spots_left' => :'spotsLeft'
+        :'seed' => :'seed'
       }
     end
 
@@ -57,14 +57,14 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
         :'title' => :'String',
+        :'format' => :'String',
+        :'status' => :'String',
         :'slug' => :'String',
         :'price_cents' => :'Float',
-        :'format' => :'String',
-        :'seed' => :'String',
+        :'spots_left' => :'Float',
         :'seed_commit' => :'String',
-        :'spots_left' => :'Float'
+        :'seed' => :'String'
       }
     end
 
@@ -72,7 +72,7 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'slug',
-        :'seed',
+        :'seed'
       ])
     end
 
@@ -95,12 +95,16 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'title')
         self.title = attributes[:'title']
+      end
+
+      if attributes.key?(:'format')
+        self.format = attributes[:'format']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'slug')
@@ -111,20 +115,16 @@ module CrosslyBuyer
         self.price_cents = attributes[:'price_cents']
       end
 
-      if attributes.key?(:'format')
-        self.format = attributes[:'format']
-      end
-
-      if attributes.key?(:'seed')
-        self.seed = attributes[:'seed']
+      if attributes.key?(:'spots_left')
+        self.spots_left = attributes[:'spots_left']
       end
 
       if attributes.key?(:'seed_commit')
         self.seed_commit = attributes[:'seed_commit']
       end
 
-      if attributes.key?(:'spots_left')
-        self.spots_left = attributes[:'spots_left']
+      if attributes.key?(:'seed')
+        self.seed = attributes[:'seed']
       end
     end
 
@@ -136,28 +136,28 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
-      if @price_cents.nil?
-        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
       if @format.nil?
         invalid_properties.push('invalid value for "format", format cannot be nil.')
       end
 
-      if @seed_commit.nil?
-        invalid_properties.push('invalid value for "seed_commit", seed_commit cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @price_cents.nil?
+        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
       if @spots_left.nil?
         invalid_properties.push('invalid value for "spots_left", spots_left cannot be nil.')
+      end
+
+      if @seed_commit.nil?
+        invalid_properties.push('invalid value for "seed_commit", seed_commit cannot be nil.')
       end
 
       invalid_properties
@@ -167,12 +167,12 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
       return false if @title.nil?
-      return false if @price_cents.nil?
       return false if @format.nil?
-      return false if @seed_commit.nil?
+      return false if @status.nil?
+      return false if @price_cents.nil?
       return false if @spots_left.nil?
+      return false if @seed_commit.nil?
       true
     end
 
@@ -182,14 +182,14 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
           title == o.title &&
+          format == o.format &&
+          status == o.status &&
           slug == o.slug &&
           price_cents == o.price_cents &&
-          format == o.format &&
-          seed == o.seed &&
+          spots_left == o.spots_left &&
           seed_commit == o.seed_commit &&
-          spots_left == o.spots_left
+          seed == o.seed
     end
 
     # @see the `==` method
@@ -201,7 +201,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, title, slug, price_cents, format, seed, seed_commit, spots_left].hash
+      [id, title, format, status, slug, price_cents, spots_left, seed_commit, seed].hash
     end
 
     # Builds the object from hash

@@ -17,25 +17,25 @@ module CrosslyBuyer
   class ListBuyerPartiesItem
     attr_accessor :id
 
-    attr_accessor :status
-
-    attr_accessor :ends_at
-
     attr_accessor :slug
+
+    attr_accessor :theme
 
     attr_accessor :starts_at
 
-    attr_accessor :theme
+    attr_accessor :ends_at
+
+    attr_accessor :status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
-        :'ends_at' => :'endsAt',
         :'slug' => :'slug',
+        :'theme' => :'theme',
         :'starts_at' => :'startsAt',
-        :'theme' => :'theme'
+        :'ends_at' => :'endsAt',
+        :'status' => :'status'
       }
     end
 
@@ -48,11 +48,11 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
-        :'ends_at' => :'String',
         :'slug' => :'String',
+        :'theme' => :'String',
         :'starts_at' => :'String',
-        :'theme' => :'String'
+        :'ends_at' => :'String',
+        :'status' => :'String'
       }
     end
 
@@ -81,24 +81,24 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'ends_at')
-        self.ends_at = attributes[:'ends_at']
-      end
-
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
+      end
+
+      if attributes.key?(:'theme')
+        self.theme = attributes[:'theme']
       end
 
       if attributes.key?(:'starts_at')
         self.starts_at = attributes[:'starts_at']
       end
 
-      if attributes.key?(:'theme')
-        self.theme = attributes[:'theme']
+      if attributes.key?(:'ends_at')
+        self.ends_at = attributes[:'ends_at']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
     end
 
@@ -110,24 +110,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @ends_at.nil?
-        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
-      end
-
       if @slug.nil?
         invalid_properties.push('invalid value for "slug", slug cannot be nil.')
+      end
+
+      if @theme.nil?
+        invalid_properties.push('invalid value for "theme", theme cannot be nil.')
       end
 
       if @starts_at.nil?
         invalid_properties.push('invalid value for "starts_at", starts_at cannot be nil.')
       end
 
-      if @theme.nil?
-        invalid_properties.push('invalid value for "theme", theme cannot be nil.')
+      if @ends_at.nil?
+        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       invalid_properties
@@ -137,11 +137,11 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
-      return false if @ends_at.nil?
       return false if @slug.nil?
-      return false if @starts_at.nil?
       return false if @theme.nil?
+      return false if @starts_at.nil?
+      return false if @ends_at.nil?
+      return false if @status.nil?
       true
     end
 
@@ -151,11 +151,11 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
-          ends_at == o.ends_at &&
           slug == o.slug &&
+          theme == o.theme &&
           starts_at == o.starts_at &&
-          theme == o.theme
+          ends_at == o.ends_at &&
+          status == o.status
     end
 
     # @see the `==` method
@@ -167,7 +167,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, ends_at, slug, starts_at, theme].hash
+      [id, slug, theme, starts_at, ends_at, status].hash
     end
 
     # Builds the object from hash

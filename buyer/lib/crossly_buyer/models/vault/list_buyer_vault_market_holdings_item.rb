@@ -342,7 +342,7 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @mark_quality.nil?
-      mark_quality_validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      mark_quality_validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       return false unless mark_quality_validator.valid?(@mark_quality)
       return false if @on_lien.nil?
       return false if @situation.nil?
@@ -359,7 +359,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] mark_quality Object to be assigned
     def mark_quality=(mark_quality)
-      validator = EnumAttributeValidator.new('String', ["none", "A", "B", "C"])
+      validator = EnumAttributeValidator.new('String', ["none", "C", "A", "B"])
       unless validator.valid?(mark_quality)
         fail ArgumentError, "invalid value for \"mark_quality\", must be one of #{validator.allowable_values}."
       end

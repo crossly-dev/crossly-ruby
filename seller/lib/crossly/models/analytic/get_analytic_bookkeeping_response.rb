@@ -23,13 +23,21 @@ module Crossly
 
     attr_accessor :platform_breakdown
 
+    # Sales of the year whose price and buyer are not known yet: in no line above. \"N sales pending details\".
+    attr_accessor :pending_details_count
+
+    # The books timezone the year was cut in.
+    attr_accessor :tz
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'year' => :'year',
         :'monthly_pl' => :'monthlyPL',
         :'annual_totals' => :'annualTotals',
-        :'platform_breakdown' => :'platformBreakdown'
+        :'platform_breakdown' => :'platformBreakdown',
+        :'pending_details_count' => :'pendingDetailsCount',
+        :'tz' => :'tz'
       }
     end
 
@@ -44,7 +52,9 @@ module Crossly
         :'year' => :'Float',
         :'monthly_pl' => :'Array<GetAnalyticBookkeepingResponseMonthlyPL>',
         :'annual_totals' => :'GetAnalyticBookkeepingResponseAnnualTotals',
-        :'platform_breakdown' => :'Array<GetAnalyticBookkeepingResponsePlatformBreakdown>'
+        :'platform_breakdown' => :'Array<GetAnalyticBookkeepingResponsePlatformBreakdown>',
+        :'pending_details_count' => :'Float',
+        :'tz' => :'String'
       }
     end
 
@@ -88,6 +98,14 @@ module Crossly
           self.platform_breakdown = value
         end
       end
+
+      if attributes.key?(:'pending_details_count')
+        self.pending_details_count = attributes[:'pending_details_count']
+      end
+
+      if attributes.key?(:'tz')
+        self.tz = attributes[:'tz']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -110,6 +128,14 @@ module Crossly
         invalid_properties.push('invalid value for "platform_breakdown", platform_breakdown cannot be nil.')
       end
 
+      if @pending_details_count.nil?
+        invalid_properties.push('invalid value for "pending_details_count", pending_details_count cannot be nil.')
+      end
+
+      if @tz.nil?
+        invalid_properties.push('invalid value for "tz", tz cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -120,6 +146,8 @@ module Crossly
       return false if @monthly_pl.nil?
       return false if @annual_totals.nil?
       return false if @platform_breakdown.nil?
+      return false if @pending_details_count.nil?
+      return false if @tz.nil?
       true
     end
 
@@ -131,7 +159,9 @@ module Crossly
           year == o.year &&
           monthly_pl == o.monthly_pl &&
           annual_totals == o.annual_totals &&
-          platform_breakdown == o.platform_breakdown
+          platform_breakdown == o.platform_breakdown &&
+          pending_details_count == o.pending_details_count &&
+          tz == o.tz
     end
 
     # @see the `==` method
@@ -143,7 +173,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [year, monthly_pl, annual_totals, platform_breakdown].hash
+      [year, monthly_pl, annual_totals, platform_breakdown, pending_details_count, tz].hash
     end
 
     # Builds the object from hash

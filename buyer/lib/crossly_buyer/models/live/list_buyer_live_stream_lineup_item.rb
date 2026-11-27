@@ -15,32 +15,32 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerLiveStreamLineupItem
-    attr_accessor :available
-
-    attr_accessor :title
-
     attr_accessor :platform_listing_id
 
     attr_accessor :position
 
     attr_accessor :slug
 
+    attr_accessor :title
+
     attr_accessor :price_cents
 
     attr_accessor :image_url
+
+    attr_accessor :available
 
     attr_accessor :pinned
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'available' => :'available',
-        :'title' => :'title',
         :'platform_listing_id' => :'platformListingId',
         :'position' => :'position',
         :'slug' => :'slug',
+        :'title' => :'title',
         :'price_cents' => :'priceCents',
         :'image_url' => :'imageUrl',
+        :'available' => :'available',
         :'pinned' => :'pinned'
       }
     end
@@ -53,13 +53,13 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'available' => :'Boolean',
-        :'title' => :'String',
         :'platform_listing_id' => :'String',
         :'position' => :'Float',
         :'slug' => :'String',
+        :'title' => :'String',
         :'price_cents' => :'Float',
         :'image_url' => :'String',
+        :'available' => :'Boolean',
         :'pinned' => :'Boolean'
       }
     end
@@ -67,8 +67,8 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'title',
         :'slug',
+        :'title',
         :'image_url',
       ])
     end
@@ -88,14 +88,6 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'available')
-        self.available = attributes[:'available']
-      end
-
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
@@ -108,12 +100,20 @@ module CrosslyBuyer
         self.slug = attributes[:'slug']
       end
 
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
+      end
+
       if attributes.key?(:'price_cents')
         self.price_cents = attributes[:'price_cents']
       end
 
       if attributes.key?(:'image_url')
         self.image_url = attributes[:'image_url']
+      end
+
+      if attributes.key?(:'available')
+        self.available = attributes[:'available']
       end
 
       if attributes.key?(:'pinned')
@@ -125,10 +125,6 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @available.nil?
-        invalid_properties.push('invalid value for "available", available cannot be nil.')
-      end
-
       if @platform_listing_id.nil?
         invalid_properties.push('invalid value for "platform_listing_id", platform_listing_id cannot be nil.')
       end
@@ -141,6 +137,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
+      if @available.nil?
+        invalid_properties.push('invalid value for "available", available cannot be nil.')
+      end
+
       if @pinned.nil?
         invalid_properties.push('invalid value for "pinned", pinned cannot be nil.')
       end
@@ -151,10 +151,10 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @available.nil?
       return false if @platform_listing_id.nil?
       return false if @position.nil?
       return false if @price_cents.nil?
+      return false if @available.nil?
       return false if @pinned.nil?
       true
     end
@@ -164,13 +164,13 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          available == o.available &&
-          title == o.title &&
           platform_listing_id == o.platform_listing_id &&
           position == o.position &&
           slug == o.slug &&
+          title == o.title &&
           price_cents == o.price_cents &&
           image_url == o.image_url &&
+          available == o.available &&
           pinned == o.pinned
     end
 
@@ -183,7 +183,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [available, title, platform_listing_id, position, slug, price_cents, image_url, pinned].hash
+      [platform_listing_id, position, slug, title, price_cents, image_url, available, pinned].hash
     end
 
     # Builds the object from hash

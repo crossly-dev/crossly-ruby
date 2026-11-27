@@ -27,6 +27,8 @@ module Crossly
 
     attr_accessor :net_cents
 
+    attr_accessor :net_profit_cents
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +37,8 @@ module Crossly
         :'gross_cents' => :'gross_cents',
         :'avg_days_to_sale' => :'avg_days_to_sale',
         :'avg_sale_cents' => :'avg_sale_cents',
-        :'net_cents' => :'net_cents'
+        :'net_cents' => :'net_cents',
+        :'net_profit_cents' => :'net_profit_cents'
       }
     end
 
@@ -48,17 +51,21 @@ module Crossly
     def self.openapi_types
       {
         :'platform' => :'String',
-        :'sales' => :'String',
-        :'gross_cents' => :'String',
+        :'sales' => :'Float',
+        :'gross_cents' => :'Float',
         :'avg_days_to_sale' => :'Float',
         :'avg_sale_cents' => :'Float',
-        :'net_cents' => :'String'
+        :'net_cents' => :'Float',
+        :'net_profit_cents' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'avg_days_to_sale',
+        :'avg_sale_cents',
+        :'net_profit_cents'
       ])
     end
 
@@ -100,6 +107,10 @@ module Crossly
       if attributes.key?(:'net_cents')
         self.net_cents = attributes[:'net_cents']
       end
+
+      if attributes.key?(:'net_profit_cents')
+        self.net_profit_cents = attributes[:'net_profit_cents']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -118,14 +129,6 @@ module Crossly
         invalid_properties.push('invalid value for "gross_cents", gross_cents cannot be nil.')
       end
 
-      if @avg_days_to_sale.nil?
-        invalid_properties.push('invalid value for "avg_days_to_sale", avg_days_to_sale cannot be nil.')
-      end
-
-      if @avg_sale_cents.nil?
-        invalid_properties.push('invalid value for "avg_sale_cents", avg_sale_cents cannot be nil.')
-      end
-
       if @net_cents.nil?
         invalid_properties.push('invalid value for "net_cents", net_cents cannot be nil.')
       end
@@ -139,8 +142,6 @@ module Crossly
       return false if @platform.nil?
       return false if @sales.nil?
       return false if @gross_cents.nil?
-      return false if @avg_days_to_sale.nil?
-      return false if @avg_sale_cents.nil?
       return false if @net_cents.nil?
       true
     end
@@ -155,7 +156,8 @@ module Crossly
           gross_cents == o.gross_cents &&
           avg_days_to_sale == o.avg_days_to_sale &&
           avg_sale_cents == o.avg_sale_cents &&
-          net_cents == o.net_cents
+          net_cents == o.net_cents &&
+          net_profit_cents == o.net_profit_cents
     end
 
     # @see the `==` method
@@ -167,7 +169,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, sales, gross_cents, avg_days_to_sale, avg_sale_cents, net_cents].hash
+      [platform, sales, gross_cents, avg_days_to_sale, avg_sale_cents, net_cents, net_profit_cents].hash
     end
 
     # Builds the object from hash

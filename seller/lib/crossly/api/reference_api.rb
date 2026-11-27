@@ -294,6 +294,75 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Look up a postal code: canonical shape, state and US metro areas.
+    # Every country gets its canonical shape and `valid`. A US ZIP (territories normalize to country US with `territory`) also gets state, county FIPS and CBSA/CSA. `metroStatus` is known (the ZIP is mapped), unmapped (a ZIP with no metro mapping: it matches no metro rule) or no_zip.
+    # @param country [String] 
+    # @param code [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetReferencePostalResponse]
+    def get_reference_postal(country, code, opts = {})
+      data, _status_code, _headers = get_reference_postal_with_http_info(country, code, opts)
+      data
+    end
+
+    # Look up a postal code: canonical shape, state and US metro areas.
+    # Every country gets its canonical shape and &#x60;valid&#x60;. A US ZIP (territories normalize to country US with &#x60;territory&#x60;) also gets state, county FIPS and CBSA/CSA. &#x60;metroStatus&#x60; is known (the ZIP is mapped), unmapped (a ZIP with no metro mapping: it matches no metro rule) or no_zip.
+    # @param country [String] 
+    # @param code [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetReferencePostalResponse, Integer, Hash)>] GetReferencePostalResponse data, response status code and response headers
+    def get_reference_postal_with_http_info(country, code, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReferenceApi.get_reference_postal ...'
+      end
+      # verify the required parameter 'country' is set
+      if @api_client.config.client_side_validation && country.nil?
+        fail ArgumentError, "Missing the required parameter 'country' when calling ReferenceApi.get_reference_postal"
+      end
+      # verify the required parameter 'code' is set
+      if @api_client.config.client_side_validation && code.nil?
+        fail ArgumentError, "Missing the required parameter 'code' when calling ReferenceApi.get_reference_postal"
+      end
+      # resource path
+      local_var_path = '/v1/reference/postal/{country}/{code}'.sub('{' + 'country' + '}', CGI.escape(country.to_s)).sub('{' + 'code' + '}', CGI.escape(code.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetReferencePostalResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ReferenceApi.get_reference_postal",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReferenceApi#get_reference_postal\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Search the Poshmark + Vestiaire size-system union (US/UK/EU/AU/FR/KR).
     # @param [Hash] opts the optional parameters
     # @return [GetSizeSystemResponse]
@@ -512,6 +581,85 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ReferenceApi#list_reference_countries\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search US metro areas (CSA / CBSA) for location rules.
+    # Combined Statistical Areas first, then Core-Based Statistical Areas, matched on title (or an exact code); at most 20. `q` needs 2+ characters. `meta.datasetAvailable` is false when the census dataset is not loaded, in which case no metro rule can match.
+    # @param q [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :limit  (default to 20)
+    # @return [ListReferenceMetrosResponse]
+    def list_reference_metros(q, opts = {})
+      data, _status_code, _headers = list_reference_metros_with_http_info(q, opts)
+      data
+    end
+
+    # Search US metro areas (CSA / CBSA) for location rules.
+    # Combined Statistical Areas first, then Core-Based Statistical Areas, matched on title (or an exact code); at most 20. &#x60;q&#x60; needs 2+ characters. &#x60;meta.datasetAvailable&#x60; is false when the census dataset is not loaded, in which case no metro rule can match.
+    # @param q [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :limit 
+    # @return [Array<(ListReferenceMetrosResponse, Integer, Hash)>] ListReferenceMetrosResponse data, response status code and response headers
+    def list_reference_metros_with_http_info(q, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReferenceApi.list_reference_metros ...'
+      end
+      # verify the required parameter 'q' is set
+      if @api_client.config.client_side_validation && q.nil?
+        fail ArgumentError, "Missing the required parameter 'q' when calling ReferenceApi.list_reference_metros"
+      end
+      if @api_client.config.client_side_validation && q.to_s.length < 2
+        fail ArgumentError, 'invalid value for "q" when calling ReferenceApi.list_reference_metros, the character length must be great than or equal to 2.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 20
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ReferenceApi.list_reference_metros, must be smaller than or equal to 20.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ReferenceApi.list_reference_metros, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/reference/metros'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'q'] = q
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListReferenceMetrosResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ReferenceApi.list_reference_metros",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReferenceApi#list_reference_metros\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

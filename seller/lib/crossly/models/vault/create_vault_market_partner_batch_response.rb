@@ -47,7 +47,7 @@ module Crossly
         :'batch_id' => :'String',
         :'partner_code' => :'String',
         :'created' => :'Array<CreateVaultMarketPartnerBatchResponseCreated>',
-        :'label' => :'CreateVaultMarketPartnerBatchResponseLabel',
+        :'label' => :'LabelUrlTrackingCode',
         :'label_error' => :'String'
       }
     end

@@ -25,15 +25,15 @@ module Crossly
 
     attr_accessor :sold_at
 
-    attr_accessor :seller_user_id
-
     attr_accessor :buyer_user_id
 
     attr_accessor :price_cents
 
-    attr_accessor :merchant_id
+    attr_accessor :seller_user_id
 
     attr_accessor :cosmetic_id
+
+    attr_accessor :merchant_id
 
     attr_accessor :ownership_id
 
@@ -49,11 +49,11 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'status' => :'status',
         :'sold_at' => :'soldAt',
-        :'seller_user_id' => :'sellerUserId',
         :'buyer_user_id' => :'buyerUserId',
         :'price_cents' => :'priceCents',
-        :'merchant_id' => :'merchantId',
+        :'seller_user_id' => :'sellerUserId',
         :'cosmetic_id' => :'cosmeticId',
+        :'merchant_id' => :'merchantId',
         :'ownership_id' => :'ownershipId',
         :'seller_subject_id' => :'sellerSubjectId',
         :'tx_sig' => :'txSig'
@@ -73,11 +73,11 @@ module Crossly
         :'updated_at' => :'Time',
         :'status' => :'String',
         :'sold_at' => :'Time',
-        :'seller_user_id' => :'String',
         :'buyer_user_id' => :'String',
         :'price_cents' => :'Float',
-        :'merchant_id' => :'String',
+        :'seller_user_id' => :'String',
         :'cosmetic_id' => :'String',
+        :'merchant_id' => :'String',
         :'ownership_id' => :'String',
         :'seller_subject_id' => :'String',
         :'tx_sig' => :'String'
@@ -88,8 +88,8 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'sold_at',
-        :'seller_user_id',
         :'buyer_user_id',
+        :'seller_user_id',
         :'tx_sig'
       ])
     end
@@ -129,10 +129,6 @@ module Crossly
         self.sold_at = attributes[:'sold_at']
       end
 
-      if attributes.key?(:'seller_user_id')
-        self.seller_user_id = attributes[:'seller_user_id']
-      end
-
       if attributes.key?(:'buyer_user_id')
         self.buyer_user_id = attributes[:'buyer_user_id']
       end
@@ -141,12 +137,16 @@ module Crossly
         self.price_cents = attributes[:'price_cents']
       end
 
-      if attributes.key?(:'merchant_id')
-        self.merchant_id = attributes[:'merchant_id']
+      if attributes.key?(:'seller_user_id')
+        self.seller_user_id = attributes[:'seller_user_id']
       end
 
       if attributes.key?(:'cosmetic_id')
         self.cosmetic_id = attributes[:'cosmetic_id']
+      end
+
+      if attributes.key?(:'merchant_id')
+        self.merchant_id = attributes[:'merchant_id']
       end
 
       if attributes.key?(:'ownership_id')
@@ -186,12 +186,12 @@ module Crossly
         invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
-      if @merchant_id.nil?
-        invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
-      end
-
       if @cosmetic_id.nil?
         invalid_properties.push('invalid value for "cosmetic_id", cosmetic_id cannot be nil.')
+      end
+
+      if @merchant_id.nil?
+        invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
       end
 
       if @ownership_id.nil?
@@ -213,8 +213,8 @@ module Crossly
       return false if @updated_at.nil?
       return false if @status.nil?
       return false if @price_cents.nil?
-      return false if @merchant_id.nil?
       return false if @cosmetic_id.nil?
+      return false if @merchant_id.nil?
       return false if @ownership_id.nil?
       return false if @seller_subject_id.nil?
       true
@@ -230,11 +230,11 @@ module Crossly
           updated_at == o.updated_at &&
           status == o.status &&
           sold_at == o.sold_at &&
-          seller_user_id == o.seller_user_id &&
           buyer_user_id == o.buyer_user_id &&
           price_cents == o.price_cents &&
-          merchant_id == o.merchant_id &&
+          seller_user_id == o.seller_user_id &&
           cosmetic_id == o.cosmetic_id &&
+          merchant_id == o.merchant_id &&
           ownership_id == o.ownership_id &&
           seller_subject_id == o.seller_subject_id &&
           tx_sig == o.tx_sig
@@ -249,7 +249,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, status, sold_at, seller_user_id, buyer_user_id, price_cents, merchant_id, cosmetic_id, ownership_id, seller_subject_id, tx_sig].hash
+      [id, created_at, updated_at, status, sold_at, buyer_user_id, price_cents, seller_user_id, cosmetic_id, merchant_id, ownership_id, seller_subject_id, tx_sig].hash
     end
 
     # Builds the object from hash

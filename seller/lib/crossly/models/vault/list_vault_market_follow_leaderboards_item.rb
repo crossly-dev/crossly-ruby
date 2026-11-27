@@ -17,6 +17,8 @@ module Crossly
   class ListVaultMarketFollowLeaderboardsItem
     attr_accessor :rank
 
+    attr_accessor :person
+
     attr_accessor :return_bps
 
     attr_accessor :volatility_bps
@@ -35,6 +37,7 @@ module Crossly
     def self.attribute_map
       {
         :'rank' => :'rank',
+        :'person' => :'person',
         :'return_bps' => :'returnBps',
         :'volatility_bps' => :'volatilityBps',
         :'risk_adjusted' => :'riskAdjusted',
@@ -54,6 +57,7 @@ module Crossly
     def self.openapi_types
       {
         :'rank' => :'Float',
+        :'person' => :'ListVaultMarketFollowLeaderboardsItemPerson',
         :'return_bps' => :'Float',
         :'volatility_bps' => :'Float',
         :'risk_adjusted' => :'Float',
@@ -87,6 +91,10 @@ module Crossly
 
       if attributes.key?(:'rank')
         self.rank = attributes[:'rank']
+      end
+
+      if attributes.key?(:'person')
+        self.person = attributes[:'person']
       end
 
       if attributes.key?(:'return_bps')
@@ -126,6 +134,10 @@ module Crossly
         invalid_properties.push('invalid value for "rank", rank cannot be nil.')
       end
 
+      if @person.nil?
+        invalid_properties.push('invalid value for "person", person cannot be nil.')
+      end
+
       if @return_bps.nil?
         invalid_properties.push('invalid value for "return_bps", return_bps cannot be nil.')
       end
@@ -161,6 +173,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @rank.nil?
+      return false if @person.nil?
       return false if @return_bps.nil?
       return false if @volatility_bps.nil?
       return false if @risk_adjusted.nil?
@@ -177,6 +190,7 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           rank == o.rank &&
+          person == o.person &&
           return_bps == o.return_bps &&
           volatility_bps == o.volatility_bps &&
           risk_adjusted == o.risk_adjusted &&
@@ -195,7 +209,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [rank, return_bps, volatility_bps, risk_adjusted, max_drawdown_bps, days, markets, is_me].hash
+      [rank, person, return_bps, volatility_bps, risk_adjusted, max_drawdown_bps, days, markets, is_me].hash
     end
 
     # Builds the object from hash

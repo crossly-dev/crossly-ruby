@@ -21,11 +21,11 @@ module Crossly
 
     attr_accessor :updated_at
 
+    attr_accessor :cosmetic_id
+
     attr_accessor :merchant_id
 
     attr_accessor :creator_subject_id
-
-    attr_accessor :cosmetic_id
 
     attr_accessor :spec
 
@@ -41,9 +41,9 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
+        :'cosmetic_id' => :'cosmeticId',
         :'merchant_id' => :'merchantId',
         :'creator_subject_id' => :'creatorSubjectId',
-        :'cosmetic_id' => :'cosmeticId',
         :'spec' => :'spec',
         :'physical_opt_out' => :'physicalOptOut',
         :'brief' => :'brief',
@@ -62,9 +62,9 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
+        :'cosmetic_id' => :'String',
         :'merchant_id' => :'String',
         :'creator_subject_id' => :'String',
-        :'cosmetic_id' => :'String',
         :'spec' => :'CreateProductionDesignSpecResponsePrefsSpec',
         :'physical_opt_out' => :'Boolean',
         :'brief' => :'CreateProductionDesignSpecResponsePrefsBrief',
@@ -108,16 +108,16 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
+      if attributes.key?(:'cosmetic_id')
+        self.cosmetic_id = attributes[:'cosmetic_id']
+      end
+
       if attributes.key?(:'merchant_id')
         self.merchant_id = attributes[:'merchant_id']
       end
 
       if attributes.key?(:'creator_subject_id')
         self.creator_subject_id = attributes[:'creator_subject_id']
-      end
-
-      if attributes.key?(:'cosmetic_id')
-        self.cosmetic_id = attributes[:'cosmetic_id']
       end
 
       if attributes.key?(:'spec')
@@ -153,16 +153,16 @@ module Crossly
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
+      if @cosmetic_id.nil?
+        invalid_properties.push('invalid value for "cosmetic_id", cosmetic_id cannot be nil.')
+      end
+
       if @merchant_id.nil?
         invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
       end
 
       if @creator_subject_id.nil?
         invalid_properties.push('invalid value for "creator_subject_id", creator_subject_id cannot be nil.')
-      end
-
-      if @cosmetic_id.nil?
-        invalid_properties.push('invalid value for "cosmetic_id", cosmetic_id cannot be nil.')
       end
 
       if @physical_opt_out.nil?
@@ -178,9 +178,9 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
+      return false if @cosmetic_id.nil?
       return false if @merchant_id.nil?
       return false if @creator_subject_id.nil?
-      return false if @cosmetic_id.nil?
       return false if @physical_opt_out.nil?
       true
     end
@@ -193,9 +193,9 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
+          cosmetic_id == o.cosmetic_id &&
           merchant_id == o.merchant_id &&
           creator_subject_id == o.creator_subject_id &&
-          cosmetic_id == o.cosmetic_id &&
           spec == o.spec &&
           physical_opt_out == o.physical_opt_out &&
           brief == o.brief &&
@@ -211,7 +211,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, merchant_id, creator_subject_id, cosmetic_id, spec, physical_opt_out, brief, physical_line_at].hash
+      [id, created_at, updated_at, cosmetic_id, merchant_id, creator_subject_id, spec, physical_opt_out, brief, physical_line_at].hash
     end
 
     # Builds the object from hash

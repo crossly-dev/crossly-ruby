@@ -19,23 +19,23 @@ module Crossly
 
     attr_accessor :created_at
 
-    attr_accessor :cancelled_at
-
     attr_accessor :title
 
     attr_accessor :ends_at
 
+    attr_accessor :cancelled_at
+
     attr_accessor :kind
 
     attr_accessor :starts_at
-
-    attr_accessor :reminded_at
 
     attr_accessor :created_by
 
     attr_accessor :about
 
     attr_accessor :space_id
+
+    attr_accessor :reminded_at
 
     attr_accessor :club_only
 
@@ -44,15 +44,15 @@ module Crossly
       {
         :'id' => :'id',
         :'created_at' => :'createdAt',
-        :'cancelled_at' => :'cancelledAt',
         :'title' => :'title',
         :'ends_at' => :'endsAt',
+        :'cancelled_at' => :'cancelledAt',
         :'kind' => :'kind',
         :'starts_at' => :'startsAt',
-        :'reminded_at' => :'remindedAt',
         :'created_by' => :'createdBy',
         :'about' => :'about',
         :'space_id' => :'spaceId',
+        :'reminded_at' => :'remindedAt',
         :'club_only' => :'clubOnly'
       }
     end
@@ -67,15 +67,15 @@ module Crossly
       {
         :'id' => :'String',
         :'created_at' => :'Time',
-        :'cancelled_at' => :'Time',
         :'title' => :'String',
         :'ends_at' => :'Time',
+        :'cancelled_at' => :'Time',
         :'kind' => :'String',
         :'starts_at' => :'Time',
-        :'reminded_at' => :'Time',
         :'created_by' => :'String',
         :'about' => :'String',
         :'space_id' => :'String',
+        :'reminded_at' => :'Time',
         :'club_only' => :'Boolean'
       }
     end
@@ -84,9 +84,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'cancelled_at',
-        :'reminded_at',
         :'created_by',
         :'about',
+        :'reminded_at',
       ])
     end
 
@@ -113,10 +113,6 @@ module Crossly
         self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'cancelled_at')
-        self.cancelled_at = attributes[:'cancelled_at']
-      end
-
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
@@ -125,16 +121,16 @@ module Crossly
         self.ends_at = attributes[:'ends_at']
       end
 
+      if attributes.key?(:'cancelled_at')
+        self.cancelled_at = attributes[:'cancelled_at']
+      end
+
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'starts_at')
         self.starts_at = attributes[:'starts_at']
-      end
-
-      if attributes.key?(:'reminded_at')
-        self.reminded_at = attributes[:'reminded_at']
       end
 
       if attributes.key?(:'created_by')
@@ -147,6 +143,10 @@ module Crossly
 
       if attributes.key?(:'space_id')
         self.space_id = attributes[:'space_id']
+      end
+
+      if attributes.key?(:'reminded_at')
+        self.reminded_at = attributes[:'reminded_at']
       end
 
       if attributes.key?(:'club_only')
@@ -214,15 +214,15 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           created_at == o.created_at &&
-          cancelled_at == o.cancelled_at &&
           title == o.title &&
           ends_at == o.ends_at &&
+          cancelled_at == o.cancelled_at &&
           kind == o.kind &&
           starts_at == o.starts_at &&
-          reminded_at == o.reminded_at &&
           created_by == o.created_by &&
           about == o.about &&
           space_id == o.space_id &&
+          reminded_at == o.reminded_at &&
           club_only == o.club_only
     end
 
@@ -235,7 +235,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, cancelled_at, title, ends_at, kind, starts_at, reminded_at, created_by, about, space_id, club_only].hash
+      [id, created_at, title, ends_at, cancelled_at, kind, starts_at, created_by, about, space_id, reminded_at, club_only].hash
     end
 
     # Builds the object from hash

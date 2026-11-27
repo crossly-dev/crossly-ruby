@@ -21,16 +21,23 @@ module Crossly
 
     attr_accessor :max_rows
 
+    # New items written — or, on a dry run, that WOULD be written.
     attr_accessor :created
 
+    # Existing items updated by SKU — or, on a dry run, that would be.
     attr_accessor :updated
 
-    # Rows that mapped cleanly. `created + updated` when not a dry run.
+    # Rows that can be imported: `created + updated + skippedOverLimit`. Zero means the file has nothing usable in it.
     attr_accessor :usable
 
     attr_accessor :total_rows
 
     attr_accessor :listings_created
+
+    # New rows left out because the monthly item limit was reached.
+    attr_accessor :skipped_over_limit
+
+    attr_accessor :capacity
 
     # True when nothing was written — a preview pass.
     attr_accessor :dry_run
@@ -46,6 +53,8 @@ module Crossly
         :'usable' => :'usable',
         :'total_rows' => :'totalRows',
         :'listings_created' => :'listingsCreated',
+        :'skipped_over_limit' => :'skippedOverLimit',
+        :'capacity' => :'capacity',
         :'dry_run' => :'dryRun'
       }
     end
@@ -66,6 +75,8 @@ module Crossly
         :'usable' => :'Float',
         :'total_rows' => :'Float',
         :'listings_created' => :'Float',
+        :'skipped_over_limit' => :'Float',
+        :'capacity' => :'CreateInventoryCsvImportResponseCapacity',
         :'dry_run' => :'Boolean'
       }
     end
@@ -125,6 +136,14 @@ module Crossly
         self.listings_created = attributes[:'listings_created']
       end
 
+      if attributes.key?(:'skipped_over_limit')
+        self.skipped_over_limit = attributes[:'skipped_over_limit']
+      end
+
+      if attributes.key?(:'capacity')
+        self.capacity = attributes[:'capacity']
+      end
+
       if attributes.key?(:'dry_run')
         self.dry_run = attributes[:'dry_run']
       end
@@ -166,6 +185,14 @@ module Crossly
         invalid_properties.push('invalid value for "listings_created", listings_created cannot be nil.')
       end
 
+      if @skipped_over_limit.nil?
+        invalid_properties.push('invalid value for "skipped_over_limit", skipped_over_limit cannot be nil.')
+      end
+
+      if @capacity.nil?
+        invalid_properties.push('invalid value for "capacity", capacity cannot be nil.')
+      end
+
       if @dry_run.nil?
         invalid_properties.push('invalid value for "dry_run", dry_run cannot be nil.')
       end
@@ -184,6 +211,8 @@ module Crossly
       return false if @usable.nil?
       return false if @total_rows.nil?
       return false if @listings_created.nil?
+      return false if @skipped_over_limit.nil?
+      return false if @capacity.nil?
       return false if @dry_run.nil?
       true
     end
@@ -201,6 +230,8 @@ module Crossly
           usable == o.usable &&
           total_rows == o.total_rows &&
           listings_created == o.listings_created &&
+          skipped_over_limit == o.skipped_over_limit &&
+          capacity == o.capacity &&
           dry_run == o.dry_run
     end
 
@@ -213,7 +244,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [problems, problem_count, max_rows, created, updated, usable, total_rows, listings_created, dry_run].hash
+      [problems, problem_count, max_rows, created, updated, usable, total_rows, listings_created, skipped_over_limit, capacity, dry_run].hash
     end
 
     # Builds the object from hash

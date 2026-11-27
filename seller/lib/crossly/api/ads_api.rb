@@ -133,6 +133,543 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Add listings to a campaign by master listing id: each listing's live row on `platform` joins campaignId (a Crossly campaign uuid, or the marketplace's campaign id). A listing not live there is its own failed result.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingAdBulkAddResponse]
+    def create_listing_ad_bulk_add(opts = {})
+      data, _status_code, _headers = create_listing_ad_bulk_add_with_http_info(opts)
+      data
+    end
+
+    # Add listings to a campaign by master listing id: each listing&#39;s live row on &#x60;platform&#x60; joins campaignId (a Crossly campaign uuid, or the marketplace&#39;s campaign id). A listing not live there is its own failed result.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingAdBulkAddResponse, Integer, Hash)>] CreateListingAdBulkAddResponse data, response status code and response headers
+    def create_listing_ad_bulk_add_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_bulk_add ...'
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/bulk-add'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingAdBulkAddResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_listing_ad_bulk_add",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_listing_ad_bulk_add\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a campaign on the marketplace: program (promoted_listing_rate = eBay General, a % of the sale; cpc_campaign = eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
+    # @param platform [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingAdCampaignResponse]
+    def create_listing_ad_campaign(platform, opts = {})
+      data, _status_code, _headers = create_listing_ad_campaign_with_http_info(platform, opts)
+      data
+    end
+
+    # Create a campaign on the marketplace: program (promoted_listing_rate &#x3D; eBay General, a % of the sale; cpc_campaign &#x3D; eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
+    # @param platform [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingAdCampaignResponse, Integer, Hash)>] CreateListingAdCampaignResponse data, response status code and response headers
+    def create_listing_ad_campaign_with_http_info(platform, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_campaign ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.create_listing_ad_campaign"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/{platform}/campaigns'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_listing_ad_campaign",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_listing_ad_campaign\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
+    # @param platform [String] 
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingAdCampaignListingResponse]
+    def create_listing_ad_campaign_listing(platform, campaign_id, opts = {})
+      data, _status_code, _headers = create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, opts)
+      data
+    end
+
+    # Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
+    # @param platform [String] 
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingAdCampaignListingResponse, Integer, Hash)>] CreateListingAdCampaignListingResponse data, response status code and response headers
+    def create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_campaign_listing ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.create_listing_ad_campaign_listing"
+      end
+      # verify the required parameter 'campaign_id' is set
+      if @api_client.config.client_side_validation && campaign_id.nil?
+        fail ArgumentError, "Missing the required parameter 'campaign_id' when calling AdsApi.create_listing_ad_campaign_listing"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/{platform}/campaigns/{campaignId}/listings'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingAdCampaignListingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_listing_ad_campaign_listing",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_listing_ad_campaign_listing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop promoting listings in a marketplace campaign. One result per listing.
+    # @param platform [String] 
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingAdCampaignListingResponse]
+    def create_listing_ad_campaign_listing_remove(platform, campaign_id, opts = {})
+      data, _status_code, _headers = create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, opts)
+      data
+    end
+
+    # Stop promoting listings in a marketplace campaign. One result per listing.
+    # @param platform [String] 
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingAdCampaignListingResponse, Integer, Hash)>] CreateListingAdCampaignListingResponse data, response status code and response headers
+    def create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_campaign_listing_remove ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.create_listing_ad_campaign_listing_remove"
+      end
+      # verify the required parameter 'campaign_id' is set
+      if @api_client.config.client_side_validation && campaign_id.nil?
+        fail ArgumentError, "Missing the required parameter 'campaign_id' when calling AdsApi.create_listing_ad_campaign_listing_remove"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/{platform}/campaigns/{campaignId}/listings/remove'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingAdCampaignListingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_listing_ad_campaign_listing_remove",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_listing_ad_campaign_listing_remove\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateSponsoredAdBillingTopupLinkResponse]
+    def create_sponsored_ad_billing_topup_link(opts = {})
+      data, _status_code, _headers = create_sponsored_ad_billing_topup_link_with_http_info(opts)
+      data
+    end
+
+    # A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateSponsoredAdBillingTopupLinkResponse, Integer, Hash)>] CreateSponsoredAdBillingTopupLinkResponse data, response status code and response headers
+    def create_sponsored_ad_billing_topup_link_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_billing_topup_link ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/topup-link'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateSponsoredAdBillingTopupLinkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_sponsored_ad_billing_topup_link",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_sponsored_ad_billing_topup_link\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop boosting listings in bulk.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateSponsoredAdBoostRemoveResponse]
+    def create_sponsored_ad_boost_remove(opts = {})
+      data, _status_code, _headers = create_sponsored_ad_boost_remove_with_http_info(opts)
+      data
+    end
+
+    # Stop boosting listings in bulk.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateSponsoredAdBoostRemoveResponse, Integer, Hash)>] CreateSponsoredAdBoostRemoveResponse data, response status code and response headers
+    def create_sponsored_ad_boost_remove_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_boost_remove ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/boosts/remove'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateSponsoredAdBoostRemoveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_sponsored_ad_boost_remove",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_sponsored_ad_boost_remove\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a Sponsored Listings campaign: name, dailyBudgetCents (≥100), optional totalBudgetCents, defaultBidCents (5–10000; the max bid under bidStrategy \"auto\"), placements (search, browse, product_page, home_rail, storefront, worlds_surface), goal (sales | visits), optional targetCategories / targetRegions (ISO countries) / targetDevices (mobile, desktop, app), optional startsAt/endsAt, listings [{platformListingId, bidCents?, boostBps? (100–2000, pay-on-sale Boost; null clears)}], keywords [{keyword, matchType broad|phrase|exact, negative?, bidCents?}], worldTargets [{kind showroom|convention, id, bidCents?, status?}] (your showroom or a convention you host, promoted in the Crossly World directory; at least one listing or world target), status active|draft. A catalog boost: targetType \"wholesale_catalog\" + targetCatalogId (your catalog), no listings, keywords or world targets; it ranks Sponsored in the wholesale directory. bidStrategy defaults to your account default. Clicks are charged from your ad funds (ad balance and/or CBX, ad credit first); with none it waits as out_of_budget.
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdCampaignResponse]
+    def create_sponsored_ad_campaign(opts = {})
+      data, _status_code, _headers = create_sponsored_ad_campaign_with_http_info(opts)
+      data
+    end
+
+    # Create a Sponsored Listings campaign: name, dailyBudgetCents (≥100), optional totalBudgetCents, defaultBidCents (5–10000; the max bid under bidStrategy \&quot;auto\&quot;), placements (search, browse, product_page, home_rail, storefront, worlds_surface), goal (sales | visits), optional targetCategories / targetRegions (ISO countries) / targetDevices (mobile, desktop, app), optional startsAt/endsAt, listings [{platformListingId, bidCents?, boostBps? (100–2000, pay-on-sale Boost; null clears)}], keywords [{keyword, matchType broad|phrase|exact, negative?, bidCents?}], worldTargets [{kind showroom|convention, id, bidCents?, status?}] (your showroom or a convention you host, promoted in the Crossly World directory; at least one listing or world target), status active|draft. A catalog boost: targetType \&quot;wholesale_catalog\&quot; + targetCatalogId (your catalog), no listings, keywords or world targets; it ranks Sponsored in the wholesale directory. bidStrategy defaults to your account default. Clicks are charged from your ad funds (ad balance and/or CBX, ad credit first); with none it waits as out_of_budget.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdCampaignResponse, Integer, Hash)>] SponsoredAdCampaignResponse data, response status code and response headers
+    def create_sponsored_ad_campaign_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_campaign ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/campaigns'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_sponsored_ad_campaign",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_sponsored_ad_campaign\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Copy a campaign (settings, listings, keywords) as a new draft.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdCampaignResponse]
+    def create_sponsored_ad_campaign_duplicate(id, opts = {})
+      data, _status_code, _headers = create_sponsored_ad_campaign_duplicate_with_http_info(id, opts)
+      data
+    end
+
+    # Copy a campaign (settings, listings, keywords) as a new draft.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdCampaignResponse, Integer, Hash)>] SponsoredAdCampaignResponse data, response status code and response headers
+    def create_sponsored_ad_campaign_duplicate_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_campaign_duplicate ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AdsApi.create_sponsored_ad_campaign_duplicate"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/campaigns/{id}/duplicate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_sponsored_ad_campaign_duplicate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_sponsored_ad_campaign_duplicate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set a campaign active (launch/resume), paused, or ended (final). Resuming with no ad funds to pay for clicks leaves it out_of_budget until you top up.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdCampaignResponse]
+    def create_sponsored_ad_campaign_status(id, opts = {})
+      data, _status_code, _headers = create_sponsored_ad_campaign_status_with_http_info(id, opts)
+      data
+    end
+
+    # Set a campaign active (launch/resume), paused, or ended (final). Resuming with no ad funds to pay for clicks leaves it out_of_budget until you top up.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdCampaignResponse, Integer, Hash)>] SponsoredAdCampaignResponse data, response status code and response headers
+    def create_sponsored_ad_campaign_status_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_campaign_status ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AdsApi.create_sponsored_ad_campaign_status"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/campaigns/{id}/status'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.create_sponsored_ad_campaign_status",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#create_sponsored_ad_campaign_status\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your offsite-ads opt-in and its terms.
     # Offsite ads spend your CBX advertising budget on external networks — Google, Meta and similar — at our discretion. Your item gets promoted, and the traffic lands on Crossly. OFF unless you turn it on, and there is no path that enables it on your behalf. Media is passed through AT COST with a separate, disclosed management fee, so you can always see how much of your budget reached the auction. `minReturnBps` is a STOP, not a guarantee: below it, offsite spend auto-pauses and the rest of your budget reverts to on-platform placement. Nobody can honestly promise ad performance; what we can promise is that it stops.
     # @param [Hash] opts the optional parameters
@@ -304,6 +841,922 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Every promotion of one listing: its Crossly campaigns and Boost, and each marketplace ad with status, campaign, rate and last sync.
+    # @param listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetListingAdListingResponse]
+    def get_listing_ad_listing(listing_id, opts = {})
+      data, _status_code, _headers = get_listing_ad_listing_with_http_info(listing_id, opts)
+      data
+    end
+
+    # Every promotion of one listing: its Crossly campaigns and Boost, and each marketplace ad with status, campaign, rate and last sync.
+    # @param listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetListingAdListingResponse, Integer, Hash)>] GetListingAdListingResponse data, response status code and response headers
+    def get_listing_ad_listing_with_http_info(listing_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_listing_ad_listing ...'
+      end
+      # verify the required parameter 'listing_id' is set
+      if @api_client.config.client_side_validation && listing_id.nil?
+        fail ArgumentError, "Missing the required parameter 'listing_id' when calling AdsApi.get_listing_ad_listing"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/listings/{listingId}'.sub('{' + 'listingId' + '}', CGI.escape(listing_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetListingAdListingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_listing_ad_listing",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_listing_ad_listing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh=true re-reads the balance.
+    # @param [Hash] opts the optional parameters
+    # @return [GetSponsoredAdBillingResponse]
+    def get_sponsored_ad_billing(opts = {})
+      data, _status_code, _headers = get_sponsored_ad_billing_with_http_info(opts)
+      data
+    end
+
+    # What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh&#x3D;true re-reads the balance.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetSponsoredAdBillingResponse, Integer, Hash)>] GetSponsoredAdBillingResponse data, response status code and response headers
+    def get_sponsored_ad_billing_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_billing ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetSponsoredAdBillingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_billing",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_billing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One month's ads statement: opening and closing ad balance, top-ups, click spend by campaign, how clicks were paid, credits, refunds and Boost fees.
+    # @param month [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetSponsoredAdBillingStatementResponse]
+    def get_sponsored_ad_billing_statement(month, opts = {})
+      data, _status_code, _headers = get_sponsored_ad_billing_statement_with_http_info(month, opts)
+      data
+    end
+
+    # One month&#39;s ads statement: opening and closing ad balance, top-ups, click spend by campaign, how clicks were paid, credits, refunds and Boost fees.
+    # @param month [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetSponsoredAdBillingStatementResponse, Integer, Hash)>] GetSponsoredAdBillingStatementResponse data, response status code and response headers
+    def get_sponsored_ad_billing_statement_with_http_info(month, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_billing_statement ...'
+      end
+      # verify the required parameter 'month' is set
+      if @api_client.config.client_side_validation && month.nil?
+        fail ArgumentError, "Missing the required parameter 'month' when calling AdsApi.get_sponsored_ad_billing_statement"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/statements/{month}'.sub('{' + 'month' + '}', CGI.escape(month.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetSponsoredAdBillingStatementResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_billing_statement",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_billing_statement\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One month's ads statement as a PDF.
+    # @param month [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [File]
+    def get_sponsored_ad_billing_statement_pdf(month, opts = {})
+      data, _status_code, _headers = get_sponsored_ad_billing_statement_pdf_with_http_info(month, opts)
+      data
+    end
+
+    # One month&#39;s ads statement as a PDF.
+    # @param month [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(File, Integer, Hash)>] File data, response status code and response headers
+    def get_sponsored_ad_billing_statement_pdf_with_http_info(month, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_billing_statement_pdf ...'
+      end
+      # verify the required parameter 'month' is set
+      if @api_client.config.client_side_validation && month.nil?
+        fail ArgumentError, "Missing the required parameter 'month' when calling AdsApi.get_sponsored_ad_billing_statement_pdf"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/statements/{month}/pdf'.sub('{' + 'month' + '}', CGI.escape(month.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/pdf', 'application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'File'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_billing_statement_pdf",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_billing_statement_pdf\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One ad balance top-up's receipt as a PDF (each top-up in the billing history carries its id and receipt number).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [File]
+    def get_sponsored_ad_billing_topup_receipt(id, opts = {})
+      data, _status_code, _headers = get_sponsored_ad_billing_topup_receipt_with_http_info(id, opts)
+      data
+    end
+
+    # One ad balance top-up&#39;s receipt as a PDF (each top-up in the billing history carries its id and receipt number).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(File, Integer, Hash)>] File data, response status code and response headers
+    def get_sponsored_ad_billing_topup_receipt_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_billing_topup_receipt ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AdsApi.get_sponsored_ad_billing_topup_receipt"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/topups/{id}/receipt'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/pdf', 'application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'File'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_billing_topup_receipt",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_billing_topup_receipt\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has `catalogs`: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdCampaignResponse]
+    def get_sponsored_ad_campaign(id, opts = {})
+      data, _status_code, _headers = get_sponsored_ad_campaign_with_http_info(id, opts)
+      data
+    end
+
+    # One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has &#x60;catalogs&#x60;: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdCampaignResponse, Integer, Hash)>] SponsoredAdCampaignResponse data, response status code and response headers
+    def get_sponsored_ad_campaign_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_campaign ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AdsApi.get_sponsored_ad_campaign"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/campaigns/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_campaign",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_campaign\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh=true re-reads CBX.
+    # @param [Hash] opts the optional parameters
+    # @return [GetSponsoredAdFundResponse]
+    def get_sponsored_ad_fund(opts = {})
+      data, _status_code, _headers = get_sponsored_ad_fund_with_http_info(opts)
+      data
+    end
+
+    # What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh&#x3D;true re-reads CBX.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetSponsoredAdFundResponse, Integer, Hash)>] GetSponsoredAdFundResponse data, response status code and response headers
+    def get_sponsored_ad_fund_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_fund ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/funds'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetSponsoredAdFundResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_fund",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_fund\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and `catalogs`, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
+    # @param [Hash] opts the optional parameters
+    # @return [GetSponsoredAdReportResponse]
+    def get_sponsored_ad_report(opts = {})
+      data, _status_code, _headers = get_sponsored_ad_report_with_http_info(opts)
+      data
+    end
+
+    # Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and &#x60;catalogs&#x60;, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetSponsoredAdReportResponse, Integer, Hash)>] GetSponsoredAdReportResponse data, response status code and response headers
+    def get_sponsored_ad_report_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_report ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/report'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetSponsoredAdReportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_report",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_report\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ads quick settings: adsPaused, accountDailyCapCents and spentTodayCents, defaultBidStrategy, autoTopup.
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdResponse]
+    def get_sponsored_ad_setting(opts = {})
+      data, _status_code, _headers = get_sponsored_ad_setting_with_http_info(opts)
+      data
+    end
+
+    # Ads quick settings: adsPaused, accountDailyCapCents and spentTodayCents, defaultBidStrategy, autoTopup.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdResponse, Integer, Hash)>] SponsoredAdResponse data, response status code and response headers
+    def get_sponsored_ad_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.get_sponsored_ad_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#get_sponsored_ad_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your ad campaigns on one marketplace (cached up to 15 minutes; refresh=true asks the marketplace now).
+    # @param platform [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListListingAdCampaignsResponse]
+    def list_listing_ad_campaigns(platform, opts = {})
+      data, _status_code, _headers = list_listing_ad_campaigns_with_http_info(platform, opts)
+      data
+    end
+
+    # Your ad campaigns on one marketplace (cached up to 15 minutes; refresh&#x3D;true asks the marketplace now).
+    # @param platform [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListListingAdCampaignsResponse, Integer, Hash)>] ListListingAdCampaignsResponse data, response status code and response headers
+    def list_listing_ad_campaigns_with_http_info(platform, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_listing_ad_campaigns ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.list_listing_ad_campaigns"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/{platform}/campaigns'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListListingAdCampaignsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_listing_ad_campaigns",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_listing_ad_campaigns\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The ads registry: each marketplace that sells promotion, its programs (kind, scope, campaign and listing fields), which verbs are wired / need a capture / are unsupported, and whether you are connected there.
+    # @param [Hash] opts the optional parameters
+    # @return [ListListingAdPlatformsResponse]
+    def list_listing_ad_platforms(opts = {})
+      data, _status_code, _headers = list_listing_ad_platforms_with_http_info(opts)
+      data
+    end
+
+    # The ads registry: each marketplace that sells promotion, its programs (kind, scope, campaign and listing fields), which verbs are wired / need a capture / are unsupported, and whether you are connected there.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListListingAdPlatformsResponse, Integer, Hash)>] ListListingAdPlatformsResponse data, response status code and response headers
+    def list_listing_ad_platforms_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_listing_ad_platforms ...'
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/platforms'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListListingAdPlatformsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_listing_ad_platforms",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_listing_ad_platforms\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
+    # @param [Hash] opts the optional parameters
+    # @return [ListSponsoredAdBillingHistoryResponse]
+    def list_sponsored_ad_billing_history(opts = {})
+      data, _status_code, _headers = list_sponsored_ad_billing_history_with_http_info(opts)
+      data
+    end
+
+    # Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListSponsoredAdBillingHistoryResponse, Integer, Hash)>] ListSponsoredAdBillingHistoryResponse data, response status code and response headers
+    def list_sponsored_ad_billing_history_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_sponsored_ad_billing_history ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/history'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListSponsoredAdBillingHistoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_sponsored_ad_billing_history",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_sponsored_ad_billing_history\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Months (YYYY-MM) with any ad billing activity, newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [ListSponsoredAdBillingStatementsResponse]
+    def list_sponsored_ad_billing_statements(opts = {})
+      data, _status_code, _headers = list_sponsored_ad_billing_statements_with_http_info(opts)
+      data
+    end
+
+    # Months (YYYY-MM) with any ad billing activity, newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListSponsoredAdBillingStatementsResponse, Integer, Hash)>] ListSponsoredAdBillingStatementsResponse data, response status code and response headers
+    def list_sponsored_ad_billing_statements_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_sponsored_ad_billing_statements ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/statements'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListSponsoredAdBillingStatementsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_sponsored_ad_billing_statements",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_sponsored_ad_billing_statements\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Boosted (pay-on-sale) listings: the rate, sales and fees taken so far. A boost lifts organic ranking by up to 10% and costs its rate only when the listing sells on Crossly.
+    # @param [Hash] opts the optional parameters
+    # @return [ListSponsoredAdBoostsResponse]
+    def list_sponsored_ad_boosts(opts = {})
+      data, _status_code, _headers = list_sponsored_ad_boosts_with_http_info(opts)
+      data
+    end
+
+    # Boosted (pay-on-sale) listings: the rate, sales and fees taken so far. A boost lifts organic ranking by up to 10% and costs its rate only when the listing sells on Crossly.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListSponsoredAdBoostsResponse, Integer, Hash)>] ListSponsoredAdBoostsResponse data, response status code and response headers
+    def list_sponsored_ad_boosts_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_sponsored_ad_boosts ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/boosts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListSponsoredAdBoostsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_sponsored_ad_boosts",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_sponsored_ad_boosts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
+    # @param [Hash] opts the optional parameters
+    # @return [ListSponsoredAdCampaignsResponse]
+    def list_sponsored_ad_campaigns(opts = {})
+      data, _status_code, _headers = list_sponsored_ad_campaigns_with_http_info(opts)
+      data
+    end
+
+    # Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListSponsoredAdCampaignsResponse, Integer, Hash)>] ListSponsoredAdCampaignsResponse data, response status code and response headers
+    def list_sponsored_ad_campaigns_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_sponsored_ad_campaigns ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/campaigns'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListSponsoredAdCampaignsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_sponsored_ad_campaigns",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_sponsored_ad_campaigns\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
+    # @param [Hash] opts the optional parameters
+    # @return [ListSponsoredAdListingsResponse]
+    def list_sponsored_ad_listings(opts = {})
+      data, _status_code, _headers = list_sponsored_ad_listings_with_http_info(opts)
+      data
+    end
+
+    # Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListSponsoredAdListingsResponse, Integer, Hash)>] ListSponsoredAdListingsResponse data, response status code and response headers
+    def list_sponsored_ad_listings_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.list_sponsored_ad_listings ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/listings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListSponsoredAdListingsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.list_sponsored_ad_listings",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#list_sponsored_ad_listings\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Turn offsite ads on or off. Yours alone to set.
     # The toggle. Nothing else in the system sets `enabled` — no onboarding default, no bulk enable, no admin override. `maxOffsiteShareBps` caps how much of your budget may leave the platform, so opting in does not mean discovering the whole thing went to Google. `minReturnBps` sets the floor below which offsite spend auto-pauses: 20000 means we must return $2 of attributed revenue per $1 spent over the window. Toggling either way clears any existing auto-pause, so turning it back on later does not inherit a pause from months ago. When one of your ads brings a buyer who purchases somebody ELSE's item, that is reported to you as spillover so you can judge whether offsite traffic is reaching buyers who want YOUR item, and switch it off if not. It is not credited back — you bought clicks, which is how every ad market works.
     # @param [Hash] opts the optional parameters
@@ -357,6 +1810,366 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AdsApi#update_ad_offsite\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
+    # @param platform [String] 
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateListingAdCampaignResponse]
+    def update_listing_ad_campaign(platform, campaign_id, opts = {})
+      data, _status_code, _headers = update_listing_ad_campaign_with_http_info(platform, campaign_id, opts)
+      data
+    end
+
+    # Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
+    # @param platform [String] 
+    # @param campaign_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateListingAdCampaignResponse, Integer, Hash)>] CreateListingAdCampaignResponse data, response status code and response headers
+    def update_listing_ad_campaign_with_http_info(platform, campaign_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.update_listing_ad_campaign ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.update_listing_ad_campaign"
+      end
+      # verify the required parameter 'campaign_id' is set
+      if @api_client.config.client_side_validation && campaign_id.nil?
+        fail ArgumentError, "Missing the required parameter 'campaign_id' when calling AdsApi.update_listing_ad_campaign"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/{platform}/campaigns/{campaignId}'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateListingAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.update_listing_ad_campaign",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#update_listing_ad_campaign\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change one promoted listing's ad rate (percent of the sale) in the campaign it is in.
+    # @param platform [String] 
+    # @param platform_listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateListingAdListingRateResponse]
+    def update_listing_ad_listing_rate(platform, platform_listing_id, opts = {})
+      data, _status_code, _headers = update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, opts)
+      data
+    end
+
+    # Change one promoted listing&#39;s ad rate (percent of the sale) in the campaign it is in.
+    # @param platform [String] 
+    # @param platform_listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateListingAdListingRateResponse, Integer, Hash)>] UpdateListingAdListingRateResponse data, response status code and response headers
+    def update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.update_listing_ad_listing_rate ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.update_listing_ad_listing_rate"
+      end
+      # verify the required parameter 'platform_listing_id' is set
+      if @api_client.config.client_side_validation && platform_listing_id.nil?
+        fail ArgumentError, "Missing the required parameter 'platform_listing_id' when calling AdsApi.update_listing_ad_listing_rate"
+      end
+      # resource path
+      local_var_path = '/v1/listing-ads/{platform}/listings/{platformListingId}/rate'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'platformListingId' + '}', CGI.escape(platform_listing_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateListingAdListingRateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.update_listing_ad_listing_rate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#update_listing_ad_listing_rate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdResponse]
+    def update_sponsored_ad_billing_auto_topup(opts = {})
+      data, _status_code, _headers = update_sponsored_ad_billing_auto_topup_with_http_info(opts)
+      data
+    end
+
+    # Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdResponse, Integer, Hash)>] SponsoredAdResponse data, response status code and response headers
+    def update_sponsored_ad_billing_auto_topup_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.update_sponsored_ad_billing_auto_topup ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/billing/auto-topup'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.update_sponsored_ad_billing_auto_topup",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#update_sponsored_ad_billing_auto_topup\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Boost listings in bulk (platformListingIds, upliftBps 100–2000 = 1–20%), or change their rate. Your own live Crossly listings only.
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateSponsoredAdBoostResponse]
+    def update_sponsored_ad_boost(opts = {})
+      data, _status_code, _headers = update_sponsored_ad_boost_with_http_info(opts)
+      data
+    end
+
+    # Boost listings in bulk (platformListingIds, upliftBps 100–2000 &#x3D; 1–20%), or change their rate. Your own live Crossly listings only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateSponsoredAdBoostResponse, Integer, Hash)>] UpdateSponsoredAdBoostResponse data, response status code and response headers
+    def update_sponsored_ad_boost_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.update_sponsored_ad_boost ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/boosts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateSponsoredAdBoostResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.update_sponsored_ad_boost",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#update_sponsored_ad_boost\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit a campaign. Any of the create fields; listings and keywords, when given, replace the current set. Raising the total budget resumes a campaign stopped by it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdCampaignResponse]
+    def update_sponsored_ad_campaign(id, opts = {})
+      data, _status_code, _headers = update_sponsored_ad_campaign_with_http_info(id, opts)
+      data
+    end
+
+    # Edit a campaign. Any of the create fields; listings and keywords, when given, replace the current set. Raising the total budget resumes a campaign stopped by it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdCampaignResponse, Integer, Hash)>] SponsoredAdCampaignResponse data, response status code and response headers
+    def update_sponsored_ad_campaign_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.update_sponsored_ad_campaign ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AdsApi.update_sponsored_ad_campaign"
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/campaigns/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdCampaignResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.update_sponsored_ad_campaign",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#update_sponsored_ad_campaign\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change ads quick settings: adsPaused (pause / resume every ad), accountDailyCapCents (null = no cap), defaultBidStrategy (auto | manual) for new campaigns, autoTopup {enabled, thresholdCents?, amountCents?}, railPreference (cash_first | cbx_first, both rails live only).
+    # @param [Hash] opts the optional parameters
+    # @return [SponsoredAdResponse]
+    def update_sponsored_ad_setting(opts = {})
+      data, _status_code, _headers = update_sponsored_ad_setting_with_http_info(opts)
+      data
+    end
+
+    # Change ads quick settings: adsPaused (pause / resume every ad), accountDailyCapCents (null &#x3D; no cap), defaultBidStrategy (auto | manual) for new campaigns, autoTopup {enabled, thresholdCents?, amountCents?}, railPreference (cash_first | cbx_first, both rails live only).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SponsoredAdResponse, Integer, Hash)>] SponsoredAdResponse data, response status code and response headers
+    def update_sponsored_ad_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AdsApi.update_sponsored_ad_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/sponsored-ads/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SponsoredAdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AdsApi.update_sponsored_ad_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AdsApi#update_sponsored_ad_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

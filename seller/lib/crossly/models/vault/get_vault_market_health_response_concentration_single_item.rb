@@ -159,7 +159,7 @@ module Crossly
     def valid?
       return false if @hhi.nil?
       return false if @band.nil?
-      band_validator = EnumAttributeValidator.new('String', ["spread", "moderate", "empty", "concentrated"])
+      band_validator = EnumAttributeValidator.new('String', ["moderate", "spread", "empty", "concentrated"])
       return false unless band_validator.valid?(@band)
       return false if @band_text.nil?
       return false if @largest_share_bps.nil?
@@ -170,7 +170,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] band Object to be assigned
     def band=(band)
-      validator = EnumAttributeValidator.new('String', ["spread", "moderate", "empty", "concentrated"])
+      validator = EnumAttributeValidator.new('String', ["moderate", "spread", "empty", "concentrated"])
       unless validator.valid?(band)
         fail ArgumentError, "invalid value for \"band\", must be one of #{validator.allowable_values}."
       end

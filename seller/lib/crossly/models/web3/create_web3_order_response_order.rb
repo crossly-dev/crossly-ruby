@@ -23,9 +23,9 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :quantity
-
     attr_accessor :status
+
+    attr_accessor :quantity
 
     attr_accessor :inventory_item_id
 
@@ -35,23 +35,23 @@ module Crossly
 
     attr_accessor :last_checked_at
 
+    attr_accessor :storefront_id
+
     attr_accessor :kind
 
-    attr_accessor :external_url
+    attr_accessor :marketplace
 
-    attr_accessor :wallet_id
+    attr_accessor :token_id
+
+    attr_accessor :external_url
 
     attr_accessor :chain
 
     attr_accessor :contract
 
-    attr_accessor :token_id
-
-    attr_accessor :collection_name
-
     attr_accessor :order_hash
 
-    attr_accessor :marketplace
+    attr_accessor :wallet_id
 
     attr_accessor :maker
 
@@ -70,6 +70,8 @@ module Crossly
     attr_accessor :item_name
 
     attr_accessor :item_image
+
+    attr_accessor :collection_name
 
     attr_accessor :taker
 
@@ -110,21 +112,21 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
-        :'quantity' => :'quantity',
         :'status' => :'status',
+        :'quantity' => :'quantity',
         :'inventory_item_id' => :'inventoryItemId',
         :'currency' => :'currency',
         :'bundle' => :'bundle',
         :'last_checked_at' => :'lastCheckedAt',
+        :'storefront_id' => :'storefrontId',
         :'kind' => :'kind',
+        :'marketplace' => :'marketplace',
+        :'token_id' => :'tokenId',
         :'external_url' => :'externalUrl',
-        :'wallet_id' => :'walletId',
         :'chain' => :'chain',
         :'contract' => :'contract',
-        :'token_id' => :'tokenId',
-        :'collection_name' => :'collectionName',
         :'order_hash' => :'orderHash',
-        :'marketplace' => :'marketplace',
+        :'wallet_id' => :'walletId',
         :'maker' => :'maker',
         :'price_wei' => :'priceWei',
         :'end_price_wei' => :'endPriceWei',
@@ -134,6 +136,7 @@ module Crossly
         :'status_reason' => :'statusReason',
         :'item_name' => :'itemName',
         :'item_image' => :'itemImage',
+        :'collection_name' => :'collectionName',
         :'taker' => :'taker',
         :'filled_tx' => :'filledTx',
         :'filled_at' => :'filledAt',
@@ -154,21 +157,21 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
-        :'quantity' => :'Float',
         :'status' => :'String',
+        :'quantity' => :'Float',
         :'inventory_item_id' => :'String',
         :'currency' => :'String',
         :'bundle' => :'Array<CreateWeb3OrderResponseOrderBundle>',
         :'last_checked_at' => :'Time',
+        :'storefront_id' => :'String',
         :'kind' => :'String',
+        :'marketplace' => :'String',
+        :'token_id' => :'String',
         :'external_url' => :'String',
-        :'wallet_id' => :'String',
         :'chain' => :'String',
         :'contract' => :'String',
-        :'token_id' => :'String',
-        :'collection_name' => :'String',
         :'order_hash' => :'String',
-        :'marketplace' => :'String',
+        :'wallet_id' => :'String',
         :'maker' => :'String',
         :'price_wei' => :'String',
         :'end_price_wei' => :'String',
@@ -178,6 +181,7 @@ module Crossly
         :'status_reason' => :'String',
         :'item_name' => :'String',
         :'item_image' => :'String',
+        :'collection_name' => :'String',
         :'taker' => :'String',
         :'filled_tx' => :'String',
         :'filled_at' => :'Time',
@@ -193,14 +197,15 @@ module Crossly
         :'inventory_item_id',
         :'bundle',
         :'last_checked_at',
+        :'storefront_id',
+        :'token_id',
         :'external_url',
         :'wallet_id',
-        :'token_id',
-        :'collection_name',
         :'end_price_wei',
         :'status_reason',
         :'item_name',
         :'item_image',
+        :'collection_name',
         :'taker',
         :'filled_tx',
         :'filled_at',
@@ -240,12 +245,12 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
-      end
-
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'inventory_item_id')
@@ -266,16 +271,24 @@ module Crossly
         self.last_checked_at = attributes[:'last_checked_at']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
       end
 
-      if attributes.key?(:'external_url')
-        self.external_url = attributes[:'external_url']
+      if attributes.key?(:'marketplace')
+        self.marketplace = attributes[:'marketplace']
       end
 
-      if attributes.key?(:'wallet_id')
-        self.wallet_id = attributes[:'wallet_id']
+      if attributes.key?(:'token_id')
+        self.token_id = attributes[:'token_id']
+      end
+
+      if attributes.key?(:'external_url')
+        self.external_url = attributes[:'external_url']
       end
 
       if attributes.key?(:'chain')
@@ -286,20 +299,12 @@ module Crossly
         self.contract = attributes[:'contract']
       end
 
-      if attributes.key?(:'token_id')
-        self.token_id = attributes[:'token_id']
-      end
-
-      if attributes.key?(:'collection_name')
-        self.collection_name = attributes[:'collection_name']
-      end
-
       if attributes.key?(:'order_hash')
         self.order_hash = attributes[:'order_hash']
       end
 
-      if attributes.key?(:'marketplace')
-        self.marketplace = attributes[:'marketplace']
+      if attributes.key?(:'wallet_id')
+        self.wallet_id = attributes[:'wallet_id']
       end
 
       if attributes.key?(:'maker')
@@ -336,6 +341,10 @@ module Crossly
 
       if attributes.key?(:'item_image')
         self.item_image = attributes[:'item_image']
+      end
+
+      if attributes.key?(:'collection_name')
+        self.collection_name = attributes[:'collection_name']
       end
 
       if attributes.key?(:'taker')
@@ -375,12 +384,12 @@ module Crossly
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
 
       if @currency.nil?
@@ -389,6 +398,10 @@ module Crossly
 
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @marketplace.nil?
+        invalid_properties.push('invalid value for "marketplace", marketplace cannot be nil.')
       end
 
       if @chain.nil?
@@ -401,10 +414,6 @@ module Crossly
 
       if @order_hash.nil?
         invalid_properties.push('invalid value for "order_hash", order_hash cannot be nil.')
-      end
-
-      if @marketplace.nil?
-        invalid_properties.push('invalid value for "marketplace", marketplace cannot be nil.')
       end
 
       if @maker.nil?
@@ -436,18 +445,18 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
-      return false if @quantity.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["open", "filled", "cancelled", "expired", "invalid"])
+      status_validator = EnumAttributeValidator.new('String', ["cancelled", "open", "expired", "filled", "invalid"])
       return false unless status_validator.valid?(@status)
+      return false if @quantity.nil?
       return false if @currency.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["bundle", "listing", "private_listing", "offer", "collection_offer", "trait_offer"])
+      kind_validator = EnumAttributeValidator.new('String', ["bundle", "offer", "listing", "private_listing", "collection_offer", "trait_offer"])
       return false unless kind_validator.valid?(@kind)
+      return false if @marketplace.nil?
       return false if @chain.nil?
       return false if @contract.nil?
       return false if @order_hash.nil?
-      return false if @marketplace.nil?
       return false if @maker.nil?
       return false if @price_wei.nil?
       return false if @start_time.nil?
@@ -459,7 +468,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["open", "filled", "cancelled", "expired", "invalid"])
+      validator = EnumAttributeValidator.new('String', ["cancelled", "open", "expired", "filled", "invalid"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -469,7 +478,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["bundle", "listing", "private_listing", "offer", "collection_offer", "trait_offer"])
+      validator = EnumAttributeValidator.new('String', ["bundle", "offer", "listing", "private_listing", "collection_offer", "trait_offer"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -485,21 +494,21 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
-          quantity == o.quantity &&
           status == o.status &&
+          quantity == o.quantity &&
           inventory_item_id == o.inventory_item_id &&
           currency == o.currency &&
           bundle == o.bundle &&
           last_checked_at == o.last_checked_at &&
+          storefront_id == o.storefront_id &&
           kind == o.kind &&
+          marketplace == o.marketplace &&
+          token_id == o.token_id &&
           external_url == o.external_url &&
-          wallet_id == o.wallet_id &&
           chain == o.chain &&
           contract == o.contract &&
-          token_id == o.token_id &&
-          collection_name == o.collection_name &&
           order_hash == o.order_hash &&
-          marketplace == o.marketplace &&
+          wallet_id == o.wallet_id &&
           maker == o.maker &&
           price_wei == o.price_wei &&
           end_price_wei == o.end_price_wei &&
@@ -509,6 +518,7 @@ module Crossly
           status_reason == o.status_reason &&
           item_name == o.item_name &&
           item_image == o.item_image &&
+          collection_name == o.collection_name &&
           taker == o.taker &&
           filled_tx == o.filled_tx &&
           filled_at == o.filled_at &&
@@ -525,7 +535,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, user_id, quantity, status, inventory_item_id, currency, bundle, last_checked_at, kind, external_url, wallet_id, chain, contract, token_id, collection_name, order_hash, marketplace, maker, price_wei, end_price_wei, start_time, end_time, signature, status_reason, item_name, item_image, taker, filled_tx, filled_at, criteria, reserved_for].hash
+      [id, created_at, updated_at, user_id, status, quantity, inventory_item_id, currency, bundle, last_checked_at, storefront_id, kind, marketplace, token_id, external_url, chain, contract, order_hash, wallet_id, maker, price_wei, end_price_wei, start_time, end_time, signature, status_reason, item_name, item_image, collection_name, taker, filled_tx, filled_at, criteria, reserved_for].hash
     end
 
     # Builds the object from hash

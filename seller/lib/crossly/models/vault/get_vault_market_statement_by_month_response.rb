@@ -47,6 +47,8 @@ module Crossly
 
     attr_accessor :fees
 
+    attr_accessor :cash
+
     attr_accessor :notes
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -68,6 +70,7 @@ module Crossly
         :'pledges' => :'pledges',
         :'activity' => :'activity',
         :'fees' => :'fees',
+        :'cash' => :'cash',
         :'notes' => :'notes'
       }
     end
@@ -96,6 +99,7 @@ module Crossly
         :'pledges' => :'Array<Hash<String, Object>>',
         :'activity' => :'Array<ListVaultMarketConfirmationsItem>',
         :'fees' => :'GetVaultMarketStatementByMonthResponseOneOf1Fees',
+        :'cash' => :'Object',
         :'notes' => :'Array<String>'
       }
     end
@@ -104,6 +108,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'hash',
+        :'cash',
       ])
     end
 
@@ -196,6 +201,10 @@ module Crossly
         self.fees = attributes[:'fees']
       end
 
+      if attributes.key?(:'cash')
+        self.cash = attributes[:'cash']
+      end
+
       if attributes.key?(:'notes')
         if (value = attributes[:'notes']).is_a?(Array)
           self.notes = value
@@ -247,6 +256,7 @@ module Crossly
           pledges == o.pledges &&
           activity == o.activity &&
           fees == o.fees &&
+          cash == o.cash &&
           notes == o.notes
     end
 
@@ -259,7 +269,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [frozen, hash, generated_at, account, month, from, to, holdings_as_of, provisional, summary, holdings, loans_out, positions, pledges, activity, fees, notes].hash
+      [frozen, hash, generated_at, account, month, from, to, holdings_as_of, provisional, summary, holdings, loans_out, positions, pledges, activity, fees, cash, notes].hash
     end
 
     # Builds the object from hash

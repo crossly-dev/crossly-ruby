@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class ListVaultMarketFollowFollowingItem
+    attr_accessor :person
+
     attr_accessor :since
 
     attr_accessor :shares
@@ -24,6 +26,7 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'person' => :'person',
         :'since' => :'since',
         :'shares' => :'shares',
         :'copy_watching' => :'copyWatching'
@@ -38,6 +41,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'person' => :'ListVaultMarketFollowFollowingItemPerson',
         :'since' => :'String',
         :'shares' => :'ListVaultMarketFollowFollowingItemShares',
         :'copy_watching' => :'Boolean'
@@ -66,6 +70,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'person')
+        self.person = attributes[:'person']
+      end
+
       if attributes.key?(:'since')
         self.since = attributes[:'since']
       end
@@ -83,6 +91,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @person.nil?
+        invalid_properties.push('invalid value for "person", person cannot be nil.')
+      end
+
       if @shares.nil?
         invalid_properties.push('invalid value for "shares", shares cannot be nil.')
       end
@@ -97,6 +109,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @person.nil?
       return false if @shares.nil?
       return false if @copy_watching.nil?
       true
@@ -107,6 +120,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          person == o.person &&
           since == o.since &&
           shares == o.shares &&
           copy_watching == o.copy_watching
@@ -121,7 +135,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [since, shares, copy_watching].hash
+      [person, since, shares, copy_watching].hash
     end
 
     # Builds the object from hash

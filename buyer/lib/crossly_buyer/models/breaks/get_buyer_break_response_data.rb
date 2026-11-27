@@ -17,55 +17,55 @@ module CrosslyBuyer
   class GetBuyerBreakResponseData
     attr_accessor :id
 
-    attr_accessor :created_at
-
-    attr_accessor :status
-
-    attr_accessor :assigned_at
-
     attr_accessor :title
 
-    attr_accessor :seller
+    attr_accessor :product
+
+    attr_accessor :format
+
+    attr_accessor :status
 
     attr_accessor :slug
 
     attr_accessor :price_cents
 
-    attr_accessor :format
-
     attr_accessor :stream_id
 
-    attr_accessor :seed
-
-    attr_accessor :product
-
-    attr_accessor :seed_commit
+    attr_accessor :seller
 
     attr_accessor :spots
 
     attr_accessor :spots_left
 
+    attr_accessor :seed_commit
+
+    attr_accessor :seed
+
     attr_accessor :draw
+
+    attr_accessor :created_at
+
+    attr_accessor :assigned_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'status' => :'status',
-        :'assigned_at' => :'assignedAt',
         :'title' => :'title',
-        :'seller' => :'seller',
+        :'product' => :'product',
+        :'format' => :'format',
+        :'status' => :'status',
         :'slug' => :'slug',
         :'price_cents' => :'priceCents',
-        :'format' => :'format',
         :'stream_id' => :'streamId',
-        :'seed' => :'seed',
-        :'product' => :'product',
-        :'seed_commit' => :'seedCommit',
+        :'seller' => :'seller',
         :'spots' => :'spots',
         :'spots_left' => :'spotsLeft',
-        :'draw' => :'draw'
+        :'seed_commit' => :'seedCommit',
+        :'seed' => :'seed',
+        :'draw' => :'draw',
+        :'created_at' => :'createdAt',
+        :'assigned_at' => :'assignedAt'
       }
     end
 
@@ -78,33 +78,33 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'status' => :'String',
-        :'assigned_at' => :'String',
         :'title' => :'String',
-        :'seller' => :'GetBuyerBreakResponseDataSeller',
+        :'product' => :'String',
+        :'format' => :'String',
+        :'status' => :'String',
         :'slug' => :'String',
         :'price_cents' => :'Float',
-        :'format' => :'String',
         :'stream_id' => :'String',
-        :'seed' => :'String',
-        :'product' => :'String',
-        :'seed_commit' => :'String',
+        :'seller' => :'GetBuyerBreakResponseDataSeller',
         :'spots' => :'Array<GetBuyerBreakResponseDataSpots>',
         :'spots_left' => :'Float',
-        :'draw' => :'Array<GetBuyerBreakResponseDataDraw>'
+        :'seed_commit' => :'String',
+        :'seed' => :'String',
+        :'draw' => :'Array<GetBuyerBreakResponseDataDraw>',
+        :'created_at' => :'String',
+        :'assigned_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'assigned_at',
+        :'product',
         :'slug',
         :'stream_id',
         :'seed',
-        :'product',
-        :'draw'
+        :'draw',
+        :'assigned_at'
       ])
     end
 
@@ -127,24 +127,20 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'assigned_at')
-        self.assigned_at = attributes[:'assigned_at']
-      end
-
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'seller')
-        self.seller = attributes[:'seller']
+      if attributes.key?(:'product')
+        self.product = attributes[:'product']
+      end
+
+      if attributes.key?(:'format')
+        self.format = attributes[:'format']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'slug')
@@ -155,24 +151,12 @@ module CrosslyBuyer
         self.price_cents = attributes[:'price_cents']
       end
 
-      if attributes.key?(:'format')
-        self.format = attributes[:'format']
-      end
-
       if attributes.key?(:'stream_id')
         self.stream_id = attributes[:'stream_id']
       end
 
-      if attributes.key?(:'seed')
-        self.seed = attributes[:'seed']
-      end
-
-      if attributes.key?(:'product')
-        self.product = attributes[:'product']
-      end
-
-      if attributes.key?(:'seed_commit')
-        self.seed_commit = attributes[:'seed_commit']
+      if attributes.key?(:'seller')
+        self.seller = attributes[:'seller']
       end
 
       if attributes.key?(:'spots')
@@ -185,10 +169,26 @@ module CrosslyBuyer
         self.spots_left = attributes[:'spots_left']
       end
 
+      if attributes.key?(:'seed_commit')
+        self.seed_commit = attributes[:'seed_commit']
+      end
+
+      if attributes.key?(:'seed')
+        self.seed = attributes[:'seed']
+      end
+
       if attributes.key?(:'draw')
         if (value = attributes[:'draw']).is_a?(Array)
           self.draw = value
         end
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'assigned_at')
+        self.assigned_at = attributes[:'assigned_at']
       end
     end
 
@@ -200,32 +200,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
-      if @seller.nil?
-        invalid_properties.push('invalid value for "seller", seller cannot be nil.')
-      end
-
-      if @price_cents.nil?
-        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
       end
 
       if @format.nil?
         invalid_properties.push('invalid value for "format", format cannot be nil.')
       end
 
-      if @seed_commit.nil?
-        invalid_properties.push('invalid value for "seed_commit", seed_commit cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @price_cents.nil?
+        invalid_properties.push('invalid value for "price_cents", price_cents cannot be nil.')
+      end
+
+      if @seller.nil?
+        invalid_properties.push('invalid value for "seller", seller cannot be nil.')
       end
 
       if @spots.nil?
@@ -236,6 +228,14 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "spots_left", spots_left cannot be nil.')
       end
 
+      if @seed_commit.nil?
+        invalid_properties.push('invalid value for "seed_commit", seed_commit cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -243,15 +243,15 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @status.nil?
       return false if @title.nil?
-      return false if @seller.nil?
-      return false if @price_cents.nil?
       return false if @format.nil?
-      return false if @seed_commit.nil?
+      return false if @status.nil?
+      return false if @price_cents.nil?
+      return false if @seller.nil?
       return false if @spots.nil?
       return false if @spots_left.nil?
+      return false if @seed_commit.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -261,21 +261,21 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          status == o.status &&
-          assigned_at == o.assigned_at &&
           title == o.title &&
-          seller == o.seller &&
+          product == o.product &&
+          format == o.format &&
+          status == o.status &&
           slug == o.slug &&
           price_cents == o.price_cents &&
-          format == o.format &&
           stream_id == o.stream_id &&
-          seed == o.seed &&
-          product == o.product &&
-          seed_commit == o.seed_commit &&
+          seller == o.seller &&
           spots == o.spots &&
           spots_left == o.spots_left &&
-          draw == o.draw
+          seed_commit == o.seed_commit &&
+          seed == o.seed &&
+          draw == o.draw &&
+          created_at == o.created_at &&
+          assigned_at == o.assigned_at
     end
 
     # @see the `==` method
@@ -287,7 +287,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, assigned_at, title, seller, slug, price_cents, format, stream_id, seed, product, seed_commit, spots, spots_left, draw].hash
+      [id, title, product, format, status, slug, price_cents, stream_id, seller, spots, spots_left, seed_commit, seed, draw, created_at, assigned_at].hash
     end
 
     # Builds the object from hash

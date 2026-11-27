@@ -25,6 +25,8 @@ module CrosslyBuyer
 
     attr_accessor :unit_price_cents
 
+    attr_accessor :listing_variant_id
+
     attr_accessor :slug
 
     attr_accessor :title
@@ -39,6 +41,7 @@ module CrosslyBuyer
         :'platform_listing_id' => :'platformListingId',
         :'quantity' => :'quantity',
         :'unit_price_cents' => :'unitPriceCents',
+        :'listing_variant_id' => :'listingVariantId',
         :'slug' => :'slug',
         :'title' => :'title',
         :'listing_status' => :'listingStatus'
@@ -58,6 +61,7 @@ module CrosslyBuyer
         :'platform_listing_id' => :'String',
         :'quantity' => :'Float',
         :'unit_price_cents' => :'Float',
+        :'listing_variant_id' => :'String',
         :'slug' => :'String',
         :'title' => :'String',
         :'listing_status' => :'String'
@@ -67,6 +71,7 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'listing_variant_id',
         :'slug',
         :'title',
         :'listing_status'
@@ -106,6 +111,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'unit_price_cents')
         self.unit_price_cents = attributes[:'unit_price_cents']
+      end
+
+      if attributes.key?(:'listing_variant_id')
+        self.listing_variant_id = attributes[:'listing_variant_id']
       end
 
       if attributes.key?(:'slug')
@@ -169,6 +178,7 @@ module CrosslyBuyer
           platform_listing_id == o.platform_listing_id &&
           quantity == o.quantity &&
           unit_price_cents == o.unit_price_cents &&
+          listing_variant_id == o.listing_variant_id &&
           slug == o.slug &&
           title == o.title &&
           listing_status == o.listing_status
@@ -183,7 +193,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [available, id, platform_listing_id, quantity, unit_price_cents, slug, title, listing_status].hash
+      [available, id, platform_listing_id, quantity, unit_price_cents, listing_variant_id, slug, title, listing_status].hash
     end
 
     # Builds the object from hash

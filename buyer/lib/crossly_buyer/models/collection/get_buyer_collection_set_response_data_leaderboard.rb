@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCollectionSetResponseDataLeaderboard
-    attr_accessor :name
-
     attr_accessor :rank
+
+    attr_accessor :name
 
     attr_accessor :owned
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'name' => :'name',
         :'rank' => :'rank',
+        :'name' => :'name',
         :'owned' => :'owned'
       }
     end
@@ -38,8 +38,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'name' => :'String',
         :'rank' => :'Float',
+        :'name' => :'String',
         :'owned' => :'Float'
       }
     end
@@ -65,12 +65,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
-      end
-
       if attributes.key?(:'rank')
         self.rank = attributes[:'rank']
+      end
+
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
       if attributes.key?(:'owned')
@@ -82,12 +82,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
       if @rank.nil?
         invalid_properties.push('invalid value for "rank", rank cannot be nil.')
+      end
+
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
       if @owned.nil?
@@ -100,8 +100,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @name.nil?
       return false if @rank.nil?
+      return false if @name.nil?
       return false if @owned.nil?
       true
     end
@@ -111,8 +111,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          name == o.name &&
           rank == o.rank &&
+          name == o.name &&
           owned == o.owned
     end
 
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, rank, owned].hash
+      [rank, name, owned].hash
     end
 
     # Builds the object from hash

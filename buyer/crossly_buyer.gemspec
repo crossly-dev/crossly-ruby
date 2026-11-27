@@ -19,12 +19,12 @@ Gem::Specification.new do |s|
   s.name        = "crossly_buyer"
   s.version     = CrosslyBuyer::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["OpenAPI-Generator"]
+  s.authors     = ["Crossly"]
   s.email       = [""]
-  s.homepage    = "https://openapi-generator.tech"
+  s.homepage    = "https://github.com/crossly-dev/crossly-ruby"
   s.summary     = "Crossly Buyer API Ruby Gem"
   s.description = "The buyer-facing Crossly API — cart, orders, wishlists, offers, cashback. A DIFFERENT principal from the seller API: authenticated by a buyer OAuth token scoped `buyer:*` and resolved by `resolveBuyer`. A seller Personal Access Token will NOT authenticate these endpoints."
-  s.license     = "Unlicense"
+  s.license     = "MIT"
   s.required_ruby_version = ">= 2.4"
 
   s.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.1'

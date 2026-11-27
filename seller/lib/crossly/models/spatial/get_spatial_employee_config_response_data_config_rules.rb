@@ -123,7 +123,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @_when.nil?
-      _when_validator = EnumAttributeValidator.new('String', ["entered", "lingered", "inspected", "added_to_cart", "leaving_with_cart", "asked"])
+      _when_validator = EnumAttributeValidator.new('String', ["entered", "asked", "lingered", "inspected", "added_to_cart", "leaving_with_cart"])
       return false unless _when_validator.valid?(@_when)
       return false if @_do.nil?
       true
@@ -132,7 +132,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] _when Object to be assigned
     def _when=(_when)
-      validator = EnumAttributeValidator.new('String', ["entered", "lingered", "inspected", "added_to_cart", "leaving_with_cart", "asked"])
+      validator = EnumAttributeValidator.new('String', ["entered", "asked", "lingered", "inspected", "added_to_cart", "leaving_with_cart"])
       unless validator.valid?(_when)
         fail ArgumentError, "invalid value for \"_when\", must be one of #{validator.allowable_values}."
       end

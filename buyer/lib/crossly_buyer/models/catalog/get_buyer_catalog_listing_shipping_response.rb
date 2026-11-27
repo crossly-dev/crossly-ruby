@@ -35,9 +35,21 @@ module CrosslyBuyer
 
     attr_accessor :no_ship_reason
 
+    # Why it doesn't ship here, as the buyer should read it; null when it does.
+    attr_accessor :no_ship_message
+
+    # The seller's ship-to rule that decided a refusal; null when none did.
+    attr_accessor :rule
+
+    # True when a fuller address (ZIP / postcode) could change the answer.
+    attr_accessor :partial
+
     attr_accessor :services
 
     attr_accessor :default_service_id
+
+    # Buyer pays: calculated: no live label rate for this destination yet (give a ZIP); `cents` is null.
+    attr_accessor :calculated_at_checkout
 
     attr_accessor :international
 
@@ -56,8 +68,12 @@ module CrosslyBuyer
         :'destination_country' => :'destinationCountry',
         :'ships_to_country' => :'shipsToCountry',
         :'no_ship_reason' => :'noShipReason',
+        :'no_ship_message' => :'noShipMessage',
+        :'rule' => :'rule',
+        :'partial' => :'partial',
         :'services' => :'services',
         :'default_service_id' => :'defaultServiceId',
+        :'calculated_at_checkout' => :'calculatedAtCheckout',
         :'international' => :'international',
         :'import_charges_note' => :'importChargesNote'
       }
@@ -81,8 +97,12 @@ module CrosslyBuyer
         :'destination_country' => :'String',
         :'ships_to_country' => :'Boolean',
         :'no_ship_reason' => :'String',
+        :'no_ship_message' => :'String',
+        :'rule' => :'Hash<String, Object>',
+        :'partial' => :'Boolean',
         :'services' => :'Array<GetBuyerCatalogListingShippingResponseServices>',
         :'default_service_id' => :'String',
+        :'calculated_at_checkout' => :'Boolean',
         :'international' => :'GetBuyerCatalogListingShippingResponseInternational',
         :'import_charges_note' => :'Boolean'
       }
@@ -98,7 +118,10 @@ module CrosslyBuyer
         :'free_shipping_threshold_cents',
         :'destination_country',
         :'no_ship_reason',
+        :'no_ship_message',
+        :'rule',
         :'default_service_id',
+        :'calculated_at_checkout',
       ])
     end
 
@@ -157,6 +180,20 @@ module CrosslyBuyer
         self.no_ship_reason = attributes[:'no_ship_reason']
       end
 
+      if attributes.key?(:'no_ship_message')
+        self.no_ship_message = attributes[:'no_ship_message']
+      end
+
+      if attributes.key?(:'rule')
+        if (value = attributes[:'rule']).is_a?(Hash)
+          self.rule = value
+        end
+      end
+
+      if attributes.key?(:'partial')
+        self.partial = attributes[:'partial']
+      end
+
       if attributes.key?(:'services')
         if (value = attributes[:'services']).is_a?(Array)
           self.services = value
@@ -165,6 +202,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'default_service_id')
         self.default_service_id = attributes[:'default_service_id']
+      end
+
+      if attributes.key?(:'calculated_at_checkout')
+        self.calculated_at_checkout = attributes[:'calculated_at_checkout']
       end
 
       if attributes.key?(:'international')
@@ -192,6 +233,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "ships_to_country", ships_to_country cannot be nil.')
       end
 
+      if @partial.nil?
+        invalid_properties.push('invalid value for "partial", partial cannot be nil.')
+      end
+
       if @services.nil?
         invalid_properties.push('invalid value for "services", services cannot be nil.')
       end
@@ -213,6 +258,7 @@ module CrosslyBuyer
       return false if @quantity.nil?
       return false if @cached.nil?
       return false if @ships_to_country.nil?
+      return false if @partial.nil?
       return false if @services.nil?
       return false if @international.nil?
       return false if @import_charges_note.nil?
@@ -234,8 +280,12 @@ module CrosslyBuyer
           destination_country == o.destination_country &&
           ships_to_country == o.ships_to_country &&
           no_ship_reason == o.no_ship_reason &&
+          no_ship_message == o.no_ship_message &&
+          rule == o.rule &&
+          partial == o.partial &&
           services == o.services &&
           default_service_id == o.default_service_id &&
+          calculated_at_checkout == o.calculated_at_checkout &&
           international == o.international &&
           import_charges_note == o.import_charges_note
     end
@@ -249,7 +299,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [cents, kind, quantity, carrier, service, cached, free_shipping_threshold_cents, destination_country, ships_to_country, no_ship_reason, services, default_service_id, international, import_charges_note].hash
+      [cents, kind, quantity, carrier, service, cached, free_shipping_threshold_cents, destination_country, ships_to_country, no_ship_reason, no_ship_message, rule, partial, services, default_service_id, calculated_at_checkout, international, import_charges_note].hash
     end
 
     # Builds the object from hash

@@ -62,7 +62,7 @@ module Crossly
       {
         :'platform' => :'String',
         :'required_fields' => :'Array<GetTaxonomyRequiredFieldResponseRequiredFields>',
-        :'inline_aspects' => :'Array<GetTaxonomyCategoryAspectResponseAspects>'
+        :'inline_aspects' => :'Array<GetTaxonomyRequiredFieldResponseInlineAspects>'
       }
     end
 

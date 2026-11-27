@@ -25,6 +25,16 @@ module Crossly
 
     attr_accessor :net_profit
 
+    attr_accessor :pending_details_count
+
+    attr_accessor :net_sales_cents
+
+    attr_accessor :fees_cents
+
+    attr_accessor :net_profit_cents
+
+    attr_accessor :share
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +42,12 @@ module Crossly
         :'sales' => :'sales',
         :'revenue' => :'revenue',
         :'fees' => :'fees',
-        :'net_profit' => :'netProfit'
+        :'net_profit' => :'netProfit',
+        :'pending_details_count' => :'pendingDetailsCount',
+        :'net_sales_cents' => :'netSalesCents',
+        :'fees_cents' => :'feesCents',
+        :'net_profit_cents' => :'netProfitCents',
+        :'share' => :'share'
       }
     end
 
@@ -48,7 +63,12 @@ module Crossly
         :'sales' => :'Float',
         :'revenue' => :'Float',
         :'fees' => :'Float',
-        :'net_profit' => :'Float'
+        :'net_profit' => :'Float',
+        :'pending_details_count' => :'Float',
+        :'net_sales_cents' => :'Float',
+        :'fees_cents' => :'Float',
+        :'net_profit_cents' => :'Float',
+        :'share' => :'Float'
       }
     end
 
@@ -92,6 +112,26 @@ module Crossly
       if attributes.key?(:'net_profit')
         self.net_profit = attributes[:'net_profit']
       end
+
+      if attributes.key?(:'pending_details_count')
+        self.pending_details_count = attributes[:'pending_details_count']
+      end
+
+      if attributes.key?(:'net_sales_cents')
+        self.net_sales_cents = attributes[:'net_sales_cents']
+      end
+
+      if attributes.key?(:'fees_cents')
+        self.fees_cents = attributes[:'fees_cents']
+      end
+
+      if attributes.key?(:'net_profit_cents')
+        self.net_profit_cents = attributes[:'net_profit_cents']
+      end
+
+      if attributes.key?(:'share')
+        self.share = attributes[:'share']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -118,6 +158,26 @@ module Crossly
         invalid_properties.push('invalid value for "net_profit", net_profit cannot be nil.')
       end
 
+      if @pending_details_count.nil?
+        invalid_properties.push('invalid value for "pending_details_count", pending_details_count cannot be nil.')
+      end
+
+      if @net_sales_cents.nil?
+        invalid_properties.push('invalid value for "net_sales_cents", net_sales_cents cannot be nil.')
+      end
+
+      if @fees_cents.nil?
+        invalid_properties.push('invalid value for "fees_cents", fees_cents cannot be nil.')
+      end
+
+      if @net_profit_cents.nil?
+        invalid_properties.push('invalid value for "net_profit_cents", net_profit_cents cannot be nil.')
+      end
+
+      if @share.nil?
+        invalid_properties.push('invalid value for "share", share cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -129,6 +189,11 @@ module Crossly
       return false if @revenue.nil?
       return false if @fees.nil?
       return false if @net_profit.nil?
+      return false if @pending_details_count.nil?
+      return false if @net_sales_cents.nil?
+      return false if @fees_cents.nil?
+      return false if @net_profit_cents.nil?
+      return false if @share.nil?
       true
     end
 
@@ -141,7 +206,12 @@ module Crossly
           sales == o.sales &&
           revenue == o.revenue &&
           fees == o.fees &&
-          net_profit == o.net_profit
+          net_profit == o.net_profit &&
+          pending_details_count == o.pending_details_count &&
+          net_sales_cents == o.net_sales_cents &&
+          fees_cents == o.fees_cents &&
+          net_profit_cents == o.net_profit_cents &&
+          share == o.share
     end
 
     # @see the `==` method
@@ -153,7 +223,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, sales, revenue, fees, net_profit].hash
+      [platform, sales, revenue, fees, net_profit, pending_details_count, net_sales_cents, fees_cents, net_profit_cents, share].hash
     end
 
     # Builds the object from hash

@@ -19,6 +19,244 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Undo an automated Magic List decision, deleting its unpublished draft.
+    # @param decision_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateMagicAutoDecisionUndoResponse]
+    def create_magic_auto_decision_undo(decision_id, opts = {})
+      data, _status_code, _headers = create_magic_auto_decision_undo_with_http_info(decision_id, opts)
+      data
+    end
+
+    # Undo an automated Magic List decision, deleting its unpublished draft.
+    # @param decision_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateMagicAutoDecisionUndoResponse, Integer, Hash)>] CreateMagicAutoDecisionUndoResponse data, response status code and response headers
+    def create_magic_auto_decision_undo_with_http_info(decision_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_auto_decision_undo ...'
+      end
+      # verify the required parameter 'decision_id' is set
+      if @api_client.config.client_side_validation && decision_id.nil?
+        fail ArgumentError, "Missing the required parameter 'decision_id' when calling MagicApi.create_magic_auto_decision_undo"
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/decisions/{decisionId}/undo'.sub('{' + 'decisionId' + '}', CGI.escape(decision_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateMagicAutoDecisionUndoResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.create_magic_auto_decision_undo",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#create_magic_auto_decision_undo\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Scan one item and match it automatically (drafts only, never publishes).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateMagicAutoItemResponse]
+    def create_magic_auto_item(opts = {})
+      data, _status_code, _headers = create_magic_auto_item_with_http_info(opts)
+      data
+    end
+
+    # Scan one item and match it automatically (drafts only, never publishes).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateMagicAutoItemResponse, Integer, Hash)>] CreateMagicAutoItemResponse data, response status code and response headers
+    def create_magic_auto_item_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_auto_item ...'
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/items'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateMagicAutoItemResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.create_magic_auto_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#create_magic_auto_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Score a Magic List run automatically; a confident match in auto mode becomes a draft.
+    # @param run_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateMagicAutoRunResponse]
+    def create_magic_auto_run(run_id, opts = {})
+      data, _status_code, _headers = create_magic_auto_run_with_http_info(run_id, opts)
+      data
+    end
+
+    # Score a Magic List run automatically; a confident match in auto mode becomes a draft.
+    # @param run_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateMagicAutoRunResponse, Integer, Hash)>] CreateMagicAutoRunResponse data, response status code and response headers
+    def create_magic_auto_run_with_http_info(run_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_auto_run ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling MagicApi.create_magic_auto_run"
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/runs/{runId}'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateMagicAutoRunResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.create_magic_auto_run",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#create_magic_auto_run\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Record a seller swipe session (kept and rejected match keys) for a Magic List run.
+    # @param run_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateMagicAutoRunSwipeResponse]
+    def create_magic_auto_run_swipe(run_id, opts = {})
+      data, _status_code, _headers = create_magic_auto_run_swipe_with_http_info(run_id, opts)
+      data
+    end
+
+    # Record a seller swipe session (kept and rejected match keys) for a Magic List run.
+    # @param run_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateMagicAutoRunSwipeResponse, Integer, Hash)>] CreateMagicAutoRunSwipeResponse data, response status code and response headers
+    def create_magic_auto_run_swipe_with_http_info(run_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_auto_run_swipe ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling MagicApi.create_magic_auto_run_swipe"
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/runs/{runId}/swipes'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateMagicAutoRunSwipeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.create_magic_auto_run_swipe",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#create_magic_auto_run_swipe\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Run a Magic List image scan.
     # @param [Hash] opts the optional parameters
     # @return [CreateMagicScanResponse]
@@ -135,6 +373,63 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The seller’s Magic List automated-matching mode.
+    # mode: off (every match is swiped by hand), auto (confident matches become DRAFTS on their own, never published, always undoable) or review_all (Crossly pre-marks its picks; the seller confirms). Default review_all.
+    # @param [Hash] opts the optional parameters
+    # @return [GetMagicAutoSettingResponse]
+    def get_magic_auto_setting(opts = {})
+      data, _status_code, _headers = get_magic_auto_setting_with_http_info(opts)
+      data
+    end
+
+    # The seller’s Magic List automated-matching mode.
+    # mode: off (every match is swiped by hand), auto (confident matches become DRAFTS on their own, never published, always undoable) or review_all (Crossly pre-marks its picks; the seller confirms). Default review_all.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetMagicAutoSettingResponse, Integer, Hash)>] GetMagicAutoSettingResponse data, response status code and response headers
+    def get_magic_auto_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.get_magic_auto_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetMagicAutoSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.get_magic_auto_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#get_magic_auto_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get a synthesized Magic List draft.
     # @param draft_id [String] 
     # @param [Hash] opts the optional parameters
@@ -196,6 +491,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Every match decision round (automated and seller) for a Magic List run.
+    # @param run_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListMagicAutoRunDecisionsResponse]
+    def list_magic_auto_run_decisions(run_id, opts = {})
+      data, _status_code, _headers = list_magic_auto_run_decisions_with_http_info(run_id, opts)
+      data
+    end
+
+    # Every match decision round (automated and seller) for a Magic List run.
+    # @param run_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListMagicAutoRunDecisionsResponse, Integer, Hash)>] ListMagicAutoRunDecisionsResponse data, response status code and response headers
+    def list_magic_auto_run_decisions_with_http_info(run_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.list_magic_auto_run_decisions ...'
+      end
+      # verify the required parameter 'run_id' is set
+      if @api_client.config.client_side_validation && run_id.nil?
+        fail ArgumentError, "Missing the required parameter 'run_id' when calling MagicApi.list_magic_auto_run_decisions"
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/runs/{runId}/decisions'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListMagicAutoRunDecisionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.list_magic_auto_run_decisions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#list_magic_auto_run_decisions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Recent Magic List scans for this seller.
     # @param [Hash] opts the optional parameters
     # @return [ListMagicRecentResponse]
@@ -247,6 +603,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: MagicApi#list_magic_recent\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the Magic List automated-matching mode (off | auto | review_all).
+    # @param update_magic_auto_setting_request [UpdateMagicAutoSettingRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetMagicAutoSettingResponse]
+    def update_magic_auto_setting(update_magic_auto_setting_request, opts = {})
+      data, _status_code, _headers = update_magic_auto_setting_with_http_info(update_magic_auto_setting_request, opts)
+      data
+    end
+
+    # Set the Magic List automated-matching mode (off | auto | review_all).
+    # @param update_magic_auto_setting_request [UpdateMagicAutoSettingRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetMagicAutoSettingResponse, Integer, Hash)>] GetMagicAutoSettingResponse data, response status code and response headers
+    def update_magic_auto_setting_with_http_info(update_magic_auto_setting_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: MagicApi.update_magic_auto_setting ...'
+      end
+      # verify the required parameter 'update_magic_auto_setting_request' is set
+      if @api_client.config.client_side_validation && update_magic_auto_setting_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_magic_auto_setting_request' when calling MagicApi.update_magic_auto_setting"
+      end
+      # resource path
+      local_var_path = '/v1/magic/auto/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_magic_auto_setting_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetMagicAutoSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"MagicApi.update_magic_auto_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: MagicApi#update_magic_auto_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

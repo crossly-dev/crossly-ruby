@@ -29,6 +29,13 @@ module CrosslyBuyer
 
     attr_accessor :max_days
 
+    # Buyer pays: calculated: the carrier and service token the label is bought with, and the handling fee inside `cents`.
+    attr_accessor :carrier
+
+    attr_accessor :carrier_service
+
+    attr_accessor :handling_fee_cents
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -38,7 +45,10 @@ module CrosslyBuyer
         :'scope' => :'scope',
         :'cost_type' => :'costType',
         :'min_days' => :'minDays',
-        :'max_days' => :'maxDays'
+        :'max_days' => :'maxDays',
+        :'carrier' => :'carrier',
+        :'carrier_service' => :'carrierService',
+        :'handling_fee_cents' => :'handlingFeeCents'
       }
     end
 
@@ -56,7 +66,10 @@ module CrosslyBuyer
         :'scope' => :'String',
         :'cost_type' => :'String',
         :'min_days' => :'Float',
-        :'max_days' => :'Float'
+        :'max_days' => :'Float',
+        :'carrier' => :'String',
+        :'carrier_service' => :'String',
+        :'handling_fee_cents' => :'Float'
       }
     end
 
@@ -64,7 +77,10 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'min_days',
-        :'max_days'
+        :'max_days',
+        :'carrier',
+        :'carrier_service',
+        :'handling_fee_cents'
       ])
     end
 
@@ -109,6 +125,18 @@ module CrosslyBuyer
 
       if attributes.key?(:'max_days')
         self.max_days = attributes[:'max_days']
+      end
+
+      if attributes.key?(:'carrier')
+        self.carrier = attributes[:'carrier']
+      end
+
+      if attributes.key?(:'carrier_service')
+        self.carrier_service = attributes[:'carrier_service']
+      end
+
+      if attributes.key?(:'handling_fee_cents')
+        self.handling_fee_cents = attributes[:'handling_fee_cents']
       end
     end
 
@@ -161,7 +189,10 @@ module CrosslyBuyer
           scope == o.scope &&
           cost_type == o.cost_type &&
           min_days == o.min_days &&
-          max_days == o.max_days
+          max_days == o.max_days &&
+          carrier == o.carrier &&
+          carrier_service == o.carrier_service &&
+          handling_fee_cents == o.handling_fee_cents
     end
 
     # @see the `==` method
@@ -173,7 +204,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, cents, scope, cost_type, min_days, max_days].hash
+      [id, name, cents, scope, cost_type, min_days, max_days, carrier, carrier_service, handling_fee_cents].hash
     end
 
     # Builds the object from hash

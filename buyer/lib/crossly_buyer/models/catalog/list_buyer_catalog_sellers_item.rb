@@ -15,26 +15,26 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerCatalogSellersItem
-    attr_accessor :display_name
-
     attr_accessor :username
 
-    attr_accessor :total_items_sold
+    attr_accessor :display_name
 
     attr_accessor :is_verified
 
     attr_accessor :active_listings
+
+    attr_accessor :total_items_sold
 
     attr_accessor :avatar_url
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'display_name' => :'displayName',
         :'username' => :'username',
-        :'total_items_sold' => :'totalItemsSold',
+        :'display_name' => :'displayName',
         :'is_verified' => :'isVerified',
         :'active_listings' => :'activeListings',
+        :'total_items_sold' => :'totalItemsSold',
         :'avatar_url' => :'avatarUrl'
       }
     end
@@ -47,11 +47,11 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'display_name' => :'String',
         :'username' => :'String',
-        :'total_items_sold' => :'Float',
+        :'display_name' => :'String',
         :'is_verified' => :'Boolean',
         :'active_listings' => :'Float',
+        :'total_items_sold' => :'Float',
         :'avatar_url' => :'String'
       }
     end
@@ -78,16 +78,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'display_name')
-        self.display_name = attributes[:'display_name']
-      end
-
       if attributes.key?(:'username')
         self.username = attributes[:'username']
       end
 
-      if attributes.key?(:'total_items_sold')
-        self.total_items_sold = attributes[:'total_items_sold']
+      if attributes.key?(:'display_name')
+        self.display_name = attributes[:'display_name']
       end
 
       if attributes.key?(:'is_verified')
@@ -96,6 +92,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'active_listings')
         self.active_listings = attributes[:'active_listings']
+      end
+
+      if attributes.key?(:'total_items_sold')
+        self.total_items_sold = attributes[:'total_items_sold']
       end
 
       if attributes.key?(:'avatar_url')
@@ -107,16 +107,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @display_name.nil?
-        invalid_properties.push('invalid value for "display_name", display_name cannot be nil.')
-      end
-
       if @username.nil?
         invalid_properties.push('invalid value for "username", username cannot be nil.')
       end
 
-      if @total_items_sold.nil?
-        invalid_properties.push('invalid value for "total_items_sold", total_items_sold cannot be nil.')
+      if @display_name.nil?
+        invalid_properties.push('invalid value for "display_name", display_name cannot be nil.')
       end
 
       if @is_verified.nil?
@@ -127,17 +123,21 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "active_listings", active_listings cannot be nil.')
       end
 
+      if @total_items_sold.nil?
+        invalid_properties.push('invalid value for "total_items_sold", total_items_sold cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @display_name.nil?
       return false if @username.nil?
-      return false if @total_items_sold.nil?
+      return false if @display_name.nil?
       return false if @is_verified.nil?
       return false if @active_listings.nil?
+      return false if @total_items_sold.nil?
       true
     end
 
@@ -146,11 +146,11 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          display_name == o.display_name &&
           username == o.username &&
-          total_items_sold == o.total_items_sold &&
+          display_name == o.display_name &&
           is_verified == o.is_verified &&
           active_listings == o.active_listings &&
+          total_items_sold == o.total_items_sold &&
           avatar_url == o.avatar_url
     end
 
@@ -163,7 +163,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [display_name, username, total_items_sold, is_verified, active_listings, avatar_url].hash
+      [username, display_name, is_verified, active_listings, total_items_sold, avatar_url].hash
     end
 
     # Builds the object from hash

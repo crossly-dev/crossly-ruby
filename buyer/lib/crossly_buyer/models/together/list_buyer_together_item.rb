@@ -15,18 +15,18 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerTogetherItem
+    attr_accessor :code
+
     attr_accessor :name
 
     attr_accessor :ends_at
 
-    attr_accessor :code
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'code' => :'code',
         :'name' => :'name',
-        :'ends_at' => :'endsAt',
-        :'code' => :'code'
+        :'ends_at' => :'endsAt'
       }
     end
 
@@ -38,9 +38,9 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'code' => :'String',
         :'name' => :'String',
-        :'ends_at' => :'String',
-        :'code' => :'String'
+        :'ends_at' => :'String'
       }
     end
 
@@ -65,6 +65,10 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
       end
@@ -72,16 +76,16 @@ module CrosslyBuyer
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
       end
-
-      if attributes.key?(:'code')
-        self.code = attributes[:'code']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @code.nil?
+        invalid_properties.push('invalid value for "code", code cannot be nil.')
+      end
+
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
@@ -90,19 +94,15 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
       end
 
-      if @code.nil?
-        invalid_properties.push('invalid value for "code", code cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @code.nil?
       return false if @name.nil?
       return false if @ends_at.nil?
-      return false if @code.nil?
       true
     end
 
@@ -111,9 +111,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          code == o.code &&
           name == o.name &&
-          ends_at == o.ends_at &&
-          code == o.code
+          ends_at == o.ends_at
     end
 
     # @see the `==` method
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, ends_at, code].hash
+      [code, name, ends_at].hash
     end
 
     # Builds the object from hash

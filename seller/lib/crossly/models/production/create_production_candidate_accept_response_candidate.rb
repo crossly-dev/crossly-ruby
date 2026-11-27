@@ -25,17 +25,17 @@ module Crossly
 
     attr_accessor :retail_price_cents
 
-    attr_accessor :creator_user_id
+    attr_accessor :accepted_at
 
     attr_accessor :completed_at
 
-    attr_accessor :accepted_at
+    attr_accessor :creator_user_id
+
+    attr_accessor :cosmetic_id
 
     attr_accessor :merchant_id
 
     attr_accessor :creator_subject_id
-
-    attr_accessor :cosmetic_id
 
     attr_accessor :edition_size
 
@@ -71,12 +71,12 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'status' => :'status',
         :'retail_price_cents' => :'retailPriceCents',
-        :'creator_user_id' => :'creatorUserId',
-        :'completed_at' => :'completedAt',
         :'accepted_at' => :'acceptedAt',
+        :'completed_at' => :'completedAt',
+        :'creator_user_id' => :'creatorUserId',
+        :'cosmetic_id' => :'cosmeticId',
         :'merchant_id' => :'merchantId',
         :'creator_subject_id' => :'creatorSubjectId',
-        :'cosmetic_id' => :'cosmeticId',
         :'edition_size' => :'editionSize',
         :'unit_cost_cents' => :'unitCostCents',
         :'run_cost_cents' => :'runCostCents',
@@ -106,12 +106,12 @@ module Crossly
         :'updated_at' => :'Time',
         :'status' => :'String',
         :'retail_price_cents' => :'Float',
-        :'creator_user_id' => :'String',
-        :'completed_at' => :'Time',
         :'accepted_at' => :'Time',
+        :'completed_at' => :'Time',
+        :'creator_user_id' => :'String',
+        :'cosmetic_id' => :'String',
         :'merchant_id' => :'String',
         :'creator_subject_id' => :'String',
-        :'cosmetic_id' => :'String',
         :'edition_size' => :'Float',
         :'unit_cost_cents' => :'Float',
         :'run_cost_cents' => :'Float',
@@ -132,9 +132,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'retail_price_cents',
-        :'creator_user_id',
-        :'completed_at',
         :'accepted_at',
+        :'completed_at',
+        :'creator_user_id',
         :'edition_size',
         :'unit_cost_cents',
         :'run_cost_cents',
@@ -182,16 +182,20 @@ module Crossly
         self.retail_price_cents = attributes[:'retail_price_cents']
       end
 
-      if attributes.key?(:'creator_user_id')
-        self.creator_user_id = attributes[:'creator_user_id']
+      if attributes.key?(:'accepted_at')
+        self.accepted_at = attributes[:'accepted_at']
       end
 
       if attributes.key?(:'completed_at')
         self.completed_at = attributes[:'completed_at']
       end
 
-      if attributes.key?(:'accepted_at')
-        self.accepted_at = attributes[:'accepted_at']
+      if attributes.key?(:'creator_user_id')
+        self.creator_user_id = attributes[:'creator_user_id']
+      end
+
+      if attributes.key?(:'cosmetic_id')
+        self.cosmetic_id = attributes[:'cosmetic_id']
       end
 
       if attributes.key?(:'merchant_id')
@@ -200,10 +204,6 @@ module Crossly
 
       if attributes.key?(:'creator_subject_id')
         self.creator_subject_id = attributes[:'creator_subject_id']
-      end
-
-      if attributes.key?(:'cosmetic_id')
-        self.cosmetic_id = attributes[:'cosmetic_id']
       end
 
       if attributes.key?(:'edition_size')
@@ -279,16 +279,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @cosmetic_id.nil?
+        invalid_properties.push('invalid value for "cosmetic_id", cosmetic_id cannot be nil.')
+      end
+
       if @merchant_id.nil?
         invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
       end
 
       if @creator_subject_id.nil?
         invalid_properties.push('invalid value for "creator_subject_id", creator_subject_id cannot be nil.')
-      end
-
-      if @cosmetic_id.nil?
-        invalid_properties.push('invalid value for "cosmetic_id", cosmetic_id cannot be nil.')
       end
 
       if @designer_royalty_bps.nil?
@@ -317,9 +317,9 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @status.nil?
+      return false if @cosmetic_id.nil?
       return false if @merchant_id.nil?
       return false if @creator_subject_id.nil?
-      return false if @cosmetic_id.nil?
       return false if @designer_royalty_bps.nil?
       return false if @funding_at_eligible_cents.nil?
       return false if @distinct_holders_at_eligible.nil?
@@ -337,12 +337,12 @@ module Crossly
           updated_at == o.updated_at &&
           status == o.status &&
           retail_price_cents == o.retail_price_cents &&
-          creator_user_id == o.creator_user_id &&
-          completed_at == o.completed_at &&
           accepted_at == o.accepted_at &&
+          completed_at == o.completed_at &&
+          creator_user_id == o.creator_user_id &&
+          cosmetic_id == o.cosmetic_id &&
           merchant_id == o.merchant_id &&
           creator_subject_id == o.creator_subject_id &&
-          cosmetic_id == o.cosmetic_id &&
           edition_size == o.edition_size &&
           unit_cost_cents == o.unit_cost_cents &&
           run_cost_cents == o.run_cost_cents &&
@@ -367,7 +367,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, status, retail_price_cents, creator_user_id, completed_at, accepted_at, merchant_id, creator_subject_id, cosmetic_id, edition_size, unit_cost_cents, run_cost_cents, designer_royalty_bps, funding_at_eligible_cents, distinct_holders_at_eligible, holder_priority, holder_price_cents, design_brief, spec, ip_cleared_at, greenlit_at, decline_reason].hash
+      [id, created_at, updated_at, status, retail_price_cents, accepted_at, completed_at, creator_user_id, cosmetic_id, merchant_id, creator_subject_id, edition_size, unit_cost_cents, run_cost_cents, designer_royalty_bps, funding_at_eligible_cents, distinct_holders_at_eligible, holder_priority, holder_price_cents, design_brief, spec, ip_cleared_at, greenlit_at, decline_reason].hash
     end
 
     # Builds the object from hash

@@ -33,6 +33,8 @@ module Crossly
 
     attr_accessor :enabled
 
+    attr_accessor :claim
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +46,8 @@ module Crossly
         :'owned' => :'owned',
         :'vacant' => :'vacant',
         :'buyable' => :'buyable',
-        :'enabled' => :'enabled'
+        :'enabled' => :'enabled',
+        :'claim' => :'claim'
       }
     end
 
@@ -64,13 +67,15 @@ module Crossly
         :'owned' => :'Boolean',
         :'vacant' => :'Boolean',
         :'buyable' => :'Boolean',
-        :'enabled' => :'Boolean'
+        :'enabled' => :'Boolean',
+        :'claim' => :'GetSpatialStreetPlotQuoteResponseDataClaim'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'claim'
       ])
     end
 
@@ -123,6 +128,10 @@ module Crossly
 
       if attributes.key?(:'enabled')
         self.enabled = attributes[:'enabled']
+      end
+
+      if attributes.key?(:'claim')
+        self.claim = attributes[:'claim']
       end
     end
 
@@ -197,7 +206,8 @@ module Crossly
           owned == o.owned &&
           vacant == o.vacant &&
           buyable == o.buyable &&
-          enabled == o.enabled
+          enabled == o.enabled &&
+          claim == o.claim
     end
 
     # @see the `==` method
@@ -209,7 +219,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [address, label, price_cents, maintenance_weekly_cents, included_weeks, owned, vacant, buyable, enabled].hash
+      [address, label, price_cents, maintenance_weekly_cents, included_weeks, owned, vacant, buyable, enabled, claim].hash
     end
 
     # Builds the object from hash

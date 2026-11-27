@@ -1958,6 +1958,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # After your wallet’s Tensor transaction confirms: `action` place, cancel or accept, with its `signature` and the `wallet` that signed. Checked on chain, then recorded in your Activity. Accept needs listings:write; place and cancel need buyer:offers:write.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3SolanaTensorBidConfirmResponse]
+    def create_web3_solana_tensor_bid_confirm(opts = {})
+      data, _status_code, _headers = create_web3_solana_tensor_bid_confirm_with_http_info(opts)
+      data
+    end
+
+    # After your wallet’s Tensor transaction confirms: &#x60;action&#x60; place, cancel or accept, with its &#x60;signature&#x60; and the &#x60;wallet&#x60; that signed. Checked on chain, then recorded in your Activity. Accept needs listings:write; place and cancel need buyer:offers:write.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3SolanaTensorBidConfirmResponse, Integer, Hash)>] CreateWeb3SolanaTensorBidConfirmResponse data, response status code and response headers
+    def create_web3_solana_tensor_bid_confirm_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_tensor_bid_confirm ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/solana/tensor-bids/confirm'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3SolanaTensorBidConfirmResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_solana_tensor_bid_confirm",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_solana_tensor_bid_confirm\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Build a Tensor collection bid (or trait bid with `trait`) for your Solana wallet to sign. Price in lamports.
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaTensorBidPlaceTxResponse]
@@ -2009,6 +2064,403 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#create_web3_solana_tensor_bid_place_tx\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Lock earned CBX (`baseUnits`, a string) into the best tier it reaches. 409 while a stake or unstake is in progress.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3StakingStakeResponse]
+    def create_web3_staking_stake(opts = {})
+      data, _status_code, _headers = create_web3_staking_stake_with_http_info(opts)
+      data
+    end
+
+    # Lock earned CBX (&#x60;baseUnits&#x60;, a string) into the best tier it reaches. 409 while a stake or unstake is in progress.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3StakingStakeResponse, Integer, Hash)>] CreateWeb3StakingStakeResponse data, response status code and response headers
+    def create_web3_staking_stake_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_staking_stake ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/staking/stake'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3StakingStakeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_staking_stake",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_staking_stake\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Start unstaking: the earn boost stops now, the tokens release when the tier’s cooldown ends. Returns `{ unlocksAt, cooldownDays }`.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3StakingUnstakeResponse]
+    def create_web3_staking_unstake(opts = {})
+      data, _status_code, _headers = create_web3_staking_unstake_with_http_info(opts)
+      data
+    end
+
+    # Start unstaking: the earn boost stops now, the tokens release when the tier’s cooldown ends. Returns &#x60;{ unlocksAt, cooldownDays }&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3StakingUnstakeResponse, Integer, Hash)>] CreateWeb3StakingUnstakeResponse data, response status code and response headers
+    def create_web3_staking_unstake_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_staking_unstake ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/staking/unstake'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3StakingUnstakeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_staking_unstake",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_staking_unstake\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3StoreWalletResponse]
+    def create_web3_store_wallet(opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_with_http_info(opts)
+      data
+    end
+
+    # Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3StoreWalletResponse, Integer, Hash)>] CreateWeb3StoreWalletResponse data, response status code and response headers
+    def create_web3_store_wallet_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3StoreWalletResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_store_wallet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_store_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Start adding a selling wallet to the store: the message the wallet signs.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3WalletChallengeResponse]
+    def create_web3_store_wallet_challenge(opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_challenge_with_http_info(opts)
+      data
+    end
+
+    # Start adding a selling wallet to the store: the message the wallet signs.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3WalletChallengeResponse, Integer, Hash)>] CreateWeb3WalletChallengeResponse data, response status code and response headers
+    def create_web3_store_wallet_challenge_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_challenge ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/challenge'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3WalletChallengeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_store_wallet_challenge",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_store_wallet_challenge\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Add picked NFTs (`tokens: [{ chain, contract, tokenId }]`) from a store wallet to inventory.
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3WalletImportResponse]
+    def create_web3_store_wallet_import(wallet_id, opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_import_with_http_info(wallet_id, opts)
+      data
+    end
+
+    # Add picked NFTs (&#x60;tokens: [{ chain, contract, tokenId }]&#x60;) from a store wallet to inventory.
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3WalletImportResponse, Integer, Hash)>] CreateWeb3WalletImportResponse data, response status code and response headers
+    def create_web3_store_wallet_import_with_http_info(wallet_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_import ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.create_web3_store_wallet_import"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}/import'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3WalletImportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_store_wallet_import",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_store_wallet_import\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Sync a store wallet: refresh its NFTs in inventory; new ones are added when the store's link auto-imports.
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3StoreWalletSyncResponse]
+    def create_web3_store_wallet_sync(wallet_id, opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_sync_with_http_info(wallet_id, opts)
+      data
+    end
+
+    # Sync a store wallet: refresh its NFTs in inventory; new ones are added when the store&#39;s link auto-imports.
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3StoreWalletSyncResponse, Integer, Hash)>] CreateWeb3StoreWalletSyncResponse data, response status code and response headers
+    def create_web3_store_wallet_sync_with_http_info(wallet_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_sync ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.create_web3_store_wallet_sync"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}/sync'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3StoreWalletSyncResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_store_wallet_sync",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_store_wallet_sync\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Finish adding a selling wallet: verify its signature and link it to the store.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3StoreWalletResponse]
+    def create_web3_store_wallet_verify(opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_verify_with_http_info(opts)
+      data
+    end
+
+    # Finish adding a selling wallet: verify its signature and link it to the store.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3StoreWalletResponse, Integer, Hash)>] CreateWeb3StoreWalletResponse data, response status code and response headers
+    def create_web3_store_wallet_verify_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_verify ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/verify'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3StoreWalletResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_store_wallet_verify",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_store_wallet_verify\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2196,6 +2648,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Add picked NFTs (`tokens`: chain, contract, tokenId; up to 200) from a linked wallet to inventory. Tokens the wallet does not hold are counted in `notInWallet`, never added.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWeb3WalletImportResponse]
+    def create_web3_wallet_import(id, opts = {})
+      data, _status_code, _headers = create_web3_wallet_import_with_http_info(id, opts)
+      data
+    end
+
+    # Add picked NFTs (&#x60;tokens&#x60;: chain, contract, tokenId; up to 200) from a linked wallet to inventory. Tokens the wallet does not hold are counted in &#x60;notInWallet&#x60;, never added.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWeb3WalletImportResponse, Integer, Hash)>] CreateWeb3WalletImportResponse data, response status code and response headers
+    def create_web3_wallet_import_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_wallet_import ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.create_web3_wallet_import"
+      end
+      # resource path
+      local_var_path = '/v1/web3/wallets/{id}/import'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWeb3WalletImportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.create_web3_wallet_import",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#create_web3_wallet_import\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Import a linked wallet's NFTs into inventory; archives ones that have left the wallet.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -2373,7 +2886,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Remove a holder perk. Returns `{ ok }`.
+    # DEPRECATED: use /api/v1/discounts/holders/:id. Remove a Collection holders deal. Returns `{ ok }`.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
@@ -2382,7 +2895,7 @@ module Crossly
       data
     end
 
-    # Remove a holder perk. Returns &#x60;{ ok }&#x60;.
+    # DEPRECATED: use /api/v1/discounts/holders/:id. Remove a Collection holders deal. Returns &#x60;{ ok }&#x60;.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
@@ -2556,6 +3069,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Remove every collection perk of a launch. Returns `{ ok }`.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def delete_web3_launch_perk(id, opts = {})
+      data, _status_code, _headers = delete_web3_launch_perk_with_http_info(id, opts)
+      data
+    end
+
+    # Remove every collection perk of a launch. Returns &#x60;{ ok }&#x60;.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def delete_web3_launch_perk_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.delete_web3_launch_perk ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.delete_web3_launch_perk"
+      end
+      # resource path
+      local_var_path = '/v1/web3/launches/{id}/perks'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.delete_web3_launch_perk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#delete_web3_launch_perk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Remove your own key for a marketplace; Crossly's key is used again.
     # @param marketplace [String] 
     # @param [Hash] opts the optional parameters
@@ -2618,6 +3192,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#delete_web3_marketplace_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop the store selling from a wallet (the wallet and its other stores are unaffected).
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_web3_store_wallet(wallet_id, opts = {})
+      delete_web3_store_wallet_with_http_info(wallet_id, opts)
+      nil
+    end
+
+    # Stop the store selling from a wallet (the wallet and its other stores are unaffected).
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def delete_web3_store_wallet_with_http_info(wallet_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.delete_web3_store_wallet ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.delete_web3_store_wallet"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type]
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.delete_web3_store_wallet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#delete_web3_store_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2752,6 +3387,63 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#get_web3_auction\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every CBX you have, in one read, with the three balances kept apart.
+    # `credit`: EARNED (withdrawable once matured; `withdrawableBaseUnits` is earned minus anything staked) and GRANTED (in-platform spend only, never withdrawable). `connected`: headroom on your connected-wallet delegation, a ceiling on what Crossly may pull, never a balance. `wallets`: each linked wallet with its own on-chain CBX (`status` read / not_solana / not_live / unavailable). `totals.allBaseUnits` is credit + wallets and never adds the delegation headroom. Amounts are base-unit strings (`decimals`).
+    # @param [Hash] opts the optional parameters
+    # @return [GetWeb3BalanceResponse]
+    def get_web3_balance(opts = {})
+      data, _status_code, _headers = get_web3_balance_with_http_info(opts)
+      data
+    end
+
+    # Every CBX you have, in one read, with the three balances kept apart.
+    # &#x60;credit&#x60;: EARNED (withdrawable once matured; &#x60;withdrawableBaseUnits&#x60; is earned minus anything staked) and GRANTED (in-platform spend only, never withdrawable). &#x60;connected&#x60;: headroom on your connected-wallet delegation, a ceiling on what Crossly may pull, never a balance. &#x60;wallets&#x60;: each linked wallet with its own on-chain CBX (&#x60;status&#x60; read / not_solana / not_live / unavailable). &#x60;totals.allBaseUnits&#x60; is credit + wallets and never adds the delegation headroom. Amounts are base-unit strings (&#x60;decimals&#x60;).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWeb3BalanceResponse, Integer, Hash)>] GetWeb3BalanceResponse data, response status code and response headers
+    def get_web3_balance_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_balance ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/balances'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWeb3BalanceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.get_web3_balance",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#get_web3_balance\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -3628,6 +4320,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # A launch’s phase timeline, mint progress, proceeds (gross, Crossly’s cut, yours; airdrops excluded), allowlist and art counts, and recent mints.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetWeb3LaunchStatResponse]
+    def get_web3_launch_stat(id, opts = {})
+      data, _status_code, _headers = get_web3_launch_stat_with_http_info(id, opts)
+      data
+    end
+
+    # A launch’s phase timeline, mint progress, proceeds (gross, Crossly’s cut, yours; airdrops excluded), allowlist and art counts, and recent mints.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWeb3LaunchStatResponse, Integer, Hash)>] GetWeb3LaunchStatResponse data, response status code and response headers
+    def get_web3_launch_stat_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_launch_stat ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.get_web3_launch_stat"
+      end
+      # resource path
+      local_var_path = '/v1/web3/launches/{id}/stats'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWeb3LaunchStatResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.get_web3_launch_stat",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#get_web3_launch_stat\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # A launch’s creator tools: allowlist size and root (and whether the contract has it yet), uploaded art and reveal, supply minted.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -4183,6 +4936,179 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your CBX stake: what is locked, its tier, the tier ladder and your past positions.
+    # A stake locks EARNED CBX; it moves nothing and pays no yield. Each tier buys a withdrawal-fee discount and an earn-rate boost on future purchases, and has a cooldown before an unstake releases.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWeb3StakingResponse]
+    def get_web3_staking(opts = {})
+      data, _status_code, _headers = get_web3_staking_with_http_info(opts)
+      data
+    end
+
+    # Your CBX stake: what is locked, its tier, the tier ladder and your past positions.
+    # A stake locks EARNED CBX; it moves nothing and pays no yield. Each tier buys a withdrawal-fee discount and an earn-rate boost on future purchases, and has a cooldown before an unstake releases.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWeb3StakingResponse, Integer, Hash)>] GetWeb3StakingResponse data, response status code and response headers
+    def get_web3_staking_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_staking ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/staking'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWeb3StakingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.get_web3_staking",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#get_web3_staking\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What a store wallet holds (chain + contract + token id), each marked in-inventory or not.
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetWeb3WalletHoldingResponse]
+    def get_web3_store_wallet_holding(wallet_id, opts = {})
+      data, _status_code, _headers = get_web3_store_wallet_holding_with_http_info(wallet_id, opts)
+      data
+    end
+
+    # What a store wallet holds (chain + contract + token id), each marked in-inventory or not.
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWeb3WalletHoldingResponse, Integer, Hash)>] GetWeb3WalletHoldingResponse data, response status code and response headers
+    def get_web3_store_wallet_holding_with_http_info(wallet_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_store_wallet_holding ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.get_web3_store_wallet_holding"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}/holdings'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWeb3WalletHoldingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.get_web3_store_wallet_holding",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#get_web3_store_wallet_holding\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The store's Crossly NFTs: plots (deeds and leases), streets its owner founded and vault receipt tokens in its wallets, with the wallets a plot purchase and a receipt export use.
+    # @param [Hash] opts the optional parameters
+    # @return [GetWeb3StoreWalletNftResponse]
+    def get_web3_store_wallet_nft(opts = {})
+      data, _status_code, _headers = get_web3_store_wallet_nft_with_http_info(opts)
+      data
+    end
+
+    # The store&#39;s Crossly NFTs: plots (deeds and leases), streets its owner founded and vault receipt tokens in its wallets, with the wallets a plot purchase and a receipt export use.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWeb3StoreWalletNftResponse, Integer, Hash)>] GetWeb3StoreWalletNftResponse data, response status code and response headers
+    def get_web3_store_wallet_nft_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_store_wallet_nft ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/nfts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWeb3StoreWalletNftResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.get_web3_store_wallet_nft",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#get_web3_store_wallet_nft\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # One NFT: metadata, traits, owner, open listings and offers, activity.
     # @param chain [String] 
     # @param contract [String] 
@@ -4252,6 +5178,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#get_web3_token\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What a linked wallet holds right now, each NFT marked `inInventory` or not. Reads the chain; writes nothing.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetWeb3WalletHoldingResponse]
+    def get_web3_wallet_holding(id, opts = {})
+      data, _status_code, _headers = get_web3_wallet_holding_with_http_info(id, opts)
+      data
+    end
+
+    # What a linked wallet holds right now, each NFT marked &#x60;inInventory&#x60; or not. Reads the chain; writes nothing.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetWeb3WalletHoldingResponse, Integer, Hash)>] GetWeb3WalletHoldingResponse data, response status code and response headers
+    def get_web3_wallet_holding_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_wallet_holding ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.get_web3_wallet_holding"
+      end
+      # resource path
+      local_var_path = '/v1/web3/wallets/{id}/holdings'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWeb3WalletHoldingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.get_web3_wallet_holding",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#get_web3_wallet_holding\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -4873,7 +5860,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your holder perks: percent off your Crossly shop for holders of an NFT collection, best first.
+    # DEPRECATED: use /api/v1/discounts/holders. Your Collection holders deals in the old holder-perk shape, best first.
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3HolderPerksResponse]
     def list_web3_holder_perks(opts = {})
@@ -4881,7 +5868,7 @@ module Crossly
       data
     end
 
-    # Your holder perks: percent off your Crossly shop for holders of an NFT collection, best first.
+    # DEPRECATED: use /api/v1/discounts/holders. Your Collection holders deals in the old holder-perk shape, best first.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWeb3HolderPerksResponse, Integer, Hash)>] ListWeb3HolderPerksResponse data, response status code and response headers
     def list_web3_holder_perks_with_http_info(opts = {})
@@ -4924,6 +5911,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#list_web3_holder_perks\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The perks holders of this launch’s collection get (percent off your shop, early drop access, a World item, a loyalty tier, live early entry, an event ticket).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListWeb3LaunchPerksResponse]
+    def list_web3_launch_perks(id, opts = {})
+      data, _status_code, _headers = list_web3_launch_perks_with_http_info(id, opts)
+      data
+    end
+
+    # The perks holders of this launch’s collection get (percent off your shop, early drop access, a World item, a loyalty tier, live early entry, an event ticket).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWeb3LaunchPerksResponse, Integer, Hash)>] ListWeb3LaunchPerksResponse data, response status code and response headers
+    def list_web3_launch_perks_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_launch_perks ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.list_web3_launch_perks"
+      end
+      # resource path
+      local_var_path = '/v1/web3/launches/{id}/perks'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWeb3LaunchPerksResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.list_web3_launch_perks",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#list_web3_launch_perks\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -5176,7 +6224,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your orders in the Crossly book (listings and offers), any status.
+    # Your orders in the Crossly book (listings and offers), any status. With X-Storefront-Id: that store's listings (offers always).
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3OrdersResponse]
     def list_web3_orders(opts = {})
@@ -5184,7 +6232,7 @@ module Crossly
       data
     end
 
-    # Your orders in the Crossly book (listings and offers), any status.
+    # Your orders in the Crossly book (listings and offers), any status. With X-Storefront-Id: that store&#39;s listings (offers always).
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWeb3OrdersResponse, Integer, Hash)>] ListWeb3OrdersResponse data, response status code and response headers
     def list_web3_orders_with_http_info(opts = {})
@@ -5561,6 +6609,116 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The native-coin balance (SOL, ETH, POL, …) of each of the store's selling wallets, read on chain.
+    # @param [Hash] opts the optional parameters
+    # @return [ListWeb3StoreWalletBalancesResponse]
+    def list_web3_store_wallet_balances(opts = {})
+      data, _status_code, _headers = list_web3_store_wallet_balances_with_http_info(opts)
+      data
+    end
+
+    # The native-coin balance (SOL, ETH, POL, …) of each of the store&#39;s selling wallets, read on chain.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWeb3StoreWalletBalancesResponse, Integer, Hash)>] ListWeb3StoreWalletBalancesResponse data, response status code and response headers
+    def list_web3_store_wallet_balances_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_store_wallet_balances ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/balances'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWeb3StoreWalletBalancesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.list_web3_store_wallet_balances",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#list_web3_store_wallet_balances\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the store's selling wallets (X-Storefront-Id; default store when omitted).
+    # @param [Hash] opts the optional parameters
+    # @return [ListWeb3StoreWalletsResponse]
+    def list_web3_store_wallets(opts = {})
+      data, _status_code, _headers = list_web3_store_wallets_with_http_info(opts)
+      data
+    end
+
+    # List the store&#39;s selling wallets (X-Storefront-Id; default store when omitted).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWeb3StoreWalletsResponse, Integer, Hash)>] ListWeb3StoreWalletsResponse data, response status code and response headers
+    def list_web3_store_wallets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_store_wallets ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWeb3StoreWalletsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.list_web3_store_wallets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#list_web3_store_wallets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List your verified, linked wallets (EVM and Solana).
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3WalletsResponse]
@@ -5671,17 +6829,17 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Set the percent off (100–5000 bps) holders of a collection get across your Crossly shop; one perk per collection.
+    # DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
     # @param [Hash] opts the optional parameters
-    # @return [ListWeb3HolderPerksItem]
+    # @return [UpdateWeb3HolderPerkResponse]
     def update_web3_holder_perk(opts = {})
       data, _status_code, _headers = update_web3_holder_perk_with_http_info(opts)
       data
     end
 
-    # Set the percent off (100–5000 bps) holders of a collection get across your Crossly shop; one perk per collection.
+    # DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListWeb3HolderPerksItem, Integer, Hash)>] ListWeb3HolderPerksItem data, response status code and response headers
+    # @return [Array<(UpdateWeb3HolderPerkResponse, Integer, Hash)>] UpdateWeb3HolderPerkResponse data, response status code and response headers
     def update_web3_holder_perk_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_holder_perk ...'
@@ -5704,7 +6862,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListWeb3HolderPerksItem'
+      return_type = opts[:debug_return_type] || 'UpdateWeb3HolderPerkResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -5722,6 +6880,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#update_web3_holder_perk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit a launch draft (or a failed deploy) before it deploys: any creation field except chain and owner. The schedule is re-checked; 409 once live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateWeb3LaunchResponse]
+    def update_web3_launch(id, opts = {})
+      data, _status_code, _headers = update_web3_launch_with_http_info(id, opts)
+      data
+    end
+
+    # Edit a launch draft (or a failed deploy) before it deploys: any creation field except chain and owner. The schedule is re-checked; 409 once live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateWeb3LaunchResponse, Integer, Hash)>] UpdateWeb3LaunchResponse data, response status code and response headers
+    def update_web3_launch_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_launch ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.update_web3_launch"
+      end
+      # resource path
+      local_var_path = '/v1/web3/launches/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateWeb3LaunchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.update_web3_launch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#update_web3_launch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -5783,6 +7002,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#update_web3_launch_allowlist\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace a launch’s collection perks: `{ perks: [{ config: { type, ... }, active }] }`, one per type; a type left out is removed.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListWeb3LaunchPerksResponse]
+    def update_web3_launch_perk(id, opts = {})
+      data, _status_code, _headers = update_web3_launch_perk_with_http_info(id, opts)
+      data
+    end
+
+    # Replace a launch’s collection perks: &#x60;{ perks: [{ config: { type, ... }, active }] }&#x60;, one per type; a type left out is removed.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWeb3LaunchPerksResponse, Integer, Hash)>] ListWeb3LaunchPerksResponse data, response status code and response headers
+    def update_web3_launch_perk_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_launch_perk ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.update_web3_launch_perk"
+      end
+      # resource path
+      local_var_path = '/v1/web3/launches/{id}/perks'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWeb3LaunchPerksResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.update_web3_launch_perk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#update_web3_launch_perk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -5849,6 +7129,189 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#update_web3_marketplace_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateWeb3StoreWalletResponse]
+    def update_web3_store_wallet(wallet_id, opts = {})
+      data, _status_code, _headers = update_web3_store_wallet_with_http_info(wallet_id, opts)
+      data
+    end
+
+    # Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateWeb3StoreWalletResponse, Integer, Hash)>] UpdateWeb3StoreWalletResponse data, response status code and response headers
+    def update_web3_store_wallet_with_http_info(wallet_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_store_wallet ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.update_web3_store_wallet"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateWeb3StoreWalletResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.update_web3_store_wallet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#update_web3_store_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Make a linked wallet the store's default selling wallet on its network (EVM or Solana).
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListWeb3StoreWalletsResponse]
+    def update_web3_store_wallet_default(wallet_id, opts = {})
+      data, _status_code, _headers = update_web3_store_wallet_default_with_http_info(wallet_id, opts)
+      data
+    end
+
+    # Make a linked wallet the store&#39;s default selling wallet on its network (EVM or Solana).
+    # @param wallet_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWeb3StoreWalletsResponse, Integer, Hash)>] ListWeb3StoreWalletsResponse data, response status code and response headers
+    def update_web3_store_wallet_default_with_http_info(wallet_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_store_wallet_default ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.update_web3_store_wallet_default"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}/default'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWeb3StoreWalletsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.update_web3_store_wallet_default",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#update_web3_store_wallet_default\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change a linked wallet: `autoImport` (a sync adds new NFTs to inventory; off, it only refreshes the ones there) and `label`.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateWeb3WalletResponse]
+    def update_web3_wallet(id, opts = {})
+      data, _status_code, _headers = update_web3_wallet_with_http_info(id, opts)
+      data
+    end
+
+    # Change a linked wallet: &#x60;autoImport&#x60; (a sync adds new NFTs to inventory; off, it only refreshes the ones there) and &#x60;label&#x60;.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateWeb3WalletResponse, Integer, Hash)>] UpdateWeb3WalletResponse data, response status code and response headers
+    def update_web3_wallet_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_wallet ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.update_web3_wallet"
+      end
+      # resource path
+      local_var_path = '/v1/web3/wallets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateWeb3WalletResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.update_web3_wallet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#update_web3_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

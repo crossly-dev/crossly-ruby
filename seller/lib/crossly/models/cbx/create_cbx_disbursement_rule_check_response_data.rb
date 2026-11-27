@@ -165,7 +165,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @outcome.nil?
-      outcome_validator = EnumAttributeValidator.new('String', ["fired", "coverage", "no_price", "below_threshold", "cadence", "no_recipients", "inactive"])
+      outcome_validator = EnumAttributeValidator.new('String', ["coverage", "cadence", "no_price", "inactive", "fired", "below_threshold", "no_recipients"])
       return false unless outcome_validator.valid?(@outcome)
       return false if @fired.nil?
       return false if @pool_base_units.nil?
@@ -177,7 +177,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] outcome Object to be assigned
     def outcome=(outcome)
-      validator = EnumAttributeValidator.new('String', ["fired", "coverage", "no_price", "below_threshold", "cadence", "no_recipients", "inactive"])
+      validator = EnumAttributeValidator.new('String', ["coverage", "cadence", "no_price", "inactive", "fired", "below_threshold", "no_recipients"])
       unless validator.valid?(outcome)
         fail ArgumentError, "invalid value for \"outcome\", must be one of #{validator.allowable_values}."
       end

@@ -21,12 +21,26 @@ module Crossly
 
     attr_accessor :scheduled_for
 
+    # Set when the account was found in use: it waits for a re-confirmation.
+    attr_accessor :paused_at
+
+    attr_accessor :pause_reason
+
+    # What the cascade will take.
+    attr_accessor :listing_count
+
+    attr_accessor :inventory_count
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'requested_at' => :'requestedAt',
-        :'scheduled_for' => :'scheduledFor'
+        :'scheduled_for' => :'scheduledFor',
+        :'paused_at' => :'pausedAt',
+        :'pause_reason' => :'pauseReason',
+        :'listing_count' => :'listingCount',
+        :'inventory_count' => :'inventoryCount'
       }
     end
 
@@ -40,13 +54,19 @@ module Crossly
       {
         :'id' => :'String',
         :'requested_at' => :'Time',
-        :'scheduled_for' => :'Time'
+        :'scheduled_for' => :'Time',
+        :'paused_at' => :'Time',
+        :'pause_reason' => :'String',
+        :'listing_count' => :'Float',
+        :'inventory_count' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'paused_at',
+        :'pause_reason',
       ])
     end
 
@@ -76,6 +96,22 @@ module Crossly
       if attributes.key?(:'scheduled_for')
         self.scheduled_for = attributes[:'scheduled_for']
       end
+
+      if attributes.key?(:'paused_at')
+        self.paused_at = attributes[:'paused_at']
+      end
+
+      if attributes.key?(:'pause_reason')
+        self.pause_reason = attributes[:'pause_reason']
+      end
+
+      if attributes.key?(:'listing_count')
+        self.listing_count = attributes[:'listing_count']
+      end
+
+      if attributes.key?(:'inventory_count')
+        self.inventory_count = attributes[:'inventory_count']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -94,6 +130,14 @@ module Crossly
         invalid_properties.push('invalid value for "scheduled_for", scheduled_for cannot be nil.')
       end
 
+      if @listing_count.nil?
+        invalid_properties.push('invalid value for "listing_count", listing_count cannot be nil.')
+      end
+
+      if @inventory_count.nil?
+        invalid_properties.push('invalid value for "inventory_count", inventory_count cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -103,6 +147,8 @@ module Crossly
       return false if @id.nil?
       return false if @requested_at.nil?
       return false if @scheduled_for.nil?
+      return false if @listing_count.nil?
+      return false if @inventory_count.nil?
       true
     end
 
@@ -113,7 +159,11 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           requested_at == o.requested_at &&
-          scheduled_for == o.scheduled_for
+          scheduled_for == o.scheduled_for &&
+          paused_at == o.paused_at &&
+          pause_reason == o.pause_reason &&
+          listing_count == o.listing_count &&
+          inventory_count == o.inventory_count
     end
 
     # @see the `==` method
@@ -125,7 +175,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, requested_at, scheduled_for].hash
+      [id, requested_at, scheduled_for, paused_at, pause_reason, listing_count, inventory_count].hash
     end
 
     # Builds the object from hash

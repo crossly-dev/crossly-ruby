@@ -16,18 +16,18 @@ require 'time'
 module Crossly
   # Community-library metadata. Server ignores; UI may render.
   class GetAutomationRuleExportByIdResponseMetadata
-    attr_accessor :tags
+    attr_accessor :author
 
     attr_accessor :source_url
 
-    attr_accessor :author
+    attr_accessor :tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'tags' => :'tags',
+        :'author' => :'author',
         :'source_url' => :'sourceUrl',
-        :'author' => :'author'
+        :'tags' => :'tags'
       }
     end
 
@@ -39,18 +39,18 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'tags' => :'Array<String>',
+        :'author' => :'String',
         :'source_url' => :'String',
-        :'author' => :'String'
+        :'tags' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'tags',
+        :'author',
         :'source_url',
-        :'author'
+        :'tags'
       ])
     end
 
@@ -69,18 +69,18 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'tags')
-        if (value = attributes[:'tags']).is_a?(Array)
-          self.tags = value
-        end
+      if attributes.key?(:'author')
+        self.author = attributes[:'author']
       end
 
       if attributes.key?(:'source_url')
         self.source_url = attributes[:'source_url']
       end
 
-      if attributes.key?(:'author')
-        self.author = attributes[:'author']
+      if attributes.key?(:'tags')
+        if (value = attributes[:'tags']).is_a?(Array)
+          self.tags = value
+        end
       end
     end
 
@@ -102,9 +102,9 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          tags == o.tags &&
+          author == o.author &&
           source_url == o.source_url &&
-          author == o.author
+          tags == o.tags
     end
 
     # @see the `==` method
@@ -116,7 +116,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [tags, source_url, author].hash
+      [author, source_url, tags].hash
     end
 
     # Builds the object from hash

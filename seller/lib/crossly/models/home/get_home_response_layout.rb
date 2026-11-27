@@ -32,6 +32,9 @@ module Crossly
     # A set wall: which set it shows, \"category/brand/model\" (HOME_SET_KEY). Absent: the owner's most complete.
     attr_accessor :set
 
+    # A furniture piece's colour (HOME_TINTS key): its fabric and finish take it. Absent: as made.
+    attr_accessor :tint
+
     attr_accessor :item
 
     class EnumAttributeValidator
@@ -66,6 +69,7 @@ module Crossly
         :'rotation_y' => :'rotationY',
         :'slot' => :'slot',
         :'set' => :'set',
+        :'tint' => :'tint',
         :'item' => :'item'
       }
     end
@@ -85,6 +89,7 @@ module Crossly
         :'rotation_y' => :'Float',
         :'slot' => :'Float',
         :'set' => :'String',
+        :'tint' => :'String',
         :'item' => :'GetHomeResponseLayoutItem'
       }
     end
@@ -95,6 +100,7 @@ module Crossly
         :'ref',
         :'slot',
         :'set',
+        :'tint',
         :'item'
       ])
     end
@@ -144,6 +150,10 @@ module Crossly
         self.set = attributes[:'set']
       end
 
+      if attributes.key?(:'tint')
+        self.tint = attributes[:'tint']
+      end
+
       if attributes.key?(:'item')
         self.item = attributes[:'item']
       end
@@ -191,6 +201,8 @@ module Crossly
       return false if @position.length > 3
       return false if @position.length < 3
       return false if @rotation_y.nil?
+      tint_validator = EnumAttributeValidator.new('String', ["oat", "sage", "forest", "navy", "clay", "mustard", "blush", "charcoal"])
+      return false unless tint_validator.valid?(@tint)
       true
     end
 
@@ -222,6 +234,16 @@ module Crossly
       @position = position
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] tint Object to be assigned
+    def tint=(tint)
+      validator = EnumAttributeValidator.new('String', ["oat", "sage", "forest", "navy", "clay", "mustard", "blush", "charcoal"])
+      unless validator.valid?(tint)
+        fail ArgumentError, "invalid value for \"tint\", must be one of #{validator.allowable_values}."
+      end
+      @tint = tint
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -234,6 +256,7 @@ module Crossly
           rotation_y == o.rotation_y &&
           slot == o.slot &&
           set == o.set &&
+          tint == o.tint &&
           item == o.item
     end
 
@@ -246,7 +269,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [kind, model, ref, position, rotation_y, slot, set, item].hash
+      [kind, model, ref, position, rotation_y, slot, set, tint, item].hash
     end
 
     # Builds the object from hash

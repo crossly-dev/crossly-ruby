@@ -145,10 +145,10 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @category.nil?
-      category_validator = EnumAttributeValidator.new('String', ["other", "tee", "hoodie", "outerwear", "headwear", "pants", "pins", "jewelry", "bag", "socks", "belt", "eyewear", "sneakers", "slides", "figure_resin", "figure_vinyl"])
+      category_validator = EnumAttributeValidator.new('String', ["other", "tee", "hoodie", "outerwear", "headwear", "pants", "pins", "jewelry", "bag", "socks", "belt", "eyewear", "sneakers", "slides", "figure_resin", "figure_vinyl", "trading_cards"])
       return false unless category_validator.valid?(@category)
       return false if @material_tier.nil?
-      material_tier_validator = EnumAttributeValidator.new('String', ["standard", "luxury", "premium"])
+      material_tier_validator = EnumAttributeValidator.new('String', ["standard", "premium", "luxury"])
       return false unless material_tier_validator.valid?(@material_tier)
       return false if @complexity.nil?
       complexity_validator = EnumAttributeValidator.new('String', ["simple", "moderate", "complex"])
@@ -162,7 +162,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] category Object to be assigned
     def category=(category)
-      validator = EnumAttributeValidator.new('String', ["other", "tee", "hoodie", "outerwear", "headwear", "pants", "pins", "jewelry", "bag", "socks", "belt", "eyewear", "sneakers", "slides", "figure_resin", "figure_vinyl"])
+      validator = EnumAttributeValidator.new('String', ["other", "tee", "hoodie", "outerwear", "headwear", "pants", "pins", "jewelry", "bag", "socks", "belt", "eyewear", "sneakers", "slides", "figure_resin", "figure_vinyl", "trading_cards"])
       unless validator.valid?(category)
         fail ArgumentError, "invalid value for \"category\", must be one of #{validator.allowable_values}."
       end
@@ -172,7 +172,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] material_tier Object to be assigned
     def material_tier=(material_tier)
-      validator = EnumAttributeValidator.new('String', ["standard", "luxury", "premium"])
+      validator = EnumAttributeValidator.new('String', ["standard", "premium", "luxury"])
       unless validator.valid?(material_tier)
         fail ArgumentError, "invalid value for \"material_tier\", must be one of #{validator.allowable_values}."
       end

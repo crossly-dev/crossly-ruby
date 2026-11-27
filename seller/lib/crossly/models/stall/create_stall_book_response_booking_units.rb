@@ -26,6 +26,9 @@ module Crossly
     # CBX only: the spend's external id for this unit (one spend per unit).
     attr_accessor :external_id
 
+    # CBX only, booked since gap 6: this unit's world_payments row (refunds go through refundWorld).
+    attr_accessor :payment_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -33,7 +36,8 @@ module Crossly
         :'starts_at' => :'startsAt',
         :'ends_at' => :'endsAt',
         :'cents' => :'cents',
-        :'external_id' => :'externalId'
+        :'external_id' => :'externalId',
+        :'payment_id' => :'paymentId'
       }
     end
 
@@ -49,14 +53,16 @@ module Crossly
         :'starts_at' => :'String',
         :'ends_at' => :'String',
         :'cents' => :'Float',
-        :'external_id' => :'String'
+        :'external_id' => :'String',
+        :'payment_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'external_id'
+        :'external_id',
+        :'payment_id'
       ])
     end
 
@@ -93,6 +99,10 @@ module Crossly
 
       if attributes.key?(:'external_id')
         self.external_id = attributes[:'external_id']
+      end
+
+      if attributes.key?(:'payment_id')
+        self.payment_id = attributes[:'payment_id']
       end
     end
 
@@ -138,7 +148,8 @@ module Crossly
           starts_at == o.starts_at &&
           ends_at == o.ends_at &&
           cents == o.cents &&
-          external_id == o.external_id
+          external_id == o.external_id &&
+          payment_id == o.payment_id
     end
 
     # @see the `==` method
@@ -150,7 +161,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [key, starts_at, ends_at, cents, external_id].hash
+      [key, starts_at, ends_at, cents, external_id, payment_id].hash
     end
 
     # Builds the object from hash

@@ -15,41 +15,45 @@ require 'time'
 
 module Crossly
   class ListSalesItem
+    attr_accessor :app_share
+
     attr_accessor :id
 
     attr_accessor :user_id
 
     attr_accessor :platform
 
-    attr_accessor :cancelled_at
+    attr_accessor :net_profit
 
-    attr_accessor :order_id
+    attr_accessor :shipping_cost
 
-    attr_accessor :listing_id
+    attr_accessor :shipping_charged
 
     attr_accessor :inventory_item_id
 
     attr_accessor :currency
 
+    attr_accessor :listing_id
+
     attr_accessor :platform_listing_id
+
+    attr_accessor :storefront_id
 
     attr_accessor :platform_order_id
 
     attr_accessor :cost_of_goods
 
+    attr_accessor :cancelled_at
+
     attr_accessor :deleted_at
+
+    attr_accessor :order_id
 
     attr_accessor :sale_price
 
     attr_accessor :platform_fee
 
-    attr_accessor :shipping_cost
-
-    attr_accessor :net_profit
-
     attr_accessor :tax_collected
-
-    attr_accessor :shipping_charged
 
     attr_accessor :fee_source
 
@@ -61,32 +65,43 @@ module Crossly
 
     attr_accessor :refunded_amount
 
+    attr_accessor :details_pending
+
+    attr_accessor :variant_sku
+
+    attr_accessor :variant_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'app_share' => :'appShare',
         :'id' => :'id',
         :'user_id' => :'userId',
         :'platform' => :'platform',
-        :'cancelled_at' => :'cancelledAt',
-        :'order_id' => :'orderId',
-        :'listing_id' => :'listingId',
+        :'net_profit' => :'netProfit',
+        :'shipping_cost' => :'shippingCost',
+        :'shipping_charged' => :'shippingCharged',
         :'inventory_item_id' => :'inventoryItemId',
         :'currency' => :'currency',
+        :'listing_id' => :'listingId',
         :'platform_listing_id' => :'platformListingId',
+        :'storefront_id' => :'storefrontId',
         :'platform_order_id' => :'platformOrderId',
         :'cost_of_goods' => :'costOfGoods',
+        :'cancelled_at' => :'cancelledAt',
         :'deleted_at' => :'deletedAt',
+        :'order_id' => :'orderId',
         :'sale_price' => :'salePrice',
         :'platform_fee' => :'platformFee',
-        :'shipping_cost' => :'shippingCost',
-        :'net_profit' => :'netProfit',
         :'tax_collected' => :'taxCollected',
-        :'shipping_charged' => :'shippingCharged',
         :'fee_source' => :'feeSource',
         :'detected_by' => :'detectedBy',
         :'detected_at' => :'detectedAt',
         :'documents' => :'documents',
-        :'refunded_amount' => :'refundedAmount'
+        :'refunded_amount' => :'refundedAmount',
+        :'details_pending' => :'detailsPending',
+        :'variant_sku' => :'variantSku',
+        :'variant_id' => :'variantId'
       }
     end
 
@@ -98,53 +113,62 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'app_share' => :'GetOrderResponseAppShare',
         :'id' => :'String',
         :'user_id' => :'String',
         :'platform' => :'String',
-        :'cancelled_at' => :'Time',
-        :'order_id' => :'String',
-        :'listing_id' => :'String',
+        :'net_profit' => :'String',
+        :'shipping_cost' => :'String',
+        :'shipping_charged' => :'String',
         :'inventory_item_id' => :'String',
         :'currency' => :'String',
+        :'listing_id' => :'String',
         :'platform_listing_id' => :'String',
+        :'storefront_id' => :'String',
         :'platform_order_id' => :'String',
         :'cost_of_goods' => :'String',
+        :'cancelled_at' => :'Time',
         :'deleted_at' => :'Time',
+        :'order_id' => :'String',
         :'sale_price' => :'String',
         :'platform_fee' => :'String',
-        :'shipping_cost' => :'String',
-        :'net_profit' => :'String',
         :'tax_collected' => :'String',
-        :'shipping_charged' => :'String',
         :'fee_source' => :'String',
         :'detected_by' => :'String',
         :'detected_at' => :'Time',
         :'documents' => :'Array<ListSalesItemDocuments>',
-        :'refunded_amount' => :'String'
+        :'refunded_amount' => :'String',
+        :'details_pending' => :'Boolean',
+        :'variant_sku' => :'String',
+        :'variant_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'cancelled_at',
-        :'order_id',
-        :'listing_id',
+        :'app_share',
+        :'net_profit',
+        :'shipping_cost',
+        :'shipping_charged',
         :'inventory_item_id',
         :'currency',
+        :'listing_id',
         :'platform_listing_id',
+        :'storefront_id',
         :'platform_order_id',
         :'cost_of_goods',
+        :'cancelled_at',
         :'deleted_at',
+        :'order_id',
         :'sale_price',
         :'platform_fee',
-        :'shipping_cost',
-        :'net_profit',
         :'tax_collected',
-        :'shipping_charged',
         :'fee_source',
         :'documents',
-        :'refunded_amount'
+        :'refunded_amount',
+        :'variant_sku',
+        :'variant_id'
       ])
     end
 
@@ -163,6 +187,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'app_share')
+        self.app_share = attributes[:'app_share']
+      end
+
       if attributes.key?(:'id')
         self.id = attributes[:'id']
       end
@@ -175,16 +203,16 @@ module Crossly
         self.platform = attributes[:'platform']
       end
 
-      if attributes.key?(:'cancelled_at')
-        self.cancelled_at = attributes[:'cancelled_at']
+      if attributes.key?(:'net_profit')
+        self.net_profit = attributes[:'net_profit']
       end
 
-      if attributes.key?(:'order_id')
-        self.order_id = attributes[:'order_id']
+      if attributes.key?(:'shipping_cost')
+        self.shipping_cost = attributes[:'shipping_cost']
       end
 
-      if attributes.key?(:'listing_id')
-        self.listing_id = attributes[:'listing_id']
+      if attributes.key?(:'shipping_charged')
+        self.shipping_charged = attributes[:'shipping_charged']
       end
 
       if attributes.key?(:'inventory_item_id')
@@ -195,8 +223,16 @@ module Crossly
         self.currency = attributes[:'currency']
       end
 
+      if attributes.key?(:'listing_id')
+        self.listing_id = attributes[:'listing_id']
+      end
+
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'platform_order_id')
@@ -207,8 +243,16 @@ module Crossly
         self.cost_of_goods = attributes[:'cost_of_goods']
       end
 
+      if attributes.key?(:'cancelled_at')
+        self.cancelled_at = attributes[:'cancelled_at']
+      end
+
       if attributes.key?(:'deleted_at')
         self.deleted_at = attributes[:'deleted_at']
+      end
+
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
       end
 
       if attributes.key?(:'sale_price')
@@ -219,20 +263,8 @@ module Crossly
         self.platform_fee = attributes[:'platform_fee']
       end
 
-      if attributes.key?(:'shipping_cost')
-        self.shipping_cost = attributes[:'shipping_cost']
-      end
-
-      if attributes.key?(:'net_profit')
-        self.net_profit = attributes[:'net_profit']
-      end
-
       if attributes.key?(:'tax_collected')
         self.tax_collected = attributes[:'tax_collected']
-      end
-
-      if attributes.key?(:'shipping_charged')
-        self.shipping_charged = attributes[:'shipping_charged']
       end
 
       if attributes.key?(:'fee_source')
@@ -255,6 +287,18 @@ module Crossly
 
       if attributes.key?(:'refunded_amount')
         self.refunded_amount = attributes[:'refunded_amount']
+      end
+
+      if attributes.key?(:'details_pending')
+        self.details_pending = attributes[:'details_pending']
+      end
+
+      if attributes.key?(:'variant_sku')
+        self.variant_sku = attributes[:'variant_sku']
+      end
+
+      if attributes.key?(:'variant_id')
+        self.variant_id = attributes[:'variant_id']
       end
     end
 
@@ -282,6 +326,10 @@ module Crossly
         invalid_properties.push('invalid value for "detected_at", detected_at cannot be nil.')
       end
 
+      if @details_pending.nil?
+        invalid_properties.push('invalid value for "details_pending", details_pending cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -293,6 +341,7 @@ module Crossly
       return false if @platform.nil?
       return false if @detected_by.nil?
       return false if @detected_at.nil?
+      return false if @details_pending.nil?
       true
     end
 
@@ -301,29 +350,34 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          app_share == o.app_share &&
           id == o.id &&
           user_id == o.user_id &&
           platform == o.platform &&
-          cancelled_at == o.cancelled_at &&
-          order_id == o.order_id &&
-          listing_id == o.listing_id &&
+          net_profit == o.net_profit &&
+          shipping_cost == o.shipping_cost &&
+          shipping_charged == o.shipping_charged &&
           inventory_item_id == o.inventory_item_id &&
           currency == o.currency &&
+          listing_id == o.listing_id &&
           platform_listing_id == o.platform_listing_id &&
+          storefront_id == o.storefront_id &&
           platform_order_id == o.platform_order_id &&
           cost_of_goods == o.cost_of_goods &&
+          cancelled_at == o.cancelled_at &&
           deleted_at == o.deleted_at &&
+          order_id == o.order_id &&
           sale_price == o.sale_price &&
           platform_fee == o.platform_fee &&
-          shipping_cost == o.shipping_cost &&
-          net_profit == o.net_profit &&
           tax_collected == o.tax_collected &&
-          shipping_charged == o.shipping_charged &&
           fee_source == o.fee_source &&
           detected_by == o.detected_by &&
           detected_at == o.detected_at &&
           documents == o.documents &&
-          refunded_amount == o.refunded_amount
+          refunded_amount == o.refunded_amount &&
+          details_pending == o.details_pending &&
+          variant_sku == o.variant_sku &&
+          variant_id == o.variant_id
     end
 
     # @see the `==` method
@@ -335,7 +389,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, user_id, platform, cancelled_at, order_id, listing_id, inventory_item_id, currency, platform_listing_id, platform_order_id, cost_of_goods, deleted_at, sale_price, platform_fee, shipping_cost, net_profit, tax_collected, shipping_charged, fee_source, detected_by, detected_at, documents, refunded_amount].hash
+      [app_share, id, user_id, platform, net_profit, shipping_cost, shipping_charged, inventory_item_id, currency, listing_id, platform_listing_id, storefront_id, platform_order_id, cost_of_goods, cancelled_at, deleted_at, order_id, sale_price, platform_fee, tax_collected, fee_source, detected_by, detected_at, documents, refunded_amount, details_pending, variant_sku, variant_id].hash
     end
 
     # Builds the object from hash

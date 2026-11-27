@@ -23,13 +23,16 @@ module Crossly
 
     attr_accessor :window
 
+    attr_accessor :cohort
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'current' => :'current',
         :'previous' => :'previous',
         :'comparison' => :'comparison',
-        :'window' => :'window'
+        :'window' => :'window',
+        :'cohort' => :'cohort'
       }
     end
 
@@ -41,10 +44,11 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'current' => :'GetAnalyticDashboardResponseSellThrough',
-        :'previous' => :'GetAnalyticDashboardResponseSellThrough',
+        :'current' => :'GetInventorySellThroughResponseDataCurrent',
+        :'previous' => :'GetInventorySellThroughResponseDataCurrent',
         :'comparison' => :'GetInventorySellThroughResponseDataComparison',
-        :'window' => :'GetInventorySellThroughResponseDataWindow'
+        :'window' => :'StartEnd',
+        :'cohort' => :'GetAnalyticDashboardResponseSellThroughCohort'
       }
     end
 
@@ -84,6 +88,10 @@ module Crossly
       if attributes.key?(:'window')
         self.window = attributes[:'window']
       end
+
+      if attributes.key?(:'cohort')
+        self.cohort = attributes[:'cohort']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -106,6 +114,10 @@ module Crossly
         invalid_properties.push('invalid value for "window", window cannot be nil.')
       end
 
+      if @cohort.nil?
+        invalid_properties.push('invalid value for "cohort", cohort cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -116,6 +128,7 @@ module Crossly
       return false if @previous.nil?
       return false if @comparison.nil?
       return false if @window.nil?
+      return false if @cohort.nil?
       true
     end
 
@@ -127,7 +140,8 @@ module Crossly
           current == o.current &&
           previous == o.previous &&
           comparison == o.comparison &&
-          window == o.window
+          window == o.window &&
+          cohort == o.cohort
     end
 
     # @see the `==` method
@@ -139,7 +153,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [current, previous, comparison, window].hash
+      [current, previous, comparison, window, cohort].hash
     end
 
     # Builds the object from hash

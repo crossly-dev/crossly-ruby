@@ -38,7 +38,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'index' => :'SlugName',
+        :'index' => :'NameSlug',
         :'method' => :'String',
         :'series' => :'Array<GetVaultMarketIndexFeedSettlementResponseSeries>'
       }

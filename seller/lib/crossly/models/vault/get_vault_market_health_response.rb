@@ -34,6 +34,8 @@ module Crossly
     # The items a what-if can be run on, largest first.
     attr_accessor :items
 
+    attr_accessor :hedges
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -45,7 +47,8 @@ module Crossly
         :'stress' => :'stress',
         :'marks' => :'marks',
         :'notes' => :'notes',
-        :'items' => :'items'
+        :'items' => :'items',
+        :'hedges' => :'hedges'
       }
     end
 
@@ -65,7 +68,8 @@ module Crossly
         :'stress' => :'GetVaultMarketHealthResponseStress',
         :'marks' => :'GetVaultMarketHealthResponseMarks',
         :'notes' => :'Array<String>',
-        :'items' => :'Array<GetVaultMarketHealthResponseItems>'
+        :'items' => :'Array<GetVaultMarketHealthResponseItems>',
+        :'hedges' => :'GetVaultMarketHealthResponseHedges'
       }
     end
 
@@ -129,6 +133,10 @@ module Crossly
           self.items = value
         end
       end
+
+      if attributes.key?(:'hedges')
+        self.hedges = attributes[:'hedges']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -171,6 +179,10 @@ module Crossly
         invalid_properties.push('invalid value for "items", items cannot be nil.')
       end
 
+      if @hedges.nil?
+        invalid_properties.push('invalid value for "hedges", hedges cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -186,6 +198,7 @@ module Crossly
       return false if @marks.nil?
       return false if @notes.nil?
       return false if @items.nil?
+      return false if @hedges.nil?
       true
     end
 
@@ -202,7 +215,8 @@ module Crossly
           stress == o.stress &&
           marks == o.marks &&
           notes == o.notes &&
-          items == o.items
+          items == o.items &&
+          hedges == o.hedges
     end
 
     # @see the `==` method
@@ -214,7 +228,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [as_of, disclosure, totals, concentration, liquidity, stress, marks, notes, items].hash
+      [as_of, disclosure, totals, concentration, liquidity, stress, marks, notes, items, hedges].hash
     end
 
     # Builds the object from hash

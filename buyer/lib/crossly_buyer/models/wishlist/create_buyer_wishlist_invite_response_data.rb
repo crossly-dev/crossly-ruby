@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerWishlistInviteResponseData
-    attr_accessor :url
-
     attr_accessor :token
+
+    attr_accessor :url
 
     attr_accessor :expires_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'url' => :'url',
         :'token' => :'token',
+        :'url' => :'url',
         :'expires_at' => :'expiresAt'
       }
     end
@@ -38,8 +38,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'url' => :'String',
         :'token' => :'String',
+        :'url' => :'String',
         :'expires_at' => :'String'
       }
     end
@@ -65,12 +65,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'url')
-        self.url = attributes[:'url']
-      end
-
       if attributes.key?(:'token')
         self.token = attributes[:'token']
+      end
+
+      if attributes.key?(:'url')
+        self.url = attributes[:'url']
       end
 
       if attributes.key?(:'expires_at')
@@ -82,12 +82,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @url.nil?
-        invalid_properties.push('invalid value for "url", url cannot be nil.')
-      end
-
       if @token.nil?
         invalid_properties.push('invalid value for "token", token cannot be nil.')
+      end
+
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
       if @expires_at.nil?
@@ -100,8 +100,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @url.nil?
       return false if @token.nil?
+      return false if @url.nil?
       return false if @expires_at.nil?
       true
     end
@@ -111,8 +111,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          url == o.url &&
           token == o.token &&
+          url == o.url &&
           expires_at == o.expires_at
     end
 
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, token, expires_at].hash
+      [token, url, expires_at].hash
     end
 
     # Builds the object from hash

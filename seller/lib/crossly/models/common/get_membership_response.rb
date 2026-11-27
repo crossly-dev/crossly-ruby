@@ -23,6 +23,8 @@ module Crossly
 
     attr_accessor :ends_at
 
+    attr_accessor :benefits
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -51,7 +53,8 @@ module Crossly
         :'tier' => :'tier',
         :'active' => :'active',
         :'started_at' => :'startedAt',
-        :'ends_at' => :'endsAt'
+        :'ends_at' => :'endsAt',
+        :'benefits' => :'benefits'
       }
     end
 
@@ -66,7 +69,8 @@ module Crossly
         :'tier' => :'String',
         :'active' => :'Boolean',
         :'started_at' => :'Time',
-        :'ends_at' => :'Time'
+        :'ends_at' => :'Time',
+        :'benefits' => :'GetMembershipResponseBenefits'
       }
     end
 
@@ -75,7 +79,8 @@ module Crossly
       Set.new([
         :'tier',
         :'started_at',
-        :'ends_at'
+        :'ends_at',
+        :'benefits'
       ])
     end
 
@@ -109,6 +114,10 @@ module Crossly
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
       end
+
+      if attributes.key?(:'benefits')
+        self.benefits = attributes[:'benefits']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -125,7 +134,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      tier_validator = EnumAttributeValidator.new('String', ["classic", "pro"])
+      tier_validator = EnumAttributeValidator.new('String', ["pro", "classic"])
       return false unless tier_validator.valid?(@tier)
       return false if @active.nil?
       true
@@ -134,7 +143,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["classic", "pro"])
+      validator = EnumAttributeValidator.new('String', ["pro", "classic"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end
@@ -149,7 +158,8 @@ module Crossly
           tier == o.tier &&
           active == o.active &&
           started_at == o.started_at &&
-          ends_at == o.ends_at
+          ends_at == o.ends_at &&
+          benefits == o.benefits
     end
 
     # @see the `==` method
@@ -161,7 +171,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [tier, active, started_at, ends_at].hash
+      [tier, active, started_at, ends_at, benefits].hash
     end
 
     # Builds the object from hash

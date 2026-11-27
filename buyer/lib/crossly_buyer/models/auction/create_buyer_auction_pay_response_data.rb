@@ -20,17 +20,17 @@ module CrosslyBuyer
     # Stripe PaymentIntent client secret — confirm it with Stripe on the buyer's device.
     attr_accessor :client_secret
 
-    attr_accessor :amount_cents
-
     attr_accessor :payment_intent_id
+
+    attr_accessor :amount_cents
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'paid' => :'paid',
         :'client_secret' => :'clientSecret',
-        :'amount_cents' => :'amountCents',
-        :'payment_intent_id' => :'paymentIntentId'
+        :'payment_intent_id' => :'paymentIntentId',
+        :'amount_cents' => :'amountCents'
       }
     end
 
@@ -44,8 +44,8 @@ module CrosslyBuyer
       {
         :'paid' => :'Boolean',
         :'client_secret' => :'String',
-        :'amount_cents' => :'Float',
-        :'payment_intent_id' => :'String'
+        :'payment_intent_id' => :'String',
+        :'amount_cents' => :'Float'
       }
     end
 
@@ -53,8 +53,8 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'client_secret',
-        :'amount_cents',
-        :'payment_intent_id'
+        :'payment_intent_id',
+        :'amount_cents'
       ])
     end
 
@@ -81,12 +81,12 @@ module CrosslyBuyer
         self.client_secret = attributes[:'client_secret']
       end
 
-      if attributes.key?(:'amount_cents')
-        self.amount_cents = attributes[:'amount_cents']
-      end
-
       if attributes.key?(:'payment_intent_id')
         self.payment_intent_id = attributes[:'payment_intent_id']
+      end
+
+      if attributes.key?(:'amount_cents')
+        self.amount_cents = attributes[:'amount_cents']
       end
     end
 
@@ -115,8 +115,8 @@ module CrosslyBuyer
       self.class == o.class &&
           paid == o.paid &&
           client_secret == o.client_secret &&
-          amount_cents == o.amount_cents &&
-          payment_intent_id == o.payment_intent_id
+          payment_intent_id == o.payment_intent_id &&
+          amount_cents == o.amount_cents
     end
 
     # @see the `==` method
@@ -128,7 +128,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [paid, client_secret, amount_cents, payment_intent_id].hash
+      [paid, client_secret, payment_intent_id, amount_cents].hash
     end
 
     # Builds the object from hash

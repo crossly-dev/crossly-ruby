@@ -44,7 +44,7 @@ module Crossly
         :'user_id' => :'String',
         :'name' => :'String',
         :'you' => :'Boolean',
-        :'room' => :'NameSlug'
+        :'room' => :'NameSlug2'
       }
     end
 

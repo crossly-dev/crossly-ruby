@@ -17,37 +17,37 @@ module CrosslyBuyer
   class ListBuyerGiftSentItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
-    attr_accessor :status
-
-    attr_accessor :url
-
-    attr_accessor :opened_at
-
-    attr_accessor :revealed_at
+    attr_accessor :recipient_name
 
     attr_accessor :recipient_email
 
-    attr_accessor :recipient_name
+    attr_accessor :status
 
     attr_accessor :teaser_sent_at
 
+    attr_accessor :revealed_at
+
+    attr_accessor :opened_at
+
     attr_accessor :thanks_message
+
+    attr_accessor :created_at
+
+    attr_accessor :url
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
-        :'status' => :'status',
-        :'url' => :'url',
-        :'opened_at' => :'openedAt',
-        :'revealed_at' => :'revealedAt',
-        :'recipient_email' => :'recipientEmail',
         :'recipient_name' => :'recipientName',
+        :'recipient_email' => :'recipientEmail',
+        :'status' => :'status',
         :'teaser_sent_at' => :'teaserSentAt',
-        :'thanks_message' => :'thanksMessage'
+        :'revealed_at' => :'revealedAt',
+        :'opened_at' => :'openedAt',
+        :'thanks_message' => :'thanksMessage',
+        :'created_at' => :'createdAt',
+        :'url' => :'url'
       }
     end
 
@@ -60,25 +60,25 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
-        :'status' => :'String',
-        :'url' => :'String',
-        :'opened_at' => :'String',
-        :'revealed_at' => :'String',
-        :'recipient_email' => :'String',
         :'recipient_name' => :'String',
+        :'recipient_email' => :'String',
+        :'status' => :'String',
         :'teaser_sent_at' => :'String',
-        :'thanks_message' => :'String'
+        :'revealed_at' => :'String',
+        :'opened_at' => :'String',
+        :'thanks_message' => :'String',
+        :'created_at' => :'String',
+        :'url' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'opened_at',
-        :'revealed_at',
         :'teaser_sent_at',
-        :'thanks_message'
+        :'revealed_at',
+        :'opened_at',
+        :'thanks_message',
       ])
     end
 
@@ -101,40 +101,40 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'url')
-        self.url = attributes[:'url']
-      end
-
-      if attributes.key?(:'opened_at')
-        self.opened_at = attributes[:'opened_at']
-      end
-
-      if attributes.key?(:'revealed_at')
-        self.revealed_at = attributes[:'revealed_at']
+      if attributes.key?(:'recipient_name')
+        self.recipient_name = attributes[:'recipient_name']
       end
 
       if attributes.key?(:'recipient_email')
         self.recipient_email = attributes[:'recipient_email']
       end
 
-      if attributes.key?(:'recipient_name')
-        self.recipient_name = attributes[:'recipient_name']
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
 
       if attributes.key?(:'teaser_sent_at')
         self.teaser_sent_at = attributes[:'teaser_sent_at']
       end
 
+      if attributes.key?(:'revealed_at')
+        self.revealed_at = attributes[:'revealed_at']
+      end
+
+      if attributes.key?(:'opened_at')
+        self.opened_at = attributes[:'opened_at']
+      end
+
       if attributes.key?(:'thanks_message')
         self.thanks_message = attributes[:'thanks_message']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'url')
+        self.url = attributes[:'url']
       end
     end
 
@@ -146,24 +146,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @url.nil?
-        invalid_properties.push('invalid value for "url", url cannot be nil.')
+      if @recipient_name.nil?
+        invalid_properties.push('invalid value for "recipient_name", recipient_name cannot be nil.')
       end
 
       if @recipient_email.nil?
         invalid_properties.push('invalid value for "recipient_email", recipient_email cannot be nil.')
       end
 
-      if @recipient_name.nil?
-        invalid_properties.push('invalid value for "recipient_name", recipient_name cannot be nil.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
       invalid_properties
@@ -173,11 +173,11 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @status.nil?
-      return false if @url.nil?
-      return false if @recipient_email.nil?
       return false if @recipient_name.nil?
+      return false if @recipient_email.nil?
+      return false if @status.nil?
+      return false if @created_at.nil?
+      return false if @url.nil?
       true
     end
 
@@ -187,15 +187,15 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
-          status == o.status &&
-          url == o.url &&
-          opened_at == o.opened_at &&
-          revealed_at == o.revealed_at &&
-          recipient_email == o.recipient_email &&
           recipient_name == o.recipient_name &&
+          recipient_email == o.recipient_email &&
+          status == o.status &&
           teaser_sent_at == o.teaser_sent_at &&
-          thanks_message == o.thanks_message
+          revealed_at == o.revealed_at &&
+          opened_at == o.opened_at &&
+          thanks_message == o.thanks_message &&
+          created_at == o.created_at &&
+          url == o.url
     end
 
     # @see the `==` method
@@ -207,7 +207,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, url, opened_at, revealed_at, recipient_email, recipient_name, teaser_sent_at, thanks_message].hash
+      [id, recipient_name, recipient_email, status, teaser_sent_at, revealed_at, opened_at, thanks_message, created_at, url].hash
     end
 
     # Builds the object from hash

@@ -709,6 +709,116 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketAutoBuyPauseResponse]
+    def create_vault_market_auto_buy_pause(opts = {})
+      data, _status_code, _headers = create_vault_market_auto_buy_pause_with_http_info(opts)
+      data
+    end
+
+    # Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketAutoBuyPauseResponse, Integer, Hash)>] CreateVaultMarketAutoBuyPauseResponse data, response status code and response headers
+    def create_vault_market_auto_buy_pause_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_auto_buy_pause ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/auto-buy/pause'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketAutoBuyPauseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_auto_buy_pause",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_auto_buy_pause\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Resume Auto-buy with payouts: payouts released from now on count.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketAutoBuyResumeResponse]
+    def create_vault_market_auto_buy_resume(opts = {})
+      data, _status_code, _headers = create_vault_market_auto_buy_resume_with_http_info(opts)
+      data
+    end
+
+    # Resume Auto-buy with payouts: payouts released from now on count.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketAutoBuyResumeResponse, Integer, Hash)>] CreateVaultMarketAutoBuyResumeResponse data, response status code and response headers
+    def create_vault_market_auto_buy_resume_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_auto_buy_resume ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/auto-buy/resume'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketAutoBuyResumeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_auto_buy_resume",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_auto_buy_resume\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Place a block buy for an entity: one order booked to the first sub-account in `plan` (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share's cash moves between the entity's own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketBlocksItem]
@@ -5256,6 +5366,1508 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionComboResponse]
+    def create_vault_market_option_combo(opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_with_http_info(opts)
+      data
+    end
+
+    # Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs&#39; own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionComboResponse, Integer, Hash)>] CreateVaultMarketOptionComboResponse data, response status code and response headers
+    def create_vault_market_option_combo_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionComboResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a working strategy.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionCombosItem]
+    def create_vault_market_option_combo_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a working strategy.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionCombosItem, Integer, Hash)>] ListVaultMarketOptionCombosItem data, response status code and response headers
+    def create_vault_market_option_combo_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_combo_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionCombosItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionComboRfqResponse]
+    def create_vault_market_option_combo_rfq(opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_rfq_with_http_info(opts)
+      data
+    end
+
+    # Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionComboRfqResponse, Integer, Hash)>] CreateVaultMarketOptionComboRfqResponse data, response status code and response headers
+    def create_vault_market_option_combo_rfq_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo_rfq ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionComboRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionComboRfqAcceptResponse]
+    def create_vault_market_option_combo_rfq_accept(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_rfq_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionComboRfqAcceptResponse, Integer, Hash)>] CreateVaultMarketOptionComboRfqAcceptResponse data, response status code and response headers
+    def create_vault_market_option_combo_rfq_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo_rfq_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_combo_rfq_accept"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionComboRfqAcceptResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo_rfq_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo_rfq_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel your open strategy quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [IdStatusResponse]
+    def create_vault_market_option_combo_rfq_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_rfq_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel your open strategy quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(IdStatusResponse, Integer, Hash)>] IdStatusResponse data, response status code and response headers
+    def create_vault_market_option_combo_rfq_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo_rfq_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_combo_rfq_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'IdStatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo_rfq_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo_rfq_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionRfqRespondResponse]
+    def create_vault_market_option_combo_rfq_respond(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_rfq_respond_with_http_info(id, opts)
+      data
+    end
+
+    # Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionRfqRespondResponse, Integer, Hash)>] CreateVaultMarketOptionRfqRespondResponse data, response status code and response headers
+    def create_vault_market_option_combo_rfq_respond_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo_rfq_respond ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_combo_rfq_respond"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq/{id}/respond'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionRfqRespondResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo_rfq_respond",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo_rfq_respond\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw your live answer to a strategy quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [IdStatusResponse]
+    def create_vault_market_option_combo_rfq_response_withdraw(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_rfq_response_withdraw_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw your live answer to a strategy quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(IdStatusResponse, Integer, Hash)>] IdStatusResponse data, response status code and response headers
+    def create_vault_market_option_combo_rfq_response_withdraw_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo_rfq_response_withdraw ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_combo_rfq_response_withdraw"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq/responses/{id}/withdraw'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'IdStatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_combo_rfq_response_withdraw",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_combo_rfq_response_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionCoveredCallResponse]
+    def create_vault_market_option_covered_call(opts = {})
+      data, _status_code, _headers = create_vault_market_option_covered_call_with_http_info(opts)
+      data
+    end
+
+    # Write a covered call: lock a stored vault unit (&#x60;vaultItemId&#x60;) as collateral and sell up to one call on its own key (&#x60;contractId&#x60;, &#x60;quantity&#x60; &lt;&#x3D; 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionCoveredCallResponse, Integer, Hash)>] CreateVaultMarketOptionCoveredCallResponse data, response status code and response headers
+    def create_vault_market_option_covered_call_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_covered_call ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/covered-calls'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionCoveredCallResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_covered_call",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_covered_call\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Free a covered call's vault unit once the call it covers is closed (or covered by other units).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionCoveredCallReleaseResponse]
+    def create_vault_market_option_covered_call_release(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_covered_call_release_with_http_info(id, opts)
+      data
+    end
+
+    # Free a covered call&#39;s vault unit once the call it covers is closed (or covered by other units).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionCoveredCallReleaseResponse, Integer, Hash)>] CreateVaultMarketOptionCoveredCallReleaseResponse data, response status code and response headers
+    def create_vault_market_option_covered_call_release_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_covered_call_release ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_covered_call_release"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/covered-calls/{id}/release'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionCoveredCallReleaseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_covered_call_release",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_covered_call_release\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionMmHeartbeatResponse]
+    def create_vault_market_option_mm_heartbeat(opts = {})
+      data, _status_code, _headers = create_vault_market_option_mm_heartbeat_with_http_info(opts)
+      data
+    end
+
+    # Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionMmHeartbeatResponse, Integer, Hash)>] CreateVaultMarketOptionMmHeartbeatResponse data, response status code and response headers
+    def create_vault_market_option_mm_heartbeat_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_mm_heartbeat ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/mm/heartbeat'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionMmHeartbeatResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_mm_heartbeat",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_mm_heartbeat\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set (replace) a two-sided quote on an option contract: `bid` and / or `ask` each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionMmQuoteResponse]
+    def create_vault_market_option_mm_quote(opts = {})
+      data, _status_code, _headers = create_vault_market_option_mm_quote_with_http_info(opts)
+      data
+    end
+
+    # Set (replace) a two-sided quote on an option contract: &#x60;bid&#x60; and / or &#x60;ask&#x60; each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionMmQuoteResponse, Integer, Hash)>] CreateVaultMarketOptionMmQuoteResponse data, response status code and response headers
+    def create_vault_market_option_mm_quote_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_mm_quote ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/mm/quotes'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionMmQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_mm_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_mm_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Pull your option quotes on one contract (`contractId`) or all of them.
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteVaultMarketProQuoteResponse]
+    def create_vault_market_option_mm_quote_pull(opts = {})
+      data, _status_code, _headers = create_vault_market_option_mm_quote_pull_with_http_info(opts)
+      data
+    end
+
+    # Pull your option quotes on one contract (&#x60;contractId&#x60;) or all of them.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteVaultMarketProQuoteResponse, Integer, Hash)>] DeleteVaultMarketProQuoteResponse data, response status code and response headers
+    def create_vault_market_option_mm_quote_pull_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_mm_quote_pull ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/mm/quotes/pull'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteVaultMarketProQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_mm_quote_pull",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_mm_quote_pull\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionOrderResponse]
+    def create_vault_market_option_order(opts = {})
+      data, _status_code, _headers = create_vault_market_option_order_with_http_info(opts)
+      data
+    end
+
+    # Place an options order: &#x60;contractId&#x60;, &#x60;side&#x60;, &#x60;quantity&#x60; in contracts (three decimals), a &#x60;priceCents&#x60; or an &#x60;iv&#x60; (&#x60;quoteMode&#x60;), &#x60;tif&#x60; gtc / gtd (with &#x60;expiresAt&#x60;) / ioc, &#x60;postOnly&#x60;. Idempotent on &#x60;clientOrderId&#x60;. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its &#x60;termsVersion&#x60;). &#x60;subaccountId&#x60; trades for a firm sub-account you may trade.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionOrderResponse, Integer, Hash)>] CreateVaultMarketOptionOrderResponse data, response status code and response headers
+    def create_vault_market_option_order_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_order ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionOrderCancelResponse]
+    def create_vault_market_option_order_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_order_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionOrderCancelResponse, Integer, Hash)>] CreateVaultMarketOptionOrderCancelResponse data, response status code and response headers
+    def create_vault_market_option_order_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_order_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_order_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/orders/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionOrderCancelResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_order_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A practice strategy (play money): the same ticket as a real one, filled at the practice maker's quotes when the net is inside the limit.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionPracticeComboResponse]
+    def create_vault_market_option_practice_combo(opts = {})
+      data, _status_code, _headers = create_vault_market_option_practice_combo_with_http_info(opts)
+      data
+    end
+
+    # A practice strategy (play money): the same ticket as a real one, filled at the practice maker&#39;s quotes when the net is inside the limit.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionPracticeComboResponse, Integer, Hash)>] CreateVaultMarketOptionPracticeComboResponse data, response status code and response headers
+    def create_vault_market_option_practice_combo_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_practice_combo ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/combos'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionPracticeComboResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_practice_combo",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_practice_combo\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionPracticeOrderResponse]
+    def create_vault_market_option_practice_order(opts = {})
+      data, _status_code, _headers = create_vault_market_option_practice_order_with_http_info(opts)
+      data
+    end
+
+    # Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionPracticeOrderResponse, Integer, Hash)>] CreateVaultMarketOptionPracticeOrderResponse data, response status code and response headers
+    def create_vault_market_option_practice_order_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_practice_order ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionPracticeOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_practice_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_practice_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a working practice options order.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionPracticeOrdersItem]
+    def create_vault_market_option_practice_order_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_practice_order_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a working practice options order.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionPracticeOrdersItem, Integer, Hash)>] ListVaultMarketOptionPracticeOrdersItem data, response status code and response headers
+    def create_vault_market_option_practice_order_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_practice_order_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_practice_order_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/orders/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionPracticeOrdersItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_practice_order_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_practice_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Start the options practice account again with $10,000: positions and working orders are cleared.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionPracticeResponse]
+    def create_vault_market_option_practice_reset(opts = {})
+      data, _status_code, _headers = create_vault_market_option_practice_reset_with_http_info(opts)
+      data
+    end
+
+    # Start the options practice account again with $10,000: positions and working orders are cleared.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionPracticeResponse, Integer, Hash)>] GetVaultMarketOptionPracticeResponse data, response status code and response headers
+    def create_vault_market_option_practice_reset_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_practice_reset ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/reset'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionPracticeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_practice_reset",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_practice_reset\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionQuoteResponse]
+    def create_vault_market_option_quote(opts = {})
+      data, _status_code, _headers = create_vault_market_option_quote_with_http_info(opts)
+      data
+    end
+
+    # Price a ticket without placing it: give a price per contract or an implied vol (&#x60;quoteMode&#x60;), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionQuoteResponse, Integer, Hash)>] CreateVaultMarketOptionQuoteResponse data, response status code and response headers
+    def create_vault_market_option_quote_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_quote ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/quote'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask for a quote on an option contract: `side`, `quantity` in contracts, an optional `limitCents` (never shown). Makers quoting the series, the underlying's DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketRfqResponse]
+    def create_vault_market_option_rfq(opts = {})
+      data, _status_code, _headers = create_vault_market_option_rfq_with_http_info(opts)
+      data
+    end
+
+    # Ask for a quote on an option contract: &#x60;side&#x60;, &#x60;quantity&#x60; in contracts, an optional &#x60;limitCents&#x60; (never shown). Makers quoting the series, the underlying&#39;s DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketRfqResponse, Integer, Hash)>] CreateVaultMarketRfqResponse data, response status code and response headers
+    def create_vault_market_option_rfq_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_rfq ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take a live answer (`responseId`) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionRfqAcceptResponse]
+    def create_vault_market_option_rfq_accept(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_rfq_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Take a live answer (&#x60;responseId&#x60;) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionRfqAcceptResponse, Integer, Hash)>] CreateVaultMarketOptionRfqAcceptResponse data, response status code and response headers
+    def create_vault_market_option_rfq_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_rfq_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_rfq_accept"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionRfqAcceptResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_rfq_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_rfq_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel your open option quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [IdStatusResponse]
+    def create_vault_market_option_rfq_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_rfq_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel your open option quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(IdStatusResponse, Integer, Hash)>] IdStatusResponse data, response status code and response headers
+    def create_vault_market_option_rfq_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_rfq_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_rfq_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'IdStatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_rfq_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_rfq_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionRfqRespondResponse]
+    def create_vault_market_option_rfq_respond(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_rfq_respond_with_http_info(id, opts)
+      data
+    end
+
+    # Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionRfqRespondResponse, Integer, Hash)>] CreateVaultMarketOptionRfqRespondResponse data, response status code and response headers
+    def create_vault_market_option_rfq_respond_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_rfq_respond ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_rfq_respond"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq/{id}/respond'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionRfqRespondResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_rfq_respond",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_rfq_respond\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw your live answer to an option quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [IdStatusResponse]
+    def create_vault_market_option_rfq_response_withdraw(id, opts = {})
+      data, _status_code, _headers = create_vault_market_option_rfq_response_withdraw_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw your live answer to an option quote request.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(IdStatusResponse, Integer, Hash)>] IdStatusResponse data, response status code and response headers
+    def create_vault_market_option_rfq_response_withdraw_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_rfq_response_withdraw ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_option_rfq_response_withdraw"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq/responses/{id}/withdraw'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'IdStatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_rfq_response_withdraw",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_rfq_response_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionRollResponse]
+    def create_vault_market_option_roll(opts = {})
+      data, _status_code, _headers = create_vault_market_option_roll_with_http_info(opts)
+      data
+    end
+
+    # Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. &#x60;practice&#x60; rolls a practice position.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionRollResponse, Integer, Hash)>] CreateVaultMarketOptionRollResponse data, response status code and response headers
+    def create_vault_market_option_roll_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_roll ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/roll'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionRollResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_roll",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_roll\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null = unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketOptionStrategyPreviewResponse]
+    def create_vault_market_option_strategy_preview(opts = {})
+      data, _status_code, _headers = create_vault_market_option_strategy_preview_with_http_info(opts)
+      data
+    end
+
+    # Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null &#x3D; unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketOptionStrategyPreviewResponse, Integer, Hash)>] CreateVaultMarketOptionStrategyPreviewResponse data, response status code and response headers
+    def create_vault_market_option_strategy_preview_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_strategy_preview ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/strategies/preview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionStrategyPreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_option_strategy_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_option_strategy_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Lender: call the loan (once it is a day old). A refinancing auction runs for about 30 hours, the rate a new lender gets climbing to the ceiling; repaid or refinanced, you are paid in full; neither by the end, the unit moves to your vault.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -6660,6 +8272,1600 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns `{ venue, status, opened }`.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionAccountResponse]
+    def create_vault_market_prediction_account(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_account_with_http_info(opts)
+      data
+    end
+
+    # Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns &#x60;{ venue, status, opened }&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionAccountResponse, Integer, Hash)>] CreateVaultMarketPredictionAccountResponse data, response status code and response headers
+    def create_vault_market_prediction_account_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_account ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/account'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionAccountResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_account",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_account\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Tell me when a market's probability crosses a level: `{ marketId, levelPercent, direction }`. Returns the alert.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionAlertResponse]
+    def create_vault_market_prediction_alert(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_alert_with_http_info(opts)
+      data
+    end
+
+    # Tell me when a market&#39;s probability crosses a level: &#x60;{ marketId, levelPercent, direction }&#x60;. Returns the alert.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionAlertResponse, Integer, Hash)>] CreateVaultMarketPredictionAlertResponse data, response status code and response headers
+    def create_vault_market_prediction_alert_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_alert ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/alerts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionAlertResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_alert",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_alert\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Make an \"I called it\" share card for a position of yours that settled in your favour (`showAmounts` to include what you paid and won). Returns the card with its public URL.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionCardResponse]
+    def create_vault_market_prediction_card(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_card_with_http_info(opts)
+      data
+    end
+
+    # Make an \&quot;I called it\&quot; share card for a position of yours that settled in your favour (&#x60;showAmounts&#x60; to include what you paid and won). Returns the card with its public URL.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionCardResponse, Integer, Hash)>] CreateVaultMarketPredictionCardResponse data, response status code and response headers
+    def create_vault_market_prediction_card_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_card ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/cards'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionCardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_card",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_card\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. `venue` paper or live.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionComboRfqResponse]
+    def create_vault_market_prediction_combo_rfq(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_combo_rfq_with_http_info(opts)
+      data
+    end
+
+    # Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. &#x60;venue&#x60; paper or live.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionComboRfqResponse, Integer, Hash)>] CreateVaultMarketPredictionComboRfqResponse data, response status code and response headers
+    def create_vault_market_prediction_combo_rfq_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_combo_rfq ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/rfqs'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionComboRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_combo_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_combo_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take one live, firm answer to your combo request (`quoteId`): both stakes are locked and the combo opens. Returns the combo.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionCombosItem]
+    def create_vault_market_prediction_combo_rfq_accept(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_combo_rfq_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Take one live, firm answer to your combo request (&#x60;quoteId&#x60;): both stakes are locked and the combo opens. Returns the combo.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionCombosItem, Integer, Hash)>] ListVaultMarketPredictionCombosItem data, response status code and response headers
+    def create_vault_market_prediction_combo_rfq_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_combo_rfq_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_combo_rfq_accept"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/rfqs/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionCombosItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_combo_rfq_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_combo_rfq_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw your combo request; its answers are withdrawn too.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionComboRfqsItem]
+    def create_vault_market_prediction_combo_rfq_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_combo_rfq_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw your combo request; its answers are withdrawn too.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionComboRfqsItem, Integer, Hash)>] ListVaultMarketPredictionComboRfqsItem data, response status code and response headers
+    def create_vault_market_prediction_combo_rfq_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_combo_rfq_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_combo_rfq_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/rfqs/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionComboRfqsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_combo_rfq_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_combo_rfq_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionComboRfqQuoteResponse]
+    def create_vault_market_prediction_combo_rfq_quote(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_combo_rfq_quote_with_http_info(id, opts)
+      data
+    end
+
+    # Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionComboRfqQuoteResponse, Integer, Hash)>] CreateVaultMarketPredictionComboRfqQuoteResponse data, response status code and response headers
+    def create_vault_market_prediction_combo_rfq_quote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_combo_rfq_quote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_combo_rfq_quote"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/rfqs/{id}/quotes'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionComboRfqQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_combo_rfq_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_combo_rfq_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Comment on a market or a series, or reply to a comment (`parentId`). Moderated like every comment on Crossly.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionCommentResponse]
+    def create_vault_market_prediction_comment(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_comment_with_http_info(opts)
+      data
+    end
+
+    # Comment on a market or a series, or reply to a comment (&#x60;parentId&#x60;). Moderated like every comment on Crossly.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionCommentResponse, Integer, Hash)>] CreateVaultMarketPredictionCommentResponse data, response status code and response headers
+    def create_vault_market_prediction_comment_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_comment ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/comments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionCommentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_comment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_comment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Report a comment with a reason; enough reports hide it until ops look.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionCommentReportResponse]
+    def create_vault_market_prediction_comment_report(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_comment_report_with_http_info(id, opts)
+      data
+    end
+
+    # Report a comment with a reason; enough reports hide it until ops look.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionCommentReportResponse, Integer, Hash)>] CreateVaultMarketPredictionCommentReportResponse data, response status code and response headers
+    def create_vault_market_prediction_comment_report_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_comment_report ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_comment_report"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/comments/{id}/report'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionCommentReportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_comment_report",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_comment_report\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. `venue` paper or live. Returns the conversion and the event after it.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionConversionResponse]
+    def create_vault_market_prediction_conversion(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_conversion_with_http_info(opts)
+      data
+    end
+
+    # Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. &#x60;venue&#x60; paper or live. Returns the conversion and the event after it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionConversionResponse, Integer, Hash)>] CreateVaultMarketPredictionConversionResponse data, response status code and response headers
+    def create_vault_market_prediction_conversion_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_conversion ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/conversions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionConversionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_conversion",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_conversion\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Forecast a market: `probabilityPercent` 0 to 100. The one standing when trading closes is scored (Brier).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionForecastResponse]
+    def create_vault_market_prediction_forecast(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_forecast_with_http_info(opts)
+      data
+    end
+
+    # Forecast a market: &#x60;probabilityPercent&#x60; 0 to 100. The one standing when trading closes is scored (Brier).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionForecastResponse, Integer, Hash)>] CreateVaultMarketPredictionForecastResponse data, response status code and response headers
+    def create_vault_market_prediction_forecast_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_forecast ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecasts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionForecastResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_forecast",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_forecast\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionForecasterFollowResponse]
+    def create_vault_market_prediction_forecaster_follow(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_forecaster_follow_with_http_info(id, opts)
+      data
+    end
+
+    # Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionForecasterFollowResponse, Integer, Hash)>] CreateVaultMarketPredictionForecasterFollowResponse data, response status code and response headers
+    def create_vault_market_prediction_forecaster_follow_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_forecaster_follow ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_forecaster_follow"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecasters/{id}/follow'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionForecasterFollowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_forecaster_follow",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_forecaster_follow\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Apply to make markets in prediction ladders (one series, or all with `seriesId` null). Needs the ID check; ops approve. Returns the application.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionMakersItem]
+    def create_vault_market_prediction_maker(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_maker_with_http_info(opts)
+      data
+    end
+
+    # Apply to make markets in prediction ladders (one series, or all with &#x60;seriesId&#x60; null). Needs the ID check; ops approve. Returns the application.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionMakersItem, Integer, Hash)>] ListVaultMarketPredictionMakersItem data, response status code and response headers
+    def create_vault_market_prediction_maker_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_maker ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/makers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionMakersItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_maker",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_maker\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionMakerQuoteResponse]
+    def create_vault_market_prediction_maker_quote(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_maker_quote_with_http_info(opts)
+      data
+    end
+
+    # Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionMakerQuoteResponse, Integer, Hash)>] CreateVaultMarketPredictionMakerQuoteResponse data, response status code and response headers
+    def create_vault_market_prediction_maker_quote_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_maker_quote ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/makers/quotes'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionMakerQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_maker_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_maker_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action's own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. `venue` paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionOrderResponse]
+    def create_vault_market_prediction_order(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_order_with_http_info(opts)
+      data
+    end
+
+    # Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action&#39;s own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. &#x60;venue&#x60; paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionOrderResponse, Integer, Hash)>] CreateVaultMarketPredictionOrderResponse data, response status code and response headers
+    def create_vault_market_prediction_order_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_order ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Amend a resting order's price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with `keptPriority`.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionOrderAmendResponse]
+    def create_vault_market_prediction_order_amend(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_order_amend_with_http_info(id, opts)
+      data
+    end
+
+    # Amend a resting order&#39;s price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with &#x60;keptPriority&#x60;.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionOrderAmendResponse, Integer, Hash)>] CreateVaultMarketPredictionOrderAmendResponse data, response status code and response headers
+    def create_vault_market_prediction_order_amend_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_order_amend ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_order_amend"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders/{id}/amend'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionOrderAmendResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_order_amend",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_order_amend\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Place up to 20 orders in one call; each answers on its own (`results[]`), one refused never stops the rest.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionOrderBatchResponse]
+    def create_vault_market_prediction_order_batch(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_order_batch_with_http_info(opts)
+      data
+    end
+
+    # Place up to 20 orders in one call; each answers on its own (&#x60;results[]&#x60;), one refused never stops the rest.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionOrderBatchResponse, Integer, Hash)>] CreateVaultMarketPredictionOrderBatchResponse data, response status code and response headers
+    def create_vault_market_prediction_order_batch_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_order_batch ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders/batch'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionOrderBatchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_order_batch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_order_batch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel up to 20 orders in one call; each answers on its own.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionOrderBatchCancelResponse]
+    def create_vault_market_prediction_order_batch_cancel(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_order_batch_cancel_with_http_info(opts)
+      data
+    end
+
+    # Cancel up to 20 orders in one call; each answers on its own.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionOrderBatchCancelResponse, Integer, Hash)>] CreateVaultMarketPredictionOrderBatchCancelResponse data, response status code and response headers
+    def create_vault_market_prediction_order_batch_cancel_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_order_batch_cancel ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders/batch-cancel'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionOrderBatchCancelResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_order_batch_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_order_batch_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionOrderResponse]
+    def create_vault_market_prediction_order_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_order_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionOrderResponse, Integer, Hash)>] CreateVaultMarketPredictionOrderResponse data, response status code and response headers
+    def create_vault_market_prediction_order_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_order_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_order_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_order_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel every working prediction order you have, or only those on one market (`marketId`). Returns `{ cancelled }`.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketProOrderCancelAllResponse]
+    def create_vault_market_prediction_order_cancel_all(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_order_cancel_all_with_http_info(opts)
+      data
+    end
+
+    # Cancel every working prediction order you have, or only those on one market (&#x60;marketId&#x60;). Returns &#x60;{ cancelled }&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketProOrderCancelAllResponse, Integer, Hash)>] CreateVaultMarketProOrderCancelAllResponse data, response status code and response headers
+    def create_vault_market_prediction_order_cancel_all_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_order_cancel_all ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders/cancel-all'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketProOrderCancelAllResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_order_cancel_all",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_order_cancel_all\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionPaperResetResponse]
+    def create_vault_market_prediction_paper_reset(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_paper_reset_with_http_info(opts)
+      data
+    end
+
+    # Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionPaperResetResponse, Integer, Hash)>] CreateVaultMarketPredictionPaperResetResponse data, response status code and response headers
+    def create_vault_market_prediction_paper_reset_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_paper_reset ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/paper/reset'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionPaperResetResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_paper_reset",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_paper_reset\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at `priceCents`. Returns the sell order.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionOrderResponse]
+    def create_vault_market_prediction_position_close(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_position_close_with_http_info(opts)
+      data
+    end
+
+    # Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at &#x60;priceCents&#x60;. Returns the sell order.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionOrderResponse, Integer, Hash)>] CreateVaultMarketPredictionOrderResponse data, response status code and response headers
+    def create_vault_market_prediction_position_close_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_position_close ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/positions/close'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_position_close",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_position_close\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Sell all: close every open position on a venue, or only one event's (`eventId`). Each answers on its own.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionPositionCloseAllResponse]
+    def create_vault_market_prediction_position_close_all(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_position_close_all_with_http_info(opts)
+      data
+    end
+
+    # Sell all: close every open position on a venue, or only one event&#39;s (&#x60;eventId&#x60;). Each answers on its own.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionPositionCloseAllResponse, Integer, Hash)>] CreateVaultMarketPredictionPositionCloseAllResponse data, response status code and response headers
+    def create_vault_market_prediction_position_close_all_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_position_close_all ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/positions/close-all'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionPositionCloseAllResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_position_close_all",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_position_close_all\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly's take on its fees.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionProposalsItem]
+    def create_vault_market_prediction_proposal(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_proposal_with_http_info(opts)
+      data
+    end
+
+    # Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly&#39;s take on its fees.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionProposalsItem, Integer, Hash)>] ListVaultMarketPredictionProposalsItem data, response status code and response headers
+    def create_vault_market_prediction_proposal_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_proposal ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/proposals'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionProposalsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_proposal",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_proposal\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionProposalCheckResponse]
+    def create_vault_market_prediction_proposal_check(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_proposal_check_with_http_info(opts)
+      data
+    end
+
+    # Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionProposalCheckResponse, Integer, Hash)>] CreateVaultMarketPredictionProposalCheckResponse data, response status code and response headers
+    def create_vault_market_prediction_proposal_check_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_proposal_check ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/proposals/check'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionProposalCheckResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_proposal_check",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_proposal_check\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw a proposal still waiting for review.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionProposalsItem]
+    def create_vault_market_prediction_proposal_withdraw(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_proposal_withdraw_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw a proposal still waiting for review.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionProposalsItem, Integer, Hash)>] ListVaultMarketPredictionProposalsItem data, response status code and response headers
+    def create_vault_market_prediction_proposal_withdraw_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_proposal_withdraw ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_proposal_withdraw"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/proposals/{id}/withdraw'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionProposalsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_proposal_withdraw",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_proposal_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue's decision. Returns `{ settlementId, status }`.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionSettlementDisputeResponse]
+    def create_vault_market_prediction_settlement_dispute(id, opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_settlement_dispute_with_http_info(id, opts)
+      data
+    end
+
+    # Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue&#39;s decision. Returns &#x60;{ settlementId, status }&#x60;.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionSettlementDisputeResponse, Integer, Hash)>] CreateVaultMarketPredictionSettlementDisputeResponse data, response status code and response headers
+    def create_vault_market_prediction_settlement_dispute_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_settlement_dispute ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_prediction_settlement_dispute"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/settlements/{id}/dispute'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionSettlementDisputeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_settlement_dispute",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_settlement_dispute\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns `{ termsVersion, venue }`.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionTermResponse]
+    def create_vault_market_prediction_term(opts = {})
+      data, _status_code, _headers = create_vault_market_prediction_term_with_http_info(opts)
+      data
+    end
+
+    # Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns &#x60;{ termsVersion, venue }&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionTermResponse, Integer, Hash)>] CreateVaultMarketPredictionTermResponse data, response status code and response headers
+    def create_vault_market_prediction_term_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_prediction_term ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/terms'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionTermResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_prediction_term",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_prediction_term\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Make a price widget for one vault market (`kind` mark + `bookKey`) or one public index (`kind` index + `indexSlug`): range, layout (compact or chart), theme (auto, light, dark), optionally your own affiliate code for the link back and the sites allowed to show it (empty = any). Returns the widget with its snippets.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketPriceWidgetsItem]
@@ -7230,7 +10436,7 @@ module Crossly
 
     # Keep your quotes alive (cancel-on-disconnect). Returns `{ quotes, at }`.
     # @param [Hash] opts the optional parameters
-    # @return [CreateVaultMarketProQuoteHeartbeatResponse]
+    # @return [CreateVaultMarketOptionMmHeartbeatResponse]
     def create_vault_market_pro_quote_heartbeat(opts = {})
       data, _status_code, _headers = create_vault_market_pro_quote_heartbeat_with_http_info(opts)
       data
@@ -7238,7 +10444,7 @@ module Crossly
 
     # Keep your quotes alive (cancel-on-disconnect). Returns &#x60;{ quotes, at }&#x60;.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateVaultMarketProQuoteHeartbeatResponse, Integer, Hash)>] CreateVaultMarketProQuoteHeartbeatResponse data, response status code and response headers
+    # @return [Array<(CreateVaultMarketOptionMmHeartbeatResponse, Integer, Hash)>] CreateVaultMarketOptionMmHeartbeatResponse data, response status code and response headers
     def create_vault_market_pro_quote_heartbeat_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_pro_quote_heartbeat ...'
@@ -7261,7 +10467,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateVaultMarketProQuoteHeartbeatResponse'
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionMmHeartbeatResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -7930,6 +11136,427 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareAutoInvestItem]
+    def create_vault_market_share_auto_invest(opts = {})
+      data, _status_code, _headers = create_vault_market_share_auto_invest_with_http_info(opts)
+      data
+    end
+
+    # Start auto-invest: &#x60;amountCents&#x60; ($5-$10,000) &#x60;every&#x60; week or month into &#x60;seriesIds&#x60; (equal weights) or &#x60;targets&#x60; (seriesId + weightBps summing to 10,000) or a &#x60;basketId&#x60; (with &#x60;rebalance&#x60; to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to &#x60;maxPremiumBps&#x60; over the indicative value. &#x60;practice&#x60; runs it on paper.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareAutoInvestItem, Integer, Hash)>] ListVaultMarketShareAutoInvestItem data, response status code and response headers
+    def create_vault_market_share_auto_invest_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_auto_invest ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/auto-invest'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareAutoInvestItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_auto_invest",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_auto_invest\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Run a plan now (once a minute at most); the schedule does not move.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareAutoInvestRunResponse]
+    def create_vault_market_share_auto_invest_run(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_auto_invest_run_with_http_info(id, opts)
+      data
+    end
+
+    # Run a plan now (once a minute at most); the schedule does not move.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareAutoInvestRunResponse, Integer, Hash)>] CreateVaultMarketShareAutoInvestRunResponse data, response status code and response headers
+    def create_vault_market_share_auto_invest_run_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_auto_invest_run ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_auto_invest_run"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/auto-invest/{id}/run'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareAutoInvestRunResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_auto_invest_run",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_auto_invest_run\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareAutoInvestItem]
+    def create_vault_market_share_auto_invest_update(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_auto_invest_update_with_http_info(id, opts)
+      data
+    end
+
+    # Change a plan (amount, cadence, series or weights, cap, rebalance) or set its &#x60;status&#x60; active, paused or cancelled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareAutoInvestItem, Integer, Hash)>] ListVaultMarketShareAutoInvestItem data, response status code and response headers
+    def create_vault_market_share_auto_invest_update_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_auto_invest_update ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_auto_invest_update"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/auto-invest/{id}/update'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareAutoInvestItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_auto_invest_update",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_auto_invest_update\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareBasketBuyResponse]
+    def create_vault_market_share_basket_buy(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_basket_buy_with_http_info(id, opts)
+      data
+    end
+
+    # Buy a basket once: &#x60;amountCents&#x60; split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to &#x60;maxPremiumBps&#x60;). &#x60;practice&#x60; buys on paper.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareBasketBuyResponse, Integer, Hash)>] CreateVaultMarketShareBasketBuyResponse data, response status code and response headers
+    def create_vault_market_share_basket_buy_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_basket_buy ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_basket_buy"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/baskets/{id}/buy'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBasketBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_basket_buy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_basket_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareBuyoutFundResponse]
+    def create_vault_market_share_buyout_fund(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_buyout_fund_with_http_info(id, opts)
+      data
+    end
+
+    # Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareBuyoutFundResponse, Integer, Hash)>] CreateVaultMarketShareBuyoutFundResponse data, response status code and response headers
+    def create_vault_market_share_buyout_fund_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_buyout_fund ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_buyout_fund"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/buyouts/{id}/fund'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBuyoutFundResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_buyout_fund",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_buyout_fund\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareBuyoutFundResponse]
+    def create_vault_market_share_buyout_vote(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_buyout_vote_with_http_info(id, opts)
+      data
+    end
+
+    # Vote &#x60;yes&#x60; or &#x60;no&#x60; on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareBuyoutFundResponse, Integer, Hash)>] CreateVaultMarketShareBuyoutFundResponse data, response status code and response headers
+    def create_vault_market_share_buyout_vote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_buyout_vote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_buyout_vote"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/buyouts/{id}/vote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBuyoutFundResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_buyout_vote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_buyout_vote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw your buyout bid before its vote opens; the escrow is refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareBuyoutFundResponse]
+    def create_vault_market_share_buyout_withdraw(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_buyout_withdraw_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw your buyout bid before its vote opens; the escrow is refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareBuyoutFundResponse, Integer, Hash)>] CreateVaultMarketShareBuyoutFundResponse data, response status code and response headers
+    def create_vault_market_share_buyout_withdraw_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_buyout_withdraw ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_buyout_withdraw"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/buyouts/{id}/withdraw'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBuyoutFundResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_buyout_withdraw",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_buyout_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Make a verified share card of a position, a vault unit, a public index or your portfolio (`kind`, `refId`). The % on it is the price move since your real fill; amounts stay hidden unless `showAmounts`.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareCardsItem]
@@ -7981,6 +11608,1452 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_card\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareGiftsItem]
+    def create_vault_market_share_gift_accept(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_gift_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareGiftsItem, Integer, Hash)>] ListVaultMarketShareGiftsItem data, response status code and response headers
+    def create_vault_market_share_gift_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_gift_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_gift_accept"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/gifts/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareGiftsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_gift_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_gift_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a gift you offered, before it is accepted: the shares are free again.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareGiftsItem]
+    def create_vault_market_share_gift_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_gift_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a gift you offered, before it is accepted: the shares are free again.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareGiftsItem, Integer, Hash)>] ListVaultMarketShareGiftsItem data, response status code and response headers
+    def create_vault_market_share_gift_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_gift_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_gift_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/gifts/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareGiftsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_gift_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_gift_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Decline a share gift offered to you.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareGiftsItem]
+    def create_vault_market_share_gift_decline(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_gift_decline_with_http_info(id, opts)
+      data
+    end
+
+    # Decline a share gift offered to you.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareGiftsItem, Integer, Hash)>] ListVaultMarketShareGiftsItem data, response status code and response headers
+    def create_vault_market_share_gift_decline_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_gift_decline ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_gift_decline"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/gifts/{id}/decline'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareGiftsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_gift_decline",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_gift_decline\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareInvestorResponse]
+    def create_vault_market_share_investor(opts = {})
+      data, _status_code, _headers = create_vault_market_share_investor_with_http_info(opts)
+      data
+    end
+
+    # Open or update your investor account at the venue: accept the current investor terms (&#x60;acceptTerms&#x60;), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareInvestorResponse, Integer, Hash)>] GetVaultMarketShareInvestorResponse data, response status code and response headers
+    def create_vault_market_share_investor_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_investor ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/investor'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareInvestorResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_investor",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_investor\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel one of your open share-book orders.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareOrdersItem]
+    def create_vault_market_share_order_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_order_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel one of your open share-book orders.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareOrdersItem, Integer, Hash)>] ListVaultMarketShareOrdersItem data, response status code and response headers
+    def create_vault_market_share_order_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_order_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_order_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/orders/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareOrdersItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_order_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel an open practice order.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketSharePaperSeryOrderResponse]
+    def create_vault_market_share_paper_order_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_paper_order_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel an open practice order.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketSharePaperSeryOrderResponse, Integer, Hash)>] CreateVaultMarketSharePaperSeryOrderResponse data, response status code and response headers
+    def create_vault_market_share_paper_order_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_paper_order_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_paper_order_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/paper/orders/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketSharePaperSeryOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_paper_order_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_paper_order_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Start the practice account over with fresh play money (once a day).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSharePaperResponse]
+    def create_vault_market_share_paper_reset(opts = {})
+      data, _status_code, _headers = create_vault_market_share_paper_reset_with_http_info(opts)
+      data
+    end
+
+    # Start the practice account over with fresh play money (once a day).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSharePaperResponse, Integer, Hash)>] GetVaultMarketSharePaperResponse data, response status code and response headers
+    def create_vault_market_share_paper_reset_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_paper_reset ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/paper/reset'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSharePaperResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_paper_reset",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_paper_reset\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Place a practice order (play money) with the same rules as the real share book.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketSharePaperSeryOrderResponse]
+    def create_vault_market_share_paper_sery_order(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_paper_sery_order_with_http_info(id, opts)
+      data
+    end
+
+    # Place a practice order (play money) with the same rules as the real share book.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketSharePaperSeryOrderResponse, Integer, Hash)>] CreateVaultMarketSharePaperSeryOrderResponse data, response status code and response headers
+    def create_vault_market_share_paper_sery_order_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_paper_sery_order ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_paper_sery_order"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/paper/series/{id}/orders'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketSharePaperSeryOrderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_paper_sery_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_paper_sery_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Subscribe with play money to a practice series’ offering.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSharePaperResponse]
+    def create_vault_market_share_paper_sery_subscribe(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_paper_sery_subscribe_with_http_info(id, opts)
+      data
+    end
+
+    # Subscribe with play money to a practice series’ offering.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSharePaperResponse, Integer, Hash)>] GetVaultMarketSharePaperResponse data, response status code and response headers
+    def create_vault_market_share_paper_sery_subscribe_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_paper_sery_subscribe ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_paper_sery_subscribe"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/paper/series/{id}/subscribe'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSharePaperResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_paper_sery_subscribe",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_paper_sery_subscribe\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take down one of your own holder-room posts (`reason`).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareRoomHideResponse]
+    def create_vault_market_share_room_hide(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_room_hide_with_http_info(id, opts)
+      data
+    end
+
+    # Take down one of your own holder-room posts (&#x60;reason&#x60;).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareRoomHideResponse, Integer, Hash)>] CreateVaultMarketShareRoomHideResponse data, response status code and response headers
+    def create_vault_market_share_room_hide_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_room_hide ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_room_hide"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/room/{id}/hide'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareRoomHideResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_room_hide",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_room_hide\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSeriesItem]
+    def create_vault_market_share_sery(opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_with_http_info(opts)
+      data
+    end
+
+    # Propose a Vault Shares series for one of your units (&#x60;vaultItemId&#x60;), keeping &#x60;retainedShares&#x60; (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass &#x60;requestId&#x60; to make a retry safe.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSeriesItem, Integer, Hash)>] ListVaultMarketShareSeriesItem data, response status code and response headers
+    def create_vault_market_share_sery_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeriesItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareBuyoutFundResponse]
+    def create_vault_market_share_sery_buyout(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_buyout_with_http_info(id, opts)
+      data
+    end
+
+    # Bid for the whole item (&#x60;offerCents&#x60;, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareBuyoutFundResponse, Integer, Hash)>] CreateVaultMarketShareBuyoutFundResponse data, response status code and response headers
+    def create_vault_market_share_sery_buyout_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_buyout ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_buyout"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/buyouts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBuyoutFundResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_buyout",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_buyout\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareGiftsItem]
+    def create_vault_market_share_sery_gift(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_gift_with_http_info(id, opts)
+      data
+    end
+
+    # Give whole &#x60;shares&#x60; of a series to someone (&#x60;to&#x60;: their @handle, email or user id), with an optional &#x60;message&#x60;. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareGiftsItem, Integer, Hash)>] ListVaultMarketShareGiftsItem data, response status code and response headers
+    def create_vault_market_share_sery_gift_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_gift ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_gift"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/gifts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareGiftsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_gift",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_gift\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareOrdersItem]
+    def create_vault_market_share_sery_order(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_order_with_http_info(id, opts)
+      data
+    end
+
+    # Place an order on a series’ share book: &#x60;side&#x60;, &#x60;type&#x60; limit or market (immediate-or-cancel inside a 10% band), &#x60;tif&#x60; gtc / gtd (&#x60;expiresAt&#x60;) / ioc, whole &#x60;shares&#x60; or a buy’s &#x60;amountCents&#x60; (turned into whole shares at the most it could pay), integer &#x60;limitCents&#x60; a share, &#x60;postOnly&#x60;. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass &#x60;requestId&#x60; to make a retry safe.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareOrdersItem, Integer, Hash)>] ListVaultMarketShareOrdersItem data, response status code and response headers
+    def create_vault_market_share_sery_order_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_order ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_order"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/orders'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareOrdersItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_order",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareSeryRecombineResponse]
+    def create_vault_market_share_sery_recombine(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_recombine_with_http_info(id, opts)
+      data
+    end
+
+    # You hold every share: take the item back whole. With &#x60;withdraw&#x60;, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareSeryRecombineResponse, Integer, Hash)>] CreateVaultMarketShareSeryRecombineResponse data, response status code and response headers
+    def create_vault_market_share_sery_recombine_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_recombine ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_recombine"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/recombine'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryRecombineResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_recombine",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_recombine\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Post in the holder room (shareholders only), up to 1,000 characters.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareSeryRoomResponse]
+    def create_vault_market_share_sery_room(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_room_with_http_info(id, opts)
+      data
+    end
+
+    # Post in the holder room (shareholders only), up to 1,000 characters.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareSeryRoomResponse, Integer, Hash)>] CreateVaultMarketShareSeryRoomResponse data, response status code and response headers
+    def create_vault_market_share_sery_room_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_room ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_room"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/room'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryRoomResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_room",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_room\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSubscriptionsItem]
+    def create_vault_market_share_sery_subscribe(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_subscribe_with_http_info(id, opts)
+      data
+    end
+
+    # Subscribe for whole &#x60;shares&#x60; in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass &#x60;jointVaultId&#x60;. Pass &#x60;requestId&#x60; to make a retry safe.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSubscriptionsItem, Integer, Hash)>] ListVaultMarketShareSubscriptionsItem data, response status code and response headers
+    def create_vault_market_share_sery_subscribe_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_subscribe ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_subscribe"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/subscribe'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSubscriptionsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_subscribe",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_subscribe\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareSeryWatchResponse]
+    def create_vault_market_share_sery_unwatch(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_unwatch_with_http_info(id, opts)
+      data
+    end
+
+    # Stop being told about a drop (&#x60;kind&#x60; notify) or leave its waitlist (&#x60;kind&#x60; waitlist).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareSeryWatchResponse, Integer, Hash)>] CreateVaultMarketShareSeryWatchResponse data, response status code and response headers
+    def create_vault_market_share_sery_unwatch_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_unwatch ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_unwatch"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/unwatch'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryWatchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_unwatch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_unwatch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [IdResponse]
+    def create_vault_market_share_sery_update(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_update_with_http_info(id, opts)
+      data
+    end
+
+    # Post an update on your own item’s series (you are its originator): &#x60;kind&#x60; story, provenance, condition, appraisal, exhibition or event, a &#x60;title&#x60;, a &#x60;body&#x60;, an optional https &#x60;mediaUrl&#x60;, &#x60;holdersOnly&#x60;. Holders are told.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
+    def create_vault_market_share_sery_update_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_update ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_update"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/updates'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'IdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_update",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_update\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareSeryWatchResponse]
+    def create_vault_market_share_sery_watch(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_watch_with_http_info(id, opts)
+      data
+    end
+
+    # Ask to be told about a drop (&#x60;kind&#x60; notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (&#x60;kind&#x60; waitlist, with the &#x60;shares&#x60; you want).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareSeryWatchResponse, Integer, Hash)>] CreateVaultMarketShareSeryWatchResponse data, response status code and response headers
+    def create_vault_market_share_sery_watch_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_watch ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_watch"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/watch'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryWatchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_watch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_watch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Withdraw your own proposal before its offering opens.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSeriesItem]
+    def create_vault_market_share_sery_withdraw_proposal(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_withdraw_proposal_with_http_info(id, opts)
+      data
+    end
+
+    # Withdraw your own proposal before its offering opens.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSeriesItem, Integer, Hash)>] ListVaultMarketShareSeriesItem data, response status code and response headers
+    def create_vault_market_share_sery_withdraw_proposal_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_withdraw_proposal ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_withdraw_proposal"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/withdraw-proposal'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeriesItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_sery_withdraw_proposal",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_sery_withdraw_proposal\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSubscriptionsItem]
+    def create_vault_market_share_subscription_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_subscription_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSubscriptionsItem, Integer, Hash)>] ListVaultMarketShareSubscriptionsItem data, response status code and response headers
+    def create_vault_market_share_subscription_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_subscription_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_subscription_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/subscriptions/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSubscriptionsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_subscription_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_subscription_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareViewingBookResponse]
+    def create_vault_market_share_viewing_book(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_viewing_book_with_http_info(id, opts)
+      data
+    end
+
+    # Book a place on a viewing day (shareholders only), with up to the day’s &#x60;guests&#x60;. Bookings close a day before; booking again changes your guests.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareViewingBookResponse, Integer, Hash)>] CreateVaultMarketShareViewingBookResponse data, response status code and response headers
+    def create_vault_market_share_viewing_book_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_viewing_book ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_viewing_book"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/viewings/{id}/book'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareViewingBookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_viewing_book",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_viewing_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel your viewing-day booking.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketShareViewingBookingCancelResponse]
+    def create_vault_market_share_viewing_booking_cancel(id, opts = {})
+      data, _status_code, _headers = create_vault_market_share_viewing_booking_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel your viewing-day booking.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketShareViewingBookingCancelResponse, Integer, Hash)>] CreateVaultMarketShareViewingBookingCancelResponse data, response status code and response headers
+    def create_vault_market_share_viewing_booking_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_viewing_booking_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_viewing_booking_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/viewing-bookings/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketShareViewingBookingCancelResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_share_viewing_booking_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_share_viewing_booking_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -8213,6 +13286,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_supply_send\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketSupplySendInResponse]
+    def create_vault_market_supply_send_in(opts = {})
+      data, _status_code, _headers = create_vault_market_supply_send_in_with_http_info(opts)
+      data
+    end
+
+    # Send inventory items to the vault: &#x60;method: label&#x60; (one box on a prepaid label) or &#x60;dropoff&#x60; at a partner (&#x60;partnerId&#x60;, from the finder; you get a counter code). Each item can carry its declared value; &#x60;insured&#x60; insures the box for it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketSupplySendInResponse, Integer, Hash)>] CreateVaultMarketSupplySendInResponse data, response status code and response headers
+    def create_vault_market_supply_send_in_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_supply_send_in ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/supply/send-in'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketSupplySendInResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.create_vault_market_supply_send_in",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#create_vault_market_supply_send_in\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -9328,6 +14456,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Stop Auto-buy with payouts. The history stays.
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteVaultMarketAutoBuyResponse]
+    def delete_vault_market_auto_buy(opts = {})
+      data, _status_code, _headers = delete_vault_market_auto_buy_with_http_info(opts)
+      data
+    end
+
+    # Stop Auto-buy with payouts. The history stays.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteVaultMarketAutoBuyResponse, Integer, Hash)>] DeleteVaultMarketAutoBuyResponse data, response status code and response headers
+    def delete_vault_market_auto_buy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.delete_vault_market_auto_buy ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/auto-buy'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteVaultMarketAutoBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.delete_vault_market_auto_buy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#delete_vault_market_auto_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Stop a family-wide quote: every leg order comes off the book; what filled stays filled.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -9812,6 +14995,250 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#delete_vault_market_opening_waitlist\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Remove a probability alert. Returns `{ ok }`.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def delete_vault_market_prediction_alert(id, opts = {})
+      data, _status_code, _headers = delete_vault_market_prediction_alert_with_http_info(id, opts)
+      data
+    end
+
+    # Remove a probability alert. Returns &#x60;{ ok }&#x60;.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def delete_vault_market_prediction_alert_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.delete_vault_market_prediction_alert ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.delete_vault_market_prediction_alert"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/alerts/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.delete_vault_market_prediction_alert",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#delete_vault_market_prediction_alert\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take an \"I called it\" card down; its link stops working. Returns `{ ok }`.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def delete_vault_market_prediction_card(id, opts = {})
+      data, _status_code, _headers = delete_vault_market_prediction_card_with_http_info(id, opts)
+      data
+    end
+
+    # Take an \&quot;I called it\&quot; card down; its link stops working. Returns &#x60;{ ok }&#x60;.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def delete_vault_market_prediction_card_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.delete_vault_market_prediction_card ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.delete_vault_market_prediction_card"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/cards/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.delete_vault_market_prediction_card",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#delete_vault_market_prediction_card\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete your comment.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def delete_vault_market_prediction_comment(id, opts = {})
+      data, _status_code, _headers = delete_vault_market_prediction_comment_with_http_info(id, opts)
+      data
+    end
+
+    # Delete your comment.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def delete_vault_market_prediction_comment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.delete_vault_market_prediction_comment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.delete_vault_market_prediction_comment"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/comments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.delete_vault_market_prediction_comment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#delete_vault_market_prediction_comment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop following a forecaster.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionForecasterFollowResponse]
+    def delete_vault_market_prediction_forecaster_follow(id, opts = {})
+      data, _status_code, _headers = delete_vault_market_prediction_forecaster_follow_with_http_info(id, opts)
+      data
+    end
+
+    # Stop following a forecaster.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionForecasterFollowResponse, Integer, Hash)>] CreateVaultMarketPredictionForecasterFollowResponse data, response status code and response headers
+    def delete_vault_market_prediction_forecaster_follow_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.delete_vault_market_prediction_forecaster_follow ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.delete_vault_market_prediction_forecaster_follow"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecasters/{id}/follow'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionForecasterFollowResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.delete_vault_market_prediction_forecaster_follow",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#delete_vault_market_prediction_forecaster_follow\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -10978,6 +16405,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_auction_mine\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. `autoBuy` is null when it is not set up.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketAutoBuyResponse]
+    def get_vault_market_auto_buy(opts = {})
+      data, _status_code, _headers = get_vault_market_auto_buy_with_http_info(opts)
+      data
+    end
+
+    # Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. &#x60;autoBuy&#x60; is null when it is not set up.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketAutoBuyResponse, Integer, Hash)>] GetVaultMarketAutoBuyResponse data, response status code and response headers
+    def get_vault_market_auto_buy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_auto_buy ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/auto-buy'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketAutoBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_auto_buy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_auto_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -13178,6 +18660,128 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The inventory item a vault unit of yours came from (null for a unit bought on the book).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketHoldingInventoryItemResponse]
+    def get_vault_market_holding_inventory_item(id, opts = {})
+      data, _status_code, _headers = get_vault_market_holding_inventory_item_with_http_info(id, opts)
+      data
+    end
+
+    # The inventory item a vault unit of yours came from (null for a unit bought on the book).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketHoldingInventoryItemResponse, Integer, Hash)>] GetVaultMarketHoldingInventoryItemResponse data, response status code and response headers
+    def get_vault_market_holding_inventory_item_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_holding_inventory_item ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_holding_inventory_item"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/holdings/{id}/inventory-item'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketHoldingInventoryItemResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_holding_inventory_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_holding_inventory_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What shipping one unit you own home would charge now, for `standard` and `expedited`: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketHoldingWithdrawQuoteResponse]
+    def get_vault_market_holding_withdraw_quote(id, opts = {})
+      data, _status_code, _headers = get_vault_market_holding_withdraw_quote_with_http_info(id, opts)
+      data
+    end
+
+    # What shipping one unit you own home would charge now, for &#x60;standard&#x60; and &#x60;expedited&#x60;: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketHoldingWithdrawQuoteResponse, Integer, Hash)>] GetVaultMarketHoldingWithdrawQuoteResponse data, response status code and response headers
+    def get_vault_market_holding_withdraw_quote_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_holding_withdraw_quote ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_holding_withdraw_quote"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/holdings/{id}/withdraw-quote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketHoldingWithdrawQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_holding_withdraw_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_holding_withdraw_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # \"Show my vault\": the vault units you hold, the ones standing in your Crossly World home first. Each: vaultItemId, title, grade, imageUrl, bookKey (its market), inHome, visitors (visitors to your home see it). Also your home (slug, privacy, path), max units one home shows, shown, visitorsSee and a note on who sees what. Your home is made on first read. No prices.
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketHomeUnitResponse]
@@ -13815,6 +19419,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_instant_exit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Where one inventory item's units are: in your own stock (warehouse) and in the vault per location, each vault unit's status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
+    # @param inventory_item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketItemLocationResponse]
+    def get_vault_market_item_location(inventory_item_id, opts = {})
+      data, _status_code, _headers = get_vault_market_item_location_with_http_info(inventory_item_id, opts)
+      data
+    end
+
+    # Where one inventory item&#39;s units are: in your own stock (warehouse) and in the vault per location, each vault unit&#39;s status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
+    # @param inventory_item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketItemLocationResponse, Integer, Hash)>] GetVaultMarketItemLocationResponse data, response status code and response headers
+    def get_vault_market_item_location_with_http_info(inventory_item_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_item_location ...'
+      end
+      # verify the required parameter 'inventory_item_id' is set
+      if @api_client.config.client_side_validation && inventory_item_id.nil?
+        fail ArgumentError, "Missing the required parameter 'inventory_item_id' when calling VaultMarketsApi.get_vault_market_item_location"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/items/{inventoryItemId}/location'.sub('{' + 'inventoryItemId' + '}', CGI.escape(inventory_item_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketItemLocationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_item_location",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_item_location\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -15089,6 +20754,989 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Fractional options: the venue mode (self = Crossly is the venue and clearing house, partner = routed to the index DCM, paper = practice only) with the env each mode still needs, the active series and the rule book in force.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionResponse]
+    def get_vault_market_option(opts = {})
+      data, _status_code, _headers = get_vault_market_option_with_http_info(opts)
+      data
+    end
+
+    # Fractional options: the venue mode (self &#x3D; Crossly is the venue and clearing house, partner &#x3D; routed to the index DCM, paper &#x3D; practice only) with the env each mode still needs, the active series and the rule book in force.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionResponse, Integer, Hash)>] GetVaultMarketOptionResponse data, response status code and response headers
+    def get_vault_market_option_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry's smile (`expiry`), IV rank and percentile against the series' own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying's own published series. Every implied vol is derived and display only.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionAnalyticResponse]
+    def get_vault_market_option_analytic(underlying, opts = {})
+      data, _status_code, _headers = get_vault_market_option_analytic_with_http_info(underlying, opts)
+      data
+    end
+
+    # Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry&#39;s smile (&#x60;expiry&#x60;), IV rank and percentile against the series&#39; own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying&#39;s own published series. Every implied vol is derived and display only.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionAnalyticResponse, Integer, Hash)>] GetVaultMarketOptionAnalyticResponse data, response status code and response headers
+    def get_vault_market_option_analytic_with_http_info(underlying, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_analytic ...'
+      end
+      # verify the required parameter 'underlying' is set
+      if @api_client.config.client_side_validation && underlying.nil?
+        fail ArgumentError, "Missing the required parameter 'underlying' when calling VaultMarketsApi.get_vault_market_option_analytic"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/analytics/{underlying}'.sub('{' + 'underlying' + '}', CGI.escape(underlying.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionAnalyticResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_analytic",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_analytic\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionAutoCloseResponse]
+    def get_vault_market_option_auto_close(opts = {})
+      data, _status_code, _headers = get_vault_market_option_auto_close_with_http_info(opts)
+      data
+    end
+
+    # Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionAutoCloseResponse, Integer, Hash)>] GetVaultMarketOptionAutoCloseResponse data, response status code and response headers
+    def get_vault_market_option_auto_close_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_auto_close ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/auto-close'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionAutoCloseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_auto_close",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_auto_close\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The option chain for an underlying (index slug or book key): its expiries, and for one expiry (`expiry`, default the nearest) each strike's call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionChainResponse]
+    def get_vault_market_option_chain(underlying, opts = {})
+      data, _status_code, _headers = get_vault_market_option_chain_with_http_info(underlying, opts)
+      data
+    end
+
+    # The option chain for an underlying (index slug or book key): its expiries, and for one expiry (&#x60;expiry&#x60;, default the nearest) each strike&#39;s call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionChainResponse, Integer, Hash)>] GetVaultMarketOptionChainResponse data, response status code and response headers
+    def get_vault_market_option_chain_with_http_info(underlying, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_chain ...'
+      end
+      # verify the required parameter 'underlying' is set
+      if @api_client.config.client_side_validation && underlying.nil?
+        fail ArgumentError, "Missing the required parameter 'underlying' when calling VaultMarketsApi.get_vault_market_option_chain"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/chain/{underlying}'.sub('{' + 'underlying' + '}', CGI.escape(underlying.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionChainResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_chain",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_chain\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One strategy's combo book by its canonical key (`key`, from the preview or an order): bids and asks by net price and recent strategy trades.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionComboBookResponse]
+    def get_vault_market_option_combo_book(opts = {})
+      data, _status_code, _headers = get_vault_market_option_combo_book_with_http_info(opts)
+      data
+    end
+
+    # One strategy&#39;s combo book by its canonical key (&#x60;key&#x60;, from the preview or an order): bids and asks by net price and recent strategy trades.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionComboBookResponse, Integer, Hash)>] GetVaultMarketOptionComboBookResponse data, response status code and response headers
+    def get_vault_market_option_combo_book_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_combo_book ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/book'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionComboBookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_combo_book",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_combo_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One strategy quote request and its answers (all of them to the requester, your own to a responder).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionComboRfqResponse]
+    def get_vault_market_option_combo_rfq(id, opts = {})
+      data, _status_code, _headers = get_vault_market_option_combo_rfq_with_http_info(id, opts)
+      data
+    end
+
+    # One strategy quote request and its answers (all of them to the requester, your own to a responder).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionComboRfqResponse, Integer, Hash)>] GetVaultMarketOptionComboRfqResponse data, response status code and response headers
+    def get_vault_market_option_combo_rfq_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_combo_rfq ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_option_combo_rfq"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionComboRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_combo_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_combo_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionContractResponse]
+    def get_vault_market_option_contract(id, opts = {})
+      data, _status_code, _headers = get_vault_market_option_contract_with_http_info(id, opts)
+      data
+    end
+
+    # One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionContractResponse, Integer, Hash)>] GetVaultMarketOptionContractResponse data, response status code and response headers
+    def get_vault_market_option_contract_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_contract ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_option_contract"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/contracts/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionContractResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_contract",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_contract\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A contract's order book on the Crossly venue (`levels`, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionContractBookResponse]
+    def get_vault_market_option_contract_book(id, opts = {})
+      data, _status_code, _headers = get_vault_market_option_contract_book_with_http_info(id, opts)
+      data
+    end
+
+    # A contract&#39;s order book on the Crossly venue (&#x60;levels&#x60;, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionContractBookResponse, Integer, Hash)>] GetVaultMarketOptionContractBookResponse data, response status code and response headers
+    def get_vault_market_option_contract_book_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_contract_book ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_option_contract_book"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/contracts/{id}/book'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionContractBookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_contract_book",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_contract_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A settled contract's settlement: the value (cents per unit of the underlying), its source (the index's frozen 7-day TWAP, the item's expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionContractSettlementResponse]
+    def get_vault_market_option_contract_settlement(id, opts = {})
+      data, _status_code, _headers = get_vault_market_option_contract_settlement_with_http_info(id, opts)
+      data
+    end
+
+    # A settled contract&#39;s settlement: the value (cents per unit of the underlying), its source (the index&#39;s frozen 7-day TWAP, the item&#39;s expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionContractSettlementResponse, Integer, Hash)>] GetVaultMarketOptionContractSettlementResponse data, response status code and response headers
+    def get_vault_market_option_contract_settlement_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_contract_settlement ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_option_contract_settlement"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/contracts/{id}/settlement'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionContractSettlementResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_contract_settlement",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_contract_settlement\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionHedgeResponse]
+    def get_vault_market_option_hedge(opts = {})
+      data, _status_code, _headers = get_vault_market_option_hedge_with_http_info(opts)
+      data
+    end
+
+    # Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionHedgeResponse, Integer, Hash)>] GetVaultMarketOptionHedgeResponse data, response status code and response headers
+    def get_vault_market_option_hedge_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_hedge ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/hedges'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionHedgeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_hedge",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_hedge\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionIvResponse]
+    def get_vault_market_option_iv(underlying, opts = {})
+      data, _status_code, _headers = get_vault_market_option_iv_with_http_info(underlying, opts)
+      data
+    end
+
+    # The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+    # @param underlying [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionIvResponse, Integer, Hash)>] GetVaultMarketOptionIvResponse data, response status code and response headers
+    def get_vault_market_option_iv_with_http_info(underlying, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_iv ...'
+      end
+      # verify the required parameter 'underlying' is set
+      if @api_client.config.client_side_validation && underlying.nil?
+        fail ArgumentError, "Missing the required parameter 'underlying' when calling VaultMarketsApi.get_vault_market_option_iv"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/iv/{underlying}'.sub('{' + 'underlying' + '}', CGI.escape(underlying.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionIvResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_iv",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_iv\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner's figure decides and this is an estimate.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionMarginResponse]
+    def get_vault_market_option_margin(opts = {})
+      data, _status_code, _headers = get_vault_market_option_margin_with_http_info(opts)
+      data
+    end
+
+    # Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner&#39;s figure decides and this is an estimate.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionMarginResponse, Integer, Hash)>] GetVaultMarketOptionMarginResponse data, response status code and response headers
+    def get_vault_market_option_margin_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_margin ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/margin'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionMarginResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_margin",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_margin\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your whole options position on one `underlying` at expiry: the P&L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionPayoffResponse]
+    def get_vault_market_option_payoff(opts = {})
+      data, _status_code, _headers = get_vault_market_option_payoff_with_http_info(opts)
+      data
+    end
+
+    # Your whole options position on one &#x60;underlying&#x60; at expiry: the P&amp;L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionPayoffResponse, Integer, Hash)>] GetVaultMarketOptionPayoffResponse data, response status code and response headers
+    def get_vault_market_option_payoff_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_payoff ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/payoff'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionPayoffResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_payoff",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_payoff\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. `status` open (default) / all, `subaccountId`.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionPositionResponse]
+    def get_vault_market_option_position(opts = {})
+      data, _status_code, _headers = get_vault_market_option_position_with_http_info(opts)
+      data
+    end
+
+    # Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&amp;L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. &#x60;status&#x60; open (default) / all, &#x60;subaccountId&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionPositionResponse, Integer, Hash)>] GetVaultMarketOptionPositionResponse data, response status code and response headers
+    def get_vault_market_option_position_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_position ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/positions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionPositionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_position",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_position\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker's price, equity and P&L.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionPracticeResponse]
+    def get_vault_market_option_practice(opts = {})
+      data, _status_code, _headers = get_vault_market_option_practice_with_http_info(opts)
+      data
+    end
+
+    # Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker&#39;s price, equity and P&amp;L.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionPracticeResponse, Integer, Hash)>] GetVaultMarketOptionPracticeResponse data, response status code and response headers
+    def get_vault_market_option_practice_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_practice ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionPracticeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_practice",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_practice\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One option quote request: yours with every answer, or one you were sent with your own answer.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionRfqResponse]
+    def get_vault_market_option_rfq(id, opts = {})
+      data, _status_code, _headers = get_vault_market_option_rfq_with_http_info(id, opts)
+      data
+    end
+
+    # One option quote request: yours with every answer, or one you were sent with your own answer.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionRfqResponse, Integer, Hash)>] GetVaultMarketOptionRfqResponse data, response status code and response headers
+    def get_vault_market_option_rfq_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_rfq ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_option_rfq"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options portfolio's Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario's P&L (`priceShift`, `volShift`, `daysForward`), a price x vol P&L grid, and the beta-weighted delta against an index (`betaIndex`, default the deepest). `book` live (default) or practice.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionRiskResponse]
+    def get_vault_market_option_risk(opts = {})
+      data, _status_code, _headers = get_vault_market_option_risk_with_http_info(opts)
+      data
+    end
+
+    # Your options portfolio&#39;s Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;), a price x vol P&amp;L grid, and the beta-weighted delta against an index (&#x60;betaIndex&#x60;, default the deepest). &#x60;book&#x60; live (default) or practice.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionRiskResponse, Integer, Hash)>] GetVaultMarketOptionRiskResponse data, response status code and response headers
+    def get_vault_market_option_risk_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_option_risk ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/risk'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionRiskResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_option_risk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_option_risk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Crossly as an oracle publisher (needs CROSSLY_ORACLE_PUBLISHER_KEY + CROSSLY_ORACLE_NETWORK): the network (pyth or switchboard), the ed25519 key every value is signed with, each published index feed with its latest attempt, and 24 h counts of published, skipped and failed. Only built-in indexes priced from A/B marks are published; Crossly never reads its own feed back.
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketOracleResponse]
@@ -15486,7 +22134,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+    # Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketPartnerMeResponse]
     def get_vault_market_partner_me(opts = {})
@@ -15494,7 +22142,7 @@ module Crossly
       data
     end
 
-    # Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+    # Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketPartnerMeResponse, Integer, Hash)>] GetVaultMarketPartnerMeResponse data, response status code and response headers
     def get_vault_market_partner_me_with_http_info(opts = {})
@@ -16002,6 +22650,1380 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_position_risk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The prediction markets home: the busiest and soonest-expiring \"Will it hit?\" markets with their probability (each market's own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionResponse]
+    def get_vault_market_prediction(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_with_http_info(opts)
+      data
+    end
+
+    # The prediction markets home: the busiest and soonest-expiring \&quot;Will it hit?\&quot; markets with their probability (each market&#39;s own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionResponse, Integer, Hash)>] GetVaultMarketPredictionResponse data, response status code and response headers
+    def get_vault_market_prediction_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionAccountResponse]
+    def get_vault_market_prediction_account(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_account_with_http_info(opts)
+      data
+    end
+
+    # Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionAccountResponse, Integer, Hash)>] GetVaultMarketPredictionAccountResponse data, response status code and response headers
+    def get_vault_market_prediction_account_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_account ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/account'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionAccountResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_account",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_account\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionBoardResponse]
+    def get_vault_market_prediction_board(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_board_with_http_info(opts)
+      data
+    end
+
+    # The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionBoardResponse, Integer, Hash)>] GetVaultMarketPredictionBoardResponse data, response status code and response headers
+    def get_vault_market_prediction_board_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_board ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/board'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionBoardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_board",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_board\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One of your combos.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionCombosItem]
+    def get_vault_market_prediction_combo(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_combo_with_http_info(id, opts)
+      data
+    end
+
+    # One of your combos.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionCombosItem, Integer, Hash)>] ListVaultMarketPredictionCombosItem data, response status code and response headers
+    def get_vault_market_prediction_combo_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_combo ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_combo"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionCombosItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_combo",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_combo\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionComboRfqsItem]
+    def get_vault_market_prediction_combo_rfq(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_combo_rfq_with_http_info(id, opts)
+      data
+    end
+
+    # One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionComboRfqsItem, Integer, Hash)>] ListVaultMarketPredictionComboRfqsItem data, response status code and response headers
+    def get_vault_market_prediction_combo_rfq_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_combo_rfq ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_combo_rfq"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/rfqs/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionComboRfqsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_combo_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_combo_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The published daily settlement price of every listed market for a day (default yesterday): the last hour's volume-weighted Yes price, else the book mid, else the prior day's, with volume and open interest.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionDailyPriceResponse]
+    def get_vault_market_prediction_daily_price(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_daily_price_with_http_info(opts)
+      data
+    end
+
+    # The published daily settlement price of every listed market for a day (default yesterday): the last hour&#39;s volume-weighted Yes price, else the book mid, else the prior day&#39;s, with volume and open interest.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionDailyPriceResponse, Integer, Hash)>] GetVaultMarketPredictionDailyPriceResponse data, response status code and response headers
+    def get_vault_market_prediction_daily_price_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_daily_price ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/daily-prices'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionDailyPriceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_daily_price",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_daily_price\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. `venue` paper or live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionEventResponse]
+    def get_vault_market_prediction_event(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_event_with_http_info(id, opts)
+      data
+    end
+
+    # One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. &#x60;venue&#x60; paper or live.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionEventResponse, Integer, Hash)>] GetVaultMarketPredictionEventResponse data, response status code and response headers
+    def get_vault_market_prediction_event_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_event ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_event"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/events/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionForecasterResponse]
+    def get_vault_market_prediction_forecaster(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_forecaster_with_http_info(opts)
+      data
+    end
+
+    # Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionForecasterResponse, Integer, Hash)>] GetVaultMarketPredictionForecasterResponse data, response status code and response headers
+    def get_vault_market_prediction_forecaster_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_forecaster ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecaster'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionForecasterResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_forecaster",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_forecaster\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionForecasterByIdResponse]
+    def get_vault_market_prediction_forecaster_by_id(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_forecaster_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionForecasterByIdResponse, Integer, Hash)>] GetVaultMarketPredictionForecasterByIdResponse data, response status code and response headers
+    def get_vault_market_prediction_forecaster_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_forecaster_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_forecaster_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecasters/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionForecasterByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_forecaster_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_forecaster_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Opt-in forecaster leaderboards: `period` week, month or all; `metric` pnl, accuracy or brier; `venue` live or paper (practice has its own board).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionLeaderboardResponse]
+    def get_vault_market_prediction_leaderboard(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_leaderboard_with_http_info(opts)
+      data
+    end
+
+    # Opt-in forecaster leaderboards: &#x60;period&#x60; week, month or all; &#x60;metric&#x60; pnl, accuracy or brier; &#x60;venue&#x60; live or paper (practice has its own board).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionLeaderboardResponse, Integer, Hash)>] GetVaultMarketPredictionLeaderboardResponse data, response status code and response headers
+    def get_vault_market_prediction_leaderboard_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_leaderboard ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/leaderboard'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionLeaderboardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_leaderboard",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_leaderboard\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionLimitResponse]
+    def get_vault_market_prediction_limit(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_limit_with_http_info(opts)
+      data
+    end
+
+    # Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionLimitResponse, Integer, Hash)>] GetVaultMarketPredictionLimitResponse data, response status code and response headers
+    def get_vault_market_prediction_limit_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_limit ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/limits'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionLimitResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_limit",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_limit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionMarketResponse]
+    def get_vault_market_prediction_market(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_market_with_http_info(id, opts)
+      data
+    end
+
+    # One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionMarketResponse, Integer, Hash)>] GetVaultMarketPredictionMarketResponse data, response status code and response headers
+    def get_vault_market_prediction_market_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_market ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_market"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/markets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionMarketResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_market",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_market\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # How many people forecast a market and their median probability (no names).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionMarketForecastResponse]
+    def get_vault_market_prediction_market_forecast(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_market_forecast_with_http_info(id, opts)
+      data
+    end
+
+    # How many people forecast a market and their median probability (no names).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionMarketForecastResponse, Integer, Hash)>] GetVaultMarketPredictionMarketForecastResponse data, response status code and response headers
+    def get_vault_market_prediction_market_forecast_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_market_forecast ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_market_forecast"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/markets/{id}/forecasts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionMarketForecastResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_market_forecast",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_market_forecast\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A market's history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over `range` 1d, 1w, 1m or all; `venue` live or paper.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionMarketHistoryResponse]
+    def get_vault_market_prediction_market_history(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_market_history_with_http_info(id, opts)
+      data
+    end
+
+    # A market&#39;s history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over &#x60;range&#x60; 1d, 1w, 1m or all; &#x60;venue&#x60; live or paper.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionMarketHistoryResponse, Integer, Hash)>] GetVaultMarketPredictionMarketHistoryResponse data, response status code and response headers
+    def get_vault_market_prediction_market_history_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_market_history ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_market_history"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/markets/{id}/history'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionMarketHistoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_market_history",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_market_history\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A server-sent event stream for one prediction market: `snapshot` first, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement` as they change.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [String]
+    def get_vault_market_prediction_market_stream(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_market_stream_with_http_info(id, opts)
+      data
+    end
+
+    # A server-sent event stream for one prediction market: &#x60;snapshot&#x60; first, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60; as they change.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
+    def get_vault_market_prediction_market_stream_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_market_stream ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_market_stream"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/markets/{id}/stream'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/event-stream', 'application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'String'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_market_stream",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_market_stream\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The trade tape, newest first: Yes price, size, which side took, venue. Page with `before` (the last `seq`).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionMarketTradeResponse]
+    def get_vault_market_prediction_market_trade(id, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_market_trade_with_http_info(id, opts)
+      data
+    end
+
+    # The trade tape, newest first: Yes price, size, which side took, venue. Page with &#x60;before&#x60; (the last &#x60;seq&#x60;).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionMarketTradeResponse, Integer, Hash)>] GetVaultMarketPredictionMarketTradeResponse data, response status code and response headers
+    def get_vault_market_prediction_market_trade_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_market_trade ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_prediction_market_trade"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/markets/{id}/trades'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionMarketTradeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_market_trade",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_market_trade\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A server-sent event stream of your own prediction events: `pm_order` (placed, filled, amended, cancelled, expired), `pm_fill` (your side, price and fee), `pm_position`, `pm_combo` and `pm_conversion`.
+    # @param [Hash] opts the optional parameters
+    # @return [String]
+    def get_vault_market_prediction_me_stream(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_me_stream_with_http_info(opts)
+      data
+    end
+
+    # A server-sent event stream of your own prediction events: &#x60;pm_order&#x60; (placed, filled, amended, cancelled, expired), &#x60;pm_fill&#x60; (your side, price and fee), &#x60;pm_position&#x60;, &#x60;pm_combo&#x60; and &#x60;pm_conversion&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
+    def get_vault_market_prediction_me_stream_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_me_stream ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/me/stream'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/event-stream', 'application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'String'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_me_stream",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_me_stream\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The two \"Will it hit?\" practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionMissionResponse]
+    def get_vault_market_prediction_mission(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_mission_with_http_info(opts)
+      data
+    end
+
+    # The two \&quot;Will it hit?\&quot; practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionMissionResponse, Integer, Hash)>] GetVaultMarketPredictionMissionResponse data, response status code and response headers
+    def get_vault_market_prediction_mission_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_mission ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/missions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionMissionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_mission",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_mission\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionPaperResponse]
+    def get_vault_market_prediction_paper(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_paper_with_http_info(opts)
+      data
+    end
+
+    # Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionPaperResponse, Integer, Hash)>] GetVaultMarketPredictionPaperResponse data, response status code and response headers
+    def get_vault_market_prediction_paper_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_paper ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/paper'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionPaperResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_paper",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_paper\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi's formula), the money it would lock, and the most it could pay out.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionQuoteResponse]
+    def get_vault_market_prediction_quote(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_quote_with_http_info(opts)
+      data
+    end
+
+    # What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi&#39;s formula), the money it would lock, and the most it could pay out.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionQuoteResponse, Integer, Hash)>] GetVaultMarketPredictionQuoteResponse data, response status code and response headers
+    def get_vault_market_prediction_quote_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_quote ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/quote'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionQuoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_quote",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_quote\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The prediction venue's rule book now and every version, each hashed and chained to the one before (`chainOk`).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionRulebookResponse]
+    def get_vault_market_prediction_rulebook(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_rulebook_with_http_info(opts)
+      data
+    end
+
+    # The prediction venue&#39;s rule book now and every version, each hashed and chained to the one before (&#x60;chainOk&#x60;).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionRulebookResponse, Integer, Hash)>] GetVaultMarketPredictionRulebookResponse data, response status code and response headers
+    def get_vault_market_prediction_rulebook_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_rulebook ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/rulebook'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionRulebookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_rulebook",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_rulebook\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
+    # @param [Hash] opts the optional parameters
+    # @return [String]
+    def get_vault_market_prediction_stream(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_stream_with_http_info(opts)
+      data
+    end
+
+    # A server-sent event stream for up to 50 markets (&#x60;markets&#x60;&#x3D;id,id): &#x60;ready&#x60;, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60;, each carrying its marketId.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
+    def get_vault_market_prediction_stream_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_stream ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/stream'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['text/event-stream', 'application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'String'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_stream",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_stream\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionVenueResponse]
+    def get_vault_market_prediction_venue(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_venue_with_http_info(opts)
+      data
+    end
+
+    # Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionVenueResponse, Integer, Hash)>] GetVaultMarketPredictionVenueResponse data, response status code and response headers
+    def get_vault_market_prediction_venue_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_venue ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/venue'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionVenueResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_venue",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_venue\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The \"Will it hit?\" panel for a key (`bookKey`) or an index (`index` slug): its open markets grouped by expiry, each with its probability. `eligible` is false when nothing is listed on it.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionWillItHitResponse]
+    def get_vault_market_prediction_will_it_hit(opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_will_it_hit_with_http_info(opts)
+      data
+    end
+
+    # The \&quot;Will it hit?\&quot; panel for a key (&#x60;bookKey&#x60;) or an index (&#x60;index&#x60; slug): its open markets grouped by expiry, each with its probability. &#x60;eligible&#x60; is false when nothing is listed on it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionWillItHitResponse, Integer, Hash)>] GetVaultMarketPredictionWillItHitResponse data, response status code and response headers
+    def get_vault_market_prediction_will_it_hit_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_will_it_hit ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/will-it-hit'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionWillItHitResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_prediction_will_it_hit",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_prediction_will_it_hit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -17099,6 +25121,177 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSettingResponse]
+    def get_vault_market_setting(opts = {})
+      data, _status_code, _headers = get_vault_market_setting_with_http_info(opts)
+      data
+    end
+
+    # Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSettingResponse, Integer, Hash)>] GetVaultMarketSettingResponse data, response status code and response headers
+    def get_vault_market_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareResponse]
+    def get_vault_market_share(opts = {})
+      data, _status_code, _headers = get_vault_market_share_with_http_info(opts)
+      data
+    end
+
+    # Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareResponse, Integer, Hash)>] GetVaultMarketShareResponse data, response status code and response headers
+    def get_vault_market_share_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareBasketResponse]
+    def get_vault_market_share_basket(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_basket_with_http_info(id, opts)
+      data
+    end
+
+    # One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareBasketResponse, Integer, Hash)>] GetVaultMarketShareBasketResponse data, response status code and response headers
+    def get_vault_market_share_basket_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_basket ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_basket"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/baskets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareBasketResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_basket",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_basket\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # One share card as the public sees it, with its image and link paths.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -17156,6 +25349,592 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_card\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareInvestorResponse]
+    def get_vault_market_share_investor(opts = {})
+      data, _status_code, _headers = get_vault_market_share_investor_with_http_info(opts)
+      data
+    end
+
+    # Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareInvestorResponse, Integer, Hash)>] GetVaultMarketShareInvestorResponse data, response status code and response headers
+    def get_vault_market_share_investor_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_investor ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/investor'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareInvestorResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_investor",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_investor\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareMeResponse]
+    def get_vault_market_share_me(opts = {})
+      data, _status_code, _headers = get_vault_market_share_me_with_http_info(opts)
+      data
+    end
+
+    # Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareMeResponse, Integer, Hash)>] GetVaultMarketShareMeResponse data, response status code and response headers
+    def get_vault_market_share_me_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_me ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/me'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareMeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_me",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_me\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSharePaperResponse]
+    def get_vault_market_share_paper(opts = {})
+      data, _status_code, _headers = get_vault_market_share_paper_with_http_info(opts)
+      data
+    end
+
+    # Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSharePaperResponse, Integer, Hash)>] GetVaultMarketSharePaperResponse data, response status code and response headers
+    def get_vault_market_share_paper_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_paper ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/paper'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSharePaperResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_paper",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_paper\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSharePaperSeryBookResponse]
+    def get_vault_market_share_paper_sery_book(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_paper_sery_book_with_http_info(id, opts)
+      data
+    end
+
+    # A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSharePaperSeryBookResponse, Integer, Hash)>] GetVaultMarketSharePaperSeryBookResponse data, response status code and response headers
+    def get_vault_market_share_paper_sery_book_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_paper_sery_book ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_paper_sery_book"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/paper/series/{id}/book'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSharePaperSeryBookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_paper_sery_book",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_paper_sery_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSharePreviewResponse]
+    def get_vault_market_share_preview(opts = {})
+      data, _status_code, _headers = get_vault_market_share_preview_with_http_info(opts)
+      data
+    end
+
+    # Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSharePreviewResponse, Integer, Hash)>] GetVaultMarketSharePreviewResponse data, response status code and response headers
+    def get_vault_market_share_preview_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_preview ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/preview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSharePreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareSeryResponse]
+    def get_vault_market_share_sery(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_sery_with_http_info(id, opts)
+      data
+    end
+
+    # One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareSeryResponse, Integer, Hash)>] GetVaultMarketShareSeryResponse data, response status code and response headers
+    def get_vault_market_share_sery_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_sery ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_sery"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareSeryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_sery",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_sery\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A share book’s depth: whole shares per price level (integer cents a share), best first.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareSeryBookResponse]
+    def get_vault_market_share_sery_book(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_sery_book_with_http_info(id, opts)
+      data
+    end
+
+    # A share book’s depth: whole shares per price level (integer cents a share), best first.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareSeryBookResponse, Integer, Hash)>] GetVaultMarketShareSeryBookResponse data, response status code and response headers
+    def get_vault_market_share_sery_book_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_sery_book ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_sery_book"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/book'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareSeryBookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_sery_book",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_sery_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A series’ full price history: OHLC candles of every share-book fill (`interval` 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareSeryHistoryResponse]
+    def get_vault_market_share_sery_history(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_sery_history_with_http_info(id, opts)
+      data
+    end
+
+    # A series’ full price history: OHLC candles of every share-book fill (&#x60;interval&#x60; 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareSeryHistoryResponse, Integer, Hash)>] GetVaultMarketShareSeryHistoryResponse data, response status code and response headers
+    def get_vault_market_share_sery_history_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_sery_history ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_sery_history"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/history'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareSeryHistoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_sery_history",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_sery_history\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareSeryPerkResponse]
+    def get_vault_market_share_sery_perk(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_sery_perk_with_http_info(id, opts)
+      data
+    end
+
+    # Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareSeryPerkResponse, Integer, Hash)>] GetVaultMarketShareSeryPerkResponse data, response status code and response headers
+    def get_vault_market_share_sery_perk_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_sery_perk ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_sery_perk"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/perks'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareSeryPerkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_sery_perk",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_sery_perk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. `before` pages back.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketShareSeryRoomResponse]
+    def get_vault_market_share_sery_room(id, opts = {})
+      data, _status_code, _headers = get_vault_market_share_sery_room_with_http_info(id, opts)
+      data
+    end
+
+    # The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. &#x60;before&#x60; pages back.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketShareSeryRoomResponse, Integer, Hash)>] GetVaultMarketShareSeryRoomResponse data, response status code and response headers
+    def get_vault_market_share_sery_room_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_share_sery_room ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_share_sery_room"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/room'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketShareSeryRoomResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_share_sery_room",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_share_sery_room\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -17514,6 +26293,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # One shipment into the vault, with each unit and whether it was received.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSupplyShipmentResponse]
+    def get_vault_market_supply_shipment(id, opts = {})
+      data, _status_code, _headers = get_vault_market_supply_shipment_with_http_info(id, opts)
+      data
+    end
+
+    # One shipment into the vault, with each unit and whether it was received.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSupplyShipmentResponse, Integer, Hash)>] GetVaultMarketSupplyShipmentResponse data, response status code and response headers
+    def get_vault_market_supply_shipment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_supply_shipment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.get_vault_market_supply_shipment"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/supply/shipments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSupplyShipmentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_supply_shipment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_supply_shipment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your tax year on the vault markets: units bought and sold with cost, proceeds, gain and term; lending fees, staking interest (estimate), market-maker rewards; closed positions. Links to the CSV and PDF.
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketTaxResponse]
@@ -17679,6 +26519,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your fractional options tax lots for a calendar year (`year`, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketTaxOptionResponse]
+    def get_vault_market_tax_option(opts = {})
+      data, _status_code, _headers = get_vault_market_tax_option_with_http_info(opts)
+      data
+    end
+
+    # Your fractional options tax lots for a calendar year (&#x60;year&#x60;, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketTaxOptionResponse, Integer, Hash)>] GetVaultMarketTaxOptionResponse data, response status code and response headers
+    def get_vault_market_tax_option_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_tax_option ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/tax/options'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketTaxOptionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_tax_option",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_tax_option\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # The tax year as a PDF summary.
     # @param [Hash] opts the optional parameters
     # @return [File]
@@ -17730,6 +26625,116 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_tax_pdf\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your prediction-market results for a calendar year (`year`), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketTaxPredictionResponse]
+    def get_vault_market_tax_prediction(opts = {})
+      data, _status_code, _headers = get_vault_market_tax_prediction_with_http_info(opts)
+      data
+    end
+
+    # Your prediction-market results for a calendar year (&#x60;year&#x60;), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketTaxPredictionResponse, Integer, Hash)>] GetVaultMarketTaxPredictionResponse data, response status code and response headers
+    def get_vault_market_tax_prediction_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_tax_prediction ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/tax/predictions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketTaxPredictionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_tax_prediction",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_tax_prediction\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your Vault Shares tax lots for a calendar year (`year`): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketTaxShareResponse]
+    def get_vault_market_tax_share(opts = {})
+      data, _status_code, _headers = get_vault_market_tax_share_with_http_info(opts)
+      data
+    end
+
+    # Your Vault Shares tax lots for a calendar year (&#x60;year&#x60;): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketTaxShareResponse, Integer, Hash)>] GetVaultMarketTaxShareResponse data, response status code and response headers
+    def get_vault_market_tax_share_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_tax_share ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/tax/shares'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketTaxShareResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_tax_share",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_tax_share\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -18780,6 +27785,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_world_floor\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \"Will it hit?\" markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketWorldFloorBoardResponse]
+    def get_vault_market_world_floor_board(opts = {})
+      data, _status_code, _headers = get_vault_market_world_floor_board_with_http_info(opts)
+      data
+    end
+
+    # The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \&quot;Will it hit?\&quot; markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketWorldFloorBoardResponse, Integer, Hash)>] GetVaultMarketWorldFloorBoardResponse data, response status code and response headers
+    def get_vault_market_world_floor_board_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_world_floor_board ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/world/floor/boards'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketWorldFloorBoardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.get_vault_market_world_floor_board",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#get_vault_market_world_floor_board\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -21142,6 +30202,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (`valueCents` with `valueSource` mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (`actions`). Units sold or shipped home in the last 90 days have `past: true`. `meta` carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketHoldingsResponse]
+    def list_vault_market_holdings(opts = {})
+      data, _status_code, _headers = list_vault_market_holdings_with_http_info(opts)
+      data
+    end
+
+    # Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (&#x60;valueCents&#x60; with &#x60;valueSource&#x60; mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (&#x60;actions&#x60;). Units sold or shipped home in the last 90 days have &#x60;past: true&#x60;. &#x60;meta&#x60; carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketHoldingsResponse, Integer, Hash)>] ListVaultMarketHoldingsResponse data, response status code and response headers
+    def list_vault_market_holdings_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_holdings ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/holdings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketHoldingsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_holdings",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_holdings\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Published Index Committee minutes, newest first: attendees (names and roles), quorum, agenda, minutes and decisions.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketIndexCommitteeMinutesResponse]
@@ -22492,6 +31607,782 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your strategy quote requests, newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionComboRfqResponse]
+    def list_vault_market_option_combo_rfq(opts = {})
+      data, _status_code, _headers = list_vault_market_option_combo_rfq_with_http_info(opts)
+      data
+    end
+
+    # Your strategy quote requests, newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionComboRfqResponse, Integer, Hash)>] ListVaultMarketOptionComboRfqResponse data, response status code and response headers
+    def list_vault_market_option_combo_rfq_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_combo_rfq ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionComboRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_combo_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_combo_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionComboRfqResponse]
+    def list_vault_market_option_combo_rfq_inbox(opts = {})
+      data, _status_code, _headers = list_vault_market_option_combo_rfq_inbox_with_http_info(opts)
+      data
+    end
+
+    # Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionComboRfqResponse, Integer, Hash)>] ListVaultMarketOptionComboRfqResponse data, response status code and response headers
+    def list_vault_market_option_combo_rfq_inbox_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_combo_rfq_inbox ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos/rfq/inbox'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionComboRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_combo_rfq_inbox",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_combo_rfq_inbox\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your strategies: `status` working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionCombosResponse]
+    def list_vault_market_option_combos(opts = {})
+      data, _status_code, _headers = list_vault_market_option_combos_with_http_info(opts)
+      data
+    end
+
+    # Your strategies: &#x60;status&#x60; working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionCombosResponse, Integer, Hash)>] ListVaultMarketOptionCombosResponse data, response status code and response headers
+    def list_vault_market_option_combos_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_combos ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/combos'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionCombosResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_combos",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_combos\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A contract's published daily settlement prices, newest first (`days`, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row's chain hash.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionContractDailyResponse]
+    def list_vault_market_option_contract_daily(id, opts = {})
+      data, _status_code, _headers = list_vault_market_option_contract_daily_with_http_info(id, opts)
+      data
+    end
+
+    # A contract&#39;s published daily settlement prices, newest first (&#x60;days&#x60;, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row&#39;s chain hash.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionContractDailyResponse, Integer, Hash)>] ListVaultMarketOptionContractDailyResponse data, response status code and response headers
+    def list_vault_market_option_contract_daily_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_contract_daily ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.list_vault_market_option_contract_daily"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/contracts/{id}/daily'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionContractDailyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_contract_daily",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_contract_daily\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionMmQuotesResponse]
+    def list_vault_market_option_mm_quotes(opts = {})
+      data, _status_code, _headers = list_vault_market_option_mm_quotes_with_http_info(opts)
+      data
+    end
+
+    # Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionMmQuotesResponse, Integer, Hash)>] ListVaultMarketOptionMmQuotesResponse data, response status code and response headers
+    def list_vault_market_option_mm_quotes_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_mm_quotes ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/mm/quotes'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionMmQuotesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_mm_quotes",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_mm_quotes\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionNoticesResponse]
+    def list_vault_market_option_notices(opts = {})
+      data, _status_code, _headers = list_vault_market_option_notices_with_http_info(opts)
+      data
+    end
+
+    # Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionNoticesResponse, Integer, Hash)>] ListVaultMarketOptionNoticesResponse data, response status code and response headers
+    def list_vault_market_option_notices_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_notices ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/notices'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionNoticesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_notices",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_notices\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your options orders, newest first: `status` working (default) / done / all, `limit`, `subaccountId`.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionOrdersResponse]
+    def list_vault_market_option_orders(opts = {})
+      data, _status_code, _headers = list_vault_market_option_orders_with_http_info(opts)
+      data
+    end
+
+    # Your options orders, newest first: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;, &#x60;subaccountId&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionOrdersResponse, Integer, Hash)>] ListVaultMarketOptionOrdersResponse data, response status code and response headers
+    def list_vault_market_option_orders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_orders ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionOrdersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_orders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your practice strategies.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionCombosResponse]
+    def list_vault_market_option_practice_combos(opts = {})
+      data, _status_code, _headers = list_vault_market_option_practice_combos_with_http_info(opts)
+      data
+    end
+
+    # Your practice strategies.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionCombosResponse, Integer, Hash)>] ListVaultMarketOptionCombosResponse data, response status code and response headers
+    def list_vault_market_option_practice_combos_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_practice_combos ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/combos'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionCombosResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_practice_combos",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_practice_combos\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your practice options fills, newest first (`limit`).
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionPracticeFillsResponse]
+    def list_vault_market_option_practice_fills(opts = {})
+      data, _status_code, _headers = list_vault_market_option_practice_fills_with_http_info(opts)
+      data
+    end
+
+    # Your practice options fills, newest first (&#x60;limit&#x60;).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionPracticeFillsResponse, Integer, Hash)>] ListVaultMarketOptionPracticeFillsResponse data, response status code and response headers
+    def list_vault_market_option_practice_fills_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_practice_fills ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/fills'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionPracticeFillsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_practice_fills",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_practice_fills\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your practice options orders: `status` working (default) / done / all, `limit`.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionPracticeOrdersResponse]
+    def list_vault_market_option_practice_orders(opts = {})
+      data, _status_code, _headers = list_vault_market_option_practice_orders_with_http_info(opts)
+      data
+    end
+
+    # Your practice options orders: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionPracticeOrdersResponse, Integer, Hash)>] ListVaultMarketOptionPracticeOrdersResponse data, response status code and response headers
+    def list_vault_market_option_practice_orders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_practice_orders ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/practice/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionPracticeOrdersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_practice_orders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_practice_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your option quote requests, newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionRfqResponse]
+    def list_vault_market_option_rfq(opts = {})
+      data, _status_code, _headers = list_vault_market_option_rfq_with_http_info(opts)
+      data
+    end
+
+    # Your option quote requests, newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionRfqResponse, Integer, Hash)>] ListVaultMarketOptionRfqResponse data, response status code and response headers
+    def list_vault_market_option_rfq_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_rfq ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_rfq",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_rfq\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Open option quote requests you can answer.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionRfqResponse]
+    def list_vault_market_option_rfq_inbox(opts = {})
+      data, _status_code, _headers = list_vault_market_option_rfq_inbox_with_http_info(opts)
+      data
+    end
+
+    # Open option quote requests you can answer.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionRfqResponse, Integer, Hash)>] ListVaultMarketOptionRfqResponse data, response status code and response headers
+    def list_vault_market_option_rfq_inbox_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_rfq_inbox ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/rfq/inbox'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionRfqResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_rfq_inbox",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_rfq_inbox\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. `status`: active (default) or all.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionSeriesResponse]
+    def list_vault_market_option_series(opts = {})
+      data, _status_code, _headers = list_vault_market_option_series_with_http_info(opts)
+      data
+    end
+
+    # Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. &#x60;status&#x60;: active (default) or all.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionSeriesResponse, Integer, Hash)>] ListVaultMarketOptionSeriesResponse data, response status code and response headers
+    def list_vault_market_option_series_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_series ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/series'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionSeriesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_series",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_series\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketOptionStrategiesResponse]
+    def list_vault_market_option_strategies(opts = {})
+      data, _status_code, _headers = list_vault_market_option_strategies_with_http_info(opts)
+      data
+    end
+
+    # The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketOptionStrategiesResponse, Integer, Hash)>] ListVaultMarketOptionStrategiesResponse data, response status code and response headers
+    def list_vault_market_option_strategies_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_option_strategies ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/strategies'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketOptionStrategiesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_option_strategies",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_option_strategies\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Recent publish attempts for an index over 30 days, newest first: published, skipped (with the reason: too few items priced, stale marks, confidence too wide...) or failed (with the error). Filter with `status`, cap with `limit` (default 100).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
@@ -23103,6 +32994,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPartnerFinderResponse]
+    def list_vault_market_partner_finder(opts = {})
+      data, _status_code, _headers = list_vault_market_partner_finder_with_http_info(opts)
+      data
+    end
+
+    # Vault drop-off partners near a &#x60;postalCode&#x60;, optionally offering a &#x60;service&#x60;: address, hours and services.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPartnerFinderResponse, Integer, Hash)>] ListVaultMarketPartnerFinderResponse data, response status code and response headers
+    def list_vault_market_partner_finder_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_partner_finder ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/partners/finder'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPartnerFinderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_partner_finder",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_partner_finder\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your stakes in the market pool and what each redeems for now.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketPoolStakesResponse]
@@ -23380,6 +33326,776 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_positions_risk\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionAlertsResponse]
+    def list_vault_market_prediction_alerts(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_alerts_with_http_info(opts)
+      data
+    end
+
+    # Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionAlertsResponse, Integer, Hash)>] ListVaultMarketPredictionAlertsResponse data, response status code and response headers
+    def list_vault_market_prediction_alerts_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_alerts ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/alerts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionAlertsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_alerts",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_alerts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your combo requests with every answer they got.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionComboRfqsResponse]
+    def list_vault_market_prediction_combo_my_rfqs(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_combo_my_rfqs_with_http_info(opts)
+      data
+    end
+
+    # Your combo requests with every answer they got.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionComboRfqsResponse, Integer, Hash)>] ListVaultMarketPredictionComboRfqsResponse data, response status code and response headers
+    def list_vault_market_prediction_combo_my_rfqs_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_combo_my_rfqs ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/my-rfqs'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionComboRfqsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_combo_my_rfqs",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_combo_my_rfqs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Open combo requests makers can answer: legs, size and the legs' own combined price; never who asked. Your own answers are shown on them.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionComboRfqsResponse]
+    def list_vault_market_prediction_combo_rfqs(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_combo_rfqs_with_http_info(opts)
+      data
+    end
+
+    # Open combo requests makers can answer: legs, size and the legs&#39; own combined price; never who asked. Your own answers are shown on them.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionComboRfqsResponse, Integer, Hash)>] ListVaultMarketPredictionComboRfqsResponse data, response status code and response headers
+    def list_vault_market_prediction_combo_rfqs_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_combo_rfqs ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos/rfqs'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionComboRfqsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_combo_rfqs",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_combo_rfqs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionCombosResponse]
+    def list_vault_market_prediction_combos(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_combos_with_http_info(opts)
+      data
+    end
+
+    # Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionCombosResponse, Integer, Hash)>] ListVaultMarketPredictionCombosResponse data, response status code and response headers
+    def list_vault_market_prediction_combos_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_combos ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/combos'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionCombosResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_combos",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_combos\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A discussion thread on a market (`marketId`) or a series (`seriesId`): comments newest first with their replies. A commenter's side shows only when their forecaster profile is public.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionCommentsResponse]
+    def list_vault_market_prediction_comments(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_comments_with_http_info(opts)
+      data
+    end
+
+    # A discussion thread on a market (&#x60;marketId&#x60;) or a series (&#x60;seriesId&#x60;): comments newest first with their replies. A commenter&#39;s side shows only when their forecaster profile is public.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionCommentsResponse, Integer, Hash)>] ListVaultMarketPredictionCommentsResponse data, response status code and response headers
+    def list_vault_market_prediction_comments_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_comments ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/comments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionCommentsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_comments",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_comments\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your bucket-set conversions (split, merge, convert), newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionConversionsResponse]
+    def list_vault_market_prediction_conversions(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_conversions_with_http_info(opts)
+      data
+    end
+
+    # Your bucket-set conversions (split, merge, convert), newest first.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionConversionsResponse, Integer, Hash)>] ListVaultMarketPredictionConversionsResponse data, response status code and response headers
+    def list_vault_market_prediction_conversions_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_conversions ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/conversions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionConversionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_conversions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_conversions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The forecasters you follow.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionFollowingResponse]
+    def list_vault_market_prediction_following(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_following_with_http_info(opts)
+      data
+    end
+
+    # The forecasters you follow.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionFollowingResponse, Integer, Hash)>] ListVaultMarketPredictionFollowingResponse data, response status code and response headers
+    def list_vault_market_prediction_following_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_following ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/following'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionFollowingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_following",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_following\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionForecastsResponse]
+    def list_vault_market_prediction_forecasts(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_forecasts_with_http_info(opts)
+      data
+    end
+
+    # Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionForecastsResponse, Integer, Hash)>] ListVaultMarketPredictionForecastsResponse data, response status code and response headers
+    def list_vault_market_prediction_forecasts_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_forecasts ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecasts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionForecastsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_forecasts",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_forecasts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionMakersResponse]
+    def list_vault_market_prediction_makers(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_makers_with_http_info(opts)
+      data
+    end
+
+    # Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionMakersResponse, Integer, Hash)>] ListVaultMarketPredictionMakersResponse data, response status code and response headers
+    def list_vault_market_prediction_makers_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_makers ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/makers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionMakersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_makers",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_makers\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionMarketsResponse]
+    def list_vault_market_prediction_markets(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_markets_with_http_info(opts)
+      data
+    end
+
+    # Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionMarketsResponse, Integer, Hash)>] ListVaultMarketPredictionMarketsResponse data, response status code and response headers
+    def list_vault_market_prediction_markets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_markets ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/markets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionMarketsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_markets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_markets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your prediction orders, newest first: working, done or all; practice, live or all.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionOrdersResponse]
+    def list_vault_market_prediction_orders(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_orders_with_http_info(opts)
+      data
+    end
+
+    # Your prediction orders, newest first: working, done or all; practice, live or all.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionOrdersResponse, Integer, Hash)>] ListVaultMarketPredictionOrdersResponse data, response status code and response headers
+    def list_vault_market_prediction_orders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_orders ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionOrdersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_orders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&L, payout or refund once settled, and the share card if you made one.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionPositionsResponse]
+    def list_vault_market_prediction_positions(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_positions_with_http_info(opts)
+      data
+    end
+
+    # Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&amp;L, payout or refund once settled, and the share card if you made one.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionPositionsResponse, Integer, Hash)>] ListVaultMarketPredictionPositionsResponse data, response status code and response headers
+    def list_vault_market_prediction_positions_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_positions ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/positions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionPositionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_positions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_positions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The markets you proposed that are listed: volume, status and what the creator share has earned you.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionProposalListedResponse]
+    def list_vault_market_prediction_proposal_listed(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_proposal_listed_with_http_info(opts)
+      data
+    end
+
+    # The markets you proposed that are listed: volume, status and what the creator share has earned you.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionProposalListedResponse, Integer, Hash)>] ListVaultMarketPredictionProposalListedResponse data, response status code and response headers
+    def list_vault_market_prediction_proposal_listed_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_proposal_listed ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/proposals/listed'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionProposalListedResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_proposal_listed",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_proposal_listed\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your market proposals and where each stands (pending, listed, rejected, withdrawn).
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketPredictionProposalsResponse]
+    def list_vault_market_prediction_proposals(opts = {})
+      data, _status_code, _headers = list_vault_market_prediction_proposals_with_http_info(opts)
+      data
+    end
+
+    # Your market proposals and where each stands (pending, listed, rejected, withdrawn).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketPredictionProposalsResponse, Integer, Hash)>] ListVaultMarketPredictionProposalsResponse data, response status code and response headers
+    def list_vault_market_prediction_proposals_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_prediction_proposals ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/proposals'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketPredictionProposalsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_prediction_proposals",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_prediction_proposals\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -24392,6 +35108,177 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareAutoInvestResponse]
+    def list_vault_market_share_auto_invest(opts = {})
+      data, _status_code, _headers = list_vault_market_share_auto_invest_with_http_info(opts)
+      data
+    end
+
+    # Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareAutoInvestResponse, Integer, Hash)>] ListVaultMarketShareAutoInvestResponse data, response status code and response headers
+    def list_vault_market_share_auto_invest_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_auto_invest ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/auto-invest'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareAutoInvestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_auto_invest",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_auto_invest\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareAutoInvestRunsResponse]
+    def list_vault_market_share_auto_invest_runs(id, opts = {})
+      data, _status_code, _headers = list_vault_market_share_auto_invest_runs_with_http_info(id, opts)
+      data
+    end
+
+    # A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareAutoInvestRunsResponse, Integer, Hash)>] ListVaultMarketShareAutoInvestRunsResponse data, response status code and response headers
+    def list_vault_market_share_auto_invest_runs_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_auto_invest_runs ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.list_vault_market_share_auto_invest_runs"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/auto-invest/{id}/runs'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareAutoInvestRunsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_auto_invest_runs",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_auto_invest_runs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareBasketsResponse]
+    def list_vault_market_share_baskets(opts = {})
+      data, _status_code, _headers = list_vault_market_share_baskets_with_http_info(opts)
+      data
+    end
+
+    # Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareBasketsResponse, Integer, Hash)>] ListVaultMarketShareBasketsResponse data, response status code and response headers
+    def list_vault_market_share_baskets_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_baskets ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/baskets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareBasketsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_baskets",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_baskets\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your share cards (not taken down), each as the public sees it.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareCardsResponse]
@@ -24443,6 +35330,574 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_cards\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareDropsResponse]
+    def list_vault_market_share_drops(opts = {})
+      data, _status_code, _headers = list_vault_market_share_drops_with_http_info(opts)
+      data
+    end
+
+    # The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareDropsResponse, Integer, Hash)>] ListVaultMarketShareDropsResponse data, response status code and response headers
+    def list_vault_market_share_drops_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_drops ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/drops'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareDropsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_drops",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_drops\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareGiftsResponse]
+    def list_vault_market_share_gifts(opts = {})
+      data, _status_code, _headers = list_vault_market_share_gifts_with_http_info(opts)
+      data
+    end
+
+    # Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareGiftsResponse, Integer, Hash)>] ListVaultMarketShareGiftsResponse data, response status code and response headers
+    def list_vault_market_share_gifts_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_gifts ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/gifts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareGiftsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_gifts",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_gifts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your share-book orders, newest first; `seriesId` and `open` narrow it.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareOrdersResponse]
+    def list_vault_market_share_orders(opts = {})
+      data, _status_code, _headers = list_vault_market_share_orders_with_http_info(opts)
+      data
+    end
+
+    # Your share-book orders, newest first; &#x60;seriesId&#x60; and &#x60;open&#x60; narrow it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareOrdersResponse, Integer, Hash)>] ListVaultMarketShareOrdersResponse data, response status code and response headers
+    def list_vault_market_share_orders_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_orders ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/orders'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareOrdersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_orders",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Vault Shares series: open offerings first, then trading, then the rest. `status` and `bookKey` narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSeriesResponse]
+    def list_vault_market_share_series(opts = {})
+      data, _status_code, _headers = list_vault_market_share_series_with_http_info(opts)
+      data
+    end
+
+    # Vault Shares series: open offerings first, then trading, then the rest. &#x60;status&#x60; and &#x60;bookKey&#x60; narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSeriesResponse, Integer, Hash)>] ListVaultMarketShareSeriesResponse data, response status code and response headers
+    def list_vault_market_share_series_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_series ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeriesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_series",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_series\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSeryAppraisalsResponse]
+    def list_vault_market_share_sery_appraisals(id, opts = {})
+      data, _status_code, _headers = list_vault_market_share_sery_appraisals_with_http_info(id, opts)
+      data
+    end
+
+    # The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSeryAppraisalsResponse, Integer, Hash)>] ListVaultMarketShareSeryAppraisalsResponse data, response status code and response headers
+    def list_vault_market_share_sery_appraisals_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_sery_appraisals ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.list_vault_market_share_sery_appraisals"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/appraisals'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeryAppraisalsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_sery_appraisals",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_sery_appraisals\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The latest fills on a share book, newest first, with which side made the market.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSeryTapeResponse]
+    def list_vault_market_share_sery_tape(id, opts = {})
+      data, _status_code, _headers = list_vault_market_share_sery_tape_with_http_info(id, opts)
+      data
+    end
+
+    # The latest fills on a share book, newest first, with which side made the market.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSeryTapeResponse, Integer, Hash)>] ListVaultMarketShareSeryTapeResponse data, response status code and response headers
+    def list_vault_market_share_sery_tape_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_sery_tape ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.list_vault_market_share_sery_tape"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/tape'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeryTapeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_sery_tape",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_sery_tape\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSeryUpdatesResponse]
+    def list_vault_market_share_sery_updates(id, opts = {})
+      data, _status_code, _headers = list_vault_market_share_sery_updates_with_http_info(id, opts)
+      data
+    end
+
+    # The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSeryUpdatesResponse, Integer, Hash)>] ListVaultMarketShareSeryUpdatesResponse data, response status code and response headers
+    def list_vault_market_share_sery_updates_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_sery_updates ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.list_vault_market_share_sery_updates"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/series/{id}/updates'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeryUpdatesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_sery_updates",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_sery_updates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareSubscriptionsResponse]
+    def list_vault_market_share_subscriptions(opts = {})
+      data, _status_code, _headers = list_vault_market_share_subscriptions_with_http_info(opts)
+      data
+    end
+
+    # Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareSubscriptionsResponse, Integer, Hash)>] ListVaultMarketShareSubscriptionsResponse data, response status code and response headers
+    def list_vault_market_share_subscriptions_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_subscriptions ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/subscriptions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareSubscriptionsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_subscriptions",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_subscriptions\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The world vault home’s fractional tiles: each item you own a share of, with \"you own 3.2%\".
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketShareWorldResponse]
+    def list_vault_market_share_world(opts = {})
+      data, _status_code, _headers = list_vault_market_share_world_with_http_info(opts)
+      data
+    end
+
+    # The world vault home’s fractional tiles: each item you own a share of, with \&quot;you own 3.2%\&quot;.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketShareWorldResponse, Integer, Hash)>] ListVaultMarketShareWorldResponse data, response status code and response headers
+    def list_vault_market_share_world_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_share_world ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/shares/world'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketShareWorldResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_share_world",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_share_world\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketSupplyDeclaredValuesResponse]
+    def list_vault_market_supply_declared_values(opts = {})
+      data, _status_code, _headers = list_vault_market_supply_declared_values_with_http_info(opts)
+      data
+    end
+
+    # What each item&#39;s declared value starts at, by your insurance rule (market, cost or price). &#x60;inventoryItemIds&#x60; comma-separated.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketSupplyDeclaredValuesResponse, Integer, Hash)>] ListVaultMarketSupplyDeclaredValuesResponse data, response status code and response headers
+    def list_vault_market_supply_declared_values_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_supply_declared_values ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/supply/declared-values'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketSupplyDeclaredValuesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_supply_declared_values",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_supply_declared_values\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -24502,6 +35957,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketSupplyEligibilityResponse]
+    def list_vault_market_supply_eligibility(opts = {})
+      data, _status_code, _headers = list_vault_market_supply_eligibility_with_http_info(opts)
+      data
+    end
+
+    # Can these inventory items (&#x60;inventoryItemIds&#x60;, comma-separated, or every item linked to &#x60;listingId&#x60;) be sent to the vault now? Each says why not.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketSupplyEligibilityResponse, Integer, Hash)>] ListVaultMarketSupplyEligibilityResponse data, response status code and response headers
+    def list_vault_market_supply_eligibility_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_supply_eligibility ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/supply/eligibility'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketSupplyEligibilityResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_supply_eligibility",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_supply_eligibility\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Market Open invites to you as a dealer: keys Crossly is opening and asks you to quote.
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketSupplyInvitesResponse]
@@ -24553,6 +36063,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_supply_invites\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
+    # @param [Hash] opts the optional parameters
+    # @return [ListVaultMarketSupplyShipmentsResponse]
+    def list_vault_market_supply_shipments(opts = {})
+      data, _status_code, _headers = list_vault_market_supply_shipments_with_http_info(opts)
+      data
+    end
+
+    # Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListVaultMarketSupplyShipmentsResponse, Integer, Hash)>] ListVaultMarketSupplyShipmentsResponse data, response status code and response headers
+    def list_vault_market_supply_shipments_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_supply_shipments ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/supply/shipments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListVaultMarketSupplyShipmentsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.list_vault_market_supply_shipments",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#list_vault_market_supply_shipments\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -25217,6 +36782,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateVaultMarketAutoBuyResponse]
+    def update_vault_market_auto_buy(opts = {})
+      data, _status_code, _headers = update_vault_market_auto_buy_with_http_info(opts)
+      data
+    end
+
+    # Set up or change Auto-buy with payouts: &#x60;shareBps&#x60; (1–50%) and the whole want list in order, each with an optional &#x60;maxPriceCents&#x60; (fee included).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateVaultMarketAutoBuyResponse, Integer, Hash)>] UpdateVaultMarketAutoBuyResponse data, response status code and response headers
+    def update_vault_market_auto_buy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_auto_buy ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/auto-buy'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateVaultMarketAutoBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_auto_buy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_auto_buy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Post-trade allocation: set or replace the plan for a buy you placed for one of the entity's sub-accounts (that sub-account leads). Refused once any share has moved.
     # @param order_id [String] 
     # @param [Hash] opts the optional parameters
@@ -25876,6 +37496,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
+    # @param inventory_item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketItemLocationResponse]
+    def update_vault_market_item_sell_from(inventory_item_id, opts = {})
+      data, _status_code, _headers = update_vault_market_item_sell_from_with_http_info(inventory_item_id, opts)
+      data
+    end
+
+    # Set which unit a sale of this item ships first: &#x60;vault_first&#x60;, &#x60;warehouse_first&#x60; or &#x60;cheapest&#x60; (to ship); null &#x3D; your default. Quantities stay the same on every channel: only who ships changes.
+    # @param inventory_item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketItemLocationResponse, Integer, Hash)>] GetVaultMarketItemLocationResponse data, response status code and response headers
+    def update_vault_market_item_sell_from_with_http_info(inventory_item_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_item_sell_from ...'
+      end
+      # verify the required parameter 'inventory_item_id' is set
+      if @api_client.config.client_side_validation && inventory_item_id.nil?
+        fail ArgumentError, "Missing the required parameter 'inventory_item_id' when calling VaultMarketsApi.update_vault_market_item_sell_from"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/items/{inventoryItemId}/sell-from'.sub('{' + 'inventoryItemId' + '}', CGI.escape(inventory_item_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketItemLocationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_item_sell_from",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_item_sell_from\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Change your lender election (applies to loans opened after the change). Needs lending.
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketLendingElectionResponse]
@@ -26096,6 +37777,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Set your auto-close rule: `enabled`, `minutesBefore` (30 to 10080), `onlyItm`, `maxSlippageBps` (0 to 2000).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketOptionAutoCloseResponse]
+    def update_vault_market_option_auto_close(opts = {})
+      data, _status_code, _headers = update_vault_market_option_auto_close_with_http_info(opts)
+      data
+    end
+
+    # Set your auto-close rule: &#x60;enabled&#x60;, &#x60;minutesBefore&#x60; (30 to 10080), &#x60;onlyItm&#x60;, &#x60;maxSlippageBps&#x60; (0 to 2000).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketOptionAutoCloseResponse, Integer, Hash)>] GetVaultMarketOptionAutoCloseResponse data, response status code and response headers
+    def update_vault_market_option_auto_close_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_option_auto_close ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/options/auto-close'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketOptionAutoCloseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_option_auto_close",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_option_auto_close\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Join or leave the weekly paper leaderboard. Joining needs a display name (2 to 24 letters, numbers, spaces, dots, dashes or underscores), never your real name. Returns `{ optIn, displayName }`.
     # @param [Hash] opts the optional parameters
     # @return [UpdateVaultMarketPaperLeaderboardResponse]
@@ -26147,6 +37883,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_paper_leaderboard\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateVaultMarketPartnerMeResponse]
+    def update_vault_market_partner_me(opts = {})
+      data, _status_code, _headers = update_vault_market_partner_me_with_http_info(opts)
+      data
+    end
+
+    # Your drop-off partnership&#39;s finder profile: postal code, opening hours, services and whether you are listed.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateVaultMarketPartnerMeResponse, Integer, Hash)>] UpdateVaultMarketPartnerMeResponse data, response status code and response headers
+    def update_vault_market_partner_me_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_partner_me ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/partners/me'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateVaultMarketPartnerMeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_partner_me",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_partner_me\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -26208,6 +37999,177 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_position_exit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit your comment.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateVaultMarketPredictionCommentResponse]
+    def update_vault_market_prediction_comment(id, opts = {})
+      data, _status_code, _headers = update_vault_market_prediction_comment_with_http_info(id, opts)
+      data
+    end
+
+    # Edit your comment.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateVaultMarketPredictionCommentResponse, Integer, Hash)>] CreateVaultMarketPredictionCommentResponse data, response status code and response headers
+    def update_vault_market_prediction_comment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_prediction_comment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.update_vault_market_prediction_comment"
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/comments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateVaultMarketPredictionCommentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_prediction_comment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_prediction_comment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Go public under a display name (`public: true`), rename, or go private (`public: false`: nothing is shown again).
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionForecasterResponse]
+    def update_vault_market_prediction_forecaster(opts = {})
+      data, _status_code, _headers = update_vault_market_prediction_forecaster_with_http_info(opts)
+      data
+    end
+
+    # Go public under a display name (&#x60;public: true&#x60;), rename, or go private (&#x60;public: false&#x60;: nothing is shown again).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionForecasterResponse, Integer, Hash)>] GetVaultMarketPredictionForecasterResponse data, response status code and response headers
+    def update_vault_market_prediction_forecaster_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_prediction_forecaster ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/forecaster'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionForecasterResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_prediction_forecaster",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_prediction_forecaster\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set your daily loss limit (`dailyLossLimitCents`, null = none) or exclude yourself (`excludeDays`, `excludedUntil` or \"forever\"). Tighter takes effect at once; looser waits 24 hours.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketPredictionLimitResponse]
+    def update_vault_market_prediction_limit(opts = {})
+      data, _status_code, _headers = update_vault_market_prediction_limit_with_http_info(opts)
+      data
+    end
+
+    # Set your daily loss limit (&#x60;dailyLossLimitCents&#x60;, null &#x3D; none) or exclude yourself (&#x60;excludeDays&#x60;, &#x60;excludedUntil&#x60; or \&quot;forever\&quot;). Tighter takes effect at once; looser waits 24 hours.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketPredictionLimitResponse, Integer, Hash)>] GetVaultMarketPredictionLimitResponse data, response status code and response headers
+    def update_vault_market_prediction_limit_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_prediction_limit ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/predictions/limits'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketPredictionLimitResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_prediction_limit",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_prediction_limit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -26446,6 +38408,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_set_goal\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change your vault defaults; send only the fields you change.
+    # @param [Hash] opts the optional parameters
+    # @return [GetVaultMarketSettingResponse]
+    def update_vault_market_setting(opts = {})
+      data, _status_code, _headers = update_vault_market_setting_with_http_info(opts)
+      data
+    end
+
+    # Change your vault defaults; send only the fields you change.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetVaultMarketSettingResponse, Integer, Hash)>] GetVaultMarketSettingResponse data, response status code and response headers
+    def update_vault_market_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/vault-markets/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetVaultMarketSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"VaultMarketsApi.update_vault_market_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: VaultMarketsApi#update_vault_market_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

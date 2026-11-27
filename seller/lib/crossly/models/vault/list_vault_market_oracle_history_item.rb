@@ -301,7 +301,7 @@ module Crossly
       return false if @network.nil?
       return false if @feed_id.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["skipped", "failed", "published"])
+      status_validator = EnumAttributeValidator.new('String', ["skipped", "published", "failed"])
       return false unless status_validator.valid?(@status)
       return false if @exponent.nil?
       return false if @at.nil?
@@ -311,7 +311,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["skipped", "failed", "published"])
+      validator = EnumAttributeValidator.new('String', ["skipped", "published", "failed"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

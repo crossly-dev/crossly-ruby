@@ -19,6 +19,8 @@ module Crossly
 
     attr_accessor :ai_media_detected
 
+    attr_accessor :pricing
+
     attr_accessor :id
 
     attr_accessor :brand
@@ -30,6 +32,12 @@ module Crossly
     attr_accessor :updated_at
 
     attr_accessor :user_id
+
+    attr_accessor :description
+
+    attr_accessor :status
+
+    attr_accessor :source
 
     attr_accessor :sku
 
@@ -81,12 +89,6 @@ module Crossly
 
     attr_accessor :dimension_hin
 
-    attr_accessor :status
-
-    attr_accessor :source
-
-    attr_accessor :description
-
     attr_accessor :title
 
     attr_accessor :description_html
@@ -121,6 +123,10 @@ module Crossly
 
     attr_accessor :automation_blocked_chain_ids
 
+    attr_accessor :workflow_blocked_ids
+
+    attr_accessor :workflow_assigned_ids
+
     attr_accessor :hs_code
 
     attr_accessor :country_of_origin
@@ -134,6 +140,12 @@ module Crossly
     attr_accessor :duplicate_of_listing_id
 
     attr_accessor :client_draft_id
+
+    attr_accessor :attributed_oauth_app_id
+
+    attr_accessor :attributed_grant_id
+
+    attr_accessor :quota_bucket
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -162,12 +174,16 @@ module Crossly
       {
         :'ai_media' => :'aiMedia',
         :'ai_media_detected' => :'aiMediaDetected',
+        :'pricing' => :'pricing',
         :'id' => :'id',
         :'brand' => :'brand',
         :'name' => :'name',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
+        :'description' => :'description',
+        :'status' => :'status',
+        :'source' => :'source',
         :'sku' => :'sku',
         :'quantity' => :'quantity',
         :'quantity_available' => :'quantityAvailable',
@@ -193,9 +209,6 @@ module Crossly
         :'dimension_lin' => :'dimensionLIn',
         :'dimension_win' => :'dimensionWIn',
         :'dimension_hin' => :'dimensionHIn',
-        :'status' => :'status',
-        :'source' => :'source',
-        :'description' => :'description',
         :'title' => :'title',
         :'description_html' => :'descriptionHtml',
         :'price' => :'price',
@@ -213,13 +226,18 @@ module Crossly
         :'automation_blocked_rule_ids' => :'automationBlockedRuleIds',
         :'automation_assigned_chain_ids' => :'automationAssignedChainIds',
         :'automation_blocked_chain_ids' => :'automationBlockedChainIds',
+        :'workflow_blocked_ids' => :'workflowBlockedIds',
+        :'workflow_assigned_ids' => :'workflowAssignedIds',
         :'hs_code' => :'hsCode',
         :'country_of_origin' => :'countryOfOrigin',
         :'delisted_at' => :'delistedAt',
         :'sold_at' => :'soldAt',
         :'ebay_attributes_enriched_at' => :'ebayAttributesEnrichedAt',
         :'duplicate_of_listing_id' => :'duplicateOfListingId',
-        :'client_draft_id' => :'clientDraftId'
+        :'client_draft_id' => :'clientDraftId',
+        :'attributed_oauth_app_id' => :'attributedOauthAppId',
+        :'attributed_grant_id' => :'attributedGrantId',
+        :'quota_bucket' => :'quotaBucket'
       }
     end
 
@@ -233,12 +251,16 @@ module Crossly
       {
         :'ai_media' => :'Boolean',
         :'ai_media_detected' => :'Boolean',
+        :'pricing' => :'ListListingsItemPricing',
         :'id' => :'String',
         :'brand' => :'String',
         :'name' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
+        :'description' => :'String',
+        :'status' => :'String',
+        :'source' => :'String',
         :'sku' => :'String',
         :'quantity' => :'Float',
         :'quantity_available' => :'Float',
@@ -256,7 +278,7 @@ module Crossly
         :'video_url' => :'String',
         :'tags' => :'Array<String>',
         :'grade_key' => :'String',
-        :'grading' => :'ListGradingSubmissionsItemGrading',
+        :'grading' => :'CreateBulkBatchItemResponseGrading',
         :'price_floor_cents' => :'Float',
         :'floor_is_net' => :'Boolean',
         :'weight_lb' => :'String',
@@ -264,9 +286,6 @@ module Crossly
         :'dimension_lin' => :'String',
         :'dimension_win' => :'String',
         :'dimension_hin' => :'String',
-        :'status' => :'String',
-        :'source' => :'String',
-        :'description' => :'String',
         :'title' => :'String',
         :'description_html' => :'String',
         :'price' => :'String',
@@ -284,13 +303,18 @@ module Crossly
         :'automation_blocked_rule_ids' => :'Array<String>',
         :'automation_assigned_chain_ids' => :'Array<String>',
         :'automation_blocked_chain_ids' => :'Array<String>',
+        :'workflow_blocked_ids' => :'Array<String>',
+        :'workflow_assigned_ids' => :'Array<String>',
         :'hs_code' => :'String',
         :'country_of_origin' => :'String',
         :'delisted_at' => :'Time',
         :'sold_at' => :'Time',
         :'ebay_attributes_enriched_at' => :'Time',
         :'duplicate_of_listing_id' => :'String',
-        :'client_draft_id' => :'String'
+        :'client_draft_id' => :'String',
+        :'attributed_oauth_app_id' => :'String',
+        :'attributed_grant_id' => :'String',
+        :'quota_bucket' => :'String'
       }
     end
 
@@ -299,6 +323,7 @@ module Crossly
       Set.new([
         :'brand',
         :'name',
+        :'description',
         :'sku',
         :'condition',
         :'size',
@@ -319,7 +344,6 @@ module Crossly
         :'dimension_lin',
         :'dimension_win',
         :'dimension_hin',
-        :'description',
         :'title',
         :'description_html',
         :'price',
@@ -334,7 +358,10 @@ module Crossly
         :'sold_at',
         :'ebay_attributes_enriched_at',
         :'duplicate_of_listing_id',
-        :'client_draft_id'
+        :'client_draft_id',
+        :'attributed_oauth_app_id',
+        :'attributed_grant_id',
+        :'quota_bucket'
       ])
     end
 
@@ -361,6 +388,10 @@ module Crossly
         self.ai_media_detected = attributes[:'ai_media_detected']
       end
 
+      if attributes.key?(:'pricing')
+        self.pricing = attributes[:'pricing']
+      end
+
       if attributes.key?(:'id')
         self.id = attributes[:'id']
       end
@@ -383,6 +414,18 @@ module Crossly
 
       if attributes.key?(:'user_id')
         self.user_id = attributes[:'user_id']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'source')
+        self.source = attributes[:'source']
       end
 
       if attributes.key?(:'sku')
@@ -491,18 +534,6 @@ module Crossly
         self.dimension_hin = attributes[:'dimension_hin']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'source')
-        self.source = attributes[:'source']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
-      end
-
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
@@ -585,6 +616,18 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'workflow_blocked_ids')
+        if (value = attributes[:'workflow_blocked_ids']).is_a?(Array)
+          self.workflow_blocked_ids = value
+        end
+      end
+
+      if attributes.key?(:'workflow_assigned_ids')
+        if (value = attributes[:'workflow_assigned_ids']).is_a?(Array)
+          self.workflow_assigned_ids = value
+        end
+      end
+
       if attributes.key?(:'hs_code')
         self.hs_code = attributes[:'hs_code']
       end
@@ -612,6 +655,18 @@ module Crossly
       if attributes.key?(:'client_draft_id')
         self.client_draft_id = attributes[:'client_draft_id']
       end
+
+      if attributes.key?(:'attributed_oauth_app_id')
+        self.attributed_oauth_app_id = attributes[:'attributed_oauth_app_id']
+      end
+
+      if attributes.key?(:'attributed_grant_id')
+        self.attributed_grant_id = attributes[:'attributed_grant_id']
+      end
+
+      if attributes.key?(:'quota_bucket')
+        self.quota_bucket = attributes[:'quota_bucket']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -624,6 +679,10 @@ module Crossly
 
       if @ai_media_detected.nil?
         invalid_properties.push('invalid value for "ai_media_detected", ai_media_detected cannot be nil.')
+      end
+
+      if @pricing.nil?
+        invalid_properties.push('invalid value for "pricing", pricing cannot be nil.')
       end
 
       if @id.nil?
@@ -640,6 +699,14 @@ module Crossly
 
       if @user_id.nil?
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @source.nil?
+        invalid_properties.push('invalid value for "source", source cannot be nil.')
       end
 
       if @quantity.nil?
@@ -660,14 +727,6 @@ module Crossly
 
       if @floor_is_net.nil?
         invalid_properties.push('invalid value for "floor_is_net", floor_is_net cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @source.nil?
-        invalid_properties.push('invalid value for "source", source cannot be nil.')
       end
 
       if @ai_media_urls.nil?
@@ -706,6 +765,14 @@ module Crossly
         invalid_properties.push('invalid value for "automation_blocked_chain_ids", automation_blocked_chain_ids cannot be nil.')
       end
 
+      if @workflow_blocked_ids.nil?
+        invalid_properties.push('invalid value for "workflow_blocked_ids", workflow_blocked_ids cannot be nil.')
+      end
+
+      if @workflow_assigned_ids.nil?
+        invalid_properties.push('invalid value for "workflow_assigned_ids", workflow_assigned_ids cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -714,17 +781,18 @@ module Crossly
     def valid?
       return false if @ai_media.nil?
       return false if @ai_media_detected.nil?
+      return false if @pricing.nil?
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @user_id.nil?
+      return false if @status.nil?
+      return false if @source.nil?
       return false if @quantity.nil?
       return false if @quantity_available.nil?
       return false if @color.nil?
       return false if @tags.nil?
       return false if @floor_is_net.nil?
-      return false if @status.nil?
-      return false if @source.nil?
       return false if @ai_media_urls.nil?
       return false if @ai_media_declared.nil?
       return false if @ai_media_detected_urls.nil?
@@ -736,6 +804,8 @@ module Crossly
       return false if @automation_blocked_rule_ids.nil?
       return false if @automation_assigned_chain_ids.nil?
       return false if @automation_blocked_chain_ids.nil?
+      return false if @workflow_blocked_ids.nil?
+      return false if @workflow_assigned_ids.nil?
       true
     end
 
@@ -756,12 +826,16 @@ module Crossly
       self.class == o.class &&
           ai_media == o.ai_media &&
           ai_media_detected == o.ai_media_detected &&
+          pricing == o.pricing &&
           id == o.id &&
           brand == o.brand &&
           name == o.name &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
+          description == o.description &&
+          status == o.status &&
+          source == o.source &&
           sku == o.sku &&
           quantity == o.quantity &&
           quantity_available == o.quantity_available &&
@@ -787,9 +861,6 @@ module Crossly
           dimension_lin == o.dimension_lin &&
           dimension_win == o.dimension_win &&
           dimension_hin == o.dimension_hin &&
-          status == o.status &&
-          source == o.source &&
-          description == o.description &&
           title == o.title &&
           description_html == o.description_html &&
           price == o.price &&
@@ -807,13 +878,18 @@ module Crossly
           automation_blocked_rule_ids == o.automation_blocked_rule_ids &&
           automation_assigned_chain_ids == o.automation_assigned_chain_ids &&
           automation_blocked_chain_ids == o.automation_blocked_chain_ids &&
+          workflow_blocked_ids == o.workflow_blocked_ids &&
+          workflow_assigned_ids == o.workflow_assigned_ids &&
           hs_code == o.hs_code &&
           country_of_origin == o.country_of_origin &&
           delisted_at == o.delisted_at &&
           sold_at == o.sold_at &&
           ebay_attributes_enriched_at == o.ebay_attributes_enriched_at &&
           duplicate_of_listing_id == o.duplicate_of_listing_id &&
-          client_draft_id == o.client_draft_id
+          client_draft_id == o.client_draft_id &&
+          attributed_oauth_app_id == o.attributed_oauth_app_id &&
+          attributed_grant_id == o.attributed_grant_id &&
+          quota_bucket == o.quota_bucket
     end
 
     # @see the `==` method
@@ -825,7 +901,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ai_media, ai_media_detected, id, brand, name, created_at, updated_at, user_id, sku, quantity, quantity_available, condition, size, material, style, pattern, department, gender, item_type, size_system, color, images, video_url, tags, grade_key, grading, price_floor_cents, floor_is_net, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, status, source, description, title, description_html, price, currency, ai_media_urls, ai_media_declared, ai_media_detected_urls, is_digital, publish_at, scheduled_platforms, parent_listing_id, group_kind, is_bundle, automation_assigned_rule_ids, automation_blocked_rule_ids, automation_assigned_chain_ids, automation_blocked_chain_ids, hs_code, country_of_origin, delisted_at, sold_at, ebay_attributes_enriched_at, duplicate_of_listing_id, client_draft_id].hash
+      [ai_media, ai_media_detected, pricing, id, brand, name, created_at, updated_at, user_id, description, status, source, sku, quantity, quantity_available, condition, size, material, style, pattern, department, gender, item_type, size_system, color, images, video_url, tags, grade_key, grading, price_floor_cents, floor_is_net, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, title, description_html, price, currency, ai_media_urls, ai_media_declared, ai_media_detected_urls, is_digital, publish_at, scheduled_platforms, parent_listing_id, group_kind, is_bundle, automation_assigned_rule_ids, automation_blocked_rule_ids, automation_assigned_chain_ids, automation_blocked_chain_ids, workflow_blocked_ids, workflow_assigned_ids, hs_code, country_of_origin, delisted_at, sold_at, ebay_attributes_enriched_at, duplicate_of_listing_id, client_draft_id, attributed_oauth_app_id, attributed_grant_id, quota_bucket].hash
     end
 
     # Builds the object from hash

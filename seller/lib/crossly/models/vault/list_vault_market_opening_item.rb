@@ -115,7 +115,7 @@ module Crossly
         :'units_on_shelf' => :'Float',
         :'dealers_quoting' => :'Float',
         :'waitlist' => :'Float',
-        :'mark' => :'ListVaultMarketFeedItemMark',
+        :'mark' => :'ListVaultMarketOpeningItemMark',
         :'market_href' => :'String',
         :'me' => :'ListVaultMarketOpeningItemMe',
         :'early_access' => :'ListVaultMarketOpeningItemEarlyAccess'

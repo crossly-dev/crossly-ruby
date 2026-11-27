@@ -17,16 +17,16 @@ module CrosslyBuyer
   class GetBuyerCollectionOfferResponseDataOffer
     attr_accessor :id
 
-    attr_accessor :expires_at
-
     attr_accessor :cents
+
+    attr_accessor :expires_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'expires_at' => :'expiresAt',
-        :'cents' => :'cents'
+        :'cents' => :'cents',
+        :'expires_at' => :'expiresAt'
       }
     end
 
@@ -39,8 +39,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'expires_at' => :'String',
-        :'cents' => :'Float'
+        :'cents' => :'Float',
+        :'expires_at' => :'String'
       }
     end
 
@@ -69,12 +69,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
-      end
-
       if attributes.key?(:'cents')
         self.cents = attributes[:'cents']
+      end
+
+      if attributes.key?(:'expires_at')
+        self.expires_at = attributes[:'expires_at']
       end
     end
 
@@ -86,12 +86,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @expires_at.nil?
-        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
-      end
-
       if @cents.nil?
         invalid_properties.push('invalid value for "cents", cents cannot be nil.')
+      end
+
+      if @expires_at.nil?
+        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
       end
 
       invalid_properties
@@ -101,8 +101,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @expires_at.nil?
       return false if @cents.nil?
+      return false if @expires_at.nil?
       true
     end
 
@@ -112,8 +112,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          expires_at == o.expires_at &&
-          cents == o.cents
+          cents == o.cents &&
+          expires_at == o.expires_at
     end
 
     # @see the `==` method
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, expires_at, cents].hash
+      [id, cents, expires_at].hash
     end
 
     # Builds the object from hash

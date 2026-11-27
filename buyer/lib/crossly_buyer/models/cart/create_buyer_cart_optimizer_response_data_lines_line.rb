@@ -15,15 +15,15 @@ require 'time'
 
 module CrosslyBuyer
   class CreateBuyerCartOptimizerResponseDataLinesLine
-    attr_accessor :quantity
-
     attr_accessor :query
+
+    attr_accessor :quantity
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'quantity' => :'quantity',
-        :'query' => :'query'
+        :'query' => :'query',
+        :'quantity' => :'quantity'
       }
     end
 
@@ -35,8 +35,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'quantity' => :'Float',
-        :'query' => :'String'
+        :'query' => :'String',
+        :'quantity' => :'Float'
       }
     end
 
@@ -61,12 +61,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'quantity')
-        self.quantity = attributes[:'quantity']
-      end
-
       if attributes.key?(:'query')
         self.query = attributes[:'query']
+      end
+
+      if attributes.key?(:'quantity')
+        self.quantity = attributes[:'quantity']
       end
     end
 
@@ -74,12 +74,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
       if @query.nil?
         invalid_properties.push('invalid value for "query", query cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @quantity.nil?
       return false if @query.nil?
+      return false if @quantity.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          quantity == o.quantity &&
-          query == o.query
+          query == o.query &&
+          quantity == o.quantity
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [quantity, query].hash
+      [query, quantity].hash
     end
 
     # Builds the object from hash

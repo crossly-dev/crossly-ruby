@@ -58,6 +58,8 @@ module Crossly
     # Where the market lives on the web (the buyer-side market page).
     attr_accessor :market_path
 
+    attr_accessor :fractionalize
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -102,7 +104,8 @@ module Crossly
         :'strength' => :'strength',
         :'parts' => :'parts',
         :'reasons' => :'reasons',
-        :'market_path' => :'marketPath'
+        :'market_path' => :'marketPath',
+        :'fractionalize' => :'fractionalize'
       }
     end
 
@@ -133,7 +136,8 @@ module Crossly
         :'strength' => :'String',
         :'parts' => :'GetVaultMarketVaultSuggestionItemResponseSuggestionParts',
         :'reasons' => :'Array<String>',
-        :'market_path' => :'String'
+        :'market_path' => :'String',
+        :'fractionalize' => :'GetVaultMarketVaultSuggestionItemResponseSuggestionFractionalize'
       }
     end
 
@@ -147,6 +151,7 @@ module Crossly
         :'exit_vs_list_bps',
         :'exit_basis',
         :'days_listed',
+        :'fractionalize'
       ])
     end
 
@@ -245,6 +250,10 @@ module Crossly
 
       if attributes.key?(:'market_path')
         self.market_path = attributes[:'market_path']
+      end
+
+      if attributes.key?(:'fractionalize')
+        self.fractionalize = attributes[:'fractionalize']
       end
     end
 
@@ -374,7 +383,8 @@ module Crossly
           strength == o.strength &&
           parts == o.parts &&
           reasons == o.reasons &&
-          market_path == o.market_path
+          market_path == o.market_path &&
+          fractionalize == o.fractionalize
     end
 
     # @see the `==` method
@@ -386,7 +396,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [inventory_item_id, title, image_url, units_to_send, book_key, variant_id, condition, grade_key, market, instant_exit, list_price_cents, exit_vs_list_bps, exit_basis, days_listed, vault_fee, score, strength, parts, reasons, market_path].hash
+      [inventory_item_id, title, image_url, units_to_send, book_key, variant_id, condition, grade_key, market, instant_exit, list_price_cents, exit_vs_list_bps, exit_basis, days_listed, vault_fee, score, strength, parts, reasons, market_path, fractionalize].hash
     end
 
     # Builds the object from hash

@@ -15,17 +15,17 @@ require 'time'
 
 module CrosslyBuyer
   class ListBuyerWishlistMembersItem
-    attr_accessor :name
-
     attr_accessor :user_id
+
+    attr_accessor :name
 
     attr_accessor :joined_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'name' => :'name',
         :'user_id' => :'userId',
+        :'name' => :'name',
         :'joined_at' => :'joinedAt'
       }
     end
@@ -38,8 +38,8 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'name' => :'String',
         :'user_id' => :'String',
+        :'name' => :'String',
         :'joined_at' => :'String'
       }
     end
@@ -65,12 +65,12 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'name')
-        self.name = attributes[:'name']
-      end
-
       if attributes.key?(:'user_id')
         self.user_id = attributes[:'user_id']
+      end
+
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
       if attributes.key?(:'joined_at')
@@ -82,12 +82,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @name.nil?
-        invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
       if @user_id.nil?
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
+      end
+
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
 
       if @joined_at.nil?
@@ -100,8 +100,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @name.nil?
       return false if @user_id.nil?
+      return false if @name.nil?
       return false if @joined_at.nil?
       true
     end
@@ -111,8 +111,8 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          name == o.name &&
           user_id == o.user_id &&
+          name == o.name &&
           joined_at == o.joined_at
     end
 
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, user_id, joined_at].hash
+      [user_id, name, joined_at].hash
     end
 
     # Builds the object from hash

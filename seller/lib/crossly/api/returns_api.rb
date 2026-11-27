@@ -82,7 +82,7 @@ module Crossly
 
     # Open a return record on an order (rejects if another open return exists).
     # @param [Hash] opts the optional parameters
-    # @return [ListReturnsItem]
+    # @return [GetReturnResponse]
     def create_return(opts = {})
       data, _status_code, _headers = create_return_with_http_info(opts)
       data
@@ -90,7 +90,7 @@ module Crossly
 
     # Open a return record on an order (rejects if another open return exists).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListReturnsItem, Integer, Hash)>] ListReturnsItem data, response status code and response headers
+    # @return [Array<(GetReturnResponse, Integer, Hash)>] GetReturnResponse data, response status code and response headers
     def create_return_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReturnsApi.create_return ...'
@@ -113,7 +113,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListReturnsItem'
+      return_type = opts[:debug_return_type] || 'GetReturnResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -135,10 +135,143 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateReturnAcceptResponse]
+    def create_return_accept(id, opts = {})
+      data, _status_code, _headers = create_return_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateReturnAcceptResponse, Integer, Hash)>] CreateReturnAcceptResponse data, response status code and response headers
+    def create_return_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReturnsApi.create_return_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ReturnsApi.create_return_accept"
+      end
+      # resource path
+      local_var_path = '/v1/returns/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateReturnAcceptResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ReturnsApi.create_return_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnsApi#create_return_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Decline a Crossly-marketplace return request with a reason (required, 8-2000 chars), posted to the buyer as your response. It does not close the request: the buyer can reply or ask Crossly to decide. Not after the label is issued.
+    # @param id [String] 
+    # @param create_return_decline_request [CreateReturnDeclineRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListReturnsItem]
+    def create_return_decline(id, create_return_decline_request, opts = {})
+      data, _status_code, _headers = create_return_decline_with_http_info(id, create_return_decline_request, opts)
+      data
+    end
+
+    # Decline a Crossly-marketplace return request with a reason (required, 8-2000 chars), posted to the buyer as your response. It does not close the request: the buyer can reply or ask Crossly to decide. Not after the label is issued.
+    # @param id [String] 
+    # @param create_return_decline_request [CreateReturnDeclineRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListReturnsItem, Integer, Hash)>] ListReturnsItem data, response status code and response headers
+    def create_return_decline_with_http_info(id, create_return_decline_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReturnsApi.create_return_decline ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ReturnsApi.create_return_decline"
+      end
+      # verify the required parameter 'create_return_decline_request' is set
+      if @api_client.config.client_side_validation && create_return_decline_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_return_decline_request' when calling ReturnsApi.create_return_decline"
+      end
+      # resource path
+      local_var_path = '/v1/returns/{id}/decline'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_return_decline_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListReturnsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ReturnsApi.create_return_decline",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnsApi#create_return_decline\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get one return record.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [ListReturnsItem]
+    # @return [GetReturnResponse]
     def get_return(id, opts = {})
       data, _status_code, _headers = get_return_with_http_info(id, opts)
       data
@@ -147,7 +280,7 @@ module Crossly
     # Get one return record.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListReturnsItem, Integer, Hash)>] ListReturnsItem data, response status code and response headers
+    # @return [Array<(GetReturnResponse, Integer, Hash)>] GetReturnResponse data, response status code and response headers
     def get_return_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReturnsApi.get_return ...'
@@ -174,7 +307,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListReturnsItem'
+      return_type = opts[:debug_return_type] || 'GetReturnResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -251,7 +384,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List returns (physical-return workflow). status=open|closed|<exact>.
+    # List returns. Default: your return records (the physical-return workflow), status=open|closed|<exact>. source=request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
     # @param [Hash] opts the optional parameters
     # @return [ListReturnsResponse]
     def list_returns(opts = {})
@@ -259,7 +392,7 @@ module Crossly
       data
     end
 
-    # List returns (physical-return workflow). status&#x3D;open|closed|&lt;exact&gt;.
+    # List returns. Default: your return records (the physical-return workflow), status&#x3D;open|closed|&lt;exact&gt;. source&#x3D;request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListReturnsResponse, Integer, Hash)>] ListReturnsResponse data, response status code and response headers
     def list_returns_with_http_info(opts = {})
@@ -309,7 +442,7 @@ module Crossly
     # Transition return status (received/inspected/restocked) and bump inventory on restock.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [ListReturnsItem]
+    # @return [GetReturnResponse]
     def update_return(id, opts = {})
       data, _status_code, _headers = update_return_with_http_info(id, opts)
       data
@@ -318,7 +451,7 @@ module Crossly
     # Transition return status (received/inspected/restocked) and bump inventory on restock.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListReturnsItem, Integer, Hash)>] ListReturnsItem data, response status code and response headers
+    # @return [Array<(GetReturnResponse, Integer, Hash)>] GetReturnResponse data, response status code and response headers
     def update_return_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReturnsApi.update_return ...'
@@ -345,7 +478,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListReturnsItem'
+      return_type = opts[:debug_return_type] || 'GetReturnResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']

@@ -17,11 +17,23 @@ module CrosslyBuyer
   class ListBuyerFeedbackItem
     attr_accessor :id
 
-    attr_accessor :created_at
-
     attr_accessor :rating
 
+    attr_accessor :created_at
+
     attr_accessor :body
+
+    attr_accessor :revised_at
+
+    attr_accessor :seller_reply
+
+    attr_accessor :seller_replied_at
+
+    attr_accessor :seller_name
+
+    attr_accessor :item_title
+
+    attr_accessor :rating_as_described
 
     attr_accessor :rating_communication
 
@@ -29,34 +41,22 @@ module CrosslyBuyer
 
     attr_accessor :rating_ship_cost
 
-    attr_accessor :rating_as_described
-
-    attr_accessor :seller_reply
-
-    attr_accessor :seller_replied_at
-
-    attr_accessor :revised_at
-
-    attr_accessor :item_title
-
-    attr_accessor :seller_name
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'created_at' => :'createdAt',
         :'rating' => :'rating',
+        :'created_at' => :'createdAt',
         :'body' => :'body',
-        :'rating_communication' => :'ratingCommunication',
-        :'rating_ship_speed' => :'ratingShipSpeed',
-        :'rating_ship_cost' => :'ratingShipCost',
-        :'rating_as_described' => :'ratingAsDescribed',
+        :'revised_at' => :'revisedAt',
         :'seller_reply' => :'sellerReply',
         :'seller_replied_at' => :'sellerRepliedAt',
-        :'revised_at' => :'revisedAt',
+        :'seller_name' => :'sellerName',
         :'item_title' => :'itemTitle',
-        :'seller_name' => :'sellerName'
+        :'rating_as_described' => :'ratingAsDescribed',
+        :'rating_communication' => :'ratingCommunication',
+        :'rating_ship_speed' => :'ratingShipSpeed',
+        :'rating_ship_cost' => :'ratingShipCost'
       }
     end
 
@@ -69,18 +69,18 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'created_at' => :'String',
         :'rating' => :'Float',
+        :'created_at' => :'String',
         :'body' => :'String',
-        :'rating_communication' => :'Float',
-        :'rating_ship_speed' => :'Float',
-        :'rating_ship_cost' => :'Float',
-        :'rating_as_described' => :'Float',
+        :'revised_at' => :'String',
         :'seller_reply' => :'String',
         :'seller_replied_at' => :'String',
-        :'revised_at' => :'String',
+        :'seller_name' => :'String',
         :'item_title' => :'String',
-        :'seller_name' => :'String'
+        :'rating_as_described' => :'Float',
+        :'rating_communication' => :'Float',
+        :'rating_ship_speed' => :'Float',
+        :'rating_ship_cost' => :'Float'
       }
     end
 
@@ -88,15 +88,15 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'body',
-        :'rating_communication',
-        :'rating_ship_speed',
-        :'rating_ship_cost',
-        :'rating_as_described',
+        :'revised_at',
         :'seller_reply',
         :'seller_replied_at',
-        :'revised_at',
+        :'seller_name',
         :'item_title',
-        :'seller_name'
+        :'rating_as_described',
+        :'rating_communication',
+        :'rating_ship_speed',
+        :'rating_ship_cost'
       ])
     end
 
@@ -119,16 +119,40 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
       if attributes.key?(:'rating')
         self.rating = attributes[:'rating']
       end
 
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
       if attributes.key?(:'body')
         self.body = attributes[:'body']
+      end
+
+      if attributes.key?(:'revised_at')
+        self.revised_at = attributes[:'revised_at']
+      end
+
+      if attributes.key?(:'seller_reply')
+        self.seller_reply = attributes[:'seller_reply']
+      end
+
+      if attributes.key?(:'seller_replied_at')
+        self.seller_replied_at = attributes[:'seller_replied_at']
+      end
+
+      if attributes.key?(:'seller_name')
+        self.seller_name = attributes[:'seller_name']
+      end
+
+      if attributes.key?(:'item_title')
+        self.item_title = attributes[:'item_title']
+      end
+
+      if attributes.key?(:'rating_as_described')
+        self.rating_as_described = attributes[:'rating_as_described']
       end
 
       if attributes.key?(:'rating_communication')
@@ -142,30 +166,6 @@ module CrosslyBuyer
       if attributes.key?(:'rating_ship_cost')
         self.rating_ship_cost = attributes[:'rating_ship_cost']
       end
-
-      if attributes.key?(:'rating_as_described')
-        self.rating_as_described = attributes[:'rating_as_described']
-      end
-
-      if attributes.key?(:'seller_reply')
-        self.seller_reply = attributes[:'seller_reply']
-      end
-
-      if attributes.key?(:'seller_replied_at')
-        self.seller_replied_at = attributes[:'seller_replied_at']
-      end
-
-      if attributes.key?(:'revised_at')
-        self.revised_at = attributes[:'revised_at']
-      end
-
-      if attributes.key?(:'item_title')
-        self.item_title = attributes[:'item_title']
-      end
-
-      if attributes.key?(:'seller_name')
-        self.seller_name = attributes[:'seller_name']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -176,12 +176,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
       if @rating.nil?
         invalid_properties.push('invalid value for "rating", rating cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
       invalid_properties
@@ -191,8 +191,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @created_at.nil?
       return false if @rating.nil?
+      return false if @created_at.nil?
       true
     end
 
@@ -202,18 +202,18 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          created_at == o.created_at &&
           rating == o.rating &&
+          created_at == o.created_at &&
           body == o.body &&
-          rating_communication == o.rating_communication &&
-          rating_ship_speed == o.rating_ship_speed &&
-          rating_ship_cost == o.rating_ship_cost &&
-          rating_as_described == o.rating_as_described &&
+          revised_at == o.revised_at &&
           seller_reply == o.seller_reply &&
           seller_replied_at == o.seller_replied_at &&
-          revised_at == o.revised_at &&
+          seller_name == o.seller_name &&
           item_title == o.item_title &&
-          seller_name == o.seller_name
+          rating_as_described == o.rating_as_described &&
+          rating_communication == o.rating_communication &&
+          rating_ship_speed == o.rating_ship_speed &&
+          rating_ship_cost == o.rating_ship_cost
     end
 
     # @see the `==` method
@@ -225,7 +225,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, rating, body, rating_communication, rating_ship_speed, rating_ship_cost, rating_as_described, seller_reply, seller_replied_at, revised_at, item_title, seller_name].hash
+      [id, rating, created_at, body, revised_at, seller_reply, seller_replied_at, seller_name, item_title, rating_as_described, rating_communication, rating_ship_speed, rating_ship_cost].hash
     end
 
     # Builds the object from hash

@@ -190,6 +190,482 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Cancel a queued or failed airdrop (one already sent is the member’s).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LoyaltyAirdropResponse]
+    def create_loyalty_airdrop_cancel(id, opts = {})
+      data, _status_code, _headers = create_loyalty_airdrop_cancel_with_http_info(id, opts)
+      data
+    end
+
+    # Cancel a queued or failed airdrop (one already sent is the member’s).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LoyaltyAirdropResponse, Integer, Hash)>] LoyaltyAirdropResponse data, response status code and response headers
+    def create_loyalty_airdrop_cancel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_airdrop_cancel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.create_loyalty_airdrop_cancel"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/airdrops/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LoyaltyAirdropResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_airdrop_cancel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_airdrop_cancel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Read a submitted airdrop’s receipt again now.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LoyaltyAirdropResponse]
+    def create_loyalty_airdrop_check(id, opts = {})
+      data, _status_code, _headers = create_loyalty_airdrop_check_with_http_info(id, opts)
+      data
+    end
+
+    # Read a submitted airdrop’s receipt again now.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LoyaltyAirdropResponse, Integer, Hash)>] LoyaltyAirdropResponse data, response status code and response headers
+    def create_loyalty_airdrop_check_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_airdrop_check ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.create_loyalty_airdrop_check"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/airdrops/{id}/check'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LoyaltyAirdropResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_airdrop_check",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_airdrop_check\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The mint transaction for your launch owner wallet to send: chain, from, to (your launch contract) and calldata, to the member’s verified wallet. Refused airdrop_not_sendable with a reason when it cannot be built.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateLoyaltyAirdropPrepareResponse]
+    def create_loyalty_airdrop_prepare(id, opts = {})
+      data, _status_code, _headers = create_loyalty_airdrop_prepare_with_http_info(id, opts)
+      data
+    end
+
+    # The mint transaction for your launch owner wallet to send: chain, from, to (your launch contract) and calldata, to the member’s verified wallet. Refused airdrop_not_sendable with a reason when it cannot be built.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateLoyaltyAirdropPrepareResponse, Integer, Hash)>] CreateLoyaltyAirdropPrepareResponse data, response status code and response headers
+    def create_loyalty_airdrop_prepare_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_airdrop_prepare ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.create_loyalty_airdrop_prepare"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/airdrops/{id}/prepare'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateLoyaltyAirdropPrepareResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_airdrop_prepare",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_airdrop_prepare\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Record the hash your wallet broadcast; Crossly reads the receipt (now, then on a schedule) and marks it sent or failed.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LoyaltyAirdropResponse]
+    def create_loyalty_airdrop_submit(id, opts = {})
+      data, _status_code, _headers = create_loyalty_airdrop_submit_with_http_info(id, opts)
+      data
+    end
+
+    # Record the hash your wallet broadcast; Crossly reads the receipt (now, then on a schedule) and marks it sent or failed.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LoyaltyAirdropResponse, Integer, Hash)>] LoyaltyAirdropResponse data, response status code and response headers
+    def create_loyalty_airdrop_submit_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_airdrop_submit ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.create_loyalty_airdrop_submit"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/airdrops/{id}/submit'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LoyaltyAirdropResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_airdrop_submit",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_airdrop_submit\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Invite Crossly buyers to your loyalty program by user id (up to 500); returns how many were newly invited.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateLoyaltyProgramInviteResponse]
+    def create_loyalty_program_invite(opts = {})
+      data, _status_code, _headers = create_loyalty_program_invite_with_http_info(opts)
+      data
+    end
+
+    # Invite Crossly buyers to your loyalty program by user id (up to 500); returns how many were newly invited.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateLoyaltyProgramInviteResponse, Integer, Hash)>] CreateLoyaltyProgramInviteResponse data, response status code and response headers
+    def create_loyalty_program_invite_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_program_invite ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program/invite'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateLoyaltyProgramInviteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_program_invite",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_program_invite\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Pin a member to a tier (tierId null clears the pin), with a reason.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetLoyaltyProgramMemberResponse]
+    def create_loyalty_program_member_override(id, opts = {})
+      data, _status_code, _headers = create_loyalty_program_member_override_with_http_info(id, opts)
+      data
+    end
+
+    # Pin a member to a tier (tierId null clears the pin), with a reason.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetLoyaltyProgramMemberResponse, Integer, Hash)>] GetLoyaltyProgramMemberResponse data, response status code and response headers
+    def create_loyalty_program_member_override_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_program_member_override ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.create_loyalty_program_member_override"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program/members/{id}/override'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetLoyaltyProgramMemberResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_program_member_override",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_program_member_override\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Add a tier: name, look, threshold and typed perks (% off, free shipping, early access, members-only listings, wholesale access, token gates, airdrops, Bucks, World items, event tickets, …).
+    # @param [Hash] opts the optional parameters
+    # @return [CreateLoyaltyTierResponse]
+    def create_loyalty_tier(opts = {})
+      data, _status_code, _headers = create_loyalty_tier_with_http_info(opts)
+      data
+    end
+
+    # Add a tier: name, look, threshold and typed perks (% off, free shipping, early access, members-only listings, wholesale access, token gates, airdrops, Bucks, World items, event tickets, …).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateLoyaltyTierResponse, Integer, Hash)>] CreateLoyaltyTierResponse data, response status code and response headers
+    def create_loyalty_tier_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.create_loyalty_tier ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/tiers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateLoyaltyTierResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.create_loyalty_tier",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#create_loyalty_tier\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a tier; its members are re-evaluated.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_loyalty_tier(id, opts = {})
+      data, _status_code, _headers = delete_loyalty_tier_with_http_info(id, opts)
+      data
+    end
+
+    # Delete a tier; its members are re-evaluated.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_loyalty_tier_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.delete_loyalty_tier ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.delete_loyalty_tier"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/tiers/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.delete_loyalty_tier",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#delete_loyalty_tier\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get one customer: recent 50 orders, buyer profiles per platform, and stats over all of their orders.
     # @param handle [String] 
     # @param [Hash] opts the optional parameters
@@ -251,6 +727,128 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your private notes on a customer (empty when none). Works before their first order.
+    # @param handle [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetCustomerNoteResponse]
+    def get_customer_note(handle, opts = {})
+      data, _status_code, _headers = get_customer_note_with_http_info(handle, opts)
+      data
+    end
+
+    # Your private notes on a customer (empty when none). Works before their first order.
+    # @param handle [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetCustomerNoteResponse, Integer, Hash)>] GetCustomerNoteResponse data, response status code and response headers
+    def get_customer_note_with_http_info(handle, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.get_customer_note ...'
+      end
+      # verify the required parameter 'handle' is set
+      if @api_client.config.client_side_validation && handle.nil?
+        fail ArgumentError, "Missing the required parameter 'handle' when calling CustomersApi.get_customer_note"
+      end
+      # resource path
+      local_var_path = '/v1/customers/{handle}/notes'.sub('{' + 'handle' + '}', CGI.escape(handle.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetCustomerNoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.get_customer_note",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#get_customer_note\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One loyalty NFT airdrop: member, collection, recipient wallet, transaction hash and status.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [LoyaltyAirdropResponse]
+    def get_loyalty_airdrop(id, opts = {})
+      data, _status_code, _headers = get_loyalty_airdrop_with_http_info(id, opts)
+      data
+    end
+
+    # One loyalty NFT airdrop: member, collection, recipient wallet, transaction hash and status.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(LoyaltyAirdropResponse, Integer, Hash)>] LoyaltyAirdropResponse data, response status code and response headers
+    def get_loyalty_airdrop_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.get_loyalty_airdrop ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.get_loyalty_airdrop"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/airdrops/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'LoyaltyAirdropResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.get_loyalty_airdrop",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#get_loyalty_airdrop\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your loyalty club: tiers and how many members are in each.
     # @param [Hash] opts the optional parameters
     # @return [GetLoyaltyClubResponse]
@@ -302,6 +900,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: CustomersApi#get_loyalty_club\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your loyalty program: qualification (spend, orders, points), window, joining, downgrade and grace, and its tiers with typed perks.
+    # @param [Hash] opts the optional parameters
+    # @return [GetLoyaltyProgramResponse]
+    def get_loyalty_program(opts = {})
+      data, _status_code, _headers = get_loyalty_program_with_http_info(opts)
+      data
+    end
+
+    # Your loyalty program: qualification (spend, orders, points), window, joining, downgrade and grace, and its tiers with typed perks.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetLoyaltyProgramResponse, Integer, Hash)>] GetLoyaltyProgramResponse data, response status code and response headers
+    def get_loyalty_program_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.get_loyalty_program ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetLoyaltyProgramResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.get_loyalty_program",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#get_loyalty_program\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One member: standing, tier, progress, perks held, history and any override.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetLoyaltyProgramMemberResponse]
+    def get_loyalty_program_member(id, opts = {})
+      data, _status_code, _headers = get_loyalty_program_member_with_http_info(id, opts)
+      data
+    end
+
+    # One member: standing, tier, progress, perks held, history and any override.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetLoyaltyProgramMemberResponse, Integer, Hash)>] GetLoyaltyProgramMemberResponse data, response status code and response headers
+    def get_loyalty_program_member_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.get_loyalty_program_member ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.get_loyalty_program_member"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program/members/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetLoyaltyProgramMemberResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.get_loyalty_program_member",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#get_loyalty_program_member\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -361,6 +1075,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # NFT airdrops your loyalty tiers earned members: queued to send, submitted (waiting on the receipt), sent, failed (with why) or cancelled.
+    # @param [Hash] opts the optional parameters
+    # @return [ListLoyaltyAirdropsResponse]
+    def list_loyalty_airdrops(opts = {})
+      data, _status_code, _headers = list_loyalty_airdrops_with_http_info(opts)
+      data
+    end
+
+    # NFT airdrops your loyalty tiers earned members: queued to send, submitted (waiting on the receipt), sent, failed (with why) or cancelled.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListLoyaltyAirdropsResponse, Integer, Hash)>] ListLoyaltyAirdropsResponse data, response status code and response headers
+    def list_loyalty_airdrops_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.list_loyalty_airdrops ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/airdrops'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListLoyaltyAirdropsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.list_loyalty_airdrops",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#list_loyalty_airdrops\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your loyalty club’s members, by spend with you.
     # @param [Hash] opts the optional parameters
     # @return [ListLoyaltyMembersResponse]
@@ -416,6 +1185,188 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Crossly buyers who bought from you and are not loyalty members yet (q searches by name): who you can invite.
+    # @param [Hash] opts the optional parameters
+    # @return [ListLoyaltyProgramInviteCandidatesResponse]
+    def list_loyalty_program_invite_candidates(opts = {})
+      data, _status_code, _headers = list_loyalty_program_invite_candidates_with_http_info(opts)
+      data
+    end
+
+    # Crossly buyers who bought from you and are not loyalty members yet (q searches by name): who you can invite.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListLoyaltyProgramInviteCandidatesResponse, Integer, Hash)>] ListLoyaltyProgramInviteCandidatesResponse data, response status code and response headers
+    def list_loyalty_program_invite_candidates_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.list_loyalty_program_invite_candidates ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program/invite-candidates'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListLoyaltyProgramInviteCandidatesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.list_loyalty_program_invite_candidates",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#list_loyalty_program_invite_candidates\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your loyalty members with tier, standing, grace and overrides; search, tier, status and sort filters.
+    # @param [Hash] opts the optional parameters
+    # @return [ListLoyaltyProgramMembersResponse]
+    def list_loyalty_program_members(opts = {})
+      data, _status_code, _headers = list_loyalty_program_members_with_http_info(opts)
+      data
+    end
+
+    # Your loyalty members with tier, standing, grace and overrides; search, tier, status and sort filters.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListLoyaltyProgramMembersResponse, Integer, Hash)>] ListLoyaltyProgramMembersResponse data, response status code and response headers
+    def list_loyalty_program_members_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.list_loyalty_program_members ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program/members'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListLoyaltyProgramMembersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.list_loyalty_program_members",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#list_loyalty_program_members\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save your private notes on a customer (an empty string clears them).
+    # @param handle [String] 
+    # @param update_customer_note_request [UpdateCustomerNoteRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetCustomerNoteResponse]
+    def update_customer_note(handle, update_customer_note_request, opts = {})
+      data, _status_code, _headers = update_customer_note_with_http_info(handle, update_customer_note_request, opts)
+      data
+    end
+
+    # Save your private notes on a customer (an empty string clears them).
+    # @param handle [String] 
+    # @param update_customer_note_request [UpdateCustomerNoteRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetCustomerNoteResponse, Integer, Hash)>] GetCustomerNoteResponse data, response status code and response headers
+    def update_customer_note_with_http_info(handle, update_customer_note_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.update_customer_note ...'
+      end
+      # verify the required parameter 'handle' is set
+      if @api_client.config.client_side_validation && handle.nil?
+        fail ArgumentError, "Missing the required parameter 'handle' when calling CustomersApi.update_customer_note"
+      end
+      # verify the required parameter 'update_customer_note_request' is set
+      if @api_client.config.client_side_validation && update_customer_note_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_customer_note_request' when calling CustomersApi.update_customer_note"
+      end
+      # resource path
+      local_var_path = '/v1/customers/{handle}/notes'.sub('{' + 'handle' + '}', CGI.escape(handle.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_customer_note_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetCustomerNoteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.update_customer_note",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#update_customer_note\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create or update your loyalty club: name, on/off, and up to 6 spend tiers each with a discount (≤ 30%) and perks.
     # @param [Hash] opts the optional parameters
     # @return [GetLoyaltyClubResponse]
@@ -467,6 +1418,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: CustomersApi#update_loyalty_club\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create or update your loyalty program settings.
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateLoyaltyProgramResponse]
+    def update_loyalty_program(opts = {})
+      data, _status_code, _headers = update_loyalty_program_with_http_info(opts)
+      data
+    end
+
+    # Create or update your loyalty program settings.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateLoyaltyProgramResponse, Integer, Hash)>] UpdateLoyaltyProgramResponse data, response status code and response headers
+    def update_loyalty_program_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.update_loyalty_program ...'
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/program'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateLoyaltyProgramResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.update_loyalty_program",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#update_loyalty_program\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace a tier. Members holding it get the edited perks.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateLoyaltyTierResponse]
+    def update_loyalty_tier(id, opts = {})
+      data, _status_code, _headers = update_loyalty_tier_with_http_info(id, opts)
+      data
+    end
+
+    # Replace a tier. Members holding it get the edited perks.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateLoyaltyTierResponse, Integer, Hash)>] CreateLoyaltyTierResponse data, response status code and response headers
+    def update_loyalty_tier_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CustomersApi.update_loyalty_tier ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CustomersApi.update_loyalty_tier"
+      end
+      # resource path
+      local_var_path = '/v1/loyalty/tiers/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateLoyaltyTierResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CustomersApi.update_loyalty_tier",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CustomersApi#update_loyalty_tier\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

@@ -35,7 +35,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'created' => :'Array<CreateAutomationRuleImportResponseCreated>',
+        :'created' => :'Array<IdName>',
         :'errors' => :'Array<CreateAutomationRuleImportResponseErrors>'
       }
     end

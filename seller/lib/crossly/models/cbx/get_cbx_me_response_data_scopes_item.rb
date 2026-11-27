@@ -15,9 +15,9 @@ require 'time'
 
 module Crossly
   class GetCbxMeResponseDataScopesItem
+    READ = "read".freeze
     SPEND = "spend".freeze
     CAMPAIGN = "campaign".freeze
-    READ = "read".freeze
     ACCRUE = "accrue".freeze
     TREASURY = "treasury".freeze
 

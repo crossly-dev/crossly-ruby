@@ -58,9 +58,9 @@ module Crossly
         :'user_agent' => :'String',
         :'ip_address' => :'String',
         :'ip_country' => :'String',
-        :'created_at' => :'Time',
-        :'last_used_at' => :'Time',
-        :'expires_at' => :'Time'
+        :'created_at' => :'String',
+        :'last_used_at' => :'String',
+        :'expires_at' => :'String'
       }
     end
 
@@ -70,6 +70,9 @@ module Crossly
         :'user_agent',
         :'ip_address',
         :'ip_country',
+        :'created_at',
+        :'last_used_at',
+        :'expires_at'
       ])
     end
 
@@ -133,18 +136,6 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @last_used_at.nil?
-        invalid_properties.push('invalid value for "last_used_at", last_used_at cannot be nil.')
-      end
-
-      if @expires_at.nil?
-        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -153,9 +144,6 @@ module Crossly
     def valid?
       return false if @is_current.nil?
       return false if @id.nil?
-      return false if @created_at.nil?
-      return false if @last_used_at.nil?
-      return false if @expires_at.nil?
       true
     end
 

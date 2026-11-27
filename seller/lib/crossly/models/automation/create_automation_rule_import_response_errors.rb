@@ -36,7 +36,7 @@ module Crossly
     def self.openapi_types
       {
         :'name' => :'String',
-        :'errors' => :'Array<Hash<String, Object>>'
+        :'errors' => :'Array<Object>'
       }
     end
 

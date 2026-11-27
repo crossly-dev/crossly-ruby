@@ -20,23 +20,23 @@ module CrosslyBuyer
     # Listing price now, in cents.
     attr_accessor :price_cents
 
-    attr_accessor :status
+    attr_accessor :slug
 
     attr_accessor :title
 
-    attr_accessor :slug
-
     attr_accessor :thumbnail
+
+    attr_accessor :status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'price_cents' => :'priceCents',
-        :'status' => :'status',
-        :'title' => :'title',
         :'slug' => :'slug',
-        :'thumbnail' => :'thumbnail'
+        :'title' => :'title',
+        :'thumbnail' => :'thumbnail',
+        :'status' => :'status'
       }
     end
 
@@ -50,20 +50,20 @@ module CrosslyBuyer
       {
         :'id' => :'String',
         :'price_cents' => :'Float',
-        :'status' => :'String',
-        :'title' => :'String',
         :'slug' => :'String',
-        :'thumbnail' => :'String'
+        :'title' => :'String',
+        :'thumbnail' => :'String',
+        :'status' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'status',
-        :'title',
         :'slug',
-        :'thumbnail'
+        :'title',
+        :'thumbnail',
+        :'status'
       ])
     end
 
@@ -90,20 +90,20 @@ module CrosslyBuyer
         self.price_cents = attributes[:'price_cents']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
       end
 
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
 
-      if attributes.key?(:'slug')
-        self.slug = attributes[:'slug']
-      end
-
       if attributes.key?(:'thumbnail')
         self.thumbnail = attributes[:'thumbnail']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
     end
 
@@ -137,10 +137,10 @@ module CrosslyBuyer
       self.class == o.class &&
           id == o.id &&
           price_cents == o.price_cents &&
-          status == o.status &&
-          title == o.title &&
           slug == o.slug &&
-          thumbnail == o.thumbnail
+          title == o.title &&
+          thumbnail == o.thumbnail &&
+          status == o.status
     end
 
     # @see the `==` method
@@ -152,7 +152,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, price_cents, status, title, slug, thumbnail].hash
+      [id, price_cents, slug, title, thumbnail, status].hash
     end
 
     # Builds the object from hash

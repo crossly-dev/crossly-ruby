@@ -15,31 +15,39 @@ require 'time'
 
 module Crossly
   class ListInboxItem
+    attr_accessor :can_send_offer
+
     attr_accessor :id
 
     attr_accessor :created_at
 
     attr_accessor :user_id
 
-    attr_accessor :status
-
     attr_accessor :platform
-
-    attr_accessor :listing_id
 
     attr_accessor :account_slot
 
+    attr_accessor :status
+
+    attr_accessor :source
+
+    attr_accessor :labels
+
     attr_accessor :inventory_item_id
+
+    attr_accessor :listing_id
 
     attr_accessor :platform_listing_id
 
     attr_accessor :buyer_username
 
-    attr_accessor :subject
-
     attr_accessor :platform_conversation_id
 
     attr_accessor :buyer_platform_id
+
+    attr_accessor :buyer_avatar_url
+
+    attr_accessor :subject
 
     attr_accessor :is_read
 
@@ -55,29 +63,39 @@ module Crossly
 
     attr_accessor :last_message_at
 
+    attr_accessor :superseded_at
+
+    attr_accessor :is_starred
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'can_send_offer' => :'canSendOffer',
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
-        :'status' => :'status',
         :'platform' => :'platform',
-        :'listing_id' => :'listingId',
         :'account_slot' => :'accountSlot',
+        :'status' => :'status',
+        :'source' => :'source',
+        :'labels' => :'labels',
         :'inventory_item_id' => :'inventoryItemId',
+        :'listing_id' => :'listingId',
         :'platform_listing_id' => :'platformListingId',
         :'buyer_username' => :'buyerUsername',
-        :'subject' => :'subject',
         :'platform_conversation_id' => :'platformConversationId',
         :'buyer_platform_id' => :'buyerPlatformId',
+        :'buyer_avatar_url' => :'buyerAvatarUrl',
+        :'subject' => :'subject',
         :'is_read' => :'isRead',
         :'is_hidden' => :'isHidden',
         :'has_offer' => :'hasOffer',
         :'offer_amount' => :'offerAmount',
         :'offer_status' => :'offerStatus',
         :'platform_conversation_url' => :'platformConversationUrl',
-        :'last_message_at' => :'lastMessageAt'
+        :'last_message_at' => :'lastMessageAt',
+        :'superseded_at' => :'supersededAt',
+        :'is_starred' => :'isStarred'
       }
     end
 
@@ -89,42 +107,51 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'can_send_offer' => :'Boolean',
         :'id' => :'String',
         :'created_at' => :'Time',
         :'user_id' => :'String',
-        :'status' => :'String',
         :'platform' => :'String',
-        :'listing_id' => :'String',
         :'account_slot' => :'Float',
+        :'status' => :'String',
+        :'source' => :'String',
+        :'labels' => :'Array<String>',
         :'inventory_item_id' => :'String',
+        :'listing_id' => :'String',
         :'platform_listing_id' => :'String',
         :'buyer_username' => :'String',
-        :'subject' => :'String',
         :'platform_conversation_id' => :'String',
         :'buyer_platform_id' => :'String',
+        :'buyer_avatar_url' => :'String',
+        :'subject' => :'String',
         :'is_read' => :'Boolean',
         :'is_hidden' => :'Boolean',
         :'has_offer' => :'Boolean',
         :'offer_amount' => :'String',
         :'offer_status' => :'String',
         :'platform_conversation_url' => :'String',
-        :'last_message_at' => :'Time'
+        :'last_message_at' => :'Time',
+        :'superseded_at' => :'Time',
+        :'is_starred' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'listing_id',
+        :'source',
         :'inventory_item_id',
+        :'listing_id',
         :'platform_listing_id',
         :'buyer_username',
-        :'subject',
         :'buyer_platform_id',
+        :'buyer_avatar_url',
+        :'subject',
         :'offer_amount',
         :'offer_status',
         :'platform_conversation_url',
-        :'last_message_at'
+        :'last_message_at',
+        :'superseded_at',
       ])
     end
 
@@ -143,6 +170,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'can_send_offer')
+        self.can_send_offer = attributes[:'can_send_offer']
+      end
+
       if attributes.key?(:'id')
         self.id = attributes[:'id']
       end
@@ -155,24 +186,34 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
-      end
-
-      if attributes.key?(:'listing_id')
-        self.listing_id = attributes[:'listing_id']
       end
 
       if attributes.key?(:'account_slot')
         self.account_slot = attributes[:'account_slot']
       end
 
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'source')
+        self.source = attributes[:'source']
+      end
+
+      if attributes.key?(:'labels')
+        if (value = attributes[:'labels']).is_a?(Array)
+          self.labels = value
+        end
+      end
+
       if attributes.key?(:'inventory_item_id')
         self.inventory_item_id = attributes[:'inventory_item_id']
+      end
+
+      if attributes.key?(:'listing_id')
+        self.listing_id = attributes[:'listing_id']
       end
 
       if attributes.key?(:'platform_listing_id')
@@ -183,16 +224,20 @@ module Crossly
         self.buyer_username = attributes[:'buyer_username']
       end
 
-      if attributes.key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
       if attributes.key?(:'platform_conversation_id')
         self.platform_conversation_id = attributes[:'platform_conversation_id']
       end
 
       if attributes.key?(:'buyer_platform_id')
         self.buyer_platform_id = attributes[:'buyer_platform_id']
+      end
+
+      if attributes.key?(:'buyer_avatar_url')
+        self.buyer_avatar_url = attributes[:'buyer_avatar_url']
+      end
+
+      if attributes.key?(:'subject')
+        self.subject = attributes[:'subject']
       end
 
       if attributes.key?(:'is_read')
@@ -222,12 +267,24 @@ module Crossly
       if attributes.key?(:'last_message_at')
         self.last_message_at = attributes[:'last_message_at']
       end
+
+      if attributes.key?(:'superseded_at')
+        self.superseded_at = attributes[:'superseded_at']
+      end
+
+      if attributes.key?(:'is_starred')
+        self.is_starred = attributes[:'is_starred']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @can_send_offer.nil?
+        invalid_properties.push('invalid value for "can_send_offer", can_send_offer cannot be nil.')
+      end
+
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
@@ -240,16 +297,20 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @platform.nil?
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
       if @account_slot.nil?
         invalid_properties.push('invalid value for "account_slot", account_slot cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @labels.nil?
+        invalid_properties.push('invalid value for "labels", labels cannot be nil.')
       end
 
       if @platform_conversation_id.nil?
@@ -268,22 +329,29 @@ module Crossly
         invalid_properties.push('invalid value for "has_offer", has_offer cannot be nil.')
       end
 
+      if @is_starred.nil?
+        invalid_properties.push('invalid value for "is_starred", is_starred cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @can_send_offer.nil?
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @user_id.nil?
-      return false if @status.nil?
       return false if @platform.nil?
       return false if @account_slot.nil?
+      return false if @status.nil?
+      return false if @labels.nil?
       return false if @platform_conversation_id.nil?
       return false if @is_read.nil?
       return false if @is_hidden.nil?
       return false if @has_offer.nil?
+      return false if @is_starred.nil?
       true
     end
 
@@ -292,26 +360,32 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          can_send_offer == o.can_send_offer &&
           id == o.id &&
           created_at == o.created_at &&
           user_id == o.user_id &&
-          status == o.status &&
           platform == o.platform &&
-          listing_id == o.listing_id &&
           account_slot == o.account_slot &&
+          status == o.status &&
+          source == o.source &&
+          labels == o.labels &&
           inventory_item_id == o.inventory_item_id &&
+          listing_id == o.listing_id &&
           platform_listing_id == o.platform_listing_id &&
           buyer_username == o.buyer_username &&
-          subject == o.subject &&
           platform_conversation_id == o.platform_conversation_id &&
           buyer_platform_id == o.buyer_platform_id &&
+          buyer_avatar_url == o.buyer_avatar_url &&
+          subject == o.subject &&
           is_read == o.is_read &&
           is_hidden == o.is_hidden &&
           has_offer == o.has_offer &&
           offer_amount == o.offer_amount &&
           offer_status == o.offer_status &&
           platform_conversation_url == o.platform_conversation_url &&
-          last_message_at == o.last_message_at
+          last_message_at == o.last_message_at &&
+          superseded_at == o.superseded_at &&
+          is_starred == o.is_starred
     end
 
     # @see the `==` method
@@ -323,7 +397,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, platform, listing_id, account_slot, inventory_item_id, platform_listing_id, buyer_username, subject, platform_conversation_id, buyer_platform_id, is_read, is_hidden, has_offer, offer_amount, offer_status, platform_conversation_url, last_message_at].hash
+      [can_send_offer, id, created_at, user_id, platform, account_slot, status, source, labels, inventory_item_id, listing_id, platform_listing_id, buyer_username, platform_conversation_id, buyer_platform_id, buyer_avatar_url, subject, is_read, is_hidden, has_offer, offer_amount, offer_status, platform_conversation_url, last_message_at, superseded_at, is_starred].hash
     end
 
     # Builds the object from hash

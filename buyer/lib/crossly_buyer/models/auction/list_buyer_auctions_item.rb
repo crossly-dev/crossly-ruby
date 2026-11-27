@@ -19,20 +19,20 @@ module CrosslyBuyer
 
     attr_accessor :bid_count
 
-    attr_accessor :paid
-
     attr_accessor :leading
 
-    attr_accessor :status
-
-    attr_accessor :ends_at
+    attr_accessor :paid
 
     attr_accessor :slug
 
+    attr_accessor :thumbnail
+
+    attr_accessor :ends_at
+
+    attr_accessor :status
+
     # Current high bid, in cents.
     attr_accessor :current_cents
-
-    attr_accessor :thumbnail
 
     # Your highest maximum (proxy) bid, in cents.
     attr_accessor :my_max_cents
@@ -45,13 +45,13 @@ module CrosslyBuyer
       {
         :'title' => :'title',
         :'bid_count' => :'bidCount',
-        :'paid' => :'paid',
         :'leading' => :'leading',
-        :'status' => :'status',
-        :'ends_at' => :'endsAt',
+        :'paid' => :'paid',
         :'slug' => :'slug',
-        :'current_cents' => :'currentCents',
         :'thumbnail' => :'thumbnail',
+        :'ends_at' => :'endsAt',
+        :'status' => :'status',
+        :'current_cents' => :'currentCents',
         :'my_max_cents' => :'myMaxCents',
         :'winning_cents' => :'winningCents'
       }
@@ -67,13 +67,13 @@ module CrosslyBuyer
       {
         :'title' => :'String',
         :'bid_count' => :'Float',
-        :'paid' => :'Boolean',
         :'leading' => :'Boolean',
-        :'status' => :'String',
-        :'ends_at' => :'String',
+        :'paid' => :'Boolean',
         :'slug' => :'String',
-        :'current_cents' => :'Float',
         :'thumbnail' => :'String',
+        :'ends_at' => :'String',
+        :'status' => :'String',
+        :'current_cents' => :'Float',
         :'my_max_cents' => :'Float',
         :'winning_cents' => :'Float'
       }
@@ -82,11 +82,11 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'status',
-        :'ends_at',
         :'slug',
-        :'current_cents',
         :'thumbnail',
+        :'ends_at',
+        :'status',
+        :'current_cents',
         :'my_max_cents',
         :'winning_cents'
       ])
@@ -115,32 +115,32 @@ module CrosslyBuyer
         self.bid_count = attributes[:'bid_count']
       end
 
-      if attributes.key?(:'paid')
-        self.paid = attributes[:'paid']
-      end
-
       if attributes.key?(:'leading')
         self.leading = attributes[:'leading']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'ends_at')
-        self.ends_at = attributes[:'ends_at']
+      if attributes.key?(:'paid')
+        self.paid = attributes[:'paid']
       end
 
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
       end
 
-      if attributes.key?(:'current_cents')
-        self.current_cents = attributes[:'current_cents']
-      end
-
       if attributes.key?(:'thumbnail')
         self.thumbnail = attributes[:'thumbnail']
+      end
+
+      if attributes.key?(:'ends_at')
+        self.ends_at = attributes[:'ends_at']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'current_cents')
+        self.current_cents = attributes[:'current_cents']
       end
 
       if attributes.key?(:'my_max_cents')
@@ -164,12 +164,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "bid_count", bid_count cannot be nil.')
       end
 
-      if @paid.nil?
-        invalid_properties.push('invalid value for "paid", paid cannot be nil.')
-      end
-
       if @leading.nil?
         invalid_properties.push('invalid value for "leading", leading cannot be nil.')
+      end
+
+      if @paid.nil?
+        invalid_properties.push('invalid value for "paid", paid cannot be nil.')
       end
 
       invalid_properties
@@ -180,8 +180,8 @@ module CrosslyBuyer
     def valid?
       return false if @title.nil?
       return false if @bid_count.nil?
-      return false if @paid.nil?
       return false if @leading.nil?
+      return false if @paid.nil?
       true
     end
 
@@ -192,13 +192,13 @@ module CrosslyBuyer
       self.class == o.class &&
           title == o.title &&
           bid_count == o.bid_count &&
-          paid == o.paid &&
           leading == o.leading &&
-          status == o.status &&
-          ends_at == o.ends_at &&
+          paid == o.paid &&
           slug == o.slug &&
-          current_cents == o.current_cents &&
           thumbnail == o.thumbnail &&
+          ends_at == o.ends_at &&
+          status == o.status &&
+          current_cents == o.current_cents &&
           my_max_cents == o.my_max_cents &&
           winning_cents == o.winning_cents
     end
@@ -212,7 +212,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [title, bid_count, paid, leading, status, ends_at, slug, current_cents, thumbnail, my_max_cents, winning_cents].hash
+      [title, bid_count, leading, paid, slug, thumbnail, ends_at, status, current_cents, my_max_cents, winning_cents].hash
     end
 
     # Builds the object from hash

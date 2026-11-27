@@ -21,35 +21,41 @@ module Crossly
 
     attr_accessor :created_at
 
-    attr_accessor :status
+    attr_accessor :updated_at
 
     attr_accessor :description
 
+    attr_accessor :status
+
+    attr_accessor :released_at
+
+    attr_accessor :published
+
+    attr_accessor :storefront_id
+
     attr_accessor :ends_at
+
+    attr_accessor :event_id
+
+    attr_accessor :format
+
+    attr_accessor :config
 
     attr_accessor :seller_user_id
 
     attr_accessor :cover_image_url
 
-    attr_accessor :published_at
-
-    attr_accessor :reviewed_at
-
-    attr_accessor :review_note
-
-    attr_accessor :supplier_name
-
-    attr_accessor :partner_id
-
-    attr_accessor :published
-
     attr_accessor :platform_listing_ids
 
     attr_accessor :drop_at
 
+    attr_accessor :partner_id
+
     attr_accessor :wholesale_unit_cost_cents
 
     attr_accessor :units_purchased
+
+    attr_accessor :supplier_name
 
     attr_accessor :po_reference
 
@@ -61,6 +67,40 @@ module Crossly
 
     attr_accessor :preview_from
 
+    attr_accessor :published_at
+
+    attr_accessor :review_note
+
+    attr_accessor :reviewed_at
+
+    attr_accessor :placements
+
+    attr_accessor :announce_at
+
+    attr_accessor :countdown_at
+
+    attr_accessor :paused_at
+
+    attr_accessor :live_stream_id
+
+    attr_accessor :spatial_drop_id
+
+    attr_accessor :timezone
+
+    attr_accessor :featured_status
+
+    attr_accessor :audience
+
+    attr_accessor :audience_catalog_id
+
+    attr_accessor :drop_kind
+
+    attr_accessor :deposit_bps
+
+    attr_accessor :ship_by
+
+    attr_accessor :balance_net_days
+
     attr_accessor :listing_count
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -69,26 +109,46 @@ module Crossly
         :'id' => :'id',
         :'name' => :'name',
         :'created_at' => :'createdAt',
-        :'status' => :'status',
+        :'updated_at' => :'updatedAt',
         :'description' => :'description',
+        :'status' => :'status',
+        :'released_at' => :'releasedAt',
+        :'published' => :'published',
+        :'storefront_id' => :'storefrontId',
         :'ends_at' => :'endsAt',
+        :'event_id' => :'eventId',
+        :'format' => :'format',
+        :'config' => :'config',
         :'seller_user_id' => :'sellerUserId',
         :'cover_image_url' => :'coverImageUrl',
-        :'published_at' => :'publishedAt',
-        :'reviewed_at' => :'reviewedAt',
-        :'review_note' => :'reviewNote',
-        :'supplier_name' => :'supplierName',
-        :'partner_id' => :'partnerId',
-        :'published' => :'published',
         :'platform_listing_ids' => :'platformListingIds',
         :'drop_at' => :'dropAt',
+        :'partner_id' => :'partnerId',
         :'wholesale_unit_cost_cents' => :'wholesaleUnitCostCents',
         :'units_purchased' => :'unitsPurchased',
+        :'supplier_name' => :'supplierName',
         :'po_reference' => :'poReference',
         :'retail_unit_price_cents' => :'retailUnitPriceCents',
         :'buyer_api_enabled' => :'buyerApiEnabled',
         :'per_customer_limit' => :'perCustomerLimit',
         :'preview_from' => :'previewFrom',
+        :'published_at' => :'publishedAt',
+        :'review_note' => :'reviewNote',
+        :'reviewed_at' => :'reviewedAt',
+        :'placements' => :'placements',
+        :'announce_at' => :'announceAt',
+        :'countdown_at' => :'countdownAt',
+        :'paused_at' => :'pausedAt',
+        :'live_stream_id' => :'liveStreamId',
+        :'spatial_drop_id' => :'spatialDropId',
+        :'timezone' => :'timezone',
+        :'featured_status' => :'featuredStatus',
+        :'audience' => :'audience',
+        :'audience_catalog_id' => :'audienceCatalogId',
+        :'drop_kind' => :'dropKind',
+        :'deposit_bps' => :'depositBps',
+        :'ship_by' => :'shipBy',
+        :'balance_net_days' => :'balanceNetDays',
         :'listing_count' => :'listingCount'
       }
     end
@@ -104,26 +164,46 @@ module Crossly
         :'id' => :'String',
         :'name' => :'String',
         :'created_at' => :'Time',
-        :'status' => :'String',
+        :'updated_at' => :'Time',
         :'description' => :'String',
+        :'status' => :'String',
+        :'released_at' => :'Time',
+        :'published' => :'Boolean',
+        :'storefront_id' => :'String',
         :'ends_at' => :'Time',
+        :'event_id' => :'String',
+        :'format' => :'String',
+        :'config' => :'Hash<String, Object>',
         :'seller_user_id' => :'String',
         :'cover_image_url' => :'String',
-        :'published_at' => :'Time',
-        :'reviewed_at' => :'Time',
-        :'review_note' => :'String',
-        :'supplier_name' => :'String',
-        :'partner_id' => :'String',
-        :'published' => :'Boolean',
         :'platform_listing_ids' => :'Array<String>',
         :'drop_at' => :'Time',
+        :'partner_id' => :'String',
         :'wholesale_unit_cost_cents' => :'Float',
         :'units_purchased' => :'Float',
+        :'supplier_name' => :'String',
         :'po_reference' => :'String',
         :'retail_unit_price_cents' => :'Float',
         :'buyer_api_enabled' => :'Boolean',
         :'per_customer_limit' => :'Float',
         :'preview_from' => :'Time',
+        :'published_at' => :'Time',
+        :'review_note' => :'String',
+        :'reviewed_at' => :'Time',
+        :'placements' => :'Array<String>',
+        :'announce_at' => :'Time',
+        :'countdown_at' => :'Time',
+        :'paused_at' => :'Time',
+        :'live_stream_id' => :'String',
+        :'spatial_drop_id' => :'String',
+        :'timezone' => :'String',
+        :'featured_status' => :'String',
+        :'audience' => :'String',
+        :'audience_catalog_id' => :'String',
+        :'drop_kind' => :'String',
+        :'deposit_bps' => :'Float',
+        :'ship_by' => :'String',
+        :'balance_net_days' => :'Float',
         :'listing_count' => :'Float'
       }
     end
@@ -132,20 +212,34 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'description',
+        :'released_at',
+        :'storefront_id',
         :'ends_at',
+        :'event_id',
         :'cover_image_url',
-        :'published_at',
-        :'reviewed_at',
-        :'review_note',
-        :'supplier_name',
-        :'partner_id',
         :'platform_listing_ids',
+        :'partner_id',
         :'wholesale_unit_cost_cents',
         :'units_purchased',
+        :'supplier_name',
         :'po_reference',
         :'retail_unit_price_cents',
         :'per_customer_limit',
         :'preview_from',
+        :'published_at',
+        :'review_note',
+        :'reviewed_at',
+        :'announce_at',
+        :'countdown_at',
+        :'paused_at',
+        :'live_stream_id',
+        :'spatial_drop_id',
+        :'timezone',
+        :'featured_status',
+        :'audience_catalog_id',
+        :'deposit_bps',
+        :'ship_by',
+        :'balance_net_days',
       ])
     end
 
@@ -176,16 +270,46 @@ module Crossly
         self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
       end
 
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'released_at')
+        self.released_at = attributes[:'released_at']
+      end
+
+      if attributes.key?(:'published')
+        self.published = attributes[:'published']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
+      end
+
+      if attributes.key?(:'event_id')
+        self.event_id = attributes[:'event_id']
+      end
+
+      if attributes.key?(:'format')
+        self.format = attributes[:'format']
+      end
+
+      if attributes.key?(:'config')
+        if (value = attributes[:'config']).is_a?(Hash)
+          self.config = value
+        end
       end
 
       if attributes.key?(:'seller_user_id')
@@ -194,30 +318,6 @@ module Crossly
 
       if attributes.key?(:'cover_image_url')
         self.cover_image_url = attributes[:'cover_image_url']
-      end
-
-      if attributes.key?(:'published_at')
-        self.published_at = attributes[:'published_at']
-      end
-
-      if attributes.key?(:'reviewed_at')
-        self.reviewed_at = attributes[:'reviewed_at']
-      end
-
-      if attributes.key?(:'review_note')
-        self.review_note = attributes[:'review_note']
-      end
-
-      if attributes.key?(:'supplier_name')
-        self.supplier_name = attributes[:'supplier_name']
-      end
-
-      if attributes.key?(:'partner_id')
-        self.partner_id = attributes[:'partner_id']
-      end
-
-      if attributes.key?(:'published')
-        self.published = attributes[:'published']
       end
 
       if attributes.key?(:'platform_listing_ids')
@@ -230,12 +330,20 @@ module Crossly
         self.drop_at = attributes[:'drop_at']
       end
 
+      if attributes.key?(:'partner_id')
+        self.partner_id = attributes[:'partner_id']
+      end
+
       if attributes.key?(:'wholesale_unit_cost_cents')
         self.wholesale_unit_cost_cents = attributes[:'wholesale_unit_cost_cents']
       end
 
       if attributes.key?(:'units_purchased')
         self.units_purchased = attributes[:'units_purchased']
+      end
+
+      if attributes.key?(:'supplier_name')
+        self.supplier_name = attributes[:'supplier_name']
       end
 
       if attributes.key?(:'po_reference')
@@ -256,6 +364,76 @@ module Crossly
 
       if attributes.key?(:'preview_from')
         self.preview_from = attributes[:'preview_from']
+      end
+
+      if attributes.key?(:'published_at')
+        self.published_at = attributes[:'published_at']
+      end
+
+      if attributes.key?(:'review_note')
+        self.review_note = attributes[:'review_note']
+      end
+
+      if attributes.key?(:'reviewed_at')
+        self.reviewed_at = attributes[:'reviewed_at']
+      end
+
+      if attributes.key?(:'placements')
+        if (value = attributes[:'placements']).is_a?(Array)
+          self.placements = value
+        end
+      end
+
+      if attributes.key?(:'announce_at')
+        self.announce_at = attributes[:'announce_at']
+      end
+
+      if attributes.key?(:'countdown_at')
+        self.countdown_at = attributes[:'countdown_at']
+      end
+
+      if attributes.key?(:'paused_at')
+        self.paused_at = attributes[:'paused_at']
+      end
+
+      if attributes.key?(:'live_stream_id')
+        self.live_stream_id = attributes[:'live_stream_id']
+      end
+
+      if attributes.key?(:'spatial_drop_id')
+        self.spatial_drop_id = attributes[:'spatial_drop_id']
+      end
+
+      if attributes.key?(:'timezone')
+        self.timezone = attributes[:'timezone']
+      end
+
+      if attributes.key?(:'featured_status')
+        self.featured_status = attributes[:'featured_status']
+      end
+
+      if attributes.key?(:'audience')
+        self.audience = attributes[:'audience']
+      end
+
+      if attributes.key?(:'audience_catalog_id')
+        self.audience_catalog_id = attributes[:'audience_catalog_id']
+      end
+
+      if attributes.key?(:'drop_kind')
+        self.drop_kind = attributes[:'drop_kind']
+      end
+
+      if attributes.key?(:'deposit_bps')
+        self.deposit_bps = attributes[:'deposit_bps']
+      end
+
+      if attributes.key?(:'ship_by')
+        self.ship_by = attributes[:'ship_by']
+      end
+
+      if attributes.key?(:'balance_net_days')
+        self.balance_net_days = attributes[:'balance_net_days']
       end
 
       if attributes.key?(:'listing_count')
@@ -279,16 +457,28 @@ module Crossly
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @seller_user_id.nil?
-        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
-      end
-
       if @published.nil?
         invalid_properties.push('invalid value for "published", published cannot be nil.')
+      end
+
+      if @format.nil?
+        invalid_properties.push('invalid value for "format", format cannot be nil.')
+      end
+
+      if @config.nil?
+        invalid_properties.push('invalid value for "config", config cannot be nil.')
+      end
+
+      if @seller_user_id.nil?
+        invalid_properties.push('invalid value for "seller_user_id", seller_user_id cannot be nil.')
       end
 
       if @drop_at.nil?
@@ -297,6 +487,18 @@ module Crossly
 
       if @buyer_api_enabled.nil?
         invalid_properties.push('invalid value for "buyer_api_enabled", buyer_api_enabled cannot be nil.')
+      end
+
+      if @placements.nil?
+        invalid_properties.push('invalid value for "placements", placements cannot be nil.')
+      end
+
+      if @audience.nil?
+        invalid_properties.push('invalid value for "audience", audience cannot be nil.')
+      end
+
+      if @drop_kind.nil?
+        invalid_properties.push('invalid value for "drop_kind", drop_kind cannot be nil.')
       end
 
       if @listing_count.nil?
@@ -312,11 +514,17 @@ module Crossly
       return false if @id.nil?
       return false if @name.nil?
       return false if @created_at.nil?
+      return false if @updated_at.nil?
       return false if @status.nil?
-      return false if @seller_user_id.nil?
       return false if @published.nil?
+      return false if @format.nil?
+      return false if @config.nil?
+      return false if @seller_user_id.nil?
       return false if @drop_at.nil?
       return false if @buyer_api_enabled.nil?
+      return false if @placements.nil?
+      return false if @audience.nil?
+      return false if @drop_kind.nil?
       return false if @listing_count.nil?
       true
     end
@@ -329,26 +537,46 @@ module Crossly
           id == o.id &&
           name == o.name &&
           created_at == o.created_at &&
-          status == o.status &&
+          updated_at == o.updated_at &&
           description == o.description &&
+          status == o.status &&
+          released_at == o.released_at &&
+          published == o.published &&
+          storefront_id == o.storefront_id &&
           ends_at == o.ends_at &&
+          event_id == o.event_id &&
+          format == o.format &&
+          config == o.config &&
           seller_user_id == o.seller_user_id &&
           cover_image_url == o.cover_image_url &&
-          published_at == o.published_at &&
-          reviewed_at == o.reviewed_at &&
-          review_note == o.review_note &&
-          supplier_name == o.supplier_name &&
-          partner_id == o.partner_id &&
-          published == o.published &&
           platform_listing_ids == o.platform_listing_ids &&
           drop_at == o.drop_at &&
+          partner_id == o.partner_id &&
           wholesale_unit_cost_cents == o.wholesale_unit_cost_cents &&
           units_purchased == o.units_purchased &&
+          supplier_name == o.supplier_name &&
           po_reference == o.po_reference &&
           retail_unit_price_cents == o.retail_unit_price_cents &&
           buyer_api_enabled == o.buyer_api_enabled &&
           per_customer_limit == o.per_customer_limit &&
           preview_from == o.preview_from &&
+          published_at == o.published_at &&
+          review_note == o.review_note &&
+          reviewed_at == o.reviewed_at &&
+          placements == o.placements &&
+          announce_at == o.announce_at &&
+          countdown_at == o.countdown_at &&
+          paused_at == o.paused_at &&
+          live_stream_id == o.live_stream_id &&
+          spatial_drop_id == o.spatial_drop_id &&
+          timezone == o.timezone &&
+          featured_status == o.featured_status &&
+          audience == o.audience &&
+          audience_catalog_id == o.audience_catalog_id &&
+          drop_kind == o.drop_kind &&
+          deposit_bps == o.deposit_bps &&
+          ship_by == o.ship_by &&
+          balance_net_days == o.balance_net_days &&
           listing_count == o.listing_count
     end
 
@@ -361,7 +589,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, status, description, ends_at, seller_user_id, cover_image_url, published_at, reviewed_at, review_note, supplier_name, partner_id, published, platform_listing_ids, drop_at, wholesale_unit_cost_cents, units_purchased, po_reference, retail_unit_price_cents, buyer_api_enabled, per_customer_limit, preview_from, listing_count].hash
+      [id, name, created_at, updated_at, description, status, released_at, published, storefront_id, ends_at, event_id, format, config, seller_user_id, cover_image_url, platform_listing_ids, drop_at, partner_id, wholesale_unit_cost_cents, units_purchased, supplier_name, po_reference, retail_unit_price_cents, buyer_api_enabled, per_customer_limit, preview_from, published_at, review_note, reviewed_at, placements, announce_at, countdown_at, paused_at, live_stream_id, spatial_drop_id, timezone, featured_status, audience, audience_catalog_id, drop_kind, deposit_bps, ship_by, balance_net_days, listing_count].hash
     end
 
     # Builds the object from hash

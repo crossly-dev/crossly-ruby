@@ -17,37 +17,37 @@ module CrosslyBuyer
   class BuyerBoardResponseData
     attr_accessor :id
 
-    attr_accessor :updated_at
-
-    attr_accessor :is_public
+    attr_accessor :title
 
     attr_accessor :description
 
-    attr_accessor :title
-
-    attr_accessor :items
+    attr_accessor :is_public
 
     attr_accessor :share_token
 
     attr_accessor :cover_url
 
+    attr_accessor :owner_name
+
     attr_accessor :mine
 
-    attr_accessor :owner_name
+    attr_accessor :items
+
+    attr_accessor :updated_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'updated_at' => :'updatedAt',
-        :'is_public' => :'isPublic',
-        :'description' => :'description',
         :'title' => :'title',
-        :'items' => :'items',
+        :'description' => :'description',
+        :'is_public' => :'isPublic',
         :'share_token' => :'shareToken',
         :'cover_url' => :'coverUrl',
+        :'owner_name' => :'ownerName',
         :'mine' => :'mine',
-        :'owner_name' => :'ownerName'
+        :'items' => :'items',
+        :'updated_at' => :'updatedAt'
       }
     end
 
@@ -60,15 +60,15 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'updated_at' => :'String',
-        :'is_public' => :'Boolean',
-        :'description' => :'String',
         :'title' => :'String',
-        :'items' => :'Array<BuyerBoardResponseDataItems>',
+        :'description' => :'String',
+        :'is_public' => :'Boolean',
         :'share_token' => :'String',
         :'cover_url' => :'String',
+        :'owner_name' => :'String',
         :'mine' => :'Boolean',
-        :'owner_name' => :'String'
+        :'items' => :'Array<BuyerBoardResponseDataItems>',
+        :'updated_at' => :'String'
       }
     end
 
@@ -100,26 +100,16 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
-      end
-
-      if attributes.key?(:'is_public')
-        self.is_public = attributes[:'is_public']
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
-      if attributes.key?(:'items')
-        if (value = attributes[:'items']).is_a?(Array)
-          self.items = value
-        end
+      if attributes.key?(:'is_public')
+        self.is_public = attributes[:'is_public']
       end
 
       if attributes.key?(:'share_token')
@@ -130,12 +120,22 @@ module CrosslyBuyer
         self.cover_url = attributes[:'cover_url']
       end
 
+      if attributes.key?(:'owner_name')
+        self.owner_name = attributes[:'owner_name']
+      end
+
       if attributes.key?(:'mine')
         self.mine = attributes[:'mine']
       end
 
-      if attributes.key?(:'owner_name')
-        self.owner_name = attributes[:'owner_name']
+      if attributes.key?(:'items')
+        if (value = attributes[:'items']).is_a?(Array)
+          self.items = value
+        end
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
     end
 
@@ -147,28 +147,28 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @is_public.nil?
         invalid_properties.push('invalid value for "is_public", is_public cannot be nil.')
       end
 
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
-      if @items.nil?
-        invalid_properties.push('invalid value for "items", items cannot be nil.')
+      if @owner_name.nil?
+        invalid_properties.push('invalid value for "owner_name", owner_name cannot be nil.')
       end
 
       if @mine.nil?
         invalid_properties.push('invalid value for "mine", mine cannot be nil.')
       end
 
-      if @owner_name.nil?
-        invalid_properties.push('invalid value for "owner_name", owner_name cannot be nil.')
+      if @items.nil?
+        invalid_properties.push('invalid value for "items", items cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
       invalid_properties
@@ -178,12 +178,12 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @updated_at.nil?
-      return false if @is_public.nil?
       return false if @title.nil?
-      return false if @items.nil?
-      return false if @mine.nil?
+      return false if @is_public.nil?
       return false if @owner_name.nil?
+      return false if @mine.nil?
+      return false if @items.nil?
+      return false if @updated_at.nil?
       true
     end
 
@@ -193,15 +193,15 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          updated_at == o.updated_at &&
-          is_public == o.is_public &&
-          description == o.description &&
           title == o.title &&
-          items == o.items &&
+          description == o.description &&
+          is_public == o.is_public &&
           share_token == o.share_token &&
           cover_url == o.cover_url &&
+          owner_name == o.owner_name &&
           mine == o.mine &&
-          owner_name == o.owner_name
+          items == o.items &&
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -213,7 +213,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, updated_at, is_public, description, title, items, share_token, cover_url, mine, owner_name].hash
+      [id, title, description, is_public, share_token, cover_url, owner_name, mine, items, updated_at].hash
     end
 
     # Builds the object from hash

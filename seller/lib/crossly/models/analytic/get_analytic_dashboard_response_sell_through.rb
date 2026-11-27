@@ -14,7 +14,6 @@ require 'date'
 require 'time'
 
 module Crossly
-  # The context the bare rate can't carry. `tooYoungToJudge` is the important one: a cohort measured the day its window closed has had no time to sell, and a low number there means \"wait\", not \"bad buys\" — a seller acting on it would stop sourcing for no reason.
   class GetAnalyticDashboardResponseSellThrough
     attr_accessor :rate
 
@@ -26,6 +25,8 @@ module Crossly
 
     attr_accessor :too_young_to_judge
 
+    attr_accessor :immature
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -33,7 +34,8 @@ module Crossly
         :'cohort_size' => :'cohortSize',
         :'cohort_sold' => :'cohortSold',
         :'maturity_days' => :'maturityDays',
-        :'too_young_to_judge' => :'tooYoungToJudge'
+        :'too_young_to_judge' => :'tooYoungToJudge',
+        :'immature' => :'immature'
       }
     end
 
@@ -49,7 +51,8 @@ module Crossly
         :'cohort_size' => :'Float',
         :'cohort_sold' => :'Float',
         :'maturity_days' => :'Float',
-        :'too_young_to_judge' => :'Boolean'
+        :'too_young_to_judge' => :'Boolean',
+        :'immature' => :'Float'
       }
     end
 
@@ -94,6 +97,10 @@ module Crossly
       if attributes.key?(:'too_young_to_judge')
         self.too_young_to_judge = attributes[:'too_young_to_judge']
       end
+
+      if attributes.key?(:'immature')
+        self.immature = attributes[:'immature']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -116,6 +123,10 @@ module Crossly
         invalid_properties.push('invalid value for "too_young_to_judge", too_young_to_judge cannot be nil.')
       end
 
+      if @immature.nil?
+        invalid_properties.push('invalid value for "immature", immature cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -126,6 +137,7 @@ module Crossly
       return false if @cohort_sold.nil?
       return false if @maturity_days.nil?
       return false if @too_young_to_judge.nil?
+      return false if @immature.nil?
       true
     end
 
@@ -138,7 +150,8 @@ module Crossly
           cohort_size == o.cohort_size &&
           cohort_sold == o.cohort_sold &&
           maturity_days == o.maturity_days &&
-          too_young_to_judge == o.too_young_to_judge
+          too_young_to_judge == o.too_young_to_judge &&
+          immature == o.immature
     end
 
     # @see the `==` method
@@ -150,7 +163,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [rate, cohort_size, cohort_sold, maturity_days, too_young_to_judge].hash
+      [rate, cohort_size, cohort_sold, maturity_days, too_young_to_judge, immature].hash
     end
 
     # Builds the object from hash

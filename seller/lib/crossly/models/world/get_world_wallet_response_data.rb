@@ -17,10 +17,16 @@ module Crossly
   class GetWorldWalletResponseData
     attr_accessor :bucks_cents
 
+    attr_accessor :cbx
+
+    attr_accessor :cosm
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'bucks_cents' => :'bucksCents'
+        :'bucks_cents' => :'bucksCents',
+        :'cbx' => :'cbx',
+        :'cosm' => :'cosm'
       }
     end
 
@@ -32,7 +38,9 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'bucks_cents' => :'Float'
+        :'bucks_cents' => :'Float',
+        :'cbx' => :'GetWorldWalletResponseDataCbx',
+        :'cosm' => :'GetWorldWalletResponseDataCosm'
       }
     end
 
@@ -60,6 +68,14 @@ module Crossly
       if attributes.key?(:'bucks_cents')
         self.bucks_cents = attributes[:'bucks_cents']
       end
+
+      if attributes.key?(:'cbx')
+        self.cbx = attributes[:'cbx']
+      end
+
+      if attributes.key?(:'cosm')
+        self.cosm = attributes[:'cosm']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -70,6 +86,14 @@ module Crossly
         invalid_properties.push('invalid value for "bucks_cents", bucks_cents cannot be nil.')
       end
 
+      if @cbx.nil?
+        invalid_properties.push('invalid value for "cbx", cbx cannot be nil.')
+      end
+
+      if @cosm.nil?
+        invalid_properties.push('invalid value for "cosm", cosm cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -77,6 +101,8 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @bucks_cents.nil?
+      return false if @cbx.nil?
+      return false if @cosm.nil?
       true
     end
 
@@ -85,7 +111,9 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          bucks_cents == o.bucks_cents
+          bucks_cents == o.bucks_cents &&
+          cbx == o.cbx &&
+          cosm == o.cosm
     end
 
     # @see the `==` method
@@ -97,7 +125,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [bucks_cents].hash
+      [bucks_cents, cbx, cosm].hash
     end
 
     # Builds the object from hash

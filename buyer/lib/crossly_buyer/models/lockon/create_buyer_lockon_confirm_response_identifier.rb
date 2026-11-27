@@ -111,7 +111,7 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @ns.nil?
-      ns_validator = EnumAttributeValidator.new('String', ["style_code", "gtin", "lego_set", "tcgplayer", "discogs", "asin"])
+      ns_validator = EnumAttributeValidator.new('String', ["gtin", "style_code", "lego_set", "tcgplayer", "discogs", "asin"])
       return false unless ns_validator.valid?(@ns)
       return false if @value.nil?
       true
@@ -120,7 +120,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] ns Object to be assigned
     def ns=(ns)
-      validator = EnumAttributeValidator.new('String', ["style_code", "gtin", "lego_set", "tcgplayer", "discogs", "asin"])
+      validator = EnumAttributeValidator.new('String', ["gtin", "style_code", "lego_set", "tcgplayer", "discogs", "asin"])
       unless validator.valid?(ns)
         fail ArgumentError, "invalid value for \"ns\", must be one of #{validator.allowable_values}."
       end

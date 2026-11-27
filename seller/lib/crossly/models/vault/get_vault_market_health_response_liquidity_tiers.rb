@@ -171,7 +171,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @tier.nil?
-      tier_validator = EnumAttributeValidator.new('String', ["A", "B", "C", "D", "unclassified"])
+      tier_validator = EnumAttributeValidator.new('String', ["C", "A", "B", "D", "unclassified"])
       return false unless tier_validator.valid?(@tier)
       return false if @label.nil?
       return false if @explainer.nil?
@@ -185,7 +185,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["A", "B", "C", "D", "unclassified"])
+      validator = EnumAttributeValidator.new('String', ["C", "A", "B", "D", "unclassified"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end

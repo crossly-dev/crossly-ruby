@@ -25,13 +25,17 @@ module Crossly
 
     attr_accessor :updated_at
 
-    attr_accessor :note
+    attr_accessor :version
 
     attr_accessor :reviewed_at
+
+    attr_accessor :note
 
     attr_accessor :merchant_id
 
     attr_accessor :creator_subject_id
+
+    attr_accessor :output_cosmetic_id
 
     attr_accessor :input_a_variant_id
 
@@ -45,10 +49,6 @@ module Crossly
 
     attr_accessor :input_b_grade_key
 
-    attr_accessor :output_cosmetic_id
-
-    attr_accessor :version
-
     attr_accessor :frozen_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -59,18 +59,18 @@ module Crossly
         :'active' => :'active',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
-        :'note' => :'note',
+        :'version' => :'version',
         :'reviewed_at' => :'reviewedAt',
+        :'note' => :'note',
         :'merchant_id' => :'merchantId',
         :'creator_subject_id' => :'creatorSubjectId',
+        :'output_cosmetic_id' => :'outputCosmeticId',
         :'input_a_variant_id' => :'inputAVariantId',
         :'input_a_condition' => :'inputACondition',
         :'input_a_grade_key' => :'inputAGradeKey',
         :'input_b_variant_id' => :'inputBVariantId',
         :'input_b_condition' => :'inputBCondition',
         :'input_b_grade_key' => :'inputBGradeKey',
-        :'output_cosmetic_id' => :'outputCosmeticId',
-        :'version' => :'version',
         :'frozen_at' => :'frozenAt'
       }
     end
@@ -88,18 +88,18 @@ module Crossly
         :'active' => :'Boolean',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
-        :'note' => :'String',
+        :'version' => :'Float',
         :'reviewed_at' => :'Time',
+        :'note' => :'String',
         :'merchant_id' => :'String',
         :'creator_subject_id' => :'String',
+        :'output_cosmetic_id' => :'String',
         :'input_a_variant_id' => :'String',
         :'input_a_condition' => :'String',
         :'input_a_grade_key' => :'String',
         :'input_b_variant_id' => :'String',
         :'input_b_condition' => :'String',
         :'input_b_grade_key' => :'String',
-        :'output_cosmetic_id' => :'String',
-        :'version' => :'Float',
         :'frozen_at' => :'Time'
       }
     end
@@ -107,8 +107,8 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'note',
         :'reviewed_at',
+        :'note',
         :'input_a_condition',
         :'input_a_grade_key',
         :'input_b_variant_id',
@@ -153,12 +153,16 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
+      if attributes.key?(:'version')
+        self.version = attributes[:'version']
       end
 
       if attributes.key?(:'reviewed_at')
         self.reviewed_at = attributes[:'reviewed_at']
+      end
+
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
       end
 
       if attributes.key?(:'merchant_id')
@@ -167,6 +171,10 @@ module Crossly
 
       if attributes.key?(:'creator_subject_id')
         self.creator_subject_id = attributes[:'creator_subject_id']
+      end
+
+      if attributes.key?(:'output_cosmetic_id')
+        self.output_cosmetic_id = attributes[:'output_cosmetic_id']
       end
 
       if attributes.key?(:'input_a_variant_id')
@@ -191,14 +199,6 @@ module Crossly
 
       if attributes.key?(:'input_b_grade_key')
         self.input_b_grade_key = attributes[:'input_b_grade_key']
-      end
-
-      if attributes.key?(:'output_cosmetic_id')
-        self.output_cosmetic_id = attributes[:'output_cosmetic_id']
-      end
-
-      if attributes.key?(:'version')
-        self.version = attributes[:'version']
       end
 
       if attributes.key?(:'frozen_at')
@@ -230,6 +230,10 @@ module Crossly
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
+      if @version.nil?
+        invalid_properties.push('invalid value for "version", version cannot be nil.')
+      end
+
       if @merchant_id.nil?
         invalid_properties.push('invalid value for "merchant_id", merchant_id cannot be nil.')
       end
@@ -238,16 +242,12 @@ module Crossly
         invalid_properties.push('invalid value for "creator_subject_id", creator_subject_id cannot be nil.')
       end
 
-      if @input_a_variant_id.nil?
-        invalid_properties.push('invalid value for "input_a_variant_id", input_a_variant_id cannot be nil.')
-      end
-
       if @output_cosmetic_id.nil?
         invalid_properties.push('invalid value for "output_cosmetic_id", output_cosmetic_id cannot be nil.')
       end
 
-      if @version.nil?
-        invalid_properties.push('invalid value for "version", version cannot be nil.')
+      if @input_a_variant_id.nil?
+        invalid_properties.push('invalid value for "input_a_variant_id", input_a_variant_id cannot be nil.')
       end
 
       invalid_properties
@@ -261,11 +261,11 @@ module Crossly
       return false if @active.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
+      return false if @version.nil?
       return false if @merchant_id.nil?
       return false if @creator_subject_id.nil?
-      return false if @input_a_variant_id.nil?
       return false if @output_cosmetic_id.nil?
-      return false if @version.nil?
+      return false if @input_a_variant_id.nil?
       true
     end
 
@@ -279,18 +279,18 @@ module Crossly
           active == o.active &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
-          note == o.note &&
+          version == o.version &&
           reviewed_at == o.reviewed_at &&
+          note == o.note &&
           merchant_id == o.merchant_id &&
           creator_subject_id == o.creator_subject_id &&
+          output_cosmetic_id == o.output_cosmetic_id &&
           input_a_variant_id == o.input_a_variant_id &&
           input_a_condition == o.input_a_condition &&
           input_a_grade_key == o.input_a_grade_key &&
           input_b_variant_id == o.input_b_variant_id &&
           input_b_condition == o.input_b_condition &&
           input_b_grade_key == o.input_b_grade_key &&
-          output_cosmetic_id == o.output_cosmetic_id &&
-          version == o.version &&
           frozen_at == o.frozen_at
     end
 
@@ -303,7 +303,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, active, created_at, updated_at, note, reviewed_at, merchant_id, creator_subject_id, input_a_variant_id, input_a_condition, input_a_grade_key, input_b_variant_id, input_b_condition, input_b_grade_key, output_cosmetic_id, version, frozen_at].hash
+      [id, name, active, created_at, updated_at, version, reviewed_at, note, merchant_id, creator_subject_id, output_cosmetic_id, input_a_variant_id, input_a_condition, input_a_grade_key, input_b_variant_id, input_b_condition, input_b_grade_key, frozen_at].hash
     end
 
     # Builds the object from hash

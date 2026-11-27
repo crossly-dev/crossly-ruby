@@ -17,16 +17,16 @@ module CrosslyBuyer
   class GetBuyerCollectionOfferResponseDataPending
     attr_accessor :id
 
-    attr_accessor :status
-
     attr_accessor :cents
+
+    attr_accessor :status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
-        :'cents' => :'cents'
+        :'cents' => :'cents',
+        :'status' => :'status'
       }
     end
 
@@ -39,8 +39,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
-        :'cents' => :'Float'
+        :'cents' => :'Float',
+        :'status' => :'String'
       }
     end
 
@@ -69,12 +69,12 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'cents')
         self.cents = attributes[:'cents']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       end
     end
 
@@ -86,12 +86,12 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       if @cents.nil?
         invalid_properties.push('invalid value for "cents", cents cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       invalid_properties
@@ -101,8 +101,8 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
       return false if @cents.nil?
+      return false if @status.nil?
       true
     end
 
@@ -112,8 +112,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
-          cents == o.cents
+          cents == o.cents &&
+          status == o.status
     end
 
     # @see the `==` method
@@ -125,7 +125,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, cents].hash
+      [id, cents, status].hash
     end
 
     # Builds the object from hash

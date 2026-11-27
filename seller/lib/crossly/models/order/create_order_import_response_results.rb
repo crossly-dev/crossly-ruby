@@ -131,7 +131,7 @@ module Crossly
     def valid?
       return false if @platform.nil?
       return false if @ok.nil?
-      reason_validator = EnumAttributeValidator.new('String', ["unsupported_platform", "not_connected", "unknown_platform"])
+      reason_validator = EnumAttributeValidator.new('String', ["not_connected", "unknown_platform", "unsupported_platform"])
       return false unless reason_validator.valid?(@reason)
       true
     end
@@ -139,7 +139,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] reason Object to be assigned
     def reason=(reason)
-      validator = EnumAttributeValidator.new('String', ["unsupported_platform", "not_connected", "unknown_platform"])
+      validator = EnumAttributeValidator.new('String', ["not_connected", "unknown_platform", "unsupported_platform"])
       unless validator.valid?(reason)
         fail ArgumentError, "invalid value for \"reason\", must be one of #{validator.allowable_values}."
       end

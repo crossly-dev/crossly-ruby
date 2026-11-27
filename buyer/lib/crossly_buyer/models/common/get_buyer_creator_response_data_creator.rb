@@ -15,24 +15,24 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCreatorResponseDataCreator
-    attr_accessor :display_name
+    attr_accessor :handle
 
-    attr_accessor :avatar_url
+    attr_accessor :display_name
 
     attr_accessor :bio
 
-    attr_accessor :code
+    attr_accessor :avatar_url
 
-    attr_accessor :handle
+    attr_accessor :code
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'handle' => :'handle',
         :'display_name' => :'displayName',
-        :'avatar_url' => :'avatarUrl',
         :'bio' => :'bio',
-        :'code' => :'code',
-        :'handle' => :'handle'
+        :'avatar_url' => :'avatarUrl',
+        :'code' => :'code'
       }
     end
 
@@ -44,11 +44,11 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'handle' => :'String',
         :'display_name' => :'String',
-        :'avatar_url' => :'String',
         :'bio' => :'String',
-        :'code' => :'String',
-        :'handle' => :'String'
+        :'avatar_url' => :'String',
+        :'code' => :'String'
       }
     end
 
@@ -56,9 +56,9 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'display_name',
-        :'avatar_url',
         :'bio',
-        :'code',
+        :'avatar_url',
+        :'code'
       ])
     end
 
@@ -77,24 +77,24 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'display_name')
-        self.display_name = attributes[:'display_name']
+      if attributes.key?(:'handle')
+        self.handle = attributes[:'handle']
       end
 
-      if attributes.key?(:'avatar_url')
-        self.avatar_url = attributes[:'avatar_url']
+      if attributes.key?(:'display_name')
+        self.display_name = attributes[:'display_name']
       end
 
       if attributes.key?(:'bio')
         self.bio = attributes[:'bio']
       end
 
-      if attributes.key?(:'code')
-        self.code = attributes[:'code']
+      if attributes.key?(:'avatar_url')
+        self.avatar_url = attributes[:'avatar_url']
       end
 
-      if attributes.key?(:'handle')
-        self.handle = attributes[:'handle']
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       end
     end
 
@@ -121,11 +121,11 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          handle == o.handle &&
           display_name == o.display_name &&
-          avatar_url == o.avatar_url &&
           bio == o.bio &&
-          code == o.code &&
-          handle == o.handle
+          avatar_url == o.avatar_url &&
+          code == o.code
     end
 
     # @see the `==` method
@@ -137,7 +137,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [display_name, avatar_url, bio, code, handle].hash
+      [handle, display_name, bio, avatar_url, code].hash
     end
 
     # Builds the object from hash

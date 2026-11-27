@@ -17,31 +17,31 @@ module CrosslyBuyer
   class GetBuyerCaseResponseDataReturnShipment
     attr_accessor :tracking_code
 
-    attr_accessor :updated_at
-
-    attr_accessor :status
-
     attr_accessor :carrier
-
-    attr_accessor :delivered_at
-
-    attr_accessor :label_url
 
     attr_accessor :tracking_url
 
+    attr_accessor :label_url
+
+    attr_accessor :status
+
     attr_accessor :status_detail
+
+    attr_accessor :updated_at
+
+    attr_accessor :delivered_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'tracking_code' => :'trackingCode',
-        :'updated_at' => :'updatedAt',
-        :'status' => :'status',
         :'carrier' => :'carrier',
-        :'delivered_at' => :'deliveredAt',
-        :'label_url' => :'labelUrl',
         :'tracking_url' => :'trackingUrl',
-        :'status_detail' => :'statusDetail'
+        :'label_url' => :'labelUrl',
+        :'status' => :'status',
+        :'status_detail' => :'statusDetail',
+        :'updated_at' => :'updatedAt',
+        :'delivered_at' => :'deliveredAt'
       }
     end
 
@@ -54,26 +54,26 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'tracking_code' => :'String',
-        :'updated_at' => :'String',
-        :'status' => :'String',
         :'carrier' => :'String',
-        :'delivered_at' => :'String',
-        :'label_url' => :'String',
         :'tracking_url' => :'String',
-        :'status_detail' => :'String'
+        :'label_url' => :'String',
+        :'status' => :'String',
+        :'status_detail' => :'String',
+        :'updated_at' => :'String',
+        :'delivered_at' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'updated_at',
-        :'status',
         :'carrier',
-        :'delivered_at',
-        :'label_url',
         :'tracking_url',
-        :'status_detail'
+        :'label_url',
+        :'status',
+        :'status_detail',
+        :'updated_at',
+        :'delivered_at'
       ])
     end
 
@@ -96,32 +96,32 @@ module CrosslyBuyer
         self.tracking_code = attributes[:'tracking_code']
       end
 
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
-      end
-
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
       if attributes.key?(:'carrier')
         self.carrier = attributes[:'carrier']
-      end
-
-      if attributes.key?(:'delivered_at')
-        self.delivered_at = attributes[:'delivered_at']
-      end
-
-      if attributes.key?(:'label_url')
-        self.label_url = attributes[:'label_url']
       end
 
       if attributes.key?(:'tracking_url')
         self.tracking_url = attributes[:'tracking_url']
       end
 
+      if attributes.key?(:'label_url')
+        self.label_url = attributes[:'label_url']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
       if attributes.key?(:'status_detail')
         self.status_detail = attributes[:'status_detail']
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      end
+
+      if attributes.key?(:'delivered_at')
+        self.delivered_at = attributes[:'delivered_at']
       end
     end
 
@@ -149,13 +149,13 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           tracking_code == o.tracking_code &&
-          updated_at == o.updated_at &&
-          status == o.status &&
           carrier == o.carrier &&
-          delivered_at == o.delivered_at &&
-          label_url == o.label_url &&
           tracking_url == o.tracking_url &&
-          status_detail == o.status_detail
+          label_url == o.label_url &&
+          status == o.status &&
+          status_detail == o.status_detail &&
+          updated_at == o.updated_at &&
+          delivered_at == o.delivered_at
     end
 
     # @see the `==` method
@@ -167,7 +167,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [tracking_code, updated_at, status, carrier, delivered_at, label_url, tracking_url, status_detail].hash
+      [tracking_code, carrier, tracking_url, label_url, status, status_detail, updated_at, delivered_at].hash
     end
 
     # Builds the object from hash

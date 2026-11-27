@@ -15,15 +15,18 @@ require 'time'
 
 module CrosslyBuyer
   class GetBuyerCatalogListingPriceResponseDataPriceMatch
+    attr_accessor :list_price_cents
+
     attr_accessor :platform
 
-    attr_accessor :list_price_cents
+    attr_accessor :platform_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'list_price_cents' => :'listPriceCents',
         :'platform' => :'platform',
-        :'list_price_cents' => :'listPriceCents'
+        :'platform_name' => :'platformName'
       }
     end
 
@@ -35,14 +38,16 @@ module CrosslyBuyer
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'list_price_cents' => :'Float',
         :'platform' => :'String',
-        :'list_price_cents' => :'Float'
+        :'platform_name' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'platform_name'
       ])
     end
 
@@ -61,12 +66,16 @@ module CrosslyBuyer
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'list_price_cents')
+        self.list_price_cents = attributes[:'list_price_cents']
+      end
+
       if attributes.key?(:'platform')
         self.platform = attributes[:'platform']
       end
 
-      if attributes.key?(:'list_price_cents')
-        self.list_price_cents = attributes[:'list_price_cents']
+      if attributes.key?(:'platform_name')
+        self.platform_name = attributes[:'platform_name']
       end
     end
 
@@ -74,12 +83,12 @@ module CrosslyBuyer
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @platform.nil?
-        invalid_properties.push('invalid value for "platform", platform cannot be nil.')
-      end
-
       if @list_price_cents.nil?
         invalid_properties.push('invalid value for "list_price_cents", list_price_cents cannot be nil.')
+      end
+
+      if @platform.nil?
+        invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +97,8 @@ module CrosslyBuyer
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @platform.nil?
       return false if @list_price_cents.nil?
+      return false if @platform.nil?
       true
     end
 
@@ -98,8 +107,9 @@ module CrosslyBuyer
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          list_price_cents == o.list_price_cents &&
           platform == o.platform &&
-          list_price_cents == o.list_price_cents
+          platform_name == o.platform_name
     end
 
     # @see the `==` method
@@ -111,7 +121,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform, list_price_cents].hash
+      [list_price_cents, platform, platform_name].hash
     end
 
     # Builds the object from hash

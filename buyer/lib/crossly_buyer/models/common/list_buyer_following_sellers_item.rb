@@ -24,11 +24,11 @@ module CrosslyBuyer
     # Active listings put up since you last marked this seller seen.
     attr_accessor :new_listings
 
+    attr_accessor :username
+
     attr_accessor :name
 
     attr_accessor :avatar_url
-
-    attr_accessor :username
 
     attr_accessor :last_seen_at
 
@@ -39,9 +39,9 @@ module CrosslyBuyer
         :'followed_at' => :'followedAt',
         :'active_listings' => :'activeListings',
         :'new_listings' => :'newListings',
+        :'username' => :'username',
         :'name' => :'name',
         :'avatar_url' => :'avatarUrl',
-        :'username' => :'username',
         :'last_seen_at' => :'lastSeenAt'
       }
     end
@@ -58,9 +58,9 @@ module CrosslyBuyer
         :'followed_at' => :'String',
         :'active_listings' => :'Float',
         :'new_listings' => :'Float',
+        :'username' => :'String',
         :'name' => :'String',
         :'avatar_url' => :'String',
-        :'username' => :'String',
         :'last_seen_at' => :'String'
       }
     end
@@ -68,9 +68,9 @@ module CrosslyBuyer
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'username',
         :'name',
         :'avatar_url',
-        :'username',
         :'last_seen_at'
       ])
     end
@@ -106,16 +106,16 @@ module CrosslyBuyer
         self.new_listings = attributes[:'new_listings']
       end
 
+      if attributes.key?(:'username')
+        self.username = attributes[:'username']
+      end
+
       if attributes.key?(:'name')
         self.name = attributes[:'name']
       end
 
       if attributes.key?(:'avatar_url')
         self.avatar_url = attributes[:'avatar_url']
-      end
-
-      if attributes.key?(:'username')
-        self.username = attributes[:'username']
       end
 
       if attributes.key?(:'last_seen_at')
@@ -165,9 +165,9 @@ module CrosslyBuyer
           followed_at == o.followed_at &&
           active_listings == o.active_listings &&
           new_listings == o.new_listings &&
+          username == o.username &&
           name == o.name &&
           avatar_url == o.avatar_url &&
-          username == o.username &&
           last_seen_at == o.last_seen_at
     end
 
@@ -180,7 +180,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [seller_user_id, followed_at, active_listings, new_listings, name, avatar_url, username, last_seen_at].hash
+      [seller_user_id, followed_at, active_listings, new_listings, username, name, avatar_url, last_seen_at].hash
     end
 
     # Builds the object from hash

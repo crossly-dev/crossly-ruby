@@ -17,37 +17,37 @@ module CrosslyBuyer
   class ListBuyerLiveShipmentsItem
     attr_accessor :id
 
-    attr_accessor :status
-
-    attr_accessor :orders
-
-    attr_accessor :carrier
-
-    attr_accessor :tracking_number
-
-    attr_accessor :label_url
-
     attr_accessor :stream_id
-
-    attr_accessor :refunded_postage_cents
 
     attr_accessor :stream_title
 
+    attr_accessor :status
+
     attr_accessor :buyer_name
+
+    attr_accessor :tracking_number
+
+    attr_accessor :carrier
+
+    attr_accessor :label_url
+
+    attr_accessor :refunded_postage_cents
+
+    attr_accessor :orders
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'status' => :'status',
-        :'orders' => :'orders',
-        :'carrier' => :'carrier',
-        :'tracking_number' => :'trackingNumber',
-        :'label_url' => :'labelUrl',
         :'stream_id' => :'streamId',
-        :'refunded_postage_cents' => :'refundedPostageCents',
         :'stream_title' => :'streamTitle',
-        :'buyer_name' => :'buyerName'
+        :'status' => :'status',
+        :'buyer_name' => :'buyerName',
+        :'tracking_number' => :'trackingNumber',
+        :'carrier' => :'carrier',
+        :'label_url' => :'labelUrl',
+        :'refunded_postage_cents' => :'refundedPostageCents',
+        :'orders' => :'orders'
       }
     end
 
@@ -60,25 +60,25 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'status' => :'String',
-        :'orders' => :'Array<ListBuyerLiveShipmentsItemOrders>',
-        :'carrier' => :'String',
-        :'tracking_number' => :'String',
-        :'label_url' => :'String',
         :'stream_id' => :'String',
-        :'refunded_postage_cents' => :'Float',
         :'stream_title' => :'String',
-        :'buyer_name' => :'String'
+        :'status' => :'String',
+        :'buyer_name' => :'String',
+        :'tracking_number' => :'String',
+        :'carrier' => :'String',
+        :'label_url' => :'String',
+        :'refunded_postage_cents' => :'Float',
+        :'orders' => :'Array<ListBuyerLiveShipmentsItemOrders>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'carrier',
+        :'buyer_name',
         :'tracking_number',
+        :'carrier',
         :'label_url',
-        :'buyer_name'
       ])
     end
 
@@ -101,42 +101,42 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'status')
-        self.status = attributes[:'status']
-      end
-
-      if attributes.key?(:'orders')
-        if (value = attributes[:'orders']).is_a?(Array)
-          self.orders = value
-        end
-      end
-
-      if attributes.key?(:'carrier')
-        self.carrier = attributes[:'carrier']
-      end
-
-      if attributes.key?(:'tracking_number')
-        self.tracking_number = attributes[:'tracking_number']
-      end
-
-      if attributes.key?(:'label_url')
-        self.label_url = attributes[:'label_url']
-      end
-
       if attributes.key?(:'stream_id')
         self.stream_id = attributes[:'stream_id']
-      end
-
-      if attributes.key?(:'refunded_postage_cents')
-        self.refunded_postage_cents = attributes[:'refunded_postage_cents']
       end
 
       if attributes.key?(:'stream_title')
         self.stream_title = attributes[:'stream_title']
       end
 
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
       if attributes.key?(:'buyer_name')
         self.buyer_name = attributes[:'buyer_name']
+      end
+
+      if attributes.key?(:'tracking_number')
+        self.tracking_number = attributes[:'tracking_number']
+      end
+
+      if attributes.key?(:'carrier')
+        self.carrier = attributes[:'carrier']
+      end
+
+      if attributes.key?(:'label_url')
+        self.label_url = attributes[:'label_url']
+      end
+
+      if attributes.key?(:'refunded_postage_cents')
+        self.refunded_postage_cents = attributes[:'refunded_postage_cents']
+      end
+
+      if attributes.key?(:'orders')
+        if (value = attributes[:'orders']).is_a?(Array)
+          self.orders = value
+        end
       end
     end
 
@@ -148,24 +148,24 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @orders.nil?
-        invalid_properties.push('invalid value for "orders", orders cannot be nil.')
-      end
-
       if @stream_id.nil?
         invalid_properties.push('invalid value for "stream_id", stream_id cannot be nil.')
+      end
+
+      if @stream_title.nil?
+        invalid_properties.push('invalid value for "stream_title", stream_title cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
       if @refunded_postage_cents.nil?
         invalid_properties.push('invalid value for "refunded_postage_cents", refunded_postage_cents cannot be nil.')
       end
 
-      if @stream_title.nil?
-        invalid_properties.push('invalid value for "stream_title", stream_title cannot be nil.')
+      if @orders.nil?
+        invalid_properties.push('invalid value for "orders", orders cannot be nil.')
       end
 
       invalid_properties
@@ -175,11 +175,11 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @status.nil?
-      return false if @orders.nil?
       return false if @stream_id.nil?
-      return false if @refunded_postage_cents.nil?
       return false if @stream_title.nil?
+      return false if @status.nil?
+      return false if @refunded_postage_cents.nil?
+      return false if @orders.nil?
       true
     end
 
@@ -189,15 +189,15 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          status == o.status &&
-          orders == o.orders &&
-          carrier == o.carrier &&
-          tracking_number == o.tracking_number &&
-          label_url == o.label_url &&
           stream_id == o.stream_id &&
-          refunded_postage_cents == o.refunded_postage_cents &&
           stream_title == o.stream_title &&
-          buyer_name == o.buyer_name
+          status == o.status &&
+          buyer_name == o.buyer_name &&
+          tracking_number == o.tracking_number &&
+          carrier == o.carrier &&
+          label_url == o.label_url &&
+          refunded_postage_cents == o.refunded_postage_cents &&
+          orders == o.orders
     end
 
     # @see the `==` method
@@ -209,7 +209,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, orders, carrier, tracking_number, label_url, stream_id, refunded_postage_cents, stream_title, buyer_name].hash
+      [id, stream_id, stream_title, status, buyer_name, tracking_number, carrier, label_url, refunded_postage_cents, orders].hash
     end
 
     # Builds the object from hash

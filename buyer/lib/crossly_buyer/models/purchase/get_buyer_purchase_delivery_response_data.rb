@@ -17,9 +17,9 @@ module CrosslyBuyer
   class GetBuyerPurchaseDeliveryResponseData
     attr_accessor :pickup_point
 
-    attr_accessor :carrier
-
     attr_accessor :tracking_number
+
+    attr_accessor :carrier
 
     attr_accessor :consolidation
 
@@ -27,8 +27,8 @@ module CrosslyBuyer
     def self.attribute_map
       {
         :'pickup_point' => :'pickupPoint',
-        :'carrier' => :'carrier',
         :'tracking_number' => :'trackingNumber',
+        :'carrier' => :'carrier',
         :'consolidation' => :'consolidation'
       }
     end
@@ -42,8 +42,8 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'pickup_point' => :'Hash<String, Object>',
-        :'carrier' => :'String',
         :'tracking_number' => :'String',
+        :'carrier' => :'String',
         :'consolidation' => :'Hash<String, Object>'
       }
     end
@@ -52,8 +52,8 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'pickup_point',
-        :'carrier',
         :'tracking_number',
+        :'carrier',
         :'consolidation'
       ])
     end
@@ -79,12 +79,12 @@ module CrosslyBuyer
         end
       end
 
-      if attributes.key?(:'carrier')
-        self.carrier = attributes[:'carrier']
-      end
-
       if attributes.key?(:'tracking_number')
         self.tracking_number = attributes[:'tracking_number']
+      end
+
+      if attributes.key?(:'carrier')
+        self.carrier = attributes[:'carrier']
       end
 
       if attributes.key?(:'consolidation')
@@ -113,8 +113,8 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           pickup_point == o.pickup_point &&
-          carrier == o.carrier &&
           tracking_number == o.tracking_number &&
+          carrier == o.carrier &&
           consolidation == o.consolidation
     end
 
@@ -127,7 +127,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [pickup_point, carrier, tracking_number, consolidation].hash
+      [pickup_point, tracking_number, carrier, consolidation].hash
     end
 
     # Builds the object from hash

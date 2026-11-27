@@ -21,31 +21,31 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :title
-
     attr_accessor :category
+
+    attr_accessor :title
 
     attr_accessor :completed_at
 
-    attr_accessor :progress
-
-    attr_accessor :brand_slug
-
-    attr_accessor :model_slug
-
     attr_accessor :target
-
-    attr_accessor :held
-
-    attr_accessor :complete
-
-    attr_accessor :href
 
     attr_accessor :total
 
-    attr_accessor :set_found
+    attr_accessor :href
+
+    attr_accessor :brand_slug
+
+    attr_accessor :progress
+
+    attr_accessor :held
+
+    attr_accessor :model_slug
 
     attr_accessor :basket
+
+    attr_accessor :complete
+
+    attr_accessor :set_found
 
     attr_accessor :card_set_href
 
@@ -77,19 +77,19 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
-        :'title' => :'title',
         :'category' => :'category',
+        :'title' => :'title',
         :'completed_at' => :'completedAt',
-        :'progress' => :'progress',
-        :'brand_slug' => :'brandSlug',
-        :'model_slug' => :'modelSlug',
         :'target' => :'target',
-        :'held' => :'held',
-        :'complete' => :'complete',
-        :'href' => :'href',
         :'total' => :'total',
-        :'set_found' => :'setFound',
+        :'href' => :'href',
+        :'brand_slug' => :'brandSlug',
+        :'progress' => :'progress',
+        :'held' => :'held',
+        :'model_slug' => :'modelSlug',
         :'basket' => :'basket',
+        :'complete' => :'complete',
+        :'set_found' => :'setFound',
         :'card_set_href' => :'cardSetHref'
       }
     end
@@ -105,19 +105,19 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'String',
         :'status' => :'String',
-        :'title' => :'String',
         :'category' => :'String',
+        :'title' => :'String',
         :'completed_at' => :'String',
-        :'progress' => :'String',
-        :'brand_slug' => :'String',
-        :'model_slug' => :'String',
         :'target' => :'GetVaultMarketSetGoalResponseTarget',
-        :'held' => :'Float',
-        :'complete' => :'Boolean',
-        :'href' => :'String',
         :'total' => :'Float',
-        :'set_found' => :'Boolean',
+        :'href' => :'String',
+        :'brand_slug' => :'String',
+        :'progress' => :'String',
+        :'held' => :'Float',
+        :'model_slug' => :'String',
         :'basket' => :'ListVaultMarketSetGoalsItemBasket',
+        :'complete' => :'Boolean',
+        :'set_found' => :'Boolean',
         :'card_set_href' => :'String'
       }
     end
@@ -157,56 +157,56 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'category')
         self.category = attributes[:'category']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'completed_at')
         self.completed_at = attributes[:'completed_at']
       end
 
-      if attributes.key?(:'progress')
-        self.progress = attributes[:'progress']
-      end
-
-      if attributes.key?(:'brand_slug')
-        self.brand_slug = attributes[:'brand_slug']
-      end
-
-      if attributes.key?(:'model_slug')
-        self.model_slug = attributes[:'model_slug']
-      end
-
       if attributes.key?(:'target')
         self.target = attributes[:'target']
-      end
-
-      if attributes.key?(:'held')
-        self.held = attributes[:'held']
-      end
-
-      if attributes.key?(:'complete')
-        self.complete = attributes[:'complete']
-      end
-
-      if attributes.key?(:'href')
-        self.href = attributes[:'href']
       end
 
       if attributes.key?(:'total')
         self.total = attributes[:'total']
       end
 
-      if attributes.key?(:'set_found')
-        self.set_found = attributes[:'set_found']
+      if attributes.key?(:'href')
+        self.href = attributes[:'href']
+      end
+
+      if attributes.key?(:'brand_slug')
+        self.brand_slug = attributes[:'brand_slug']
+      end
+
+      if attributes.key?(:'progress')
+        self.progress = attributes[:'progress']
+      end
+
+      if attributes.key?(:'held')
+        self.held = attributes[:'held']
+      end
+
+      if attributes.key?(:'model_slug')
+        self.model_slug = attributes[:'model_slug']
       end
 
       if attributes.key?(:'basket')
         self.basket = attributes[:'basket']
+      end
+
+      if attributes.key?(:'complete')
+        self.complete = attributes[:'complete']
+      end
+
+      if attributes.key?(:'set_found')
+        self.set_found = attributes[:'set_found']
       end
 
       if attributes.key?(:'card_set_href')
@@ -230,44 +230,44 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
       if @category.nil?
         invalid_properties.push('invalid value for "category", category cannot be nil.')
       end
 
-      if @progress.nil?
-        invalid_properties.push('invalid value for "progress", progress cannot be nil.')
-      end
-
-      if @brand_slug.nil?
-        invalid_properties.push('invalid value for "brand_slug", brand_slug cannot be nil.')
-      end
-
-      if @model_slug.nil?
-        invalid_properties.push('invalid value for "model_slug", model_slug cannot be nil.')
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @target.nil?
         invalid_properties.push('invalid value for "target", target cannot be nil.')
       end
 
-      if @held.nil?
-        invalid_properties.push('invalid value for "held", held cannot be nil.')
-      end
-
-      if @complete.nil?
-        invalid_properties.push('invalid value for "complete", complete cannot be nil.')
+      if @total.nil?
+        invalid_properties.push('invalid value for "total", total cannot be nil.')
       end
 
       if @href.nil?
         invalid_properties.push('invalid value for "href", href cannot be nil.')
       end
 
-      if @total.nil?
-        invalid_properties.push('invalid value for "total", total cannot be nil.')
+      if @brand_slug.nil?
+        invalid_properties.push('invalid value for "brand_slug", brand_slug cannot be nil.')
+      end
+
+      if @progress.nil?
+        invalid_properties.push('invalid value for "progress", progress cannot be nil.')
+      end
+
+      if @held.nil?
+        invalid_properties.push('invalid value for "held", held cannot be nil.')
+      end
+
+      if @model_slug.nil?
+        invalid_properties.push('invalid value for "model_slug", model_slug cannot be nil.')
+      end
+
+      if @complete.nil?
+        invalid_properties.push('invalid value for "complete", complete cannot be nil.')
       end
 
       if @set_found.nil?
@@ -287,18 +287,18 @@ module Crossly
       return false if @id.nil?
       return false if @created_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["active", "complete", "archived"])
+      status_validator = EnumAttributeValidator.new('String', ["active", "archived", "complete"])
       return false unless status_validator.valid?(@status)
-      return false if @title.nil?
       return false if @category.nil?
-      return false if @progress.nil?
-      return false if @brand_slug.nil?
-      return false if @model_slug.nil?
+      return false if @title.nil?
       return false if @target.nil?
-      return false if @held.nil?
-      return false if @complete.nil?
-      return false if @href.nil?
       return false if @total.nil?
+      return false if @href.nil?
+      return false if @brand_slug.nil?
+      return false if @progress.nil?
+      return false if @held.nil?
+      return false if @model_slug.nil?
+      return false if @complete.nil?
       return false if @set_found.nil?
       return false if @card_set_href.nil?
       true
@@ -307,7 +307,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["active", "complete", "archived"])
+      validator = EnumAttributeValidator.new('String', ["active", "archived", "complete"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -322,19 +322,19 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
-          title == o.title &&
           category == o.category &&
+          title == o.title &&
           completed_at == o.completed_at &&
-          progress == o.progress &&
-          brand_slug == o.brand_slug &&
-          model_slug == o.model_slug &&
           target == o.target &&
-          held == o.held &&
-          complete == o.complete &&
-          href == o.href &&
           total == o.total &&
-          set_found == o.set_found &&
+          href == o.href &&
+          brand_slug == o.brand_slug &&
+          progress == o.progress &&
+          held == o.held &&
+          model_slug == o.model_slug &&
           basket == o.basket &&
+          complete == o.complete &&
+          set_found == o.set_found &&
           card_set_href == o.card_set_href
     end
 
@@ -347,7 +347,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, title, category, completed_at, progress, brand_slug, model_slug, target, held, complete, href, total, set_found, basket, card_set_href].hash
+      [id, created_at, status, category, title, completed_at, target, total, href, brand_slug, progress, held, model_slug, basket, complete, set_found, card_set_href].hash
     end
 
     # Builds the object from hash

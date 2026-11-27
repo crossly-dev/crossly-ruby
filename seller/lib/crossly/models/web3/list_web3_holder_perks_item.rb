@@ -157,7 +157,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @chain.nil?
-      chain_validator = EnumAttributeValidator.new('String', ["solana", "ethereum", "base", "polygon", "arbitrum", "optimism"])
+      chain_validator = EnumAttributeValidator.new('String', ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"])
       return false unless chain_validator.valid?(@chain)
       return false if @contract.nil?
       return false if @percent_off_bps.nil?
@@ -168,7 +168,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] chain Object to be assigned
     def chain=(chain)
-      validator = EnumAttributeValidator.new('String', ["solana", "ethereum", "base", "polygon", "arbitrum", "optimism"])
+      validator = EnumAttributeValidator.new('String', ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"])
       unless validator.valid?(chain)
         fail ArgumentError, "invalid value for \"chain\", must be one of #{validator.allowable_values}."
       end

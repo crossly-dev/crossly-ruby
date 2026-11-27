@@ -17,25 +17,25 @@ module CrosslyBuyer
   class GetBuyerPackFairnessResponseDataRevealed
     attr_accessor :id
 
-    attr_accessor :nonce
-
-    attr_accessor :revealed_at
-
     attr_accessor :server_seed
 
     attr_accessor :server_seed_hash
 
     attr_accessor :client_seed
 
+    attr_accessor :nonce
+
+    attr_accessor :revealed_at
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'nonce' => :'nonce',
-        :'revealed_at' => :'revealedAt',
         :'server_seed' => :'serverSeed',
         :'server_seed_hash' => :'serverSeedHash',
-        :'client_seed' => :'clientSeed'
+        :'client_seed' => :'clientSeed',
+        :'nonce' => :'nonce',
+        :'revealed_at' => :'revealedAt'
       }
     end
 
@@ -48,11 +48,11 @@ module CrosslyBuyer
     def self.openapi_types
       {
         :'id' => :'String',
-        :'nonce' => :'Float',
-        :'revealed_at' => :'String',
         :'server_seed' => :'String',
         :'server_seed_hash' => :'String',
-        :'client_seed' => :'String'
+        :'client_seed' => :'String',
+        :'nonce' => :'Float',
+        :'revealed_at' => :'String'
       }
     end
 
@@ -81,14 +81,6 @@ module CrosslyBuyer
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'nonce')
-        self.nonce = attributes[:'nonce']
-      end
-
-      if attributes.key?(:'revealed_at')
-        self.revealed_at = attributes[:'revealed_at']
-      end
-
       if attributes.key?(:'server_seed')
         self.server_seed = attributes[:'server_seed']
       end
@@ -100,6 +92,14 @@ module CrosslyBuyer
       if attributes.key?(:'client_seed')
         self.client_seed = attributes[:'client_seed']
       end
+
+      if attributes.key?(:'nonce')
+        self.nonce = attributes[:'nonce']
+      end
+
+      if attributes.key?(:'revealed_at')
+        self.revealed_at = attributes[:'revealed_at']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -108,14 +108,6 @@ module CrosslyBuyer
       invalid_properties = Array.new
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @nonce.nil?
-        invalid_properties.push('invalid value for "nonce", nonce cannot be nil.')
-      end
-
-      if @revealed_at.nil?
-        invalid_properties.push('invalid value for "revealed_at", revealed_at cannot be nil.')
       end
 
       if @server_seed.nil?
@@ -130,6 +122,14 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "client_seed", client_seed cannot be nil.')
       end
 
+      if @nonce.nil?
+        invalid_properties.push('invalid value for "nonce", nonce cannot be nil.')
+      end
+
+      if @revealed_at.nil?
+        invalid_properties.push('invalid value for "revealed_at", revealed_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -137,11 +137,11 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @nonce.nil?
-      return false if @revealed_at.nil?
       return false if @server_seed.nil?
       return false if @server_seed_hash.nil?
       return false if @client_seed.nil?
+      return false if @nonce.nil?
+      return false if @revealed_at.nil?
       true
     end
 
@@ -151,11 +151,11 @@ module CrosslyBuyer
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          nonce == o.nonce &&
-          revealed_at == o.revealed_at &&
           server_seed == o.server_seed &&
           server_seed_hash == o.server_seed_hash &&
-          client_seed == o.client_seed
+          client_seed == o.client_seed &&
+          nonce == o.nonce &&
+          revealed_at == o.revealed_at
     end
 
     # @see the `==` method
@@ -167,7 +167,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, nonce, revealed_at, server_seed, server_seed_hash, client_seed].hash
+      [id, server_seed, server_seed_hash, client_seed, nonce, revealed_at].hash
     end
 
     # Builds the object from hash

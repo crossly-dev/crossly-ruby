@@ -17,6 +17,8 @@ module Crossly
   class CreateMeTemplateRenderResponseTokensUsedItem
     DATE = "date".freeze
     BRAND = "brand".freeze
+    CATEGORY = "category".freeze
+    MONTH = "month".freeze
     SKU = "sku".freeze
     CONDITION = "condition".freeze
     SIZE = "size".freeze
@@ -24,11 +26,9 @@ module Crossly
     STYLE = "style".freeze
     COLOR = "color".freeze
     PRICE = "price".freeze
-    CATEGORY = "category".freeze
     YEAR = "year".freeze
     MODEL = "model".freeze
     ITEM_NAME = "item_name".freeze
-    MONTH = "month".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

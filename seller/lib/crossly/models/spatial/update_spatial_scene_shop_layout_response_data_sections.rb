@@ -32,6 +32,12 @@ module Crossly
     # Shown to visitors? A hidden section keeps its stock off the floor.
     attr_accessor :hidden
 
+    # How many units (cases, bays, pages) it stands with, at least; absent = as many as its stock needs. Set from the showroom organizer so an empty display has slots to fill (shared showroom/).
+    attr_accessor :units
+
+    # The holder model it stands as (showroom/fixtures.ts FIXTURE_HOLDERS); absent = its type's free holder.
+    attr_accessor :holder
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -40,7 +46,9 @@ module Crossly
         :'position' => :'position',
         :'rotation_y' => :'rotationY',
         :'sign' => :'sign',
-        :'hidden' => :'hidden'
+        :'hidden' => :'hidden',
+        :'units' => :'units',
+        :'holder' => :'holder'
       }
     end
 
@@ -57,7 +65,9 @@ module Crossly
         :'position' => :'Array<Float>',
         :'rotation_y' => :'Float',
         :'sign' => :'String',
-        :'hidden' => :'Boolean'
+        :'hidden' => :'Boolean',
+        :'units' => :'Float',
+        :'holder' => :'String'
       }
     end
 
@@ -67,7 +77,9 @@ module Crossly
         :'position',
         :'rotation_y',
         :'sign',
-        :'hidden'
+        :'hidden',
+        :'units',
+        :'holder'
       ])
     end
 
@@ -110,6 +122,14 @@ module Crossly
 
       if attributes.key?(:'hidden')
         self.hidden = attributes[:'hidden']
+      end
+
+      if attributes.key?(:'units')
+        self.units = attributes[:'units']
+      end
+
+      if attributes.key?(:'holder')
+        self.holder = attributes[:'holder']
       end
     end
 
@@ -170,7 +190,9 @@ module Crossly
           position == o.position &&
           rotation_y == o.rotation_y &&
           sign == o.sign &&
-          hidden == o.hidden
+          hidden == o.hidden &&
+          units == o.units &&
+          holder == o.holder
     end
 
     # @see the `==` method
@@ -182,7 +204,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, profile, position, rotation_y, sign, hidden].hash
+      [id, profile, position, rotation_y, sign, hidden, units, holder].hash
     end
 
     # Builds the object from hash

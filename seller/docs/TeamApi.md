@@ -4,8 +4,8 @@ All URIs are relative to *https://crossly.net/api*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**create_team_accept**](TeamApi.md#create_team_accept) | **POST** /v1/team/accept | Accept a pending team invitation by raw token. |
-| [**create_team_invite**](TeamApi.md#create_team_invite) | **POST** /v1/team/invite | Mint a team invitation; returns the one-time accept URL. |
+| [**create_team_accept**](TeamApi.md#create_team_accept) | **POST** /v1/team/accept | Accept a team invitation by the raw token from its link. |
+| [**create_team_invite**](TeamApi.md#create_team_invite) | **POST** /v1/team/invite | Issue a team invitation; returns the one-time accept URL (nothing is emailed). |
 | [**create_team_leave**](TeamApi.md#create_team_leave) | **POST** /v1/team/leave | Leave every team this user is currently a member of. |
 | [**create_team_revoke**](TeamApi.md#create_team_revoke) | **POST** /v1/team/revoke | Revoke a pending invite OR an active team member. |
 | [**get_team**](TeamApi.md#get_team) | **GET** /v1/team | List pending team invitations + active members. |
@@ -16,7 +16,7 @@ All URIs are relative to *https://crossly.net/api*
 
 > <CreateTeamAcceptResponse> create_team_accept
 
-Accept a pending team invitation by raw token.
+Accept a team invitation by the raw token from its link.
 
 ### Examples
 
@@ -32,7 +32,7 @@ end
 api_instance = Crossly::TeamApi.new
 
 begin
-  # Accept a pending team invitation by raw token.
+  # Accept a team invitation by the raw token from its link.
   result = api_instance.create_team_accept
   p result
 rescue Crossly::ApiError => e
@@ -48,7 +48,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Accept a pending team invitation by raw token.
+  # Accept a team invitation by the raw token from its link.
   data, status_code, headers = api_instance.create_team_accept_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -80,7 +80,7 @@ This endpoint does not need any parameter.
 
 > <CreateTeamInviteResponse> create_team_invite
 
-Mint a team invitation; returns the one-time accept URL.
+Issue a team invitation; returns the one-time accept URL (nothing is emailed).
 
 ### Examples
 
@@ -96,7 +96,7 @@ end
 api_instance = Crossly::TeamApi.new
 
 begin
-  # Mint a team invitation; returns the one-time accept URL.
+  # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
   result = api_instance.create_team_invite
   p result
 rescue Crossly::ApiError => e
@@ -112,7 +112,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Mint a team invitation; returns the one-time accept URL.
+  # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
   data, status_code, headers = api_instance.create_team_invite_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
