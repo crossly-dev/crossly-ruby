@@ -162,7 +162,7 @@ jobs:
           ruby-version: '3.3'
       - name: RubyGems credentials (trusted publishing)
         if: vars.PUBLISH_RUBYGEMS == 'true'
-        uses: rubygems/configure-rubygems-credentials@v1.0.0
+        uses: rubygems/configure-rubygems-credentials@v2.2.0
       - name: publish to RubyGems
         if: vars.PUBLISH_RUBYGEMS == 'true'
         run: for g in dist/*.gem; do gem push "$g"; done
