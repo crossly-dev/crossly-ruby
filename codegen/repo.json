@@ -1,0 +1,29 @@
+{
+  "lang": "ruby",
+  "vendor": [
+    {
+      "from": "webhooks/ruby/crossly_webhooks.rb",
+      "to": "seller/lib/crossly_webhooks.rb"
+    },
+    {
+      "from": "webhooks/ruby/crossly_webhooks.rb",
+      "to": "buyer/lib/crossly_webhooks.rb"
+    },
+    {
+      "from": "extras/ruby/crossly_kit.rb",
+      "to": "seller/lib/crossly_kit.rb"
+    },
+    {
+      "from": "extras/ruby/crossly_kit.rb",
+      "to": "buyer/lib/crossly_kit.rb"
+    },
+    {
+      "from": "extras/ruby/seller_client.rb",
+      "to": "seller/lib/crossly/client.rb"
+    },
+    {
+      "from": "extras/ruby/buyer_client.rb",
+      "to": "buyer/lib/crossly_buyer/client.rb"
+    }
+  ]
+}
