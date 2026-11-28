@@ -122,7 +122,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'range' => :'FromTo2',
+        :'range' => :'CreateListingTagRenameRequest',
         :'live' => :'GetWorldExperienceAnalyticResponseDataOneOfLive',
         :'totals' => :'Object',
         :'retention' => :'GetWorldExperienceAnalyticResponseDataOneOfRetention',
@@ -131,7 +131,7 @@ module Crossly
         :'sampled' => :'Boolean',
         :'sampled_out_events' => :'Float',
         :'alerts' => :'Array<GetWorldExperienceAnalyticResponseDataOneOfAlerts>',
-        :'raw_range' => :'FromTo2',
+        :'raw_range' => :'CreateListingTagRenameRequest',
         :'session_length' => :'Array<GetWorldExperienceAnalyticResponseDataOneOf1SessionLength>',
         :'by_platform' => :'Array<GetWorldExperienceAnalyticResponseDataOneOf1ByPlatformItem>',
         :'by_source' => :'Array<GetWorldExperienceAnalyticResponseDataOneOf1BySourceItem>',

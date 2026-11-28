@@ -9,7 +9,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_spatial_auction_room_bid
 
-> <CreateSpatialAuctionRoomBidResponse> create_spatial_auction_room_bid(scene_id)
+> <CreateSpatialAuctionRoomBidResponse> create_spatial_auction_room_bid(scene_id, create_spatial_auction_room_bid_request)
 
 Bid on the lot currently up in a room.
 
@@ -28,10 +28,11 @@ end
 
 api_instance = Crossly::BuyerApi.new
 scene_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_spatial_auction_room_bid_request = Crossly::CreateSpatialAuctionRoomBidRequest.new({amount_cents: 3.56}) # CreateSpatialAuctionRoomBidRequest | 
 
 begin
   # Bid on the lot currently up in a room.
-  result = api_instance.create_spatial_auction_room_bid(scene_id)
+  result = api_instance.create_spatial_auction_room_bid(scene_id, create_spatial_auction_room_bid_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BuyerApi->create_spatial_auction_room_bid: #{e}"
@@ -42,12 +43,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialAuctionRoomBidResponse>, Integer, Hash)> create_spatial_auction_room_bid_with_http_info(scene_id)
+> <Array(<CreateSpatialAuctionRoomBidResponse>, Integer, Hash)> create_spatial_auction_room_bid_with_http_info(scene_id, create_spatial_auction_room_bid_request)
 
 ```ruby
 begin
   # Bid on the lot currently up in a room.
-  data, status_code, headers = api_instance.create_spatial_auction_room_bid_with_http_info(scene_id)
+  data, status_code, headers = api_instance.create_spatial_auction_room_bid_with_http_info(scene_id, create_spatial_auction_room_bid_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialAuctionRoomBidResponse>
@@ -61,6 +62,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **scene_id** | **String** |  |  |
+| **create_spatial_auction_room_bid_request** | **CreateSpatialAuctionRoomBidRequest** |  |  |
 
 ### Return type
 
@@ -72,6 +74,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

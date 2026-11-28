@@ -15,9 +15,11 @@ require 'time'
 
 module Crossly
   class ListProductFeedsItemFormatsItem
+    JSON = "json".freeze
+    CSV = "csv".freeze
     XML = "xml".freeze
     TSV = "tsv".freeze
-    CSV = "csv".freeze
+    ATOM = "atom".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

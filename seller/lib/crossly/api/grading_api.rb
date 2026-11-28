@@ -22,6 +22,7 @@ module Crossly
     # Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingRunReserveRequest] :create_grading_run_reserve_request 
     # @return [IdResponse]
     def create_grading_run_reserve(id, opts = {})
       data, _status_code, _headers = create_grading_run_reserve_with_http_info(id, opts)
@@ -31,6 +32,7 @@ module Crossly
     # Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingRunReserveRequest] :create_grading_run_reserve_request 
     # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
     def create_grading_run_reserve_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -50,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_grading_run_reserve_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'IdResponse'
@@ -144,6 +151,7 @@ module Crossly
     # Say you mailed a charged card to the hub, with optional tracking.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingSubmissionShippedRequest] :create_grading_submission_shipped_request 
     # @return [OkResponse]
     def create_grading_submission_shipped(id, opts = {})
       data, _status_code, _headers = create_grading_submission_shipped_with_http_info(id, opts)
@@ -153,6 +161,7 @@ module Crossly
     # Say you mailed a charged card to the hub, with optional tracking.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingSubmissionShippedRequest] :create_grading_submission_shipped_request 
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
     def create_grading_submission_shipped_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -172,12 +181,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_grading_submission_shipped_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'
@@ -204,6 +218,7 @@ module Crossly
 
     # Look a cert number up with its grader. found=false when the grader has no record.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingVerifyCertRequest] :create_grading_verify_cert_request 
     # @return [CreateGradingVerifyCertResponse]
     def create_grading_verify_cert(opts = {})
       data, _status_code, _headers = create_grading_verify_cert_with_http_info(opts)
@@ -212,6 +227,7 @@ module Crossly
 
     # Look a cert number up with its grader. found&#x3D;false when the grader has no record.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingVerifyCertRequest] :create_grading_verify_cert_request 
     # @return [Array<(CreateGradingVerifyCertResponse, Integer, Hash)>] CreateGradingVerifyCertResponse data, response status code and response headers
     def create_grading_verify_cert_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -227,12 +243,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_grading_verify_cert_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateGradingVerifyCertResponse'
@@ -259,6 +280,7 @@ module Crossly
 
     # Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradingOrderRequest] :create_vault_market_grading_order_request 
     # @return [CreateVaultMarketGradingOrderResponse]
     def create_vault_market_grading_order(opts = {})
       data, _status_code, _headers = create_vault_market_grading_order_with_http_info(opts)
@@ -267,6 +289,7 @@ module Crossly
 
     # Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradingOrderRequest] :create_vault_market_grading_order_request 
     # @return [Array<(CreateVaultMarketGradingOrderResponse, Integer, Hash)>] CreateVaultMarketGradingOrderResponse data, response status code and response headers
     def create_vault_market_grading_order_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -282,12 +305,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_grading_order_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketGradingOrderResponse'
@@ -376,6 +404,7 @@ module Crossly
     # Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradingOrderPayRequest] :create_vault_market_grading_order_pay_request 
     # @return [CreateVaultMarketGradingOrderPayResponse]
     def create_vault_market_grading_order_pay(id, opts = {})
       data, _status_code, _headers = create_vault_market_grading_order_pay_with_http_info(id, opts)
@@ -385,6 +414,7 @@ module Crossly
     # Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradingOrderPayRequest] :create_vault_market_grading_order_pay_request 
     # @return [Array<(CreateVaultMarketGradingOrderPayResponse, Integer, Hash)>] CreateVaultMarketGradingOrderPayResponse data, response status code and response headers
     def create_vault_market_grading_order_pay_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -404,12 +434,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_grading_order_pay_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketGradingOrderPayResponse'
@@ -437,6 +472,7 @@ module Crossly
     # After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradingOrderPayConfirmRequest] :create_vault_market_grading_order_pay_confirm_request 
     # @return [StatusResponse]
     def create_vault_market_grading_order_pay_confirm(id, opts = {})
       data, _status_code, _headers = create_vault_market_grading_order_pay_confirm_with_http_info(id, opts)
@@ -446,6 +482,7 @@ module Crossly
     # After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradingOrderPayConfirmRequest] :create_vault_market_grading_order_pay_confirm_request 
     # @return [Array<(StatusResponse, Integer, Hash)>] StatusResponse data, response status code and response headers
     def create_vault_market_grading_order_pay_confirm_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -465,12 +502,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_grading_order_pay_confirm_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StatusResponse'
@@ -546,6 +588,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GradingApi#get_grading_price_book\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your grading defaults: defaultGrader (null = ask each time), defaultMissMode (roll_over | release, if a run does not fill), defaultReturnMode (always vault: every graded card goes into your vault) and defaultPrescreen.
+    # @param [Hash] opts the optional parameters
+    # @return [GetGradingSettingResponse]
+    def get_grading_setting(opts = {})
+      data, _status_code, _headers = get_grading_setting_with_http_info(opts)
+      data
+    end
+
+    # Your grading defaults: defaultGrader (null &#x3D; ask each time), defaultMissMode (roll_over | release, if a run does not fill), defaultReturnMode (always vault: every graded card goes into your vault) and defaultPrescreen.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetGradingSettingResponse, Integer, Hash)>] GetGradingSettingResponse data, response status code and response headers
+    def get_grading_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.get_grading_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/grading/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetGradingSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.get_grading_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#get_grading_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -846,6 +943,7 @@ module Crossly
 
     # What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
     # @return [ListVaultMarketGradingCandidatesResponse]
     def list_vault_market_grading_candidates(opts = {})
       data, _status_code, _headers = list_vault_market_grading_candidates_with_http_info(opts)
@@ -854,6 +952,7 @@ module Crossly
 
     # What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
     # @return [Array<(ListVaultMarketGradingCandidatesResponse, Integer, Hash)>] ListVaultMarketGradingCandidatesResponse data, response status code and response headers
     def list_vault_market_grading_candidates_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -864,6 +963,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -901,6 +1001,15 @@ module Crossly
 
     # Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [String] :active 
+    # @option opts [String] :grader 
+    # @option opts [String] :tier 
+    # @option opts [String] :q 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [ListVaultMarketGradingOrdersResponse]
     def list_vault_market_grading_orders(opts = {})
       data, _status_code, _headers = list_vault_market_grading_orders_with_http_info(opts)
@@ -909,16 +1018,42 @@ module Crossly
 
     # Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [String] :active 
+    # @option opts [String] :grader 
+    # @option opts [String] :tier 
+    # @option opts [String] :q 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [Array<(ListVaultMarketGradingOrdersResponse, Integer, Hash)>] ListVaultMarketGradingOrdersResponse data, response status code and response headers
     def list_vault_market_grading_orders_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GradingApi.list_vault_market_grading_orders ...'
+      end
+      allowable_values = ["draft", "grading", "cancelled", "paid", "received", "graded", "returned", "shipped_to_grader"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["0", "1", "true", "false"]
+      if @api_client.config.client_side_validation && opts[:'active'] && !allowable_values.include?(opts[:'active'])
+        fail ArgumentError, "invalid value for \"active\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/vault-markets/grading/orders'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'active'] = opts[:'active'] if !opts[:'active'].nil?
+      query_params[:'grader'] = opts[:'grader'] if !opts[:'grader'].nil?
+      query_params[:'tier'] = opts[:'tier'] if !opts[:'tier'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -950,6 +1085,68 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GradingApi#list_vault_market_grading_orders\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change your grading defaults (any of defaultGrader, defaultMissMode, defaultPrescreen; defaultReturnMode is always vault, and an old \"return\" is saved as vault). Logged to Activity. Returns the saved defaults.
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateGradingSettingRequest] :update_grading_setting_request 
+    # @return [GetGradingSettingResponse]
+    def update_grading_setting(opts = {})
+      data, _status_code, _headers = update_grading_setting_with_http_info(opts)
+      data
+    end
+
+    # Change your grading defaults (any of defaultGrader, defaultMissMode, defaultPrescreen; defaultReturnMode is always vault, and an old \&quot;return\&quot; is saved as vault). Logged to Activity. Returns the saved defaults.
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateGradingSettingRequest] :update_grading_setting_request 
+    # @return [Array<(GetGradingSettingResponse, Integer, Hash)>] GetGradingSettingResponse data, response status code and response headers
+    def update_grading_setting_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GradingApi.update_grading_setting ...'
+      end
+      # resource path
+      local_var_path = '/v1/grading/settings'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_grading_setting_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetGradingSettingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"GradingApi.update_grading_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GradingApi#update_grading_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

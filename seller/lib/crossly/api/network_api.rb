@@ -306,19 +306,25 @@ module Crossly
     end
 
     # Update per-action toggles + platforms on pool membership.
+    # @param update_network_pool_request [UpdateNetworkPoolRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
-    def update_network_pool(opts = {})
-      data, _status_code, _headers = update_network_pool_with_http_info(opts)
+    def update_network_pool(update_network_pool_request, opts = {})
+      data, _status_code, _headers = update_network_pool_with_http_info(update_network_pool_request, opts)
       data
     end
 
     # Update per-action toggles + platforms on pool membership.
+    # @param update_network_pool_request [UpdateNetworkPoolRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def update_network_pool_with_http_info(opts = {})
+    def update_network_pool_with_http_info(update_network_pool_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: NetworkApi.update_network_pool ...'
+      end
+      # verify the required parameter 'update_network_pool_request' is set
+      if @api_client.config.client_side_validation && update_network_pool_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_network_pool_request' when calling NetworkApi.update_network_pool"
       end
       # resource path
       local_var_path = '/v1/network/pool'
@@ -330,12 +336,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_network_pool_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'

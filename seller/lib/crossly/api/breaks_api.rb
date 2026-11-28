@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Start a break on one of your listings: pick (buyers choose a spot) or random (drawn). The seed is committed now and revealed at the draw.
+    # @param create_break_request [CreateBreakRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBreakResponse]
-    def create_break(opts = {})
-      data, _status_code, _headers = create_break_with_http_info(opts)
+    def create_break(create_break_request, opts = {})
+      data, _status_code, _headers = create_break_with_http_info(create_break_request, opts)
       data
     end
 
     # Start a break on one of your listings: pick (buyers choose a spot) or random (drawn). The seed is committed now and revealed at the draw.
+    # @param create_break_request [CreateBreakRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBreakResponse, Integer, Hash)>] CreateBreakResponse data, response status code and response headers
-    def create_break_with_http_info(opts = {})
+    def create_break_with_http_info(create_break_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BreaksApi.create_break ...'
+      end
+      # verify the required parameter 'create_break_request' is set
+      if @api_client.config.client_side_validation && create_break_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_break_request' when calling BreaksApi.create_break"
       end
       # resource path
       local_var_path = '/v1/breaks'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_break_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBreakResponse'
@@ -260,19 +271,21 @@ module Crossly
     # Record what a spot pulled.
     # @param id [String] 
     # @param spot_id [String] 
+    # @param create_break_spot_hit_request [CreateBreakSpotHitRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateGroupBuyResponse]
-    def create_break_spot_hit(id, spot_id, opts = {})
-      data, _status_code, _headers = create_break_spot_hit_with_http_info(id, spot_id, opts)
+    def create_break_spot_hit(id, spot_id, create_break_spot_hit_request, opts = {})
+      data, _status_code, _headers = create_break_spot_hit_with_http_info(id, spot_id, create_break_spot_hit_request, opts)
       data
     end
 
     # Record what a spot pulled.
     # @param id [String] 
     # @param spot_id [String] 
+    # @param create_break_spot_hit_request [CreateBreakSpotHitRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
-    def create_break_spot_hit_with_http_info(id, spot_id, opts = {})
+    def create_break_spot_hit_with_http_info(id, spot_id, create_break_spot_hit_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BreaksApi.create_break_spot_hit ...'
       end
@@ -284,6 +297,10 @@ module Crossly
       if @api_client.config.client_side_validation && spot_id.nil?
         fail ArgumentError, "Missing the required parameter 'spot_id' when calling BreaksApi.create_break_spot_hit"
       end
+      # verify the required parameter 'create_break_spot_hit_request' is set
+      if @api_client.config.client_side_validation && create_break_spot_hit_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_break_spot_hit_request' when calling BreaksApi.create_break_spot_hit"
+      end
       # resource path
       local_var_path = '/v1/breaks/{id}/spots/{spotId}/hits'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'spotId' + '}', CGI.escape(spot_id.to_s))
 
@@ -294,12 +311,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_break_spot_hit_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'

@@ -25,11 +25,11 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :note
+
     attr_accessor :buyer_user_id
 
     attr_accessor :seller_user_id
-
-    attr_accessor :note
 
     attr_accessor :lines
 
@@ -49,9 +49,9 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'status' => :'status',
+        :'note' => :'note',
         :'buyer_user_id' => :'buyerUserId',
         :'seller_user_id' => :'sellerUserId',
-        :'note' => :'note',
         :'lines' => :'lines',
         :'ship_to' => :'shipTo',
         :'seller_note' => :'sellerNote',
@@ -73,9 +73,9 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'status' => :'String',
+        :'note' => :'String',
         :'buyer_user_id' => :'String',
         :'seller_user_id' => :'String',
-        :'note' => :'String',
         :'lines' => :'Array<CreateWholesaleFreightRequestAnswerResponseDataLines>',
         :'ship_to' => :'Hash<String, Object>',
         :'seller_note' => :'String',
@@ -131,16 +131,16 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
+
       if attributes.key?(:'buyer_user_id')
         self.buyer_user_id = attributes[:'buyer_user_id']
       end
 
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
-      end
-
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
       end
 
       if attributes.key?(:'lines')
@@ -226,9 +226,9 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           status == o.status &&
+          note == o.note &&
           buyer_user_id == o.buyer_user_id &&
           seller_user_id == o.seller_user_id &&
-          note == o.note &&
           lines == o.lines &&
           ship_to == o.ship_to &&
           seller_note == o.seller_note &&
@@ -245,7 +245,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [buyer_name, id, created_at, updated_at, status, buyer_user_id, seller_user_id, note, lines, ship_to, seller_note, quoted_cents, weight_lbs].hash
+      [buyer_name, id, created_at, updated_at, status, note, buyer_user_id, seller_user_id, lines, ship_to, seller_note, quoted_cents, weight_lbs].hash
     end
 
     # Builds the object from hash

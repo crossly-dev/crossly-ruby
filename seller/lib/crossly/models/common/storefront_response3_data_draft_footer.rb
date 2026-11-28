@@ -210,7 +210,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @layout.nil?
-      layout_validator = EnumAttributeValidator.new('String', ["columns", "minimal", "centered"])
+      layout_validator = EnumAttributeValidator.new('String', ["columns", "centered", "minimal"])
       return false unless layout_validator.valid?(@layout)
       return false if @columns.nil?
       return false if @show_newsletter.nil?
@@ -227,7 +227,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] layout Object to be assigned
     def layout=(layout)
-      validator = EnumAttributeValidator.new('String', ["columns", "minimal", "centered"])
+      validator = EnumAttributeValidator.new('String', ["columns", "centered", "minimal"])
       unless validator.valid?(layout)
         fail ArgumentError, "invalid value for \"layout\", must be one of #{validator.allowable_values}."
       end

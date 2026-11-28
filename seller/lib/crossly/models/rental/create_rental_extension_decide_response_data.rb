@@ -23,6 +23,9 @@ module Crossly
 
     attr_accessor :cents
 
+    # Days of it a loyalty perk gave free (rental_free_extension; `cents` is for the rest). Migration 1521.
+    attr_accessor :free_days
+
     # 'requested' (waiting on the seller) | 'approved' (waiting on payment) | 'paid' | 'declined' | 'expired'.
     attr_accessor :status
 
@@ -39,6 +42,7 @@ module Crossly
         :'rental_id' => :'rentalId',
         :'days' => :'days',
         :'cents' => :'cents',
+        :'free_days' => :'freeDays',
         :'status' => :'status',
         :'stripe_payment_intent_id' => :'stripePaymentIntentId',
         :'created_at' => :'createdAt',
@@ -58,6 +62,7 @@ module Crossly
         :'rental_id' => :'String',
         :'days' => :'Float',
         :'cents' => :'Float',
+        :'free_days' => :'Float',
         :'status' => :'String',
         :'stripe_payment_intent_id' => :'String',
         :'created_at' => :'Time',
@@ -68,6 +73,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'free_days',
         :'stripe_payment_intent_id',
         :'decided_at'
       ])
@@ -102,6 +108,10 @@ module Crossly
 
       if attributes.key?(:'cents')
         self.cents = attributes[:'cents']
+      end
+
+      if attributes.key?(:'free_days')
+        self.free_days = attributes[:'free_days']
       end
 
       if attributes.key?(:'status')
@@ -173,6 +183,7 @@ module Crossly
           rental_id == o.rental_id &&
           days == o.days &&
           cents == o.cents &&
+          free_days == o.free_days &&
           status == o.status &&
           stripe_payment_intent_id == o.stripe_payment_intent_id &&
           created_at == o.created_at &&
@@ -188,7 +199,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, rental_id, days, cents, status, stripe_payment_intent_id, created_at, decided_at].hash
+      [id, rental_id, days, cents, free_days, status, stripe_payment_intent_id, created_at, decided_at].hash
     end
 
     # Builds the object from hash

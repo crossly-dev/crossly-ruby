@@ -15,10 +15,8 @@ require 'time'
 
 module Crossly
   class PenaltyRepStrikesToBlock
-    # Tenths of a star taken off the worker's reputation for a no-show.
     attr_accessor :penalty_rep
 
-    # After this many no-shows for this employer, the worker is put on the posting's blacklist. 0 = never.
     attr_accessor :strikes_to_block
 
     # Attribute mapping from ruby-style variable name to JSON key.

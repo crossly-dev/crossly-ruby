@@ -251,7 +251,7 @@ module Crossly
       bucket_validator = EnumAttributeValidator.new('String', ["mid", "low", "high"])
       return false unless bucket_validator.valid?(@bucket)
       return false if @peer_group.nil?
-      peer_group_validator = EnumAttributeValidator.new('String', ["category", "all"])
+      peer_group_validator = EnumAttributeValidator.new('String', ["all", "category"])
       return false unless peer_group_validator.valid?(@peer_group)
       return false if @peers.nil?
       return false if @components.nil?
@@ -275,7 +275,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] peer_group Object to be assigned
     def peer_group=(peer_group)
-      validator = EnumAttributeValidator.new('String', ["category", "all"])
+      validator = EnumAttributeValidator.new('String', ["all", "category"])
       unless validator.valid?(peer_group)
         fail ArgumentError, "invalid value for \"peer_group\", must be one of #{validator.allowable_values}."
       end

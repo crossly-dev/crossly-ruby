@@ -15,7 +15,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_brand_drop
 
-> <BrandDropResponse> create_brand_drop
+> <BrandDropResponse> create_brand_drop(create_brand_drop_request)
 
 Create a brand drop as a draft (name, dropAt in the future, optional description, cover image and Crossly platform-listing ids). Approved partners only (403 drop_partner_required); counts against your monthly allowance (403 drop_quota_exhausted).
 
@@ -31,10 +31,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::BrandDropsApi.new
+create_brand_drop_request = Crossly::CreateBrandDropRequest.new({name: 'name_example', drop_at: 'drop_at_example'}) # CreateBrandDropRequest | 
 
 begin
   # Create a brand drop as a draft (name, dropAt in the future, optional description, cover image and Crossly platform-listing ids). Approved partners only (403 drop_partner_required); counts against your monthly allowance (403 drop_quota_exhausted).
-  result = api_instance.create_brand_drop
+  result = api_instance.create_brand_drop(create_brand_drop_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BrandDropsApi->create_brand_drop: #{e}"
@@ -45,12 +46,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BrandDropResponse>, Integer, Hash)> create_brand_drop_with_http_info
+> <Array(<BrandDropResponse>, Integer, Hash)> create_brand_drop_with_http_info(create_brand_drop_request)
 
 ```ruby
 begin
   # Create a brand drop as a draft (name, dropAt in the future, optional description, cover image and Crossly platform-listing ids). Approved partners only (403 drop_partner_required); counts against your monthly allowance (403 drop_quota_exhausted).
-  data, status_code, headers = api_instance.create_brand_drop_with_http_info
+  data, status_code, headers = api_instance.create_brand_drop_with_http_info(create_brand_drop_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BrandDropResponse>
@@ -61,7 +62,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_brand_drop_request** | **CreateBrandDropRequest** |  |  |
 
 ### Return type
 
@@ -73,7 +76,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -277,7 +280,7 @@ end
 
 ## list_brand_drops
 
-> <ListBrandDropsResponse> list_brand_drops
+> <ListBrandDropsResponse> list_brand_drops(opts)
 
 Your brand drops, newest start time first. Filter with ?status=draft|pending_review|scheduled|live|sold_out|ended|cancelled. Empty when you are not a partner.
 
@@ -293,10 +296,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::BrandDropsApi.new
+opts = {
+  status: 'draft', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Your brand drops, newest start time first. Filter with ?status=draft|pending_review|scheduled|live|sold_out|ended|cancelled. Empty when you are not a partner.
-  result = api_instance.list_brand_drops
+  result = api_instance.list_brand_drops(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BrandDropsApi->list_brand_drops: #{e}"
@@ -307,12 +314,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBrandDropsResponse>, Integer, Hash)> list_brand_drops_with_http_info
+> <Array(<ListBrandDropsResponse>, Integer, Hash)> list_brand_drops_with_http_info(opts)
 
 ```ruby
 begin
   # Your brand drops, newest start time first. Filter with ?status=draft|pending_review|scheduled|live|sold_out|ended|cancelled. Empty when you are not a partner.
-  data, status_code, headers = api_instance.list_brand_drops_with_http_info
+  data, status_code, headers = api_instance.list_brand_drops_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBrandDropsResponse>
@@ -323,7 +330,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -341,7 +351,7 @@ This endpoint does not need any parameter.
 
 ## update_brand_drop
 
-> <BrandDropResponse> update_brand_drop(id)
+> <BrandDropResponse> update_brand_drop(id, opts)
 
 Edit a brand drop and/or change its status: draft (withdraw / unschedule), pending_review (submit for review), scheduled (only with canSelfPublish — 403 drop_review_required otherwise), cancelled. Editing name, time or description of a reviewed drop sends it back to review. Live and finished drops cannot be changed.
 
@@ -358,10 +368,13 @@ end
 
 api_instance = Crossly::BrandDropsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  update_brand_drop_request: Crossly::UpdateBrandDropRequest.new # UpdateBrandDropRequest | 
+}
 
 begin
   # Edit a brand drop and/or change its status: draft (withdraw / unschedule), pending_review (submit for review), scheduled (only with canSelfPublish — 403 drop_review_required otherwise), cancelled. Editing name, time or description of a reviewed drop sends it back to review. Live and finished drops cannot be changed.
-  result = api_instance.update_brand_drop(id)
+  result = api_instance.update_brand_drop(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BrandDropsApi->update_brand_drop: #{e}"
@@ -372,12 +385,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BrandDropResponse>, Integer, Hash)> update_brand_drop_with_http_info(id)
+> <Array(<BrandDropResponse>, Integer, Hash)> update_brand_drop_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a brand drop and/or change its status: draft (withdraw / unschedule), pending_review (submit for review), scheduled (only with canSelfPublish — 403 drop_review_required otherwise), cancelled. Editing name, time or description of a reviewed drop sends it back to review. Live and finished drops cannot be changed.
-  data, status_code, headers = api_instance.update_brand_drop_with_http_info(id)
+  data, status_code, headers = api_instance.update_brand_drop_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BrandDropResponse>
@@ -391,6 +404,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_brand_drop_request** | **UpdateBrandDropRequest** |  | [optional] |
 
 ### Return type
 
@@ -402,13 +416,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_brand_drop_listing
 
-> <ListBrandDropListingsResponse> update_brand_drop_listing(id)
+> <ListBrandDropListingsResponse> update_brand_drop_listing(id, update_brand_drop_listing_request)
 
 Replace the listings a brand drop releases, by master listing id (up to 100). Each must already be listed on Crossly — otherwise 400 listing_not_on_crossly naming them. Not allowed once the drop is live or finished.
 
@@ -425,10 +439,11 @@ end
 
 api_instance = Crossly::BrandDropsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_brand_drop_listing_request = Crossly::UpdateBrandDropListingRequest.new({listing_ids: ['listing_ids_example']}) # UpdateBrandDropListingRequest | 
 
 begin
   # Replace the listings a brand drop releases, by master listing id (up to 100). Each must already be listed on Crossly — otherwise 400 listing_not_on_crossly naming them. Not allowed once the drop is live or finished.
-  result = api_instance.update_brand_drop_listing(id)
+  result = api_instance.update_brand_drop_listing(id, update_brand_drop_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BrandDropsApi->update_brand_drop_listing: #{e}"
@@ -439,12 +454,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBrandDropListingsResponse>, Integer, Hash)> update_brand_drop_listing_with_http_info(id)
+> <Array(<ListBrandDropListingsResponse>, Integer, Hash)> update_brand_drop_listing_with_http_info(id, update_brand_drop_listing_request)
 
 ```ruby
 begin
   # Replace the listings a brand drop releases, by master listing id (up to 100). Each must already be listed on Crossly — otherwise 400 listing_not_on_crossly naming them. Not allowed once the drop is live or finished.
-  data, status_code, headers = api_instance.update_brand_drop_listing_with_http_info(id)
+  data, status_code, headers = api_instance.update_brand_drop_listing_with_http_info(id, update_brand_drop_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBrandDropListingsResponse>
@@ -458,6 +473,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_brand_drop_listing_request** | **UpdateBrandDropListingRequest** |  |  |
 
 ### Return type
 
@@ -469,6 +485,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

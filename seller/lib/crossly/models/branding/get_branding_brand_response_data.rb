@@ -56,7 +56,7 @@ module Crossly
         :'logo_url' => :'String',
         :'banner_url' => :'String',
         :'story' => :'String',
-        :'links' => :'Array<ListAppsItemDocsLinks>',
+        :'links' => :'Array<LabelUrl>',
         :'verified_at' => :'String'
       }
     end

@@ -32,7 +32,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'data' => :'CreateWorldSpaceEventRsvpResponseData'
+        :'data' => :'CreateWorldSpaceEventRsvpRequest'
       }
     end
 

@@ -75,19 +75,25 @@ module Crossly
     end
 
     # Register an Expo push token for this user.
+    # @param create_mobile_push_token_request [CreateMobilePushTokenRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
-    def create_mobile_push_token(opts = {})
-      data, _status_code, _headers = create_mobile_push_token_with_http_info(opts)
+    def create_mobile_push_token(create_mobile_push_token_request, opts = {})
+      data, _status_code, _headers = create_mobile_push_token_with_http_info(create_mobile_push_token_request, opts)
       data
     end
 
     # Register an Expo push token for this user.
+    # @param create_mobile_push_token_request [CreateMobilePushTokenRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def create_mobile_push_token_with_http_info(opts = {})
+    def create_mobile_push_token_with_http_info(create_mobile_push_token_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MobileApi.create_mobile_push_token ...'
+      end
+      # verify the required parameter 'create_mobile_push_token_request' is set
+      if @api_client.config.client_side_validation && create_mobile_push_token_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_mobile_push_token_request' when calling MobileApi.create_mobile_push_token"
       end
       # resource path
       local_var_path = '/v1/mobile/push-token'
@@ -99,12 +105,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_mobile_push_token_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'

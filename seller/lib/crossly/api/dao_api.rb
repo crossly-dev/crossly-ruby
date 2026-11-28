@@ -21,20 +21,26 @@ module Crossly
     end
     # Raise a proposal. Starts as a draft.
     # Requires staked CBX above `minProposeWeight`, and one in-flight proposal at a time. The limits bound a denial of ATTENTION rather than of service — attention is the resource a DAO actually runs on. `beneficiaryKind` is a CLOSED set and there is deliberately no stakers, holders, airdrop or distribution option. A proposal whose beneficiaries are the voters would be a self-payment, and a distribution decided by its own recipients is a dividend whatever it is called. The DAO decides WHAT to fund, never WHO gets paid. A `policy` proposal requests no funds and must omit the amount; every other kind must supply one. proposalKind (default spend) raises a Crossly Funding pool proposal instead: pool_allocation (beneficiary funding_pool, an amount), pool_parameter, spend_category or supplier_allowlist (beneficiary policy, with params). A passed pool proposal is applied by the operator; it never pays the voters.
+    # @param create_dao_proposal_request [CreateDaoProposalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateDaoProposalResponse]
-    def create_dao_proposal(opts = {})
-      data, _status_code, _headers = create_dao_proposal_with_http_info(opts)
+    def create_dao_proposal(create_dao_proposal_request, opts = {})
+      data, _status_code, _headers = create_dao_proposal_with_http_info(create_dao_proposal_request, opts)
       data
     end
 
     # Raise a proposal. Starts as a draft.
     # Requires staked CBX above &#x60;minProposeWeight&#x60;, and one in-flight proposal at a time. The limits bound a denial of ATTENTION rather than of service — attention is the resource a DAO actually runs on. &#x60;beneficiaryKind&#x60; is a CLOSED set and there is deliberately no stakers, holders, airdrop or distribution option. A proposal whose beneficiaries are the voters would be a self-payment, and a distribution decided by its own recipients is a dividend whatever it is called. The DAO decides WHAT to fund, never WHO gets paid. A &#x60;policy&#x60; proposal requests no funds and must omit the amount; every other kind must supply one. proposalKind (default spend) raises a Crossly Funding pool proposal instead: pool_allocation (beneficiary funding_pool, an amount), pool_parameter, spend_category or supplier_allowlist (beneficiary policy, with params). A passed pool proposal is applied by the operator; it never pays the voters.
+    # @param create_dao_proposal_request [CreateDaoProposalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateDaoProposalResponse, Integer, Hash)>] CreateDaoProposalResponse data, response status code and response headers
-    def create_dao_proposal_with_http_info(opts = {})
+    def create_dao_proposal_with_http_info(create_dao_proposal_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DAOApi.create_dao_proposal ...'
+      end
+      # verify the required parameter 'create_dao_proposal_request' is set
+      if @api_client.config.client_side_validation && create_dao_proposal_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_dao_proposal_request' when calling DAOApi.create_dao_proposal"
       end
       # resource path
       local_var_path = '/v1/dao/proposals'
@@ -46,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_dao_proposal_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateDaoProposalResponse'
@@ -142,25 +153,31 @@ module Crossly
     # Put your draft to a vote. Snapshots voting power.
     # ONLY THE PROPOSER may open their own draft. Opening puts something to a binding vote in somebody's name, and authorship and that decision both belong to them. Opening writes a per-subject voting-power snapshot and freezes the quorum denominator. Nothing recomputes either afterwards, which is what stops acquire-vote-sell. Refuses when nobody holds enough staked CBX to vote — opening then would guarantee a failed quorum, waste a week and read as the feature being broken.
     # @param id [String] 
+    # @param create_dao_proposal_open_request [CreateDaoProposalOpenRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateDaoProposalOpenResponse]
-    def create_dao_proposal_open(id, opts = {})
-      data, _status_code, _headers = create_dao_proposal_open_with_http_info(id, opts)
+    def create_dao_proposal_open(id, create_dao_proposal_open_request, opts = {})
+      data, _status_code, _headers = create_dao_proposal_open_with_http_info(id, create_dao_proposal_open_request, opts)
       data
     end
 
     # Put your draft to a vote. Snapshots voting power.
     # ONLY THE PROPOSER may open their own draft. Opening puts something to a binding vote in somebody&#39;s name, and authorship and that decision both belong to them. Opening writes a per-subject voting-power snapshot and freezes the quorum denominator. Nothing recomputes either afterwards, which is what stops acquire-vote-sell. Refuses when nobody holds enough staked CBX to vote — opening then would guarantee a failed quorum, waste a week and read as the feature being broken.
     # @param id [String] 
+    # @param create_dao_proposal_open_request [CreateDaoProposalOpenRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateDaoProposalOpenResponse, Integer, Hash)>] CreateDaoProposalOpenResponse data, response status code and response headers
-    def create_dao_proposal_open_with_http_info(id, opts = {})
+    def create_dao_proposal_open_with_http_info(id, create_dao_proposal_open_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DAOApi.create_dao_proposal_open ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DAOApi.create_dao_proposal_open"
+      end
+      # verify the required parameter 'create_dao_proposal_open_request' is set
+      if @api_client.config.client_side_validation && create_dao_proposal_open_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_dao_proposal_open_request' when calling DAOApi.create_dao_proposal_open"
       end
       # resource path
       local_var_path = '/v1/dao/proposals/{id}/open'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -172,12 +189,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_dao_proposal_open_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateDaoProposalOpenResponse'
@@ -205,25 +227,31 @@ module Crossly
     # Operator block. There is no matching power to PASS.
     # DELIBERATELY ASYMMETRIC. A veto exists for the illegal and the ruinous — funding something unlawful, or emptying the pool in a week. A power to pass would make every vote advisory theatre, because the outcome would always be whatever the operator preferred. An operator who can only say no cannot manufacture an outcome. The reason is MANDATORY and stored: an unexplained veto is indistinguishable from disliking the result, which is exactly what would destroy confidence in the mechanism. Expect it to be read.
     # @param id [String] 
+    # @param create_dao_proposal_veto_request [CreateDaoProposalVetoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateDaoProposalVetoResponse]
-    def create_dao_proposal_veto(id, opts = {})
-      data, _status_code, _headers = create_dao_proposal_veto_with_http_info(id, opts)
+    def create_dao_proposal_veto(id, create_dao_proposal_veto_request, opts = {})
+      data, _status_code, _headers = create_dao_proposal_veto_with_http_info(id, create_dao_proposal_veto_request, opts)
       data
     end
 
     # Operator block. There is no matching power to PASS.
     # DELIBERATELY ASYMMETRIC. A veto exists for the illegal and the ruinous — funding something unlawful, or emptying the pool in a week. A power to pass would make every vote advisory theatre, because the outcome would always be whatever the operator preferred. An operator who can only say no cannot manufacture an outcome. The reason is MANDATORY and stored: an unexplained veto is indistinguishable from disliking the result, which is exactly what would destroy confidence in the mechanism. Expect it to be read.
     # @param id [String] 
+    # @param create_dao_proposal_veto_request [CreateDaoProposalVetoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateDaoProposalVetoResponse, Integer, Hash)>] CreateDaoProposalVetoResponse data, response status code and response headers
-    def create_dao_proposal_veto_with_http_info(id, opts = {})
+    def create_dao_proposal_veto_with_http_info(id, create_dao_proposal_veto_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DAOApi.create_dao_proposal_veto ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DAOApi.create_dao_proposal_veto"
+      end
+      # verify the required parameter 'create_dao_proposal_veto_request' is set
+      if @api_client.config.client_side_validation && create_dao_proposal_veto_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_dao_proposal_veto_request' when calling DAOApi.create_dao_proposal_veto"
       end
       # resource path
       local_var_path = '/v1/dao/proposals/{id}/veto'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -235,12 +263,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_dao_proposal_veto_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateDaoProposalVetoResponse'
@@ -268,25 +301,31 @@ module Crossly
     # Cast or change a vote while the window is open.
     # Weight comes from the snapshot taken when the proposal opened, so staking afterwards grants no vote on it. Changing your mind is an UPDATE, not a second vote — a unique index makes double-counting impossible even if this logic were wrong. ABSTAIN counts toward turnout and not toward approval, which is the whole reason to offer it: it lets you help a proposal clear quorum without taking a side.
     # @param id [String] 
+    # @param create_dao_proposal_vote_request [CreateDaoProposalVoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateDaoProposalVoteResponse]
-    def create_dao_proposal_vote(id, opts = {})
-      data, _status_code, _headers = create_dao_proposal_vote_with_http_info(id, opts)
+    def create_dao_proposal_vote(id, create_dao_proposal_vote_request, opts = {})
+      data, _status_code, _headers = create_dao_proposal_vote_with_http_info(id, create_dao_proposal_vote_request, opts)
       data
     end
 
     # Cast or change a vote while the window is open.
     # Weight comes from the snapshot taken when the proposal opened, so staking afterwards grants no vote on it. Changing your mind is an UPDATE, not a second vote — a unique index makes double-counting impossible even if this logic were wrong. ABSTAIN counts toward turnout and not toward approval, which is the whole reason to offer it: it lets you help a proposal clear quorum without taking a side.
     # @param id [String] 
+    # @param create_dao_proposal_vote_request [CreateDaoProposalVoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateDaoProposalVoteResponse, Integer, Hash)>] CreateDaoProposalVoteResponse data, response status code and response headers
-    def create_dao_proposal_vote_with_http_info(id, opts = {})
+    def create_dao_proposal_vote_with_http_info(id, create_dao_proposal_vote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DAOApi.create_dao_proposal_vote ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DAOApi.create_dao_proposal_vote"
+      end
+      # verify the required parameter 'create_dao_proposal_vote_request' is set
+      if @api_client.config.client_side_validation && create_dao_proposal_vote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_dao_proposal_vote_request' when calling DAOApi.create_dao_proposal_vote"
       end
       # resource path
       local_var_path = '/v1/dao/proposals/{id}/vote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -298,12 +337,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_dao_proposal_vote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateDaoProposalVoteResponse'
@@ -332,6 +376,7 @@ module Crossly
     # Drafts only. Withdrawing an OPEN proposal would discard votes already cast, which is the proposer overruling the electorate — the thing the whole mechanism exists to prevent. An open proposal runs its window and gets a result. This exists so the one-in-flight limit is not a trap: without it a typo would lock somebody out of governance until the draft expired.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [SubjectIdRequest] :subject_id_request 
     # @return [DeleteDaoProposalResponse]
     def delete_dao_proposal(id, opts = {})
       data, _status_code, _headers = delete_dao_proposal_with_http_info(id, opts)
@@ -342,6 +387,7 @@ module Crossly
     # Drafts only. Withdrawing an OPEN proposal would discard votes already cast, which is the proposer overruling the electorate — the thing the whole mechanism exists to prevent. An open proposal runs its window and gets a result. This exists so the one-in-flight limit is not a trap: without it a typo would lock somebody out of governance until the draft expired.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [SubjectIdRequest] :subject_id_request 
     # @return [Array<(DeleteDaoProposalResponse, Integer, Hash)>] DeleteDaoProposalResponse data, response status code and response headers
     def delete_dao_proposal_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -361,12 +407,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'subject_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'DeleteDaoProposalResponse'
@@ -454,9 +505,74 @@ module Crossly
       return data, status_code, headers
     end
 
+    # One holder's participation: votes, voting power over time, share.
+    # Every vote the subject cast (with the frozen weight it carried), the voting power snapshotted for it at each proposal open (oldest first) with that proposal total, and the latest snapshot share of the total in bps. Amounts are strings of base units. Read-only; the subject must belong to the calling merchant.
+    # @param subject_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetDaoSubjectParticipationResponse]
+    def get_dao_subject_participation(subject_id, opts = {})
+      data, _status_code, _headers = get_dao_subject_participation_with_http_info(subject_id, opts)
+      data
+    end
+
+    # One holder&#39;s participation: votes, voting power over time, share.
+    # Every vote the subject cast (with the frozen weight it carried), the voting power snapshotted for it at each proposal open (oldest first) with that proposal total, and the latest snapshot share of the total in bps. Amounts are strings of base units. Read-only; the subject must belong to the calling merchant.
+    # @param subject_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDaoSubjectParticipationResponse, Integer, Hash)>] GetDaoSubjectParticipationResponse data, response status code and response headers
+    def get_dao_subject_participation_with_http_info(subject_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DAOApi.get_dao_subject_participation ...'
+      end
+      # verify the required parameter 'subject_id' is set
+      if @api_client.config.client_side_validation && subject_id.nil?
+        fail ArgumentError, "Missing the required parameter 'subject_id' when calling DAOApi.get_dao_subject_participation"
+      end
+      # resource path
+      local_var_path = '/v1/dao/subjects/{subjectId}/participation'.sub('{' + 'subjectId' + '}', CGI.escape(subject_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDaoSubjectParticipationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DAOApi.get_dao_subject_participation",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DAOApi#get_dao_subject_participation\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # The proposal queue.
     # Staked CBX decides what the events pool funds. Voting power is size x tenure — the same weighting the earn multiplier uses — and it is SNAPSHOTTED when a proposal opens, so staking after seeing one grants no vote on it. `totalVotingPower` is the frozen quorum denominator; recomputing it would let somebody move the bar after votes were cast. Amounts are strings of base units.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Float] :limit 
     # @return [ListDaoProposalsResponse]
     def list_dao_proposals(opts = {})
       data, _status_code, _headers = list_dao_proposals_with_http_info(opts)
@@ -466,16 +582,24 @@ module Crossly
     # The proposal queue.
     # Staked CBX decides what the events pool funds. Voting power is size x tenure — the same weighting the earn multiplier uses — and it is SNAPSHOTTED when a proposal opens, so staking after seeing one grants no vote on it. &#x60;totalVotingPower&#x60; is the frozen quorum denominator; recomputing it would let somebody move the bar after votes were cast. Amounts are strings of base units.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Float] :limit 
     # @return [Array<(ListDaoProposalsResponse, Integer, Hash)>] ListDaoProposalsResponse data, response status code and response headers
     def list_dao_proposals_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DAOApi.list_dao_proposals ...'
+      end
+      allowable_values = ["expired", "draft", "open", "rejected", "passed", "vetoed", "executed"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/dao/proposals'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

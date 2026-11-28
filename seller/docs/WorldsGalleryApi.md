@@ -16,7 +16,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_world_experience_gallery
 
-> <WorldExperienceGalleryResponse> create_world_experience_gallery(experience_id)
+> <WorldExperienceGalleryResponse> create_world_experience_gallery(experience_id, opts)
 
 Add an uploaded screenshot or video (your own upload's publicUrl; a video may carry a poster image). Images are scanned at once; every item waits for a person and shows on the game's page once approved.
 
@@ -33,10 +33,13 @@ end
 
 api_instance = Crossly::WorldsGalleryApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_gallery_request: Crossly::CreateWorldExperienceGalleryRequest.new({kind: 'image', url: 'url_example'}) # CreateWorldExperienceGalleryRequest | 
+}
 
 begin
   # Add an uploaded screenshot or video (your own upload's publicUrl; a video may carry a poster image). Images are scanned at once; every item waits for a person and shows on the game's page once approved.
-  result = api_instance.create_world_experience_gallery(experience_id)
+  result = api_instance.create_world_experience_gallery(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsGalleryApi->create_world_experience_gallery: #{e}"
@@ -47,12 +50,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceGalleryResponse>, Integer, Hash)> create_world_experience_gallery_with_http_info(experience_id)
+> <Array(<WorldExperienceGalleryResponse>, Integer, Hash)> create_world_experience_gallery_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Add an uploaded screenshot or video (your own upload's publicUrl; a video may carry a poster image). Images are scanned at once; every item waits for a person and shows on the game's page once approved.
-  data, status_code, headers = api_instance.create_world_experience_gallery_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_gallery_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceGalleryResponse>
@@ -66,6 +69,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_gallery_request** | **CreateWorldExperienceGalleryRequest** |  | [optional] |
 
 ### Return type
 
@@ -77,13 +81,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_gallery_upload_url
 
-> <CreateWorldExperienceGalleryUploadUrlResponse> create_world_experience_gallery_upload_url(experience_id)
+> <CreateWorldExperienceGalleryUploadUrlResponse> create_world_experience_gallery_upload_url(experience_id, opts)
 
 A presigned upload for a gallery screenshot (JPEG/PNG/WebP/GIF, ≤ 10 MB) or video (MP4/QuickTime/WebM): PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then add publicUrl to the gallery.
 
@@ -100,10 +104,13 @@ end
 
 api_instance = Crossly::WorldsGalleryApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_gallery_upload_url_request: Crossly::CreateWorldExperienceGalleryUploadUrlRequest.new({kind: 'image', file_name: 'file_name_example', content_type: 'content_type_example', content_length: 3.56}) # CreateWorldExperienceGalleryUploadUrlRequest | 
+}
 
 begin
   # A presigned upload for a gallery screenshot (JPEG/PNG/WebP/GIF, ≤ 10 MB) or video (MP4/QuickTime/WebM): PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then add publicUrl to the gallery.
-  result = api_instance.create_world_experience_gallery_upload_url(experience_id)
+  result = api_instance.create_world_experience_gallery_upload_url(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsGalleryApi->create_world_experience_gallery_upload_url: #{e}"
@@ -114,12 +121,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceGalleryUploadUrlResponse>, Integer, Hash)> create_world_experience_gallery_upload_url_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceGalleryUploadUrlResponse>, Integer, Hash)> create_world_experience_gallery_upload_url_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # A presigned upload for a gallery screenshot (JPEG/PNG/WebP/GIF, ≤ 10 MB) or video (MP4/QuickTime/WebM): PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then add publicUrl to the gallery.
-  data, status_code, headers = api_instance.create_world_experience_gallery_upload_url_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_gallery_upload_url_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceGalleryUploadUrlResponse>
@@ -133,6 +140,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_gallery_upload_url_request** | **CreateWorldExperienceGalleryUploadUrlRequest** |  | [optional] |
 
 ### Return type
 
@@ -144,7 +152,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -286,7 +294,7 @@ end
 
 ## update_world_experience_gallery
 
-> <WorldExperienceGalleryResponse> update_world_experience_gallery(experience_id, media_id)
+> <WorldExperienceGalleryResponse> update_world_experience_gallery(experience_id, media_id, opts)
 
 Change an item's caption (filtered; an approved item with a new caption goes back to review).
 
@@ -304,10 +312,13 @@ end
 api_instance = Crossly::WorldsGalleryApi.new
 experience_id = 'experience_id_example' # String | 
 media_id = 'media_id_example' # String | 
+opts = {
+  update_world_experience_gallery_request: Crossly::UpdateWorldExperienceGalleryRequest.new # UpdateWorldExperienceGalleryRequest | 
+}
 
 begin
   # Change an item's caption (filtered; an approved item with a new caption goes back to review).
-  result = api_instance.update_world_experience_gallery(experience_id, media_id)
+  result = api_instance.update_world_experience_gallery(experience_id, media_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsGalleryApi->update_world_experience_gallery: #{e}"
@@ -318,12 +329,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceGalleryResponse>, Integer, Hash)> update_world_experience_gallery_with_http_info(experience_id, media_id)
+> <Array(<WorldExperienceGalleryResponse>, Integer, Hash)> update_world_experience_gallery_with_http_info(experience_id, media_id, opts)
 
 ```ruby
 begin
   # Change an item's caption (filtered; an approved item with a new caption goes back to review).
-  data, status_code, headers = api_instance.update_world_experience_gallery_with_http_info(experience_id, media_id)
+  data, status_code, headers = api_instance.update_world_experience_gallery_with_http_info(experience_id, media_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceGalleryResponse>
@@ -338,6 +349,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **media_id** | **String** |  |  |
+| **update_world_experience_gallery_request** | **UpdateWorldExperienceGalleryRequest** |  | [optional] |
 
 ### Return type
 
@@ -349,13 +361,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_gallery_order
 
-> <UpdateWorldExperienceGalleryRoleResponse> update_world_experience_gallery_order(experience_id)
+> <UpdateWorldExperienceGalleryRoleResponse> update_world_experience_gallery_order(experience_id, opts)
 
 Set the order on the game's page: the ids you list first, the rest after in their current order.
 
@@ -372,10 +384,13 @@ end
 
 api_instance = Crossly::WorldsGalleryApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_listing_by_id_request: Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
+}
 
 begin
   # Set the order on the game's page: the ids you list first, the rest after in their current order.
-  result = api_instance.update_world_experience_gallery_order(experience_id)
+  result = api_instance.update_world_experience_gallery_order(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsGalleryApi->update_world_experience_gallery_order: #{e}"
@@ -386,12 +401,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperienceGalleryRoleResponse>, Integer, Hash)> update_world_experience_gallery_order_with_http_info(experience_id)
+> <Array(<UpdateWorldExperienceGalleryRoleResponse>, Integer, Hash)> update_world_experience_gallery_order_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Set the order on the game's page: the ids you list first, the rest after in their current order.
-  data, status_code, headers = api_instance.update_world_experience_gallery_order_with_http_info(experience_id)
+  data, status_code, headers = api_instance.update_world_experience_gallery_order_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperienceGalleryRoleResponse>
@@ -405,6 +420,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -416,13 +432,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_gallery_role
 
-> <UpdateWorldExperienceGalleryRoleResponse> update_world_experience_gallery_role(experience_id, media_id)
+> <UpdateWorldExperienceGalleryRoleResponse> update_world_experience_gallery_role(experience_id, media_id, opts)
 
 Make an item the game's icon or thumbnail (an image), its trailer (a video), or put it back in the gallery. The previous holder of that role goes back to the gallery.
 
@@ -440,10 +456,13 @@ end
 api_instance = Crossly::WorldsGalleryApi.new
 experience_id = 'experience_id_example' # String | 
 media_id = 'media_id_example' # String | 
+opts = {
+  update_world_experience_gallery_role_request: Crossly::UpdateWorldExperienceGalleryRoleRequest.new({role: 'trailer'}) # UpdateWorldExperienceGalleryRoleRequest | 
+}
 
 begin
   # Make an item the game's icon or thumbnail (an image), its trailer (a video), or put it back in the gallery. The previous holder of that role goes back to the gallery.
-  result = api_instance.update_world_experience_gallery_role(experience_id, media_id)
+  result = api_instance.update_world_experience_gallery_role(experience_id, media_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsGalleryApi->update_world_experience_gallery_role: #{e}"
@@ -454,12 +473,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperienceGalleryRoleResponse>, Integer, Hash)> update_world_experience_gallery_role_with_http_info(experience_id, media_id)
+> <Array(<UpdateWorldExperienceGalleryRoleResponse>, Integer, Hash)> update_world_experience_gallery_role_with_http_info(experience_id, media_id, opts)
 
 ```ruby
 begin
   # Make an item the game's icon or thumbnail (an image), its trailer (a video), or put it back in the gallery. The previous holder of that role goes back to the gallery.
-  data, status_code, headers = api_instance.update_world_experience_gallery_role_with_http_info(experience_id, media_id)
+  data, status_code, headers = api_instance.update_world_experience_gallery_role_with_http_info(experience_id, media_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperienceGalleryRoleResponse>
@@ -474,6 +493,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **media_id** | **String** |  |  |
+| **update_world_experience_gallery_role_request** | **UpdateWorldExperienceGalleryRoleRequest** |  | [optional] |
 
 ### Return type
 
@@ -485,13 +505,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_gallery_trailer_url
 
-> <WorldExperienceGalleryResponse> update_world_experience_gallery_trailer_url(experience_id)
+> <WorldExperienceGalleryResponse> update_world_experience_gallery_trailer_url(experience_id, opts)
 
 Set the game's trailer to a YouTube or Vimeo video link (https; youtube.com, youtu.be, vimeo.com, player.vimeo.com only; any other host is 400 trailer_host_not_allowed). It waits for a person like any gallery item; the current trailer goes back to the gallery (an uploaded clip) or off the page (a link).
 
@@ -508,10 +528,13 @@ end
 
 api_instance = Crossly::WorldsGalleryApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  update_world_experience_gallery_trailer_url_request: Crossly::UpdateWorldExperienceGalleryTrailerUrlRequest.new({url: 'url_example'}) # UpdateWorldExperienceGalleryTrailerUrlRequest | 
+}
 
 begin
   # Set the game's trailer to a YouTube or Vimeo video link (https; youtube.com, youtu.be, vimeo.com, player.vimeo.com only; any other host is 400 trailer_host_not_allowed). It waits for a person like any gallery item; the current trailer goes back to the gallery (an uploaded clip) or off the page (a link).
-  result = api_instance.update_world_experience_gallery_trailer_url(experience_id)
+  result = api_instance.update_world_experience_gallery_trailer_url(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsGalleryApi->update_world_experience_gallery_trailer_url: #{e}"
@@ -522,12 +545,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceGalleryResponse>, Integer, Hash)> update_world_experience_gallery_trailer_url_with_http_info(experience_id)
+> <Array(<WorldExperienceGalleryResponse>, Integer, Hash)> update_world_experience_gallery_trailer_url_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Set the game's trailer to a YouTube or Vimeo video link (https; youtube.com, youtu.be, vimeo.com, player.vimeo.com only; any other host is 400 trailer_host_not_allowed). It waits for a person like any gallery item; the current trailer goes back to the gallery (an uploaded clip) or off the page (a link).
-  data, status_code, headers = api_instance.update_world_experience_gallery_trailer_url_with_http_info(experience_id)
+  data, status_code, headers = api_instance.update_world_experience_gallery_trailer_url_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceGalleryResponse>
@@ -541,6 +564,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **update_world_experience_gallery_trailer_url_request** | **UpdateWorldExperienceGalleryTrailerUrlRequest** |  | [optional] |
 
 ### Return type
 
@@ -552,6 +576,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

@@ -299,19 +299,25 @@ module CrosslyBuyer
     end
 
     # Create an outfit board.
+    # @param create_buyer_board_request [CreateBuyerBoardRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerBoardResponse]
-    def create_buyer_board(opts = {})
-      data, _status_code, _headers = create_buyer_board_with_http_info(opts)
+    def create_buyer_board(create_buyer_board_request, opts = {})
+      data, _status_code, _headers = create_buyer_board_with_http_info(create_buyer_board_request, opts)
       data
     end
 
     # Create an outfit board.
+    # @param create_buyer_board_request [CreateBuyerBoardRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerBoardResponse, Integer, Hash)>] CreateBuyerBoardResponse data, response status code and response headers
-    def create_buyer_board_with_http_info(opts = {})
+    def create_buyer_board_with_http_info(create_buyer_board_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_board ...'
+      end
+      # verify the required parameter 'create_buyer_board_request' is set
+      if @api_client.config.client_side_validation && create_buyer_board_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_board_request' when calling BuyerApi.create_buyer_board"
       end
       # resource path
       local_var_path = '/v1/buyer/boards'
@@ -323,12 +329,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_board_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerBoardResponse'
@@ -355,24 +366,30 @@ module CrosslyBuyer
 
     # Add a listing (by slug) to a board, at the next free spot.
     # @param id [String] 
+    # @param create_buyer_board_item_request [CreateBuyerBoardItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BuyerResponse]
-    def create_buyer_board_item(id, opts = {})
-      data, _status_code, _headers = create_buyer_board_item_with_http_info(id, opts)
+    def create_buyer_board_item(id, create_buyer_board_item_request, opts = {})
+      data, _status_code, _headers = create_buyer_board_item_with_http_info(id, create_buyer_board_item_request, opts)
       data
     end
 
     # Add a listing (by slug) to a board, at the next free spot.
     # @param id [String] 
+    # @param create_buyer_board_item_request [CreateBuyerBoardItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
-    def create_buyer_board_item_with_http_info(id, opts = {})
+    def create_buyer_board_item_with_http_info(id, create_buyer_board_item_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_board_item ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_board_item"
+      end
+      # verify the required parameter 'create_buyer_board_item_request' is set
+      if @api_client.config.client_side_validation && create_buyer_board_item_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_board_item_request' when calling BuyerApi.create_buyer_board_item"
       end
       # resource path
       local_var_path = '/v1/buyer/boards/{id}/items'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -384,12 +401,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_board_item_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerResponse'
@@ -672,19 +694,25 @@ module CrosslyBuyer
     end
 
     # Cart optimizer: send a shopping list (one item per line, \"2 Charizard Base Set\") and get the cheapest delivered basket across sellers — one pick per line, items + each seller’s shipping with free-shipping thresholds applied. fewestPackages prefers fewer sellers. Nothing is added to the cart.
+    # @param create_buyer_cart_optimizer_request [CreateBuyerCartOptimizerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerCartOptimizerResponse]
-    def create_buyer_cart_optimizer(opts = {})
-      data, _status_code, _headers = create_buyer_cart_optimizer_with_http_info(opts)
+    def create_buyer_cart_optimizer(create_buyer_cart_optimizer_request, opts = {})
+      data, _status_code, _headers = create_buyer_cart_optimizer_with_http_info(create_buyer_cart_optimizer_request, opts)
       data
     end
 
     # Cart optimizer: send a shopping list (one item per line, \&quot;2 Charizard Base Set\&quot;) and get the cheapest delivered basket across sellers — one pick per line, items + each seller’s shipping with free-shipping thresholds applied. fewestPackages prefers fewer sellers. Nothing is added to the cart.
+    # @param create_buyer_cart_optimizer_request [CreateBuyerCartOptimizerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerCartOptimizerResponse, Integer, Hash)>] CreateBuyerCartOptimizerResponse data, response status code and response headers
-    def create_buyer_cart_optimizer_with_http_info(opts = {})
+    def create_buyer_cart_optimizer_with_http_info(create_buyer_cart_optimizer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_cart_optimizer ...'
+      end
+      # verify the required parameter 'create_buyer_cart_optimizer_request' is set
+      if @api_client.config.client_side_validation && create_buyer_cart_optimizer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_cart_optimizer_request' when calling BuyerApi.create_buyer_cart_optimizer"
       end
       # resource path
       local_var_path = '/v1/buyer/cart-optimizer'
@@ -696,12 +724,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_cart_optimizer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerCartOptimizerResponse'
@@ -729,6 +762,7 @@ module CrosslyBuyer
     # Price the cart, delivered — item, shipping, tax, total.
     # Runs the real checkout cascade and returns the totals instead of charging. Nothing is purchased. `taxComplete: false` means there is no saved delivery address, so the total is a floor rather than a final figure. `shippingOptions` lists each seller’s shipping services; send `shippingServiceBySeller` to price a different speed (an id the seller does not offer to the destination is a 400). Optional body: `{ \"shippingServiceBySeller\": { \"<sellerUserId>\": \"<serviceId>\" } }` — omitted sellers get the cheapest service; `registryToken` prices it as a gift shipped to that registry. (No body JSON schema: existing callers POST with none.)
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerCartQuoteRequest] :create_buyer_cart_quote_request 
     # @return [CreateBuyerCartQuoteResponse]
     def create_buyer_cart_quote(opts = {})
       data, _status_code, _headers = create_buyer_cart_quote_with_http_info(opts)
@@ -738,6 +772,7 @@ module CrosslyBuyer
     # Price the cart, delivered — item, shipping, tax, total.
     # Runs the real checkout cascade and returns the totals instead of charging. Nothing is purchased. &#x60;taxComplete: false&#x60; means there is no saved delivery address, so the total is a floor rather than a final figure. &#x60;shippingOptions&#x60; lists each seller’s shipping services; send &#x60;shippingServiceBySeller&#x60; to price a different speed (an id the seller does not offer to the destination is a 400). Optional body: &#x60;{ \&quot;shippingServiceBySeller\&quot;: { \&quot;&lt;sellerUserId&gt;\&quot;: \&quot;&lt;serviceId&gt;\&quot; } }&#x60; — omitted sellers get the cheapest service; &#x60;registryToken&#x60; prices it as a gift shipped to that registry. (No body JSON schema: existing callers POST with none.)
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerCartQuoteRequest] :create_buyer_cart_quote_request 
     # @return [Array<(CreateBuyerCartQuoteResponse, Integer, Hash)>] CreateBuyerCartQuoteResponse data, response status code and response headers
     def create_buyer_cart_quote_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -753,12 +788,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_cart_quote_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerCartQuoteResponse'
@@ -1194,24 +1234,30 @@ module CrosslyBuyer
 
     # Book a rental. Returns a Stripe PaymentIntent client secret for rent + shipping both ways + deposit; the dates are held 30 minutes for payment. Crossly buys both labels; the deposit comes back after the item does.
     # @param slug [String] 
+    # @param create_buyer_catalog_listing_rental_request [CreateBuyerCatalogListingRentalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerCatalogListingRentalResponse]
-    def create_buyer_catalog_listing_rental(slug, opts = {})
-      data, _status_code, _headers = create_buyer_catalog_listing_rental_with_http_info(slug, opts)
+    def create_buyer_catalog_listing_rental(slug, create_buyer_catalog_listing_rental_request, opts = {})
+      data, _status_code, _headers = create_buyer_catalog_listing_rental_with_http_info(slug, create_buyer_catalog_listing_rental_request, opts)
       data
     end
 
     # Book a rental. Returns a Stripe PaymentIntent client secret for rent + shipping both ways + deposit; the dates are held 30 minutes for payment. Crossly buys both labels; the deposit comes back after the item does.
     # @param slug [String] 
+    # @param create_buyer_catalog_listing_rental_request [CreateBuyerCatalogListingRentalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerCatalogListingRentalResponse, Integer, Hash)>] CreateBuyerCatalogListingRentalResponse data, response status code and response headers
-    def create_buyer_catalog_listing_rental_with_http_info(slug, opts = {})
+    def create_buyer_catalog_listing_rental_with_http_info(slug, create_buyer_catalog_listing_rental_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_catalog_listing_rental ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.create_buyer_catalog_listing_rental"
+      end
+      # verify the required parameter 'create_buyer_catalog_listing_rental_request' is set
+      if @api_client.config.client_side_validation && create_buyer_catalog_listing_rental_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_catalog_listing_rental_request' when calling BuyerApi.create_buyer_catalog_listing_rental"
       end
       # resource path
       local_var_path = '/v1/buyer/catalog/listings/{slug}/rental'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -1223,12 +1269,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_catalog_listing_rental_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerCatalogListingRentalResponse'
@@ -1255,24 +1306,30 @@ module CrosslyBuyer
 
     # Price a rental: rent (the cheaper of by-the-day and by-the-week), both shipping legs once a ship-to is given, and the deposit. `problem` says why the dates can’t be booked.
     # @param slug [String] 
+    # @param create_buyer_catalog_listing_rental_request [CreateBuyerCatalogListingRentalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerCatalogListingRentalQuoteResponse]
-    def create_buyer_catalog_listing_rental_quote(slug, opts = {})
-      data, _status_code, _headers = create_buyer_catalog_listing_rental_quote_with_http_info(slug, opts)
+    def create_buyer_catalog_listing_rental_quote(slug, create_buyer_catalog_listing_rental_request, opts = {})
+      data, _status_code, _headers = create_buyer_catalog_listing_rental_quote_with_http_info(slug, create_buyer_catalog_listing_rental_request, opts)
       data
     end
 
     # Price a rental: rent (the cheaper of by-the-day and by-the-week), both shipping legs once a ship-to is given, and the deposit. &#x60;problem&#x60; says why the dates can’t be booked.
     # @param slug [String] 
+    # @param create_buyer_catalog_listing_rental_request [CreateBuyerCatalogListingRentalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerCatalogListingRentalQuoteResponse, Integer, Hash)>] CreateBuyerCatalogListingRentalQuoteResponse data, response status code and response headers
-    def create_buyer_catalog_listing_rental_quote_with_http_info(slug, opts = {})
+    def create_buyer_catalog_listing_rental_quote_with_http_info(slug, create_buyer_catalog_listing_rental_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_catalog_listing_rental_quote ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.create_buyer_catalog_listing_rental_quote"
+      end
+      # verify the required parameter 'create_buyer_catalog_listing_rental_request' is set
+      if @api_client.config.client_side_validation && create_buyer_catalog_listing_rental_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_catalog_listing_rental_request' when calling BuyerApi.create_buyer_catalog_listing_rental_quote"
       end
       # resource path
       local_var_path = '/v1/buyer/catalog/listings/{slug}/rental/quote'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -1284,12 +1341,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_catalog_listing_rental_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerCatalogListingRentalQuoteResponse'
@@ -1317,6 +1379,7 @@ module CrosslyBuyer
     # Ask the seller for a video of an item (one open request per item). The seller is notified; their answer appears on the listing for every buyer.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerCatalogListingVideoRequestRequest] :create_buyer_catalog_listing_video_request_request 
     # @return [CreateBuyerCatalogListingVideoRequestResponse]
     def create_buyer_catalog_listing_video_request(slug, opts = {})
       data, _status_code, _headers = create_buyer_catalog_listing_video_request_with_http_info(slug, opts)
@@ -1326,6 +1389,7 @@ module CrosslyBuyer
     # Ask the seller for a video of an item (one open request per item). The seller is notified; their answer appears on the listing for every buyer.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerCatalogListingVideoRequestRequest] :create_buyer_catalog_listing_video_request_request 
     # @return [Array<(CreateBuyerCatalogListingVideoRequestResponse, Integer, Hash)>] CreateBuyerCatalogListingVideoRequestResponse data, response status code and response headers
     def create_buyer_catalog_listing_video_request_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -1345,12 +1409,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_catalog_listing_video_request_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerCatalogListingVideoRequestResponse'
@@ -1726,6 +1795,7 @@ module CrosslyBuyer
     # RSVP to an event: going (counts against its capacity) or interested.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerEventRsvpRequest] :create_buyer_event_rsvp_request 
     # @return [CreateBuyerEventRsvpResponse]
     def create_buyer_event_rsvp(slug, opts = {})
       data, _status_code, _headers = create_buyer_event_rsvp_with_http_info(slug, opts)
@@ -1735,6 +1805,7 @@ module CrosslyBuyer
     # RSVP to an event: going (counts against its capacity) or interested.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerEventRsvpRequest] :create_buyer_event_rsvp_request 
     # @return [Array<(CreateBuyerEventRsvpResponse, Integer, Hash)>] CreateBuyerEventRsvpResponse data, response status code and response headers
     def create_buyer_event_rsvp_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -1754,12 +1825,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_event_rsvp_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerEventRsvpResponse'
@@ -2411,6 +2487,7 @@ module CrosslyBuyer
     # Pay some (at least $1) or all of what is left now, on the saved card. Paid in full, it ships.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerLayawayPayRequest] :create_buyer_layaway_pay_request 
     # @return [BuyerLayawayResponse]
     def create_buyer_layaway_pay(id, opts = {})
       data, _status_code, _headers = create_buyer_layaway_pay_with_http_info(id, opts)
@@ -2420,6 +2497,7 @@ module CrosslyBuyer
     # Pay some (at least $1) or all of what is left now, on the saved card. Paid in full, it ships.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerLayawayPayRequest] :create_buyer_layaway_pay_request 
     # @return [Array<(BuyerLayawayResponse, Integer, Hash)>] BuyerLayawayResponse data, response status code and response headers
     def create_buyer_layaway_pay_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2439,12 +2517,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_layaway_pay_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerLayawayResponse'
@@ -2654,24 +2737,30 @@ module CrosslyBuyer
 
     # Render an AI try-on of this listing on the buyer’s own photo (base64 `photo`, or `reuseLastPhoto`). `confirmSelfAdult` must be true: the photo is of the buyer and they are 18+. Wearables only; capped per day; 503 naming TRYON_API_KEY when no image model is configured.
     # @param slug [String] 
+    # @param create_buyer_listing_try_on_request [CreateBuyerListingTryOnRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerListingTryOnResponse]
-    def create_buyer_listing_try_on(slug, opts = {})
-      data, _status_code, _headers = create_buyer_listing_try_on_with_http_info(slug, opts)
+    def create_buyer_listing_try_on(slug, create_buyer_listing_try_on_request, opts = {})
+      data, _status_code, _headers = create_buyer_listing_try_on_with_http_info(slug, create_buyer_listing_try_on_request, opts)
       data
     end
 
     # Render an AI try-on of this listing on the buyer’s own photo (base64 &#x60;photo&#x60;, or &#x60;reuseLastPhoto&#x60;). &#x60;confirmSelfAdult&#x60; must be true: the photo is of the buyer and they are 18+. Wearables only; capped per day; 503 naming TRYON_API_KEY when no image model is configured.
     # @param slug [String] 
+    # @param create_buyer_listing_try_on_request [CreateBuyerListingTryOnRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerListingTryOnResponse, Integer, Hash)>] CreateBuyerListingTryOnResponse data, response status code and response headers
-    def create_buyer_listing_try_on_with_http_info(slug, opts = {})
+    def create_buyer_listing_try_on_with_http_info(slug, create_buyer_listing_try_on_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_listing_try_on ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.create_buyer_listing_try_on"
+      end
+      # verify the required parameter 'create_buyer_listing_try_on_request' is set
+      if @api_client.config.client_side_validation && create_buyer_listing_try_on_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_listing_try_on_request' when calling BuyerApi.create_buyer_listing_try_on"
       end
       # resource path
       local_var_path = '/v1/buyer/listings/{slug}/try-on'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -2683,12 +2772,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_listing_try_on_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerListingTryOnResponse'
@@ -2709,6 +2803,73 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#create_buyer_listing_try_on\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Spend points on a reward (Idempotency-Key required: a retry answers the same redemption). A price reward answers a single-use code.
+    # @param club_id [String] 
+    # @param reward_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateBuyerLoyaltyRewardRedeemResponse]
+    def create_buyer_loyalty_reward_redeem(club_id, reward_id, opts = {})
+      data, _status_code, _headers = create_buyer_loyalty_reward_redeem_with_http_info(club_id, reward_id, opts)
+      data
+    end
+
+    # Spend points on a reward (Idempotency-Key required: a retry answers the same redemption). A price reward answers a single-use code.
+    # @param club_id [String] 
+    # @param reward_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateBuyerLoyaltyRewardRedeemResponse, Integer, Hash)>] CreateBuyerLoyaltyRewardRedeemResponse data, response status code and response headers
+    def create_buyer_loyalty_reward_redeem_with_http_info(club_id, reward_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_loyalty_reward_redeem ...'
+      end
+      # verify the required parameter 'club_id' is set
+      if @api_client.config.client_side_validation && club_id.nil?
+        fail ArgumentError, "Missing the required parameter 'club_id' when calling BuyerApi.create_buyer_loyalty_reward_redeem"
+      end
+      # verify the required parameter 'reward_id' is set
+      if @api_client.config.client_side_validation && reward_id.nil?
+        fail ArgumentError, "Missing the required parameter 'reward_id' when calling BuyerApi.create_buyer_loyalty_reward_redeem"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/loyalty/{clubId}/rewards/{rewardId}/redeem'.sub('{' + 'clubId' + '}', CGI.escape(club_id.to_s)).sub('{' + 'rewardId' + '}', CGI.escape(reward_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBuyerLoyaltyRewardRedeemResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.create_buyer_loyalty_reward_redeem",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#create_buyer_loyalty_reward_redeem\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -3228,6 +3389,7 @@ module CrosslyBuyer
 
     # Reveal your current server seed and start a new one (optionally with your own client seed). Refused while an opening is awaiting payment.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerPackFairnessRotateRequest] :create_buyer_pack_fairness_rotate_request 
     # @return [GetBuyerPackFairnessResponse]
     def create_buyer_pack_fairness_rotate(opts = {})
       data, _status_code, _headers = create_buyer_pack_fairness_rotate_with_http_info(opts)
@@ -3236,6 +3398,7 @@ module CrosslyBuyer
 
     # Reveal your current server seed and start a new one (optionally with your own client seed). Refused while an opening is awaiting payment.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerPackFairnessRotateRequest] :create_buyer_pack_fairness_rotate_request 
     # @return [Array<(GetBuyerPackFairnessResponse, Integer, Hash)>] GetBuyerPackFairnessResponse data, response status code and response headers
     def create_buyer_pack_fairness_rotate_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3251,12 +3414,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_pack_fairness_rotate_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetBuyerPackFairnessResponse'
@@ -3283,24 +3451,30 @@ module CrosslyBuyer
 
     # Open a pack. SPENDS MONEY: charges the pack price to your saved card, then pulls one real item by the published odds (provably fair: see /buyer/packs/fairness) into your Crossly vault. confirmAdult must be true. Checked against this key’s spending controls; send an Idempotency-Key.
     # @param slug [String] 
+    # @param create_buyer_pack_open_request [CreateBuyerPackOpenRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerPackOpenResponse]
-    def create_buyer_pack_open(slug, opts = {})
-      data, _status_code, _headers = create_buyer_pack_open_with_http_info(slug, opts)
+    def create_buyer_pack_open(slug, create_buyer_pack_open_request, opts = {})
+      data, _status_code, _headers = create_buyer_pack_open_with_http_info(slug, create_buyer_pack_open_request, opts)
       data
     end
 
     # Open a pack. SPENDS MONEY: charges the pack price to your saved card, then pulls one real item by the published odds (provably fair: see /buyer/packs/fairness) into your Crossly vault. confirmAdult must be true. Checked against this key’s spending controls; send an Idempotency-Key.
     # @param slug [String] 
+    # @param create_buyer_pack_open_request [CreateBuyerPackOpenRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerPackOpenResponse, Integer, Hash)>] CreateBuyerPackOpenResponse data, response status code and response headers
-    def create_buyer_pack_open_with_http_info(slug, opts = {})
+    def create_buyer_pack_open_with_http_info(slug, create_buyer_pack_open_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_pack_open ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.create_buyer_pack_open"
+      end
+      # verify the required parameter 'create_buyer_pack_open_request' is set
+      if @api_client.config.client_side_validation && create_buyer_pack_open_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_pack_open_request' when calling BuyerApi.create_buyer_pack_open"
       end
       # resource path
       local_var_path = '/v1/buyer/packs/{slug}/open'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -3312,12 +3486,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_pack_open_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerPackOpenResponse'
@@ -3406,6 +3585,7 @@ module CrosslyBuyer
     # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerPassportClaimRequest] :create_buyer_passport_claim_request 
     # @return [GetBuyerPassportResponse]
     def create_buyer_passport_claim(code, opts = {})
       data, _status_code, _headers = create_buyer_passport_claim_with_http_info(code, opts)
@@ -3415,6 +3595,7 @@ module CrosslyBuyer
     # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerPassportClaimRequest] :create_buyer_passport_claim_request 
     # @return [Array<(GetBuyerPassportResponse, Integer, Hash)>] GetBuyerPassportResponse data, response status code and response headers
     def create_buyer_passport_claim_with_http_info(code, opts = {})
       if @api_client.config.debugging
@@ -3434,12 +3615,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_passport_claim_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetBuyerPassportResponse'
@@ -3527,24 +3713,30 @@ module CrosslyBuyer
 
     # Say how a delivered purchase fit: true_to_size, small or large. It teaches your size memory and, pooled with other buyers, how the brand runs.
     # @param id [String] 
+    # @param create_buyer_purchase_fit_request [CreateBuyerPurchaseFitRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BuyerResponse]
-    def create_buyer_purchase_fit(id, opts = {})
-      data, _status_code, _headers = create_buyer_purchase_fit_with_http_info(id, opts)
+    def create_buyer_purchase_fit(id, create_buyer_purchase_fit_request, opts = {})
+      data, _status_code, _headers = create_buyer_purchase_fit_with_http_info(id, create_buyer_purchase_fit_request, opts)
       data
     end
 
     # Say how a delivered purchase fit: true_to_size, small or large. It teaches your size memory and, pooled with other buyers, how the brand runs.
     # @param id [String] 
+    # @param create_buyer_purchase_fit_request [CreateBuyerPurchaseFitRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
-    def create_buyer_purchase_fit_with_http_info(id, opts = {})
+    def create_buyer_purchase_fit_with_http_info(id, create_buyer_purchase_fit_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_purchase_fit ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_purchase_fit"
+      end
+      # verify the required parameter 'create_buyer_purchase_fit_request' is set
+      if @api_client.config.client_side_validation && create_buyer_purchase_fit_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_purchase_fit_request' when calling BuyerApi.create_buyer_purchase_fit"
       end
       # resource path
       local_var_path = '/v1/buyer/purchases/{id}/fit'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -3556,12 +3748,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_purchase_fit_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerResponse'
@@ -3649,6 +3846,7 @@ module CrosslyBuyer
 
     # Start a gift registry (wedding, baby, birthday, housewarming, graduation, other). Items are added like any wishlist item; set shipAddressId to one of your saved addresses so guests can buy — they never see it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerRegistryRequest] :create_buyer_registry_request 
     # @return [CreateBuyerRegistryResponse]
     def create_buyer_registry(opts = {})
       data, _status_code, _headers = create_buyer_registry_with_http_info(opts)
@@ -3657,6 +3855,7 @@ module CrosslyBuyer
 
     # Start a gift registry (wedding, baby, birthday, housewarming, graduation, other). Items are added like any wishlist item; set shipAddressId to one of your saved addresses so guests can buy — they never see it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerRegistryRequest] :create_buyer_registry_request 
     # @return [Array<(CreateBuyerRegistryResponse, Integer, Hash)>] CreateBuyerRegistryResponse data, response status code and response headers
     def create_buyer_registry_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3672,12 +3871,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_registry_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerRegistryResponse'
@@ -3705,19 +3909,21 @@ module CrosslyBuyer
     # Tick a gift as thanked (or untick it).
     # @param id [String] 
     # @param gift_id [String] 
+    # @param create_buyer_registry_gift_thanked_request [CreateBuyerRegistryGiftThankedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerRegistryGiftThankedResponse]
-    def create_buyer_registry_gift_thanked(id, gift_id, opts = {})
-      data, _status_code, _headers = create_buyer_registry_gift_thanked_with_http_info(id, gift_id, opts)
+    def create_buyer_registry_gift_thanked(id, gift_id, create_buyer_registry_gift_thanked_request, opts = {})
+      data, _status_code, _headers = create_buyer_registry_gift_thanked_with_http_info(id, gift_id, create_buyer_registry_gift_thanked_request, opts)
       data
     end
 
     # Tick a gift as thanked (or untick it).
     # @param id [String] 
     # @param gift_id [String] 
+    # @param create_buyer_registry_gift_thanked_request [CreateBuyerRegistryGiftThankedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerRegistryGiftThankedResponse, Integer, Hash)>] CreateBuyerRegistryGiftThankedResponse data, response status code and response headers
-    def create_buyer_registry_gift_thanked_with_http_info(id, gift_id, opts = {})
+    def create_buyer_registry_gift_thanked_with_http_info(id, gift_id, create_buyer_registry_gift_thanked_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_registry_gift_thanked ...'
       end
@@ -3729,6 +3935,10 @@ module CrosslyBuyer
       if @api_client.config.client_side_validation && gift_id.nil?
         fail ArgumentError, "Missing the required parameter 'gift_id' when calling BuyerApi.create_buyer_registry_gift_thanked"
       end
+      # verify the required parameter 'create_buyer_registry_gift_thanked_request' is set
+      if @api_client.config.client_side_validation && create_buyer_registry_gift_thanked_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_registry_gift_thanked_request' when calling BuyerApi.create_buyer_registry_gift_thanked"
+      end
       # resource path
       local_var_path = '/v1/buyer/registries/{id}/gifts/{giftId}/thanked'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'giftId' + '}', CGI.escape(gift_id.to_s))
 
@@ -3739,12 +3949,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_registry_gift_thanked_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerRegistryGiftThankedResponse'
@@ -3771,24 +3986,30 @@ module CrosslyBuyer
 
     # Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
     # @param id [String] 
+    # @param create_buyer_rental_arrival_photo_request [CreateBuyerRentalArrivalPhotoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BuyerRentalResponse]
-    def create_buyer_rental_arrival_photo(id, opts = {})
-      data, _status_code, _headers = create_buyer_rental_arrival_photo_with_http_info(id, opts)
+    def create_buyer_rental_arrival_photo(id, create_buyer_rental_arrival_photo_request, opts = {})
+      data, _status_code, _headers = create_buyer_rental_arrival_photo_with_http_info(id, create_buyer_rental_arrival_photo_request, opts)
       data
     end
 
     # Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
     # @param id [String] 
+    # @param create_buyer_rental_arrival_photo_request [CreateBuyerRentalArrivalPhotoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BuyerRentalResponse, Integer, Hash)>] BuyerRentalResponse data, response status code and response headers
-    def create_buyer_rental_arrival_photo_with_http_info(id, opts = {})
+    def create_buyer_rental_arrival_photo_with_http_info(id, create_buyer_rental_arrival_photo_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_arrival_photo ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_arrival_photo"
+      end
+      # verify the required parameter 'create_buyer_rental_arrival_photo_request' is set
+      if @api_client.config.client_side_validation && create_buyer_rental_arrival_photo_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_rental_arrival_photo_request' when calling BuyerApi.create_buyer_rental_arrival_photo"
       end
       # resource path
       local_var_path = '/v1/buyer/rentals/{id}/arrival-photos'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -3800,12 +4021,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_rental_arrival_photo_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerRentalResponse'
@@ -3954,24 +4180,30 @@ module CrosslyBuyer
 
     # Answer a deposit claim: accept (the claim is paid, the rest refunded) or dispute (Crossly decides).
     # @param id [String] 
+    # @param create_buyer_rental_claim_response_request [CreateBuyerRentalClaimResponseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BuyerResponse]
-    def create_buyer_rental_claim_response(id, opts = {})
-      data, _status_code, _headers = create_buyer_rental_claim_response_with_http_info(id, opts)
+    def create_buyer_rental_claim_response(id, create_buyer_rental_claim_response_request, opts = {})
+      data, _status_code, _headers = create_buyer_rental_claim_response_with_http_info(id, create_buyer_rental_claim_response_request, opts)
       data
     end
 
     # Answer a deposit claim: accept (the claim is paid, the rest refunded) or dispute (Crossly decides).
     # @param id [String] 
+    # @param create_buyer_rental_claim_response_request [CreateBuyerRentalClaimResponseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
-    def create_buyer_rental_claim_response_with_http_info(id, opts = {})
+    def create_buyer_rental_claim_response_with_http_info(id, create_buyer_rental_claim_response_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_claim_response ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_claim_response"
+      end
+      # verify the required parameter 'create_buyer_rental_claim_response_request' is set
+      if @api_client.config.client_side_validation && create_buyer_rental_claim_response_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_rental_claim_response_request' when calling BuyerApi.create_buyer_rental_claim_response"
       end
       # resource path
       local_var_path = '/v1/buyer/rentals/{id}/claim-response'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -3983,12 +4215,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_rental_claim_response_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerResponse'
@@ -4076,24 +4313,30 @@ module CrosslyBuyer
 
     # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
     # @param id [String] 
+    # @param create_buyer_rental_extension_request [CreateBuyerRentalExtensionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerRentalExtensionResponse]
-    def create_buyer_rental_extension(id, opts = {})
-      data, _status_code, _headers = create_buyer_rental_extension_with_http_info(id, opts)
+    def create_buyer_rental_extension(id, create_buyer_rental_extension_request, opts = {})
+      data, _status_code, _headers = create_buyer_rental_extension_with_http_info(id, create_buyer_rental_extension_request, opts)
       data
     end
 
     # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
     # @param id [String] 
+    # @param create_buyer_rental_extension_request [CreateBuyerRentalExtensionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerRentalExtensionResponse, Integer, Hash)>] CreateBuyerRentalExtensionResponse data, response status code and response headers
-    def create_buyer_rental_extension_with_http_info(id, opts = {})
+    def create_buyer_rental_extension_with_http_info(id, create_buyer_rental_extension_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_rental_extension ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_rental_extension"
+      end
+      # verify the required parameter 'create_buyer_rental_extension_request' is set
+      if @api_client.config.client_side_validation && create_buyer_rental_extension_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_rental_extension_request' when calling BuyerApi.create_buyer_rental_extension"
       end
       # resource path
       local_var_path = '/v1/buyer/rentals/{id}/extensions'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -4105,12 +4348,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_rental_extension_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerRentalExtensionResponse'
@@ -4260,6 +4508,7 @@ module CrosslyBuyer
     # Say you sent your rental back (optionally with photos).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerRentalReturnShippedRequest] :create_buyer_rental_return_shipped_request 
     # @return [BuyerRentalResponse]
     def create_buyer_rental_return_shipped(id, opts = {})
       data, _status_code, _headers = create_buyer_rental_return_shipped_with_http_info(id, opts)
@@ -4269,6 +4518,7 @@ module CrosslyBuyer
     # Say you sent your rental back (optionally with photos).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerRentalReturnShippedRequest] :create_buyer_rental_return_shipped_request 
     # @return [Array<(BuyerRentalResponse, Integer, Hash)>] BuyerRentalResponse data, response status code and response headers
     def create_buyer_rental_return_shipped_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -4288,12 +4538,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_rental_return_shipped_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerRentalResponse'
@@ -5207,24 +5462,30 @@ module CrosslyBuyer
 
     # Sell a vault item on the market at your price. It is already authenticated, so when it sells nothing ships in: the buyer keeps it vaulted or it ships straight to them.
     # @param id [String] 
+    # @param create_buyer_vault_list_request [CreateBuyerVaultListRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerVaultListResponse]
-    def create_buyer_vault_list(id, opts = {})
-      data, _status_code, _headers = create_buyer_vault_list_with_http_info(id, opts)
+    def create_buyer_vault_list(id, create_buyer_vault_list_request, opts = {})
+      data, _status_code, _headers = create_buyer_vault_list_with_http_info(id, create_buyer_vault_list_request, opts)
       data
     end
 
     # Sell a vault item on the market at your price. It is already authenticated, so when it sells nothing ships in: the buyer keeps it vaulted or it ships straight to them.
     # @param id [String] 
+    # @param create_buyer_vault_list_request [CreateBuyerVaultListRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerVaultListResponse, Integer, Hash)>] CreateBuyerVaultListResponse data, response status code and response headers
-    def create_buyer_vault_list_with_http_info(id, opts = {})
+    def create_buyer_vault_list_with_http_info(id, create_buyer_vault_list_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_buyer_vault_list ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.create_buyer_vault_list"
+      end
+      # verify the required parameter 'create_buyer_vault_list_request' is set
+      if @api_client.config.client_side_validation && create_buyer_vault_list_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_vault_list_request' when calling BuyerApi.create_buyer_vault_list"
       end
       # resource path
       local_var_path = '/v1/buyer/vault/{id}/list'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -5236,12 +5497,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_vault_list_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerVaultListResponse'
@@ -5330,6 +5596,7 @@ module CrosslyBuyer
     # Ship a vault item home, standard or expedited. The shipping, any storage it owes and the early-withdrawal fee (within 90 days of arriving) are charged to your saved card now, all checked against this key’s spending controls; send an Idempotency-Key.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerVaultWithdrawRequest] :create_buyer_vault_withdraw_request 
     # @return [CreateBuyerVaultWithdrawResponse]
     def create_buyer_vault_withdraw(id, opts = {})
       data, _status_code, _headers = create_buyer_vault_withdraw_with_http_info(id, opts)
@@ -5339,6 +5606,7 @@ module CrosslyBuyer
     # Ship a vault item home, standard or expedited. The shipping, any storage it owes and the early-withdrawal fee (within 90 days of arriving) are charged to your saved card now, all checked against this key’s spending controls; send an Idempotency-Key.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerVaultWithdrawRequest] :create_buyer_vault_withdraw_request 
     # @return [Array<(CreateBuyerVaultWithdrawResponse, Integer, Hash)>] CreateBuyerVaultWithdrawResponse data, response status code and response headers
     def create_buyer_vault_withdraw_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -5358,12 +5626,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_vault_withdraw_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerVaultWithdrawResponse'
@@ -8305,7 +8578,7 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
-    # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, and the dates already booked. null when it is not for rent.
+    # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, the dates already booked, and `policy`: the store return and payment policies the rental inherits (return line, protections, arrival photos, claim window, accepted methods). null when it is not for rent.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetBuyerCatalogListingRentalResponse]
@@ -8314,7 +8587,7 @@ module CrosslyBuyer
       data
     end
 
-    # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, and the dates already booked. null when it is not for rent.
+    # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, the dates already booked, and &#x60;policy&#x60;: the store return and payment policies the rental inherits (return line, protections, arrival photos, claim window, accepted methods). null when it is not for rent.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetBuyerCatalogListingRentalResponse, Integer, Hash)>] GetBuyerCatalogListingRentalResponse data, response status code and response headers
@@ -8914,6 +9187,67 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
+    # Share a group buy: { url (the pool with your refer-a-friend code), text (how many more units unlock the next price), imageUrl (its share card), refCode, next }. A friend who buys through it earns your refer-a-friend credit.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerGroupBuyShareLinkResponse]
+    def get_buyer_group_buy_share_link(id, opts = {})
+      data, _status_code, _headers = get_buyer_group_buy_share_link_with_http_info(id, opts)
+      data
+    end
+
+    # Share a group buy: { url (the pool with your refer-a-friend code), text (how many more units unlock the next price), imageUrl (its share card), refCode, next }. A friend who buys through it earns your refer-a-friend credit.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerGroupBuyShareLinkResponse, Integer, Hash)>] GetBuyerGroupBuyShareLinkResponse data, response status code and response headers
+    def get_buyer_group_buy_share_link_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_group_buy_share_link ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.get_buyer_group_buy_share_link"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/group-buys/{id}/share-link'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerGroupBuyShareLinkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_group_buy_share_link",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_group_buy_share_link\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your home in Crossly World (made on first read).
     # @param [Hash] opts the optional parameters
     # @return [BuyerHomeResponse]
@@ -8965,6 +9299,61 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#get_buyer_home\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your companion pets in Crossly World: every pet, whether it is yours, how to earn it, and the one walking with you. Earned through quests and reputation, never sold.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBuyerHomePetResponse]
+    def get_buyer_home_pet(opts = {})
+      data, _status_code, _headers = get_buyer_home_pet_with_http_info(opts)
+      data
+    end
+
+    # Your companion pets in Crossly World: every pet, whether it is yours, how to earn it, and the one walking with you. Earned through quests and reputation, never sold.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerHomePetResponse, Integer, Hash)>] GetBuyerHomePetResponse data, response status code and response headers
+    def get_buyer_home_pet_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_home_pet ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/pets'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerHomePetResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_home_pet",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_home_pet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -9811,26 +10200,101 @@ module CrosslyBuyer
       return data, status_code, headers
     end
 
-    # Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid).
+    # A club’s rewards shelf: what each reward costs in points, whether you can redeem it (and why not), stock left, and what you already redeemed.
+    # @param club_id [String] 
     # @param [Hash] opts the optional parameters
+    # @return [GetBuyerLoyaltyRewardResponse]
+    def get_buyer_loyalty_reward(club_id, opts = {})
+      data, _status_code, _headers = get_buyer_loyalty_reward_with_http_info(club_id, opts)
+      data
+    end
+
+    # A club’s rewards shelf: what each reward costs in points, whether you can redeem it (and why not), stock left, and what you already redeemed.
+    # @param club_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBuyerLoyaltyRewardResponse, Integer, Hash)>] GetBuyerLoyaltyRewardResponse data, response status code and response headers
+    def get_buyer_loyalty_reward_with_http_info(club_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_loyalty_reward ...'
+      end
+      # verify the required parameter 'club_id' is set
+      if @api_client.config.client_side_validation && club_id.nil?
+        fail ArgumentError, "Missing the required parameter 'club_id' when calling BuyerApi.get_buyer_loyalty_reward"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/loyalty/{clubId}/rewards'.sub('{' + 'clubId' + '}', CGI.escape(club_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBuyerLoyaltyRewardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.get_buyer_loyalty_reward",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#get_buyer_loyalty_reward\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid).
+    # @param variant_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :condition 
     # @return [GetBuyerMarketPurchaseOptionResponse]
-    def get_buyer_market_purchase_option(opts = {})
-      data, _status_code, _headers = get_buyer_market_purchase_option_with_http_info(opts)
+    def get_buyer_market_purchase_option(variant_id, opts = {})
+      data, _status_code, _headers = get_buyer_market_purchase_option_with_http_info(variant_id, opts)
       data
     end
 
     # Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid).
+    # @param variant_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :condition 
     # @return [Array<(GetBuyerMarketPurchaseOptionResponse, Integer, Hash)>] GetBuyerMarketPurchaseOptionResponse data, response status code and response headers
-    def get_buyer_market_purchase_option_with_http_info(opts = {})
+    def get_buyer_market_purchase_option_with_http_info(variant_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.get_buyer_market_purchase_option ...'
+      end
+      # verify the required parameter 'variant_id' is set
+      if @api_client.config.client_side_validation && variant_id.nil?
+        fail ArgumentError, "Missing the required parameter 'variant_id' when calling BuyerApi.get_buyer_market_purchase_option"
+      end
+      allowable_values = ["DS", "VNDS", "Used"]
+      if @api_client.config.client_side_validation && opts[:'condition'] && !allowable_values.include?(opts[:'condition'])
+        fail ArgumentError, "invalid value for \"condition\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/buyer/market/purchase-options'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'variantId'] = variant_id
+      query_params[:'condition'] = opts[:'condition'] if !opts[:'condition'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -10233,6 +10697,7 @@ module CrosslyBuyer
     # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :uid 
     # @return [GetBuyerPassportResponse]
     def get_buyer_passport(code, opts = {})
       data, _status_code, _headers = get_buyer_passport_with_http_info(code, opts)
@@ -10242,6 +10707,7 @@ module CrosslyBuyer
     # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid&#x3D;, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
     # @param code [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :uid 
     # @return [Array<(GetBuyerPassportResponse, Integer, Hash)>] GetBuyerPassportResponse data, response status code and response headers
     def get_buyer_passport_with_http_info(code, opts = {})
       if @api_client.config.debugging
@@ -10256,6 +10722,7 @@ module CrosslyBuyer
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'uid'] = opts[:'uid'] if !opts[:'uid'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -14341,25 +14808,44 @@ module CrosslyBuyer
     end
 
     # Shop-the-look tags on a story or lookbook photo: each tagged listing and where it sits on the image (x, y as fractions).
+    # @param target_type [String] 
+    # @param target_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [ListBuyerHotspotsResponse]
-    def list_buyer_hotspots(opts = {})
-      data, _status_code, _headers = list_buyer_hotspots_with_http_info(opts)
+    def list_buyer_hotspots(target_type, target_id, opts = {})
+      data, _status_code, _headers = list_buyer_hotspots_with_http_info(target_type, target_id, opts)
       data
     end
 
     # Shop-the-look tags on a story or lookbook photo: each tagged listing and where it sits on the image (x, y as fractions).
+    # @param target_type [String] 
+    # @param target_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListBuyerHotspotsResponse, Integer, Hash)>] ListBuyerHotspotsResponse data, response status code and response headers
-    def list_buyer_hotspots_with_http_info(opts = {})
+    def list_buyer_hotspots_with_http_info(target_type, target_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_hotspots ...'
+      end
+      # verify the required parameter 'target_type' is set
+      if @api_client.config.client_side_validation && target_type.nil?
+        fail ArgumentError, "Missing the required parameter 'target_type' when calling BuyerApi.list_buyer_hotspots"
+      end
+      # verify enum value
+      allowable_values = ["story", "collection", "story_v1"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(target_type)
+        fail ArgumentError, "invalid value for \"target_type\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'target_id' is set
+      if @api_client.config.client_side_validation && target_id.nil?
+        fail ArgumentError, "Missing the required parameter 'target_id' when calling BuyerApi.list_buyer_hotspots"
       end
       # resource path
       local_var_path = '/v1/buyer/hotspots'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'targetType'] = target_type
+      query_params[:'targetId'] = target_id
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -14849,6 +15335,67 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#list_buyer_loyalty\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your points history at a club: purchases, hunts, event check-ins, photo reviews, group buys and rewards you redeemed.
+    # @param club_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListBuyerLoyaltyPointsResponse]
+    def list_buyer_loyalty_points(club_id, opts = {})
+      data, _status_code, _headers = list_buyer_loyalty_points_with_http_info(club_id, opts)
+      data
+    end
+
+    # Your points history at a club: purchases, hunts, event check-ins, photo reviews, group buys and rewards you redeemed.
+    # @param club_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBuyerLoyaltyPointsResponse, Integer, Hash)>] ListBuyerLoyaltyPointsResponse data, response status code and response headers
+    def list_buyer_loyalty_points_with_http_info(club_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.list_buyer_loyalty_points ...'
+      end
+      # verify the required parameter 'club_id' is set
+      if @api_client.config.client_side_validation && club_id.nil?
+        fail ArgumentError, "Missing the required parameter 'club_id' when calling BuyerApi.list_buyer_loyalty_points"
+      end
+      # resource path
+      local_var_path = '/v1/buyer/loyalty/{clubId}/points'.sub('{' + 'clubId' + '}', CGI.escape(club_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBuyerLoyaltyPointsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.list_buyer_loyalty_points",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#list_buyer_loyalty_points\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -15611,6 +16158,7 @@ module CrosslyBuyer
 
     # Find a registry by its name or the registrant’s name. Current and recent registries only.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
     # @return [ListBuyerRegistrySearchResponse]
     def list_buyer_registry_search(opts = {})
       data, _status_code, _headers = list_buyer_registry_search_with_http_info(opts)
@@ -15619,6 +16167,7 @@ module CrosslyBuyer
 
     # Find a registry by its name or the registrant’s name. Current and recent registries only.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
     # @return [Array<(ListBuyerRegistrySearchResponse, Integer, Hash)>] ListBuyerRegistrySearchResponse data, response status code and response headers
     def list_buyer_registry_search_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -15629,6 +16178,7 @@ module CrosslyBuyer
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -15887,6 +16437,14 @@ module CrosslyBuyer
     # A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :tag 
+    # @option opts [String] :category 
+    # @option opts [String] :sub 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [String] :f 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [ListBuyerStoreListingsResponse]
     def list_buyer_store_listings(slug, opts = {})
       data, _status_code, _headers = list_buyer_store_listings_with_http_info(slug, opts)
@@ -15896,6 +16454,14 @@ module CrosslyBuyer
     # A store&#39;s live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :tag 
+    # @option opts [String] :category 
+    # @option opts [String] :sub 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [String] :f 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [Array<(ListBuyerStoreListingsResponse, Integer, Hash)>] ListBuyerStoreListingsResponse data, response status code and response headers
     def list_buyer_store_listings_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -15905,11 +16471,23 @@ module CrosslyBuyer
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling BuyerApi.list_buyer_store_listings"
       end
+      allowable_values = ["title", "newest", "popular", "price_asc", "price_desc"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/buyer/stores/{slug}/listings'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'tag'] = opts[:'tag'] if !opts[:'tag'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'sub'] = opts[:'sub'] if !opts[:'sub'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'f'] = opts[:'f'] if !opts[:'f'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -17831,24 +18409,30 @@ module CrosslyBuyer
 
     # Rename a board, change its description, or make it public / private.
     # @param id [String] 
+    # @param update_buyer_board_request [UpdateBuyerBoardRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BuyerResponse]
-    def update_buyer_board(id, opts = {})
-      data, _status_code, _headers = update_buyer_board_with_http_info(id, opts)
+    def update_buyer_board(id, update_buyer_board_request, opts = {})
+      data, _status_code, _headers = update_buyer_board_with_http_info(id, update_buyer_board_request, opts)
       data
     end
 
     # Rename a board, change its description, or make it public / private.
     # @param id [String] 
+    # @param update_buyer_board_request [UpdateBuyerBoardRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BuyerResponse, Integer, Hash)>] BuyerResponse data, response status code and response headers
-    def update_buyer_board_with_http_info(id, opts = {})
+    def update_buyer_board_with_http_info(id, update_buyer_board_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_board ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.update_buyer_board"
+      end
+      # verify the required parameter 'update_buyer_board_request' is set
+      if @api_client.config.client_side_validation && update_buyer_board_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_buyer_board_request' when calling BuyerApi.update_buyer_board"
       end
       # resource path
       local_var_path = '/v1/buyer/boards/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -17860,12 +18444,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_buyer_board_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerResponse'
@@ -17892,24 +18481,30 @@ module CrosslyBuyer
 
     # Replace a board’s layout: items by platform listing id or slug, with x, y, w (0–1) and z. At most 40.
     # @param id [String] 
+    # @param update_buyer_board_layout_request [UpdateBuyerBoardLayoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BuyerBoardResponse]
-    def update_buyer_board_layout(id, opts = {})
-      data, _status_code, _headers = update_buyer_board_layout_with_http_info(id, opts)
+    def update_buyer_board_layout(id, update_buyer_board_layout_request, opts = {})
+      data, _status_code, _headers = update_buyer_board_layout_with_http_info(id, update_buyer_board_layout_request, opts)
       data
     end
 
     # Replace a board’s layout: items by platform listing id or slug, with x, y, w (0–1) and z. At most 40.
     # @param id [String] 
+    # @param update_buyer_board_layout_request [UpdateBuyerBoardLayoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BuyerBoardResponse, Integer, Hash)>] BuyerBoardResponse data, response status code and response headers
-    def update_buyer_board_layout_with_http_info(id, opts = {})
+    def update_buyer_board_layout_with_http_info(id, update_buyer_board_layout_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_board_layout ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerApi.update_buyer_board_layout"
+      end
+      # verify the required parameter 'update_buyer_board_layout_request' is set
+      if @api_client.config.client_side_validation && update_buyer_board_layout_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_buyer_board_layout_request' when calling BuyerApi.update_buyer_board_layout"
       end
       # resource path
       local_var_path = '/v1/buyer/boards/{id}/layout'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -17921,12 +18516,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_buyer_board_layout_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerBoardResponse'
@@ -17952,19 +18552,25 @@ module CrosslyBuyer
     end
 
     # Show or hide yourself (by your public handle) on set leaderboards.
+    # @param update_buyer_collection_set_leaderboard_request [UpdateBuyerCollectionSetLeaderboardRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateBuyerCollectionSetLeaderboardResponse]
-    def update_buyer_collection_set_leaderboard(opts = {})
-      data, _status_code, _headers = update_buyer_collection_set_leaderboard_with_http_info(opts)
+    def update_buyer_collection_set_leaderboard(update_buyer_collection_set_leaderboard_request, opts = {})
+      data, _status_code, _headers = update_buyer_collection_set_leaderboard_with_http_info(update_buyer_collection_set_leaderboard_request, opts)
       data
     end
 
     # Show or hide yourself (by your public handle) on set leaderboards.
+    # @param update_buyer_collection_set_leaderboard_request [UpdateBuyerCollectionSetLeaderboardRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateBuyerCollectionSetLeaderboardResponse, Integer, Hash)>] UpdateBuyerCollectionSetLeaderboardResponse data, response status code and response headers
-    def update_buyer_collection_set_leaderboard_with_http_info(opts = {})
+    def update_buyer_collection_set_leaderboard_with_http_info(update_buyer_collection_set_leaderboard_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_collection_set_leaderboard ...'
+      end
+      # verify the required parameter 'update_buyer_collection_set_leaderboard_request' is set
+      if @api_client.config.client_side_validation && update_buyer_collection_set_leaderboard_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_buyer_collection_set_leaderboard_request' when calling BuyerApi.update_buyer_collection_set_leaderboard"
       end
       # resource path
       local_var_path = '/v1/buyer/collection/sets/leaderboard'
@@ -17976,12 +18582,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_buyer_collection_set_leaderboard_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateBuyerCollectionSetLeaderboardResponse'
@@ -18338,6 +18949,7 @@ module CrosslyBuyer
 
     # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomeRequest] :update_buyer_home_request 
     # @return [BuyerHomeResponse]
     def update_buyer_home(opts = {})
       data, _status_code, _headers = update_buyer_home_with_http_info(opts)
@@ -18346,6 +18958,7 @@ module CrosslyBuyer
 
     # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomeRequest] :update_buyer_home_request 
     # @return [Array<(BuyerHomeResponse, Integer, Hash)>] BuyerHomeResponse data, response status code and response headers
     def update_buyer_home_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18361,12 +18974,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_buyer_home_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerHomeResponse'
@@ -18393,6 +19011,7 @@ module CrosslyBuyer
 
     # Set your co-builders (friends only, at most 4).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomeBuilderRequest] :update_buyer_home_builder_request 
     # @return [ListBuyerHomeBuildersResponse]
     def update_buyer_home_builder(opts = {})
       data, _status_code, _headers = update_buyer_home_builder_with_http_info(opts)
@@ -18401,6 +19020,7 @@ module CrosslyBuyer
 
     # Set your co-builders (friends only, at most 4).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomeBuilderRequest] :update_buyer_home_builder_request 
     # @return [Array<(ListBuyerHomeBuildersResponse, Integer, Hash)>] ListBuyerHomeBuildersResponse data, response status code and response headers
     def update_buyer_home_builder_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18416,12 +19036,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_buyer_home_builder_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListBuyerHomeBuildersResponse'
@@ -18448,6 +19073,7 @@ module CrosslyBuyer
 
     # Arrange your home: the whole layout, checked against what you own.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomeLayoutRequest] :update_buyer_home_layout_request 
     # @return [BuyerHomeResponse]
     def update_buyer_home_layout(opts = {})
       data, _status_code, _headers = update_buyer_home_layout_with_http_info(opts)
@@ -18456,6 +19082,7 @@ module CrosslyBuyer
 
     # Arrange your home: the whole layout, checked against what you own.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomeLayoutRequest] :update_buyer_home_layout_request 
     # @return [Array<(BuyerHomeResponse, Integer, Hash)>] BuyerHomeResponse data, response status code and response headers
     def update_buyer_home_layout_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18471,12 +19098,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_buyer_home_layout_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerHomeResponse'
@@ -18497,6 +19129,68 @@ module CrosslyBuyer
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BuyerApi#update_buyer_home_layout\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Walk one of your pets with you in the world, or none (kind: null). Only a pet you have earned.
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomePetActiveRequest] :update_buyer_home_pet_active_request 
+    # @return [UpdateBuyerHomePetActiveResponse]
+    def update_buyer_home_pet_active(opts = {})
+      data, _status_code, _headers = update_buyer_home_pet_active_with_http_info(opts)
+      data
+    end
+
+    # Walk one of your pets with you in the world, or none (kind: null). Only a pet you have earned.
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerHomePetActiveRequest] :update_buyer_home_pet_active_request 
+    # @return [Array<(UpdateBuyerHomePetActiveResponse, Integer, Hash)>] UpdateBuyerHomePetActiveResponse data, response status code and response headers
+    def update_buyer_home_pet_active_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_home_pet_active ...'
+      end
+      # resource path
+      local_var_path = '/v1/buyer/home/pets/active'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_buyer_home_pet_active_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateBuyerHomePetActiveResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['BuyerOAuth']
+
+      new_options = opts.merge(
+        :operation => :"BuyerApi.update_buyer_home_pet_active",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BuyerApi#update_buyer_home_pet_active\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -18689,6 +19383,7 @@ module CrosslyBuyer
     # Edit a registry: title, kind, date, message, ship-to address.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerRegistryRequest] :create_buyer_registry_request 
     # @return [BuyerRegistryResponse]
     def update_buyer_registry(id, opts = {})
       data, _status_code, _headers = update_buyer_registry_with_http_info(id, opts)
@@ -18698,6 +19393,7 @@ module CrosslyBuyer
     # Edit a registry: title, kind, date, message, ship-to address.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerRegistryRequest] :create_buyer_registry_request 
     # @return [Array<(BuyerRegistryResponse, Integer, Hash)>] BuyerRegistryResponse data, response status code and response headers
     def update_buyer_registry_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -18717,12 +19413,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_registry_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'BuyerRegistryResponse'
@@ -18750,19 +19451,21 @@ module CrosslyBuyer
     # How many of an item you want (1–50).
     # @param id [String] 
     # @param platform_listing_id [String] 
+    # @param update_buyer_registry_item_request [UpdateBuyerRegistryItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateBuyerRegistryItemResponse]
-    def update_buyer_registry_item(id, platform_listing_id, opts = {})
-      data, _status_code, _headers = update_buyer_registry_item_with_http_info(id, platform_listing_id, opts)
+    def update_buyer_registry_item(id, platform_listing_id, update_buyer_registry_item_request, opts = {})
+      data, _status_code, _headers = update_buyer_registry_item_with_http_info(id, platform_listing_id, update_buyer_registry_item_request, opts)
       data
     end
 
     # How many of an item you want (1–50).
     # @param id [String] 
     # @param platform_listing_id [String] 
+    # @param update_buyer_registry_item_request [UpdateBuyerRegistryItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateBuyerRegistryItemResponse, Integer, Hash)>] UpdateBuyerRegistryItemResponse data, response status code and response headers
-    def update_buyer_registry_item_with_http_info(id, platform_listing_id, opts = {})
+    def update_buyer_registry_item_with_http_info(id, platform_listing_id, update_buyer_registry_item_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.update_buyer_registry_item ...'
       end
@@ -18774,6 +19477,10 @@ module CrosslyBuyer
       if @api_client.config.client_side_validation && platform_listing_id.nil?
         fail ArgumentError, "Missing the required parameter 'platform_listing_id' when calling BuyerApi.update_buyer_registry_item"
       end
+      # verify the required parameter 'update_buyer_registry_item_request' is set
+      if @api_client.config.client_side_validation && update_buyer_registry_item_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_buyer_registry_item_request' when calling BuyerApi.update_buyer_registry_item"
+      end
       # resource path
       local_var_path = '/v1/buyer/registries/{id}/items/{platformListingId}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'platformListingId' + '}', CGI.escape(platform_listing_id.to_s))
 
@@ -18784,12 +19491,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_buyer_registry_item_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateBuyerRegistryItemResponse'

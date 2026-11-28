@@ -17,13 +17,13 @@ module Crossly
   class ListNeighbourhoodsItemNextEvent
     attr_accessor :id
 
-    attr_accessor :title
-
     attr_accessor :live
 
-    attr_accessor :ends_at
-
     attr_accessor :kind
+
+    attr_accessor :title
+
+    attr_accessor :ends_at
 
     attr_accessor :starts_at
 
@@ -53,10 +53,10 @@ module Crossly
     def self.attribute_map
       {
         :'id' => :'id',
-        :'title' => :'title',
         :'live' => :'live',
-        :'ends_at' => :'endsAt',
         :'kind' => :'kind',
+        :'title' => :'title',
+        :'ends_at' => :'endsAt',
         :'starts_at' => :'startsAt'
       }
     end
@@ -70,10 +70,10 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
-        :'title' => :'String',
         :'live' => :'Boolean',
-        :'ends_at' => :'String',
         :'kind' => :'String',
+        :'title' => :'String',
+        :'ends_at' => :'String',
         :'starts_at' => :'String'
       }
     end
@@ -103,20 +103,20 @@ module Crossly
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'live')
         self.live = attributes[:'live']
       end
 
-      if attributes.key?(:'ends_at')
-        self.ends_at = attributes[:'ends_at']
-      end
-
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
+      end
+
+      if attributes.key?(:'ends_at')
+        self.ends_at = attributes[:'ends_at']
       end
 
       if attributes.key?(:'starts_at')
@@ -132,20 +132,20 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
       if @live.nil?
         invalid_properties.push('invalid value for "live", live cannot be nil.')
       end
 
-      if @ends_at.nil?
-        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
-      end
-
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
+      end
+
+      if @ends_at.nil?
+        invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
       end
 
       if @starts_at.nil?
@@ -159,12 +159,12 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @title.nil?
       return false if @live.nil?
-      return false if @ends_at.nil?
       return false if @kind.nil?
       kind_validator = EnumAttributeValidator.new('String', ["night_market", "swap_meet"])
       return false unless kind_validator.valid?(@kind)
+      return false if @title.nil?
+      return false if @ends_at.nil?
       return false if @starts_at.nil?
       true
     end
@@ -185,10 +185,10 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          title == o.title &&
           live == o.live &&
-          ends_at == o.ends_at &&
           kind == o.kind &&
+          title == o.title &&
+          ends_at == o.ends_at &&
           starts_at == o.starts_at
     end
 
@@ -201,7 +201,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, title, live, ends_at, kind, starts_at].hash
+      [id, live, kind, title, ends_at, starts_at].hash
     end
 
     # Builds the object from hash

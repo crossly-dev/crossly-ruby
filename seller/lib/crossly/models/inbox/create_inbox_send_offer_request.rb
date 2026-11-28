@@ -79,6 +79,10 @@ module Crossly
         invalid_properties.push('invalid value for "amount", amount cannot be nil.')
       end
 
+      if @amount <= 0
+        invalid_properties.push('invalid value for "amount", must be greater than 0.')
+      end
+
       if !@note.nil? && @note.to_s.length > 1000
         invalid_properties.push('invalid value for "note", the character length must be smaller than or equal to 1000.')
       end
@@ -90,8 +94,23 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @amount.nil?
+      return false if @amount <= 0
       return false if !@note.nil? && @note.to_s.length > 1000
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] amount Value to be assigned
+    def amount=(amount)
+      if amount.nil?
+        fail ArgumentError, 'amount cannot be nil'
+      end
+
+      if amount <= 0
+        fail ArgumentError, 'invalid value for "amount", must be greater than 0.'
+      end
+
+      @amount = amount
     end
 
     # Custom attribute writer method with validation

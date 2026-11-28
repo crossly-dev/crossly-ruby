@@ -22,6 +22,7 @@ module Crossly
     # Add an uploaded screenshot or video (your own upload's publicUrl; a video may carry a poster image). Images are scanned at once; every item waits for a person and shows on the game's page once approved.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceGalleryRequest] :create_world_experience_gallery_request 
     # @return [WorldExperienceGalleryResponse]
     def create_world_experience_gallery(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_gallery_with_http_info(experience_id, opts)
@@ -31,6 +32,7 @@ module Crossly
     # Add an uploaded screenshot or video (your own upload&#39;s publicUrl; a video may carry a poster image). Images are scanned at once; every item waits for a person and shows on the game&#39;s page once approved.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceGalleryRequest] :create_world_experience_gallery_request 
     # @return [Array<(WorldExperienceGalleryResponse, Integer, Hash)>] WorldExperienceGalleryResponse data, response status code and response headers
     def create_world_experience_gallery_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -50,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_gallery_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldExperienceGalleryResponse'
@@ -83,6 +90,7 @@ module Crossly
     # A presigned upload for a gallery screenshot (JPEG/PNG/WebP/GIF, ≤ 10 MB) or video (MP4/QuickTime/WebM): PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then add publicUrl to the gallery.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceGalleryUploadUrlRequest] :create_world_experience_gallery_upload_url_request 
     # @return [CreateWorldExperienceGalleryUploadUrlResponse]
     def create_world_experience_gallery_upload_url(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_gallery_upload_url_with_http_info(experience_id, opts)
@@ -92,6 +100,7 @@ module Crossly
     # A presigned upload for a gallery screenshot (JPEG/PNG/WebP/GIF, ≤ 10 MB) or video (MP4/QuickTime/WebM): PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then add publicUrl to the gallery.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceGalleryUploadUrlRequest] :create_world_experience_gallery_upload_url_request 
     # @return [Array<(CreateWorldExperienceGalleryUploadUrlResponse, Integer, Hash)>] CreateWorldExperienceGalleryUploadUrlResponse data, response status code and response headers
     def create_world_experience_gallery_upload_url_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -111,12 +120,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_gallery_upload_url_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceGalleryUploadUrlResponse'
@@ -273,6 +287,7 @@ module Crossly
     # @param experience_id [String] 
     # @param media_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceGalleryRequest] :update_world_experience_gallery_request 
     # @return [WorldExperienceGalleryResponse]
     def update_world_experience_gallery(experience_id, media_id, opts = {})
       data, _status_code, _headers = update_world_experience_gallery_with_http_info(experience_id, media_id, opts)
@@ -283,6 +298,7 @@ module Crossly
     # @param experience_id [String] 
     # @param media_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceGalleryRequest] :update_world_experience_gallery_request 
     # @return [Array<(WorldExperienceGalleryResponse, Integer, Hash)>] WorldExperienceGalleryResponse data, response status code and response headers
     def update_world_experience_gallery_with_http_info(experience_id, media_id, opts = {})
       if @api_client.config.debugging
@@ -306,12 +322,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_gallery_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldExperienceGalleryResponse'
@@ -339,6 +360,7 @@ module Crossly
     # Set the order on the game's page: the ids you list first, the rest after in their current order.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingByIdRequest] :create_listing_by_id_request 
     # @return [UpdateWorldExperienceGalleryRoleResponse]
     def update_world_experience_gallery_order(experience_id, opts = {})
       data, _status_code, _headers = update_world_experience_gallery_order_with_http_info(experience_id, opts)
@@ -348,6 +370,7 @@ module Crossly
     # Set the order on the game&#39;s page: the ids you list first, the rest after in their current order.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingByIdRequest] :create_listing_by_id_request 
     # @return [Array<(UpdateWorldExperienceGalleryRoleResponse, Integer, Hash)>] UpdateWorldExperienceGalleryRoleResponse data, response status code and response headers
     def update_world_experience_gallery_order_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -367,12 +390,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_by_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldExperienceGalleryRoleResponse'
@@ -401,6 +429,7 @@ module Crossly
     # @param experience_id [String] 
     # @param media_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceGalleryRoleRequest] :update_world_experience_gallery_role_request 
     # @return [UpdateWorldExperienceGalleryRoleResponse]
     def update_world_experience_gallery_role(experience_id, media_id, opts = {})
       data, _status_code, _headers = update_world_experience_gallery_role_with_http_info(experience_id, media_id, opts)
@@ -411,6 +440,7 @@ module Crossly
     # @param experience_id [String] 
     # @param media_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceGalleryRoleRequest] :update_world_experience_gallery_role_request 
     # @return [Array<(UpdateWorldExperienceGalleryRoleResponse, Integer, Hash)>] UpdateWorldExperienceGalleryRoleResponse data, response status code and response headers
     def update_world_experience_gallery_role_with_http_info(experience_id, media_id, opts = {})
       if @api_client.config.debugging
@@ -434,12 +464,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_gallery_role_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldExperienceGalleryRoleResponse'
@@ -467,6 +502,7 @@ module Crossly
     # Set the game's trailer to a YouTube or Vimeo video link (https; youtube.com, youtu.be, vimeo.com, player.vimeo.com only; any other host is 400 trailer_host_not_allowed). It waits for a person like any gallery item; the current trailer goes back to the gallery (an uploaded clip) or off the page (a link).
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceGalleryTrailerUrlRequest] :update_world_experience_gallery_trailer_url_request 
     # @return [WorldExperienceGalleryResponse]
     def update_world_experience_gallery_trailer_url(experience_id, opts = {})
       data, _status_code, _headers = update_world_experience_gallery_trailer_url_with_http_info(experience_id, opts)
@@ -476,6 +512,7 @@ module Crossly
     # Set the game&#39;s trailer to a YouTube or Vimeo video link (https; youtube.com, youtu.be, vimeo.com, player.vimeo.com only; any other host is 400 trailer_host_not_allowed). It waits for a person like any gallery item; the current trailer goes back to the gallery (an uploaded clip) or off the page (a link).
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceGalleryTrailerUrlRequest] :update_world_experience_gallery_trailer_url_request 
     # @return [Array<(WorldExperienceGalleryResponse, Integer, Hash)>] WorldExperienceGalleryResponse data, response status code and response headers
     def update_world_experience_gallery_trailer_url_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -495,12 +532,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_gallery_trailer_url_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldExperienceGalleryResponse'

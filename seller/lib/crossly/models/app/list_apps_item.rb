@@ -186,7 +186,7 @@ module Crossly
         :'support_url' => :'String',
         :'privacy_url' => :'String',
         :'terms_url' => :'String',
-        :'docs_links' => :'Array<ListAppsItemDocsLinks>',
+        :'docs_links' => :'Array<LabelUrl>',
         :'install_count' => :'Float',
         :'listed_at' => :'String',
         :'profile_path' => :'String'

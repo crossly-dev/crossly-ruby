@@ -39,6 +39,17 @@ module Crossly
 
     attr_accessor :source
 
+    # The charge it came from (a billing charge, an interest movement, a grading order); null for manual rows.
+    attr_accessor :source_ref
+
+    # Where it came from in words (\"Crossly ads\", \"Entered by you\").
+    attr_accessor :source_label
+
+    # Posted by Crossly for its own charge (audit4 D4): read-only, shown with a Crossly badge.
+    attr_accessor :crossly
+
+    attr_accessor :possible_duplicate_of
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -85,6 +96,10 @@ module Crossly
         :'recurring' => :'recurring',
         :'recurring_until' => :'recurringUntil',
         :'source' => :'source',
+        :'source_ref' => :'sourceRef',
+        :'source_label' => :'sourceLabel',
+        :'crossly' => :'crossly',
+        :'possible_duplicate_of' => :'possibleDuplicateOf',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'occurrences' => :'occurrences',
@@ -112,6 +127,10 @@ module Crossly
         :'recurring' => :'String',
         :'recurring_until' => :'String',
         :'source' => :'String',
+        :'source_ref' => :'String',
+        :'source_label' => :'String',
+        :'crossly' => :'Boolean',
+        :'possible_duplicate_of' => :'CreateBookExpenseResponseDataPossibleDuplicateOf',
         :'created_at' => :'String',
         :'updated_at' => :'String',
         :'occurrences' => :'Float',
@@ -127,6 +146,8 @@ module Crossly
         :'receipt_url',
         :'recurring',
         :'recurring_until',
+        :'source_ref',
+        :'possible_duplicate_of',
         :'created_at',
         :'updated_at',
         :'occurrences',
@@ -197,6 +218,22 @@ module Crossly
         self.source = attributes[:'source']
       end
 
+      if attributes.key?(:'source_ref')
+        self.source_ref = attributes[:'source_ref']
+      end
+
+      if attributes.key?(:'source_label')
+        self.source_label = attributes[:'source_label']
+      end
+
+      if attributes.key?(:'crossly')
+        self.crossly = attributes[:'crossly']
+      end
+
+      if attributes.key?(:'possible_duplicate_of')
+        self.possible_duplicate_of = attributes[:'possible_duplicate_of']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -246,6 +283,14 @@ module Crossly
         invalid_properties.push('invalid value for "source", source cannot be nil.')
       end
 
+      if @source_label.nil?
+        invalid_properties.push('invalid value for "source_label", source_label cannot be nil.')
+      end
+
+      if @crossly.nil?
+        invalid_properties.push('invalid value for "crossly", crossly cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -261,6 +306,8 @@ module Crossly
       recurring_validator = EnumAttributeValidator.new('String', ["monthly", "yearly"])
       return false unless recurring_validator.valid?(@recurring)
       return false if @source.nil?
+      return false if @source_label.nil?
+      return false if @crossly.nil?
       true
     end
 
@@ -291,6 +338,10 @@ module Crossly
           recurring == o.recurring &&
           recurring_until == o.recurring_until &&
           source == o.source &&
+          source_ref == o.source_ref &&
+          source_label == o.source_label &&
+          crossly == o.crossly &&
+          possible_duplicate_of == o.possible_duplicate_of &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           occurrences == o.occurrences &&
@@ -306,7 +357,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, date, amount_cents, category, category_label, schedule_c_line, vendor, description, receipt_url, recurring, recurring_until, source, created_at, updated_at, occurrences, amount_in_range_cents].hash
+      [id, date, amount_cents, category, category_label, schedule_c_line, vendor, description, receipt_url, recurring, recurring_until, source, source_ref, source_label, crossly, possible_duplicate_of, created_at, updated_at, occurrences, amount_in_range_cents].hash
     end
 
     # Builds the object from hash

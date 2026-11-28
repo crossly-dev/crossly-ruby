@@ -15,7 +15,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_world_experience_badge
 
-> <CreateWorldExperienceBadgeResponse> create_world_experience_badge(experience_id)
+> <CreateWorldExperienceBadgeResponse> create_world_experience_badge(experience_id, opts)
 
 Add a badge (at most 100 per game). name 1-50 characters, description up to 1000, iconSha256 = the sha256 a png upload answered (POST /v1/world/interactive/assets, kind png); a new icon is shown once a person approved it.
 
@@ -32,10 +32,13 @@ end
 
 api_instance = Crossly::WorldsBadgesApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_badge_request: Crossly::CreateWorldExperienceBadgeRequest.new({name: 'name_example'}) # CreateWorldExperienceBadgeRequest | 
+}
 
 begin
   # Add a badge (at most 100 per game). name 1-50 characters, description up to 1000, iconSha256 = the sha256 a png upload answered (POST /v1/world/interactive/assets, kind png); a new icon is shown once a person approved it.
-  result = api_instance.create_world_experience_badge(experience_id)
+  result = api_instance.create_world_experience_badge(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsBadgesApi->create_world_experience_badge: #{e}"
@@ -46,12 +49,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceBadgeResponse>, Integer, Hash)> create_world_experience_badge_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceBadgeResponse>, Integer, Hash)> create_world_experience_badge_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Add a badge (at most 100 per game). name 1-50 characters, description up to 1000, iconSha256 = the sha256 a png upload answered (POST /v1/world/interactive/assets, kind png); a new icon is shown once a person approved it.
-  data, status_code, headers = api_instance.create_world_experience_badge_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_badge_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceBadgeResponse>
@@ -65,6 +68,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_badge_request** | **CreateWorldExperienceBadgeRequest** |  | [optional] |
 
 ### Return type
 
@@ -76,7 +80,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -347,7 +351,7 @@ end
 
 ## update_world_badge_profile
 
-> <UpdateWorldBadgeProfileResponse> update_world_badge_profile
+> <UpdateWorldBadgeProfileResponse> update_world_badge_profile(opts)
 
 Show (or hide) the game badges you hold on your person page. Off by default.
 
@@ -363,10 +367,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldsBadgesApi.new
+opts = {
+  update_world_badge_profile_request: Crossly::UpdateWorldBadgeProfileRequest.new({show: false}) # UpdateWorldBadgeProfileRequest | 
+}
 
 begin
   # Show (or hide) the game badges you hold on your person page. Off by default.
-  result = api_instance.update_world_badge_profile
+  result = api_instance.update_world_badge_profile(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsBadgesApi->update_world_badge_profile: #{e}"
@@ -377,12 +384,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldBadgeProfileResponse>, Integer, Hash)> update_world_badge_profile_with_http_info
+> <Array(<UpdateWorldBadgeProfileResponse>, Integer, Hash)> update_world_badge_profile_with_http_info(opts)
 
 ```ruby
 begin
   # Show (or hide) the game badges you hold on your person page. Off by default.
-  data, status_code, headers = api_instance.update_world_badge_profile_with_http_info
+  data, status_code, headers = api_instance.update_world_badge_profile_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldBadgeProfileResponse>
@@ -393,7 +400,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_badge_profile_request** | **UpdateWorldBadgeProfileRequest** |  | [optional] |
 
 ### Return type
 
@@ -405,13 +414,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_badge
 
-> <CreateWorldExperienceBadgeResponse> update_world_experience_badge(experience_id, badge_id)
+> <CreateWorldExperienceBadgeResponse> update_world_experience_badge(experience_id, badge_id, opts)
 
 Edit a badge: name, description, icon (null removes it), enabled. Badges are never deleted (players keep what they earned); turn one off to hide it and stop AwardBadge.
 
@@ -429,10 +438,13 @@ end
 api_instance = Crossly::WorldsBadgesApi.new
 experience_id = 'experience_id_example' # String | 
 badge_id = 'badge_id_example' # String | 
+opts = {
+  update_world_experience_badge_request: Crossly::UpdateWorldExperienceBadgeRequest.new # UpdateWorldExperienceBadgeRequest | 
+}
 
 begin
   # Edit a badge: name, description, icon (null removes it), enabled. Badges are never deleted (players keep what they earned); turn one off to hide it and stop AwardBadge.
-  result = api_instance.update_world_experience_badge(experience_id, badge_id)
+  result = api_instance.update_world_experience_badge(experience_id, badge_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsBadgesApi->update_world_experience_badge: #{e}"
@@ -443,12 +455,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceBadgeResponse>, Integer, Hash)> update_world_experience_badge_with_http_info(experience_id, badge_id)
+> <Array(<CreateWorldExperienceBadgeResponse>, Integer, Hash)> update_world_experience_badge_with_http_info(experience_id, badge_id, opts)
 
 ```ruby
 begin
   # Edit a badge: name, description, icon (null removes it), enabled. Badges are never deleted (players keep what they earned); turn one off to hide it and stop AwardBadge.
-  data, status_code, headers = api_instance.update_world_experience_badge_with_http_info(experience_id, badge_id)
+  data, status_code, headers = api_instance.update_world_experience_badge_with_http_info(experience_id, badge_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceBadgeResponse>
@@ -463,6 +475,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **badge_id** | **String** |  |  |
+| **update_world_experience_badge_request** | **UpdateWorldExperienceBadgeRequest** |  | [optional] |
 
 ### Return type
 
@@ -474,6 +487,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

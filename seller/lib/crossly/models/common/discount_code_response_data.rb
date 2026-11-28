@@ -31,13 +31,13 @@ module Crossly
 
     attr_accessor :storefront_id
 
-    attr_accessor :batch_id
-
     attr_accessor :kind
 
-    attr_accessor :code
+    attr_accessor :batch_id
 
     attr_accessor :seller_user_id
+
+    attr_accessor :code
 
     attr_accessor :starts_at
 
@@ -74,10 +74,10 @@ module Crossly
         :'expires_at' => :'expiresAt',
         :'status' => :'status',
         :'storefront_id' => :'storefrontId',
-        :'batch_id' => :'batchId',
         :'kind' => :'kind',
-        :'code' => :'code',
+        :'batch_id' => :'batchId',
         :'seller_user_id' => :'sellerUserId',
+        :'code' => :'code',
         :'starts_at' => :'startsAt',
         :'discount_type' => :'discountType',
         :'percent_off_bps' => :'percentOffBps',
@@ -109,10 +109,10 @@ module Crossly
         :'expires_at' => :'Time',
         :'status' => :'String',
         :'storefront_id' => :'String',
-        :'batch_id' => :'String',
         :'kind' => :'String',
-        :'code' => :'String',
+        :'batch_id' => :'String',
         :'seller_user_id' => :'String',
+        :'code' => :'String',
         :'starts_at' => :'Time',
         :'discount_type' => :'String',
         :'percent_off_bps' => :'Float',
@@ -134,8 +134,8 @@ module Crossly
         :'name',
         :'expires_at',
         :'storefront_id',
-        :'batch_id',
         :'kind',
+        :'batch_id',
         :'seller_user_id',
         :'starts_at',
         :'percent_off_bps',
@@ -194,20 +194,20 @@ module Crossly
         self.storefront_id = attributes[:'storefront_id']
       end
 
-      if attributes.key?(:'batch_id')
-        self.batch_id = attributes[:'batch_id']
-      end
-
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
       end
 
-      if attributes.key?(:'code')
-        self.code = attributes[:'code']
+      if attributes.key?(:'batch_id')
+        self.batch_id = attributes[:'batch_id']
       end
 
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
+      end
+
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       end
 
       if attributes.key?(:'starts_at')
@@ -344,10 +344,10 @@ module Crossly
           expires_at == o.expires_at &&
           status == o.status &&
           storefront_id == o.storefront_id &&
-          batch_id == o.batch_id &&
           kind == o.kind &&
-          code == o.code &&
+          batch_id == o.batch_id &&
           seller_user_id == o.seller_user_id &&
+          code == o.code &&
           starts_at == o.starts_at &&
           discount_type == o.discount_type &&
           percent_off_bps == o.percent_off_bps &&
@@ -371,7 +371,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, active, created_at, updated_at, expires_at, status, storefront_id, batch_id, kind, code, seller_user_id, starts_at, discount_type, percent_off_bps, fixed_off_cents, min_order_cents, platform_listing_ids, max_redemptions, redemption_count, rules, given_cents, parent_code_id, auto_apply].hash
+      [id, name, active, created_at, updated_at, expires_at, status, storefront_id, kind, batch_id, seller_user_id, code, starts_at, discount_type, percent_off_bps, fixed_off_cents, min_order_cents, platform_listing_ids, max_redemptions, redemption_count, rules, given_cents, parent_code_id, auto_apply].hash
     end
 
     # Builds the object from hash

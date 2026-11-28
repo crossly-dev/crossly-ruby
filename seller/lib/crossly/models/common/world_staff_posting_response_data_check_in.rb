@@ -15,13 +15,10 @@ require 'time'
 
 module Crossly
   class WorldStaffPostingResponseDataCheckIn
-    # How early a worker may check in, and how late before it counts as missed.
     attr_accessor :grace_minutes
 
-    # Share of the shift (less unpaid breaks) the server must see the worker in the place.
     attr_accessor :presence_ratio
 
-    # In-world: the worker must check in at the place (true), or presence alone counts (false).
     attr_accessor :require_check_in
 
     # Attribute mapping from ruby-style variable name to JSON key.

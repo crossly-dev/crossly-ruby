@@ -261,7 +261,7 @@ module Crossly
       return false if @pair.nil?
       return false if @name.nil?
       return false if @surface.nil?
-      surface_validator = EnumAttributeValidator.new('String', ["home", "street", "shop", "avatar", "stall"])
+      surface_validator = EnumAttributeValidator.new('String', ["home", "shop", "street", "avatar", "stall"])
       return false unless surface_validator.valid?(@surface)
       return false if @placeable.nil?
       return false if @owned.nil?
@@ -276,7 +276,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] surface Object to be assigned
     def surface=(surface)
-      validator = EnumAttributeValidator.new('String', ["home", "street", "shop", "avatar", "stall"])
+      validator = EnumAttributeValidator.new('String', ["home", "shop", "street", "avatar", "stall"])
       unless validator.valid?(surface)
         fail ArgumentError, "invalid value for \"surface\", must be one of #{validator.allowable_values}."
       end

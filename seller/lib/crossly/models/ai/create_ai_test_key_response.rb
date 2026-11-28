@@ -17,10 +17,13 @@ module Crossly
   class CreateAiTestKeyResponse
     attr_accessor :valid
 
+    attr_accessor :message
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'valid' => :'valid'
+        :'valid' => :'valid',
+        :'message' => :'message'
       }
     end
 
@@ -32,7 +35,8 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'valid' => :'Boolean'
+        :'valid' => :'Boolean',
+        :'message' => :'String'
       }
     end
 
@@ -60,6 +64,10 @@ module Crossly
       if attributes.key?(:'valid')
         self.valid = attributes[:'valid']
       end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -70,6 +78,10 @@ module Crossly
         invalid_properties.push('invalid value for "valid", valid cannot be nil.')
       end
 
+      if @message.nil?
+        invalid_properties.push('invalid value for "message", message cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -77,6 +89,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @valid.nil?
+      return false if @message.nil?
       true
     end
 
@@ -85,7 +98,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          valid == o.valid
+          valid == o.valid &&
+          message == o.message
     end
 
     # @see the `==` method
@@ -97,7 +111,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [valid].hash
+      [valid, message].hash
     end
 
     # Builds the object from hash

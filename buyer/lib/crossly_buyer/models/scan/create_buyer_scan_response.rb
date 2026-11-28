@@ -101,7 +101,7 @@ module CrosslyBuyer
         :'match_method' => :'String',
         :'comparable' => :'Boolean',
         :'confidence' => :'Float',
-        :'identifier' => :'CreateBuyerScanResponseIdentifier',
+        :'identifier' => :'NsValue',
         :'visual_matches' => :'Array<Object>'
       }
     end

@@ -16,7 +16,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**delete_storefront_section_by_section_id**](StorefrontsApi.md#delete_storefront_section_by_section_id) | **DELETE** /v1/storefronts/{id}/sections/{sectionId} | Remove a section from a store. Listings on a removed shelf stay live. |
 | [**delete_storefront_team_access**](StorefrontsApi.md#delete_storefront_team_access) | **DELETE** /v1/storefronts/team-access | Revoke a team member&#39;s access to one store (or their all-stores grant). |
 | [**get_hub_setup**](StorefrontsApi.md#get_hub_setup) | **GET** /v1/hub/setup/{section} | A Hub section&#39;s setup checklist: each step, whether it is done and the page that completes it. Derived from what exists, never stored. |
-| [**get_storefront_by_id**](StorefrontsApi.md#get_storefront_by_id) | **GET** /v1/storefronts/{id} | One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt. |
+| [**get_storefront_by_id**](StorefrontsApi.md#get_storefront_by_id) | **GET** /v1/storefronts/{id} | One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt, currency (null &#x3D; never chosen). |
 | [**get_storefront_onboarding**](StorefrontsApi.md#get_storefront_onboarding) | **GET** /v1/storefronts/onboarding | Crossly Shop setup state: whether you have a store, the generated name/slug a skip would use, each optional step and whether it is done, the listing-gate requirements, payouts readiness and the public URL once live. |
 | [**get_storefront_policy**](StorefrontsApi.md#get_storefront_policy) | **GET** /v1/storefronts/{id}/policies | A store&#39;s policies: per kind (shipping, return, payment) the preset the store picked (presetId, null &#x3D; your default) and what the store resolves to (resolvedPresetId, resolvedPresetName, level: store | seller_default | legacy | default, body). |
 | [**get_storefront_requirement**](StorefrontsApi.md#get_storefront_requirement) | **GET** /v1/storefronts/{id}/requirements | What this store still needs before a NEW Crossly listing can publish into it: ship_from, shipping_policy, return_policy, payouts — with where to fix each. |
@@ -26,6 +26,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_storefront_team_access**](StorefrontsApi.md#list_storefront_team_access) | **GET** /v1/storefronts/team-access | Every active per-store grant you have made to team members (storefrontId null &#x3D; all stores). |
 | [**list_storefronts**](StorefrontsApi.md#list_storefronts) | **GET** /v1/storefronts | Your stores (default first). includeArchived&#x3D;true adds archived ones. |
 | [**update_storefront_by_id**](StorefrontsApi.md#update_storefront_by_id) | **PATCH** /v1/storefronts/{id} | Rename a store. Never changes the slug or your @handle. |
+| [**update_storefront_currency**](StorefrontsApi.md#update_storefront_currency) | **PUT** /v1/storefronts/{id}/currency | Set a store&#39;s currency (ISO 4217, e.g. GBP): what its inventory values, totals and analytics show in, and what a price sent without a currency is stored in. |
 | [**update_storefront_default**](StorefrontsApi.md#update_storefront_default) | **PUT** /v1/storefronts/{id}/default | Make this store your default (where a Crossly publish with no storefrontId lands). |
 | [**update_storefront_policy**](StorefrontsApi.md#update_storefront_policy) | **PUT** /v1/storefronts/{id}/policies | Set a store&#39;s policies: shippingPresetId, returnPresetId, paymentPresetId (a policy preset of that kind you own, or null for your default). Omitted &#x3D; unchanged. Listings in the store with no preset of their own follow these. |
 | [**update_storefront_section_by_section_id**](StorefrontsApi.md#update_storefront_section_by_section_id) | **PATCH** /v1/storefronts/{id}/sections/{sectionId} | Rename, show/hide, refill (listings shelves) or reconfigure one section of a store. |
@@ -836,7 +837,7 @@ end
 
 > <StorefrontResponse> get_storefront_by_id(id)
 
-One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt.
+One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt, currency (null = never chosen).
 
 ### Examples
 
@@ -853,7 +854,7 @@ api_instance = Crossly::StorefrontsApi.new
 id = 'id_example' # String | 
 
 begin
-  # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt.
+  # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt, currency (null = never chosen).
   result = api_instance.get_storefront_by_id(id)
   p result
 rescue Crossly::ApiError => e
@@ -869,7 +870,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt.
+  # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt, currency (null = never chosen).
   data, status_code, headers = api_instance.get_storefront_by_id_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
@@ -1166,7 +1167,7 @@ end
 
 ## get_storefront_slug_available
 
-> <GetStorefrontSlugAvailableResponse> get_storefront_slug_available
+> <GetStorefrontSlugAvailableResponse> get_storefront_slug_available(slug)
 
 Is this store slug free? Checks shape, reserved words, current slugs and retired ones.
 
@@ -1182,10 +1183,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontsApi.new
+slug = 'slug_example' # String | 
 
 begin
   # Is this store slug free? Checks shape, reserved words, current slugs and retired ones.
-  result = api_instance.get_storefront_slug_available
+  result = api_instance.get_storefront_slug_available(slug)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontsApi->get_storefront_slug_available: #{e}"
@@ -1196,12 +1198,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetStorefrontSlugAvailableResponse>, Integer, Hash)> get_storefront_slug_available_with_http_info
+> <Array(<GetStorefrontSlugAvailableResponse>, Integer, Hash)> get_storefront_slug_available_with_http_info(slug)
 
 ```ruby
 begin
   # Is this store slug free? Checks shape, reserved words, current slugs and retired ones.
-  data, status_code, headers = api_instance.get_storefront_slug_available_with_http_info
+  data, status_code, headers = api_instance.get_storefront_slug_available_with_http_info(slug)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetStorefrontSlugAvailableResponse>
@@ -1212,7 +1214,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **slug** | **String** |  |  |
 
 ### Return type
 
@@ -1361,7 +1365,7 @@ This endpoint does not need any parameter.
 
 ## list_storefronts
 
-> <ListStorefrontsResponse> list_storefronts
+> <ListStorefrontsResponse> list_storefronts(opts)
 
 Your stores (default first). includeArchived=true adds archived ones.
 
@@ -1377,10 +1381,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontsApi.new
+opts = {
+  include_archived: 'true' # String | 
+}
 
 begin
   # Your stores (default first). includeArchived=true adds archived ones.
-  result = api_instance.list_storefronts
+  result = api_instance.list_storefronts(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontsApi->list_storefronts: #{e}"
@@ -1391,12 +1398,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListStorefrontsResponse>, Integer, Hash)> list_storefronts_with_http_info
+> <Array(<ListStorefrontsResponse>, Integer, Hash)> list_storefronts_with_http_info(opts)
 
 ```ruby
 begin
   # Your stores (default first). includeArchived=true adds archived ones.
-  data, status_code, headers = api_instance.list_storefronts_with_http_info
+  data, status_code, headers = api_instance.list_storefronts_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListStorefrontsResponse>
@@ -1407,7 +1414,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **include_archived** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1467,6 +1476,73 @@ begin
   p data # => <StorefrontResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontsApi->update_storefront_by_id_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**StorefrontResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_storefront_currency
+
+> <StorefrontResponse> update_storefront_currency(id)
+
+Set a store's currency (ISO 4217, e.g. GBP): what its inventory values, totals and analytics show in, and what a price sent without a currency is stored in.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::StorefrontsApi.new
+id = 'id_example' # String | 
+
+begin
+  # Set a store's currency (ISO 4217, e.g. GBP): what its inventory values, totals and analytics show in, and what a price sent without a currency is stored in.
+  result = api_instance.update_storefront_currency(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling StorefrontsApi->update_storefront_currency: #{e}"
+end
+```
+
+#### Using the update_storefront_currency_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<StorefrontResponse>, Integer, Hash)> update_storefront_currency_with_http_info(id)
+
+```ruby
+begin
+  # Set a store's currency (ISO 4217, e.g. GBP): what its inventory values, totals and analytics show in, and what a price sent without a currency is stored in.
+  data, status_code, headers = api_instance.update_storefront_currency_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <StorefrontResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling StorefrontsApi->update_storefront_currency_with_http_info: #{e}"
 end
 ```
 

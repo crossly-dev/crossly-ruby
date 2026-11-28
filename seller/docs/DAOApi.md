@@ -11,12 +11,13 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_dao_proposal_vote**](DAOApi.md#create_dao_proposal_vote) | **POST** /v1/dao/proposals/{id}/vote | Cast or change a vote while the window is open. |
 | [**delete_dao_proposal**](DAOApi.md#delete_dao_proposal) | **DELETE** /v1/dao/proposals/{id} | Withdraw your own DRAFT. |
 | [**get_dao_proposal_tally**](DAOApi.md#get_dao_proposal_tally) | **GET** /v1/dao/proposals/{id}/tally | The live count. |
+| [**get_dao_subject_participation**](DAOApi.md#get_dao_subject_participation) | **GET** /v1/dao/subjects/{subjectId}/participation | One holder&#39;s participation: votes, voting power over time, share. |
 | [**list_dao_proposals**](DAOApi.md#list_dao_proposals) | **GET** /v1/dao/proposals | The proposal queue. |
 
 
 ## create_dao_proposal
 
-> <CreateDaoProposalResponse> create_dao_proposal
+> <CreateDaoProposalResponse> create_dao_proposal(create_dao_proposal_request)
 
 Raise a proposal. Starts as a draft.
 
@@ -34,10 +35,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DAOApi.new
+create_dao_proposal_request = Crossly::CreateDaoProposalRequest.new({subject_id: 'subject_id_example', title: 'title_example', body: 'body_example', beneficiary_kind: 'marketing'}) # CreateDaoProposalRequest | 
 
 begin
   # Raise a proposal. Starts as a draft.
-  result = api_instance.create_dao_proposal
+  result = api_instance.create_dao_proposal(create_dao_proposal_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DAOApi->create_dao_proposal: #{e}"
@@ -48,12 +50,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDaoProposalResponse>, Integer, Hash)> create_dao_proposal_with_http_info
+> <Array(<CreateDaoProposalResponse>, Integer, Hash)> create_dao_proposal_with_http_info(create_dao_proposal_request)
 
 ```ruby
 begin
   # Raise a proposal. Starts as a draft.
-  data, status_code, headers = api_instance.create_dao_proposal_with_http_info
+  data, status_code, headers = api_instance.create_dao_proposal_with_http_info(create_dao_proposal_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateDaoProposalResponse>
@@ -64,7 +66,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_dao_proposal_request** | **CreateDaoProposalRequest** |  |  |
 
 ### Return type
 
@@ -76,7 +80,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -151,7 +155,7 @@ end
 
 ## create_dao_proposal_open
 
-> <CreateDaoProposalOpenResponse> create_dao_proposal_open(id)
+> <CreateDaoProposalOpenResponse> create_dao_proposal_open(id, create_dao_proposal_open_request)
 
 Put your draft to a vote. Snapshots voting power.
 
@@ -170,10 +174,11 @@ end
 
 api_instance = Crossly::DAOApi.new
 id = 'id_example' # String | 
+create_dao_proposal_open_request = Crossly::CreateDaoProposalOpenRequest.new({subject_id: 'subject_id_example'}) # CreateDaoProposalOpenRequest | 
 
 begin
   # Put your draft to a vote. Snapshots voting power.
-  result = api_instance.create_dao_proposal_open(id)
+  result = api_instance.create_dao_proposal_open(id, create_dao_proposal_open_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DAOApi->create_dao_proposal_open: #{e}"
@@ -184,12 +189,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDaoProposalOpenResponse>, Integer, Hash)> create_dao_proposal_open_with_http_info(id)
+> <Array(<CreateDaoProposalOpenResponse>, Integer, Hash)> create_dao_proposal_open_with_http_info(id, create_dao_proposal_open_request)
 
 ```ruby
 begin
   # Put your draft to a vote. Snapshots voting power.
-  data, status_code, headers = api_instance.create_dao_proposal_open_with_http_info(id)
+  data, status_code, headers = api_instance.create_dao_proposal_open_with_http_info(id, create_dao_proposal_open_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateDaoProposalOpenResponse>
@@ -203,6 +208,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_dao_proposal_open_request** | **CreateDaoProposalOpenRequest** |  |  |
 
 ### Return type
 
@@ -214,13 +220,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_dao_proposal_veto
 
-> <CreateDaoProposalVetoResponse> create_dao_proposal_veto(id)
+> <CreateDaoProposalVetoResponse> create_dao_proposal_veto(id, create_dao_proposal_veto_request)
 
 Operator block. There is no matching power to PASS.
 
@@ -239,10 +245,11 @@ end
 
 api_instance = Crossly::DAOApi.new
 id = 'id_example' # String | 
+create_dao_proposal_veto_request = Crossly::CreateDaoProposalVetoRequest.new({reason: 'reason_example', vetoed_by_user_id: 'vetoed_by_user_id_example'}) # CreateDaoProposalVetoRequest | 
 
 begin
   # Operator block. There is no matching power to PASS.
-  result = api_instance.create_dao_proposal_veto(id)
+  result = api_instance.create_dao_proposal_veto(id, create_dao_proposal_veto_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DAOApi->create_dao_proposal_veto: #{e}"
@@ -253,12 +260,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDaoProposalVetoResponse>, Integer, Hash)> create_dao_proposal_veto_with_http_info(id)
+> <Array(<CreateDaoProposalVetoResponse>, Integer, Hash)> create_dao_proposal_veto_with_http_info(id, create_dao_proposal_veto_request)
 
 ```ruby
 begin
   # Operator block. There is no matching power to PASS.
-  data, status_code, headers = api_instance.create_dao_proposal_veto_with_http_info(id)
+  data, status_code, headers = api_instance.create_dao_proposal_veto_with_http_info(id, create_dao_proposal_veto_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateDaoProposalVetoResponse>
@@ -272,6 +279,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_dao_proposal_veto_request** | **CreateDaoProposalVetoRequest** |  |  |
 
 ### Return type
 
@@ -283,13 +291,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_dao_proposal_vote
 
-> <CreateDaoProposalVoteResponse> create_dao_proposal_vote(id)
+> <CreateDaoProposalVoteResponse> create_dao_proposal_vote(id, create_dao_proposal_vote_request)
 
 Cast or change a vote while the window is open.
 
@@ -308,10 +316,11 @@ end
 
 api_instance = Crossly::DAOApi.new
 id = 'id_example' # String | 
+create_dao_proposal_vote_request = Crossly::CreateDaoProposalVoteRequest.new({subject_id: 'subject_id_example', choice: 'for'}) # CreateDaoProposalVoteRequest | 
 
 begin
   # Cast or change a vote while the window is open.
-  result = api_instance.create_dao_proposal_vote(id)
+  result = api_instance.create_dao_proposal_vote(id, create_dao_proposal_vote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DAOApi->create_dao_proposal_vote: #{e}"
@@ -322,12 +331,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDaoProposalVoteResponse>, Integer, Hash)> create_dao_proposal_vote_with_http_info(id)
+> <Array(<CreateDaoProposalVoteResponse>, Integer, Hash)> create_dao_proposal_vote_with_http_info(id, create_dao_proposal_vote_request)
 
 ```ruby
 begin
   # Cast or change a vote while the window is open.
-  data, status_code, headers = api_instance.create_dao_proposal_vote_with_http_info(id)
+  data, status_code, headers = api_instance.create_dao_proposal_vote_with_http_info(id, create_dao_proposal_vote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateDaoProposalVoteResponse>
@@ -341,6 +350,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_dao_proposal_vote_request** | **CreateDaoProposalVoteRequest** |  |  |
 
 ### Return type
 
@@ -352,13 +362,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## delete_dao_proposal
 
-> <DeleteDaoProposalResponse> delete_dao_proposal(id)
+> <DeleteDaoProposalResponse> delete_dao_proposal(id, opts)
 
 Withdraw your own DRAFT.
 
@@ -377,10 +387,13 @@ end
 
 api_instance = Crossly::DAOApi.new
 id = 'id_example' # String | 
+opts = {
+  subject_id_request: Crossly::SubjectIdRequest.new({subject_id: 'subject_id_example'}) # SubjectIdRequest | 
+}
 
 begin
   # Withdraw your own DRAFT.
-  result = api_instance.delete_dao_proposal(id)
+  result = api_instance.delete_dao_proposal(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DAOApi->delete_dao_proposal: #{e}"
@@ -391,12 +404,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteDaoProposalResponse>, Integer, Hash)> delete_dao_proposal_with_http_info(id)
+> <Array(<DeleteDaoProposalResponse>, Integer, Hash)> delete_dao_proposal_with_http_info(id, opts)
 
 ```ruby
 begin
   # Withdraw your own DRAFT.
-  data, status_code, headers = api_instance.delete_dao_proposal_with_http_info(id)
+  data, status_code, headers = api_instance.delete_dao_proposal_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteDaoProposalResponse>
@@ -410,6 +423,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **subject_id_request** | **SubjectIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -421,7 +435,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -494,9 +508,78 @@ end
 - **Accept**: application/json
 
 
+## get_dao_subject_participation
+
+> <GetDaoSubjectParticipationResponse> get_dao_subject_participation(subject_id)
+
+One holder's participation: votes, voting power over time, share.
+
+Every vote the subject cast (with the frozen weight it carried), the voting power snapshotted for it at each proposal open (oldest first) with that proposal total, and the latest snapshot share of the total in bps. Amounts are strings of base units. Read-only; the subject must belong to the calling merchant.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DAOApi.new
+subject_id = 'subject_id_example' # String | 
+
+begin
+  # One holder's participation: votes, voting power over time, share.
+  result = api_instance.get_dao_subject_participation(subject_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DAOApi->get_dao_subject_participation: #{e}"
+end
+```
+
+#### Using the get_dao_subject_participation_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDaoSubjectParticipationResponse>, Integer, Hash)> get_dao_subject_participation_with_http_info(subject_id)
+
+```ruby
+begin
+  # One holder's participation: votes, voting power over time, share.
+  data, status_code, headers = api_instance.get_dao_subject_participation_with_http_info(subject_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDaoSubjectParticipationResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DAOApi->get_dao_subject_participation_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **subject_id** | **String** |  |  |
+
+### Return type
+
+**GetDaoSubjectParticipationResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_dao_proposals
 
-> <ListDaoProposalsResponse> list_dao_proposals
+> <ListDaoProposalsResponse> list_dao_proposals(opts)
 
 The proposal queue.
 
@@ -514,10 +597,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DAOApi.new
+opts = {
+  status: 'expired', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # The proposal queue.
-  result = api_instance.list_dao_proposals
+  result = api_instance.list_dao_proposals(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DAOApi->list_dao_proposals: #{e}"
@@ -528,12 +615,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListDaoProposalsResponse>, Integer, Hash)> list_dao_proposals_with_http_info
+> <Array(<ListDaoProposalsResponse>, Integer, Hash)> list_dao_proposals_with_http_info(opts)
 
 ```ruby
 begin
   # The proposal queue.
-  data, status_code, headers = api_instance.list_dao_proposals_with_http_info
+  data, status_code, headers = api_instance.list_dao_proposals_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListDaoProposalsResponse>
@@ -544,7 +631,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 

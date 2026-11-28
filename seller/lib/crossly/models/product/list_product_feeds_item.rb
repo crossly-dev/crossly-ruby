@@ -17,15 +17,21 @@ module Crossly
   class ListProductFeedsItem
     attr_accessor :id
 
+    attr_accessor :storefront_id
+
     attr_accessor :channel
 
     attr_accessor :channel_label
+
+    attr_accessor :kind
 
     attr_accessor :name
 
     attr_accessor :format
 
     attr_accessor :formats
+
+    attr_accessor :format_labels
 
     attr_accessor :enabled
 
@@ -35,11 +41,16 @@ module Crossly
 
     attr_accessor :destination
 
+    attr_accessor :recommended_schedule
+
     attr_accessor :filters
 
     attr_accessor :settings
 
     attr_accessor :token_rotated_at
+
+    # While the previous URL still answers (a rotation's grace window), its end.
+    attr_accessor :previous_url_expires_at
 
     attr_accessor :last_fetched_at
 
@@ -81,18 +92,23 @@ module Crossly
     def self.attribute_map
       {
         :'id' => :'id',
+        :'storefront_id' => :'storefrontId',
         :'channel' => :'channel',
         :'channel_label' => :'channelLabel',
+        :'kind' => :'kind',
         :'name' => :'name',
         :'format' => :'format',
         :'formats' => :'formats',
+        :'format_labels' => :'formatLabels',
         :'enabled' => :'enabled',
         :'url' => :'url',
         :'urls' => :'urls',
         :'destination' => :'destination',
+        :'recommended_schedule' => :'recommendedSchedule',
         :'filters' => :'filters',
         :'settings' => :'settings',
         :'token_rotated_at' => :'tokenRotatedAt',
+        :'previous_url_expires_at' => :'previousUrlExpiresAt',
         :'last_fetched_at' => :'lastFetchedAt',
         :'last_fetched_by' => :'lastFetchedBy',
         :'fetch_count' => :'fetchCount',
@@ -112,18 +128,23 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
+        :'storefront_id' => :'String',
         :'channel' => :'String',
         :'channel_label' => :'String',
+        :'kind' => :'String',
         :'name' => :'String',
         :'format' => :'String',
         :'formats' => :'Array<ListProductFeedsItemFormatsItem>',
+        :'format_labels' => :'ListProductFeedsItemFormatLabels',
         :'enabled' => :'Boolean',
         :'url' => :'String',
-        :'urls' => :'ListProductFeedsItemUrls',
+        :'urls' => :'ListProductFeedsItemFormatLabels',
         :'destination' => :'String',
+        :'recommended_schedule' => :'String',
         :'filters' => :'ListProductFeedsItemFilters',
         :'settings' => :'ListProductFeedsItemSettings',
         :'token_rotated_at' => :'String',
+        :'previous_url_expires_at' => :'String',
         :'last_fetched_at' => :'String',
         :'last_fetched_by' => :'String',
         :'fetch_count' => :'Float',
@@ -137,7 +158,9 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'storefront_id',
         :'token_rotated_at',
+        :'previous_url_expires_at',
         :'last_fetched_at',
         :'last_fetched_by',
         :'last_item_count',
@@ -164,12 +187,20 @@ module Crossly
         self.id = attributes[:'id']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'channel')
         self.channel = attributes[:'channel']
       end
 
       if attributes.key?(:'channel_label')
         self.channel_label = attributes[:'channel_label']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'name')
@@ -184,6 +215,10 @@ module Crossly
         if (value = attributes[:'formats']).is_a?(Array)
           self.formats = value
         end
+      end
+
+      if attributes.key?(:'format_labels')
+        self.format_labels = attributes[:'format_labels']
       end
 
       if attributes.key?(:'enabled')
@@ -202,6 +237,10 @@ module Crossly
         self.destination = attributes[:'destination']
       end
 
+      if attributes.key?(:'recommended_schedule')
+        self.recommended_schedule = attributes[:'recommended_schedule']
+      end
+
       if attributes.key?(:'filters')
         self.filters = attributes[:'filters']
       end
@@ -212,6 +251,10 @@ module Crossly
 
       if attributes.key?(:'token_rotated_at')
         self.token_rotated_at = attributes[:'token_rotated_at']
+      end
+
+      if attributes.key?(:'previous_url_expires_at')
+        self.previous_url_expires_at = attributes[:'previous_url_expires_at']
       end
 
       if attributes.key?(:'last_fetched_at')
@@ -259,6 +302,10 @@ module Crossly
         invalid_properties.push('invalid value for "channel_label", channel_label cannot be nil.')
       end
 
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
       end
@@ -269,6 +316,10 @@ module Crossly
 
       if @formats.nil?
         invalid_properties.push('invalid value for "formats", formats cannot be nil.')
+      end
+
+      if @format_labels.nil?
+        invalid_properties.push('invalid value for "format_labels", format_labels cannot be nil.')
       end
 
       if @enabled.nil?
@@ -285,6 +336,10 @@ module Crossly
 
       if @destination.nil?
         invalid_properties.push('invalid value for "destination", destination cannot be nil.')
+      end
+
+      if @recommended_schedule.nil?
+        invalid_properties.push('invalid value for "recommended_schedule", recommended_schedule cannot be nil.')
       end
 
       if @filters.nil?
@@ -315,18 +370,23 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @channel.nil?
-      channel_validator = EnumAttributeValidator.new('String', ["google", "meta", "tiktok"])
+      channel_validator = EnumAttributeValidator.new('String', ["json", "google", "tiktok", "meta", "pinterest", "bing", "snapchat", "rss", "csv"])
       return false unless channel_validator.valid?(@channel)
       return false if @channel_label.nil?
+      return false if @kind.nil?
+      kind_validator = EnumAttributeValidator.new('String', ["marketplace", "generic"])
+      return false unless kind_validator.valid?(@kind)
       return false if @name.nil?
       return false if @format.nil?
-      format_validator = EnumAttributeValidator.new('String', ["xml", "tsv", "csv"])
+      format_validator = EnumAttributeValidator.new('String', ["json", "csv", "xml", "tsv", "atom"])
       return false unless format_validator.valid?(@format)
       return false if @formats.nil?
+      return false if @format_labels.nil?
       return false if @enabled.nil?
       return false if @url.nil?
       return false if @urls.nil?
       return false if @destination.nil?
+      return false if @recommended_schedule.nil?
       return false if @filters.nil?
       return false if @settings.nil?
       return false if @fetch_count.nil?
@@ -338,7 +398,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] channel Object to be assigned
     def channel=(channel)
-      validator = EnumAttributeValidator.new('String', ["google", "meta", "tiktok"])
+      validator = EnumAttributeValidator.new('String', ["json", "google", "tiktok", "meta", "pinterest", "bing", "snapchat", "rss", "csv"])
       unless validator.valid?(channel)
         fail ArgumentError, "invalid value for \"channel\", must be one of #{validator.allowable_values}."
       end
@@ -346,9 +406,19 @@ module Crossly
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] kind Object to be assigned
+    def kind=(kind)
+      validator = EnumAttributeValidator.new('String', ["marketplace", "generic"])
+      unless validator.valid?(kind)
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
+      end
+      @kind = kind
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] format Object to be assigned
     def format=(format)
-      validator = EnumAttributeValidator.new('String', ["xml", "tsv", "csv"])
+      validator = EnumAttributeValidator.new('String', ["json", "csv", "xml", "tsv", "atom"])
       unless validator.valid?(format)
         fail ArgumentError, "invalid value for \"format\", must be one of #{validator.allowable_values}."
       end
@@ -361,18 +431,23 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          storefront_id == o.storefront_id &&
           channel == o.channel &&
           channel_label == o.channel_label &&
+          kind == o.kind &&
           name == o.name &&
           format == o.format &&
           formats == o.formats &&
+          format_labels == o.format_labels &&
           enabled == o.enabled &&
           url == o.url &&
           urls == o.urls &&
           destination == o.destination &&
+          recommended_schedule == o.recommended_schedule &&
           filters == o.filters &&
           settings == o.settings &&
           token_rotated_at == o.token_rotated_at &&
+          previous_url_expires_at == o.previous_url_expires_at &&
           last_fetched_at == o.last_fetched_at &&
           last_fetched_by == o.last_fetched_by &&
           fetch_count == o.fetch_count &&
@@ -391,7 +466,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, channel, channel_label, name, format, formats, enabled, url, urls, destination, filters, settings, token_rotated_at, last_fetched_at, last_fetched_by, fetch_count, last_item_count, last_stats, created_at, updated_at].hash
+      [id, storefront_id, channel, channel_label, kind, name, format, formats, format_labels, enabled, url, urls, destination, recommended_schedule, filters, settings, token_rotated_at, previous_url_expires_at, last_fetched_at, last_fetched_by, fetch_count, last_item_count, last_stats, created_at, updated_at].hash
     end
 
     # Builds the object from hash

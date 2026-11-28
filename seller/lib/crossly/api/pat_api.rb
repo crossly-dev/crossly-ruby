@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Mint a new PAT. Full token returned ONCE — store it on the client.
+    # @param create_pat_request [CreatePatRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreatePatResponse]
-    def create_pat(opts = {})
-      data, _status_code, _headers = create_pat_with_http_info(opts)
+    def create_pat(create_pat_request, opts = {})
+      data, _status_code, _headers = create_pat_with_http_info(create_pat_request, opts)
       data
     end
 
     # Mint a new PAT. Full token returned ONCE — store it on the client.
+    # @param create_pat_request [CreatePatRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreatePatResponse, Integer, Hash)>] CreatePatResponse data, response status code and response headers
-    def create_pat_with_http_info(opts = {})
+    def create_pat_with_http_info(create_pat_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PATApi.create_pat ...'
+      end
+      # verify the required parameter 'create_pat_request' is set
+      if @api_client.config.client_side_validation && create_pat_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_pat_request' when calling PATApi.create_pat"
       end
       # resource path
       local_var_path = '/v1/pat'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_pat_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatePatResponse'
@@ -190,7 +201,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List the caller's PATs (preview only).
+    # List the caller's PATs (preview only). Optional: q (name or prefix), scope, lastUsed (7d|30d|90d|never|stale), status (active|expired|revoked|all), page, pageSize.
     # @param [Hash] opts the optional parameters
     # @return [ListPatResponse]
     def list_pat(opts = {})
@@ -198,7 +209,7 @@ module Crossly
       data
     end
 
-    # List the caller&#39;s PATs (preview only).
+    # List the caller&#39;s PATs (preview only). Optional: q (name or prefix), scope, lastUsed (7d|30d|90d|never|stale), status (active|expired|revoked|all), page, pageSize.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListPatResponse, Integer, Hash)>] ListPatResponse data, response status code and response headers
     def list_pat_with_http_info(opts = {})

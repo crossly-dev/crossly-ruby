@@ -248,7 +248,7 @@ module Crossly
       type_validator = EnumAttributeValidator.new('String', ["delist", "update", "relist", "submit_tracking", "remove_tracking", "cancel_order", "refund_order", "message_buyer"])
       return false unless type_validator.valid?(@type)
       return false if @state.nil?
-      state_validator = EnumAttributeValidator.new('String', ["pending", "completed", "cancelled", "failed", "expired", "acked"])
+      state_validator = EnumAttributeValidator.new('String', ["expired", "pending", "completed", "cancelled", "failed", "acked"])
       return false unless state_validator.valid?(@state)
       return false if @listing_id.nil?
       return false if @platform.nil?
@@ -272,7 +272,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ["pending", "completed", "cancelled", "failed", "expired", "acked"])
+      validator = EnumAttributeValidator.new('String', ["expired", "pending", "completed", "cancelled", "failed", "acked"])
       unless validator.valid?(state)
         fail ArgumentError, "invalid value for \"state\", must be one of #{validator.allowable_values}."
       end

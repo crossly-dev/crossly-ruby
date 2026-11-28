@@ -23,6 +23,7 @@ module Crossly
     # @param experience_id [String] 
     # @param place_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperiencePlacePackageRequest] :create_world_experience_place_package_request 
     # @return [CreateWorldExperiencePlacePackageResponse]
     def create_world_experience_place_package(experience_id, place_id, opts = {})
       data, _status_code, _headers = create_world_experience_place_package_with_http_info(experience_id, place_id, opts)
@@ -33,6 +34,7 @@ module Crossly
     # @param experience_id [String] 
     # @param place_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperiencePlacePackageRequest] :create_world_experience_place_package_request 
     # @return [Array<(CreateWorldExperiencePlacePackageResponse, Integer, Hash)>] CreateWorldExperiencePlacePackageResponse data, response status code and response headers
     def create_world_experience_place_package_with_http_info(experience_id, place_id, opts = {})
       if @api_client.config.debugging
@@ -56,12 +58,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_place_package_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperiencePlacePackageResponse'
@@ -91,6 +98,7 @@ module Crossly
     # @param place_id [String] 
     # @param node_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperiencePlacePackageUpdateRequest] :create_world_experience_place_package_update_request 
     # @return [CreateWorldExperiencePlacePackageUpdateResponse]
     def create_world_experience_place_package_update(experience_id, place_id, node_id, opts = {})
       data, _status_code, _headers = create_world_experience_place_package_update_with_http_info(experience_id, place_id, node_id, opts)
@@ -102,6 +110,7 @@ module Crossly
     # @param place_id [String] 
     # @param node_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperiencePlacePackageUpdateRequest] :create_world_experience_place_package_update_request 
     # @return [Array<(CreateWorldExperiencePlacePackageUpdateResponse, Integer, Hash)>] CreateWorldExperiencePlacePackageUpdateResponse data, response status code and response headers
     def create_world_experience_place_package_update_with_http_info(experience_id, place_id, node_id, opts = {})
       if @api_client.config.debugging
@@ -129,12 +138,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_place_package_update_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperiencePlacePackageUpdateResponse'
@@ -161,6 +175,7 @@ module Crossly
 
     # Create a package (v1) from one node (place JSON) or from a node in a place — which then becomes copy v1, auto-updating.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPackageRequest] :create_world_package_request 
     # @return [GetWorldPackageResponse]
     def create_world_package(opts = {})
       data, _status_code, _headers = create_world_package_with_http_info(opts)
@@ -169,6 +184,7 @@ module Crossly
 
     # Create a package (v1) from one node (place JSON) or from a node in a place — which then becomes copy v1, auto-updating.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPackageRequest] :create_world_package_request 
     # @return [Array<(GetWorldPackageResponse, Integer, Hash)>] GetWorldPackageResponse data, response status code and response headers
     def create_world_package_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -184,12 +200,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_package_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldPackageResponse'
@@ -217,6 +238,7 @@ module Crossly
     # List the latest version in the Toolbox as an asset of kind package (Toolbox review and pricing rules apply).
     # @param package_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPackageToolboxRequest] :create_world_package_toolbox_request 
     # @return [CreateWorldPackageToolboxResponse]
     def create_world_package_toolbox(package_id, opts = {})
       data, _status_code, _headers = create_world_package_toolbox_with_http_info(package_id, opts)
@@ -226,6 +248,7 @@ module Crossly
     # List the latest version in the Toolbox as an asset of kind package (Toolbox review and pricing rules apply).
     # @param package_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPackageToolboxRequest] :create_world_package_toolbox_request 
     # @return [Array<(CreateWorldPackageToolboxResponse, Integer, Hash)>] CreateWorldPackageToolboxResponse data, response status code and response headers
     def create_world_package_toolbox_with_http_info(package_id, opts = {})
       if @api_client.config.debugging
@@ -245,12 +268,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_package_toolbox_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPackageToolboxResponse'
@@ -278,6 +306,7 @@ module Crossly
     # Publish a new version; every auto-updating, unmodified copy in your places is updated through its co-editing session. Returns what happened per place.
     # @param package_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPackageVersionRequest] :create_world_package_version_request 
     # @return [CreateWorldPackageVersionResponse]
     def create_world_package_version(package_id, opts = {})
       data, _status_code, _headers = create_world_package_version_with_http_info(package_id, opts)
@@ -287,6 +316,7 @@ module Crossly
     # Publish a new version; every auto-updating, unmodified copy in your places is updated through its co-editing session. Returns what happened per place.
     # @param package_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPackageVersionRequest] :create_world_package_version_request 
     # @return [Array<(CreateWorldPackageVersionResponse, Integer, Hash)>] CreateWorldPackageVersionResponse data, response status code and response headers
     def create_world_package_version_with_http_info(package_id, opts = {})
       if @api_client.config.debugging
@@ -306,12 +336,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_package_version_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPackageVersionResponse'
@@ -594,6 +629,7 @@ module Crossly
 
     # Your package library: reusable models and modules, newest first, with how many places hold copies.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :archived 
     # @return [ListWorldPackagesResponse]
     def list_world_packages(opts = {})
       data, _status_code, _headers = list_world_packages_with_http_info(opts)
@@ -602,16 +638,22 @@ module Crossly
 
     # Your package library: reusable models and modules, newest first, with how many places hold copies.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :archived 
     # @return [Array<(ListWorldPackagesResponse, Integer, Hash)>] ListWorldPackagesResponse data, response status code and response headers
     def list_world_packages_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldsPackagesApi.list_world_packages ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'archived'] && !allowable_values.include?(opts[:'archived'])
+        fail ArgumentError, "invalid value for \"archived\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/worlds/packages'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'archived'] = opts[:'archived'] if !opts[:'archived'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -652,6 +694,7 @@ module Crossly
     # @param place_id [String] 
     # @param node_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperiencePlacePackageRequest] :update_world_experience_place_package_request 
     # @return [UpdateWorldExperiencePlacePackageResponse]
     def update_world_experience_place_package(experience_id, place_id, node_id, opts = {})
       data, _status_code, _headers = update_world_experience_place_package_with_http_info(experience_id, place_id, node_id, opts)
@@ -663,6 +706,7 @@ module Crossly
     # @param place_id [String] 
     # @param node_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperiencePlacePackageRequest] :update_world_experience_place_package_request 
     # @return [Array<(UpdateWorldExperiencePlacePackageResponse, Integer, Hash)>] UpdateWorldExperiencePlacePackageResponse data, response status code and response headers
     def update_world_experience_place_package_with_http_info(experience_id, place_id, node_id, opts = {})
       if @api_client.config.debugging
@@ -690,12 +734,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_place_package_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldExperiencePlacePackageResponse'
@@ -723,6 +772,7 @@ module Crossly
     # Rename a package or change its description.
     # @param package_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldPackageRequest] :update_world_package_request 
     # @return [DeleteWorldPackageResponse]
     def update_world_package(package_id, opts = {})
       data, _status_code, _headers = update_world_package_with_http_info(package_id, opts)
@@ -732,6 +782,7 @@ module Crossly
     # Rename a package or change its description.
     # @param package_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldPackageRequest] :update_world_package_request 
     # @return [Array<(DeleteWorldPackageResponse, Integer, Hash)>] DeleteWorldPackageResponse data, response status code and response headers
     def update_world_package_with_http_info(package_id, opts = {})
       if @api_client.config.debugging
@@ -751,12 +802,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_package_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'DeleteWorldPackageResponse'

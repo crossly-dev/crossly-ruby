@@ -82,7 +82,7 @@ This endpoint does not need any parameter.
 
 ## create_sandbox_simulate_inventory
 
-> <CreateInboxConversationBulkResponse> create_sandbox_simulate_inventory
+> <CreateInboxConversationBulkResponse> create_sandbox_simulate_inventory(create_sandbox_simulate_inventory_request)
 
 Change stock (set, increase or decrease); the new quantity is pushed to every channel.
 
@@ -98,10 +98,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+create_sandbox_simulate_inventory_request = Crossly::CreateSandboxSimulateInventoryRequest.new({mode: 'set', value: 3.56}) # CreateSandboxSimulateInventoryRequest | 
 
 begin
   # Change stock (set, increase or decrease); the new quantity is pushed to every channel.
-  result = api_instance.create_sandbox_simulate_inventory
+  result = api_instance.create_sandbox_simulate_inventory(create_sandbox_simulate_inventory_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_inventory: #{e}"
@@ -112,12 +113,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxConversationBulkResponse>, Integer, Hash)> create_sandbox_simulate_inventory_with_http_info
+> <Array(<CreateInboxConversationBulkResponse>, Integer, Hash)> create_sandbox_simulate_inventory_with_http_info(create_sandbox_simulate_inventory_request)
 
 ```ruby
 begin
   # Change stock (set, increase or decrease); the new quantity is pushed to every channel.
-  data, status_code, headers = api_instance.create_sandbox_simulate_inventory_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_inventory_with_http_info(create_sandbox_simulate_inventory_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxConversationBulkResponse>
@@ -128,7 +129,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sandbox_simulate_inventory_request** | **CreateSandboxSimulateInventoryRequest** |  |  |
 
 ### Return type
 
@@ -140,13 +143,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sandbox_simulate_listing_sold_out
 
-> <CreateSandboxSimulateListingSoldOutResponse> create_sandbox_simulate_listing_sold_out
+> <CreateSandboxSimulateListingSoldOutResponse> create_sandbox_simulate_listing_sold_out(create_sandbox_simulate_listing_sold_out_request)
 
 A listing sells out on a marketplace with no order (stock moves, other channels delist).
 
@@ -162,10 +165,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+create_sandbox_simulate_listing_sold_out_request = Crossly::CreateSandboxSimulateListingSoldOutRequest.new({listing_id: 'listing_id_example', platform: 'platform_example'}) # CreateSandboxSimulateListingSoldOutRequest | 
 
 begin
   # A listing sells out on a marketplace with no order (stock moves, other channels delist).
-  result = api_instance.create_sandbox_simulate_listing_sold_out
+  result = api_instance.create_sandbox_simulate_listing_sold_out(create_sandbox_simulate_listing_sold_out_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_listing_sold_out: #{e}"
@@ -176,12 +180,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSandboxSimulateListingSoldOutResponse>, Integer, Hash)> create_sandbox_simulate_listing_sold_out_with_http_info
+> <Array(<CreateSandboxSimulateListingSoldOutResponse>, Integer, Hash)> create_sandbox_simulate_listing_sold_out_with_http_info(create_sandbox_simulate_listing_sold_out_request)
 
 ```ruby
 begin
   # A listing sells out on a marketplace with no order (stock moves, other channels delist).
-  data, status_code, headers = api_instance.create_sandbox_simulate_listing_sold_out_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_listing_sold_out_with_http_info(create_sandbox_simulate_listing_sold_out_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSandboxSimulateListingSoldOutResponse>
@@ -192,7 +196,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sandbox_simulate_listing_sold_out_request** | **CreateSandboxSimulateListingSoldOutRequest** |  |  |
 
 ### Return type
 
@@ -204,13 +210,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sandbox_simulate_order
 
-> <CreateSandboxSimulateOrderResponse> create_sandbox_simulate_order
+> <CreateSandboxSimulateOrderResponse> create_sandbox_simulate_order(create_sandbox_simulate_order_request)
 
 Simulate a sale through the real sale pipeline (order.created, sale.detected, stock and cross-channel updates).
 
@@ -226,10 +232,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+create_sandbox_simulate_order_request = Crossly::CreateSandboxSimulateOrderRequest.new({lines: [Crossly::CreateSandboxSimulateOrderRequestLines.new]}) # CreateSandboxSimulateOrderRequest | 
 
 begin
   # Simulate a sale through the real sale pipeline (order.created, sale.detected, stock and cross-channel updates).
-  result = api_instance.create_sandbox_simulate_order
+  result = api_instance.create_sandbox_simulate_order(create_sandbox_simulate_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_order: #{e}"
@@ -240,12 +247,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSandboxSimulateOrderResponse>, Integer, Hash)> create_sandbox_simulate_order_with_http_info
+> <Array(<CreateSandboxSimulateOrderResponse>, Integer, Hash)> create_sandbox_simulate_order_with_http_info(create_sandbox_simulate_order_request)
 
 ```ruby
 begin
   # Simulate a sale through the real sale pipeline (order.created, sale.detected, stock and cross-channel updates).
-  data, status_code, headers = api_instance.create_sandbox_simulate_order_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_order_with_http_info(create_sandbox_simulate_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSandboxSimulateOrderResponse>
@@ -256,7 +263,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sandbox_simulate_order_request** | **CreateSandboxSimulateOrderRequest** |  |  |
 
 ### Return type
 
@@ -268,13 +277,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sandbox_simulate_order_address
 
-> <CreateSandboxSimulateOrderAddressResponse> create_sandbox_simulate_order_address
+> <CreateSandboxSimulateOrderAddressResponse> create_sandbox_simulate_order_address(create_sandbox_simulate_order_address_request)
 
 The buyer address of an order simulated with address \"delayed\" arrives now (order.address_available).
 
@@ -290,10 +299,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+create_sandbox_simulate_order_address_request = Crossly::CreateSandboxSimulateOrderAddressRequest.new({order_id: 'order_id_example'}) # CreateSandboxSimulateOrderAddressRequest | 
 
 begin
   # The buyer address of an order simulated with address \"delayed\" arrives now (order.address_available).
-  result = api_instance.create_sandbox_simulate_order_address
+  result = api_instance.create_sandbox_simulate_order_address(create_sandbox_simulate_order_address_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_order_address: #{e}"
@@ -304,12 +314,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSandboxSimulateOrderAddressResponse>, Integer, Hash)> create_sandbox_simulate_order_address_with_http_info
+> <Array(<CreateSandboxSimulateOrderAddressResponse>, Integer, Hash)> create_sandbox_simulate_order_address_with_http_info(create_sandbox_simulate_order_address_request)
 
 ```ruby
 begin
   # The buyer address of an order simulated with address \"delayed\" arrives now (order.address_available).
-  data, status_code, headers = api_instance.create_sandbox_simulate_order_address_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_order_address_with_http_info(create_sandbox_simulate_order_address_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSandboxSimulateOrderAddressResponse>
@@ -320,7 +330,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sandbox_simulate_order_address_request** | **CreateSandboxSimulateOrderAddressRequest** |  |  |
 
 ### Return type
 
@@ -332,13 +344,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sandbox_simulate_order_cancelled
 
-> <CreateSandboxSimulateOrderCancelledResponse> create_sandbox_simulate_order_cancelled
+> <CreateSandboxSimulateOrderCancelledResponse> create_sandbox_simulate_order_cancelled(order_id_reason_request)
 
 The buyer or the marketplace cancels an order (order.cancelled).
 
@@ -354,10 +366,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+order_id_reason_request = Crossly::OrderIdReasonRequest.new({order_id: 'order_id_example'}) # OrderIdReasonRequest | 
 
 begin
   # The buyer or the marketplace cancels an order (order.cancelled).
-  result = api_instance.create_sandbox_simulate_order_cancelled
+  result = api_instance.create_sandbox_simulate_order_cancelled(order_id_reason_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_order_cancelled: #{e}"
@@ -368,12 +381,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSandboxSimulateOrderCancelledResponse>, Integer, Hash)> create_sandbox_simulate_order_cancelled_with_http_info
+> <Array(<CreateSandboxSimulateOrderCancelledResponse>, Integer, Hash)> create_sandbox_simulate_order_cancelled_with_http_info(order_id_reason_request)
 
 ```ruby
 begin
   # The buyer or the marketplace cancels an order (order.cancelled).
-  data, status_code, headers = api_instance.create_sandbox_simulate_order_cancelled_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_order_cancelled_with_http_info(order_id_reason_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSandboxSimulateOrderCancelledResponse>
@@ -384,7 +397,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **order_id_reason_request** | **OrderIdReasonRequest** |  |  |
 
 ### Return type
 
@@ -396,13 +411,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sandbox_simulate_order_delivered
 
-> <CreateSandboxSimulateOrderDeliveredResponse> create_sandbox_simulate_order_delivered
+> <CreateSandboxSimulateOrderDeliveredResponse> create_sandbox_simulate_order_delivered(order_id_reason_request)
 
 The carrier delivers a shipped order (order.delivered).
 
@@ -418,10 +433,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+order_id_reason_request = Crossly::OrderIdReasonRequest.new({order_id: 'order_id_example'}) # OrderIdReasonRequest | 
 
 begin
   # The carrier delivers a shipped order (order.delivered).
-  result = api_instance.create_sandbox_simulate_order_delivered
+  result = api_instance.create_sandbox_simulate_order_delivered(order_id_reason_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_order_delivered: #{e}"
@@ -432,12 +448,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSandboxSimulateOrderDeliveredResponse>, Integer, Hash)> create_sandbox_simulate_order_delivered_with_http_info
+> <Array(<CreateSandboxSimulateOrderDeliveredResponse>, Integer, Hash)> create_sandbox_simulate_order_delivered_with_http_info(order_id_reason_request)
 
 ```ruby
 begin
   # The carrier delivers a shipped order (order.delivered).
-  data, status_code, headers = api_instance.create_sandbox_simulate_order_delivered_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_order_delivered_with_http_info(order_id_reason_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSandboxSimulateOrderDeliveredResponse>
@@ -448,7 +464,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **order_id_reason_request** | **OrderIdReasonRequest** |  |  |
 
 ### Return type
 
@@ -460,13 +478,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sandbox_simulate_refund
 
-> <CreateSandboxSimulateRefundResponse> create_sandbox_simulate_refund
+> <CreateSandboxSimulateRefundResponse> create_sandbox_simulate_refund(create_sandbox_simulate_refund_request)
 
 Refund an order in full or in part (refund.issued).
 
@@ -482,10 +500,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+create_sandbox_simulate_refund_request = Crossly::CreateSandboxSimulateRefundRequest.new({order_id: 'order_id_example'}) # CreateSandboxSimulateRefundRequest | 
 
 begin
   # Refund an order in full or in part (refund.issued).
-  result = api_instance.create_sandbox_simulate_refund
+  result = api_instance.create_sandbox_simulate_refund(create_sandbox_simulate_refund_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->create_sandbox_simulate_refund: #{e}"
@@ -496,12 +515,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSandboxSimulateRefundResponse>, Integer, Hash)> create_sandbox_simulate_refund_with_http_info
+> <Array(<CreateSandboxSimulateRefundResponse>, Integer, Hash)> create_sandbox_simulate_refund_with_http_info(create_sandbox_simulate_refund_request)
 
 ```ruby
 begin
   # Refund an order in full or in part (refund.issued).
-  data, status_code, headers = api_instance.create_sandbox_simulate_refund_with_http_info
+  data, status_code, headers = api_instance.create_sandbox_simulate_refund_with_http_info(create_sandbox_simulate_refund_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSandboxSimulateRefundResponse>
@@ -512,7 +531,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sandbox_simulate_refund_request** | **CreateSandboxSimulateRefundRequest** |  |  |
 
 ### Return type
 
@@ -524,7 +545,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -594,7 +615,7 @@ This endpoint does not need any parameter.
 
 ## list_sandbox_events
 
-> <ListSandboxEventsResponse> list_sandbox_events
+> <ListSandboxEventsResponse> list_sandbox_events(opts)
 
 The simulated marketplaces' call log: verb, channel, outcome, latency.
 
@@ -610,10 +631,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SandboxApi.new
+opts = {
+  limit: 8.14 # Float | 
+}
 
 begin
   # The simulated marketplaces' call log: verb, channel, outcome, latency.
-  result = api_instance.list_sandbox_events
+  result = api_instance.list_sandbox_events(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SandboxApi->list_sandbox_events: #{e}"
@@ -624,12 +648,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSandboxEventsResponse>, Integer, Hash)> list_sandbox_events_with_http_info
+> <Array(<ListSandboxEventsResponse>, Integer, Hash)> list_sandbox_events_with_http_info(opts)
 
 ```ruby
 begin
   # The simulated marketplaces' call log: verb, channel, outcome, latency.
-  data, status_code, headers = api_instance.list_sandbox_events_with_http_info
+  data, status_code, headers = api_instance.list_sandbox_events_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSandboxEventsResponse>
@@ -640,7 +664,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 

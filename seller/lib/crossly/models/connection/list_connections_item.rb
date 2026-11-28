@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class ListConnectionsItem
+    attr_accessor :attached_to_store
+
     attr_accessor :id
 
     attr_accessor :platform
@@ -32,6 +34,7 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'attached_to_store' => :'attachedToStore',
         :'id' => :'id',
         :'platform' => :'platform',
         :'is_active' => :'isActive',
@@ -50,6 +53,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'attached_to_store' => :'Boolean',
         :'id' => :'String',
         :'platform' => :'String',
         :'is_active' => :'Boolean',
@@ -63,6 +67,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'attached_to_store',
         :'shop_url',
         :'last_seen_active',
         :'token_expires_at',
@@ -84,6 +89,10 @@ module Crossly
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'attached_to_store')
+        self.attached_to_store = attributes[:'attached_to_store']
+      end
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
@@ -147,6 +156,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          attached_to_store == o.attached_to_store &&
           id == o.id &&
           platform == o.platform &&
           is_active == o.is_active &&
@@ -165,7 +175,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, platform, is_active, shop_url, last_seen_active, token_expires_at, created_at].hash
+      [attached_to_store, id, platform, is_active, shop_url, last_seen_active, token_expires_at, created_at].hash
     end
 
     # Builds the object from hash

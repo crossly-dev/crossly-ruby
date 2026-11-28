@@ -28,7 +28,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_buyer_identify
 
-> <CreateBuyerIdentifyResponse> create_buyer_identify
+> <CreateBuyerIdentifyResponse> create_buyer_identify(create_buyer_identify_request)
 
 Identify a held object and return a HUD-ready answer.
 
@@ -46,10 +46,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
+create_buyer_identify_request = CrosslyBuyer::CreateBuyerIdentifyRequest.new # CreateBuyerIdentifyRequest | 
 
 begin
   # Identify a held object and return a HUD-ready answer.
-  result = api_instance.create_buyer_identify
+  result = api_instance.create_buyer_identify(create_buyer_identify_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->create_buyer_identify: #{e}"
@@ -60,12 +61,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerIdentifyResponse>, Integer, Hash)> create_buyer_identify_with_http_info
+> <Array(<CreateBuyerIdentifyResponse>, Integer, Hash)> create_buyer_identify_with_http_info(create_buyer_identify_request)
 
 ```ruby
 begin
   # Identify a held object and return a HUD-ready answer.
-  data, status_code, headers = api_instance.create_buyer_identify_with_http_info
+  data, status_code, headers = api_instance.create_buyer_identify_with_http_info(create_buyer_identify_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerIdentifyResponse>
@@ -76,7 +77,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_identify_request** | **CreateBuyerIdentifyRequest** |  |  |
 
 ### Return type
 
@@ -88,13 +91,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_lockon
 
-> <CreateBuyerLockonResponse> create_buyer_lockon
+> <CreateBuyerLockonResponse> create_buyer_lockon(create_buyer_lockon_request)
 
 Lock on to an object the buyer is holding.
 
@@ -112,10 +115,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
+create_buyer_lockon_request = CrosslyBuyer::CreateBuyerLockonRequest.new({session_id: 'session_id_example'}) # CreateBuyerLockonRequest | 
 
 begin
   # Lock on to an object the buyer is holding.
-  result = api_instance.create_buyer_lockon
+  result = api_instance.create_buyer_lockon(create_buyer_lockon_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->create_buyer_lockon: #{e}"
@@ -126,12 +130,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerLockonResponse>, Integer, Hash)> create_buyer_lockon_with_http_info
+> <Array(<CreateBuyerLockonResponse>, Integer, Hash)> create_buyer_lockon_with_http_info(create_buyer_lockon_request)
 
 ```ruby
 begin
   # Lock on to an object the buyer is holding.
-  data, status_code, headers = api_instance.create_buyer_lockon_with_http_info
+  data, status_code, headers = api_instance.create_buyer_lockon_with_http_info(create_buyer_lockon_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerLockonResponse>
@@ -142,7 +146,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_lockon_request** | **CreateBuyerLockonRequest** |  |  |
 
 ### Return type
 
@@ -154,13 +160,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_lockon_confirm
 
-> <CreateBuyerLockonConfirmResponse> create_buyer_lockon_confirm(id)
+> <CreateBuyerLockonConfirmResponse> create_buyer_lockon_confirm(id, create_buyer_lockon_confirm_request)
 
 The buyer picked one of the candidates.
 
@@ -179,10 +185,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_buyer_lockon_confirm_request = CrosslyBuyer::CreateBuyerLockonConfirmRequest.new({ns: 'ns_example', value: 'value_example'}) # CreateBuyerLockonConfirmRequest | 
 
 begin
   # The buyer picked one of the candidates.
-  result = api_instance.create_buyer_lockon_confirm(id)
+  result = api_instance.create_buyer_lockon_confirm(id, create_buyer_lockon_confirm_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->create_buyer_lockon_confirm: #{e}"
@@ -193,12 +200,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerLockonConfirmResponse>, Integer, Hash)> create_buyer_lockon_confirm_with_http_info(id)
+> <Array(<CreateBuyerLockonConfirmResponse>, Integer, Hash)> create_buyer_lockon_confirm_with_http_info(id, create_buyer_lockon_confirm_request)
 
 ```ruby
 begin
   # The buyer picked one of the candidates.
-  data, status_code, headers = api_instance.create_buyer_lockon_confirm_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_lockon_confirm_with_http_info(id, create_buyer_lockon_confirm_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerLockonConfirmResponse>
@@ -212,6 +219,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_lockon_confirm_request** | **CreateBuyerLockonConfirmRequest** |  |  |
 
 ### Return type
 
@@ -223,13 +231,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_lockon_observe
 
-> <CreateBuyerLockonConfirmResponse> create_buyer_lockon_observe(id)
+> <CreateBuyerLockonConfirmResponse> create_buyer_lockon_observe(id, opts)
 
 Add what this frame revealed, and get the current best answer.
 
@@ -248,10 +256,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_buyer_lockon_observe_request: CrosslyBuyer::CreateBuyerLockonObserveRequest.new # CreateBuyerLockonObserveRequest | 
+}
 
 begin
   # Add what this frame revealed, and get the current best answer.
-  result = api_instance.create_buyer_lockon_observe(id)
+  result = api_instance.create_buyer_lockon_observe(id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->create_buyer_lockon_observe: #{e}"
@@ -262,12 +273,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerLockonConfirmResponse>, Integer, Hash)> create_buyer_lockon_observe_with_http_info(id)
+> <Array(<CreateBuyerLockonConfirmResponse>, Integer, Hash)> create_buyer_lockon_observe_with_http_info(id, opts)
 
 ```ruby
 begin
   # Add what this frame revealed, and get the current best answer.
-  data, status_code, headers = api_instance.create_buyer_lockon_observe_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_lockon_observe_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerLockonConfirmResponse>
@@ -281,6 +292,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_lockon_observe_request** | **CreateBuyerLockonObserveRequest** |  | [optional] |
 
 ### Return type
 
@@ -292,13 +304,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_scan
 
-> <CreateBuyerScanResponse> create_buyer_scan
+> <CreateBuyerScanResponse> create_buyer_scan(create_buyer_scan_request)
 
 Identify a physical item and find the cheapest place to buy it.
 
@@ -316,10 +328,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
+create_buyer_scan_request = CrosslyBuyer::CreateBuyerScanRequest.new # CreateBuyerScanRequest | 
 
 begin
   # Identify a physical item and find the cheapest place to buy it.
-  result = api_instance.create_buyer_scan
+  result = api_instance.create_buyer_scan(create_buyer_scan_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->create_buyer_scan: #{e}"
@@ -330,12 +343,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerScanResponse>, Integer, Hash)> create_buyer_scan_with_http_info
+> <Array(<CreateBuyerScanResponse>, Integer, Hash)> create_buyer_scan_with_http_info(create_buyer_scan_request)
 
 ```ruby
 begin
   # Identify a physical item and find the cheapest place to buy it.
-  data, status_code, headers = api_instance.create_buyer_scan_with_http_info
+  data, status_code, headers = api_instance.create_buyer_scan_with_http_info(create_buyer_scan_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerScanResponse>
@@ -346,7 +359,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_scan_request** | **CreateBuyerScanRequest** |  |  |
 
 ### Return type
 
@@ -358,13 +373,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_scan_session
 
-> <CreateBuyerScanSessionResponse> create_buyer_scan_session
+> <CreateBuyerScanSessionResponse> create_buyer_scan_session(opts)
 
 Open a Live Shop session.
 
@@ -382,10 +397,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
+opts = {
+  create_buyer_scan_session_request: CrosslyBuyer::CreateBuyerScanSessionRequest.new # CreateBuyerScanSessionRequest | 
+}
 
 begin
   # Open a Live Shop session.
-  result = api_instance.create_buyer_scan_session
+  result = api_instance.create_buyer_scan_session(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->create_buyer_scan_session: #{e}"
@@ -396,12 +414,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerScanSessionResponse>, Integer, Hash)> create_buyer_scan_session_with_http_info
+> <Array(<CreateBuyerScanSessionResponse>, Integer, Hash)> create_buyer_scan_session_with_http_info(opts)
 
 ```ruby
 begin
   # Open a Live Shop session.
-  data, status_code, headers = api_instance.create_buyer_scan_session_with_http_info
+  data, status_code, headers = api_instance.create_buyer_scan_session_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerScanSessionResponse>
@@ -412,7 +430,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_scan_session_request** | **CreateBuyerScanSessionRequest** |  | [optional] |
 
 ### Return type
 
@@ -424,7 +444,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -497,7 +517,7 @@ end
 
 ## get_buyer_anywhere
 
-> <GetBuyerAnywhereResponse> get_buyer_anywhere
+> <GetBuyerAnywhereResponse> get_buyer_anywhere(ns, value, opts)
 
 Cheapest source for an item — Crossly first, then other retailers.
 
@@ -515,10 +535,16 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
+ns = 'discogs' # String | An identifier the item actually carries. No free-text fallback, ever — see docs/IDENTIFIER-FIRST.md. A title-matched \"cheaper elsewhere\" is a claim about a different product.  The ALLOW-LIST, not a free string. `compare.ts` explains why: the namespace goes straight into a query, and an open passthrough lets a caller enumerate every namespace we hold — a map of the catalogue's provenance. Reusing the same list here keeps the two from drifting.
+value = 'value_example' # String | 
+opts = {
+  page_price_cents: 8.14, # Float | What the buyer is looking at, so \"cheaper\" means cheaper than THAT.
+  currency: 'currency_example' # String | 
+}
 
 begin
   # Cheapest source for an item — Crossly first, then other retailers.
-  result = api_instance.get_buyer_anywhere
+  result = api_instance.get_buyer_anywhere(ns, value, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->get_buyer_anywhere: #{e}"
@@ -529,12 +555,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetBuyerAnywhereResponse>, Integer, Hash)> get_buyer_anywhere_with_http_info
+> <Array(<GetBuyerAnywhereResponse>, Integer, Hash)> get_buyer_anywhere_with_http_info(ns, value, opts)
 
 ```ruby
 begin
   # Cheapest source for an item — Crossly first, then other retailers.
-  data, status_code, headers = api_instance.get_buyer_anywhere_with_http_info
+  data, status_code, headers = api_instance.get_buyer_anywhere_with_http_info(ns, value, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetBuyerAnywhereResponse>
@@ -545,7 +571,12 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ns** | **String** | An identifier the item actually carries. No free-text fallback, ever — see docs/IDENTIFIER-FIRST.md. A title-matched \&quot;cheaper elsewhere\&quot; is a claim about a different product.  The ALLOW-LIST, not a free string. &#x60;compare.ts&#x60; explains why: the namespace goes straight into a query, and an open passthrough lets a caller enumerate every namespace we hold — a map of the catalogue&#39;s provenance. Reusing the same list here keeps the two from drifting. |  |
+| **value** | **String** |  |  |
+| **page_price_cents** | **Float** | What the buyer is looking at, so \&quot;cheaper\&quot; means cheaper than THAT. | [optional] |
+| **currency** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1086,7 +1117,16 @@ opts = {
   min_price_cents: 56, # Integer | Lowest price, in cents.
   max_price_cents: 56, # Integer | Highest price, in cents.
   page: 56, # Integer | 1-indexed page.
-  limit: 56 # Integer | Rows per page.
+  limit: 56, # Integer | Rows per page.
+  brand: 'brand_example', # String | 
+  condition: 'condition_example', # String | 
+  category: 'category_example', # String | 
+  subcategory: 'subcategory_example', # String | 
+  free_shipping: 'true', # String | 
+  local_pickup: 'true', # String | 
+  deals: 'true', # String | 
+  state: 'state_example', # String | 
+  zip: 'zip_example' # String | 
 }
 
 begin
@@ -1132,6 +1172,15 @@ end
 | **max_price_cents** | **Integer** | Highest price, in cents. | [optional] |
 | **page** | **Integer** | 1-indexed page. | [optional][default to 1] |
 | **limit** | **Integer** | Rows per page. | [optional][default to 24] |
+| **brand** | **String** |  | [optional] |
+| **condition** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **subcategory** | **String** |  | [optional] |
+| **free_shipping** | **String** |  | [optional] |
+| **local_pickup** | **String** |  | [optional] |
+| **deals** | **String** |  | [optional] |
+| **state** | **String** |  | [optional] |
+| **zip** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1218,7 +1267,7 @@ end
 
 ## list_buyer_catalog_search
 
-> <ListBuyerCatalogSearchResponse> list_buyer_catalog_search
+> <ListBuyerCatalogSearchResponse> list_buyer_catalog_search(opts)
 
 Search the Crossly catalogue.
 
@@ -1236,10 +1285,24 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCatalogApi.new
+opts = {
+  q: 'q_example', # String | 
+  brand: 'brand_example', # String | 
+  category: 'category_example', # String | 
+  condition: 'condition_example', # String | 
+  seller: 'seller_example', # String | 
+  min_price_cents: 8.14, # Float | 
+  max_price_cents: 8.14, # Float | 
+  listed_after: 'listed_after_example', # String | 
+  in_stock_only: 'true', # String | 
+  sort: 'newest', # String | 
+  limit: 8.14, # Float | 
+  cursor: 'cursor_example' # String | 
+}
 
 begin
   # Search the Crossly catalogue.
-  result = api_instance.list_buyer_catalog_search
+  result = api_instance.list_buyer_catalog_search(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCatalogApi->list_buyer_catalog_search: #{e}"
@@ -1250,12 +1313,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerCatalogSearchResponse>, Integer, Hash)> list_buyer_catalog_search_with_http_info
+> <Array(<ListBuyerCatalogSearchResponse>, Integer, Hash)> list_buyer_catalog_search_with_http_info(opts)
 
 ```ruby
 begin
   # Search the Crossly catalogue.
-  data, status_code, headers = api_instance.list_buyer_catalog_search_with_http_info
+  data, status_code, headers = api_instance.list_buyer_catalog_search_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerCatalogSearchResponse>
@@ -1266,7 +1329,20 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  | [optional] |
+| **brand** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **condition** | **String** |  | [optional] |
+| **seller** | **String** |  | [optional] |
+| **min_price_cents** | **Float** |  | [optional] |
+| **max_price_cents** | **Float** |  | [optional] |
+| **listed_after** | **String** |  | [optional] |
+| **in_stock_only** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **cursor** | **String** |  | [optional] |
 
 ### Return type
 

@@ -19,11 +19,14 @@ module Crossly
 
     attr_accessor :delivery_id
 
+    attr_accessor :message
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'ok' => :'ok',
-        :'delivery_id' => :'deliveryId'
+        :'delivery_id' => :'deliveryId',
+        :'message' => :'message'
       }
     end
 
@@ -36,13 +39,16 @@ module Crossly
     def self.openapi_types
       {
         :'ok' => :'Boolean',
-        :'delivery_id' => :'String'
+        :'delivery_id' => :'String',
+        :'message' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'delivery_id',
+        :'message'
       ])
     end
 
@@ -68,6 +74,10 @@ module Crossly
       if attributes.key?(:'delivery_id')
         self.delivery_id = attributes[:'delivery_id']
       end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -78,10 +88,6 @@ module Crossly
         invalid_properties.push('invalid value for "ok", ok cannot be nil.')
       end
 
-      if @delivery_id.nil?
-        invalid_properties.push('invalid value for "delivery_id", delivery_id cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -89,7 +95,6 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @ok.nil?
-      return false if @delivery_id.nil?
       true
     end
 
@@ -99,7 +104,8 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           ok == o.ok &&
-          delivery_id == o.delivery_id
+          delivery_id == o.delivery_id &&
+          message == o.message
     end
 
     # @see the `==` method
@@ -111,7 +117,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ok, delivery_id].hash
+      [ok, delivery_id, message].hash
     end
 
     # Builds the object from hash

@@ -35,7 +35,7 @@ module Crossly
 
     attr_accessor :values
 
-    attr_accessor :__async_iterator6022
+    attr_accessor :__async_iterator5986
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -47,7 +47,7 @@ module Crossly
         :'pipe_to' => :'pipeTo',
         :'tee' => :'tee',
         :'values' => :'values',
-        :'__async_iterator6022' => :'__@asyncIterator@6022'
+        :'__async_iterator5986' => :'__@asyncIterator@5986'
       }
     end
 
@@ -66,7 +66,7 @@ module Crossly
         :'pipe_to' => :'Hash<String, Object>',
         :'tee' => :'Hash<String, Object>',
         :'values' => :'Hash<String, Object>',
-        :'__async_iterator6022' => :'Hash<String, Object>'
+        :'__async_iterator5986' => :'Hash<String, Object>'
       }
     end
 
@@ -131,9 +131,9 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'__async_iterator6022')
-        if (value = attributes[:'__async_iterator6022']).is_a?(Hash)
-          self.__async_iterator6022 = value
+      if attributes.key?(:'__async_iterator5986')
+        if (value = attributes[:'__async_iterator5986']).is_a?(Hash)
+          self.__async_iterator5986 = value
         end
       end
     end
@@ -170,8 +170,8 @@ module Crossly
         invalid_properties.push('invalid value for "values", values cannot be nil.')
       end
 
-      if @__async_iterator6022.nil?
-        invalid_properties.push('invalid value for "__async_iterator6022", __async_iterator6022 cannot be nil.')
+      if @__async_iterator5986.nil?
+        invalid_properties.push('invalid value for "__async_iterator5986", __async_iterator5986 cannot be nil.')
       end
 
       invalid_properties
@@ -187,7 +187,7 @@ module Crossly
       return false if @pipe_to.nil?
       return false if @tee.nil?
       return false if @values.nil?
-      return false if @__async_iterator6022.nil?
+      return false if @__async_iterator5986.nil?
       true
     end
 
@@ -203,7 +203,7 @@ module Crossly
           pipe_to == o.pipe_to &&
           tee == o.tee &&
           values == o.values &&
-          __async_iterator6022 == o.__async_iterator6022
+          __async_iterator5986 == o.__async_iterator5986
     end
 
     # @see the `==` method
@@ -215,7 +215,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [locked, cancel, get_reader, pipe_through, pipe_to, tee, values, __async_iterator6022].hash
+      [locked, cancel, get_reader, pipe_through, pipe_to, tee, values, __async_iterator5986].hash
     end
 
     # Builds the object from hash

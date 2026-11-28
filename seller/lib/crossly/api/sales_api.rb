@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Bulk soft-delete sales rows.
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSaleBulkDeleteResponse]
-    def create_sale_bulk_delete(opts = {})
-      data, _status_code, _headers = create_sale_bulk_delete_with_http_info(opts)
+    def create_sale_bulk_delete(create_listing_by_id_request, opts = {})
+      data, _status_code, _headers = create_sale_bulk_delete_with_http_info(create_listing_by_id_request, opts)
       data
     end
 
     # Bulk soft-delete sales rows.
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSaleBulkDeleteResponse, Integer, Hash)>] CreateSaleBulkDeleteResponse data, response status code and response headers
-    def create_sale_bulk_delete_with_http_info(opts = {})
+    def create_sale_bulk_delete_with_http_info(create_listing_by_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SalesApi.create_sale_bulk_delete ...'
+      end
+      # verify the required parameter 'create_listing_by_id_request' is set
+      if @api_client.config.client_side_validation && create_listing_by_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_by_id_request' when calling SalesApi.create_sale_bulk_delete"
       end
       # resource path
       local_var_path = '/v1/sales/bulk-delete'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_by_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSaleBulkDeleteResponse'
@@ -76,6 +87,8 @@ module Crossly
 
     # List sales (each unique sale event).
     # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :page  (default to 1)
+    # @option opts [Integer] :limit  (default to 25)
     # @return [ListSalesResponse]
     def list_sales(opts = {})
       data, _status_code, _headers = list_sales_with_http_info(opts)
@@ -84,16 +97,32 @@ module Crossly
 
     # List sales (each unique sale event).
     # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :page 
+    # @option opts [Integer] :limit 
     # @return [Array<(ListSalesResponse, Integer, Hash)>] ListSalesResponse data, response status code and response headers
     def list_sales_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SalesApi.list_sales ...'
       end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling SalesApi.list_sales, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling SalesApi.list_sales, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling SalesApi.list_sales, must be greater than or equal to 1.'
+      end
+
       # resource path
       local_var_path = '/v1/sales'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

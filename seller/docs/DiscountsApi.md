@@ -8,6 +8,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_automatic_discount_preview**](DiscountsApi.md#create_automatic_discount_preview) | **POST** /v1/automatic-discounts/preview | Preview a hypothetical cart of your listings against your automatic discounts (or an unsaved draft): what each line gets. |
 | [**create_discount_code**](DiscountsApi.md#create_discount_code) | **POST** /v1/discount-codes | Create a discount code: percent, fixed, free shipping, buy X get Y, spend tiers or a set price, with requirements, item scope, limits (total, per buyer, per day, budget, regions), schedule and stacking. |
 | [**create_discount_code_generate**](DiscountsApi.md#create_discount_code_generate) | **POST** /v1/discount-codes/{id}/generate | Generate up to 5,000 unique single-use codes with this code’s rules (their uses count toward its limits). |
+| [**create_discount_code_pause_all**](DiscountsApi.md#create_discount_code_pause_all) | **POST** /v1/discount-codes/pause-all | Pause every active discount code of the store at once (paused: true), or resume every paused one (paused: false). Archived codes are left alone; returns how many changed. |
 | [**create_discount_code_status**](DiscountsApi.md#create_discount_code_status) | **POST** /v1/discount-codes/{id}/status | Pause, resume (active) or archive a discount code. |
 | [**create_discount_holder**](DiscountsApi.md#create_discount_holder) | **POST** /v1/discounts/holders | Create a Collection holders deal in the store (X-Storefront-Id; default store when omitted). |
 | [**delete_automatic_discount**](DiscountsApi.md#delete_automatic_discount) | **DELETE** /v1/automatic-discounts/{id} | Delete an automatic discount. |
@@ -26,7 +27,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_automatic_discount
 
-> <CreateAutomaticDiscountResponse> create_automatic_discount
+> <CreateAutomaticDiscountResponse> create_automatic_discount(create_automatic_discount_request)
 
 Create an automatic discount.
 
@@ -42,10 +43,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DiscountsApi.new
+create_automatic_discount_request = Crossly::CreateAutomaticDiscountRequest.new({name: 'name_example', kind: 'quantity', tiers: [Crossly::MinQtyPercentBps.new({min_qty: 3.56, percent_bps: 3.56})]}) # CreateAutomaticDiscountRequest | 
 
 begin
   # Create an automatic discount.
-  result = api_instance.create_automatic_discount
+  result = api_instance.create_automatic_discount(create_automatic_discount_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->create_automatic_discount: #{e}"
@@ -56,12 +58,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateAutomaticDiscountResponse>, Integer, Hash)> create_automatic_discount_with_http_info
+> <Array(<CreateAutomaticDiscountResponse>, Integer, Hash)> create_automatic_discount_with_http_info(create_automatic_discount_request)
 
 ```ruby
 begin
   # Create an automatic discount.
-  data, status_code, headers = api_instance.create_automatic_discount_with_http_info
+  data, status_code, headers = api_instance.create_automatic_discount_with_http_info(create_automatic_discount_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateAutomaticDiscountResponse>
@@ -72,7 +74,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_automatic_discount_request** | **CreateAutomaticDiscountRequest** |  |  |
 
 ### Return type
 
@@ -84,13 +88,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_automatic_discount_preview
 
-> <CreateAutomaticDiscountPreviewResponse> create_automatic_discount_preview
+> <CreateAutomaticDiscountPreviewResponse> create_automatic_discount_preview(create_automatic_discount_preview_request)
 
 Preview a hypothetical cart of your listings against your automatic discounts (or an unsaved draft): what each line gets.
 
@@ -106,10 +110,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DiscountsApi.new
+create_automatic_discount_preview_request = Crossly::CreateAutomaticDiscountPreviewRequest.new({cart: [Crossly::CreateAutomaticDiscountPreviewRequestCart.new({platform_listing_id: 'platform_listing_id_example', quantity: 3.56})]}) # CreateAutomaticDiscountPreviewRequest | 
 
 begin
   # Preview a hypothetical cart of your listings against your automatic discounts (or an unsaved draft): what each line gets.
-  result = api_instance.create_automatic_discount_preview
+  result = api_instance.create_automatic_discount_preview(create_automatic_discount_preview_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->create_automatic_discount_preview: #{e}"
@@ -120,12 +125,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateAutomaticDiscountPreviewResponse>, Integer, Hash)> create_automatic_discount_preview_with_http_info
+> <Array(<CreateAutomaticDiscountPreviewResponse>, Integer, Hash)> create_automatic_discount_preview_with_http_info(create_automatic_discount_preview_request)
 
 ```ruby
 begin
   # Preview a hypothetical cart of your listings against your automatic discounts (or an unsaved draft): what each line gets.
-  data, status_code, headers = api_instance.create_automatic_discount_preview_with_http_info
+  data, status_code, headers = api_instance.create_automatic_discount_preview_with_http_info(create_automatic_discount_preview_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateAutomaticDiscountPreviewResponse>
@@ -136,7 +141,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_automatic_discount_preview_request** | **CreateAutomaticDiscountPreviewRequest** |  |  |
 
 ### Return type
 
@@ -148,13 +155,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_discount_code
 
-> <DiscountCodeResponse> create_discount_code
+> <DiscountCodeResponse> create_discount_code(create_discount_code_request)
 
 Create a discount code: percent, fixed, free shipping, buy X get Y, spend tiers or a set price, with requirements, item scope, limits (total, per buyer, per day, budget, regions), schedule and stacking.
 
@@ -170,10 +177,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DiscountsApi.new
+create_discount_code_request = Crossly::CreateDiscountCodeRequest.new({code: 'code_example', kind: 'fixed'}) # CreateDiscountCodeRequest | 
 
 begin
   # Create a discount code: percent, fixed, free shipping, buy X get Y, spend tiers or a set price, with requirements, item scope, limits (total, per buyer, per day, budget, regions), schedule and stacking.
-  result = api_instance.create_discount_code
+  result = api_instance.create_discount_code(create_discount_code_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->create_discount_code: #{e}"
@@ -184,12 +192,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DiscountCodeResponse>, Integer, Hash)> create_discount_code_with_http_info
+> <Array(<DiscountCodeResponse>, Integer, Hash)> create_discount_code_with_http_info(create_discount_code_request)
 
 ```ruby
 begin
   # Create a discount code: percent, fixed, free shipping, buy X get Y, spend tiers or a set price, with requirements, item scope, limits (total, per buyer, per day, budget, regions), schedule and stacking.
-  data, status_code, headers = api_instance.create_discount_code_with_http_info
+  data, status_code, headers = api_instance.create_discount_code_with_http_info(create_discount_code_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DiscountCodeResponse>
@@ -200,7 +208,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_discount_code_request** | **CreateDiscountCodeRequest** |  |  |
 
 ### Return type
 
@@ -212,13 +222,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_discount_code_generate
 
-> <CreateDiscountCodeGenerateResponse> create_discount_code_generate(id)
+> <CreateDiscountCodeGenerateResponse> create_discount_code_generate(id, create_discount_code_generate_request)
 
 Generate up to 5,000 unique single-use codes with this code’s rules (their uses count toward its limits).
 
@@ -235,10 +245,11 @@ end
 
 api_instance = Crossly::DiscountsApi.new
 id = 'id_example' # String | 
+create_discount_code_generate_request = Crossly::CreateDiscountCodeGenerateRequest.new({count: 3.56}) # CreateDiscountCodeGenerateRequest | 
 
 begin
   # Generate up to 5,000 unique single-use codes with this code’s rules (their uses count toward its limits).
-  result = api_instance.create_discount_code_generate(id)
+  result = api_instance.create_discount_code_generate(id, create_discount_code_generate_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->create_discount_code_generate: #{e}"
@@ -249,12 +260,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDiscountCodeGenerateResponse>, Integer, Hash)> create_discount_code_generate_with_http_info(id)
+> <Array(<CreateDiscountCodeGenerateResponse>, Integer, Hash)> create_discount_code_generate_with_http_info(id, create_discount_code_generate_request)
 
 ```ruby
 begin
   # Generate up to 5,000 unique single-use codes with this code’s rules (their uses count toward its limits).
-  data, status_code, headers = api_instance.create_discount_code_generate_with_http_info(id)
+  data, status_code, headers = api_instance.create_discount_code_generate_with_http_info(id, create_discount_code_generate_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateDiscountCodeGenerateResponse>
@@ -268,6 +279,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_discount_code_generate_request** | **CreateDiscountCodeGenerateRequest** |  |  |
 
 ### Return type
 
@@ -279,13 +291,80 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_discount_code_pause_all
+
+> <CreateDiscountCodePauseAllResponse> create_discount_code_pause_all(create_discount_code_pause_all_request)
+
+Pause every active discount code of the store at once (paused: true), or resume every paused one (paused: false). Archived codes are left alone; returns how many changed.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DiscountsApi.new
+create_discount_code_pause_all_request = Crossly::CreateDiscountCodePauseAllRequest.new({paused: false}) # CreateDiscountCodePauseAllRequest | 
+
+begin
+  # Pause every active discount code of the store at once (paused: true), or resume every paused one (paused: false). Archived codes are left alone; returns how many changed.
+  result = api_instance.create_discount_code_pause_all(create_discount_code_pause_all_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DiscountsApi->create_discount_code_pause_all: #{e}"
+end
+```
+
+#### Using the create_discount_code_pause_all_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateDiscountCodePauseAllResponse>, Integer, Hash)> create_discount_code_pause_all_with_http_info(create_discount_code_pause_all_request)
+
+```ruby
+begin
+  # Pause every active discount code of the store at once (paused: true), or resume every paused one (paused: false). Archived codes are left alone; returns how many changed.
+  data, status_code, headers = api_instance.create_discount_code_pause_all_with_http_info(create_discount_code_pause_all_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateDiscountCodePauseAllResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DiscountsApi->create_discount_code_pause_all_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_discount_code_pause_all_request** | **CreateDiscountCodePauseAllRequest** |  |  |
+
+### Return type
+
+**CreateDiscountCodePauseAllResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_discount_code_status
 
-> <DiscountCodeResponse> create_discount_code_status(id)
+> <DiscountCodeResponse> create_discount_code_status(id, create_discount_code_status_request)
 
 Pause, resume (active) or archive a discount code.
 
@@ -302,10 +381,11 @@ end
 
 api_instance = Crossly::DiscountsApi.new
 id = 'id_example' # String | 
+create_discount_code_status_request = Crossly::CreateDiscountCodeStatusRequest.new({status: 'active'}) # CreateDiscountCodeStatusRequest | 
 
 begin
   # Pause, resume (active) or archive a discount code.
-  result = api_instance.create_discount_code_status(id)
+  result = api_instance.create_discount_code_status(id, create_discount_code_status_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->create_discount_code_status: #{e}"
@@ -316,12 +396,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DiscountCodeResponse>, Integer, Hash)> create_discount_code_status_with_http_info(id)
+> <Array(<DiscountCodeResponse>, Integer, Hash)> create_discount_code_status_with_http_info(id, create_discount_code_status_request)
 
 ```ruby
 begin
   # Pause, resume (active) or archive a discount code.
-  data, status_code, headers = api_instance.create_discount_code_status_with_http_info(id)
+  data, status_code, headers = api_instance.create_discount_code_status_with_http_info(id, create_discount_code_status_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DiscountCodeResponse>
@@ -335,6 +415,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_discount_code_status_request** | **CreateDiscountCodeStatusRequest** |  |  |
 
 ### Return type
 
@@ -346,7 +427,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -815,7 +896,7 @@ This endpoint does not need any parameter.
 
 ## list_discount_code_redemptions
 
-> <ListDiscountCodeRedemptionsResponse> list_discount_code_redemptions(id)
+> <ListDiscountCodeRedemptionsResponse> list_discount_code_redemptions(id, opts)
 
 A code’s usage history: orders, masked buyers, region, channel and the amount given, newest first.
 
@@ -832,10 +913,14 @@ end
 
 api_instance = Crossly::DiscountsApi.new
 id = 'id_example' # String | 
+opts = {
+  limit: 8.14, # Float | 
+  offset: 8.14 # Float | 
+}
 
 begin
   # A code’s usage history: orders, masked buyers, region, channel and the amount given, newest first.
-  result = api_instance.list_discount_code_redemptions(id)
+  result = api_instance.list_discount_code_redemptions(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->list_discount_code_redemptions: #{e}"
@@ -846,12 +931,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListDiscountCodeRedemptionsResponse>, Integer, Hash)> list_discount_code_redemptions_with_http_info(id)
+> <Array(<ListDiscountCodeRedemptionsResponse>, Integer, Hash)> list_discount_code_redemptions_with_http_info(id, opts)
 
 ```ruby
 begin
   # A code’s usage history: orders, masked buyers, region, channel and the amount given, newest first.
-  data, status_code, headers = api_instance.list_discount_code_redemptions_with_http_info(id)
+  data, status_code, headers = api_instance.list_discount_code_redemptions_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListDiscountCodeRedemptionsResponse>
@@ -865,6 +950,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **limit** | **Float** |  | [optional] |
+| **offset** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -882,7 +969,7 @@ end
 
 ## list_discount_codes
 
-> <ListDiscountCodesResponse> list_discount_codes
+> <ListDiscountCodesResponse> list_discount_codes(opts)
 
 Your discount codes: kind, status (active, scheduled, paused, expired, exhausted, archived), every rule, and usage.
 
@@ -898,10 +985,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DiscountsApi.new
+opts = {
+  archived: 'true' # String | 
+}
 
 begin
   # Your discount codes: kind, status (active, scheduled, paused, expired, exhausted, archived), every rule, and usage.
-  result = api_instance.list_discount_codes
+  result = api_instance.list_discount_codes(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->list_discount_codes: #{e}"
@@ -912,12 +1002,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListDiscountCodesResponse>, Integer, Hash)> list_discount_codes_with_http_info
+> <Array(<ListDiscountCodesResponse>, Integer, Hash)> list_discount_codes_with_http_info(opts)
 
 ```ruby
 begin
   # Your discount codes: kind, status (active, scheduled, paused, expired, exhausted, archived), every rule, and usage.
-  data, status_code, headers = api_instance.list_discount_codes_with_http_info
+  data, status_code, headers = api_instance.list_discount_codes_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListDiscountCodesResponse>
@@ -928,7 +1018,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **archived** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1010,7 +1102,7 @@ This endpoint does not need any parameter.
 
 ## update_automatic_discount
 
-> <CreateAutomaticDiscountResponse> update_automatic_discount(id)
+> <CreateAutomaticDiscountResponse> update_automatic_discount(id, create_automatic_discount_request)
 
 Replace an automatic discount.
 
@@ -1027,10 +1119,11 @@ end
 
 api_instance = Crossly::DiscountsApi.new
 id = 'id_example' # String | 
+create_automatic_discount_request = Crossly::CreateAutomaticDiscountRequest.new({name: 'name_example', kind: 'quantity', tiers: [Crossly::MinQtyPercentBps.new({min_qty: 3.56, percent_bps: 3.56})]}) # CreateAutomaticDiscountRequest | 
 
 begin
   # Replace an automatic discount.
-  result = api_instance.update_automatic_discount(id)
+  result = api_instance.update_automatic_discount(id, create_automatic_discount_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->update_automatic_discount: #{e}"
@@ -1041,12 +1134,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateAutomaticDiscountResponse>, Integer, Hash)> update_automatic_discount_with_http_info(id)
+> <Array(<CreateAutomaticDiscountResponse>, Integer, Hash)> update_automatic_discount_with_http_info(id, create_automatic_discount_request)
 
 ```ruby
 begin
   # Replace an automatic discount.
-  data, status_code, headers = api_instance.update_automatic_discount_with_http_info(id)
+  data, status_code, headers = api_instance.update_automatic_discount_with_http_info(id, create_automatic_discount_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateAutomaticDiscountResponse>
@@ -1060,6 +1153,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_automatic_discount_request** | **CreateAutomaticDiscountRequest** |  |  |
 
 ### Return type
 
@@ -1071,13 +1165,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_discount_code
 
-> <DiscountCodeResponse> update_discount_code(id)
+> <DiscountCodeResponse> update_discount_code(id, update_discount_code_request)
 
 Update a discount code. The code itself can be renamed only until it is first used.
 
@@ -1094,10 +1188,11 @@ end
 
 api_instance = Crossly::DiscountsApi.new
 id = 'id_example' # String | 
+update_discount_code_request = Crossly::UpdateDiscountCodeRequest.new # UpdateDiscountCodeRequest | 
 
 begin
   # Update a discount code. The code itself can be renamed only until it is first used.
-  result = api_instance.update_discount_code(id)
+  result = api_instance.update_discount_code(id, update_discount_code_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DiscountsApi->update_discount_code: #{e}"
@@ -1108,12 +1203,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DiscountCodeResponse>, Integer, Hash)> update_discount_code_with_http_info(id)
+> <Array(<DiscountCodeResponse>, Integer, Hash)> update_discount_code_with_http_info(id, update_discount_code_request)
 
 ```ruby
 begin
   # Update a discount code. The code itself can be renamed only until it is first used.
-  data, status_code, headers = api_instance.update_discount_code_with_http_info(id)
+  data, status_code, headers = api_instance.update_discount_code_with_http_info(id, update_discount_code_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DiscountCodeResponse>
@@ -1127,6 +1222,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_discount_code_request** | **UpdateDiscountCodeRequest** |  |  |
 
 ### Return type
 
@@ -1138,7 +1234,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

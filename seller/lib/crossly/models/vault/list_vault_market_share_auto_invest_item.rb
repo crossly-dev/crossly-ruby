@@ -104,7 +104,7 @@ module Crossly
         :'practice' => :'Boolean',
         :'target_kind' => :'String',
         :'basket_id' => :'String',
-        :'targets' => :'Array<ListVaultMarketShareAutoInvestItemTargets>',
+        :'targets' => :'Array<SeriesIdWeightBps>',
         :'amount_cents' => :'Float',
         :'every' => :'String',
         :'carry_cents' => :'Float',

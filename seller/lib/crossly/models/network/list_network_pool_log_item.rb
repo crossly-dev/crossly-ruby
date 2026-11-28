@@ -23,13 +23,13 @@ module Crossly
 
     attr_accessor :target_user_id
 
-    attr_accessor :rule_id
-
     attr_accessor :engager_user_id
 
     attr_accessor :target_listing_id
 
     attr_accessor :target_platform_listing_id
+
+    attr_accessor :rule_id
 
     attr_accessor :performed_at
 
@@ -40,10 +40,10 @@ module Crossly
         :'platform' => :'platform',
         :'action_type' => :'actionType',
         :'target_user_id' => :'targetUserId',
-        :'rule_id' => :'ruleId',
         :'engager_user_id' => :'engagerUserId',
         :'target_listing_id' => :'targetListingId',
         :'target_platform_listing_id' => :'targetPlatformListingId',
+        :'rule_id' => :'ruleId',
         :'performed_at' => :'performedAt'
       }
     end
@@ -60,10 +60,10 @@ module Crossly
         :'platform' => :'String',
         :'action_type' => :'String',
         :'target_user_id' => :'String',
-        :'rule_id' => :'String',
         :'engager_user_id' => :'String',
         :'target_listing_id' => :'String',
         :'target_platform_listing_id' => :'String',
+        :'rule_id' => :'String',
         :'performed_at' => :'Time'
       }
     end
@@ -71,9 +71,9 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'rule_id',
         :'target_listing_id',
         :'target_platform_listing_id',
+        :'rule_id',
       ])
     end
 
@@ -108,10 +108,6 @@ module Crossly
         self.target_user_id = attributes[:'target_user_id']
       end
 
-      if attributes.key?(:'rule_id')
-        self.rule_id = attributes[:'rule_id']
-      end
-
       if attributes.key?(:'engager_user_id')
         self.engager_user_id = attributes[:'engager_user_id']
       end
@@ -122,6 +118,10 @@ module Crossly
 
       if attributes.key?(:'target_platform_listing_id')
         self.target_platform_listing_id = attributes[:'target_platform_listing_id']
+      end
+
+      if attributes.key?(:'rule_id')
+        self.rule_id = attributes[:'rule_id']
       end
 
       if attributes.key?(:'performed_at')
@@ -181,10 +181,10 @@ module Crossly
           platform == o.platform &&
           action_type == o.action_type &&
           target_user_id == o.target_user_id &&
-          rule_id == o.rule_id &&
           engager_user_id == o.engager_user_id &&
           target_listing_id == o.target_listing_id &&
           target_platform_listing_id == o.target_platform_listing_id &&
+          rule_id == o.rule_id &&
           performed_at == o.performed_at
     end
 
@@ -197,7 +197,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, platform, action_type, target_user_id, rule_id, engager_user_id, target_listing_id, target_platform_listing_id, performed_at].hash
+      [id, platform, action_type, target_user_id, engager_user_id, target_listing_id, target_platform_listing_id, rule_id, performed_at].hash
     end
 
     # Builds the object from hash

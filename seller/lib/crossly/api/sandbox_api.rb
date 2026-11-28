@@ -75,19 +75,25 @@ module Crossly
     end
 
     # Change stock (set, increase or decrease); the new quantity is pushed to every channel.
+    # @param create_sandbox_simulate_inventory_request [CreateSandboxSimulateInventoryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxConversationBulkResponse]
-    def create_sandbox_simulate_inventory(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_inventory_with_http_info(opts)
+    def create_sandbox_simulate_inventory(create_sandbox_simulate_inventory_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_inventory_with_http_info(create_sandbox_simulate_inventory_request, opts)
       data
     end
 
     # Change stock (set, increase or decrease); the new quantity is pushed to every channel.
+    # @param create_sandbox_simulate_inventory_request [CreateSandboxSimulateInventoryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxConversationBulkResponse, Integer, Hash)>] CreateInboxConversationBulkResponse data, response status code and response headers
-    def create_sandbox_simulate_inventory_with_http_info(opts = {})
+    def create_sandbox_simulate_inventory_with_http_info(create_sandbox_simulate_inventory_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_inventory ...'
+      end
+      # verify the required parameter 'create_sandbox_simulate_inventory_request' is set
+      if @api_client.config.client_side_validation && create_sandbox_simulate_inventory_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sandbox_simulate_inventory_request' when calling SandboxApi.create_sandbox_simulate_inventory"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/inventory'
@@ -99,12 +105,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sandbox_simulate_inventory_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxConversationBulkResponse'
@@ -130,19 +141,25 @@ module Crossly
     end
 
     # A listing sells out on a marketplace with no order (stock moves, other channels delist).
+    # @param create_sandbox_simulate_listing_sold_out_request [CreateSandboxSimulateListingSoldOutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSandboxSimulateListingSoldOutResponse]
-    def create_sandbox_simulate_listing_sold_out(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_listing_sold_out_with_http_info(opts)
+    def create_sandbox_simulate_listing_sold_out(create_sandbox_simulate_listing_sold_out_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_listing_sold_out_with_http_info(create_sandbox_simulate_listing_sold_out_request, opts)
       data
     end
 
     # A listing sells out on a marketplace with no order (stock moves, other channels delist).
+    # @param create_sandbox_simulate_listing_sold_out_request [CreateSandboxSimulateListingSoldOutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSandboxSimulateListingSoldOutResponse, Integer, Hash)>] CreateSandboxSimulateListingSoldOutResponse data, response status code and response headers
-    def create_sandbox_simulate_listing_sold_out_with_http_info(opts = {})
+    def create_sandbox_simulate_listing_sold_out_with_http_info(create_sandbox_simulate_listing_sold_out_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_listing_sold_out ...'
+      end
+      # verify the required parameter 'create_sandbox_simulate_listing_sold_out_request' is set
+      if @api_client.config.client_side_validation && create_sandbox_simulate_listing_sold_out_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sandbox_simulate_listing_sold_out_request' when calling SandboxApi.create_sandbox_simulate_listing_sold_out"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/listing.sold_out'
@@ -154,12 +171,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sandbox_simulate_listing_sold_out_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSandboxSimulateListingSoldOutResponse'
@@ -185,19 +207,25 @@ module Crossly
     end
 
     # Simulate a sale through the real sale pipeline (order.created, sale.detected, stock and cross-channel updates).
+    # @param create_sandbox_simulate_order_request [CreateSandboxSimulateOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSandboxSimulateOrderResponse]
-    def create_sandbox_simulate_order(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_order_with_http_info(opts)
+    def create_sandbox_simulate_order(create_sandbox_simulate_order_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_order_with_http_info(create_sandbox_simulate_order_request, opts)
       data
     end
 
     # Simulate a sale through the real sale pipeline (order.created, sale.detected, stock and cross-channel updates).
+    # @param create_sandbox_simulate_order_request [CreateSandboxSimulateOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSandboxSimulateOrderResponse, Integer, Hash)>] CreateSandboxSimulateOrderResponse data, response status code and response headers
-    def create_sandbox_simulate_order_with_http_info(opts = {})
+    def create_sandbox_simulate_order_with_http_info(create_sandbox_simulate_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_order ...'
+      end
+      # verify the required parameter 'create_sandbox_simulate_order_request' is set
+      if @api_client.config.client_side_validation && create_sandbox_simulate_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sandbox_simulate_order_request' when calling SandboxApi.create_sandbox_simulate_order"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/order'
@@ -209,12 +237,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sandbox_simulate_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSandboxSimulateOrderResponse'
@@ -240,19 +273,25 @@ module Crossly
     end
 
     # The buyer address of an order simulated with address \"delayed\" arrives now (order.address_available).
+    # @param create_sandbox_simulate_order_address_request [CreateSandboxSimulateOrderAddressRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSandboxSimulateOrderAddressResponse]
-    def create_sandbox_simulate_order_address(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_order_address_with_http_info(opts)
+    def create_sandbox_simulate_order_address(create_sandbox_simulate_order_address_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_order_address_with_http_info(create_sandbox_simulate_order_address_request, opts)
       data
     end
 
     # The buyer address of an order simulated with address \&quot;delayed\&quot; arrives now (order.address_available).
+    # @param create_sandbox_simulate_order_address_request [CreateSandboxSimulateOrderAddressRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSandboxSimulateOrderAddressResponse, Integer, Hash)>] CreateSandboxSimulateOrderAddressResponse data, response status code and response headers
-    def create_sandbox_simulate_order_address_with_http_info(opts = {})
+    def create_sandbox_simulate_order_address_with_http_info(create_sandbox_simulate_order_address_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_order_address ...'
+      end
+      # verify the required parameter 'create_sandbox_simulate_order_address_request' is set
+      if @api_client.config.client_side_validation && create_sandbox_simulate_order_address_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sandbox_simulate_order_address_request' when calling SandboxApi.create_sandbox_simulate_order_address"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/order.address'
@@ -264,12 +303,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sandbox_simulate_order_address_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSandboxSimulateOrderAddressResponse'
@@ -295,19 +339,25 @@ module Crossly
     end
 
     # The buyer or the marketplace cancels an order (order.cancelled).
+    # @param order_id_reason_request [OrderIdReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSandboxSimulateOrderCancelledResponse]
-    def create_sandbox_simulate_order_cancelled(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_order_cancelled_with_http_info(opts)
+    def create_sandbox_simulate_order_cancelled(order_id_reason_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_order_cancelled_with_http_info(order_id_reason_request, opts)
       data
     end
 
     # The buyer or the marketplace cancels an order (order.cancelled).
+    # @param order_id_reason_request [OrderIdReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSandboxSimulateOrderCancelledResponse, Integer, Hash)>] CreateSandboxSimulateOrderCancelledResponse data, response status code and response headers
-    def create_sandbox_simulate_order_cancelled_with_http_info(opts = {})
+    def create_sandbox_simulate_order_cancelled_with_http_info(order_id_reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_order_cancelled ...'
+      end
+      # verify the required parameter 'order_id_reason_request' is set
+      if @api_client.config.client_side_validation && order_id_reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'order_id_reason_request' when calling SandboxApi.create_sandbox_simulate_order_cancelled"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/order.cancelled'
@@ -319,12 +369,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(order_id_reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSandboxSimulateOrderCancelledResponse'
@@ -350,19 +405,25 @@ module Crossly
     end
 
     # The carrier delivers a shipped order (order.delivered).
+    # @param order_id_reason_request [OrderIdReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSandboxSimulateOrderDeliveredResponse]
-    def create_sandbox_simulate_order_delivered(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_order_delivered_with_http_info(opts)
+    def create_sandbox_simulate_order_delivered(order_id_reason_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_order_delivered_with_http_info(order_id_reason_request, opts)
       data
     end
 
     # The carrier delivers a shipped order (order.delivered).
+    # @param order_id_reason_request [OrderIdReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSandboxSimulateOrderDeliveredResponse, Integer, Hash)>] CreateSandboxSimulateOrderDeliveredResponse data, response status code and response headers
-    def create_sandbox_simulate_order_delivered_with_http_info(opts = {})
+    def create_sandbox_simulate_order_delivered_with_http_info(order_id_reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_order_delivered ...'
+      end
+      # verify the required parameter 'order_id_reason_request' is set
+      if @api_client.config.client_side_validation && order_id_reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'order_id_reason_request' when calling SandboxApi.create_sandbox_simulate_order_delivered"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/order.delivered'
@@ -374,12 +435,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(order_id_reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSandboxSimulateOrderDeliveredResponse'
@@ -405,19 +471,25 @@ module Crossly
     end
 
     # Refund an order in full or in part (refund.issued).
+    # @param create_sandbox_simulate_refund_request [CreateSandboxSimulateRefundRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSandboxSimulateRefundResponse]
-    def create_sandbox_simulate_refund(opts = {})
-      data, _status_code, _headers = create_sandbox_simulate_refund_with_http_info(opts)
+    def create_sandbox_simulate_refund(create_sandbox_simulate_refund_request, opts = {})
+      data, _status_code, _headers = create_sandbox_simulate_refund_with_http_info(create_sandbox_simulate_refund_request, opts)
       data
     end
 
     # Refund an order in full or in part (refund.issued).
+    # @param create_sandbox_simulate_refund_request [CreateSandboxSimulateRefundRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSandboxSimulateRefundResponse, Integer, Hash)>] CreateSandboxSimulateRefundResponse data, response status code and response headers
-    def create_sandbox_simulate_refund_with_http_info(opts = {})
+    def create_sandbox_simulate_refund_with_http_info(create_sandbox_simulate_refund_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SandboxApi.create_sandbox_simulate_refund ...'
+      end
+      # verify the required parameter 'create_sandbox_simulate_refund_request' is set
+      if @api_client.config.client_side_validation && create_sandbox_simulate_refund_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sandbox_simulate_refund_request' when calling SandboxApi.create_sandbox_simulate_refund"
       end
       # resource path
       local_var_path = '/v1/sandbox/simulate/refund'
@@ -429,12 +501,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sandbox_simulate_refund_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSandboxSimulateRefundResponse'
@@ -516,6 +593,7 @@ module Crossly
 
     # The simulated marketplaces' call log: verb, channel, outcome, latency.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
     # @return [ListSandboxEventsResponse]
     def list_sandbox_events(opts = {})
       data, _status_code, _headers = list_sandbox_events_with_http_info(opts)
@@ -524,6 +602,7 @@ module Crossly
 
     # The simulated marketplaces&#39; call log: verb, channel, outcome, latency.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
     # @return [Array<(ListSandboxEventsResponse, Integer, Hash)>] ListSandboxEventsResponse data, response status code and response headers
     def list_sandbox_events_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -534,6 +613,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

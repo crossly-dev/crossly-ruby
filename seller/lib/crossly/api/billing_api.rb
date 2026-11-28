@@ -19,8 +19,8 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Start an upgrade to a higher plan.
-    # Returns a Stripe Checkout URL. Nothing is charged by this call — a person completes the payment. Downgrades and cancellation are not available to a token at all; they stay with the account owner.
+    # Start an upgrade of a store's plan.
+    # Returns a Stripe Checkout URL. Nothing is charged by this call — a person completes the payment. Downgrades and cancellation are not available to a token at all; they stay with the account owner. Every store has its own plan: the store is `X-Storefront-Id` (omitted: the default store). A store already on a plan answers 409 (change it in Billing); a store sharing a grandfathered plan can pass `separate: true` to take its own.
     # @param create_billing_upgrade_request [CreateBillingUpgradeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBillingUpgradeResponse]
@@ -29,8 +29,8 @@ module Crossly
       data
     end
 
-    # Start an upgrade to a higher plan.
-    # Returns a Stripe Checkout URL. Nothing is charged by this call — a person completes the payment. Downgrades and cancellation are not available to a token at all; they stay with the account owner.
+    # Start an upgrade of a store&#39;s plan.
+    # Returns a Stripe Checkout URL. Nothing is charged by this call — a person completes the payment. Downgrades and cancellation are not available to a token at all; they stay with the account owner. Every store has its own plan: the store is &#x60;X-Storefront-Id&#x60; (omitted: the default store). A store already on a plan answers 409 (change it in Billing); a store sharing a grandfathered plan can pass &#x60;separate: true&#x60; to take its own.
     # @param create_billing_upgrade_request [CreateBillingUpgradeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBillingUpgradeResponse, Integer, Hash)>] CreateBillingUpgradeResponse data, response status code and response headers
@@ -83,6 +83,63 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BillingApi#create_billing_upgrade\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A store's plan and its usage against the plan's limits (used of limit, per metered limit).
+    # The store is `X-Storefront-Id` (omitted: the default store). `pooled` is true when one plan covers several stores and its limits are shared by them; `used` is then the sum across those stores. A null `limit` means no cap. `upgradeTier` is the cheapest plan that raises a limit; `resetsAt` is when a monthly count starts again (null for a standing count). A teammate's token needs a billing grant on that store.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBillingUsageResponse]
+    def get_billing_usage(opts = {})
+      data, _status_code, _headers = get_billing_usage_with_http_info(opts)
+      data
+    end
+
+    # A store&#39;s plan and its usage against the plan&#39;s limits (used of limit, per metered limit).
+    # The store is &#x60;X-Storefront-Id&#x60; (omitted: the default store). &#x60;pooled&#x60; is true when one plan covers several stores and its limits are shared by them; &#x60;used&#x60; is then the sum across those stores. A null &#x60;limit&#x60; means no cap. &#x60;upgradeTier&#x60; is the cheapest plan that raises a limit; &#x60;resetsAt&#x60; is when a monthly count starts again (null for a standing count). A teammate&#39;s token needs a billing grant on that store.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBillingUsageResponse, Integer, Hash)>] GetBillingUsageResponse data, response status code and response headers
+    def get_billing_usage_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BillingApi.get_billing_usage ...'
+      end
+      # resource path
+      local_var_path = '/v1/billing/usage'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBillingUsageResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BillingApi.get_billing_usage",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BillingApi#get_billing_usage\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -140,6 +197,125 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: BillingApi#list_billing_app_allowances\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List a store's plan invoices, newest first, with search and filters.
+    # The store is `X-Storefront-Id` (omitted: the default store). Filters: `status`, `from`/`to` (YYYY-MM-DD, inclusive, UTC), `min`/`max` (amount in cents), `q` (part of the invoice number). Paged by `cursor`: pass `meta.nextCursor` of the previous page; null means the last page. Amounts are cents in `currency`.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [String] :status 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [Integer] :min 
+    # @option opts [Integer] :max 
+    # @option opts [String] :q 
+    # @option opts [Integer] :limit  (default to 25)
+    # @return [ListBillingInvoicesResponse]
+    def list_billing_invoices(opts = {})
+      data, _status_code, _headers = list_billing_invoices_with_http_info(opts)
+      data
+    end
+
+    # List a store&#39;s plan invoices, newest first, with search and filters.
+    # The store is &#x60;X-Storefront-Id&#x60; (omitted: the default store). Filters: &#x60;status&#x60;, &#x60;from&#x60;/&#x60;to&#x60; (YYYY-MM-DD, inclusive, UTC), &#x60;min&#x60;/&#x60;max&#x60; (amount in cents), &#x60;q&#x60; (part of the invoice number). Paged by &#x60;cursor&#x60;: pass &#x60;meta.nextCursor&#x60; of the previous page; null means the last page. Amounts are cents in &#x60;currency&#x60;.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [String] :status 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [Integer] :min 
+    # @option opts [Integer] :max 
+    # @option opts [String] :q 
+    # @option opts [Integer] :limit 
+    # @return [Array<(ListBillingInvoicesResponse, Integer, Hash)>] ListBillingInvoicesResponse data, response status code and response headers
+    def list_billing_invoices_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BillingApi.list_billing_invoices ...'
+      end
+      if @api_client.config.client_side_validation && !opts[:'cursor'].nil? && opts[:'cursor'].to_s.length > 200
+        fail ArgumentError, 'invalid value for "opts[:"cursor"]" when calling BillingApi.list_billing_invoices, the character length must be smaller than or equal to 200.'
+      end
+
+      allowable_values = ["draft", "open", "paid", "uncollectible", "void"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      pattern = Regexp.new(/^\d{4}-\d{2}-\d{2}$/)
+      if @api_client.config.client_side_validation && !opts[:'from'].nil? && opts[:'from'] !~ pattern
+        fail ArgumentError, "invalid value for 'opts[:\"from\"]' when calling BillingApi.list_billing_invoices, must conform to the pattern #{pattern}."
+      end
+
+      pattern = Regexp.new(/^\d{4}-\d{2}-\d{2}$/)
+      if @api_client.config.client_side_validation && !opts[:'to'].nil? && opts[:'to'] !~ pattern
+        fail ArgumentError, "invalid value for 'opts[:\"to\"]' when calling BillingApi.list_billing_invoices, must conform to the pattern #{pattern}."
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'min'].nil? && opts[:'min'] < 0
+        fail ArgumentError, 'invalid value for "opts[:"min"]" when calling BillingApi.list_billing_invoices, must be greater than or equal to 0.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'max'].nil? && opts[:'max'] < 0
+        fail ArgumentError, 'invalid value for "opts[:"max"]" when calling BillingApi.list_billing_invoices, must be greater than or equal to 0.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'q'].nil? && opts[:'q'].to_s.length > 80
+        fail ArgumentError, 'invalid value for "opts[:"q"]" when calling BillingApi.list_billing_invoices, the character length must be smaller than or equal to 80.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling BillingApi.list_billing_invoices, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling BillingApi.list_billing_invoices, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/billing/invoices'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'min'] = opts[:'min'] if !opts[:'min'].nil?
+      query_params[:'max'] = opts[:'max'] if !opts[:'max'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBillingInvoicesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BillingApi.list_billing_invoices",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BillingApi#list_billing_invoices\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

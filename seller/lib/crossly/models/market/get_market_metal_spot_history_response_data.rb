@@ -128,7 +128,7 @@ module Crossly
       metal_validator = EnumAttributeValidator.new('String', ["gold", "silver", "platinum", "palladium"])
       return false unless metal_validator.valid?(@metal)
       return false if @range.nil?
-      range_validator = EnumAttributeValidator.new('String', ["1d", "7d", "30d", "1y"])
+      range_validator = EnumAttributeValidator.new('String', ["7d", "30d", "1d", "1y"])
       return false unless range_validator.valid?(@range)
       return false if @points.nil?
       true
@@ -147,7 +147,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] range Object to be assigned
     def range=(range)
-      validator = EnumAttributeValidator.new('String', ["1d", "7d", "30d", "1y"])
+      validator = EnumAttributeValidator.new('String', ["7d", "30d", "1d", "1y"])
       unless validator.valid?(range)
         fail ArgumentError, "invalid value for \"range\", must be one of #{validator.allowable_values}."
       end

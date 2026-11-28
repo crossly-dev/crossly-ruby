@@ -19,13 +19,13 @@ module Crossly
 
     attr_accessor :created_at
 
+    attr_accessor :kind
+
     attr_accessor :title
 
     attr_accessor :ends_at
 
     attr_accessor :cancelled_at
-
-    attr_accessor :kind
 
     attr_accessor :starts_at
 
@@ -44,10 +44,10 @@ module Crossly
       {
         :'id' => :'id',
         :'created_at' => :'createdAt',
+        :'kind' => :'kind',
         :'title' => :'title',
         :'ends_at' => :'endsAt',
         :'cancelled_at' => :'cancelledAt',
-        :'kind' => :'kind',
         :'starts_at' => :'startsAt',
         :'created_by' => :'createdBy',
         :'about' => :'about',
@@ -67,10 +67,10 @@ module Crossly
       {
         :'id' => :'String',
         :'created_at' => :'Time',
+        :'kind' => :'String',
         :'title' => :'String',
         :'ends_at' => :'Time',
         :'cancelled_at' => :'Time',
-        :'kind' => :'String',
         :'starts_at' => :'Time',
         :'created_by' => :'String',
         :'about' => :'String',
@@ -113,6 +113,10 @@ module Crossly
         self.created_at = attributes[:'created_at']
       end
 
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
       if attributes.key?(:'title')
         self.title = attributes[:'title']
       end
@@ -123,10 +127,6 @@ module Crossly
 
       if attributes.key?(:'cancelled_at')
         self.cancelled_at = attributes[:'cancelled_at']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'starts_at')
@@ -166,16 +166,16 @@ module Crossly
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @ends_at.nil?
         invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
-      end
-
-      if @kind.nil?
-        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
       if @starts_at.nil?
@@ -198,9 +198,9 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @created_at.nil?
+      return false if @kind.nil?
       return false if @title.nil?
       return false if @ends_at.nil?
-      return false if @kind.nil?
       return false if @starts_at.nil?
       return false if @space_id.nil?
       return false if @club_only.nil?
@@ -214,10 +214,10 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           created_at == o.created_at &&
+          kind == o.kind &&
           title == o.title &&
           ends_at == o.ends_at &&
           cancelled_at == o.cancelled_at &&
-          kind == o.kind &&
           starts_at == o.starts_at &&
           created_by == o.created_by &&
           about == o.about &&
@@ -235,7 +235,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, title, ends_at, cancelled_at, kind, starts_at, created_by, about, space_id, reminded_at, club_only].hash
+      [id, created_at, kind, title, ends_at, cancelled_at, starts_at, created_by, about, space_id, reminded_at, club_only].hash
     end
 
     # Builds the object from hash

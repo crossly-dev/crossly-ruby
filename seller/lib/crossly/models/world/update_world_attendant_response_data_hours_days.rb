@@ -50,13 +50,13 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'_0' => :'OpenClose',
-        :'_1' => :'OpenClose',
-        :'_2' => :'OpenClose',
-        :'_3' => :'OpenClose',
-        :'_4' => :'OpenClose',
-        :'_5' => :'OpenClose',
-        :'_6' => :'OpenClose'
+        :'_0' => :'OpenClose2',
+        :'_1' => :'OpenClose2',
+        :'_2' => :'OpenClose2',
+        :'_3' => :'OpenClose2',
+        :'_4' => :'OpenClose2',
+        :'_5' => :'OpenClose2',
+        :'_6' => :'OpenClose2'
       }
     end
 

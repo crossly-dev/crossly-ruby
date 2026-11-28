@@ -15,10 +15,10 @@ require 'time'
 
 module Crossly
   class ListProductFeedsItemFilters
-    # Only these top-level categories (listing category `main`).
+    # Only listings in one of these categories, at ANY level (main, sub or leaf name).
     attr_accessor :include_categories
 
-    # Never these top-level categories.
+    # Never listings in one of these categories, at any level.
     attr_accessor :exclude_categories
 
     # Only these brands.
@@ -27,20 +27,44 @@ module Crossly
     # Never these brands.
     attr_accessor :exclude_brands
 
+    # Only listings carrying at least one of these tags.
+    attr_accessor :include_tags
+
+    # Never listings carrying any of these tags.
+    attr_accessor :exclude_tags
+
     # Only these listings (listing ids).
     attr_accessor :include_listing_ids
 
-    # Never these listings (listing ids) — the per-item \"block\" switch.
+    # Never these listings (listing ids) — the per-item \"leave out\" switch.
     attr_accessor :exclude_listing_ids
 
-    # Price floor in DOLLARS of the shop price (USD).
+    # Price floor in the FEED's currency (settings.currency, USD when unset), on the shop price.
     attr_accessor :min_price
 
-    # Price ceiling in DOLLARS of the shop price (USD).
+    # Price ceiling in the feed's currency.
     attr_accessor :max_price
 
     # Keep listings with no stock as availability=out_of_stock (default true). Off drops them.
     attr_accessor :include_out_of_stock
+
+    # Only listings with at least this many in stock (0/absent = no floor).
+    attr_accessor :min_quantity
+
+    # Stock / sale status: empty = all. `on_sale` = a storefront sale is running on it.
+    attr_accessor :statuses
+
+    # Item condition as the channels read it: empty = all.
+    attr_accessor :conditions
+
+    # Only listings ALSO live on one of these marketplaces (platform ids, e.g. 'ebay').
+    attr_accessor :on_platforms
+
+    # Never listings live on any of these marketplaces.
+    attr_accessor :not_on_platforms
+
+    # Only listings put on the storefront in the last N days (new arrivals).
+    attr_accessor :listed_within_days
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -49,11 +73,19 @@ module Crossly
         :'exclude_categories' => :'excludeCategories',
         :'include_brands' => :'includeBrands',
         :'exclude_brands' => :'excludeBrands',
+        :'include_tags' => :'includeTags',
+        :'exclude_tags' => :'excludeTags',
         :'include_listing_ids' => :'includeListingIds',
         :'exclude_listing_ids' => :'excludeListingIds',
         :'min_price' => :'minPrice',
         :'max_price' => :'maxPrice',
-        :'include_out_of_stock' => :'includeOutOfStock'
+        :'include_out_of_stock' => :'includeOutOfStock',
+        :'min_quantity' => :'minQuantity',
+        :'statuses' => :'statuses',
+        :'conditions' => :'conditions',
+        :'on_platforms' => :'onPlatforms',
+        :'not_on_platforms' => :'notOnPlatforms',
+        :'listed_within_days' => :'listedWithinDays'
       }
     end
 
@@ -69,11 +101,19 @@ module Crossly
         :'exclude_categories' => :'Array<String>',
         :'include_brands' => :'Array<String>',
         :'exclude_brands' => :'Array<String>',
+        :'include_tags' => :'Array<String>',
+        :'exclude_tags' => :'Array<String>',
         :'include_listing_ids' => :'Array<String>',
         :'exclude_listing_ids' => :'Array<String>',
         :'min_price' => :'Float',
         :'max_price' => :'Float',
-        :'include_out_of_stock' => :'Boolean'
+        :'include_out_of_stock' => :'Boolean',
+        :'min_quantity' => :'Float',
+        :'statuses' => :'Array<ListProductFeedsItemFiltersStatusesItem>',
+        :'conditions' => :'Array<ListProductFeedsItemFiltersConditionsItem>',
+        :'on_platforms' => :'Array<String>',
+        :'not_on_platforms' => :'Array<String>',
+        :'listed_within_days' => :'Float'
       }
     end
 
@@ -84,11 +124,19 @@ module Crossly
         :'exclude_categories',
         :'include_brands',
         :'exclude_brands',
+        :'include_tags',
+        :'exclude_tags',
         :'include_listing_ids',
         :'exclude_listing_ids',
         :'min_price',
         :'max_price',
-        :'include_out_of_stock'
+        :'include_out_of_stock',
+        :'min_quantity',
+        :'statuses',
+        :'conditions',
+        :'on_platforms',
+        :'not_on_platforms',
+        :'listed_within_days'
       ])
     end
 
@@ -131,6 +179,18 @@ module Crossly
         end
       end
 
+      if attributes.key?(:'include_tags')
+        if (value = attributes[:'include_tags']).is_a?(Array)
+          self.include_tags = value
+        end
+      end
+
+      if attributes.key?(:'exclude_tags')
+        if (value = attributes[:'exclude_tags']).is_a?(Array)
+          self.exclude_tags = value
+        end
+      end
+
       if attributes.key?(:'include_listing_ids')
         if (value = attributes[:'include_listing_ids']).is_a?(Array)
           self.include_listing_ids = value
@@ -153,6 +213,38 @@ module Crossly
 
       if attributes.key?(:'include_out_of_stock')
         self.include_out_of_stock = attributes[:'include_out_of_stock']
+      end
+
+      if attributes.key?(:'min_quantity')
+        self.min_quantity = attributes[:'min_quantity']
+      end
+
+      if attributes.key?(:'statuses')
+        if (value = attributes[:'statuses']).is_a?(Array)
+          self.statuses = value
+        end
+      end
+
+      if attributes.key?(:'conditions')
+        if (value = attributes[:'conditions']).is_a?(Array)
+          self.conditions = value
+        end
+      end
+
+      if attributes.key?(:'on_platforms')
+        if (value = attributes[:'on_platforms']).is_a?(Array)
+          self.on_platforms = value
+        end
+      end
+
+      if attributes.key?(:'not_on_platforms')
+        if (value = attributes[:'not_on_platforms']).is_a?(Array)
+          self.not_on_platforms = value
+        end
+      end
+
+      if attributes.key?(:'listed_within_days')
+        self.listed_within_days = attributes[:'listed_within_days']
       end
     end
 
@@ -178,11 +270,19 @@ module Crossly
           exclude_categories == o.exclude_categories &&
           include_brands == o.include_brands &&
           exclude_brands == o.exclude_brands &&
+          include_tags == o.include_tags &&
+          exclude_tags == o.exclude_tags &&
           include_listing_ids == o.include_listing_ids &&
           exclude_listing_ids == o.exclude_listing_ids &&
           min_price == o.min_price &&
           max_price == o.max_price &&
-          include_out_of_stock == o.include_out_of_stock
+          include_out_of_stock == o.include_out_of_stock &&
+          min_quantity == o.min_quantity &&
+          statuses == o.statuses &&
+          conditions == o.conditions &&
+          on_platforms == o.on_platforms &&
+          not_on_platforms == o.not_on_platforms &&
+          listed_within_days == o.listed_within_days
     end
 
     # @see the `==` method
@@ -194,7 +294,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [include_categories, exclude_categories, include_brands, exclude_brands, include_listing_ids, exclude_listing_ids, min_price, max_price, include_out_of_stock].hash
+      [include_categories, exclude_categories, include_brands, exclude_brands, include_tags, exclude_tags, include_listing_ids, exclude_listing_ids, min_price, max_price, include_out_of_stock, min_quantity, statuses, conditions, on_platforms, not_on_platforms, listed_within_days].hash
     end
 
     # Builds the object from hash

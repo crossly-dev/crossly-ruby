@@ -37,6 +37,11 @@ module Crossly
 
     attr_accessor :paid_membership
 
+    attr_accessor :earn_rules
+
+    # E3: the rewards shelf (edited on its own page, saved by ./rewards.ts).
+    attr_accessor :rewards
+
     attr_accessor :evaluated_at
 
     attr_accessor :member_count
@@ -79,6 +84,8 @@ module Crossly
         :'downgrade' => :'downgrade',
         :'grace_days' => :'graceDays',
         :'paid_membership' => :'paidMembership',
+        :'earn_rules' => :'earnRules',
+        :'rewards' => :'rewards',
         :'evaluated_at' => :'evaluatedAt',
         :'member_count' => :'memberCount',
         :'tiers' => :'tiers'
@@ -104,6 +111,8 @@ module Crossly
         :'downgrade' => :'String',
         :'grace_days' => :'Float',
         :'paid_membership' => :'GetLoyaltyProgramResponseDataPaidMembership',
+        :'earn_rules' => :'GetLoyaltyProgramResponseDataEarnRules',
+        :'rewards' => :'Array<GetLoyaltyProgramResponseDataRewards>',
         :'evaluated_at' => :'String',
         :'member_count' => :'Float',
         :'tiers' => :'Array<GetLoyaltyProgramResponseDataTiers>'
@@ -177,6 +186,16 @@ module Crossly
         self.paid_membership = attributes[:'paid_membership']
       end
 
+      if attributes.key?(:'earn_rules')
+        self.earn_rules = attributes[:'earn_rules']
+      end
+
+      if attributes.key?(:'rewards')
+        if (value = attributes[:'rewards']).is_a?(Array)
+          self.rewards = value
+        end
+      end
+
       if attributes.key?(:'evaluated_at')
         self.evaluated_at = attributes[:'evaluated_at']
       end
@@ -236,6 +255,14 @@ module Crossly
         invalid_properties.push('invalid value for "paid_membership", paid_membership cannot be nil.')
       end
 
+      if @earn_rules.nil?
+        invalid_properties.push('invalid value for "earn_rules", earn_rules cannot be nil.')
+      end
+
+      if @rewards.nil?
+        invalid_properties.push('invalid value for "rewards", rewards cannot be nil.')
+      end
+
       if @member_count.nil?
         invalid_properties.push('invalid value for "member_count", member_count cannot be nil.')
       end
@@ -262,6 +289,8 @@ module Crossly
       return false if @downgrade.nil?
       return false if @grace_days.nil?
       return false if @paid_membership.nil?
+      return false if @earn_rules.nil?
+      return false if @rewards.nil?
       return false if @member_count.nil?
       return false if @tiers.nil?
       true
@@ -293,6 +322,8 @@ module Crossly
           downgrade == o.downgrade &&
           grace_days == o.grace_days &&
           paid_membership == o.paid_membership &&
+          earn_rules == o.earn_rules &&
+          rewards == o.rewards &&
           evaluated_at == o.evaluated_at &&
           member_count == o.member_count &&
           tiers == o.tiers
@@ -307,7 +338,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, description, active, qualification, window, points_per_dollar, join_mode, downgrade, grace_days, paid_membership, evaluated_at, member_count, tiers].hash
+      [id, name, description, active, qualification, window, points_per_dollar, join_mode, downgrade, grace_days, paid_membership, earn_rules, rewards, evaluated_at, member_count, tiers].hash
     end
 
     # Builds the object from hash

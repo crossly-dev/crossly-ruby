@@ -22,6 +22,7 @@ module Crossly
     # Declare a domain server scripts may call (example.com or *.example.com). It is reviewed by a person before it works.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceHttpDomainRequest] :create_world_experience_http_domain_request 
     # @return [CreateWorldExperienceHttpDomainResponse]
     def create_world_experience_http_domain(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_http_domain_with_http_info(experience_id, opts)
@@ -31,6 +32,7 @@ module Crossly
     # Declare a domain server scripts may call (example.com or *.example.com). It is reviewed by a person before it works.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceHttpDomainRequest] :create_world_experience_http_domain_request 
     # @return [Array<(CreateWorldExperienceHttpDomainResponse, Integer, Hash)>] CreateWorldExperienceHttpDomainResponse data, response status code and response headers
     def create_world_experience_http_domain_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -50,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_http_domain_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceHttpDomainResponse'
@@ -279,6 +286,7 @@ module Crossly
     # @param experience_id [String] 
     # @param name [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceHttpSecretRequest] :update_world_experience_http_secret_request 
     # @return [UpdateWorldExperienceHttpSecretResponse]
     def update_world_experience_http_secret(experience_id, name, opts = {})
       data, _status_code, _headers = update_world_experience_http_secret_with_http_info(experience_id, name, opts)
@@ -289,6 +297,7 @@ module Crossly
     # @param experience_id [String] 
     # @param name [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceHttpSecretRequest] :update_world_experience_http_secret_request 
     # @return [Array<(UpdateWorldExperienceHttpSecretResponse, Integer, Hash)>] UpdateWorldExperienceHttpSecretResponse data, response status code and response headers
     def update_world_experience_http_secret_with_http_info(experience_id, name, opts = {})
       if @api_client.config.debugging
@@ -312,12 +321,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_http_secret_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldExperienceHttpSecretResponse'

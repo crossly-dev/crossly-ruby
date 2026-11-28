@@ -83,6 +83,7 @@ module Crossly
     # Add a reward scripts can grant: pin, emote, decor, item (your own COSM design), cosm or cbx (with an amount).
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceRewardDefinitionRequest] :create_world_experience_reward_definition_request 
     # @return [CreateWorldExperienceRewardDefinitionResponse]
     def create_world_experience_reward_definition(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_reward_definition_with_http_info(experience_id, opts)
@@ -92,6 +93,7 @@ module Crossly
     # Add a reward scripts can grant: pin, emote, decor, item (your own COSM design), cosm or cbx (with an amount).
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceRewardDefinitionRequest] :create_world_experience_reward_definition_request 
     # @return [Array<(CreateWorldExperienceRewardDefinitionResponse, Integer, Hash)>] CreateWorldExperienceRewardDefinitionResponse data, response status code and response headers
     def create_world_experience_reward_definition_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -111,12 +113,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_reward_definition_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceRewardDefinitionResponse'
@@ -144,6 +151,7 @@ module Crossly
     # Move available Crossly Carnival earnings into the pool ($1-$10,000). Owner only; idempotent on idempotencyKey.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceRewardDepositRequest] :create_world_experience_reward_deposit_request 
     # @return [CreateWorldExperienceRewardDepositResponse]
     def create_world_experience_reward_deposit(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_reward_deposit_with_http_info(experience_id, opts)
@@ -153,6 +161,7 @@ module Crossly
     # Move available Crossly Carnival earnings into the pool ($1-$10,000). Owner only; idempotent on idempotencyKey.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceRewardDepositRequest] :create_world_experience_reward_deposit_request 
     # @return [Array<(CreateWorldExperienceRewardDepositResponse, Integer, Hash)>] CreateWorldExperienceRewardDepositResponse data, response status code and response headers
     def create_world_experience_reward_deposit_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -172,12 +181,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_reward_deposit_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceRewardDepositResponse'
@@ -205,6 +219,7 @@ module Crossly
     # Open a card top-up ($5-$10,000 into the pool; the 2.9% + 30¢ card fee is added on top). Returns checkoutUrl, where the owner pays with Crossly checkout; the pool is credited once when the payment lands. Owner only.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateFundingDrawQuoteRequest] :create_funding_draw_quote_request 
     # @return [CreateWorldExperienceRewardTopupResponse]
     def create_world_experience_reward_topup(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_reward_topup_with_http_info(experience_id, opts)
@@ -214,6 +229,7 @@ module Crossly
     # Open a card top-up ($5-$10,000 into the pool; the 2.9% + 30¢ card fee is added on top). Returns checkoutUrl, where the owner pays with Crossly checkout; the pool is credited once when the payment lands. Owner only.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateFundingDrawQuoteRequest] :create_funding_draw_quote_request 
     # @return [Array<(CreateWorldExperienceRewardTopupResponse, Integer, Hash)>] CreateWorldExperienceRewardTopupResponse data, response status code and response headers
     def create_world_experience_reward_topup_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -233,12 +249,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_funding_draw_quote_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceRewardTopupResponse'
@@ -449,6 +470,9 @@ module Crossly
     # Every grant, newest first: reward, player sub, amount, cost, status. Cursor-paged; ?sub= for one player.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
+    # @option opts [String] :sub 
     # @return [ListWorldExperienceRewardGrantsResponse]
     def list_world_experience_reward_grants(experience_id, opts = {})
       data, _status_code, _headers = list_world_experience_reward_grants_with_http_info(experience_id, opts)
@@ -458,6 +482,9 @@ module Crossly
     # Every grant, newest first: reward, player sub, amount, cost, status. Cursor-paged; ?sub&#x3D; for one player.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
+    # @option opts [String] :sub 
     # @return [Array<(ListWorldExperienceRewardGrantsResponse, Integer, Hash)>] ListWorldExperienceRewardGrantsResponse data, response status code and response headers
     def list_world_experience_reward_grants_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -472,6 +499,9 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'sub'] = opts[:'sub'] if !opts[:'sub'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -510,6 +540,8 @@ module Crossly
     # The pool's own ledger: deposits, grant draw-downs, refunds. Cursor-paged.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [ListWorldExperienceRewardLedgerResponse]
     def list_world_experience_reward_ledger(experience_id, opts = {})
       data, _status_code, _headers = list_world_experience_reward_ledger_with_http_info(experience_id, opts)
@@ -519,6 +551,8 @@ module Crossly
     # The pool&#39;s own ledger: deposits, grant draw-downs, refunds. Cursor-paged.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWorldExperienceRewardLedgerResponse, Integer, Hash)>] ListWorldExperienceRewardLedgerResponse data, response status code and response headers
     def list_world_experience_reward_ledger_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -533,6 +567,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -633,6 +669,7 @@ module Crossly
     # @param experience_id [String] 
     # @param reward_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceRewardDefinitionRequest] :update_world_experience_reward_definition_request 
     # @return [CreateWorldExperienceRewardDefinitionResponse]
     def update_world_experience_reward_definition(experience_id, reward_id, opts = {})
       data, _status_code, _headers = update_world_experience_reward_definition_with_http_info(experience_id, reward_id, opts)
@@ -643,6 +680,7 @@ module Crossly
     # @param experience_id [String] 
     # @param reward_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceRewardDefinitionRequest] :update_world_experience_reward_definition_request 
     # @return [Array<(CreateWorldExperienceRewardDefinitionResponse, Integer, Hash)>] CreateWorldExperienceRewardDefinitionResponse data, response status code and response headers
     def update_world_experience_reward_definition_with_http_info(experience_id, reward_id, opts = {})
       if @api_client.config.debugging
@@ -666,12 +704,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_reward_definition_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceRewardDefinitionResponse'
@@ -699,6 +742,7 @@ module Crossly
     # Set the pool's daily caps: total value per day, value and grant count per player per day.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceRewardPoolRequest] :update_world_experience_reward_pool_request 
     # @return [UpdateWorldExperienceRewardPoolResponse]
     def update_world_experience_reward_pool(experience_id, opts = {})
       data, _status_code, _headers = update_world_experience_reward_pool_with_http_info(experience_id, opts)
@@ -708,6 +752,7 @@ module Crossly
     # Set the pool&#39;s daily caps: total value per day, value and grant count per player per day.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceRewardPoolRequest] :update_world_experience_reward_pool_request 
     # @return [Array<(UpdateWorldExperienceRewardPoolResponse, Integer, Hash)>] UpdateWorldExperienceRewardPoolResponse data, response status code and response headers
     def update_world_experience_reward_pool_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -727,12 +772,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_reward_pool_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldExperienceRewardPoolResponse'

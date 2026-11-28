@@ -31,7 +31,13 @@ module Crossly
 
     attr_accessor :rule_id
 
+    attr_accessor :floor_cents
+
+    attr_accessor :decided_at
+
     attr_accessor :strategy
+
+    attr_accessor :approval
 
     attr_accessor :old_price_cents
 
@@ -39,13 +45,7 @@ module Crossly
 
     attr_accessor :changed
 
-    attr_accessor :floor_cents
-
     attr_accessor :floor_was_net
-
-    attr_accessor :approval
-
-    attr_accessor :decided_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -58,14 +58,14 @@ module Crossly
         :'platform_listing_id' => :'platformListingId',
         :'reason' => :'reason',
         :'rule_id' => :'ruleId',
+        :'floor_cents' => :'floorCents',
+        :'decided_at' => :'decidedAt',
         :'strategy' => :'strategy',
+        :'approval' => :'approval',
         :'old_price_cents' => :'oldPriceCents',
         :'new_price_cents' => :'newPriceCents',
         :'changed' => :'changed',
-        :'floor_cents' => :'floorCents',
-        :'floor_was_net' => :'floorWasNet',
-        :'approval' => :'approval',
-        :'decided_at' => :'decidedAt'
+        :'floor_was_net' => :'floorWasNet'
       }
     end
 
@@ -85,14 +85,14 @@ module Crossly
         :'platform_listing_id' => :'String',
         :'reason' => :'String',
         :'rule_id' => :'String',
+        :'floor_cents' => :'Float',
+        :'decided_at' => :'Time',
         :'strategy' => :'String',
+        :'approval' => :'String',
         :'old_price_cents' => :'Float',
         :'new_price_cents' => :'Float',
         :'changed' => :'Boolean',
-        :'floor_cents' => :'Float',
-        :'floor_was_net' => :'Boolean',
-        :'approval' => :'String',
-        :'decided_at' => :'Time'
+        :'floor_was_net' => :'Boolean'
       }
     end
 
@@ -103,11 +103,11 @@ module Crossly
         :'listing_id',
         :'platform_listing_id',
         :'rule_id',
+        :'floor_cents',
+        :'decided_at',
+        :'approval',
         :'old_price_cents',
         :'new_price_cents',
-        :'floor_cents',
-        :'approval',
-        :'decided_at'
       ])
     end
 
@@ -158,8 +158,20 @@ module Crossly
         self.rule_id = attributes[:'rule_id']
       end
 
+      if attributes.key?(:'floor_cents')
+        self.floor_cents = attributes[:'floor_cents']
+      end
+
+      if attributes.key?(:'decided_at')
+        self.decided_at = attributes[:'decided_at']
+      end
+
       if attributes.key?(:'strategy')
         self.strategy = attributes[:'strategy']
+      end
+
+      if attributes.key?(:'approval')
+        self.approval = attributes[:'approval']
       end
 
       if attributes.key?(:'old_price_cents')
@@ -174,20 +186,8 @@ module Crossly
         self.changed = attributes[:'changed']
       end
 
-      if attributes.key?(:'floor_cents')
-        self.floor_cents = attributes[:'floor_cents']
-      end
-
       if attributes.key?(:'floor_was_net')
         self.floor_was_net = attributes[:'floor_was_net']
-      end
-
-      if attributes.key?(:'approval')
-        self.approval = attributes[:'approval']
-      end
-
-      if attributes.key?(:'decided_at')
-        self.decided_at = attributes[:'decided_at']
       end
     end
 
@@ -252,14 +252,14 @@ module Crossly
           platform_listing_id == o.platform_listing_id &&
           reason == o.reason &&
           rule_id == o.rule_id &&
+          floor_cents == o.floor_cents &&
+          decided_at == o.decided_at &&
           strategy == o.strategy &&
+          approval == o.approval &&
           old_price_cents == o.old_price_cents &&
           new_price_cents == o.new_price_cents &&
           changed == o.changed &&
-          floor_cents == o.floor_cents &&
-          floor_was_net == o.floor_was_net &&
-          approval == o.approval &&
-          decided_at == o.decided_at
+          floor_was_net == o.floor_was_net
     end
 
     # @see the `==` method
@@ -271,7 +271,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, platform, listing_id, platform_listing_id, reason, rule_id, strategy, old_price_cents, new_price_cents, changed, floor_cents, floor_was_net, approval, decided_at].hash
+      [id, created_at, user_id, platform, listing_id, platform_listing_id, reason, rule_id, floor_cents, decided_at, strategy, approval, old_price_cents, new_price_cents, changed, floor_was_net].hash
     end
 
     # Builds the object from hash

@@ -81,19 +81,25 @@ module Crossly
     end
 
     # Open a return record on an order (rejects if another open return exists).
+    # @param order_id_reason_request [OrderIdReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetReturnResponse]
-    def create_return(opts = {})
-      data, _status_code, _headers = create_return_with_http_info(opts)
+    def create_return(order_id_reason_request, opts = {})
+      data, _status_code, _headers = create_return_with_http_info(order_id_reason_request, opts)
       data
     end
 
     # Open a return record on an order (rejects if another open return exists).
+    # @param order_id_reason_request [OrderIdReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetReturnResponse, Integer, Hash)>] GetReturnResponse data, response status code and response headers
-    def create_return_with_http_info(opts = {})
+    def create_return_with_http_info(order_id_reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReturnsApi.create_return ...'
+      end
+      # verify the required parameter 'order_id_reason_request' is set
+      if @api_client.config.client_side_validation && order_id_reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'order_id_reason_request' when calling ReturnsApi.create_return"
       end
       # resource path
       local_var_path = '/v1/returns'
@@ -105,12 +111,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(order_id_reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetReturnResponse'
@@ -138,6 +149,7 @@ module Crossly
     # Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateReturnAcceptRequest] :create_return_accept_request 
     # @return [CreateReturnAcceptResponse]
     def create_return_accept(id, opts = {})
       data, _status_code, _headers = create_return_accept_with_http_info(id, opts)
@@ -147,6 +159,7 @@ module Crossly
     # Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateReturnAcceptRequest] :create_return_accept_request 
     # @return [Array<(CreateReturnAcceptResponse, Integer, Hash)>] CreateReturnAcceptResponse data, response status code and response headers
     def create_return_accept_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -166,12 +179,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_return_accept_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateReturnAcceptResponse'
@@ -331,6 +349,7 @@ module Crossly
 
     # Returns Crossly buyers opened under your return policy or try at home; filter by orderId.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :order_id 
     # @return [ListPolicyReturnsResponse]
     def list_policy_returns(opts = {})
       data, _status_code, _headers = list_policy_returns_with_http_info(opts)
@@ -339,6 +358,7 @@ module Crossly
 
     # Returns Crossly buyers opened under your return policy or try at home; filter by orderId.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :order_id 
     # @return [Array<(ListPolicyReturnsResponse, Integer, Hash)>] ListPolicyReturnsResponse data, response status code and response headers
     def list_policy_returns_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -349,6 +369,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'orderId'] = opts[:'order_id'] if !opts[:'order_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -386,6 +407,7 @@ module Crossly
 
     # List returns. Default: your return records (the physical-return workflow), status=open|closed|<exact>. source=request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :assignee Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id.
     # @return [ListReturnsResponse]
     def list_returns(opts = {})
       data, _status_code, _headers = list_returns_with_http_info(opts)
@@ -394,6 +416,7 @@ module Crossly
 
     # List returns. Default: your return records (the physical-return workflow), status&#x3D;open|closed|&lt;exact&gt;. source&#x3D;request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :assignee Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id.
     # @return [Array<(ListReturnsResponse, Integer, Hash)>] ListReturnsResponse data, response status code and response headers
     def list_returns_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -404,6 +427,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'assignee'] = opts[:'assignee'] if !opts[:'assignee'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -441,24 +465,30 @@ module Crossly
 
     # Transition return status (received/inspected/restocked) and bump inventory on restock.
     # @param id [String] 
+    # @param update_return_request [UpdateReturnRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetReturnResponse]
-    def update_return(id, opts = {})
-      data, _status_code, _headers = update_return_with_http_info(id, opts)
+    def update_return(id, update_return_request, opts = {})
+      data, _status_code, _headers = update_return_with_http_info(id, update_return_request, opts)
       data
     end
 
     # Transition return status (received/inspected/restocked) and bump inventory on restock.
     # @param id [String] 
+    # @param update_return_request [UpdateReturnRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetReturnResponse, Integer, Hash)>] GetReturnResponse data, response status code and response headers
-    def update_return_with_http_info(id, opts = {})
+    def update_return_with_http_info(id, update_return_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ReturnsApi.update_return ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling ReturnsApi.update_return"
+      end
+      # verify the required parameter 'update_return_request' is set
+      if @api_client.config.client_side_validation && update_return_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_return_request' when calling ReturnsApi.update_return"
       end
       # resource path
       local_var_path = '/v1/returns/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -470,12 +500,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_return_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetReturnResponse'
@@ -496,6 +531,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ReturnsApi#update_return\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Assign many returns to a teammate, round robin across several, or unassign them (null).
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateOrderAssigneeResponse]
+    def update_return_assignee(opts = {})
+      data, _status_code, _headers = update_return_assignee_with_http_info(opts)
+      data
+    end
+
+    # Assign many returns to a teammate, round robin across several, or unassign them (null).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateOrderAssigneeResponse, Integer, Hash)>] UpdateOrderAssigneeResponse data, response status code and response headers
+    def update_return_assignee_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReturnsApi.update_return_assignee ...'
+      end
+      # resource path
+      local_var_path = '/v1/returns/assignee'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateOrderAssigneeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ReturnsApi.update_return_assignee",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnsApi#update_return_assignee\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Assign one return to a teammate, or unassign it (null).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateOrderAssigneeByIdResponse]
+    def update_return_assignee_by_id(id, opts = {})
+      data, _status_code, _headers = update_return_assignee_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Assign one return to a teammate, or unassign it (null).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateOrderAssigneeByIdResponse, Integer, Hash)>] UpdateOrderAssigneeByIdResponse data, response status code and response headers
+    def update_return_assignee_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ReturnsApi.update_return_assignee_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ReturnsApi.update_return_assignee_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/returns/{id}/assignee'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateOrderAssigneeByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ReturnsApi.update_return_assignee_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ReturnsApi#update_return_assignee_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

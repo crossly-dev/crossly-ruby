@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class ListRentalOffersItem
+    attr_accessor :policy
+
     attr_accessor :slug
 
     attr_accessor :listing_id
@@ -29,11 +31,11 @@ module Crossly
 
     attr_accessor :active
 
+    attr_accessor :storefront_id
+
     attr_accessor :quantity
 
     attr_accessor :platform_listing_id
-
-    attr_accessor :storefront_id
 
     attr_accessor :options
 
@@ -62,6 +64,7 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'policy' => :'policy',
         :'slug' => :'slug',
         :'listing_id' => :'listingId',
         :'title' => :'title',
@@ -69,9 +72,9 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'active' => :'active',
+        :'storefront_id' => :'storefrontId',
         :'quantity' => :'quantity',
         :'platform_listing_id' => :'platformListingId',
-        :'storefront_id' => :'storefrontId',
         :'options' => :'options',
         :'seller_user_id' => :'sellerUserId',
         :'deposit_cents' => :'depositCents',
@@ -95,6 +98,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'policy' => :'GetRentalPolicyResponseData',
         :'slug' => :'String',
         :'listing_id' => :'String',
         :'title' => :'String',
@@ -102,9 +106,9 @@ module Crossly
         :'created_at' => :'String',
         :'updated_at' => :'String',
         :'active' => :'Boolean',
+        :'storefront_id' => :'String',
         :'quantity' => :'Float',
         :'platform_listing_id' => :'String',
-        :'storefront_id' => :'String',
         :'options' => :'Hash<String, Object>',
         :'seller_user_id' => :'String',
         :'deposit_cents' => :'Float',
@@ -123,6 +127,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'policy',
         :'storefront_id',
         :'weekly_cents',
         :'return_policy'
@@ -143,6 +148,10 @@ module Crossly
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'policy')
+        self.policy = attributes[:'policy']
+      end
 
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
@@ -172,16 +181,16 @@ module Crossly
         self.active = attributes[:'active']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
-      end
-
-      if attributes.key?(:'storefront_id')
-        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'options')
@@ -350,6 +359,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          policy == o.policy &&
           slug == o.slug &&
           listing_id == o.listing_id &&
           title == o.title &&
@@ -357,9 +367,9 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           active == o.active &&
+          storefront_id == o.storefront_id &&
           quantity == o.quantity &&
           platform_listing_id == o.platform_listing_id &&
-          storefront_id == o.storefront_id &&
           options == o.options &&
           seller_user_id == o.seller_user_id &&
           deposit_cents == o.deposit_cents &&
@@ -383,7 +393,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [slug, listing_id, title, image_url, created_at, updated_at, active, quantity, platform_listing_id, storefront_id, options, seller_user_id, deposit_cents, min_days, max_days, daily_cents, weekly_cents, buffer_days, rent_only, require_approval, blackout_ranges, return_policy].hash
+      [policy, slug, listing_id, title, image_url, created_at, updated_at, active, storefront_id, quantity, platform_listing_id, options, seller_user_id, deposit_cents, min_days, max_days, daily_cents, weekly_cents, buffer_days, rent_only, require_approval, blackout_ranges, return_policy].hash
     end
 
     # Builds the object from hash

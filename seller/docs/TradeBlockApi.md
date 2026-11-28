@@ -85,7 +85,7 @@ end
 
 ## create_trade_block_evolution_recipe
 
-> <CreateTradeBlockEvolutionRecipeResponse> create_trade_block_evolution_recipe
+> <CreateTradeBlockEvolutionRecipeResponse> create_trade_block_evolution_recipe(create_trade_block_evolution_recipe_request)
 
 Author a Trade Evolution recipe (a graded item or pair that, when swapped, unlocks a cosmetic you designed). Born unreviewed until ops approves.
 
@@ -101,10 +101,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::TradeBlockApi.new
+create_trade_block_evolution_recipe_request = Crossly::CreateTradeBlockEvolutionRecipeRequest.new({name: 'name_example', input_a: Crossly::CreateTradeBlockEvolutionRecipeRequestInputA.new({variant_id: 'variant_id_example'}), output_cosmetic_id: 'output_cosmetic_id_example'}) # CreateTradeBlockEvolutionRecipeRequest | 
 
 begin
   # Author a Trade Evolution recipe (a graded item or pair that, when swapped, unlocks a cosmetic you designed). Born unreviewed until ops approves.
-  result = api_instance.create_trade_block_evolution_recipe
+  result = api_instance.create_trade_block_evolution_recipe(create_trade_block_evolution_recipe_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TradeBlockApi->create_trade_block_evolution_recipe: #{e}"
@@ -115,12 +116,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTradeBlockEvolutionRecipeResponse>, Integer, Hash)> create_trade_block_evolution_recipe_with_http_info
+> <Array(<CreateTradeBlockEvolutionRecipeResponse>, Integer, Hash)> create_trade_block_evolution_recipe_with_http_info(create_trade_block_evolution_recipe_request)
 
 ```ruby
 begin
   # Author a Trade Evolution recipe (a graded item or pair that, when swapped, unlocks a cosmetic you designed). Born unreviewed until ops approves.
-  data, status_code, headers = api_instance.create_trade_block_evolution_recipe_with_http_info
+  data, status_code, headers = api_instance.create_trade_block_evolution_recipe_with_http_info(create_trade_block_evolution_recipe_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTradeBlockEvolutionRecipeResponse>
@@ -131,7 +132,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_trade_block_evolution_recipe_request** | **CreateTradeBlockEvolutionRecipeRequest** |  |  |
 
 ### Return type
 
@@ -143,13 +146,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_trade_block_offer_respond
 
-> <CreateTradeBlockOfferRespondResponse> create_trade_block_offer_respond(id)
+> <CreateTradeBlockOfferRespondResponse> create_trade_block_offer_respond(id, create_trade_block_offer_respond_request)
 
 Accept, decline, counter, or withdraw a Trade Block offer.
 
@@ -166,10 +169,11 @@ end
 
 api_instance = Crossly::TradeBlockApi.new
 id = 'id_example' # String | 
+create_trade_block_offer_respond_request = Crossly::CreateTradeBlockOfferRespondRequest.new({action: 'action_example'}) # CreateTradeBlockOfferRespondRequest | 
 
 begin
   # Accept, decline, counter, or withdraw a Trade Block offer.
-  result = api_instance.create_trade_block_offer_respond(id)
+  result = api_instance.create_trade_block_offer_respond(id, create_trade_block_offer_respond_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TradeBlockApi->create_trade_block_offer_respond: #{e}"
@@ -180,12 +184,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTradeBlockOfferRespondResponse>, Integer, Hash)> create_trade_block_offer_respond_with_http_info(id)
+> <Array(<CreateTradeBlockOfferRespondResponse>, Integer, Hash)> create_trade_block_offer_respond_with_http_info(id, create_trade_block_offer_respond_request)
 
 ```ruby
 begin
   # Accept, decline, counter, or withdraw a Trade Block offer.
-  data, status_code, headers = api_instance.create_trade_block_offer_respond_with_http_info(id)
+  data, status_code, headers = api_instance.create_trade_block_offer_respond_with_http_info(id, create_trade_block_offer_respond_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTradeBlockOfferRespondResponse>
@@ -199,6 +203,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_trade_block_offer_respond_request** | **CreateTradeBlockOfferRespondRequest** |  |  |
 
 ### Return type
 
@@ -210,7 +215,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -283,7 +288,7 @@ end
 
 ## create_trade_block_post_offer
 
-> <IdResponse> create_trade_block_post_offer(id)
+> <IdResponse> create_trade_block_post_offer(id, create_trade_block_post_offer_request)
 
 Respond to a post with a concrete swap: items on each side (0..N), optional cash.
 
@@ -300,10 +305,11 @@ end
 
 api_instance = Crossly::TradeBlockApi.new
 id = 'id_example' # String | 
+create_trade_block_post_offer_request = Crossly::CreateTradeBlockPostOfferRequest.new # CreateTradeBlockPostOfferRequest | 
 
 begin
   # Respond to a post with a concrete swap: items on each side (0..N), optional cash.
-  result = api_instance.create_trade_block_post_offer(id)
+  result = api_instance.create_trade_block_post_offer(id, create_trade_block_post_offer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TradeBlockApi->create_trade_block_post_offer: #{e}"
@@ -314,12 +320,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<IdResponse>, Integer, Hash)> create_trade_block_post_offer_with_http_info(id)
+> <Array(<IdResponse>, Integer, Hash)> create_trade_block_post_offer_with_http_info(id, create_trade_block_post_offer_request)
 
 ```ruby
 begin
   # Respond to a post with a concrete swap: items on each side (0..N), optional cash.
-  data, status_code, headers = api_instance.create_trade_block_post_offer_with_http_info(id)
+  data, status_code, headers = api_instance.create_trade_block_post_offer_with_http_info(id, create_trade_block_post_offer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <IdResponse>
@@ -333,6 +339,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_trade_block_post_offer_request** | **CreateTradeBlockPostOfferRequest** |  |  |
 
 ### Return type
 
@@ -344,13 +351,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_trade_block_set_recipe
 
-> <CreateTradeBlockSetRecipeResponse> create_trade_block_set_recipe
+> <CreateTradeBlockSetRecipeResponse> create_trade_block_set_recipe(create_trade_block_set_recipe_request)
 
 Author a set-completion recipe (a set of items that, once assembled through trading, unlocks a set-master cosmetic you designed). Born unreviewed until ops approves.
 
@@ -366,10 +373,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::TradeBlockApi.new
+create_trade_block_set_recipe_request = Crossly::CreateTradeBlockSetRecipeRequest.new({name: 'name_example', members: [Crossly::CreateTradeBlockEvolutionRecipeRequestInputA.new({variant_id: 'variant_id_example'})], output_cosmetic_id: 'output_cosmetic_id_example'}) # CreateTradeBlockSetRecipeRequest | 
 
 begin
   # Author a set-completion recipe (a set of items that, once assembled through trading, unlocks a set-master cosmetic you designed). Born unreviewed until ops approves.
-  result = api_instance.create_trade_block_set_recipe
+  result = api_instance.create_trade_block_set_recipe(create_trade_block_set_recipe_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TradeBlockApi->create_trade_block_set_recipe: #{e}"
@@ -380,12 +388,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTradeBlockSetRecipeResponse>, Integer, Hash)> create_trade_block_set_recipe_with_http_info
+> <Array(<CreateTradeBlockSetRecipeResponse>, Integer, Hash)> create_trade_block_set_recipe_with_http_info(create_trade_block_set_recipe_request)
 
 ```ruby
 begin
   # Author a set-completion recipe (a set of items that, once assembled through trading, unlocks a set-master cosmetic you designed). Born unreviewed until ops approves.
-  data, status_code, headers = api_instance.create_trade_block_set_recipe_with_http_info
+  data, status_code, headers = api_instance.create_trade_block_set_recipe_with_http_info(create_trade_block_set_recipe_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTradeBlockSetRecipeResponse>
@@ -396,7 +404,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_trade_block_set_recipe_request** | **CreateTradeBlockSetRecipeRequest** |  |  |
 
 ### Return type
 
@@ -408,7 +418,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

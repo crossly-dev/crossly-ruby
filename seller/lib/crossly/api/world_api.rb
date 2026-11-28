@@ -77,6 +77,7 @@ module Crossly
     # Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGamePackBreakPickRequest] :create_game_pack_break_pick_request 
     # @return [CreateGamePackBreakPickResponse]
     def create_game_pack_break_pick(id, opts = {})
       data, _status_code, _headers = create_game_pack_break_pick_with_http_info(id, opts)
@@ -86,6 +87,7 @@ module Crossly
     # Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGamePackBreakPickRequest] :create_game_pack_break_pick_request 
     # @return [Array<(CreateGamePackBreakPickResponse, Integer, Hash)>] CreateGamePackBreakPickResponse data, response status code and response headers
     def create_game_pack_break_pick_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -105,12 +107,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_game_pack_break_pick_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateGamePackBreakPickResponse'
@@ -136,21 +143,27 @@ module Crossly
     end
 
     # Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
+    # @param create_showroom_request [CreateShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [CreateShowroomResponse]
-    def create_showroom(opts = {})
-      data, _status_code, _headers = create_showroom_with_http_info(opts)
+    def create_showroom(create_showroom_request, opts = {})
+      data, _status_code, _headers = create_showroom_with_http_info(create_showroom_request, opts)
       data
     end
 
     # Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
+    # @param create_showroom_request [CreateShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [Array<(CreateShowroomResponse, Integer, Hash)>] CreateShowroomResponse data, response status code and response headers
-    def create_showroom_with_http_info(opts = {})
+    def create_showroom_with_http_info(create_showroom_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_showroom ...'
+      end
+      # verify the required parameter 'create_showroom_request' is set
+      if @api_client.config.client_side_validation && create_showroom_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_showroom_request' when calling WorldApi.create_showroom"
       end
       # resource path
       local_var_path = '/v1/showrooms'
@@ -163,12 +176,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_showroom_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateShowroomResponse'
@@ -195,26 +213,32 @@ module Crossly
 
     # Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
     # @param id [String] 
+    # @param create_showroom_placement_request [CreateShowroomPlacementRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [CreateShowroomPlacementResponse]
-    def create_showroom_placement(id, opts = {})
-      data, _status_code, _headers = create_showroom_placement_with_http_info(id, opts)
+    def create_showroom_placement(id, create_showroom_placement_request, opts = {})
+      data, _status_code, _headers = create_showroom_placement_with_http_info(id, create_showroom_placement_request, opts)
       data
     end
 
     # Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
     # @param id [String] 
+    # @param create_showroom_placement_request [CreateShowroomPlacementRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [Array<(CreateShowroomPlacementResponse, Integer, Hash)>] CreateShowroomPlacementResponse data, response status code and response headers
-    def create_showroom_placement_with_http_info(id, opts = {})
+    def create_showroom_placement_with_http_info(id, create_showroom_placement_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_showroom_placement ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_showroom_placement"
+      end
+      # verify the required parameter 'create_showroom_placement_request' is set
+      if @api_client.config.client_side_validation && create_showroom_placement_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_showroom_placement_request' when calling WorldApi.create_showroom_placement"
       end
       # resource path
       local_var_path = '/v1/showrooms/{id}/placement'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -227,12 +251,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_showroom_placement_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateShowroomPlacementResponse'
@@ -258,19 +287,25 @@ module Crossly
     end
 
     # Redeem an invite code (dashes optional); returns the room it opens.
+    # @param create_order_pack_scan_request [CreateOrderPackScanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialInviteAcceptResponse]
-    def create_spatial_invite_accept(opts = {})
-      data, _status_code, _headers = create_spatial_invite_accept_with_http_info(opts)
+    def create_spatial_invite_accept(create_order_pack_scan_request, opts = {})
+      data, _status_code, _headers = create_spatial_invite_accept_with_http_info(create_order_pack_scan_request, opts)
       data
     end
 
     # Redeem an invite code (dashes optional); returns the room it opens.
+    # @param create_order_pack_scan_request [CreateOrderPackScanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialInviteAcceptResponse, Integer, Hash)>] CreateSpatialInviteAcceptResponse data, response status code and response headers
-    def create_spatial_invite_accept_with_http_info(opts = {})
+    def create_spatial_invite_accept_with_http_info(create_order_pack_scan_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_invite_accept ...'
+      end
+      # verify the required parameter 'create_order_pack_scan_request' is set
+      if @api_client.config.client_side_validation && create_order_pack_scan_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_pack_scan_request' when calling WorldApi.create_spatial_invite_accept"
       end
       # resource path
       local_var_path = '/v1/spatial/invites/accept'
@@ -282,12 +317,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_pack_scan_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialInviteAcceptResponse'
@@ -441,24 +481,30 @@ module Crossly
 
     # Let a specific user into one of your rooms (visitor or staff), no code needed.
     # @param id [String] 
+    # @param create_spatial_scene_grant_request [CreateSpatialSceneGrantRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialSceneGrantResponse]
-    def create_spatial_scene_grant(id, opts = {})
-      data, _status_code, _headers = create_spatial_scene_grant_with_http_info(id, opts)
+    def create_spatial_scene_grant(id, create_spatial_scene_grant_request, opts = {})
+      data, _status_code, _headers = create_spatial_scene_grant_with_http_info(id, create_spatial_scene_grant_request, opts)
       data
     end
 
     # Let a specific user into one of your rooms (visitor or staff), no code needed.
     # @param id [String] 
+    # @param create_spatial_scene_grant_request [CreateSpatialSceneGrantRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialSceneGrantResponse, Integer, Hash)>] CreateSpatialSceneGrantResponse data, response status code and response headers
-    def create_spatial_scene_grant_with_http_info(id, opts = {})
+    def create_spatial_scene_grant_with_http_info(id, create_spatial_scene_grant_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_scene_grant ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_scene_grant"
+      end
+      # verify the required parameter 'create_spatial_scene_grant_request' is set
+      if @api_client.config.client_side_validation && create_spatial_scene_grant_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_spatial_scene_grant_request' when calling WorldApi.create_spatial_scene_grant"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/grants'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -470,12 +516,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_spatial_scene_grant_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialSceneGrantResponse'
@@ -503,6 +554,7 @@ module Crossly
     # Mint an invite code to one of your rooms (visitor or staff, optional expiry in hours). The code is in this response only: just its hash is stored.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateSpatialSceneInviteRequest] :create_spatial_scene_invite_request 
     # @return [CreateSpatialSceneInviteResponse]
     def create_spatial_scene_invite(id, opts = {})
       data, _status_code, _headers = create_spatial_scene_invite_with_http_info(id, opts)
@@ -512,6 +564,7 @@ module Crossly
     # Mint an invite code to one of your rooms (visitor or staff, optional expiry in hours). The code is in this response only: just its hash is stored.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateSpatialSceneInviteRequest] :create_spatial_scene_invite_request 
     # @return [Array<(CreateSpatialSceneInviteResponse, Integer, Hash)>] CreateSpatialSceneInviteResponse data, response status code and response headers
     def create_spatial_scene_invite_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -531,12 +584,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_spatial_scene_invite_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialSceneInviteResponse'
@@ -563,24 +621,30 @@ module Crossly
 
     # Add a unit (rack, shelf, bin) to one of your warehouse rooms.
     # @param id [String] 
+    # @param create_spatial_scene_node_request [CreateSpatialSceneNodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialSceneNodeResponse]
-    def create_spatial_scene_node(id, opts = {})
-      data, _status_code, _headers = create_spatial_scene_node_with_http_info(id, opts)
+    def create_spatial_scene_node(id, create_spatial_scene_node_request, opts = {})
+      data, _status_code, _headers = create_spatial_scene_node_with_http_info(id, create_spatial_scene_node_request, opts)
       data
     end
 
     # Add a unit (rack, shelf, bin) to one of your warehouse rooms.
     # @param id [String] 
+    # @param create_spatial_scene_node_request [CreateSpatialSceneNodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialSceneNodeResponse, Integer, Hash)>] CreateSpatialSceneNodeResponse data, response status code and response headers
-    def create_spatial_scene_node_with_http_info(id, opts = {})
+    def create_spatial_scene_node_with_http_info(id, create_spatial_scene_node_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_scene_node ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_scene_node"
+      end
+      # verify the required parameter 'create_spatial_scene_node_request' is set
+      if @api_client.config.client_side_validation && create_spatial_scene_node_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_spatial_scene_node_request' when calling WorldApi.create_spatial_scene_node"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/nodes'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -592,12 +656,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_spatial_scene_node_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialSceneNodeResponse'
@@ -757,24 +826,30 @@ module Crossly
 
     # Place an inventory item in a section and display of your shop room.
     # @param id [String] 
+    # @param create_spatial_scene_shop_place_request [CreateSpatialSceneShopPlaceRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialSceneShopPlaceResponse]
-    def create_spatial_scene_shop_place(id, opts = {})
-      data, _status_code, _headers = create_spatial_scene_shop_place_with_http_info(id, opts)
+    def create_spatial_scene_shop_place(id, create_spatial_scene_shop_place_request, opts = {})
+      data, _status_code, _headers = create_spatial_scene_shop_place_with_http_info(id, create_spatial_scene_shop_place_request, opts)
       data
     end
 
     # Place an inventory item in a section and display of your shop room.
     # @param id [String] 
+    # @param create_spatial_scene_shop_place_request [CreateSpatialSceneShopPlaceRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialSceneShopPlaceResponse, Integer, Hash)>] CreateSpatialSceneShopPlaceResponse data, response status code and response headers
-    def create_spatial_scene_shop_place_with_http_info(id, opts = {})
+    def create_spatial_scene_shop_place_with_http_info(id, create_spatial_scene_shop_place_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_scene_shop_place ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_scene_shop_place"
+      end
+      # verify the required parameter 'create_spatial_scene_shop_place_request' is set
+      if @api_client.config.client_side_validation && create_spatial_scene_shop_place_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_spatial_scene_shop_place_request' when calling WorldApi.create_spatial_scene_shop_place"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/shop/place'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -786,12 +861,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_spatial_scene_shop_place_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialSceneShopPlaceResponse'
@@ -951,24 +1031,30 @@ module Crossly
 
     # Put an inventory item (or unit) on a rack in one of your warehouse rooms.
     # @param id [String] 
+    # @param create_spatial_scene_warehouse_stock_request [CreateSpatialSceneWarehouseStockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialScenePlaceResponse]
-    def create_spatial_scene_warehouse_stock(id, opts = {})
-      data, _status_code, _headers = create_spatial_scene_warehouse_stock_with_http_info(id, opts)
+    def create_spatial_scene_warehouse_stock(id, create_spatial_scene_warehouse_stock_request, opts = {})
+      data, _status_code, _headers = create_spatial_scene_warehouse_stock_with_http_info(id, create_spatial_scene_warehouse_stock_request, opts)
       data
     end
 
     # Put an inventory item (or unit) on a rack in one of your warehouse rooms.
     # @param id [String] 
+    # @param create_spatial_scene_warehouse_stock_request [CreateSpatialSceneWarehouseStockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialScenePlaceResponse, Integer, Hash)>] CreateSpatialScenePlaceResponse data, response status code and response headers
-    def create_spatial_scene_warehouse_stock_with_http_info(id, opts = {})
+    def create_spatial_scene_warehouse_stock_with_http_info(id, create_spatial_scene_warehouse_stock_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_scene_warehouse_stock ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_scene_warehouse_stock"
+      end
+      # verify the required parameter 'create_spatial_scene_warehouse_stock_request' is set
+      if @api_client.config.client_side_validation && create_spatial_scene_warehouse_stock_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_spatial_scene_warehouse_stock_request' when calling WorldApi.create_spatial_scene_warehouse_stock"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/warehouse/stock'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -980,12 +1066,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_spatial_scene_warehouse_stock_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialScenePlaceResponse'
@@ -1006,6 +1097,189 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: WorldApi#create_spatial_scene_warehouse_stock\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Accept a street admission: an application to a street your store owns, or an invitation to your store shop. Seats the shop.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SpatialStreetAdmissionResponse]
+    def create_spatial_street_admission_accept(id, opts = {})
+      data, _status_code, _headers = create_spatial_street_admission_accept_with_http_info(id, opts)
+      data
+    end
+
+    # Accept a street admission: an application to a street your store owns, or an invitation to your store shop. Seats the shop.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SpatialStreetAdmissionResponse, Integer, Hash)>] SpatialStreetAdmissionResponse data, response status code and response headers
+    def create_spatial_street_admission_accept_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_street_admission_accept ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_street_admission_accept"
+      end
+      # resource path
+      local_var_path = '/v1/spatial/streets/admissions/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SpatialStreetAdmissionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorldApi.create_spatial_street_admission_accept",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorldApi#create_spatial_street_admission_accept\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Decline a street admission: an application to a street your store owns, or an invitation to your store shop.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SpatialStreetAdmissionResponse]
+    def create_spatial_street_admission_decline(id, opts = {})
+      data, _status_code, _headers = create_spatial_street_admission_decline_with_http_info(id, opts)
+      data
+    end
+
+    # Decline a street admission: an application to a street your store owns, or an invitation to your store shop.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SpatialStreetAdmissionResponse, Integer, Hash)>] SpatialStreetAdmissionResponse data, response status code and response headers
+    def create_spatial_street_admission_decline_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_street_admission_decline ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_street_admission_decline"
+      end
+      # resource path
+      local_var_path = '/v1/spatial/streets/admissions/{id}/decline'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SpatialStreetAdmissionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorldApi.create_spatial_street_admission_decline",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorldApi#create_spatial_street_admission_decline\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Take back a street admission your store sent: its shop application, or an invitation from its street.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SpatialStreetAdmissionResponse]
+    def create_spatial_street_admission_withdraw(id, opts = {})
+      data, _status_code, _headers = create_spatial_street_admission_withdraw_with_http_info(id, opts)
+      data
+    end
+
+    # Take back a street admission your store sent: its shop application, or an invitation from its street.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SpatialStreetAdmissionResponse, Integer, Hash)>] SpatialStreetAdmissionResponse data, response status code and response headers
+    def create_spatial_street_admission_withdraw_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_street_admission_withdraw ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_spatial_street_admission_withdraw"
+      end
+      # resource path
+      local_var_path = '/v1/spatial/streets/admissions/{id}/withdraw'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SpatialStreetAdmissionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorldApi.create_spatial_street_admission_withdraw",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorldApi#create_spatial_street_admission_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1073,24 +1347,30 @@ module Crossly
 
     # Invite a shop (by its slug) to open on a street you own.
     # @param slug [String] 
+    # @param create_spatial_street_invite_request [CreateSpatialStreetInviteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialStreetApplyResponse]
-    def create_spatial_street_invite(slug, opts = {})
-      data, _status_code, _headers = create_spatial_street_invite_with_http_info(slug, opts)
+    def create_spatial_street_invite(slug, create_spatial_street_invite_request, opts = {})
+      data, _status_code, _headers = create_spatial_street_invite_with_http_info(slug, create_spatial_street_invite_request, opts)
       data
     end
 
     # Invite a shop (by its slug) to open on a street you own.
     # @param slug [String] 
+    # @param create_spatial_street_invite_request [CreateSpatialStreetInviteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialStreetApplyResponse, Integer, Hash)>] CreateSpatialStreetApplyResponse data, response status code and response headers
-    def create_spatial_street_invite_with_http_info(slug, opts = {})
+    def create_spatial_street_invite_with_http_info(slug, create_spatial_street_invite_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_spatial_street_invite ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling WorldApi.create_spatial_street_invite"
+      end
+      # verify the required parameter 'create_spatial_street_invite_request' is set
+      if @api_client.config.client_side_validation && create_spatial_street_invite_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_spatial_street_invite_request' when calling WorldApi.create_spatial_street_invite"
       end
       # resource path
       local_var_path = '/v1/spatial/streets/{slug}/invite'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -1102,12 +1382,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_spatial_street_invite_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialStreetApplyResponse'
@@ -1133,19 +1418,25 @@ module Crossly
     end
 
     # One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
+    # @param create_world_attendant_test_chat_request [CreateWorldAttendantTestChatRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldAttendantTestChatResponse]
-    def create_world_attendant_test_chat(opts = {})
-      data, _status_code, _headers = create_world_attendant_test_chat_with_http_info(opts)
+    def create_world_attendant_test_chat(create_world_attendant_test_chat_request, opts = {})
+      data, _status_code, _headers = create_world_attendant_test_chat_with_http_info(create_world_attendant_test_chat_request, opts)
       data
     end
 
     # One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
+    # @param create_world_attendant_test_chat_request [CreateWorldAttendantTestChatRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldAttendantTestChatResponse, Integer, Hash)>] CreateWorldAttendantTestChatResponse data, response status code and response headers
-    def create_world_attendant_test_chat_with_http_info(opts = {})
+    def create_world_attendant_test_chat_with_http_info(create_world_attendant_test_chat_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_attendant_test_chat ...'
+      end
+      # verify the required parameter 'create_world_attendant_test_chat_request' is set
+      if @api_client.config.client_side_validation && create_world_attendant_test_chat_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_attendant_test_chat_request' when calling WorldApi.create_world_attendant_test_chat"
       end
       # resource path
       local_var_path = '/v1/world/attendant/test-chat'
@@ -1157,12 +1448,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_attendant_test_chat_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldAttendantTestChatResponse'
@@ -1321,6 +1617,7 @@ module Crossly
 
     # Author a wearable for a body slot (a mesh profile and params, an asking price in COSM base units as a string). A submission: inactive until an operator approves it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldAvatarWearableRequest] :create_world_avatar_wearable_request 
     # @return [CreateWorldAvatarWearableResponse]
     def create_world_avatar_wearable(opts = {})
       data, _status_code, _headers = create_world_avatar_wearable_with_http_info(opts)
@@ -1329,6 +1626,7 @@ module Crossly
 
     # Author a wearable for a body slot (a mesh profile and params, an asking price in COSM base units as a string). A submission: inactive until an operator approves it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldAvatarWearableRequest] :create_world_avatar_wearable_request 
     # @return [Array<(CreateWorldAvatarWearableResponse, Integer, Hash)>] CreateWorldAvatarWearableResponse data, response status code and response headers
     def create_world_avatar_wearable_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1344,12 +1642,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_avatar_wearable_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldAvatarWearableResponse'
@@ -1553,6 +1856,7 @@ module Crossly
 
     # Host a convention in one of your rooms: title, dates, tables and how sellers get one (invite, free, a fee in cents, or a revenue share in basis points).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionRequest] :create_world_convention_request 
     # @return [CreateWorldConventionResponse]
     def create_world_convention(opts = {})
       data, _status_code, _headers = create_world_convention_with_http_info(opts)
@@ -1561,6 +1865,7 @@ module Crossly
 
     # Host a convention in one of your rooms: title, dates, tables and how sellers get one (invite, free, a fee in cents, or a revenue share in basis points).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionRequest] :create_world_convention_request 
     # @return [Array<(CreateWorldConventionResponse, Integer, Hash)>] CreateWorldConventionResponse data, response status code and response headers
     def create_world_convention_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1576,12 +1881,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionResponse'
@@ -1609,6 +1919,7 @@ module Crossly
     # Accept: your own invitation (no body), or, as host, an application (username).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionAcceptRequest] :create_world_convention_accept_request 
     # @return [CreateWorldConventionAcceptResponse]
     def create_world_convention_accept(id, opts = {})
       data, _status_code, _headers = create_world_convention_accept_with_http_info(id, opts)
@@ -1618,6 +1929,7 @@ module Crossly
     # Accept: your own invitation (no body), or, as host, an application (username).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionAcceptRequest] :create_world_convention_accept_request 
     # @return [Array<(CreateWorldConventionAcceptResponse, Integer, Hash)>] CreateWorldConventionAcceptResponse data, response status code and response headers
     def create_world_convention_accept_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1637,12 +1949,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_accept_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionAcceptResponse'
@@ -1731,6 +2048,7 @@ module Crossly
     # Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionBoothApplyRequest] :create_world_convention_booth_apply_request 
     # @return [CreateWorldConventionBoothApplyResponse]
     def create_world_convention_booth_apply(id, opts = {})
       data, _status_code, _headers = create_world_convention_booth_apply_with_http_info(id, opts)
@@ -1740,6 +2058,7 @@ module Crossly
     # Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionBoothApplyRequest] :create_world_convention_booth_apply_request 
     # @return [Array<(CreateWorldConventionBoothApplyResponse, Integer, Hash)>] CreateWorldConventionBoothApplyResponse data, response status code and response headers
     def create_world_convention_booth_apply_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1759,12 +2078,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_booth_apply_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionBoothApplyResponse'
@@ -1792,6 +2116,7 @@ module Crossly
     # Pay your booth fee to the organiser on a Worlds rail: { rail: \"cash\" | \"cbx\" }. Once per booth. Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionBoothFeeRequest] :create_world_convention_booth_fee_request 
     # @return [CreateWorldConventionBoothFeeResponse]
     def create_world_convention_booth_fee(id, opts = {})
       data, _status_code, _headers = create_world_convention_booth_fee_with_http_info(id, opts)
@@ -1801,6 +2126,7 @@ module Crossly
     # Pay your booth fee to the organiser on a Worlds rail: { rail: \&quot;cash\&quot; | \&quot;cbx\&quot; }. Once per booth. Full-access token and Idempotency-Key required.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionBoothFeeRequest] :create_world_convention_booth_fee_request 
     # @return [Array<(CreateWorldConventionBoothFeeResponse, Integer, Hash)>] CreateWorldConventionBoothFeeResponse data, response status code and response headers
     def create_world_convention_booth_fee_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1820,12 +2146,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_booth_fee_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionBoothFeeResponse'
@@ -1853,6 +2184,7 @@ module Crossly
     # Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionCheckInRequest] :create_world_convention_check_in_request 
     # @return [CreateWorldConventionCheckInResponse]
     def create_world_convention_check_in(id, opts = {})
       data, _status_code, _headers = create_world_convention_check_in_with_http_info(id, opts)
@@ -1862,6 +2194,7 @@ module Crossly
     # Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionCheckInRequest] :create_world_convention_check_in_request 
     # @return [Array<(CreateWorldConventionCheckInResponse, Integer, Hash)>] CreateWorldConventionCheckInResponse data, response status code and response headers
     def create_world_convention_check_in_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1881,12 +2214,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_check_in_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionCheckInResponse'
@@ -1913,6 +2251,7 @@ module Crossly
 
     # Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionFullRequest] :create_world_convention_full_request 
     # @return [GetWorldConventionManageResponse]
     def create_world_convention_full(opts = {})
       data, _status_code, _headers = create_world_convention_full_with_http_info(opts)
@@ -1921,6 +2260,7 @@ module Crossly
 
     # Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionFullRequest] :create_world_convention_full_request 
     # @return [Array<(GetWorldConventionManageResponse, Integer, Hash)>] GetWorldConventionManageResponse data, response status code and response headers
     def create_world_convention_full_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1936,12 +2276,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_full_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldConventionManageResponse'
@@ -1969,6 +2314,7 @@ module Crossly
     # Invite a seller (by shop handle) to a convention you host.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionPaidRequest] :create_world_convention_paid_request 
     # @return [CreateWorldSpaceInviteResponse]
     def create_world_convention_invite(id, opts = {})
       data, _status_code, _headers = create_world_convention_invite_with_http_info(id, opts)
@@ -1978,6 +2324,7 @@ module Crossly
     # Invite a seller (by shop handle) to a convention you host.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionPaidRequest] :create_world_convention_paid_request 
     # @return [Array<(CreateWorldSpaceInviteResponse, Integer, Hash)>] CreateWorldSpaceInviteResponse data, response status code and response headers
     def create_world_convention_invite_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1997,12 +2344,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_paid_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceInviteResponse'
@@ -2030,6 +2382,7 @@ module Crossly
     # Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionMessageRequest] :create_world_convention_message_request 
     # @return [CreateWorldConventionMessageResponse]
     def create_world_convention_message(id, opts = {})
       data, _status_code, _headers = create_world_convention_message_with_http_info(id, opts)
@@ -2039,6 +2392,7 @@ module Crossly
     # Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionMessageRequest] :create_world_convention_message_request 
     # @return [Array<(CreateWorldConventionMessageResponse, Integer, Hash)>] CreateWorldConventionMessageResponse data, response status code and response headers
     def create_world_convention_message_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2058,12 +2412,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_message_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionMessageResponse'
@@ -2091,6 +2450,7 @@ module Crossly
     # As host, record that a seller (username) paid their table fee off-platform. Moves no money.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionPaidRequest] :create_world_convention_paid_request 
     # @return [UpdateGroupBuyResponse]
     def create_world_convention_paid(id, opts = {})
       data, _status_code, _headers = create_world_convention_paid_with_http_info(id, opts)
@@ -2100,6 +2460,7 @@ module Crossly
     # As host, record that a seller (username) paid their table fee off-platform. Moves no money.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionPaidRequest] :create_world_convention_paid_request 
     # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def create_world_convention_paid_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2119,12 +2480,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_paid_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
@@ -2152,6 +2518,7 @@ module Crossly
     # Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionSellerAssignRequest] :create_world_convention_seller_assign_request 
     # @return [CreateWorldConventionSellerAssignResponse]
     def create_world_convention_seller_assign(id, opts = {})
       data, _status_code, _headers = create_world_convention_seller_assign_with_http_info(id, opts)
@@ -2161,6 +2528,7 @@ module Crossly
     # Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionSellerAssignRequest] :create_world_convention_seller_assign_request 
     # @return [Array<(CreateWorldConventionSellerAssignResponse, Integer, Hash)>] CreateWorldConventionSellerAssignResponse data, response status code and response headers
     def create_world_convention_seller_assign_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2180,12 +2548,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_seller_assign_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionSellerAssignResponse'
@@ -2213,6 +2586,7 @@ module Crossly
     # Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionSellerDecideRequest] :create_world_convention_seller_decide_request 
     # @return [CreateWorldConventionBoothApplyResponse]
     def create_world_convention_seller_decide(id, opts = {})
       data, _status_code, _headers = create_world_convention_seller_decide_with_http_info(id, opts)
@@ -2222,6 +2596,7 @@ module Crossly
     # Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionSellerDecideRequest] :create_world_convention_seller_decide_request 
     # @return [Array<(CreateWorldConventionBoothApplyResponse, Integer, Hash)>] CreateWorldConventionBoothApplyResponse data, response status code and response headers
     def create_world_convention_seller_decide_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2241,12 +2616,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_seller_decide_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldConventionBoothApplyResponse'
@@ -2274,6 +2654,7 @@ module Crossly
     # Withdraw your table or decline your invitation; as host, decline someone (username).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionWithdrawRequest] :create_world_convention_withdraw_request 
     # @return [UpdateGroupBuyResponse]
     def create_world_convention_withdraw(id, opts = {})
       data, _status_code, _headers = create_world_convention_withdraw_with_http_info(id, opts)
@@ -2283,6 +2664,7 @@ module Crossly
     # Withdraw your table or decline your invitation; as host, decline someone (username).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldConventionWithdrawRequest] :create_world_convention_withdraw_request 
     # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def create_world_convention_withdraw_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2302,12 +2684,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_convention_withdraw_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
@@ -2587,6 +2974,7 @@ module Crossly
 
     # Author a decor design (what it unlocks, a mesh profile and params, an asking price in COSM base units as a string). Inactive until an operator approves it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldDecorDesignRequest] :create_world_decor_design_request 
     # @return [CreateWorldDecorDesignResponse]
     def create_world_decor_design(opts = {})
       data, _status_code, _headers = create_world_decor_design_with_http_info(opts)
@@ -2595,6 +2983,7 @@ module Crossly
 
     # Author a decor design (what it unlocks, a mesh profile and params, an asking price in COSM base units as a string). Inactive until an operator approves it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldDecorDesignRequest] :create_world_decor_design_request 
     # @return [Array<(CreateWorldDecorDesignResponse, Integer, Hash)>] CreateWorldDecorDesignResponse data, response status code and response headers
     def create_world_decor_design_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2610,12 +2999,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_decor_design_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldDecorDesignResponse'
@@ -2703,6 +3097,7 @@ module Crossly
 
     # Take a placed decor piece back into your inventory; answers the inventory after.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldDecorRetractRequest] :create_world_decor_retract_request 
     # @return [CreateWorldDecorRetractResponse]
     def create_world_decor_retract(opts = {})
       data, _status_code, _headers = create_world_decor_retract_with_http_info(opts)
@@ -2711,6 +3106,7 @@ module Crossly
 
     # Take a placed decor piece back into your inventory; answers the inventory after.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldDecorRetractRequest] :create_world_decor_retract_request 
     # @return [Array<(CreateWorldDecorRetractResponse, Integer, Hash)>] CreateWorldDecorRetractResponse data, response status code and response headers
     def create_world_decor_retract_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2726,12 +3122,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_decor_retract_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldDecorRetractResponse'
@@ -2963,6 +3364,7 @@ module Crossly
 
     # Submit a game package version for review: files as { path, base64 } (game.json, thumb.png, logic/, scene/, audio/, images/). Checked like the CLI, assets quarantined, the entry document dry-run, then reviewed by a person.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGamePackageRequest] :create_world_game_package_request 
     # @return [CreateWorldGamePackageResponse]
     def create_world_game_package(opts = {})
       data, _status_code, _headers = create_world_game_package_with_http_info(opts)
@@ -2971,6 +3373,7 @@ module Crossly
 
     # Submit a game package version for review: files as { path, base64 } (game.json, thumb.png, logic/, scene/, audio/, images/). Checked like the CLI, assets quarantined, the entry document dry-run, then reviewed by a person.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGamePackageRequest] :create_world_game_package_request 
     # @return [Array<(CreateWorldGamePackageResponse, Integer, Hash)>] CreateWorldGamePackageResponse data, response status code and response headers
     def create_world_game_package_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2986,12 +3389,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_game_package_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGamePackageResponse'
@@ -3018,6 +3426,7 @@ module Crossly
 
     # Validate a game package exactly as a submission is checked (the shared intake report, your version still free) without storing, uploading or queuing anything: world-kit validate for an agent. Same files body as submit.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgCreatorGameRequest] :create_tcg_creator_game_request 
     # @return [CreateWorldGamePackageCheckResponse]
     def create_world_game_package_check(opts = {})
       data, _status_code, _headers = create_world_game_package_check_with_http_info(opts)
@@ -3026,6 +3435,7 @@ module Crossly
 
     # Validate a game package exactly as a submission is checked (the shared intake report, your version still free) without storing, uploading or queuing anything: world-kit validate for an agent. Same files body as submit.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgCreatorGameRequest] :create_tcg_creator_game_request 
     # @return [Array<(CreateWorldGamePackageCheckResponse, Integer, Hash)>] CreateWorldGamePackageCheckResponse data, response status code and response headers
     def create_world_game_package_check_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3041,12 +3451,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_creator_game_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGamePackageCheckResponse'
@@ -3074,6 +3489,7 @@ module Crossly
     # Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGamePackagePublishRequest] :create_world_game_package_publish_request 
     # @return [CreateWorldGamePackagePublishResponse]
     def create_world_game_package_publish(id, opts = {})
       data, _status_code, _headers = create_world_game_package_publish_with_http_info(id, opts)
@@ -3083,6 +3499,7 @@ module Crossly
     # Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGamePackagePublishRequest] :create_world_game_package_publish_request 
     # @return [Array<(CreateWorldGamePackagePublishResponse, Integer, Hash)>] CreateWorldGamePackagePublishResponse data, response status code and response headers
     def create_world_game_package_publish_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -3102,12 +3519,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_game_package_publish_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGamePackagePublishResponse'
@@ -3324,6 +3746,7 @@ module Crossly
     # Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGameRatingRequest] :create_world_game_rating_request 
     # @return [CreateWorldGameRatingResponse]
     def create_world_game_rating(id, opts = {})
       data, _status_code, _headers = create_world_game_rating_with_http_info(id, opts)
@@ -3333,6 +3756,7 @@ module Crossly
     # Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGameRatingRequest] :create_world_game_rating_request 
     # @return [Array<(CreateWorldGameRatingResponse, Integer, Hash)>] CreateWorldGameRatingResponse data, response status code and response headers
     def create_world_game_rating_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -3352,12 +3776,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_game_rating_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGameRatingResponse'
@@ -3385,6 +3814,7 @@ module Crossly
     # Report a game: reason broken | unfair | offensive | scam | other, optional detail. Staff review it; the creator is told the reason, never who.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGameReportRequest] :create_world_game_report_request 
     # @return [CreateWorldGameReportResponse]
     def create_world_game_report(id, opts = {})
       data, _status_code, _headers = create_world_game_report_with_http_info(id, opts)
@@ -3394,6 +3824,7 @@ module Crossly
     # Report a game: reason broken | unfair | offensive | scam | other, optional detail. Staff review it; the creator is told the reason, never who.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGameReportRequest] :create_world_game_report_request 
     # @return [Array<(CreateWorldGameReportResponse, Integer, Hash)>] CreateWorldGameReportResponse data, response status code and response headers
     def create_world_game_report_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -3413,12 +3844,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_game_report_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGameReportResponse'
@@ -3512,6 +3948,7 @@ module Crossly
 
     # Grail glints: send the ids on show somewhere (listingIds -- listings.id, inventoryIds, skuIds -- catalogue market SKUs; up to 400 each) and get back data.listingIds / data.inventoryIds / data.skuIds: the ones that are things you already want -- an open bid, a watched or wishlisted listing (or one selling the same SKU), a market watch, or a card your deck is missing. Read-only.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGrailMatchRequest] :create_world_grail_match_request 
     # @return [CreateWorldGrailMatchResponse]
     def create_world_grail_match(opts = {})
       data, _status_code, _headers = create_world_grail_match_with_http_info(opts)
@@ -3520,6 +3957,7 @@ module Crossly
 
     # Grail glints: send the ids on show somewhere (listingIds -- listings.id, inventoryIds, skuIds -- catalogue market SKUs; up to 400 each) and get back data.listingIds / data.inventoryIds / data.skuIds: the ones that are things you already want -- an open bid, a watched or wishlisted listing (or one selling the same SKU), a market watch, or a card your deck is missing. Read-only.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldGrailMatchRequest] :create_world_grail_match_request 
     # @return [Array<(CreateWorldGrailMatchResponse, Integer, Hash)>] CreateWorldGrailMatchResponse data, response status code and response headers
     def create_world_grail_match_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3535,12 +3973,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_grail_match_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGrailMatchResponse'
@@ -3567,6 +4010,7 @@ module Crossly
 
     # Lend a piece from your vault to this week's Hall of Grails exhibition: { vaultItemId, credit: 'name' | 'anonymous' }. It shows under your plaque until the exhibition ends; it stays in your vault (still listable and withdrawable), and stops showing if it leaves.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldHallLoanRequest] :create_world_hall_loan_request 
     # @return [CreateWorldHallLoanResponse]
     def create_world_hall_loan(opts = {})
       data, _status_code, _headers = create_world_hall_loan_with_http_info(opts)
@@ -3575,6 +4019,7 @@ module Crossly
 
     # Lend a piece from your vault to this week&#39;s Hall of Grails exhibition: { vaultItemId, credit: &#39;name&#39; | &#39;anonymous&#39; }. It shows under your plaque until the exhibition ends; it stays in your vault (still listable and withdrawable), and stops showing if it leaves.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldHallLoanRequest] :create_world_hall_loan_request 
     # @return [Array<(CreateWorldHallLoanResponse, Integer, Hash)>] CreateWorldHallLoanResponse data, response status code and response headers
     def create_world_hall_loan_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3590,12 +4035,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_hall_loan_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldHallLoanResponse'
@@ -3623,6 +4073,7 @@ module Crossly
     # Ask a home owner whether they would sell a piece you saw there (an item or a decor piece).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldHomeAskRequest] :create_world_home_ask_request 
     # @return [CreateWorldHomeAskResponse]
     def create_world_home_ask(slug, opts = {})
       data, _status_code, _headers = create_world_home_ask_with_http_info(slug, opts)
@@ -3632,6 +4083,7 @@ module Crossly
     # Ask a home owner whether they would sell a piece you saw there (an item or a decor piece).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldHomeAskRequest] :create_world_home_ask_request 
     # @return [Array<(CreateWorldHomeAskResponse, Integer, Hash)>] CreateWorldHomeAskResponse data, response status code and response headers
     def create_world_home_ask_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -3651,12 +4103,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_home_ask_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldHomeAskResponse'
@@ -3684,6 +4141,7 @@ module Crossly
     # Sign a home guestbook (one short line).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [BodyRequest] :body_request 
     # @return [CreateWorldHomeGuestbookResponse]
     def create_world_home_guestbook(slug, opts = {})
       data, _status_code, _headers = create_world_home_guestbook_with_http_info(slug, opts)
@@ -3693,6 +4151,7 @@ module Crossly
     # Sign a home guestbook (one short line).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [BodyRequest] :body_request 
     # @return [Array<(CreateWorldHomeGuestbookResponse, Integer, Hash)>] CreateWorldHomeGuestbookResponse data, response status code and response headers
     def create_world_home_guestbook_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -3712,12 +4171,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'body_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldHomeGuestbookResponse'
@@ -3746,6 +4210,7 @@ module Crossly
     # @param slug [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldHomeGuestbookReportRequest] :create_world_home_guestbook_report_request 
     # @return [CreateWorldGameReportResponse]
     def create_world_home_guestbook_report(slug, id, opts = {})
       data, _status_code, _headers = create_world_home_guestbook_report_with_http_info(slug, id, opts)
@@ -3756,6 +4221,7 @@ module Crossly
     # @param slug [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldHomeGuestbookReportRequest] :create_world_home_guestbook_report_request 
     # @return [Array<(CreateWorldGameReportResponse, Integer, Hash)>] CreateWorldGameReportResponse data, response status code and response headers
     def create_world_home_guestbook_report_with_http_info(slug, id, opts = {})
       if @api_client.config.debugging
@@ -3779,12 +4245,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_home_guestbook_report_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldGameReportResponse'
@@ -3866,6 +4337,7 @@ module Crossly
 
     # Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldInteractiveAssetRequest] :create_world_interactive_asset_request 
     # @return [CreateWorldInteractiveAssetResponse]
     def create_world_interactive_asset(opts = {})
       data, _status_code, _headers = create_world_interactive_asset_with_http_info(opts)
@@ -3874,6 +4346,7 @@ module Crossly
 
     # Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldInteractiveAssetRequest] :create_world_interactive_asset_request 
     # @return [Array<(CreateWorldInteractiveAssetResponse, Integer, Hash)>] CreateWorldInteractiveAssetResponse data, response status code and response headers
     def create_world_interactive_asset_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3889,12 +4362,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_interactive_asset_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldInteractiveAssetResponse'
@@ -3921,6 +4399,7 @@ module Crossly
 
     # Create an interactive design: name, footprint (s, m, l or f), optional tint and description, an asking price in COSM base units (a string, six decimals) and optional max supply. Inactive until ops approve a submitted version.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldInteractiveDesignRequest] :create_world_interactive_design_request 
     # @return [GetWorldInteractiveDesignResponse]
     def create_world_interactive_design(opts = {})
       data, _status_code, _headers = create_world_interactive_design_with_http_info(opts)
@@ -3929,6 +4408,7 @@ module Crossly
 
     # Create an interactive design: name, footprint (s, m, l or f), optional tint and description, an asking price in COSM base units (a string, six decimals) and optional max supply. Inactive until ops approve a submitted version.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldInteractiveDesignRequest] :create_world_interactive_design_request 
     # @return [Array<(GetWorldInteractiveDesignResponse, Integer, Hash)>] GetWorldInteractiveDesignResponse data, response status code and response headers
     def create_world_interactive_design_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3944,12 +4424,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_interactive_design_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldInteractiveDesignResponse'
@@ -4159,6 +4644,7 @@ module Crossly
 
     # Wipe the stored state of an interactive piece standing in a place you own (a home or your boutique).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldInteractiveResetRequest] :create_world_interactive_reset_request 
     # @return [CreateWorldInteractiveResetResponse]
     def create_world_interactive_reset(opts = {})
       data, _status_code, _headers = create_world_interactive_reset_with_http_info(opts)
@@ -4167,6 +4653,7 @@ module Crossly
 
     # Wipe the stored state of an interactive piece standing in a place you own (a home or your boutique).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldInteractiveResetRequest] :create_world_interactive_reset_request 
     # @return [Array<(CreateWorldInteractiveResetResponse, Integer, Hash)>] CreateWorldInteractiveResetResponse data, response status code and response headers
     def create_world_interactive_reset_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -4182,12 +4669,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_interactive_reset_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldInteractiveResetResponse'
@@ -4214,24 +4706,30 @@ module Crossly
 
     # Answer a price check: your estimate of the item value in CENTS and an optional note. Moves no money; the asker may accept it.
     # @param id [String] 
+    # @param create_world_job_appraisal_answer_request [CreateWorldJobAppraisalAnswerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldJobAppraisalAnswerResponse]
-    def create_world_job_appraisal_answer(id, opts = {})
-      data, _status_code, _headers = create_world_job_appraisal_answer_with_http_info(id, opts)
+    def create_world_job_appraisal_answer(id, create_world_job_appraisal_answer_request, opts = {})
+      data, _status_code, _headers = create_world_job_appraisal_answer_with_http_info(id, create_world_job_appraisal_answer_request, opts)
       data
     end
 
     # Answer a price check: your estimate of the item value in CENTS and an optional note. Moves no money; the asker may accept it.
     # @param id [String] 
+    # @param create_world_job_appraisal_answer_request [CreateWorldJobAppraisalAnswerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldJobAppraisalAnswerResponse, Integer, Hash)>] CreateWorldJobAppraisalAnswerResponse data, response status code and response headers
-    def create_world_job_appraisal_answer_with_http_info(id, opts = {})
+    def create_world_job_appraisal_answer_with_http_info(id, create_world_job_appraisal_answer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_job_appraisal_answer ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_job_appraisal_answer"
+      end
+      # verify the required parameter 'create_world_job_appraisal_answer_request' is set
+      if @api_client.config.client_side_validation && create_world_job_appraisal_answer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_job_appraisal_answer_request' when calling WorldApi.create_world_job_appraisal_answer"
       end
       # resource path
       local_var_path = '/v1/world/jobs/appraisals/{id}/answers'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -4243,12 +4741,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_job_appraisal_answer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldJobAppraisalAnswerResponse'
@@ -4399,6 +4902,7 @@ module Crossly
     # @param kind [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldMarketBuyRequest] :create_world_market_buy_request 
     # @return [CreateWorldMarketBuyResponse]
     def create_world_market_buy(kind, id, opts = {})
       data, _status_code, _headers = create_world_market_buy_with_http_info(kind, id, opts)
@@ -4409,6 +4913,7 @@ module Crossly
     # @param kind [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldMarketBuyRequest] :create_world_market_buy_request 
     # @return [Array<(CreateWorldMarketBuyResponse, Integer, Hash)>] CreateWorldMarketBuyResponse data, response status code and response headers
     def create_world_market_buy_with_http_info(kind, id, opts = {})
       if @api_client.config.debugging
@@ -4432,12 +4937,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_market_buy_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldMarketBuyResponse'
@@ -4463,19 +4973,25 @@ module Crossly
     end
 
     # List a plot for sale or rent, or a street for sale.
+    # @param create_world_market_listing_request [CreateWorldMarketListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldMarketListingResponse]
-    def create_world_market_listing(opts = {})
-      data, _status_code, _headers = create_world_market_listing_with_http_info(opts)
+    def create_world_market_listing(create_world_market_listing_request, opts = {})
+      data, _status_code, _headers = create_world_market_listing_with_http_info(create_world_market_listing_request, opts)
       data
     end
 
     # List a plot for sale or rent, or a street for sale.
+    # @param create_world_market_listing_request [CreateWorldMarketListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldMarketListingResponse, Integer, Hash)>] CreateWorldMarketListingResponse data, response status code and response headers
-    def create_world_market_listing_with_http_info(opts = {})
+    def create_world_market_listing_with_http_info(create_world_market_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_market_listing ...'
+      end
+      # verify the required parameter 'create_world_market_listing_request' is set
+      if @api_client.config.client_side_validation && create_world_market_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_market_listing_request' when calling WorldApi.create_world_market_listing"
       end
       # resource path
       local_var_path = '/v1/world/market/listings'
@@ -4487,12 +5003,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_market_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldMarketListingResponse'
@@ -4520,6 +5041,7 @@ module Crossly
     # Rent a plot offered for lease.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldMarketBuyRequest] :create_world_market_buy_request 
     # @return [CreateWorldMarketPlotRentResponse]
     def create_world_market_plot_rent(id, opts = {})
       data, _status_code, _headers = create_world_market_plot_rent_with_http_info(id, opts)
@@ -4529,6 +5051,7 @@ module Crossly
     # Rent a plot offered for lease.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldMarketBuyRequest] :create_world_market_buy_request 
     # @return [Array<(CreateWorldMarketPlotRentResponse, Integer, Hash)>] CreateWorldMarketPlotRentResponse data, response status code and response headers
     def create_world_market_plot_rent_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -4548,12 +5071,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_market_buy_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldMarketPlotRentResponse'
@@ -4763,6 +5291,7 @@ module Crossly
     # Say something in your party chat (up to 2000 characters).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPartyChatRequest] :create_world_party_chat_request 
     # @return [WorldResponse]
     def create_world_party_chat(id, opts = {})
       data, _status_code, _headers = create_world_party_chat_with_http_info(id, opts)
@@ -4772,6 +5301,7 @@ module Crossly
     # Say something in your party chat (up to 2000 characters).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPartyChatRequest] :create_world_party_chat_request 
     # @return [Array<(WorldResponse, Integer, Hash)>] WorldResponse data, response status code and response headers
     def create_world_party_chat_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -4791,12 +5321,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_party_chat_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldResponse'
@@ -4824,6 +5359,7 @@ module Crossly
     # Invite a friend (userId) to your party.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UserIdRequest] :user_id_request 
     # @return [CreateWorldPartyInviteResponse]
     def create_world_party_invite(id, opts = {})
       data, _status_code, _headers = create_world_party_invite_with_http_info(id, opts)
@@ -4833,6 +5369,7 @@ module Crossly
     # Invite a friend (userId) to your party.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UserIdRequest] :user_id_request 
     # @return [Array<(CreateWorldPartyInviteResponse, Integer, Hash)>] CreateWorldPartyInviteResponse data, response status code and response headers
     def create_world_party_invite_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -4852,12 +5389,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'user_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPartyInviteResponse'
@@ -5007,6 +5549,7 @@ module Crossly
     # As leader, remove a member (userId).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UserIdRequest] :user_id_request 
     # @return [CreateWorldPartyKickResponse]
     def create_world_party_kick(id, opts = {})
       data, _status_code, _headers = create_world_party_kick_with_http_info(id, opts)
@@ -5016,6 +5559,7 @@ module Crossly
     # As leader, remove a member (userId).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UserIdRequest] :user_id_request 
     # @return [Array<(CreateWorldPartyKickResponse, Integer, Hash)>] CreateWorldPartyKickResponse data, response status code and response headers
     def create_world_party_kick_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -5035,12 +5579,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'user_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPartyKickResponse'
@@ -5068,6 +5617,7 @@ module Crossly
     # As leader, pass the lead to a member (userId).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UserIdRequest] :user_id_request 
     # @return [CreateWorldPartyLeaderResponse]
     def create_world_party_leader(id, opts = {})
       data, _status_code, _headers = create_world_party_leader_with_http_info(id, opts)
@@ -5077,6 +5627,7 @@ module Crossly
     # As leader, pass the lead to a member (userId).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UserIdRequest] :user_id_request 
     # @return [Array<(CreateWorldPartyLeaderResponse, Integer, Hash)>] CreateWorldPartyLeaderResponse data, response status code and response headers
     def create_world_party_leader_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -5096,12 +5647,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'user_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPartyLeaderResponse'
@@ -5190,6 +5746,7 @@ module Crossly
     # Add a listing (listingId, or its shop slug) to the party wishlist; answers the wishlist.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPartyWishlistRequest] :create_world_party_wishlist_request 
     # @return [CreateWorldPartyWishlistResponse]
     def create_world_party_wishlist(id, opts = {})
       data, _status_code, _headers = create_world_party_wishlist_with_http_info(id, opts)
@@ -5199,6 +5756,7 @@ module Crossly
     # Add a listing (listingId, or its shop slug) to the party wishlist; answers the wishlist.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldPartyWishlistRequest] :create_world_party_wishlist_request 
     # @return [Array<(CreateWorldPartyWishlistResponse, Integer, Hash)>] CreateWorldPartyWishlistResponse data, response status code and response headers
     def create_world_party_wishlist_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -5218,12 +5776,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_party_wishlist_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPartyWishlistResponse'
@@ -5384,24 +5947,30 @@ module Crossly
 
     # A presigned upload for a plot's photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
     # @param plot_id [String] 
+    # @param create_world_property_plot_photo_upload_url_request [CreateWorldPropertyPlotPhotoUploadUrlRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldPropertyPlotPhotoUploadUrlResponse]
-    def create_world_property_plot_photo_upload_url(plot_id, opts = {})
-      data, _status_code, _headers = create_world_property_plot_photo_upload_url_with_http_info(plot_id, opts)
+    def create_world_property_plot_photo_upload_url(plot_id, create_world_property_plot_photo_upload_url_request, opts = {})
+      data, _status_code, _headers = create_world_property_plot_photo_upload_url_with_http_info(plot_id, create_world_property_plot_photo_upload_url_request, opts)
       data
     end
 
     # A presigned upload for a plot&#39;s photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
     # @param plot_id [String] 
+    # @param create_world_property_plot_photo_upload_url_request [CreateWorldPropertyPlotPhotoUploadUrlRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldPropertyPlotPhotoUploadUrlResponse, Integer, Hash)>] CreateWorldPropertyPlotPhotoUploadUrlResponse data, response status code and response headers
-    def create_world_property_plot_photo_upload_url_with_http_info(plot_id, opts = {})
+    def create_world_property_plot_photo_upload_url_with_http_info(plot_id, create_world_property_plot_photo_upload_url_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_property_plot_photo_upload_url ...'
       end
       # verify the required parameter 'plot_id' is set
       if @api_client.config.client_side_validation && plot_id.nil?
         fail ArgumentError, "Missing the required parameter 'plot_id' when calling WorldApi.create_world_property_plot_photo_upload_url"
+      end
+      # verify the required parameter 'create_world_property_plot_photo_upload_url_request' is set
+      if @api_client.config.client_side_validation && create_world_property_plot_photo_upload_url_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_property_plot_photo_upload_url_request' when calling WorldApi.create_world_property_plot_photo_upload_url"
       end
       # resource path
       local_var_path = '/v1/world/property/plots/{plotId}/photo/upload-url'.sub('{' + 'plotId' + '}', CGI.escape(plot_id.to_s))
@@ -5413,12 +5982,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_property_plot_photo_upload_url_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPropertyPlotPhotoUploadUrlResponse'
@@ -5445,24 +6019,30 @@ module Crossly
 
     # Stand one of your showrooms on a plot you own or rent.
     # @param plot_id [String] 
+    # @param create_world_property_plot_showroom_request [CreateWorldPropertyPlotShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldPropertyPlotShowroomResponse]
-    def create_world_property_plot_showroom(plot_id, opts = {})
-      data, _status_code, _headers = create_world_property_plot_showroom_with_http_info(plot_id, opts)
+    def create_world_property_plot_showroom(plot_id, create_world_property_plot_showroom_request, opts = {})
+      data, _status_code, _headers = create_world_property_plot_showroom_with_http_info(plot_id, create_world_property_plot_showroom_request, opts)
       data
     end
 
     # Stand one of your showrooms on a plot you own or rent.
     # @param plot_id [String] 
+    # @param create_world_property_plot_showroom_request [CreateWorldPropertyPlotShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldPropertyPlotShowroomResponse, Integer, Hash)>] CreateWorldPropertyPlotShowroomResponse data, response status code and response headers
-    def create_world_property_plot_showroom_with_http_info(plot_id, opts = {})
+    def create_world_property_plot_showroom_with_http_info(plot_id, create_world_property_plot_showroom_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_property_plot_showroom ...'
       end
       # verify the required parameter 'plot_id' is set
       if @api_client.config.client_side_validation && plot_id.nil?
         fail ArgumentError, "Missing the required parameter 'plot_id' when calling WorldApi.create_world_property_plot_showroom"
+      end
+      # verify the required parameter 'create_world_property_plot_showroom_request' is set
+      if @api_client.config.client_side_validation && create_world_property_plot_showroom_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_property_plot_showroom_request' when calling WorldApi.create_world_property_plot_showroom"
       end
       # resource path
       local_var_path = '/v1/world/property/plots/{plotId}/showroom'.sub('{' + 'plotId' + '}', CGI.escape(plot_id.to_s))
@@ -5474,12 +6054,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_property_plot_showroom_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldPropertyPlotShowroomResponse'
@@ -5505,19 +6090,25 @@ module Crossly
     end
 
     # Ban someone owner-wide or from one showroom.
+    # @param create_world_property_trespassed_request [CreateWorldPropertyTrespassedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListWorldPropertyTrespassedResponse]
-    def create_world_property_trespassed(opts = {})
-      data, _status_code, _headers = create_world_property_trespassed_with_http_info(opts)
+    def create_world_property_trespassed(create_world_property_trespassed_request, opts = {})
+      data, _status_code, _headers = create_world_property_trespassed_with_http_info(create_world_property_trespassed_request, opts)
       data
     end
 
     # Ban someone owner-wide or from one showroom.
+    # @param create_world_property_trespassed_request [CreateWorldPropertyTrespassedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWorldPropertyTrespassedResponse, Integer, Hash)>] ListWorldPropertyTrespassedResponse data, response status code and response headers
-    def create_world_property_trespassed_with_http_info(opts = {})
+    def create_world_property_trespassed_with_http_info(create_world_property_trespassed_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_property_trespassed ...'
+      end
+      # verify the required parameter 'create_world_property_trespassed_request' is set
+      if @api_client.config.client_side_validation && create_world_property_trespassed_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_property_trespassed_request' when calling WorldApi.create_world_property_trespassed"
       end
       # resource path
       local_var_path = '/v1/world/property/trespassed'
@@ -5529,12 +6120,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_property_trespassed_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListWorldPropertyTrespassedResponse'
@@ -5560,19 +6156,25 @@ module Crossly
     end
 
     # Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
+    # @param create_world_space_request [CreateWorldSpaceRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldSpaceResponse]
-    def create_world_space(opts = {})
-      data, _status_code, _headers = create_world_space_with_http_info(opts)
+    def create_world_space(create_world_space_request, opts = {})
+      data, _status_code, _headers = create_world_space_with_http_info(create_world_space_request, opts)
       data
     end
 
     # Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
+    # @param create_world_space_request [CreateWorldSpaceRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldSpaceResponse, Integer, Hash)>] CreateWorldSpaceResponse data, response status code and response headers
-    def create_world_space_with_http_info(opts = {})
+    def create_world_space_with_http_info(create_world_space_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_space ...'
+      end
+      # verify the required parameter 'create_world_space_request' is set
+      if @api_client.config.client_side_validation && create_world_space_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_space_request' when calling WorldApi.create_world_space"
       end
       # resource path
       local_var_path = '/v1/world/spaces'
@@ -5584,12 +6186,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_space_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceResponse'
@@ -5616,24 +6223,30 @@ module Crossly
 
     # As host or co-host, put an event on: title, kind, optional about, ISO start and end with offset.
     # @param slug [String] 
+    # @param create_world_space_event_request [CreateWorldSpaceEventRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldSpaceEventResponse]
-    def create_world_space_event(slug, opts = {})
-      data, _status_code, _headers = create_world_space_event_with_http_info(slug, opts)
+    def create_world_space_event(slug, create_world_space_event_request, opts = {})
+      data, _status_code, _headers = create_world_space_event_with_http_info(slug, create_world_space_event_request, opts)
       data
     end
 
     # As host or co-host, put an event on: title, kind, optional about, ISO start and end with offset.
     # @param slug [String] 
+    # @param create_world_space_event_request [CreateWorldSpaceEventRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldSpaceEventResponse, Integer, Hash)>] CreateWorldSpaceEventResponse data, response status code and response headers
-    def create_world_space_event_with_http_info(slug, opts = {})
+    def create_world_space_event_with_http_info(slug, create_world_space_event_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_space_event ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling WorldApi.create_world_space_event"
+      end
+      # verify the required parameter 'create_world_space_event_request' is set
+      if @api_client.config.client_side_validation && create_world_space_event_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_space_event_request' when calling WorldApi.create_world_space_event"
       end
       # resource path
       local_var_path = '/v1/world/spaces/{slug}/events'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -5645,12 +6258,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_space_event_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceEventResponse'
@@ -5678,19 +6296,21 @@ module Crossly
     # Say whether you are going to an event.
     # @param slug [String] 
     # @param id [String] 
+    # @param create_world_space_event_rsvp_request [CreateWorldSpaceEventRsvpRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldSpaceEventRsvpResponse]
-    def create_world_space_event_rsvp(slug, id, opts = {})
-      data, _status_code, _headers = create_world_space_event_rsvp_with_http_info(slug, id, opts)
+    def create_world_space_event_rsvp(slug, id, create_world_space_event_rsvp_request, opts = {})
+      data, _status_code, _headers = create_world_space_event_rsvp_with_http_info(slug, id, create_world_space_event_rsvp_request, opts)
       data
     end
 
     # Say whether you are going to an event.
     # @param slug [String] 
     # @param id [String] 
+    # @param create_world_space_event_rsvp_request [CreateWorldSpaceEventRsvpRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldSpaceEventRsvpResponse, Integer, Hash)>] CreateWorldSpaceEventRsvpResponse data, response status code and response headers
-    def create_world_space_event_rsvp_with_http_info(slug, id, opts = {})
+    def create_world_space_event_rsvp_with_http_info(slug, id, create_world_space_event_rsvp_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_space_event_rsvp ...'
       end
@@ -5702,6 +6322,10 @@ module Crossly
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_space_event_rsvp"
       end
+      # verify the required parameter 'create_world_space_event_rsvp_request' is set
+      if @api_client.config.client_side_validation && create_world_space_event_rsvp_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_space_event_rsvp_request' when calling WorldApi.create_world_space_event_rsvp"
+      end
       # resource path
       local_var_path = '/v1/world/spaces/{slug}/events/{id}/rsvp'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s)).sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
@@ -5712,12 +6336,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_space_event_rsvp_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceEventRsvpResponse'
@@ -5744,24 +6373,30 @@ module Crossly
 
     # Invite somebody (userId) to a Space.
     # @param slug [String] 
+    # @param user_id_request [UserIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldSpaceInviteResponse]
-    def create_world_space_invite(slug, opts = {})
-      data, _status_code, _headers = create_world_space_invite_with_http_info(slug, opts)
+    def create_world_space_invite(slug, user_id_request, opts = {})
+      data, _status_code, _headers = create_world_space_invite_with_http_info(slug, user_id_request, opts)
       data
     end
 
     # Invite somebody (userId) to a Space.
     # @param slug [String] 
+    # @param user_id_request [UserIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldSpaceInviteResponse, Integer, Hash)>] CreateWorldSpaceInviteResponse data, response status code and response headers
-    def create_world_space_invite_with_http_info(slug, opts = {})
+    def create_world_space_invite_with_http_info(slug, user_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_space_invite ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling WorldApi.create_world_space_invite"
+      end
+      # verify the required parameter 'user_id_request' is set
+      if @api_client.config.client_side_validation && user_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'user_id_request' when calling WorldApi.create_world_space_invite"
       end
       # resource path
       local_var_path = '/v1/world/spaces/{slug}/invite'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -5773,12 +6408,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(user_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceInviteResponse'
@@ -5928,19 +6568,21 @@ module Crossly
     # As host or co-host, accept or turn down a request to join.
     # @param slug [String] 
     # @param user_id [String] 
+    # @param create_world_space_request_by_user_id_request [CreateWorldSpaceRequestByUserIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldSpaceRequestByUserIdResponse]
-    def create_world_space_request_by_user_id(slug, user_id, opts = {})
-      data, _status_code, _headers = create_world_space_request_by_user_id_with_http_info(slug, user_id, opts)
+    def create_world_space_request_by_user_id(slug, user_id, create_world_space_request_by_user_id_request, opts = {})
+      data, _status_code, _headers = create_world_space_request_by_user_id_with_http_info(slug, user_id, create_world_space_request_by_user_id_request, opts)
       data
     end
 
     # As host or co-host, accept or turn down a request to join.
     # @param slug [String] 
     # @param user_id [String] 
+    # @param create_world_space_request_by_user_id_request [CreateWorldSpaceRequestByUserIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldSpaceRequestByUserIdResponse, Integer, Hash)>] CreateWorldSpaceRequestByUserIdResponse data, response status code and response headers
-    def create_world_space_request_by_user_id_with_http_info(slug, user_id, opts = {})
+    def create_world_space_request_by_user_id_with_http_info(slug, user_id, create_world_space_request_by_user_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_space_request_by_user_id ...'
       end
@@ -5952,6 +6594,10 @@ module Crossly
       if @api_client.config.client_side_validation && user_id.nil?
         fail ArgumentError, "Missing the required parameter 'user_id' when calling WorldApi.create_world_space_request_by_user_id"
       end
+      # verify the required parameter 'create_world_space_request_by_user_id_request' is set
+      if @api_client.config.client_side_validation && create_world_space_request_by_user_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_space_request_by_user_id_request' when calling WorldApi.create_world_space_request_by_user_id"
+      end
       # resource path
       local_var_path = '/v1/world/spaces/{slug}/requests/{userId}'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s)).sub('{' + 'userId' + '}', CGI.escape(user_id.to_s))
 
@@ -5962,12 +6608,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_space_request_by_user_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceRequestByUserIdResponse'
@@ -5994,24 +6645,30 @@ module Crossly
 
     # As host, make a member a co-host or back to a member.
     # @param slug [String] 
+    # @param create_world_space_role_request [CreateWorldSpaceRoleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldSpaceRoleResponse]
-    def create_world_space_role(slug, opts = {})
-      data, _status_code, _headers = create_world_space_role_with_http_info(slug, opts)
+    def create_world_space_role(slug, create_world_space_role_request, opts = {})
+      data, _status_code, _headers = create_world_space_role_with_http_info(slug, create_world_space_role_request, opts)
       data
     end
 
     # As host, make a member a co-host or back to a member.
     # @param slug [String] 
+    # @param create_world_space_role_request [CreateWorldSpaceRoleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldSpaceRoleResponse, Integer, Hash)>] CreateWorldSpaceRoleResponse data, response status code and response headers
-    def create_world_space_role_with_http_info(slug, opts = {})
+    def create_world_space_role_with_http_info(slug, create_world_space_role_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_space_role ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling WorldApi.create_world_space_role"
+      end
+      # verify the required parameter 'create_world_space_role_request' is set
+      if @api_client.config.client_side_validation && create_world_space_role_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_space_role_request' when calling WorldApi.create_world_space_role"
       end
       # resource path
       local_var_path = '/v1/world/spaces/{slug}/role'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -6023,12 +6680,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_space_role_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldSpaceRoleResponse'
@@ -6055,24 +6717,30 @@ module Crossly
 
     # Accept or decline an application.
     # @param id [String] 
+    # @param create_world_staff_application_decide_request [CreateWorldStaffApplicationDecideRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldStaffApplicationDecideResponse]
-    def create_world_staff_application_decide(id, opts = {})
-      data, _status_code, _headers = create_world_staff_application_decide_with_http_info(id, opts)
+    def create_world_staff_application_decide(id, create_world_staff_application_decide_request, opts = {})
+      data, _status_code, _headers = create_world_staff_application_decide_with_http_info(id, create_world_staff_application_decide_request, opts)
       data
     end
 
     # Accept or decline an application.
     # @param id [String] 
+    # @param create_world_staff_application_decide_request [CreateWorldStaffApplicationDecideRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldStaffApplicationDecideResponse, Integer, Hash)>] CreateWorldStaffApplicationDecideResponse data, response status code and response headers
-    def create_world_staff_application_decide_with_http_info(id, opts = {})
+    def create_world_staff_application_decide_with_http_info(id, create_world_staff_application_decide_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_staff_application_decide ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_staff_application_decide"
+      end
+      # verify the required parameter 'create_world_staff_application_decide_request' is set
+      if @api_client.config.client_side_validation && create_world_staff_application_decide_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_staff_application_decide_request' when calling WorldApi.create_world_staff_application_decide"
       end
       # resource path
       local_var_path = '/v1/world/staff/applications/{id}/decide'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6084,12 +6752,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_staff_application_decide_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldStaffApplicationDecideResponse'
@@ -6116,24 +6789,30 @@ module Crossly
 
     # Rate the worker of one of your seats.
     # @param id [String] 
+    # @param create_world_staff_assignment_rate_worker_request [CreateWorldStaffAssignmentRateWorkerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldStaffAssignmentRateWorkerResponse]
-    def create_world_staff_assignment_rate_worker(id, opts = {})
-      data, _status_code, _headers = create_world_staff_assignment_rate_worker_with_http_info(id, opts)
+    def create_world_staff_assignment_rate_worker(id, create_world_staff_assignment_rate_worker_request, opts = {})
+      data, _status_code, _headers = create_world_staff_assignment_rate_worker_with_http_info(id, create_world_staff_assignment_rate_worker_request, opts)
       data
     end
 
     # Rate the worker of one of your seats.
     # @param id [String] 
+    # @param create_world_staff_assignment_rate_worker_request [CreateWorldStaffAssignmentRateWorkerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldStaffAssignmentRateWorkerResponse, Integer, Hash)>] CreateWorldStaffAssignmentRateWorkerResponse data, response status code and response headers
-    def create_world_staff_assignment_rate_worker_with_http_info(id, opts = {})
+    def create_world_staff_assignment_rate_worker_with_http_info(id, create_world_staff_assignment_rate_worker_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_staff_assignment_rate_worker ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_staff_assignment_rate_worker"
+      end
+      # verify the required parameter 'create_world_staff_assignment_rate_worker_request' is set
+      if @api_client.config.client_side_validation && create_world_staff_assignment_rate_worker_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_staff_assignment_rate_worker_request' when calling WorldApi.create_world_staff_assignment_rate_worker"
       end
       # resource path
       local_var_path = '/v1/world/staff/assignments/{id}/rate-worker'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6145,12 +6824,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_staff_assignment_rate_worker_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldStaffAssignmentRateWorkerResponse'
@@ -6176,19 +6860,25 @@ module Crossly
     end
 
     # Post a job: a showroom, stall or convention, pay, recurrence and rules.
+    # @param create_world_staff_posting_request [CreateWorldStaffPostingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [WorldStaffPostingResponse]
-    def create_world_staff_posting(opts = {})
-      data, _status_code, _headers = create_world_staff_posting_with_http_info(opts)
+    def create_world_staff_posting(create_world_staff_posting_request, opts = {})
+      data, _status_code, _headers = create_world_staff_posting_with_http_info(create_world_staff_posting_request, opts)
       data
     end
 
     # Post a job: a showroom, stall or convention, pay, recurrence and rules.
+    # @param create_world_staff_posting_request [CreateWorldStaffPostingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(WorldStaffPostingResponse, Integer, Hash)>] WorldStaffPostingResponse data, response status code and response headers
-    def create_world_staff_posting_with_http_info(opts = {})
+    def create_world_staff_posting_with_http_info(create_world_staff_posting_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_staff_posting ...'
+      end
+      # verify the required parameter 'create_world_staff_posting_request' is set
+      if @api_client.config.client_side_validation && create_world_staff_posting_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_staff_posting_request' when calling WorldApi.create_world_staff_posting"
       end
       # resource path
       local_var_path = '/v1/world/staff/postings'
@@ -6200,12 +6890,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_staff_posting_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldStaffPostingResponse'
@@ -6232,24 +6927,30 @@ module Crossly
 
     # Open, pause or close a posting.
     # @param id [String] 
+    # @param create_world_staff_posting_status_request [CreateWorldStaffPostingStatusRequest] 
     # @param [Hash] opts the optional parameters
     # @return [WorldStaffPostingResponse]
-    def create_world_staff_posting_status(id, opts = {})
-      data, _status_code, _headers = create_world_staff_posting_status_with_http_info(id, opts)
+    def create_world_staff_posting_status(id, create_world_staff_posting_status_request, opts = {})
+      data, _status_code, _headers = create_world_staff_posting_status_with_http_info(id, create_world_staff_posting_status_request, opts)
       data
     end
 
     # Open, pause or close a posting.
     # @param id [String] 
+    # @param create_world_staff_posting_status_request [CreateWorldStaffPostingStatusRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(WorldStaffPostingResponse, Integer, Hash)>] WorldStaffPostingResponse data, response status code and response headers
-    def create_world_staff_posting_status_with_http_info(id, opts = {})
+    def create_world_staff_posting_status_with_http_info(id, create_world_staff_posting_status_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_staff_posting_status ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_staff_posting_status"
+      end
+      # verify the required parameter 'create_world_staff_posting_status_request' is set
+      if @api_client.config.client_side_validation && create_world_staff_posting_status_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_staff_posting_status_request' when calling WorldApi.create_world_staff_posting_status"
       end
       # resource path
       local_var_path = '/v1/world/staff/postings/{id}/status'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6261,12 +6962,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_staff_posting_status_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldStaffPostingResponse'
@@ -6291,26 +6997,32 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Pay your street's upkeep forward.
+    # Pay your store's street upkeep forward.
     # @param id [String] 
+    # @param create_world_street_owned_upkeep_pay_request [CreateWorldStreetOwnedUpkeepPayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldStreetOwnedUpkeepPayResponse]
-    def create_world_street_owned_upkeep_pay(id, opts = {})
-      data, _status_code, _headers = create_world_street_owned_upkeep_pay_with_http_info(id, opts)
+    def create_world_street_owned_upkeep_pay(id, create_world_street_owned_upkeep_pay_request, opts = {})
+      data, _status_code, _headers = create_world_street_owned_upkeep_pay_with_http_info(id, create_world_street_owned_upkeep_pay_request, opts)
       data
     end
 
-    # Pay your street&#39;s upkeep forward.
+    # Pay your store&#39;s street upkeep forward.
     # @param id [String] 
+    # @param create_world_street_owned_upkeep_pay_request [CreateWorldStreetOwnedUpkeepPayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldStreetOwnedUpkeepPayResponse, Integer, Hash)>] CreateWorldStreetOwnedUpkeepPayResponse data, response status code and response headers
-    def create_world_street_owned_upkeep_pay_with_http_info(id, opts = {})
+    def create_world_street_owned_upkeep_pay_with_http_info(id, create_world_street_owned_upkeep_pay_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_street_owned_upkeep_pay ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_street_owned_upkeep_pay"
+      end
+      # verify the required parameter 'create_world_street_owned_upkeep_pay_request' is set
+      if @api_client.config.client_side_validation && create_world_street_owned_upkeep_pay_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_street_owned_upkeep_pay_request' when calling WorldApi.create_world_street_owned_upkeep_pay"
       end
       # resource path
       local_var_path = '/v1/world/streets/owned/{id}/upkeep/pay'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6322,12 +7034,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_street_owned_upkeep_pay_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldStreetOwnedUpkeepPayResponse'
@@ -6415,24 +7132,30 @@ module Crossly
 
     # Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
     # @param id [String] 
+    # @param create_world_work_assignment_rate_employer_request [CreateWorldWorkAssignmentRateEmployerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldStaffAssignmentRateWorkerResponse]
-    def create_world_work_assignment_rate_employer(id, opts = {})
-      data, _status_code, _headers = create_world_work_assignment_rate_employer_with_http_info(id, opts)
+    def create_world_work_assignment_rate_employer(id, create_world_work_assignment_rate_employer_request, opts = {})
+      data, _status_code, _headers = create_world_work_assignment_rate_employer_with_http_info(id, create_world_work_assignment_rate_employer_request, opts)
       data
     end
 
     # Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
     # @param id [String] 
+    # @param create_world_work_assignment_rate_employer_request [CreateWorldWorkAssignmentRateEmployerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldStaffAssignmentRateWorkerResponse, Integer, Hash)>] CreateWorldStaffAssignmentRateWorkerResponse data, response status code and response headers
-    def create_world_work_assignment_rate_employer_with_http_info(id, opts = {})
+    def create_world_work_assignment_rate_employer_with_http_info(id, create_world_work_assignment_rate_employer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.create_world_work_assignment_rate_employer ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.create_world_work_assignment_rate_employer"
+      end
+      # verify the required parameter 'create_world_work_assignment_rate_employer_request' is set
+      if @api_client.config.client_side_validation && create_world_work_assignment_rate_employer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_work_assignment_rate_employer_request' when calling WorldApi.create_world_work_assignment_rate_employer"
       end
       # resource path
       local_var_path = '/v1/world/work/assignments/{id}/rate-employer'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6444,12 +7167,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_work_assignment_rate_employer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldStaffAssignmentRateWorkerResponse'
@@ -6477,6 +7205,7 @@ module Crossly
     # Apply for a job.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVideoRequestDeclineRequest] :create_video_request_decline_request 
     # @return [CreateWorldWorkPostingApplyResponse]
     def create_world_work_posting_apply(id, opts = {})
       data, _status_code, _headers = create_world_work_posting_apply_with_http_info(id, opts)
@@ -6486,6 +7215,7 @@ module Crossly
     # Apply for a job.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVideoRequestDeclineRequest] :create_video_request_decline_request 
     # @return [Array<(CreateWorldWorkPostingApplyResponse, Integer, Hash)>] CreateWorldWorkPostingApplyResponse data, response status code and response headers
     def create_world_work_posting_apply_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -6505,12 +7235,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_video_request_decline_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldWorkPostingApplyResponse'
@@ -6738,24 +7473,30 @@ module Crossly
 
     # Remove units (by id, up to 500) from one of your warehouse rooms.
     # @param id [String] 
+    # @param delete_spatial_scene_node_request [DeleteSpatialSceneNodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [DeleteSpatialSceneNodeResponse]
-    def delete_spatial_scene_node(id, opts = {})
-      data, _status_code, _headers = delete_spatial_scene_node_with_http_info(id, opts)
+    def delete_spatial_scene_node(id, delete_spatial_scene_node_request, opts = {})
+      data, _status_code, _headers = delete_spatial_scene_node_with_http_info(id, delete_spatial_scene_node_request, opts)
       data
     end
 
     # Remove units (by id, up to 500) from one of your warehouse rooms.
     # @param id [String] 
+    # @param delete_spatial_scene_node_request [DeleteSpatialSceneNodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DeleteSpatialSceneNodeResponse, Integer, Hash)>] DeleteSpatialSceneNodeResponse data, response status code and response headers
-    def delete_spatial_scene_node_with_http_info(id, opts = {})
+    def delete_spatial_scene_node_with_http_info(id, delete_spatial_scene_node_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.delete_spatial_scene_node ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.delete_spatial_scene_node"
+      end
+      # verify the required parameter 'delete_spatial_scene_node_request' is set
+      if @api_client.config.client_side_validation && delete_spatial_scene_node_request.nil?
+        fail ArgumentError, "Missing the required parameter 'delete_spatial_scene_node_request' when calling WorldApi.delete_spatial_scene_node"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/nodes'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6767,12 +7508,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(delete_spatial_scene_node_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'DeleteSpatialSceneNodeResponse'
@@ -6799,24 +7545,30 @@ module Crossly
 
     # Take an inventory item (or unit) off its rack.
     # @param id [String] 
+    # @param delete_spatial_scene_warehouse_stock_request [DeleteSpatialSceneWarehouseStockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [DeleteSpatialSceneGrantResponse]
-    def delete_spatial_scene_warehouse_stock(id, opts = {})
-      data, _status_code, _headers = delete_spatial_scene_warehouse_stock_with_http_info(id, opts)
+    def delete_spatial_scene_warehouse_stock(id, delete_spatial_scene_warehouse_stock_request, opts = {})
+      data, _status_code, _headers = delete_spatial_scene_warehouse_stock_with_http_info(id, delete_spatial_scene_warehouse_stock_request, opts)
       data
     end
 
     # Take an inventory item (or unit) off its rack.
     # @param id [String] 
+    # @param delete_spatial_scene_warehouse_stock_request [DeleteSpatialSceneWarehouseStockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DeleteSpatialSceneGrantResponse, Integer, Hash)>] DeleteSpatialSceneGrantResponse data, response status code and response headers
-    def delete_spatial_scene_warehouse_stock_with_http_info(id, opts = {})
+    def delete_spatial_scene_warehouse_stock_with_http_info(id, delete_spatial_scene_warehouse_stock_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.delete_spatial_scene_warehouse_stock ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.delete_spatial_scene_warehouse_stock"
+      end
+      # verify the required parameter 'delete_spatial_scene_warehouse_stock_request' is set
+      if @api_client.config.client_side_validation && delete_spatial_scene_warehouse_stock_request.nil?
+        fail ArgumentError, "Missing the required parameter 'delete_spatial_scene_warehouse_stock_request' when calling WorldApi.delete_spatial_scene_warehouse_stock"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/warehouse/stock'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6828,12 +7580,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(delete_spatial_scene_warehouse_stock_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'DeleteSpatialSceneGrantResponse'
@@ -7111,6 +7868,7 @@ module Crossly
     # Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeleteWorldExperienceRequest] :delete_world_experience_request 
     # @return [DeleteWorldGamePackageResponse]
     def delete_world_game_package(id, opts = {})
       data, _status_code, _headers = delete_world_game_package_with_http_info(id, opts)
@@ -7120,6 +7878,7 @@ module Crossly
     # Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeleteWorldExperienceRequest] :delete_world_experience_request 
     # @return [Array<(DeleteWorldGamePackageResponse, Integer, Hash)>] DeleteWorldGamePackageResponse data, response status code and response headers
     def delete_world_game_package_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -7139,12 +7898,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'delete_world_experience_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'DeleteWorldGamePackageResponse'
@@ -7750,18 +8514,20 @@ module Crossly
 
     # Lift a ban.
     # @param user_id [String] 
+    # @param place [String] 
     # @param [Hash] opts the optional parameters
     # @return [DeleteSpatialSceneGrantResponse]
-    def delete_world_property_trespassed(user_id, opts = {})
-      data, _status_code, _headers = delete_world_property_trespassed_with_http_info(user_id, opts)
+    def delete_world_property_trespassed(user_id, place, opts = {})
+      data, _status_code, _headers = delete_world_property_trespassed_with_http_info(user_id, place, opts)
       data
     end
 
     # Lift a ban.
     # @param user_id [String] 
+    # @param place [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DeleteSpatialSceneGrantResponse, Integer, Hash)>] DeleteSpatialSceneGrantResponse data, response status code and response headers
-    def delete_world_property_trespassed_with_http_info(user_id, opts = {})
+    def delete_world_property_trespassed_with_http_info(user_id, place, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.delete_world_property_trespassed ...'
       end
@@ -7769,11 +8535,16 @@ module Crossly
       if @api_client.config.client_side_validation && user_id.nil?
         fail ArgumentError, "Missing the required parameter 'user_id' when calling WorldApi.delete_world_property_trespassed"
       end
+      # verify the required parameter 'place' is set
+      if @api_client.config.client_side_validation && place.nil?
+        fail ArgumentError, "Missing the required parameter 'place' when calling WorldApi.delete_world_property_trespassed"
+      end
       # resource path
       local_var_path = '/v1/world/property/trespassed/{userId}'.sub('{' + 'userId' + '}', CGI.escape(user_id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'place'] = place
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -10596,6 +11367,7 @@ module Crossly
     # Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days=1-90.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [GetWorldGamePackageStatResponse]
     def get_world_game_package_stat(id, opts = {})
       data, _status_code, _headers = get_world_game_package_stat_with_http_info(id, opts)
@@ -10605,6 +11377,7 @@ module Crossly
     # Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days&#x3D;1-90.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [Array<(GetWorldGamePackageStatResponse, Integer, Hash)>] GetWorldGamePackageStatResponse data, response status code and response headers
     def get_world_game_package_stat_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -10619,6 +11392,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -10718,6 +11492,8 @@ module Crossly
     # A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id=my-game&name=My Game.
     # @param kind [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :id 
+    # @option opts [String] :name 
     # @return [GetWorldGameTemplateResponse]
     def get_world_game_template(kind, opts = {})
       data, _status_code, _headers = get_world_game_template_with_http_info(kind, opts)
@@ -10727,6 +11503,8 @@ module Crossly
     # A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id&#x3D;my-game&amp;name&#x3D;My Game.
     # @param kind [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :id 
+    # @option opts [String] :name 
     # @return [Array<(GetWorldGameTemplateResponse, Integer, Hash)>] GetWorldGameTemplateResponse data, response status code and response headers
     def get_world_game_template_with_http_info(kind, opts = {})
       if @api_client.config.debugging
@@ -10741,6 +11519,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'id'] = opts[:'id'] if !opts[:'id'].nil?
+      query_params[:'name'] = opts[:'name'] if !opts[:'name'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -12607,6 +13387,134 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The stands of one of your places: kind plot (the showroom standing on it; none = no stands) or showroom. Same fields as /api/v1/world/stands/shop.
+    # @param kind [String] 
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
+    # @return [GetWorldStandResponse]
+    def get_world_stand(kind, id, opts = {})
+      data, _status_code, _headers = get_world_stand_with_http_info(kind, id, opts)
+      data
+    end
+
+    # The stands of one of your places: kind plot (the showroom standing on it; none &#x3D; no stands) or showroom. Same fields as /api/v1/world/stands/shop.
+    # @param kind [String] 
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
+    # @return [Array<(GetWorldStandResponse, Integer, Hash)>] GetWorldStandResponse data, response status code and response headers
+    def get_world_stand_with_http_info(kind, id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorldApi.get_world_stand ...'
+      end
+      # verify the required parameter 'kind' is set
+      if @api_client.config.client_side_validation && kind.nil?
+        fail ArgumentError, "Missing the required parameter 'kind' when calling WorldApi.get_world_stand"
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.get_world_stand"
+      end
+      # resource path
+      local_var_path = '/v1/world/stands/{kind}/{id}'.sub('{' + 'kind' + '}', CGI.escape(kind.to_s)).sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'storefrontId'] = opts[:'storefront_id'] if !opts[:'storefront_id'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorldStandResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorldApi.get_world_stand",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorldApi#get_world_stand\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The stands of your shop (its primary showroom's visible fixtures, in order): index (what a drop's world.boothSpotIndex stores), name, display, units and capacity, whether another of your drops already stands there (takenBy) and priceCents (null: your own place costs nothing extra).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
+    # @return [GetWorldStandResponse]
+    def get_world_stand_shop(opts = {})
+      data, _status_code, _headers = get_world_stand_shop_with_http_info(opts)
+      data
+    end
+
+    # The stands of your shop (its primary showroom&#39;s visible fixtures, in order): index (what a drop&#39;s world.boothSpotIndex stores), name, display, units and capacity, whether another of your drops already stands there (takenBy) and priceCents (null: your own place costs nothing extra).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
+    # @return [Array<(GetWorldStandResponse, Integer, Hash)>] GetWorldStandResponse data, response status code and response headers
+    def get_world_stand_shop_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WorldApi.get_world_stand_shop ...'
+      end
+      # resource path
+      local_var_path = '/v1/world/stands/shop'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'storefrontId'] = opts[:'storefront_id'] if !opts[:'storefront_id'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetWorldStandResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WorldApi.get_world_stand_shop",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WorldApi#get_world_stand_shop\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # A street's fund: the CBX property payments on its plots over the last four weeks, and the street events it unlocked.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
@@ -12668,7 +13576,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # A street you own: tenants, applications, upkeep, look, fund.
+    # A street your store owns: tenants, applications, upkeep, look, fund, and the owning `store`.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetWorldStreetOwnedResponse]
@@ -12677,7 +13585,7 @@ module Crossly
       data
     end
 
-    # A street you own: tenants, applications, upkeep, look, fund.
+    # A street your store owns: tenants, applications, upkeep, look, fund, and the owning &#x60;store&#x60;.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetWorldStreetOwnedResponse, Integer, Hash)>] GetWorldStreetOwnedResponse data, response status code and response headers
@@ -12908,18 +13816,22 @@ module Crossly
 
     # What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
     # @param id [String] 
+    # @param starts_on [String] 
+    # @param ends_on [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetWorldVenueQuoteResponse]
-    def get_world_venue_quote(id, opts = {})
-      data, _status_code, _headers = get_world_venue_quote_with_http_info(id, opts)
+    def get_world_venue_quote(id, starts_on, ends_on, opts = {})
+      data, _status_code, _headers = get_world_venue_quote_with_http_info(id, starts_on, ends_on, opts)
       data
     end
 
     # What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
     # @param id [String] 
+    # @param starts_on [String] 
+    # @param ends_on [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetWorldVenueQuoteResponse, Integer, Hash)>] GetWorldVenueQuoteResponse data, response status code and response headers
-    def get_world_venue_quote_with_http_info(id, opts = {})
+    def get_world_venue_quote_with_http_info(id, starts_on, ends_on, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.get_world_venue_quote ...'
       end
@@ -12927,11 +13839,21 @@ module Crossly
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.get_world_venue_quote"
       end
+      # verify the required parameter 'starts_on' is set
+      if @api_client.config.client_side_validation && starts_on.nil?
+        fail ArgumentError, "Missing the required parameter 'starts_on' when calling WorldApi.get_world_venue_quote"
+      end
+      # verify the required parameter 'ends_on' is set
+      if @api_client.config.client_side_validation && ends_on.nil?
+        fail ArgumentError, "Missing the required parameter 'ends_on' when calling WorldApi.get_world_venue_quote"
+      end
       # resource path
       local_var_path = '/v1/world/venues/{id}/quote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'startsOn'] = starts_on
+      query_params[:'endsOn'] = ends_on
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -13246,6 +14168,11 @@ module Crossly
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
+    # @option opts [String] :q 
+    # @option opts [String] :brand 
+    # @option opts [String] :category 
+    # @option opts [String] :condition 
+    # @option opts [String] :listed 
     # @return [ListShowroomItemSearchResponse]
     def list_showroom_item_search(id, opts = {})
       data, _status_code, _headers = list_showroom_item_search_with_http_info(id, opts)
@@ -13256,6 +14183,11 @@ module Crossly
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
+    # @option opts [String] :q 
+    # @option opts [String] :brand 
+    # @option opts [String] :category 
+    # @option opts [String] :condition 
+    # @option opts [String] :listed 
     # @return [Array<(ListShowroomItemSearchResponse, Integer, Hash)>] ListShowroomItemSearchResponse data, response status code and response headers
     def list_showroom_item_search_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -13265,12 +14197,21 @@ module Crossly
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.list_showroom_item_search"
       end
+      allowable_values = ["any", "unlisted", "listed"]
+      if @api_client.config.client_side_validation && opts[:'listed'] && !allowable_values.include?(opts[:'listed'])
+        fail ArgumentError, "invalid value for \"listed\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/showrooms/{id}/item-search'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
       query_params[:'storefrontId'] = opts[:'storefront_id'] if !opts[:'storefront_id'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'condition'] = opts[:'condition'] if !opts[:'condition'].nil?
+      query_params[:'listed'] = opts[:'listed'] if !opts[:'listed'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -13483,6 +14424,8 @@ module Crossly
     # Stock not yet on a shelf in a warehouse room you can arrange (q filters by title).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [Float] :limit 
     # @return [ListSpatialSceneWarehouseUnplacedResponse]
     def list_spatial_scene_warehouse_unplaced(id, opts = {})
       data, _status_code, _headers = list_spatial_scene_warehouse_unplaced_with_http_info(id, opts)
@@ -13492,6 +14435,8 @@ module Crossly
     # Stock not yet on a shelf in a warehouse room you can arrange (q filters by title).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [Float] :limit 
     # @return [Array<(ListSpatialSceneWarehouseUnplacedResponse, Integer, Hash)>] ListSpatialSceneWarehouseUnplacedResponse data, response status code and response headers
     def list_spatial_scene_warehouse_unplaced_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -13506,6 +14451,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -14185,6 +15132,7 @@ module Crossly
     # Convention messages you may read: the organiser all of them (?with=<userId> for one seller), an exhibitor theirs and the broadcasts.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :with 
     # @return [ListWorldConventionMessagesResponse]
     def list_world_convention_messages(id, opts = {})
       data, _status_code, _headers = list_world_convention_messages_with_http_info(id, opts)
@@ -14194,6 +15142,7 @@ module Crossly
     # Convention messages you may read: the organiser all of them (?with&#x3D;&lt;userId&gt; for one seller), an exhibitor theirs and the broadcasts.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :with 
     # @return [Array<(ListWorldConventionMessagesResponse, Integer, Hash)>] ListWorldConventionMessagesResponse data, response status code and response headers
     def list_world_convention_messages_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -14208,6 +15157,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'with'] = opts[:'with'] if !opts[:'with'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -14706,6 +15656,7 @@ module Crossly
 
     # Decor copies other people are reselling (asks in COSM); optional pair filter. Read only: listing and buying stay on crossly.net.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :pair 
     # @return [ListWorldDecorMarketResponse]
     def list_world_decor_market(opts = {})
       data, _status_code, _headers = list_world_decor_market_with_http_info(opts)
@@ -14714,6 +15665,7 @@ module Crossly
 
     # Decor copies other people are reselling (asks in COSM); optional pair filter. Read only: listing and buying stay on crossly.net.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :pair 
     # @return [Array<(ListWorldDecorMarketResponse, Integer, Hash)>] ListWorldDecorMarketResponse data, response status code and response headers
     def list_world_decor_market_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -14724,6 +15676,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'pair'] = opts[:'pair'] if !opts[:'pair'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -15599,6 +16552,17 @@ module Crossly
 
     # The public Job Board, filterable.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :role 
+    # @option opts [String] :rail 
+    # @option opts [String] :basis 
+    # @option opts [String] :place 
+    # @option opts [Float] :min_pay_cents 
+    # @option opts [Float] :min_employer_rep 
+    # @option opts [String] :after 
+    # @option opts [String] :before 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [Float] :limit 
     # @return [ListWorldJobBoardResponse]
     def list_world_job_board(opts = {})
       data, _status_code, _headers = list_world_job_board_with_http_info(opts)
@@ -15607,16 +16571,58 @@ module Crossly
 
     # The public Job Board, filterable.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :role 
+    # @option opts [String] :rail 
+    # @option opts [String] :basis 
+    # @option opts [String] :place 
+    # @option opts [Float] :min_pay_cents 
+    # @option opts [Float] :min_employer_rep 
+    # @option opts [String] :after 
+    # @option opts [String] :before 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWorldJobBoardResponse, Integer, Hash)>] ListWorldJobBoardResponse data, response status code and response headers
     def list_world_job_board_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.list_world_job_board ...'
+      end
+      allowable_values = ["host", "stock", "floor", "appraiser", "greeter", "cashier", "stylist", "security"]
+      if @api_client.config.client_side_validation && opts[:'role'] && !allowable_values.include?(opts[:'role'])
+        fail ArgumentError, "invalid value for \"role\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["cash", "cbx", "bucks"]
+      if @api_client.config.client_side_validation && opts[:'rail'] && !allowable_values.include?(opts[:'rail'])
+        fail ArgumentError, "invalid value for \"rail\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["shift", "hour", "commission"]
+      if @api_client.config.client_side_validation && opts[:'basis'] && !allowable_values.include?(opts[:'basis'])
+        fail ArgumentError, "invalid value for \"basis\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["showroom", "convention", "stall"]
+      if @api_client.config.client_side_validation && opts[:'place'] && !allowable_values.include?(opts[:'place'])
+        fail ArgumentError, "invalid value for \"place\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pay", "soonest", "employer"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/world/jobs/board'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'role'] = opts[:'role'] if !opts[:'role'].nil?
+      query_params[:'rail'] = opts[:'rail'] if !opts[:'rail'].nil?
+      query_params[:'basis'] = opts[:'basis'] if !opts[:'basis'].nil?
+      query_params[:'place'] = opts[:'place'] if !opts[:'place'].nil?
+      query_params[:'minPayCents'] = opts[:'min_pay_cents'] if !opts[:'min_pay_cents'].nil?
+      query_params[:'minEmployerRep'] = opts[:'min_employer_rep'] if !opts[:'min_employer_rep'].nil?
+      query_params[:'after'] = opts[:'after'] if !opts[:'after'].nil?
+      query_params[:'before'] = opts[:'before'] if !opts[:'before'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -15709,6 +16715,17 @@ module Crossly
 
     # Plots and streets for sale or rent in the Worlds Market.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [String] :mode 
+    # @option opts [String] :street 
+    # @option opts [String] :theme 
+    # @option opts [Float] :min_price 
+    # @option opts [Float] :max_price 
+    # @option opts [String] :size 
+    # @option opts [String] :traffic 
+    # @option opts [String] :sort 
+    # @option opts [Float] :offset 
+    # @option opts [Float] :limit 
     # @return [ListWorldMarketResponse]
     def list_world_market(opts = {})
       data, _status_code, _headers = list_world_market_with_http_info(opts)
@@ -15717,16 +16734,58 @@ module Crossly
 
     # Plots and streets for sale or rent in the Worlds Market.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [String] :mode 
+    # @option opts [String] :street 
+    # @option opts [String] :theme 
+    # @option opts [Float] :min_price 
+    # @option opts [Float] :max_price 
+    # @option opts [String] :size 
+    # @option opts [String] :traffic 
+    # @option opts [String] :sort 
+    # @option opts [Float] :offset 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWorldMarketResponse, Integer, Hash)>] ListWorldMarketResponse data, response status code and response headers
     def list_world_market_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.list_world_market ...'
+      end
+      allowable_values = ["plot", "street"]
+      if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["sale", "rent"]
+      if @api_client.config.client_side_validation && opts[:'mode'] && !allowable_values.include?(opts[:'mode'])
+        fail ArgumentError, "invalid value for \"mode\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["small", "large", "medium"]
+      if @api_client.config.client_side_validation && opts[:'size'] && !allowable_values.include?(opts[:'size'])
+        fail ArgumentError, "invalid value for \"size\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["quiet", "steady", "busy"]
+      if @api_client.config.client_side_validation && opts[:'traffic'] && !allowable_values.include?(opts[:'traffic'])
+        fail ArgumentError, "invalid value for \"traffic\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["newest", "price_asc", "price_desc", "traffic_desc"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/world/market'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
+      query_params[:'mode'] = opts[:'mode'] if !opts[:'mode'].nil?
+      query_params[:'street'] = opts[:'street'] if !opts[:'street'].nil?
+      query_params[:'theme'] = opts[:'theme'] if !opts[:'theme'].nil?
+      query_params[:'minPrice'] = opts[:'min_price'] if !opts[:'min_price'].nil?
+      query_params[:'maxPrice'] = opts[:'max_price'] if !opts[:'max_price'].nil?
+      query_params[:'size'] = opts[:'size'] if !opts[:'size'].nil?
+      query_params[:'traffic'] = opts[:'traffic'] if !opts[:'traffic'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -16307,6 +17366,8 @@ module Crossly
 
     # Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \"Promoted\"), with the token to send when one is opened.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [Float] :limit 
     # @return [ListWorldPromotedResponse]
     def list_world_promoted(opts = {})
       data, _status_code, _headers = list_world_promoted_with_http_info(opts)
@@ -16315,16 +17376,24 @@ module Crossly
 
     # Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \&quot;Promoted\&quot;), with the token to send when one is opened.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWorldPromotedResponse, Integer, Hash)>] ListWorldPromotedResponse data, response status code and response headers
     def list_world_promoted_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.list_world_promoted ...'
+      end
+      allowable_values = ["showroom", "convention"]
+      if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/world/promoted'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -16582,6 +17651,7 @@ module Crossly
 
     # Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds=a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \"Found at The Sneaker Vault, Oct 2026\" }]. Yours only.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :listing_ids 
     # @return [ListWorldProvenanceResponse]
     def list_world_provenance(opts = {})
       data, _status_code, _headers = list_world_provenance_with_http_info(opts)
@@ -16590,6 +17660,7 @@ module Crossly
 
     # Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds&#x3D;a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \&quot;Found at The Sneaker Vault, Oct 2026\&quot; }]. Yours only.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :listing_ids 
     # @return [Array<(ListWorldProvenanceResponse, Integer, Hash)>] ListWorldProvenanceResponse data, response status code and response headers
     def list_world_provenance_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -16600,6 +17671,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'listingIds'] = opts[:'listing_ids'] if !opts[:'listing_ids'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -16863,6 +17935,7 @@ module Crossly
 
     # The Spaces directory: seller-hosted clubs with a venue, members and events (optional venue filter).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :venue 
     # @return [ListWorldSpacesResponse]
     def list_world_spaces(opts = {})
       data, _status_code, _headers = list_world_spaces_with_http_info(opts)
@@ -16871,16 +17944,22 @@ module Crossly
 
     # The Spaces directory: seller-hosted clubs with a venue, members and events (optional venue filter).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :venue 
     # @return [Array<(ListWorldSpacesResponse, Integer, Hash)>] ListWorldSpacesResponse data, response status code and response headers
     def list_world_spaces_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.list_world_spaces ...'
+      end
+      allowable_values = ["stage", "gallery", "card_club", "sneaker_meet", "vintage_market", "clubhouse"]
+      if @api_client.config.client_side_validation && opts[:'venue'] && !allowable_values.include?(opts[:'venue'])
+        fail ArgumentError, "invalid value for \"venue\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/world/spaces'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'venue'] = opts[:'venue'] if !opts[:'venue'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -16918,6 +17997,7 @@ module Crossly
 
     # Who applied to your postings, with their worker reputation.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :posting_id 
     # @return [ListWorldStaffApplicantsResponse]
     def list_world_staff_applicants(opts = {})
       data, _status_code, _headers = list_world_staff_applicants_with_http_info(opts)
@@ -16926,6 +18006,7 @@ module Crossly
 
     # Who applied to your postings, with their worker reputation.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :posting_id 
     # @return [Array<(ListWorldStaffApplicantsResponse, Integer, Hash)>] ListWorldStaffApplicantsResponse data, response status code and response headers
     def list_world_staff_applicants_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -16936,6 +18017,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'postingId'] = opts[:'posting_id'] if !opts[:'posting_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -17413,6 +18495,8 @@ module Crossly
 
     # The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [ListWorldVenuesResponse]
     def list_world_venues(opts = {})
       data, _status_code, _headers = list_world_venues_with_http_info(opts)
@@ -17421,6 +18505,8 @@ module Crossly
 
     # The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [Array<(ListWorldVenuesResponse, Integer, Hash)>] ListWorldVenuesResponse data, response status code and response headers
     def list_world_venues_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -17431,6 +18517,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -17467,21 +18555,27 @@ module Crossly
     end
 
     # Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store's, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
+    # @param update_showroom_request [UpdateShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [UpdateShowroomResponse]
-    def update_showroom(opts = {})
-      data, _status_code, _headers = update_showroom_with_http_info(opts)
+    def update_showroom(update_showroom_request, opts = {})
+      data, _status_code, _headers = update_showroom_with_http_info(update_showroom_request, opts)
       data
     end
 
     # Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store&#39;s, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
+    # @param update_showroom_request [UpdateShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [Array<(UpdateShowroomResponse, Integer, Hash)>] UpdateShowroomResponse data, response status code and response headers
-    def update_showroom_with_http_info(opts = {})
+    def update_showroom_with_http_info(update_showroom_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_showroom ...'
+      end
+      # verify the required parameter 'update_showroom_request' is set
+      if @api_client.config.client_side_validation && update_showroom_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_showroom_request' when calling WorldApi.update_showroom"
       end
       # resource path
       local_var_path = '/v1/showroom'
@@ -17494,12 +18588,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_showroom_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateShowroomResponse'
@@ -17525,21 +18624,27 @@ module Crossly
     end
 
     # Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
+    # @param update_showroom2_request [UpdateShowroom2Request] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [UpdateShowroom2Response]
-    def update_showroom2(opts = {})
-      data, _status_code, _headers = update_showroom2_with_http_info(opts)
+    def update_showroom2(update_showroom2_request, opts = {})
+      data, _status_code, _headers = update_showroom2_with_http_info(update_showroom2_request, opts)
       data
     end
 
     # Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
+    # @param update_showroom2_request [UpdateShowroom2Request] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [Array<(UpdateShowroom2Response, Integer, Hash)>] UpdateShowroom2Response data, response status code and response headers
-    def update_showroom2_with_http_info(opts = {})
+    def update_showroom2_with_http_info(update_showroom2_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_showroom2 ...'
+      end
+      # verify the required parameter 'update_showroom2_request' is set
+      if @api_client.config.client_side_validation && update_showroom2_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_showroom2_request' when calling WorldApi.update_showroom2"
       end
       # resource path
       local_var_path = '/v1/showroom'
@@ -17552,12 +18657,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_showroom2_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateShowroom2Response'
@@ -17584,26 +18694,32 @@ module Crossly
 
     # Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
     # @param id [String] 
+    # @param update_showroom2_request [UpdateShowroom2Request] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [UpdateShowroom2Response]
-    def update_showroom3(id, opts = {})
-      data, _status_code, _headers = update_showroom3_with_http_info(id, opts)
+    def update_showroom3(id, update_showroom2_request, opts = {})
+      data, _status_code, _headers = update_showroom3_with_http_info(id, update_showroom2_request, opts)
       data
     end
 
     # Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
     # @param id [String] 
+    # @param update_showroom2_request [UpdateShowroom2Request] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [Array<(UpdateShowroom2Response, Integer, Hash)>] UpdateShowroom2Response data, response status code and response headers
-    def update_showroom3_with_http_info(id, opts = {})
+    def update_showroom3_with_http_info(id, update_showroom2_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_showroom3 ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_showroom3"
+      end
+      # verify the required parameter 'update_showroom2_request' is set
+      if @api_client.config.client_side_validation && update_showroom2_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_showroom2_request' when calling WorldApi.update_showroom3"
       end
       # resource path
       local_var_path = '/v1/showrooms/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -17616,12 +18732,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_showroom2_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateShowroom2Response'
@@ -17648,26 +18769,32 @@ module Crossly
 
     # Replace one showroom's whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
     # @param id [String] 
+    # @param update_showroom_request [UpdateShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [UpdateShowroomResponse]
-    def update_showroom_by_id(id, opts = {})
-      data, _status_code, _headers = update_showroom_by_id_with_http_info(id, opts)
+    def update_showroom_by_id(id, update_showroom_request, opts = {})
+      data, _status_code, _headers = update_showroom_by_id_with_http_info(id, update_showroom_request, opts)
       data
     end
 
     # Replace one showroom&#39;s whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
     # @param id [String] 
+    # @param update_showroom_request [UpdateShowroomRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :storefront_id Which store (else X-Storefront-Id, else your default store).
     # @return [Array<(UpdateShowroomResponse, Integer, Hash)>] UpdateShowroomResponse data, response status code and response headers
-    def update_showroom_by_id_with_http_info(id, opts = {})
+    def update_showroom_by_id_with_http_info(id, update_showroom_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_showroom_by_id ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_showroom_by_id"
+      end
+      # verify the required parameter 'update_showroom_request' is set
+      if @api_client.config.client_side_validation && update_showroom_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_showroom_request' when calling WorldApi.update_showroom_by_id"
       end
       # resource path
       local_var_path = '/v1/showrooms/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -17680,12 +18807,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_showroom_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateShowroomResponse'
@@ -17774,19 +18906,21 @@ module Crossly
     # Move a rack in one of your warehouse rooms (position in metres).
     # @param id [String] 
     # @param node_id [String] 
+    # @param update_spatial_scene_node_request [UpdateSpatialSceneNodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateSpatialSceneNodeResponse]
-    def update_spatial_scene_node(id, node_id, opts = {})
-      data, _status_code, _headers = update_spatial_scene_node_with_http_info(id, node_id, opts)
+    def update_spatial_scene_node(id, node_id, update_spatial_scene_node_request, opts = {})
+      data, _status_code, _headers = update_spatial_scene_node_with_http_info(id, node_id, update_spatial_scene_node_request, opts)
       data
     end
 
     # Move a rack in one of your warehouse rooms (position in metres).
     # @param id [String] 
     # @param node_id [String] 
+    # @param update_spatial_scene_node_request [UpdateSpatialSceneNodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateSpatialSceneNodeResponse, Integer, Hash)>] UpdateSpatialSceneNodeResponse data, response status code and response headers
-    def update_spatial_scene_node_with_http_info(id, node_id, opts = {})
+    def update_spatial_scene_node_with_http_info(id, node_id, update_spatial_scene_node_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_spatial_scene_node ...'
       end
@@ -17798,6 +18932,10 @@ module Crossly
       if @api_client.config.client_side_validation && node_id.nil?
         fail ArgumentError, "Missing the required parameter 'node_id' when calling WorldApi.update_spatial_scene_node"
       end
+      # verify the required parameter 'update_spatial_scene_node_request' is set
+      if @api_client.config.client_side_validation && update_spatial_scene_node_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_spatial_scene_node_request' when calling WorldApi.update_spatial_scene_node"
+      end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/nodes/{nodeId}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'nodeId' + '}', CGI.escape(node_id.to_s))
 
@@ -17808,12 +18946,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_spatial_scene_node_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateSpatialSceneNodeResponse'
@@ -17841,6 +18984,7 @@ module Crossly
     # How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateSpatialSceneSettingRequest] :update_spatial_scene_setting_request 
     # @return [SpatialSceneResponse]
     def update_spatial_scene_setting(id, opts = {})
       data, _status_code, _headers = update_spatial_scene_setting_with_http_info(id, opts)
@@ -17850,6 +18994,7 @@ module Crossly
     # How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateSpatialSceneSettingRequest] :update_spatial_scene_setting_request 
     # @return [Array<(SpatialSceneResponse, Integer, Hash)>] SpatialSceneResponse data, response status code and response headers
     def update_spatial_scene_setting_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -17869,12 +19014,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_spatial_scene_setting_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'SpatialSceneResponse'
@@ -17901,24 +19051,30 @@ module Crossly
 
     # Save your shop room's sections and displays (validated server-side; the response is the stored layout).
     # @param id [String] 
+    # @param update_spatial_scene_shop_layout_request [UpdateSpatialSceneShopLayoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateSpatialSceneShopLayoutResponse]
-    def update_spatial_scene_shop_layout(id, opts = {})
-      data, _status_code, _headers = update_spatial_scene_shop_layout_with_http_info(id, opts)
+    def update_spatial_scene_shop_layout(id, update_spatial_scene_shop_layout_request, opts = {})
+      data, _status_code, _headers = update_spatial_scene_shop_layout_with_http_info(id, update_spatial_scene_shop_layout_request, opts)
       data
     end
 
     # Save your shop room&#39;s sections and displays (validated server-side; the response is the stored layout).
     # @param id [String] 
+    # @param update_spatial_scene_shop_layout_request [UpdateSpatialSceneShopLayoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateSpatialSceneShopLayoutResponse, Integer, Hash)>] UpdateSpatialSceneShopLayoutResponse data, response status code and response headers
-    def update_spatial_scene_shop_layout_with_http_info(id, opts = {})
+    def update_spatial_scene_shop_layout_with_http_info(id, update_spatial_scene_shop_layout_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_spatial_scene_shop_layout ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_spatial_scene_shop_layout"
+      end
+      # verify the required parameter 'update_spatial_scene_shop_layout_request' is set
+      if @api_client.config.client_side_validation && update_spatial_scene_shop_layout_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_spatial_scene_shop_layout_request' when calling WorldApi.update_spatial_scene_shop_layout"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/shop/layout'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -17930,12 +19086,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_spatial_scene_shop_layout_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateSpatialSceneShopLayoutResponse'
@@ -17962,24 +19123,30 @@ module Crossly
 
     # Choose up to three of your live Crossly listings for the street window of your shop, in slot order. Picks that sell drop out and the newest fill in; an empty list goes back to newest first.
     # @param id [String] 
+    # @param update_brand_drop_listing_request [UpdateBrandDropListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateSpatialSceneWindowResponse]
-    def update_spatial_scene_window(id, opts = {})
-      data, _status_code, _headers = update_spatial_scene_window_with_http_info(id, opts)
+    def update_spatial_scene_window(id, update_brand_drop_listing_request, opts = {})
+      data, _status_code, _headers = update_spatial_scene_window_with_http_info(id, update_brand_drop_listing_request, opts)
       data
     end
 
     # Choose up to three of your live Crossly listings for the street window of your shop, in slot order. Picks that sell drop out and the newest fill in; an empty list goes back to newest first.
     # @param id [String] 
+    # @param update_brand_drop_listing_request [UpdateBrandDropListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateSpatialSceneWindowResponse, Integer, Hash)>] UpdateSpatialSceneWindowResponse data, response status code and response headers
-    def update_spatial_scene_window_with_http_info(id, opts = {})
+    def update_spatial_scene_window_with_http_info(id, update_brand_drop_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_spatial_scene_window ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_spatial_scene_window"
+      end
+      # verify the required parameter 'update_brand_drop_listing_request' is set
+      if @api_client.config.client_side_validation && update_brand_drop_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_brand_drop_listing_request' when calling WorldApi.update_spatial_scene_window"
       end
       # resource path
       local_var_path = '/v1/spatial/scenes/{id}/window'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -17991,12 +19158,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_brand_drop_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateSpatialSceneWindowResponse'
@@ -18084,24 +19256,30 @@ module Crossly
 
     # Who may open a shop on a street you own (open, apply or invite).
     # @param id [String] 
+    # @param update_spatial_street_owned_request [UpdateSpatialStreetOwnedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [SpatialStreetResponse]
-    def update_spatial_street_owned(id, opts = {})
-      data, _status_code, _headers = update_spatial_street_owned_with_http_info(id, opts)
+    def update_spatial_street_owned(id, update_spatial_street_owned_request, opts = {})
+      data, _status_code, _headers = update_spatial_street_owned_with_http_info(id, update_spatial_street_owned_request, opts)
       data
     end
 
     # Who may open a shop on a street you own (open, apply or invite).
     # @param id [String] 
+    # @param update_spatial_street_owned_request [UpdateSpatialStreetOwnedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(SpatialStreetResponse, Integer, Hash)>] SpatialStreetResponse data, response status code and response headers
-    def update_spatial_street_owned_with_http_info(id, opts = {})
+    def update_spatial_street_owned_with_http_info(id, update_spatial_street_owned_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_spatial_street_owned ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_spatial_street_owned"
+      end
+      # verify the required parameter 'update_spatial_street_owned_request' is set
+      if @api_client.config.client_side_validation && update_spatial_street_owned_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_spatial_street_owned_request' when calling WorldApi.update_spatial_street_owned"
       end
       # resource path
       local_var_path = '/v1/spatial/streets/owned/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -18113,12 +19291,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_spatial_street_owned_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'SpatialStreetResponse'
@@ -18144,19 +19327,25 @@ module Crossly
     end
 
     # Create or replace your AI attendant (BYOK: switching it on needs your AI key).
+    # @param update_world_attendant_request [UpdateWorldAttendantRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWorldAttendantResponse]
-    def update_world_attendant(opts = {})
-      data, _status_code, _headers = update_world_attendant_with_http_info(opts)
+    def update_world_attendant(update_world_attendant_request, opts = {})
+      data, _status_code, _headers = update_world_attendant_with_http_info(update_world_attendant_request, opts)
       data
     end
 
     # Create or replace your AI attendant (BYOK: switching it on needs your AI key).
+    # @param update_world_attendant_request [UpdateWorldAttendantRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWorldAttendantResponse, Integer, Hash)>] UpdateWorldAttendantResponse data, response status code and response headers
-    def update_world_attendant_with_http_info(opts = {})
+    def update_world_attendant_with_http_info(update_world_attendant_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_world_attendant ...'
+      end
+      # verify the required parameter 'update_world_attendant_request' is set
+      if @api_client.config.client_side_validation && update_world_attendant_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_world_attendant_request' when calling WorldApi.update_world_attendant"
       end
       # resource path
       local_var_path = '/v1/world/attendant'
@@ -18168,12 +19357,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_world_attendant_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldAttendantResponse'
@@ -18200,6 +19394,7 @@ module Crossly
 
     # Choose named or anonymous. Rooms you are already in keep the old answer until you rejoin.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldAvatarIdentityRequest] :update_world_avatar_identity_request 
     # @return [UpdateWorldAvatarIdentityResponse]
     def update_world_avatar_identity(opts = {})
       data, _status_code, _headers = update_world_avatar_identity_with_http_info(opts)
@@ -18208,6 +19403,7 @@ module Crossly
 
     # Choose named or anonymous. Rooms you are already in keep the old answer until you rejoin.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldAvatarIdentityRequest] :update_world_avatar_identity_request 
     # @return [Array<(UpdateWorldAvatarIdentityResponse, Integer, Hash)>] UpdateWorldAvatarIdentityResponse data, response status code and response headers
     def update_world_avatar_identity_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18223,12 +19419,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_avatar_identity_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldAvatarIdentityResponse'
@@ -18255,6 +19456,7 @@ module Crossly
 
     # Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit = { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldAvatarLookRequest] :update_world_avatar_look_request 
     # @return [UpdateWorldAvatarLookResponse]
     def update_world_avatar_look(opts = {})
       data, _status_code, _headers = update_world_avatar_look_with_http_info(opts)
@@ -18263,6 +19465,7 @@ module Crossly
 
     # Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldAvatarLookRequest] :update_world_avatar_look_request 
     # @return [Array<(UpdateWorldAvatarLookResponse, Integer, Hash)>] UpdateWorldAvatarLookResponse data, response status code and response headers
     def update_world_avatar_look_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18278,12 +19481,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_avatar_look_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldAvatarLookResponse'
@@ -18365,6 +19573,7 @@ module Crossly
 
     # Wear a held token on an avatar slot (refId from GET /v1/world/capabilities), or pass refId null to take it off. Its collection must declare a wear capability for that slot.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldCapabilityWearRequest] :update_world_capability_wear_request 
     # @return [GetWorldCapabilityWearResponse]
     def update_world_capability_wear(opts = {})
       data, _status_code, _headers = update_world_capability_wear_with_http_info(opts)
@@ -18373,6 +19582,7 @@ module Crossly
 
     # Wear a held token on an avatar slot (refId from GET /v1/world/capabilities), or pass refId null to take it off. Its collection must declare a wear capability for that slot.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldCapabilityWearRequest] :update_world_capability_wear_request 
     # @return [Array<(GetWorldCapabilityWearResponse, Integer, Hash)>] GetWorldCapabilityWearResponse data, response status code and response headers
     def update_world_capability_wear_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18388,12 +19598,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_capability_wear_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldCapabilityWearResponse'
@@ -18487,6 +19702,7 @@ module Crossly
 
     # Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldControlRequest] :update_world_control_request 
     # @return [GetWorldControlResponse]
     def update_world_control(opts = {})
       data, _status_code, _headers = update_world_control_with_http_info(opts)
@@ -18495,6 +19711,7 @@ module Crossly
 
     # Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldControlRequest] :update_world_control_request 
     # @return [Array<(GetWorldControlResponse, Integer, Hash)>] GetWorldControlResponse data, response status code and response headers
     def update_world_control_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18510,12 +19727,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_control_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldControlResponse'
@@ -18543,6 +19765,7 @@ module Crossly
     # Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldConventionHallRequest] :update_world_convention_hall_request 
     # @return [UpdateWorldConventionHallResponse]
     def update_world_convention_hall(id, opts = {})
       data, _status_code, _headers = update_world_convention_hall_with_http_info(id, opts)
@@ -18552,6 +19775,7 @@ module Crossly
     # Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldConventionHallRequest] :update_world_convention_hall_request 
     # @return [Array<(UpdateWorldConventionHallResponse, Integer, Hash)>] UpdateWorldConventionHallResponse data, response status code and response headers
     def update_world_convention_hall_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -18571,12 +19795,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_convention_hall_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldConventionHallResponse'
@@ -18604,6 +19833,7 @@ module Crossly
     # Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBrandDropListingRequest] :update_brand_drop_listing_request 
     # @return [UpdateWorldConventionMyBoothResponse]
     def update_world_convention_my_booth(id, opts = {})
       data, _status_code, _headers = update_world_convention_my_booth_with_http_info(id, opts)
@@ -18613,6 +19843,7 @@ module Crossly
     # Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBrandDropListingRequest] :update_brand_drop_listing_request 
     # @return [Array<(UpdateWorldConventionMyBoothResponse, Integer, Hash)>] UpdateWorldConventionMyBoothResponse data, response status code and response headers
     def update_world_convention_my_booth_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -18632,12 +19863,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_brand_drop_listing_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldConventionMyBoothResponse'
@@ -18665,6 +19901,7 @@ module Crossly
     # Open, start, end or cancel a convention you host.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldConventionStatusRequest] :update_world_convention_status_request 
     # @return [UpdateWorldConventionStatusResponse]
     def update_world_convention_status(id, opts = {})
       data, _status_code, _headers = update_world_convention_status_with_http_info(id, opts)
@@ -18674,6 +19911,7 @@ module Crossly
     # Open, start, end or cancel a convention you host.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldConventionStatusRequest] :update_world_convention_status_request 
     # @return [Array<(UpdateWorldConventionStatusResponse, Integer, Hash)>] UpdateWorldConventionStatusResponse data, response status code and response headers
     def update_world_convention_status_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -18693,12 +19931,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_convention_status_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldConventionStatusResponse'
@@ -18726,6 +19969,7 @@ module Crossly
     # Opt one of your COSM designs in or out of the free chain unlock it earns when popular (on by default). Answers its popularity.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [CreateCosmDesignerChainAutoUnlockResponse]
     def update_world_cosm_design_chain_auto_unlock(id, opts = {})
       data, _status_code, _headers = update_world_cosm_design_chain_auto_unlock_with_http_info(id, opts)
@@ -18735,6 +19979,7 @@ module Crossly
     # Opt one of your COSM designs in or out of the free chain unlock it earns when popular (on by default). Answers its popularity.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [Array<(CreateCosmDesignerChainAutoUnlockResponse, Integer, Hash)>] CreateCosmDesignerChainAutoUnlockResponse data, response status code and response headers
     def update_world_cosm_design_chain_auto_unlock_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -18754,12 +19999,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'enabled_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerChainAutoUnlockResponse'
@@ -18852,6 +20102,7 @@ module Crossly
 
     # Whether people in a room can see what your outfit is worth.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldFitValueShareRequest] :update_world_fit_value_share_request 
     # @return [UpdateWorldFitValueShareResponse]
     def update_world_fit_value_share(opts = {})
       data, _status_code, _headers = update_world_fit_value_share_with_http_info(opts)
@@ -18860,6 +20111,7 @@ module Crossly
 
     # Whether people in a room can see what your outfit is worth.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldFitValueShareRequest] :update_world_fit_value_share_request 
     # @return [Array<(UpdateWorldFitValueShareResponse, Integer, Hash)>] UpdateWorldFitValueShareResponse data, response status code and response headers
     def update_world_fit_value_share_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18875,12 +20127,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_fit_value_share_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldFitValueShareResponse'
@@ -18907,6 +20164,7 @@ module Crossly
 
     # Your home: privacy (open, friends, private), theme, and wall, floor and mood decor you hold.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldHomeRequest] :update_world_home_request 
     # @return [WorldHomeResponse]
     def update_world_home(opts = {})
       data, _status_code, _headers = update_world_home_with_http_info(opts)
@@ -18915,6 +20173,7 @@ module Crossly
 
     # Your home: privacy (open, friends, private), theme, and wall, floor and mood decor you hold.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldHomeRequest] :update_world_home_request 
     # @return [Array<(WorldHomeResponse, Integer, Hash)>] WorldHomeResponse data, response status code and response headers
     def update_world_home_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -18930,12 +20189,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_home_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldHomeResponse'
@@ -19028,6 +20292,7 @@ module Crossly
 
     # Arrange your home: the full layout (up to 200 pieces you own), validated server-side.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldHomeLayoutRequest] :update_world_home_layout_request 
     # @return [WorldHomeResponse]
     def update_world_home_layout(opts = {})
       data, _status_code, _headers = update_world_home_layout_with_http_info(opts)
@@ -19036,6 +20301,7 @@ module Crossly
 
     # Arrange your home: the full layout (up to 200 pieces you own), validated server-side.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldHomeLayoutRequest] :update_world_home_layout_request 
     # @return [Array<(WorldHomeResponse, Integer, Hash)>] WorldHomeResponse data, response status code and response headers
     def update_world_home_layout_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -19051,12 +20317,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_home_layout_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldHomeResponse'
@@ -19084,6 +20355,7 @@ module Crossly
     # Rearrange a home you co-build (never adding the owner bought pieces).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldHomeLayoutRequest] :update_world_home_layout_request 
     # @return [WorldHomeResponse]
     def update_world_home_layout_by_slug(slug, opts = {})
       data, _status_code, _headers = update_world_home_layout_by_slug_with_http_info(slug, opts)
@@ -19093,6 +20365,7 @@ module Crossly
     # Rearrange a home you co-build (never adding the owner bought pieces).
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldHomeLayoutRequest] :update_world_home_layout_request 
     # @return [Array<(WorldHomeResponse, Integer, Hash)>] WorldHomeResponse data, response status code and response headers
     def update_world_home_layout_by_slug_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -19112,12 +20385,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_home_layout_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldHomeResponse'
@@ -19145,6 +20423,7 @@ module Crossly
     # Save the draft MML source (up to 64 KB); the response carries its static check.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldInteractiveDesignDraftRequest] :update_world_interactive_design_draft_request 
     # @return [UpdateWorldInteractiveDesignDraftResponse]
     def update_world_interactive_design_draft(id, opts = {})
       data, _status_code, _headers = update_world_interactive_design_draft_with_http_info(id, opts)
@@ -19154,6 +20433,7 @@ module Crossly
     # Save the draft MML source (up to 64 KB); the response carries its static check.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldInteractiveDesignDraftRequest] :update_world_interactive_design_draft_request 
     # @return [Array<(UpdateWorldInteractiveDesignDraftResponse, Integer, Hash)>] UpdateWorldInteractiveDesignDraftResponse data, response status code and response headers
     def update_world_interactive_design_draft_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -19173,12 +20453,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_interactive_design_draft_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldInteractiveDesignDraftResponse'
@@ -19206,6 +20491,7 @@ module Crossly
     # Reserve one of your listings for holders of a collection you declared a holders_only perk for (or release it). Checkout refuses anybody else.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [UpdateWorldListingHoldersOnlyResponse]
     def update_world_listing_holders_only(id, opts = {})
       data, _status_code, _headers = update_world_listing_holders_only_with_http_info(id, opts)
@@ -19215,6 +20501,7 @@ module Crossly
     # Reserve one of your listings for holders of a collection you declared a holders_only perk for (or release it). Checkout refuses anybody else.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [Array<(UpdateWorldListingHoldersOnlyResponse, Integer, Hash)>] UpdateWorldListingHoldersOnlyResponse data, response status code and response headers
     def update_world_listing_holders_only_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -19234,12 +20521,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'enabled_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldListingHoldersOnlyResponse'
@@ -19404,24 +20696,30 @@ module Crossly
 
     # Store a plot's photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot's current one) or an in-world capture.
     # @param plot_id [String] 
+    # @param update_world_property_plot_photo_request [UpdateWorldPropertyPlotPhotoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWorldPropertyPlotPhotoResponse]
-    def update_world_property_plot_photo(plot_id, opts = {})
-      data, _status_code, _headers = update_world_property_plot_photo_with_http_info(plot_id, opts)
+    def update_world_property_plot_photo(plot_id, update_world_property_plot_photo_request, opts = {})
+      data, _status_code, _headers = update_world_property_plot_photo_with_http_info(plot_id, update_world_property_plot_photo_request, opts)
       data
     end
 
     # Store a plot&#39;s photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot&#39;s current one) or an in-world capture.
     # @param plot_id [String] 
+    # @param update_world_property_plot_photo_request [UpdateWorldPropertyPlotPhotoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWorldPropertyPlotPhotoResponse, Integer, Hash)>] UpdateWorldPropertyPlotPhotoResponse data, response status code and response headers
-    def update_world_property_plot_photo_with_http_info(plot_id, opts = {})
+    def update_world_property_plot_photo_with_http_info(plot_id, update_world_property_plot_photo_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_world_property_plot_photo ...'
       end
       # verify the required parameter 'plot_id' is set
       if @api_client.config.client_side_validation && plot_id.nil?
         fail ArgumentError, "Missing the required parameter 'plot_id' when calling WorldApi.update_world_property_plot_photo"
+      end
+      # verify the required parameter 'update_world_property_plot_photo_request' is set
+      if @api_client.config.client_side_validation && update_world_property_plot_photo_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_world_property_plot_photo_request' when calling WorldApi.update_world_property_plot_photo"
       end
       # resource path
       local_var_path = '/v1/world/property/plots/{plotId}/photo'.sub('{' + 'plotId' + '}', CGI.escape(plot_id.to_s))
@@ -19433,12 +20731,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_world_property_plot_photo_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldPropertyPlotPhotoResponse'
@@ -19465,24 +20768,30 @@ module Crossly
 
     # Turn weekly autopay on or off (card leases).
     # @param lease_id [String] 
+    # @param update_world_property_renting_request [UpdateWorldPropertyRentingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWorldPropertyRentingResponse]
-    def update_world_property_renting(lease_id, opts = {})
-      data, _status_code, _headers = update_world_property_renting_with_http_info(lease_id, opts)
+    def update_world_property_renting(lease_id, update_world_property_renting_request, opts = {})
+      data, _status_code, _headers = update_world_property_renting_with_http_info(lease_id, update_world_property_renting_request, opts)
       data
     end
 
     # Turn weekly autopay on or off (card leases).
     # @param lease_id [String] 
+    # @param update_world_property_renting_request [UpdateWorldPropertyRentingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWorldPropertyRentingResponse, Integer, Hash)>] UpdateWorldPropertyRentingResponse data, response status code and response headers
-    def update_world_property_renting_with_http_info(lease_id, opts = {})
+    def update_world_property_renting_with_http_info(lease_id, update_world_property_renting_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_world_property_renting ...'
       end
       # verify the required parameter 'lease_id' is set
       if @api_client.config.client_side_validation && lease_id.nil?
         fail ArgumentError, "Missing the required parameter 'lease_id' when calling WorldApi.update_world_property_renting"
+      end
+      # verify the required parameter 'update_world_property_renting_request' is set
+      if @api_client.config.client_side_validation && update_world_property_renting_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_world_property_renting_request' when calling WorldApi.update_world_property_renting"
       end
       # resource path
       local_var_path = '/v1/world/property/renting/{leaseId}'.sub('{' + 'leaseId' + '}', CGI.escape(lease_id.to_s))
@@ -19494,12 +20803,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_world_property_renting_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldPropertyRentingResponse'
@@ -19653,24 +20967,30 @@ module Crossly
 
     # As host, change a Space name, about or membership.
     # @param slug [String] 
+    # @param update_world_space_request [UpdateWorldSpaceRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWorldSpaceResponse]
-    def update_world_space(slug, opts = {})
-      data, _status_code, _headers = update_world_space_with_http_info(slug, opts)
+    def update_world_space(slug, update_world_space_request, opts = {})
+      data, _status_code, _headers = update_world_space_with_http_info(slug, update_world_space_request, opts)
       data
     end
 
     # As host, change a Space name, about or membership.
     # @param slug [String] 
+    # @param update_world_space_request [UpdateWorldSpaceRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWorldSpaceResponse, Integer, Hash)>] UpdateWorldSpaceResponse data, response status code and response headers
-    def update_world_space_with_http_info(slug, opts = {})
+    def update_world_space_with_http_info(slug, update_world_space_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_world_space ...'
       end
       # verify the required parameter 'slug' is set
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling WorldApi.update_world_space"
+      end
+      # verify the required parameter 'update_world_space_request' is set
+      if @api_client.config.client_side_validation && update_world_space_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_world_space_request' when calling WorldApi.update_world_space"
       end
       # resource path
       local_var_path = '/v1/world/spaces/{slug}'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
@@ -19682,12 +21002,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_world_space_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldSpaceResponse'
@@ -19775,24 +21100,30 @@ module Crossly
 
     # Replace a posting; its future unstaffed shifts are re-made.
     # @param id [String] 
+    # @param create_world_staff_posting_request [CreateWorldStaffPostingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [WorldStaffPostingResponse]
-    def update_world_staff_posting(id, opts = {})
-      data, _status_code, _headers = update_world_staff_posting_with_http_info(id, opts)
+    def update_world_staff_posting(id, create_world_staff_posting_request, opts = {})
+      data, _status_code, _headers = update_world_staff_posting_with_http_info(id, create_world_staff_posting_request, opts)
       data
     end
 
     # Replace a posting; its future unstaffed shifts are re-made.
     # @param id [String] 
+    # @param create_world_staff_posting_request [CreateWorldStaffPostingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(WorldStaffPostingResponse, Integer, Hash)>] WorldStaffPostingResponse data, response status code and response headers
-    def update_world_staff_posting_with_http_info(id, opts = {})
+    def update_world_staff_posting_with_http_info(id, create_world_staff_posting_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_world_staff_posting ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_world_staff_posting"
+      end
+      # verify the required parameter 'create_world_staff_posting_request' is set
+      if @api_client.config.client_side_validation && create_world_staff_posting_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_staff_posting_request' when calling WorldApi.update_world_staff_posting"
       end
       # resource path
       local_var_path = '/v1/world/staff/postings/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -19804,12 +21135,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_staff_posting_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldStaffPostingResponse'
@@ -19895,26 +21231,32 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Set your street's theme.
+    # Set your store's street theme.
     # @param id [String] 
+    # @param update_world_street_owned_theme_request [UpdateWorldStreetOwnedThemeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWorldStreetOwnedThemeResponse]
-    def update_world_street_owned_theme(id, opts = {})
-      data, _status_code, _headers = update_world_street_owned_theme_with_http_info(id, opts)
+    def update_world_street_owned_theme(id, update_world_street_owned_theme_request, opts = {})
+      data, _status_code, _headers = update_world_street_owned_theme_with_http_info(id, update_world_street_owned_theme_request, opts)
       data
     end
 
-    # Set your street&#39;s theme.
+    # Set your store&#39;s street theme.
     # @param id [String] 
+    # @param update_world_street_owned_theme_request [UpdateWorldStreetOwnedThemeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWorldStreetOwnedThemeResponse, Integer, Hash)>] UpdateWorldStreetOwnedThemeResponse data, response status code and response headers
-    def update_world_street_owned_theme_with_http_info(id, opts = {})
+    def update_world_street_owned_theme_with_http_info(id, update_world_street_owned_theme_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WorldApi.update_world_street_owned_theme ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling WorldApi.update_world_street_owned_theme"
+      end
+      # verify the required parameter 'update_world_street_owned_theme_request' is set
+      if @api_client.config.client_side_validation && update_world_street_owned_theme_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_world_street_owned_theme_request' when calling WorldApi.update_world_street_owned_theme"
       end
       # resource path
       local_var_path = '/v1/world/streets/owned/{id}/theme'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -19926,12 +21268,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_world_street_owned_theme_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldStreetOwnedThemeResponse'

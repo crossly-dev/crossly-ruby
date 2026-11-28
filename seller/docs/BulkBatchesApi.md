@@ -83,7 +83,7 @@ This endpoint does not need any parameter.
 
 ## create_bulk_batch_identify
 
-> <CreateBulkBatchIdentifyResponse> create_bulk_batch_identify(id)
+> <CreateBulkBatchIdentifyResponse> create_bulk_batch_identify(id, opts)
 
 Identify items: match to Crossly Market, Magic List, or auto (by preset). Runs in the background.
 
@@ -100,10 +100,13 @@ end
 
 api_instance = Crossly::BulkBatchesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_bulk_batch_identify_request: Crossly::CreateBulkBatchIdentifyRequest.new # CreateBulkBatchIdentifyRequest | 
+}
 
 begin
   # Identify items: match to Crossly Market, Magic List, or auto (by preset). Runs in the background.
-  result = api_instance.create_bulk_batch_identify(id)
+  result = api_instance.create_bulk_batch_identify(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BulkBatchesApi->create_bulk_batch_identify: #{e}"
@@ -114,12 +117,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBulkBatchIdentifyResponse>, Integer, Hash)> create_bulk_batch_identify_with_http_info(id)
+> <Array(<CreateBulkBatchIdentifyResponse>, Integer, Hash)> create_bulk_batch_identify_with_http_info(id, opts)
 
 ```ruby
 begin
   # Identify items: match to Crossly Market, Magic List, or auto (by preset). Runs in the background.
-  data, status_code, headers = api_instance.create_bulk_batch_identify_with_http_info(id)
+  data, status_code, headers = api_instance.create_bulk_batch_identify_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBulkBatchIdentifyResponse>
@@ -133,6 +136,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_bulk_batch_identify_request** | **CreateBulkBatchIdentifyRequest** |  | [optional] |
 
 ### Return type
 
@@ -144,13 +148,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_bulk_batch_item
 
-> <CreateBulkBatchItemResponse> create_bulk_batch_item(id)
+> <CreateBulkBatchItemResponse> create_bulk_batch_item(id, create_bulk_batch_item_request)
 
 Append one item (every photo of it, primary first).
 
@@ -167,10 +171,11 @@ end
 
 api_instance = Crossly::BulkBatchesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_bulk_batch_item_request = Crossly::CreateBulkBatchItemRequest.new({image_urls: ['image_urls_example']}) # CreateBulkBatchItemRequest | 
 
 begin
   # Append one item (every photo of it, primary first).
-  result = api_instance.create_bulk_batch_item(id)
+  result = api_instance.create_bulk_batch_item(id, create_bulk_batch_item_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BulkBatchesApi->create_bulk_batch_item: #{e}"
@@ -181,12 +186,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBulkBatchItemResponse>, Integer, Hash)> create_bulk_batch_item_with_http_info(id)
+> <Array(<CreateBulkBatchItemResponse>, Integer, Hash)> create_bulk_batch_item_with_http_info(id, create_bulk_batch_item_request)
 
 ```ruby
 begin
   # Append one item (every photo of it, primary first).
-  data, status_code, headers = api_instance.create_bulk_batch_item_with_http_info(id)
+  data, status_code, headers = api_instance.create_bulk_batch_item_with_http_info(id, create_bulk_batch_item_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBulkBatchItemResponse>
@@ -200,6 +205,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_bulk_batch_item_request** | **CreateBulkBatchItemRequest** |  |  |
 
 ### Return type
 
@@ -211,13 +217,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_bulk_batch_item_bulk
 
-> <UpdatedResponse> create_bulk_batch_item_bulk(id)
+> <UpdatedResponse> create_bulk_batch_item_bulk(id, create_bulk_batch_item_bulk_request)
 
 Set price/quantity/condition/status on many items.
 
@@ -234,10 +240,11 @@ end
 
 api_instance = Crossly::BulkBatchesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_bulk_batch_item_bulk_request = Crossly::CreateBulkBatchItemBulkRequest.new({item_ids: ['item_ids_example'], patch: Crossly::CreateBulkBatchItemBulkRequestPatch.new}) # CreateBulkBatchItemBulkRequest | 
 
 begin
   # Set price/quantity/condition/status on many items.
-  result = api_instance.create_bulk_batch_item_bulk(id)
+  result = api_instance.create_bulk_batch_item_bulk(id, create_bulk_batch_item_bulk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BulkBatchesApi->create_bulk_batch_item_bulk: #{e}"
@@ -248,12 +255,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdatedResponse>, Integer, Hash)> create_bulk_batch_item_bulk_with_http_info(id)
+> <Array(<UpdatedResponse>, Integer, Hash)> create_bulk_batch_item_bulk_with_http_info(id, create_bulk_batch_item_bulk_request)
 
 ```ruby
 begin
   # Set price/quantity/condition/status on many items.
-  data, status_code, headers = api_instance.create_bulk_batch_item_bulk_with_http_info(id)
+  data, status_code, headers = api_instance.create_bulk_batch_item_bulk_with_http_info(id, create_bulk_batch_item_bulk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdatedResponse>
@@ -267,6 +274,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_bulk_batch_item_bulk_request** | **CreateBulkBatchItemBulkRequest** |  |  |
 
 ### Return type
 
@@ -278,13 +286,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_bulk_batch_publish
 
-> <CreateBulkBatchPublishResponse> create_bulk_batch_publish(id)
+> <CreateBulkBatchPublishResponse> create_bulk_batch_publish(id, opts)
 
 Publish reviewed items: drafts only (default) or live on destinations; adds quantity to an existing matching listing.
 
@@ -301,10 +309,13 @@ end
 
 api_instance = Crossly::BulkBatchesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_bulk_batch_publish_request: Crossly::CreateBulkBatchPublishRequest.new # CreateBulkBatchPublishRequest | 
+}
 
 begin
   # Publish reviewed items: drafts only (default) or live on destinations; adds quantity to an existing matching listing.
-  result = api_instance.create_bulk_batch_publish(id)
+  result = api_instance.create_bulk_batch_publish(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BulkBatchesApi->create_bulk_batch_publish: #{e}"
@@ -315,12 +326,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBulkBatchPublishResponse>, Integer, Hash)> create_bulk_batch_publish_with_http_info(id)
+> <Array(<CreateBulkBatchPublishResponse>, Integer, Hash)> create_bulk_batch_publish_with_http_info(id, opts)
 
 ```ruby
 begin
   # Publish reviewed items: drafts only (default) or live on destinations; adds quantity to an existing matching listing.
-  data, status_code, headers = api_instance.create_bulk_batch_publish_with_http_info(id)
+  data, status_code, headers = api_instance.create_bulk_batch_publish_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBulkBatchPublishResponse>
@@ -334,6 +345,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_bulk_batch_publish_request** | **CreateBulkBatchPublishRequest** |  | [optional] |
 
 ### Return type
 
@@ -345,7 +357,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -621,7 +633,7 @@ end
 
 ## update_bulk_batch
 
-> <ListBulkBatchesItem> update_bulk_batch(id)
+> <ListBulkBatchesItem> update_bulk_batch(id, update_bulk_batch_request)
 
 Change batch settings, or set stage \"identify\" when capture is done.
 
@@ -638,10 +650,11 @@ end
 
 api_instance = Crossly::BulkBatchesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_bulk_batch_request = Crossly::UpdateBulkBatchRequest.new # UpdateBulkBatchRequest | 
 
 begin
   # Change batch settings, or set stage \"identify\" when capture is done.
-  result = api_instance.update_bulk_batch(id)
+  result = api_instance.update_bulk_batch(id, update_bulk_batch_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BulkBatchesApi->update_bulk_batch: #{e}"
@@ -652,12 +665,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBulkBatchesItem>, Integer, Hash)> update_bulk_batch_with_http_info(id)
+> <Array(<ListBulkBatchesItem>, Integer, Hash)> update_bulk_batch_with_http_info(id, update_bulk_batch_request)
 
 ```ruby
 begin
   # Change batch settings, or set stage \"identify\" when capture is done.
-  data, status_code, headers = api_instance.update_bulk_batch_with_http_info(id)
+  data, status_code, headers = api_instance.update_bulk_batch_with_http_info(id, update_bulk_batch_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBulkBatchesItem>
@@ -671,6 +684,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_bulk_batch_request** | **UpdateBulkBatchRequest** |  |  |
 
 ### Return type
 
@@ -682,13 +696,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_bulk_batch_item
 
-> <CreateBulkBatchItemResponse> update_bulk_batch_item(id)
+> <CreateBulkBatchItemResponse> update_bulk_batch_item(id, update_bulk_batch_item_request)
 
 Correct one item (match, title, price, photos…).
 
@@ -705,10 +719,11 @@ end
 
 api_instance = Crossly::BulkBatchesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_bulk_batch_item_request = Crossly::UpdateBulkBatchItemRequest.new # UpdateBulkBatchItemRequest | 
 
 begin
   # Correct one item (match, title, price, photos…).
-  result = api_instance.update_bulk_batch_item(id)
+  result = api_instance.update_bulk_batch_item(id, update_bulk_batch_item_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BulkBatchesApi->update_bulk_batch_item: #{e}"
@@ -719,12 +734,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBulkBatchItemResponse>, Integer, Hash)> update_bulk_batch_item_with_http_info(id)
+> <Array(<CreateBulkBatchItemResponse>, Integer, Hash)> update_bulk_batch_item_with_http_info(id, update_bulk_batch_item_request)
 
 ```ruby
 begin
   # Correct one item (match, title, price, photos…).
-  data, status_code, headers = api_instance.update_bulk_batch_item_with_http_info(id)
+  data, status_code, headers = api_instance.update_bulk_batch_item_with_http_info(id, update_bulk_batch_item_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBulkBatchItemResponse>
@@ -738,6 +753,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_bulk_batch_item_request** | **UpdateBulkBatchItemRequest** |  |  |
 
 ### Return type
 
@@ -749,6 +765,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

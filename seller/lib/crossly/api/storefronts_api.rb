@@ -744,7 +744,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt.
+    # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt, currency (null = never chosen).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [StorefrontResponse]
@@ -753,7 +753,7 @@ module Crossly
       data
     end
 
-    # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt.
+    # One store: name, slug, status (draft|live|paused|archived), isDefault, nameAuto, onboardedAt, currency (null &#x3D; never chosen).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(StorefrontResponse, Integer, Hash)>] StorefrontResponse data, response status code and response headers
@@ -1044,25 +1044,32 @@ module Crossly
     end
 
     # Is this store slug free? Checks shape, reserved words, current slugs and retired ones.
+    # @param slug [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetStorefrontSlugAvailableResponse]
-    def get_storefront_slug_available(opts = {})
-      data, _status_code, _headers = get_storefront_slug_available_with_http_info(opts)
+    def get_storefront_slug_available(slug, opts = {})
+      data, _status_code, _headers = get_storefront_slug_available_with_http_info(slug, opts)
       data
     end
 
     # Is this store slug free? Checks shape, reserved words, current slugs and retired ones.
+    # @param slug [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetStorefrontSlugAvailableResponse, Integer, Hash)>] GetStorefrontSlugAvailableResponse data, response status code and response headers
-    def get_storefront_slug_available_with_http_info(opts = {})
+    def get_storefront_slug_available_with_http_info(slug, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorefrontsApi.get_storefront_slug_available ...'
+      end
+      # verify the required parameter 'slug' is set
+      if @api_client.config.client_side_validation && slug.nil?
+        fail ArgumentError, "Missing the required parameter 'slug' when calling StorefrontsApi.get_storefront_slug_available"
       end
       # resource path
       local_var_path = '/v1/storefronts/slug-available'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'slug'] = slug
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1216,6 +1223,7 @@ module Crossly
 
     # Your stores (default first). includeArchived=true adds archived ones.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :include_archived 
     # @return [ListStorefrontsResponse]
     def list_storefronts(opts = {})
       data, _status_code, _headers = list_storefronts_with_http_info(opts)
@@ -1224,16 +1232,22 @@ module Crossly
 
     # Your stores (default first). includeArchived&#x3D;true adds archived ones.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :include_archived 
     # @return [Array<(ListStorefrontsResponse, Integer, Hash)>] ListStorefrontsResponse data, response status code and response headers
     def list_storefronts_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorefrontsApi.list_storefronts ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'include_archived'] && !allowable_values.include?(opts[:'include_archived'])
+        fail ArgumentError, "invalid value for \"include_archived\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/storefronts'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'includeArchived'] = opts[:'include_archived'] if !opts[:'include_archived'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1326,6 +1340,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: StorefrontsApi#update_storefront_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set a store's currency (ISO 4217, e.g. GBP): what its inventory values, totals and analytics show in, and what a price sent without a currency is stored in.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [StorefrontResponse]
+    def update_storefront_currency(id, opts = {})
+      data, _status_code, _headers = update_storefront_currency_with_http_info(id, opts)
+      data
+    end
+
+    # Set a store&#39;s currency (ISO 4217, e.g. GBP): what its inventory values, totals and analytics show in, and what a price sent without a currency is stored in.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(StorefrontResponse, Integer, Hash)>] StorefrontResponse data, response status code and response headers
+    def update_storefront_currency_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: StorefrontsApi.update_storefront_currency ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling StorefrontsApi.update_storefront_currency"
+      end
+      # resource path
+      local_var_path = '/v1/storefronts/{id}/currency'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'StorefrontResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"StorefrontsApi.update_storefront_currency",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StorefrontsApi#update_storefront_currency\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

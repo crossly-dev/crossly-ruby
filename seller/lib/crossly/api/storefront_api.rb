@@ -21,6 +21,7 @@ module Crossly
     end
     # Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontHighlightRequest] :create_storefront_highlight_request 
     # @return [CreateStorefrontHighlightResponse]
     def create_storefront_highlight(opts = {})
       data, _status_code, _headers = create_storefront_highlight_with_http_info(opts)
@@ -29,6 +30,7 @@ module Crossly
 
     # Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontHighlightRequest] :create_storefront_highlight_request 
     # @return [Array<(CreateStorefrontHighlightResponse, Integer, Hash)>] CreateStorefrontHighlightResponse data, response status code and response headers
     def create_storefront_highlight_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -44,12 +46,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_storefront_highlight_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateStorefrontHighlightResponse'
@@ -77,6 +84,7 @@ module Crossly
     # Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontHighlightItemRequest] :create_storefront_highlight_item_request 
     # @return [StorefrontHighlightResponse]
     def create_storefront_highlight_item(id, opts = {})
       data, _status_code, _headers = create_storefront_highlight_item_with_http_info(id, opts)
@@ -86,6 +94,7 @@ module Crossly
     # Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontHighlightItemRequest] :create_storefront_highlight_item_request 
     # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
     def create_storefront_highlight_item_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -105,12 +114,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_storefront_highlight_item_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
@@ -192,6 +206,7 @@ module Crossly
 
     # Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontSectionRequest] :create_storefront_section_request 
     # @return [StorefrontSectionResponse]
     def create_storefront_section(opts = {})
       data, _status_code, _headers = create_storefront_section_with_http_info(opts)
@@ -200,6 +215,7 @@ module Crossly
 
     # Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontSectionRequest] :create_storefront_section_request 
     # @return [Array<(StorefrontSectionResponse, Integer, Hash)>] StorefrontSectionResponse data, response status code and response headers
     def create_storefront_section_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -215,12 +231,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_storefront_section_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontSectionResponse'
@@ -583,6 +604,7 @@ module Crossly
 
     # Publish the trade site draft (a version is kept).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontTradeSitePublishRequest] :create_storefront_trade_site_publish_request 
     # @return [StorefrontResponse2]
     def create_storefront_trade_site_publish(opts = {})
       data, _status_code, _headers = create_storefront_trade_site_publish_with_http_info(opts)
@@ -591,6 +613,7 @@ module Crossly
 
     # Publish the trade site draft (a version is kept).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontTradeSitePublishRequest] :create_storefront_trade_site_publish_request 
     # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
     def create_storefront_trade_site_publish_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -606,12 +629,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_storefront_trade_site_publish_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontResponse2'
@@ -638,6 +666,7 @@ module Crossly
 
     # The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontTradeSiteResolveRequest] :create_storefront_trade_site_resolve_request 
     # @return [CreateStorefrontSiteResolveResponse]
     def create_storefront_trade_site_resolve(opts = {})
       data, _status_code, _headers = create_storefront_trade_site_resolve_with_http_info(opts)
@@ -646,6 +675,7 @@ module Crossly
 
     # The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontTradeSiteResolveRequest] :create_storefront_trade_site_resolve_request 
     # @return [Array<(CreateStorefrontSiteResolveResponse, Integer, Hash)>] CreateStorefrontSiteResolveResponse data, response status code and response headers
     def create_storefront_trade_site_resolve_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -661,12 +691,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_storefront_trade_site_resolve_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateStorefrontSiteResolveResponse'
@@ -693,6 +728,7 @@ module Crossly
 
     # Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontTradeSiteStarterRequest] :create_storefront_trade_site_starter_request 
     # @return [StorefrontResponse2]
     def create_storefront_trade_site_starter(opts = {})
       data, _status_code, _headers = create_storefront_trade_site_starter_with_http_info(opts)
@@ -701,6 +737,7 @@ module Crossly
 
     # Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateStorefrontTradeSiteStarterRequest] :create_storefront_trade_site_starter_request 
     # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
     def create_storefront_trade_site_starter_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -716,12 +753,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_storefront_trade_site_starter_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontResponse2'
@@ -1155,7 +1197,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address.
+    # Your Crossly shipping policy (domestic and international services, which countries you ship to) and the default ship-from address of the store named by X-Storefront-Id (else your default store).
     # @param [Hash] opts the optional parameters
     # @return [GetStorefrontShippingResponse]
     def get_storefront_shipping(opts = {})
@@ -1163,7 +1205,7 @@ module Crossly
       data
     end
 
-    # Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address.
+    # Your Crossly shipping policy (domestic and international services, which countries you ship to) and the default ship-from address of the store named by X-Storefront-Id (else your default store).
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetStorefrontShippingResponse, Integer, Hash)>] GetStorefrontShippingResponse data, response status code and response headers
     def get_storefront_shipping_with_http_info(opts = {})
@@ -1487,6 +1529,8 @@ module Crossly
 
     # Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before = meta.nextCursor of the previous page.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :before 
+    # @option opts [Float] :limit 
     # @return [ListStorefrontStoryArchiveResponse]
     def list_storefront_story_archive(opts = {})
       data, _status_code, _headers = list_storefront_story_archive_with_http_info(opts)
@@ -1495,6 +1539,8 @@ module Crossly
 
     # Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before &#x3D; meta.nextCursor of the previous page.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :before 
+    # @option opts [Float] :limit 
     # @return [Array<(ListStorefrontStoryArchiveResponse, Integer, Hash)>] ListStorefrontStoryArchiveResponse data, response status code and response headers
     def list_storefront_story_archive_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1505,6 +1551,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'before'] = opts[:'before'] if !opts[:'before'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1542,6 +1590,7 @@ module Crossly
 
     # Update your storefront design. Omitted fields are unchanged, null clears. published=false keeps the design as a draft and buyers see the standard storefront.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontRequest] :update_storefront_request 
     # @return [GetStorefrontResponse]
     def update_storefront(opts = {})
       data, _status_code, _headers = update_storefront_with_http_info(opts)
@@ -1550,6 +1599,7 @@ module Crossly
 
     # Update your storefront design. Omitted fields are unchanged, null clears. published&#x3D;false keeps the design as a draft and buyers see the standard storefront.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontRequest] :update_storefront_request 
     # @return [Array<(GetStorefrontResponse, Integer, Hash)>] GetStorefrontResponse data, response status code and response headers
     def update_storefront_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1565,12 +1615,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_storefront_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetStorefrontResponse'
@@ -1598,6 +1653,7 @@ module Crossly
     # Rename a highlight or change its cover (coverUrl null = use the first story).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontHighlightRequest] :update_storefront_highlight_request 
     # @return [StorefrontHighlightResponse]
     def update_storefront_highlight(id, opts = {})
       data, _status_code, _headers = update_storefront_highlight_with_http_info(id, opts)
@@ -1607,6 +1663,7 @@ module Crossly
     # Rename a highlight or change its cover (coverUrl null &#x3D; use the first story).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontHighlightRequest] :update_storefront_highlight_request 
     # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
     def update_storefront_highlight_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1626,12 +1683,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_storefront_highlight_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
@@ -1659,6 +1721,7 @@ module Crossly
     # Set the order of a highlight’s saved stories: every item id, first to last.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingByIdRequest] :create_listing_by_id_request 
     # @return [StorefrontHighlightResponse]
     def update_storefront_highlight_item_order(id, opts = {})
       data, _status_code, _headers = update_storefront_highlight_item_order_with_http_info(id, opts)
@@ -1668,6 +1731,7 @@ module Crossly
     # Set the order of a highlight’s saved stories: every item id, first to last.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingByIdRequest] :create_listing_by_id_request 
     # @return [Array<(StorefrontHighlightResponse, Integer, Hash)>] StorefrontHighlightResponse data, response status code and response headers
     def update_storefront_highlight_item_order_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1687,12 +1751,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_by_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontHighlightResponse'
@@ -1719,6 +1788,7 @@ module Crossly
 
     # Set the highlight order in one call: every highlight id, first to last.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingByIdRequest] :create_listing_by_id_request 
     # @return [ListStorefrontHighlightsResponse]
     def update_storefront_highlight_order(opts = {})
       data, _status_code, _headers = update_storefront_highlight_order_with_http_info(opts)
@@ -1727,6 +1797,7 @@ module Crossly
 
     # Set the highlight order in one call: every highlight id, first to last.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingByIdRequest] :create_listing_by_id_request 
     # @return [Array<(ListStorefrontHighlightsResponse, Integer, Hash)>] ListStorefrontHighlightsResponse data, response status code and response headers
     def update_storefront_highlight_order_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1742,12 +1813,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_by_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListStorefrontHighlightsResponse'
@@ -1830,6 +1906,7 @@ module Crossly
     # Rename, show/hide, refill (listings shelves) or reconfigure a section.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontSectionRequest] :update_storefront_section_request 
     # @return [StorefrontSectionResponse]
     def update_storefront_section(id, opts = {})
       data, _status_code, _headers = update_storefront_section_with_http_info(id, opts)
@@ -1839,6 +1916,7 @@ module Crossly
     # Rename, show/hide, refill (listings shelves) or reconfigure a section.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontSectionRequest] :update_storefront_section_request 
     # @return [Array<(StorefrontSectionResponse, Integer, Hash)>] StorefrontSectionResponse data, response status code and response headers
     def update_storefront_section_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1858,12 +1936,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_storefront_section_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontSectionResponse'
@@ -1889,19 +1972,25 @@ module Crossly
     end
 
     # Set the section order in one atomic call: every section id, top to bottom.
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [StorefrontResponse4]
-    def update_storefront_section_reorder(opts = {})
-      data, _status_code, _headers = update_storefront_section_reorder_with_http_info(opts)
+    def update_storefront_section_reorder(create_listing_by_id_request, opts = {})
+      data, _status_code, _headers = update_storefront_section_reorder_with_http_info(create_listing_by_id_request, opts)
       data
     end
 
     # Set the section order in one atomic call: every section id, top to bottom.
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(StorefrontResponse4, Integer, Hash)>] StorefrontResponse4 data, response status code and response headers
-    def update_storefront_section_reorder_with_http_info(opts = {})
+    def update_storefront_section_reorder_with_http_info(create_listing_by_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_section_reorder ...'
+      end
+      # verify the required parameter 'create_listing_by_id_request' is set
+      if @api_client.config.client_side_validation && create_listing_by_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_by_id_request' when calling StorefrontApi.update_storefront_section_reorder"
       end
       # resource path
       local_var_path = '/v1/storefront/sections/reorder'
@@ -1913,12 +2002,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_by_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontResponse4'
@@ -1943,20 +2037,26 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin).
+    # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or the default ship-from address of the store named by X-Storefront-Id, else your default store (any country; 422 for a sanctioned origin).
+    # @param update_storefront_shipping_request [UpdateStorefrontShippingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetStorefrontShippingResponse]
-    def update_storefront_shipping(opts = {})
-      data, _status_code, _headers = update_storefront_shipping_with_http_info(opts)
+    def update_storefront_shipping(update_storefront_shipping_request, opts = {})
+      data, _status_code, _headers = update_storefront_shipping_with_http_info(update_storefront_shipping_request, opts)
       data
     end
 
-    # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin).
+    # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or the default ship-from address of the store named by X-Storefront-Id, else your default store (any country; 422 for a sanctioned origin).
+    # @param update_storefront_shipping_request [UpdateStorefrontShippingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetStorefrontShippingResponse, Integer, Hash)>] GetStorefrontShippingResponse data, response status code and response headers
-    def update_storefront_shipping_with_http_info(opts = {})
+    def update_storefront_shipping_with_http_info(update_storefront_shipping_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: StorefrontApi.update_storefront_shipping ...'
+      end
+      # verify the required parameter 'update_storefront_shipping_request' is set
+      if @api_client.config.client_side_validation && update_storefront_shipping_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_storefront_shipping_request' when calling StorefrontApi.update_storefront_shipping"
       end
       # resource path
       local_var_path = '/v1/storefront/shipping'
@@ -1968,12 +2068,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_storefront_shipping_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetStorefrontShippingResponse'
@@ -2110,6 +2215,7 @@ module Crossly
 
     # Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontTradeSiteDraftRequest] :update_storefront_trade_site_draft_request 
     # @return [StorefrontResponse2]
     def update_storefront_trade_site_draft(opts = {})
       data, _status_code, _headers = update_storefront_trade_site_draft_with_http_info(opts)
@@ -2118,6 +2224,7 @@ module Crossly
 
     # Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontTradeSiteDraftRequest] :update_storefront_trade_site_draft_request 
     # @return [Array<(StorefrontResponse2, Integer, Hash)>] StorefrontResponse2 data, response status code and response headers
     def update_storefront_trade_site_draft_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2133,12 +2240,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_storefront_trade_site_draft_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontResponse2'
@@ -2165,6 +2277,7 @@ module Crossly
 
     # Switch the trade site on (needs a publish first) or off.
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [StorefrontResponse3]
     def update_storefront_trade_site_enabled(opts = {})
       data, _status_code, _headers = update_storefront_trade_site_enabled_with_http_info(opts)
@@ -2173,6 +2286,7 @@ module Crossly
 
     # Switch the trade site on (needs a publish first) or off.
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
     def update_storefront_trade_site_enabled_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2188,12 +2302,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'enabled_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontResponse3'
@@ -2220,6 +2339,7 @@ module Crossly
 
     # Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontTradeSiteGatingRequest] :update_storefront_trade_site_gating_request 
     # @return [StorefrontResponse3]
     def update_storefront_trade_site_gating(opts = {})
       data, _status_code, _headers = update_storefront_trade_site_gating_with_http_info(opts)
@@ -2228,6 +2348,7 @@ module Crossly
 
     # Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStorefrontTradeSiteGatingRequest] :update_storefront_trade_site_gating_request 
     # @return [Array<(StorefrontResponse3, Integer, Hash)>] StorefrontResponse3 data, response status code and response headers
     def update_storefront_trade_site_gating_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2243,12 +2364,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_storefront_trade_site_gating_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'StorefrontResponse3'

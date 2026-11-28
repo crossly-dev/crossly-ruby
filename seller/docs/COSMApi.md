@@ -38,7 +38,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_cosm_attestation_anchor
 
-> <CreateCosmAttestationAnchorResponse> create_cosm_attestation_anchor(id)
+> <CreateCosmAttestationAnchorResponse> create_cosm_attestation_anchor(id, create_cosm_attestation_anchor_request)
 
 Record a signature for a commitment anchored BY HAND.
 
@@ -57,10 +57,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+create_cosm_attestation_anchor_request = Crossly::CreateCosmAttestationAnchorRequest.new({chain_signature: 'chain_signature_example'}) # CreateCosmAttestationAnchorRequest | 
 
 begin
   # Record a signature for a commitment anchored BY HAND.
-  result = api_instance.create_cosm_attestation_anchor(id)
+  result = api_instance.create_cosm_attestation_anchor(id, create_cosm_attestation_anchor_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_attestation_anchor: #{e}"
@@ -71,12 +72,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmAttestationAnchorResponse>, Integer, Hash)> create_cosm_attestation_anchor_with_http_info(id)
+> <Array(<CreateCosmAttestationAnchorResponse>, Integer, Hash)> create_cosm_attestation_anchor_with_http_info(id, create_cosm_attestation_anchor_request)
 
 ```ruby
 begin
   # Record a signature for a commitment anchored BY HAND.
-  data, status_code, headers = api_instance.create_cosm_attestation_anchor_with_http_info(id)
+  data, status_code, headers = api_instance.create_cosm_attestation_anchor_with_http_info(id, create_cosm_attestation_anchor_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmAttestationAnchorResponse>
@@ -90,6 +91,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_cosm_attestation_anchor_request** | **CreateCosmAttestationAnchorRequest** |  |  |
 
 ### Return type
 
@@ -101,13 +103,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_auction
 
-> <CreateCosmAuctionResponse> create_cosm_auction
+> <CreateCosmAuctionResponse> create_cosm_auction(create_cosm_auction_request)
 
 List an owned cosmetic for COSM.
 
@@ -125,10 +127,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+create_cosm_auction_request = Crossly::CreateCosmAuctionRequest.new({subject_id: 'subject_id_example', ownership_id: 'ownership_id_example', ask_base_units: 'ask_base_units_example'}) # CreateCosmAuctionRequest | 
 
 begin
   # List an owned cosmetic for COSM.
-  result = api_instance.create_cosm_auction
+  result = api_instance.create_cosm_auction(create_cosm_auction_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_auction: #{e}"
@@ -139,12 +142,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmAuctionResponse>, Integer, Hash)> create_cosm_auction_with_http_info
+> <Array(<CreateCosmAuctionResponse>, Integer, Hash)> create_cosm_auction_with_http_info(create_cosm_auction_request)
 
 ```ruby
 begin
   # List an owned cosmetic for COSM.
-  data, status_code, headers = api_instance.create_cosm_auction_with_http_info
+  data, status_code, headers = api_instance.create_cosm_auction_with_http_info(create_cosm_auction_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmAuctionResponse>
@@ -155,7 +158,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cosm_auction_request** | **CreateCosmAuctionRequest** |  |  |
 
 ### Return type
 
@@ -167,13 +172,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_auction_buy
 
-> <CreateCosmFusionResponse> create_cosm_auction_buy(id)
+> <CreateCosmFusionResponse> create_cosm_auction_buy(id, subject_id_request)
 
 Buy an open listing.
 
@@ -192,10 +197,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+subject_id_request = Crossly::SubjectIdRequest.new({subject_id: 'subject_id_example'}) # SubjectIdRequest | 
 
 begin
   # Buy an open listing.
-  result = api_instance.create_cosm_auction_buy(id)
+  result = api_instance.create_cosm_auction_buy(id, subject_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_auction_buy: #{e}"
@@ -206,12 +212,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmFusionResponse>, Integer, Hash)> create_cosm_auction_buy_with_http_info(id)
+> <Array(<CreateCosmFusionResponse>, Integer, Hash)> create_cosm_auction_buy_with_http_info(id, subject_id_request)
 
 ```ruby
 begin
   # Buy an open listing.
-  data, status_code, headers = api_instance.create_cosm_auction_buy_with_http_info(id)
+  data, status_code, headers = api_instance.create_cosm_auction_buy_with_http_info(id, subject_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmFusionResponse>
@@ -225,6 +231,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **subject_id_request** | **SubjectIdRequest** |  |  |
 
 ### Return type
 
@@ -236,13 +243,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_cosmetic_buy
 
-> <CreateCosmCosmeticBuyResponse> create_cosm_cosmetic_buy(id)
+> <CreateCosmCosmeticBuyResponse> create_cosm_cosmetic_buy(id, subject_id_request)
 
 Buy an earned-tier cosmetic. The COSM is DESTROYED.
 
@@ -261,10 +268,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+subject_id_request = Crossly::SubjectIdRequest.new({subject_id: 'subject_id_example'}) # SubjectIdRequest | 
 
 begin
   # Buy an earned-tier cosmetic. The COSM is DESTROYED.
-  result = api_instance.create_cosm_cosmetic_buy(id)
+  result = api_instance.create_cosm_cosmetic_buy(id, subject_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_cosmetic_buy: #{e}"
@@ -275,12 +283,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmCosmeticBuyResponse>, Integer, Hash)> create_cosm_cosmetic_buy_with_http_info(id)
+> <Array(<CreateCosmCosmeticBuyResponse>, Integer, Hash)> create_cosm_cosmetic_buy_with_http_info(id, subject_id_request)
 
 ```ruby
 begin
   # Buy an earned-tier cosmetic. The COSM is DESTROYED.
-  data, status_code, headers = api_instance.create_cosm_cosmetic_buy_with_http_info(id)
+  data, status_code, headers = api_instance.create_cosm_cosmetic_buy_with_http_info(id, subject_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmCosmeticBuyResponse>
@@ -294,6 +302,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **subject_id_request** | **SubjectIdRequest** |  |  |
 
 ### Return type
 
@@ -305,13 +314,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_cosmetic_buy_cbx
 
-> <CreateCosmCosmeticBuyCbxResponse> create_cosm_cosmetic_buy_cbx(id)
+> <CreateCosmCosmeticBuyCbxResponse> create_cosm_cosmetic_buy_cbx(id, create_cosm_cosmetic_buy_cbx_request)
 
 Buy a dollar-priced cosmetic, paying in CBX.
 
@@ -330,10 +339,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+create_cosm_cosmetic_buy_cbx_request = Crossly::CreateCosmCosmeticBuyCbxRequest.new({subject_id: 'subject_id_example', request_key: 'request_key_example'}) # CreateCosmCosmeticBuyCbxRequest | 
 
 begin
   # Buy a dollar-priced cosmetic, paying in CBX.
-  result = api_instance.create_cosm_cosmetic_buy_cbx(id)
+  result = api_instance.create_cosm_cosmetic_buy_cbx(id, create_cosm_cosmetic_buy_cbx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_cosmetic_buy_cbx: #{e}"
@@ -344,12 +354,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmCosmeticBuyCbxResponse>, Integer, Hash)> create_cosm_cosmetic_buy_cbx_with_http_info(id)
+> <Array(<CreateCosmCosmeticBuyCbxResponse>, Integer, Hash)> create_cosm_cosmetic_buy_cbx_with_http_info(id, create_cosm_cosmetic_buy_cbx_request)
 
 ```ruby
 begin
   # Buy a dollar-priced cosmetic, paying in CBX.
-  data, status_code, headers = api_instance.create_cosm_cosmetic_buy_cbx_with_http_info(id)
+  data, status_code, headers = api_instance.create_cosm_cosmetic_buy_cbx_with_http_info(id, create_cosm_cosmetic_buy_cbx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmCosmeticBuyCbxResponse>
@@ -363,6 +373,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_cosm_cosmetic_buy_cbx_request** | **CreateCosmCosmeticBuyCbxRequest** |  |  |
 
 ### Return type
 
@@ -374,13 +385,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_cosmetic_claim
 
-> <CreateCosmCosmeticClaimResponse> create_cosm_cosmetic_claim(id)
+> <CreateCosmCosmeticClaimResponse> create_cosm_cosmetic_claim(id, subject_id_request)
 
 Claim a stake-exclusive cosmetic once tenure qualifies.
 
@@ -399,10 +410,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+subject_id_request = Crossly::SubjectIdRequest.new({subject_id: 'subject_id_example'}) # SubjectIdRequest | 
 
 begin
   # Claim a stake-exclusive cosmetic once tenure qualifies.
-  result = api_instance.create_cosm_cosmetic_claim(id)
+  result = api_instance.create_cosm_cosmetic_claim(id, subject_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_cosmetic_claim: #{e}"
@@ -413,12 +425,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmCosmeticClaimResponse>, Integer, Hash)> create_cosm_cosmetic_claim_with_http_info(id)
+> <Array(<CreateCosmCosmeticClaimResponse>, Integer, Hash)> create_cosm_cosmetic_claim_with_http_info(id, subject_id_request)
 
 ```ruby
 begin
   # Claim a stake-exclusive cosmetic once tenure qualifies.
-  data, status_code, headers = api_instance.create_cosm_cosmetic_claim_with_http_info(id)
+  data, status_code, headers = api_instance.create_cosm_cosmetic_claim_with_http_info(id, subject_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmCosmeticClaimResponse>
@@ -432,6 +444,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **subject_id_request** | **SubjectIdRequest** |  |  |
 
 ### Return type
 
@@ -443,13 +456,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_fusion
 
-> <CreateCosmFusionResponse> create_cosm_fusion(recipe_id)
+> <CreateCosmFusionResponse> create_cosm_fusion(recipe_id, subject_id_request)
 
 Fuse two cosmetics plus COSM into a rarer one.
 
@@ -468,10 +481,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 recipe_id = 'recipe_id_example' # String | 
+subject_id_request = Crossly::SubjectIdRequest.new({subject_id: 'subject_id_example'}) # SubjectIdRequest | 
 
 begin
   # Fuse two cosmetics plus COSM into a rarer one.
-  result = api_instance.create_cosm_fusion(recipe_id)
+  result = api_instance.create_cosm_fusion(recipe_id, subject_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_fusion: #{e}"
@@ -482,12 +496,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmFusionResponse>, Integer, Hash)> create_cosm_fusion_with_http_info(recipe_id)
+> <Array(<CreateCosmFusionResponse>, Integer, Hash)> create_cosm_fusion_with_http_info(recipe_id, subject_id_request)
 
 ```ruby
 begin
   # Fuse two cosmetics plus COSM into a rarer one.
-  data, status_code, headers = api_instance.create_cosm_fusion_with_http_info(recipe_id)
+  data, status_code, headers = api_instance.create_cosm_fusion_with_http_info(recipe_id, subject_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmFusionResponse>
@@ -501,6 +515,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **recipe_id** | **String** |  |  |
+| **subject_id_request** | **SubjectIdRequest** |  |  |
 
 ### Return type
 
@@ -512,13 +527,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_handle
 
-> <CreateCosmHandleResponse> create_cosm_handle
+> <CreateCosmHandleResponse> create_cosm_handle(create_cosm_handle_request)
 
 Claim a vanity handle, burning COSM.
 
@@ -536,10 +551,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+create_cosm_handle_request = Crossly::CreateCosmHandleRequest.new({subject_id: 'subject_id_example', handle: 'handle_example'}) # CreateCosmHandleRequest | 
 
 begin
   # Claim a vanity handle, burning COSM.
-  result = api_instance.create_cosm_handle
+  result = api_instance.create_cosm_handle(create_cosm_handle_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_handle: #{e}"
@@ -550,12 +566,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmHandleResponse>, Integer, Hash)> create_cosm_handle_with_http_info
+> <Array(<CreateCosmHandleResponse>, Integer, Hash)> create_cosm_handle_with_http_info(create_cosm_handle_request)
 
 ```ruby
 begin
   # Claim a vanity handle, burning COSM.
-  data, status_code, headers = api_instance.create_cosm_handle_with_http_info
+  data, status_code, headers = api_instance.create_cosm_handle_with_http_info(create_cosm_handle_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmHandleResponse>
@@ -566,7 +582,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cosm_handle_request** | **CreateCosmHandleRequest** |  |  |
 
 ### Return type
 
@@ -578,13 +596,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cosm_withdrawal
 
-> <CreateCosmWithdrawalResponse> create_cosm_withdrawal
+> <CreateCosmWithdrawalResponse> create_cosm_withdrawal(create_cosm_withdrawal_request)
 
 Request a withdrawal to your own proven wallet. REFUSES today.
 
@@ -602,10 +620,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+create_cosm_withdrawal_request = Crossly::CreateCosmWithdrawalRequest.new({subject_id: 'subject_id_example', base_units: 'base_units_example', external_id: 'external_id_example'}) # CreateCosmWithdrawalRequest | 
 
 begin
   # Request a withdrawal to your own proven wallet. REFUSES today.
-  result = api_instance.create_cosm_withdrawal
+  result = api_instance.create_cosm_withdrawal(create_cosm_withdrawal_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->create_cosm_withdrawal: #{e}"
@@ -616,12 +635,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmWithdrawalResponse>, Integer, Hash)> create_cosm_withdrawal_with_http_info
+> <Array(<CreateCosmWithdrawalResponse>, Integer, Hash)> create_cosm_withdrawal_with_http_info(create_cosm_withdrawal_request)
 
 ```ruby
 begin
   # Request a withdrawal to your own proven wallet. REFUSES today.
-  data, status_code, headers = api_instance.create_cosm_withdrawal_with_http_info
+  data, status_code, headers = api_instance.create_cosm_withdrawal_with_http_info(create_cosm_withdrawal_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmWithdrawalResponse>
@@ -632,7 +651,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cosm_withdrawal_request** | **CreateCosmWithdrawalRequest** |  |  |
 
 ### Return type
 
@@ -644,13 +665,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## delete_cosm_handle
 
-> <DeleteCosmHandleResponse> delete_cosm_handle
+> <DeleteCosmHandleResponse> delete_cosm_handle(opts)
 
 Release a handle. NOTHING IS REFUNDED.
 
@@ -668,10 +689,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+opts = {
+  delete_cosm_handle_request: Crossly::DeleteCosmHandleRequest.new({subject_id: 'subject_id_example', reason: 'reason_example'}) # DeleteCosmHandleRequest | 
+}
 
 begin
   # Release a handle. NOTHING IS REFUNDED.
-  result = api_instance.delete_cosm_handle
+  result = api_instance.delete_cosm_handle(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->delete_cosm_handle: #{e}"
@@ -682,12 +706,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteCosmHandleResponse>, Integer, Hash)> delete_cosm_handle_with_http_info
+> <Array(<DeleteCosmHandleResponse>, Integer, Hash)> delete_cosm_handle_with_http_info(opts)
 
 ```ruby
 begin
   # Release a handle. NOTHING IS REFUNDED.
-  data, status_code, headers = api_instance.delete_cosm_handle_with_http_info
+  data, status_code, headers = api_instance.delete_cosm_handle_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteCosmHandleResponse>
@@ -698,7 +722,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **delete_cosm_handle_request** | **DeleteCosmHandleRequest** |  | [optional] |
 
 ### Return type
 
@@ -710,13 +736,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## delete_cosm_peg
 
-> <DeleteCosmPegResponse> delete_cosm_peg(listing_id)
+> <DeleteCosmPegResponse> delete_cosm_peg(listing_id, opts)
 
 Stop repricing. The current ask stays where it is.
 
@@ -735,10 +761,13 @@ end
 
 api_instance = Crossly::COSMApi.new
 listing_id = 'listing_id_example' # String | 
+opts = {
+  delete_cosm_peg_request: Crossly::DeleteCosmPegRequest.new({seller_user_id: 'seller_user_id_example'}) # DeleteCosmPegRequest | 
+}
 
 begin
   # Stop repricing. The current ask stays where it is.
-  result = api_instance.delete_cosm_peg(listing_id)
+  result = api_instance.delete_cosm_peg(listing_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->delete_cosm_peg: #{e}"
@@ -749,12 +778,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteCosmPegResponse>, Integer, Hash)> delete_cosm_peg_with_http_info(listing_id)
+> <Array(<DeleteCosmPegResponse>, Integer, Hash)> delete_cosm_peg_with_http_info(listing_id, opts)
 
 ```ruby
 begin
   # Stop repricing. The current ask stays where it is.
-  data, status_code, headers = api_instance.delete_cosm_peg_with_http_info(listing_id)
+  data, status_code, headers = api_instance.delete_cosm_peg_with_http_info(listing_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteCosmPegResponse>
@@ -768,6 +797,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **listing_id** | **String** |  |  |
+| **delete_cosm_peg_request** | **DeleteCosmPegRequest** |  | [optional] |
 
 ### Return type
 
@@ -779,13 +809,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## get_cosm_attestation_proof
 
-> <GetCosmAttestationProofResponse> get_cosm_attestation_proof(id)
+> <GetCosmAttestationProofResponse> get_cosm_attestation_proof(id, subject_id)
 
 A Merkle inclusion proof for one subject, against a published root.
 
@@ -804,10 +834,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+subject_id = 'subject_id_example' # String | 
 
 begin
   # A Merkle inclusion proof for one subject, against a published root.
-  result = api_instance.get_cosm_attestation_proof(id)
+  result = api_instance.get_cosm_attestation_proof(id, subject_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->get_cosm_attestation_proof: #{e}"
@@ -818,12 +849,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetCosmAttestationProofResponse>, Integer, Hash)> get_cosm_attestation_proof_with_http_info(id)
+> <Array(<GetCosmAttestationProofResponse>, Integer, Hash)> get_cosm_attestation_proof_with_http_info(id, subject_id)
 
 ```ruby
 begin
   # A Merkle inclusion proof for one subject, against a published root.
-  data, status_code, headers = api_instance.get_cosm_attestation_proof_with_http_info(id)
+  data, status_code, headers = api_instance.get_cosm_attestation_proof_with_http_info(id, subject_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetCosmAttestationProofResponse>
@@ -837,6 +868,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **subject_id** | **String** |  |  |
 
 ### Return type
 
@@ -920,7 +952,7 @@ This endpoint does not need any parameter.
 
 ## get_cosm_balance
 
-> <GetCosmBalanceResponse> get_cosm_balance
+> <GetCosmBalanceResponse> get_cosm_balance(subject_id)
 
 A subject's COSM balance and the earn rate in force.
 
@@ -938,10 +970,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+subject_id = 'subject_id_example' # String | 
 
 begin
   # A subject's COSM balance and the earn rate in force.
-  result = api_instance.get_cosm_balance
+  result = api_instance.get_cosm_balance(subject_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->get_cosm_balance: #{e}"
@@ -952,12 +985,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetCosmBalanceResponse>, Integer, Hash)> get_cosm_balance_with_http_info
+> <Array(<GetCosmBalanceResponse>, Integer, Hash)> get_cosm_balance_with_http_info(subject_id)
 
 ```ruby
 begin
   # A subject's COSM balance and the earn rate in force.
-  data, status_code, headers = api_instance.get_cosm_balance_with_http_info
+  data, status_code, headers = api_instance.get_cosm_balance_with_http_info(subject_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetCosmBalanceResponse>
@@ -968,7 +1001,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **subject_id** | **String** |  |  |
 
 ### Return type
 
@@ -986,7 +1021,7 @@ This endpoint does not need any parameter.
 
 ## get_cosm_employee_fee_quote
 
-> <GetCosmEmployeeFeeQuoteResponse> get_cosm_employee_fee_quote
+> <GetCosmEmployeeFeeQuoteResponse> get_cosm_employee_fee_quote(total_cents)
 
 What one shop-employee conversation will cost, in COSM.
 
@@ -1004,10 +1039,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+total_cents = 8.14 # Float | 
 
 begin
   # What one shop-employee conversation will cost, in COSM.
-  result = api_instance.get_cosm_employee_fee_quote
+  result = api_instance.get_cosm_employee_fee_quote(total_cents)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->get_cosm_employee_fee_quote: #{e}"
@@ -1018,12 +1054,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetCosmEmployeeFeeQuoteResponse>, Integer, Hash)> get_cosm_employee_fee_quote_with_http_info
+> <Array(<GetCosmEmployeeFeeQuoteResponse>, Integer, Hash)> get_cosm_employee_fee_quote_with_http_info(total_cents)
 
 ```ruby
 begin
   # What one shop-employee conversation will cost, in COSM.
-  data, status_code, headers = api_instance.get_cosm_employee_fee_quote_with_http_info
+  data, status_code, headers = api_instance.get_cosm_employee_fee_quote_with_http_info(total_cents)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetCosmEmployeeFeeQuoteResponse>
@@ -1034,7 +1070,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **total_cents** | **Float** |  |  |
 
 ### Return type
 
@@ -1121,7 +1159,7 @@ end
 
 ## get_cosm_stake_tenure
 
-> <GetCosmStakeTenureResponse> get_cosm_stake_tenure
+> <GetCosmStakeTenureResponse> get_cosm_stake_tenure(subject_id)
 
 How long a subject has held a stake continuously, in days.
 
@@ -1139,10 +1177,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+subject_id = 'subject_id_example' # String | 
 
 begin
   # How long a subject has held a stake continuously, in days.
-  result = api_instance.get_cosm_stake_tenure
+  result = api_instance.get_cosm_stake_tenure(subject_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->get_cosm_stake_tenure: #{e}"
@@ -1153,12 +1192,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetCosmStakeTenureResponse>, Integer, Hash)> get_cosm_stake_tenure_with_http_info
+> <Array(<GetCosmStakeTenureResponse>, Integer, Hash)> get_cosm_stake_tenure_with_http_info(subject_id)
 
 ```ruby
 begin
   # How long a subject has held a stake continuously, in days.
-  data, status_code, headers = api_instance.get_cosm_stake_tenure_with_http_info
+  data, status_code, headers = api_instance.get_cosm_stake_tenure_with_http_info(subject_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetCosmStakeTenureResponse>
@@ -1169,7 +1208,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **subject_id** | **String** |  |  |
 
 ### Return type
 
@@ -1253,7 +1294,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_attestations
 
-> <ListCosmAttestationsResponse> list_cosm_attestations
+> <ListCosmAttestationsResponse> list_cosm_attestations(opts)
 
 Published Merkle commitments. What you can check instead of trusting us.
 
@@ -1271,10 +1312,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+opts = {
+  kind: 'cosm_emission', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Published Merkle commitments. What you can check instead of trusting us.
-  result = api_instance.list_cosm_attestations
+  result = api_instance.list_cosm_attestations(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_attestations: #{e}"
@@ -1285,12 +1330,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmAttestationsResponse>, Integer, Hash)> list_cosm_attestations_with_http_info
+> <Array(<ListCosmAttestationsResponse>, Integer, Hash)> list_cosm_attestations_with_http_info(opts)
 
 ```ruby
 begin
   # Published Merkle commitments. What you can check instead of trusting us.
-  data, status_code, headers = api_instance.list_cosm_attestations_with_http_info
+  data, status_code, headers = api_instance.list_cosm_attestations_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmAttestationsResponse>
@@ -1301,7 +1346,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **kind** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1319,7 +1367,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_auction
 
-> <ListCosmAuctionResponse> list_cosm_auction
+> <ListCosmAuctionResponse> list_cosm_auction(opts)
 
 Open auction listings, priced in COSM.
 
@@ -1337,10 +1385,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+opts = {
+  cosmetic_id: 'cosmetic_id_example' # String | 
+}
 
 begin
   # Open auction listings, priced in COSM.
-  result = api_instance.list_cosm_auction
+  result = api_instance.list_cosm_auction(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_auction: #{e}"
@@ -1351,12 +1402,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmAuctionResponse>, Integer, Hash)> list_cosm_auction_with_http_info
+> <Array(<ListCosmAuctionResponse>, Integer, Hash)> list_cosm_auction_with_http_info(opts)
 
 ```ruby
 begin
   # Open auction listings, priced in COSM.
-  data, status_code, headers = api_instance.list_cosm_auction_with_http_info
+  data, status_code, headers = api_instance.list_cosm_auction_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmAuctionResponse>
@@ -1367,7 +1418,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **cosmetic_id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1385,7 +1438,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_cosmetics
 
-> <ListCosmCosmeticsResponse> list_cosm_cosmetics
+> <ListCosmCosmeticsResponse> list_cosm_cosmetics(opts)
 
 The cosmetics catalogue.
 
@@ -1403,10 +1456,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+opts = {
+  tier: 'premium', # String | 
+  slot: 'slot_example' # String | 
+}
 
 begin
   # The cosmetics catalogue.
-  result = api_instance.list_cosm_cosmetics
+  result = api_instance.list_cosm_cosmetics(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_cosmetics: #{e}"
@@ -1417,12 +1474,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmCosmeticsResponse>, Integer, Hash)> list_cosm_cosmetics_with_http_info
+> <Array(<ListCosmCosmeticsResponse>, Integer, Hash)> list_cosm_cosmetics_with_http_info(opts)
 
 ```ruby
 begin
   # The cosmetics catalogue.
-  data, status_code, headers = api_instance.list_cosm_cosmetics_with_http_info
+  data, status_code, headers = api_instance.list_cosm_cosmetics_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmCosmeticsResponse>
@@ -1433,7 +1490,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **tier** | **String** |  | [optional] |
+| **slot** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1517,7 +1577,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_inventory
 
-> <ListCosmInventoryResponse> list_cosm_inventory
+> <ListCosmInventoryResponse> list_cosm_inventory(subject_id)
 
 Cosmetics a subject holds.
 
@@ -1535,10 +1595,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+subject_id = 'subject_id_example' # String | 
 
 begin
   # Cosmetics a subject holds.
-  result = api_instance.list_cosm_inventory
+  result = api_instance.list_cosm_inventory(subject_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_inventory: #{e}"
@@ -1549,12 +1610,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmInventoryResponse>, Integer, Hash)> list_cosm_inventory_with_http_info
+> <Array(<ListCosmInventoryResponse>, Integer, Hash)> list_cosm_inventory_with_http_info(subject_id)
 
 ```ruby
 begin
   # Cosmetics a subject holds.
-  data, status_code, headers = api_instance.list_cosm_inventory_with_http_info
+  data, status_code, headers = api_instance.list_cosm_inventory_with_http_info(subject_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmInventoryResponse>
@@ -1565,7 +1626,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **subject_id** | **String** |  |  |
 
 ### Return type
 
@@ -1583,7 +1646,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_pegs
 
-> <ListCosmPegsResponse> list_cosm_pegs
+> <ListCosmPegsResponse> list_cosm_pegs(seller_user_id)
 
 CBX-pegged listings and why each last moved.
 
@@ -1601,10 +1664,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+seller_user_id = 'seller_user_id_example' # String | 
 
 begin
   # CBX-pegged listings and why each last moved.
-  result = api_instance.list_cosm_pegs
+  result = api_instance.list_cosm_pegs(seller_user_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_pegs: #{e}"
@@ -1615,12 +1679,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmPegsResponse>, Integer, Hash)> list_cosm_pegs_with_http_info
+> <Array(<ListCosmPegsResponse>, Integer, Hash)> list_cosm_pegs_with_http_info(seller_user_id)
 
 ```ruby
 begin
   # CBX-pegged listings and why each last moved.
-  data, status_code, headers = api_instance.list_cosm_pegs_with_http_info
+  data, status_code, headers = api_instance.list_cosm_pegs_with_http_info(seller_user_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmPegsResponse>
@@ -1631,7 +1695,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **seller_user_id** | **String** |  |  |
 
 ### Return type
 
@@ -1781,7 +1847,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_unlocks
 
-> <ListCosmUnlocksResponse> list_cosm_unlocks
+> <ListCosmUnlocksResponse> list_cosm_unlocks(subject_id)
 
 Which spatial cosmetic values this subject may apply.
 
@@ -1799,10 +1865,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+subject_id = 'subject_id_example' # String | 
 
 begin
   # Which spatial cosmetic values this subject may apply.
-  result = api_instance.list_cosm_unlocks
+  result = api_instance.list_cosm_unlocks(subject_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_unlocks: #{e}"
@@ -1813,12 +1880,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmUnlocksResponse>, Integer, Hash)> list_cosm_unlocks_with_http_info
+> <Array(<ListCosmUnlocksResponse>, Integer, Hash)> list_cosm_unlocks_with_http_info(subject_id)
 
 ```ruby
 begin
   # Which spatial cosmetic values this subject may apply.
-  data, status_code, headers = api_instance.list_cosm_unlocks_with_http_info
+  data, status_code, headers = api_instance.list_cosm_unlocks_with_http_info(subject_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmUnlocksResponse>
@@ -1829,7 +1896,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **subject_id** | **String** |  |  |
 
 ### Return type
 
@@ -1847,7 +1916,7 @@ This endpoint does not need any parameter.
 
 ## list_cosm_withdrawals
 
-> <ListCosmWithdrawalsResponse> list_cosm_withdrawals
+> <ListCosmWithdrawalsResponse> list_cosm_withdrawals(subject_id)
 
 Withdrawal history, and whether withdrawals are open at all.
 
@@ -1865,10 +1934,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+subject_id = 'subject_id_example' # String | 
 
 begin
   # Withdrawal history, and whether withdrawals are open at all.
-  result = api_instance.list_cosm_withdrawals
+  result = api_instance.list_cosm_withdrawals(subject_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->list_cosm_withdrawals: #{e}"
@@ -1879,12 +1949,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCosmWithdrawalsResponse>, Integer, Hash)> list_cosm_withdrawals_with_http_info
+> <Array(<ListCosmWithdrawalsResponse>, Integer, Hash)> list_cosm_withdrawals_with_http_info(subject_id)
 
 ```ruby
 begin
   # Withdrawal history, and whether withdrawals are open at all.
-  data, status_code, headers = api_instance.list_cosm_withdrawals_with_http_info
+  data, status_code, headers = api_instance.list_cosm_withdrawals_with_http_info(subject_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCosmWithdrawalsResponse>
@@ -1895,7 +1965,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **subject_id** | **String** |  |  |
 
 ### Return type
 
@@ -1913,7 +1985,7 @@ This endpoint does not need any parameter.
 
 ## update_cosm_cosmetic_unlock
 
-> <UpdateCosmCosmeticUnlockResponse> update_cosm_cosmetic_unlock(id)
+> <UpdateCosmCosmeticUnlockResponse> update_cosm_cosmetic_unlock(id, update_cosm_cosmetic_unlock_request)
 
 Set (or clear) what a cosmetic unlocks spatially.
 
@@ -1932,10 +2004,11 @@ end
 
 api_instance = Crossly::COSMApi.new
 id = 'id_example' # String | 
+update_cosm_cosmetic_unlock_request = Crossly::UpdateCosmCosmeticUnlockRequest.new({unlocks_key: 'unlocks_key_example', unlocks_value: 'unlocks_value_example'}) # UpdateCosmCosmeticUnlockRequest | 
 
 begin
   # Set (or clear) what a cosmetic unlocks spatially.
-  result = api_instance.update_cosm_cosmetic_unlock(id)
+  result = api_instance.update_cosm_cosmetic_unlock(id, update_cosm_cosmetic_unlock_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->update_cosm_cosmetic_unlock: #{e}"
@@ -1946,12 +2019,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateCosmCosmeticUnlockResponse>, Integer, Hash)> update_cosm_cosmetic_unlock_with_http_info(id)
+> <Array(<UpdateCosmCosmeticUnlockResponse>, Integer, Hash)> update_cosm_cosmetic_unlock_with_http_info(id, update_cosm_cosmetic_unlock_request)
 
 ```ruby
 begin
   # Set (or clear) what a cosmetic unlocks spatially.
-  data, status_code, headers = api_instance.update_cosm_cosmetic_unlock_with_http_info(id)
+  data, status_code, headers = api_instance.update_cosm_cosmetic_unlock_with_http_info(id, update_cosm_cosmetic_unlock_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateCosmCosmeticUnlockResponse>
@@ -1965,6 +2038,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_cosm_cosmetic_unlock_request** | **UpdateCosmCosmeticUnlockRequest** |  |  |
 
 ### Return type
 
@@ -1976,13 +2050,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_cosm_peg
 
-> <UpdateCosmPegResponse> update_cosm_peg
+> <UpdateCosmPegResponse> update_cosm_peg(update_cosm_peg_request)
 
 Set or update a CBX price peg. OFF unless you turn it on.
 
@@ -2000,10 +2074,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::COSMApi.new
+update_cosm_peg_request = Crossly::UpdateCosmPegRequest.new({platform_listing_id: 'platform_listing_id_example', seller_user_id: 'seller_user_id_example', enabled: false, target_cents: 3.56}) # UpdateCosmPegRequest | 
 
 begin
   # Set or update a CBX price peg. OFF unless you turn it on.
-  result = api_instance.update_cosm_peg
+  result = api_instance.update_cosm_peg(update_cosm_peg_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling COSMApi->update_cosm_peg: #{e}"
@@ -2014,12 +2089,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateCosmPegResponse>, Integer, Hash)> update_cosm_peg_with_http_info
+> <Array(<UpdateCosmPegResponse>, Integer, Hash)> update_cosm_peg_with_http_info(update_cosm_peg_request)
 
 ```ruby
 begin
   # Set or update a CBX price peg. OFF unless you turn it on.
-  data, status_code, headers = api_instance.update_cosm_peg_with_http_info
+  data, status_code, headers = api_instance.update_cosm_peg_with_http_info(update_cosm_peg_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateCosmPegResponse>
@@ -2030,7 +2105,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_cosm_peg_request** | **UpdateCosmPegRequest** |  |  |
 
 ### Return type
 
@@ -2042,6 +2119,6 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

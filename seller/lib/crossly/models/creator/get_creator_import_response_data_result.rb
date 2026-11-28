@@ -15,11 +15,11 @@ require 'time'
 
 module Crossly
   class GetCreatorImportResponseDataResult
+    attr_accessor :ok
+
     attr_accessor :format
 
     attr_accessor :issues
-
-    attr_accessor :ok
 
     attr_accessor :preview
 
@@ -48,9 +48,9 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'ok' => :'ok',
         :'format' => :'format',
         :'issues' => :'issues',
-        :'ok' => :'ok',
         :'preview' => :'preview'
       }
     end
@@ -63,9 +63,9 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'ok' => :'Boolean',
         :'format' => :'String',
         :'issues' => :'Array<GetCreatorImportResponseDataResultIssues>',
-        :'ok' => :'Boolean',
         :'preview' => :'Array<GetCreatorImportResponseDataResultPreview>'
       }
     end
@@ -92,6 +92,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'ok')
+        self.ok = attributes[:'ok']
+      end
+
       if attributes.key?(:'format')
         self.format = attributes[:'format']
       end
@@ -100,10 +104,6 @@ module Crossly
         if (value = attributes[:'issues']).is_a?(Array)
           self.issues = value
         end
-      end
-
-      if attributes.key?(:'ok')
-        self.ok = attributes[:'ok']
       end
 
       if attributes.key?(:'preview')
@@ -117,12 +117,12 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @issues.nil?
-        invalid_properties.push('invalid value for "issues", issues cannot be nil.')
-      end
-
       if @ok.nil?
         invalid_properties.push('invalid value for "ok", ok cannot be nil.')
+      end
+
+      if @issues.nil?
+        invalid_properties.push('invalid value for "issues", issues cannot be nil.')
       end
 
       if @preview.nil?
@@ -135,10 +135,10 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      format_validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive"])
+      return false if @ok.nil?
+      format_validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive", "card_game"])
       return false unless format_validator.valid?(@format)
       return false if @issues.nil?
-      return false if @ok.nil?
       return false if @preview.nil?
       true
     end
@@ -146,7 +146,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] format Object to be assigned
     def format=(format)
-      validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive"])
+      validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive", "card_game"])
       unless validator.valid?(format)
         fail ArgumentError, "invalid value for \"format\", must be one of #{validator.allowable_values}."
       end
@@ -158,9 +158,9 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          ok == o.ok &&
           format == o.format &&
           issues == o.issues &&
-          ok == o.ok &&
           preview == o.preview
     end
 
@@ -173,7 +173,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [format, issues, ok, preview].hash
+      [ok, format, issues, preview].hash
     end
 
     # Builds the object from hash

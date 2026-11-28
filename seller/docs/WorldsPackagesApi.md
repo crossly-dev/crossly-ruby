@@ -20,7 +20,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_world_experience_place_package
 
-> <CreateWorldExperiencePlacePackageResponse> create_world_experience_place_package(experience_id, place_id)
+> <CreateWorldExperiencePlacePackageResponse> create_world_experience_place_package(experience_id, place_id, opts)
 
 Insert a copy of a package (default: the newest version, auto-update on).
 
@@ -38,10 +38,13 @@ end
 api_instance = Crossly::WorldsPackagesApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_package_request: Crossly::CreateWorldExperiencePlacePackageRequest.new({package_id: 'package_id_example'}) # CreateWorldExperiencePlacePackageRequest | 
+}
 
 begin
   # Insert a copy of a package (default: the newest version, auto-update on).
-  result = api_instance.create_world_experience_place_package(experience_id, place_id)
+  result = api_instance.create_world_experience_place_package(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->create_world_experience_place_package: #{e}"
@@ -52,12 +55,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlacePackageResponse>, Integer, Hash)> create_world_experience_place_package_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlacePackageResponse>, Integer, Hash)> create_world_experience_place_package_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Insert a copy of a package (default: the newest version, auto-update on).
-  data, status_code, headers = api_instance.create_world_experience_place_package_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_package_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlacePackageResponse>
@@ -72,6 +75,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_package_request** | **CreateWorldExperiencePlacePackageRequest** |  | [optional] |
 
 ### Return type
 
@@ -83,13 +87,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_package_update
 
-> <CreateWorldExperiencePlacePackageUpdateResponse> create_world_experience_place_package_update(experience_id, place_id, node_id)
+> <CreateWorldExperiencePlacePackageUpdateResponse> create_world_experience_place_package_update(experience_id, place_id, node_id, opts)
 
 Update a copy to a version (default newest). A copy edited in the place needs force: true (its edits are replaced).
 
@@ -108,10 +112,13 @@ api_instance = Crossly::WorldsPackagesApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
 node_id = 'node_id_example' # String | 
+opts = {
+  create_world_experience_place_package_update_request: Crossly::CreateWorldExperiencePlacePackageUpdateRequest.new # CreateWorldExperiencePlacePackageUpdateRequest | 
+}
 
 begin
   # Update a copy to a version (default newest). A copy edited in the place needs force: true (its edits are replaced).
-  result = api_instance.create_world_experience_place_package_update(experience_id, place_id, node_id)
+  result = api_instance.create_world_experience_place_package_update(experience_id, place_id, node_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->create_world_experience_place_package_update: #{e}"
@@ -122,12 +129,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlacePackageUpdateResponse>, Integer, Hash)> create_world_experience_place_package_update_with_http_info(experience_id, place_id, node_id)
+> <Array(<CreateWorldExperiencePlacePackageUpdateResponse>, Integer, Hash)> create_world_experience_place_package_update_with_http_info(experience_id, place_id, node_id, opts)
 
 ```ruby
 begin
   # Update a copy to a version (default newest). A copy edited in the place needs force: true (its edits are replaced).
-  data, status_code, headers = api_instance.create_world_experience_place_package_update_with_http_info(experience_id, place_id, node_id)
+  data, status_code, headers = api_instance.create_world_experience_place_package_update_with_http_info(experience_id, place_id, node_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlacePackageUpdateResponse>
@@ -143,6 +150,7 @@ end
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
 | **node_id** | **String** |  |  |
+| **create_world_experience_place_package_update_request** | **CreateWorldExperiencePlacePackageUpdateRequest** |  | [optional] |
 
 ### Return type
 
@@ -154,13 +162,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_package
 
-> <GetWorldPackageResponse> create_world_package
+> <GetWorldPackageResponse> create_world_package(opts)
 
 Create a package (v1) from one node (place JSON) or from a node in a place — which then becomes copy v1, auto-updating.
 
@@ -176,10 +184,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldsPackagesApi.new
+opts = {
+  create_world_package_request: Crossly::CreateWorldPackageRequest.new({name: 'name_example'}) # CreateWorldPackageRequest | 
+}
 
 begin
   # Create a package (v1) from one node (place JSON) or from a node in a place — which then becomes copy v1, auto-updating.
-  result = api_instance.create_world_package
+  result = api_instance.create_world_package(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->create_world_package: #{e}"
@@ -190,12 +201,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldPackageResponse>, Integer, Hash)> create_world_package_with_http_info
+> <Array(<GetWorldPackageResponse>, Integer, Hash)> create_world_package_with_http_info(opts)
 
 ```ruby
 begin
   # Create a package (v1) from one node (place JSON) or from a node in a place — which then becomes copy v1, auto-updating.
-  data, status_code, headers = api_instance.create_world_package_with_http_info
+  data, status_code, headers = api_instance.create_world_package_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldPackageResponse>
@@ -206,7 +217,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_package_request** | **CreateWorldPackageRequest** |  | [optional] |
 
 ### Return type
 
@@ -218,13 +231,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_package_toolbox
 
-> <CreateWorldPackageToolboxResponse> create_world_package_toolbox(package_id)
+> <CreateWorldPackageToolboxResponse> create_world_package_toolbox(package_id, opts)
 
 List the latest version in the Toolbox as an asset of kind package (Toolbox review and pricing rules apply).
 
@@ -241,10 +254,13 @@ end
 
 api_instance = Crossly::WorldsPackagesApi.new
 package_id = 'package_id_example' # String | 
+opts = {
+  create_world_package_toolbox_request: Crossly::CreateWorldPackageToolboxRequest.new # CreateWorldPackageToolboxRequest | 
+}
 
 begin
   # List the latest version in the Toolbox as an asset of kind package (Toolbox review and pricing rules apply).
-  result = api_instance.create_world_package_toolbox(package_id)
+  result = api_instance.create_world_package_toolbox(package_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->create_world_package_toolbox: #{e}"
@@ -255,12 +271,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPackageToolboxResponse>, Integer, Hash)> create_world_package_toolbox_with_http_info(package_id)
+> <Array(<CreateWorldPackageToolboxResponse>, Integer, Hash)> create_world_package_toolbox_with_http_info(package_id, opts)
 
 ```ruby
 begin
   # List the latest version in the Toolbox as an asset of kind package (Toolbox review and pricing rules apply).
-  data, status_code, headers = api_instance.create_world_package_toolbox_with_http_info(package_id)
+  data, status_code, headers = api_instance.create_world_package_toolbox_with_http_info(package_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPackageToolboxResponse>
@@ -274,6 +290,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **package_id** | **String** |  |  |
+| **create_world_package_toolbox_request** | **CreateWorldPackageToolboxRequest** |  | [optional] |
 
 ### Return type
 
@@ -285,13 +302,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_package_version
 
-> <CreateWorldPackageVersionResponse> create_world_package_version(package_id)
+> <CreateWorldPackageVersionResponse> create_world_package_version(package_id, opts)
 
 Publish a new version; every auto-updating, unmodified copy in your places is updated through its co-editing session. Returns what happened per place.
 
@@ -308,10 +325,13 @@ end
 
 api_instance = Crossly::WorldsPackagesApi.new
 package_id = 'package_id_example' # String | 
+opts = {
+  create_world_package_version_request: Crossly::CreateWorldPackageVersionRequest.new # CreateWorldPackageVersionRequest | 
+}
 
 begin
   # Publish a new version; every auto-updating, unmodified copy in your places is updated through its co-editing session. Returns what happened per place.
-  result = api_instance.create_world_package_version(package_id)
+  result = api_instance.create_world_package_version(package_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->create_world_package_version: #{e}"
@@ -322,12 +342,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPackageVersionResponse>, Integer, Hash)> create_world_package_version_with_http_info(package_id)
+> <Array(<CreateWorldPackageVersionResponse>, Integer, Hash)> create_world_package_version_with_http_info(package_id, opts)
 
 ```ruby
 begin
   # Publish a new version; every auto-updating, unmodified copy in your places is updated through its co-editing session. Returns what happened per place.
-  data, status_code, headers = api_instance.create_world_package_version_with_http_info(package_id)
+  data, status_code, headers = api_instance.create_world_package_version_with_http_info(package_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPackageVersionResponse>
@@ -341,6 +361,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **package_id** | **String** |  |  |
+| **create_world_package_version_request** | **CreateWorldPackageVersionRequest** |  | [optional] |
 
 ### Return type
 
@@ -352,7 +373,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -630,7 +651,7 @@ end
 
 ## list_world_packages
 
-> <ListWorldPackagesResponse> list_world_packages
+> <ListWorldPackagesResponse> list_world_packages(opts)
 
 Your package library: reusable models and modules, newest first, with how many places hold copies.
 
@@ -646,10 +667,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldsPackagesApi.new
+opts = {
+  archived: 'true' # String | 
+}
 
 begin
   # Your package library: reusable models and modules, newest first, with how many places hold copies.
-  result = api_instance.list_world_packages
+  result = api_instance.list_world_packages(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->list_world_packages: #{e}"
@@ -660,12 +684,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldPackagesResponse>, Integer, Hash)> list_world_packages_with_http_info
+> <Array(<ListWorldPackagesResponse>, Integer, Hash)> list_world_packages_with_http_info(opts)
 
 ```ruby
 begin
   # Your package library: reusable models and modules, newest first, with how many places hold copies.
-  data, status_code, headers = api_instance.list_world_packages_with_http_info
+  data, status_code, headers = api_instance.list_world_packages_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldPackagesResponse>
@@ -676,7 +700,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **archived** | **String** |  | [optional] |
 
 ### Return type
 
@@ -694,7 +720,7 @@ This endpoint does not need any parameter.
 
 ## update_world_experience_place_package
 
-> <UpdateWorldExperiencePlacePackageResponse> update_world_experience_place_package(experience_id, place_id, node_id)
+> <UpdateWorldExperiencePlacePackageResponse> update_world_experience_place_package(experience_id, place_id, node_id, opts)
 
 Turn auto-update on or off for one copy.
 
@@ -713,10 +739,13 @@ api_instance = Crossly::WorldsPackagesApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
 node_id = 'node_id_example' # String | 
+opts = {
+  update_world_experience_place_package_request: Crossly::UpdateWorldExperiencePlacePackageRequest.new({auto_update: false}) # UpdateWorldExperiencePlacePackageRequest | 
+}
 
 begin
   # Turn auto-update on or off for one copy.
-  result = api_instance.update_world_experience_place_package(experience_id, place_id, node_id)
+  result = api_instance.update_world_experience_place_package(experience_id, place_id, node_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->update_world_experience_place_package: #{e}"
@@ -727,12 +756,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperiencePlacePackageResponse>, Integer, Hash)> update_world_experience_place_package_with_http_info(experience_id, place_id, node_id)
+> <Array(<UpdateWorldExperiencePlacePackageResponse>, Integer, Hash)> update_world_experience_place_package_with_http_info(experience_id, place_id, node_id, opts)
 
 ```ruby
 begin
   # Turn auto-update on or off for one copy.
-  data, status_code, headers = api_instance.update_world_experience_place_package_with_http_info(experience_id, place_id, node_id)
+  data, status_code, headers = api_instance.update_world_experience_place_package_with_http_info(experience_id, place_id, node_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperiencePlacePackageResponse>
@@ -748,6 +777,7 @@ end
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
 | **node_id** | **String** |  |  |
+| **update_world_experience_place_package_request** | **UpdateWorldExperiencePlacePackageRequest** |  | [optional] |
 
 ### Return type
 
@@ -759,13 +789,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_package
 
-> <DeleteWorldPackageResponse> update_world_package(package_id)
+> <DeleteWorldPackageResponse> update_world_package(package_id, opts)
 
 Rename a package or change its description.
 
@@ -782,10 +812,13 @@ end
 
 api_instance = Crossly::WorldsPackagesApi.new
 package_id = 'package_id_example' # String | 
+opts = {
+  update_world_package_request: Crossly::UpdateWorldPackageRequest.new # UpdateWorldPackageRequest | 
+}
 
 begin
   # Rename a package or change its description.
-  result = api_instance.update_world_package(package_id)
+  result = api_instance.update_world_package(package_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsPackagesApi->update_world_package: #{e}"
@@ -796,12 +829,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteWorldPackageResponse>, Integer, Hash)> update_world_package_with_http_info(package_id)
+> <Array(<DeleteWorldPackageResponse>, Integer, Hash)> update_world_package_with_http_info(package_id, opts)
 
 ```ruby
 begin
   # Rename a package or change its description.
-  data, status_code, headers = api_instance.update_world_package_with_http_info(package_id)
+  data, status_code, headers = api_instance.update_world_package_with_http_info(package_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteWorldPackageResponse>
@@ -815,6 +848,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **package_id** | **String** |  |  |
+| **update_world_package_request** | **UpdateWorldPackageRequest** |  | [optional] |
 
 ### Return type
 
@@ -826,6 +860,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

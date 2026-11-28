@@ -35,6 +35,8 @@ module Crossly
 
     attr_accessor :is_default
 
+    attr_accessor :storefront_id
+
     attr_accessor :kind
 
     attr_accessor :revision
@@ -54,6 +56,7 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
         :'is_default' => :'isDefault',
+        :'storefront_id' => :'storefrontId',
         :'kind' => :'kind',
         :'revision' => :'revision',
         :'has_domestic_rules' => :'hasDomesticRules'
@@ -78,6 +81,7 @@ module Crossly
         :'updated_at' => :'Time',
         :'user_id' => :'String',
         :'is_default' => :'Boolean',
+        :'storefront_id' => :'String',
         :'kind' => :'String',
         :'revision' => :'Float',
         :'has_domestic_rules' => :'Boolean'
@@ -87,6 +91,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'storefront_id',
       ])
     end
 
@@ -145,6 +150,10 @@ module Crossly
 
       if attributes.key?(:'is_default')
         self.is_default = attributes[:'is_default']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'kind')
@@ -253,6 +262,7 @@ module Crossly
           updated_at == o.updated_at &&
           user_id == o.user_id &&
           is_default == o.is_default &&
+          storefront_id == o.storefront_id &&
           kind == o.kind &&
           revision == o.revision &&
           has_domestic_rules == o.has_domestic_rules
@@ -267,7 +277,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [warnings, summary, incomplete, listing_count, id, name, created_at, updated_at, user_id, is_default, kind, revision, has_domestic_rules].hash
+      [warnings, summary, incomplete, listing_count, id, name, created_at, updated_at, user_id, is_default, storefront_id, kind, revision, has_domestic_rules].hash
     end
 
     # Builds the object from hash

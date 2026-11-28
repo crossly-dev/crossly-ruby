@@ -21,11 +21,11 @@ module Crossly
 
     attr_accessor :updated_at
 
+    attr_accessor :storefront_id
+
     attr_accessor :quantity
 
     attr_accessor :platform_listing_id
-
-    attr_accessor :storefront_id
 
     attr_accessor :options
 
@@ -57,9 +57,9 @@ module Crossly
         :'active' => :'active',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
+        :'storefront_id' => :'storefrontId',
         :'quantity' => :'quantity',
         :'platform_listing_id' => :'platformListingId',
-        :'storefront_id' => :'storefrontId',
         :'options' => :'options',
         :'seller_user_id' => :'sellerUserId',
         :'deposit_cents' => :'depositCents',
@@ -86,9 +86,9 @@ module Crossly
         :'active' => :'Boolean',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
+        :'storefront_id' => :'String',
         :'quantity' => :'Float',
         :'platform_listing_id' => :'String',
-        :'storefront_id' => :'String',
         :'options' => :'Hash<String, Object>',
         :'seller_user_id' => :'String',
         :'deposit_cents' => :'Float',
@@ -140,16 +140,16 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
-      end
-
-      if attributes.key?(:'storefront_id')
-        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'options')
@@ -301,9 +301,9 @@ module Crossly
           active == o.active &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
+          storefront_id == o.storefront_id &&
           quantity == o.quantity &&
           platform_listing_id == o.platform_listing_id &&
-          storefront_id == o.storefront_id &&
           options == o.options &&
           seller_user_id == o.seller_user_id &&
           deposit_cents == o.deposit_cents &&
@@ -327,7 +327,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [active, created_at, updated_at, quantity, platform_listing_id, storefront_id, options, seller_user_id, deposit_cents, min_days, max_days, daily_cents, weekly_cents, buffer_days, rent_only, require_approval, blackout_ranges, return_policy].hash
+      [active, created_at, updated_at, storefront_id, quantity, platform_listing_id, options, seller_user_id, deposit_cents, min_days, max_days, daily_cents, weekly_cents, buffer_days, rent_only, require_approval, blackout_ranges, return_policy].hash
     end
 
     # Builds the object from hash

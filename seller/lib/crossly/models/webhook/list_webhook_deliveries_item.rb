@@ -23,9 +23,9 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :last_error
-
     attr_accessor :delivered_at
+
+    attr_accessor :last_error
 
     attr_accessor :attempts
 
@@ -48,8 +48,8 @@ module Crossly
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
         :'status' => :'status',
-        :'last_error' => :'lastError',
         :'delivered_at' => :'deliveredAt',
+        :'last_error' => :'lastError',
         :'attempts' => :'attempts',
         :'last_attempt_at' => :'lastAttemptAt',
         :'event_id' => :'eventId',
@@ -72,8 +72,8 @@ module Crossly
         :'created_at' => :'Time',
         :'user_id' => :'String',
         :'status' => :'String',
-        :'last_error' => :'String',
         :'delivered_at' => :'Time',
+        :'last_error' => :'String',
         :'attempts' => :'Float',
         :'last_attempt_at' => :'Time',
         :'event_id' => :'String',
@@ -87,8 +87,8 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'last_error',
         :'delivered_at',
+        :'last_error',
         :'last_attempt_at',
         :'last_status_code',
         :'redelivery_of'
@@ -126,12 +126,12 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'last_error')
-        self.last_error = attributes[:'last_error']
-      end
-
       if attributes.key?(:'delivered_at')
         self.delivered_at = attributes[:'delivered_at']
+      end
+
+      if attributes.key?(:'last_error')
+        self.last_error = attributes[:'last_error']
       end
 
       if attributes.key?(:'attempts')
@@ -225,8 +225,8 @@ module Crossly
           created_at == o.created_at &&
           user_id == o.user_id &&
           status == o.status &&
-          last_error == o.last_error &&
           delivered_at == o.delivered_at &&
+          last_error == o.last_error &&
           attempts == o.attempts &&
           last_attempt_at == o.last_attempt_at &&
           event_id == o.event_id &&
@@ -245,7 +245,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, last_error, delivered_at, attempts, last_attempt_at, event_id, webhook_id, event_name, last_status_code, redelivery_of].hash
+      [id, created_at, user_id, status, delivered_at, last_error, attempts, last_attempt_at, event_id, webhook_id, event_name, last_status_code, redelivery_of].hash
     end
 
     # Builds the object from hash

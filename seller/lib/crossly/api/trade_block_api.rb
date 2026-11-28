@@ -81,19 +81,25 @@ module Crossly
     end
 
     # Author a Trade Evolution recipe (a graded item or pair that, when swapped, unlocks a cosmetic you designed). Born unreviewed until ops approves.
+    # @param create_trade_block_evolution_recipe_request [CreateTradeBlockEvolutionRecipeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTradeBlockEvolutionRecipeResponse]
-    def create_trade_block_evolution_recipe(opts = {})
-      data, _status_code, _headers = create_trade_block_evolution_recipe_with_http_info(opts)
+    def create_trade_block_evolution_recipe(create_trade_block_evolution_recipe_request, opts = {})
+      data, _status_code, _headers = create_trade_block_evolution_recipe_with_http_info(create_trade_block_evolution_recipe_request, opts)
       data
     end
 
     # Author a Trade Evolution recipe (a graded item or pair that, when swapped, unlocks a cosmetic you designed). Born unreviewed until ops approves.
+    # @param create_trade_block_evolution_recipe_request [CreateTradeBlockEvolutionRecipeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTradeBlockEvolutionRecipeResponse, Integer, Hash)>] CreateTradeBlockEvolutionRecipeResponse data, response status code and response headers
-    def create_trade_block_evolution_recipe_with_http_info(opts = {})
+    def create_trade_block_evolution_recipe_with_http_info(create_trade_block_evolution_recipe_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TradeBlockApi.create_trade_block_evolution_recipe ...'
+      end
+      # verify the required parameter 'create_trade_block_evolution_recipe_request' is set
+      if @api_client.config.client_side_validation && create_trade_block_evolution_recipe_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_trade_block_evolution_recipe_request' when calling TradeBlockApi.create_trade_block_evolution_recipe"
       end
       # resource path
       local_var_path = '/v1/trade-block/evolution-recipes'
@@ -105,12 +111,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_trade_block_evolution_recipe_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTradeBlockEvolutionRecipeResponse'
@@ -137,24 +148,30 @@ module Crossly
 
     # Accept, decline, counter, or withdraw a Trade Block offer.
     # @param id [String] 
+    # @param create_trade_block_offer_respond_request [CreateTradeBlockOfferRespondRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTradeBlockOfferRespondResponse]
-    def create_trade_block_offer_respond(id, opts = {})
-      data, _status_code, _headers = create_trade_block_offer_respond_with_http_info(id, opts)
+    def create_trade_block_offer_respond(id, create_trade_block_offer_respond_request, opts = {})
+      data, _status_code, _headers = create_trade_block_offer_respond_with_http_info(id, create_trade_block_offer_respond_request, opts)
       data
     end
 
     # Accept, decline, counter, or withdraw a Trade Block offer.
     # @param id [String] 
+    # @param create_trade_block_offer_respond_request [CreateTradeBlockOfferRespondRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTradeBlockOfferRespondResponse, Integer, Hash)>] CreateTradeBlockOfferRespondResponse data, response status code and response headers
-    def create_trade_block_offer_respond_with_http_info(id, opts = {})
+    def create_trade_block_offer_respond_with_http_info(id, create_trade_block_offer_respond_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TradeBlockApi.create_trade_block_offer_respond ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling TradeBlockApi.create_trade_block_offer_respond"
+      end
+      # verify the required parameter 'create_trade_block_offer_respond_request' is set
+      if @api_client.config.client_side_validation && create_trade_block_offer_respond_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_trade_block_offer_respond_request' when calling TradeBlockApi.create_trade_block_offer_respond"
       end
       # resource path
       local_var_path = '/v1/trade-block/offers/{id}/respond'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -166,12 +183,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_trade_block_offer_respond_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTradeBlockOfferRespondResponse'
@@ -259,24 +281,30 @@ module Crossly
 
     # Respond to a post with a concrete swap: items on each side (0..N), optional cash.
     # @param id [String] 
+    # @param create_trade_block_post_offer_request [CreateTradeBlockPostOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [IdResponse]
-    def create_trade_block_post_offer(id, opts = {})
-      data, _status_code, _headers = create_trade_block_post_offer_with_http_info(id, opts)
+    def create_trade_block_post_offer(id, create_trade_block_post_offer_request, opts = {})
+      data, _status_code, _headers = create_trade_block_post_offer_with_http_info(id, create_trade_block_post_offer_request, opts)
       data
     end
 
     # Respond to a post with a concrete swap: items on each side (0..N), optional cash.
     # @param id [String] 
+    # @param create_trade_block_post_offer_request [CreateTradeBlockPostOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
-    def create_trade_block_post_offer_with_http_info(id, opts = {})
+    def create_trade_block_post_offer_with_http_info(id, create_trade_block_post_offer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TradeBlockApi.create_trade_block_post_offer ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling TradeBlockApi.create_trade_block_post_offer"
+      end
+      # verify the required parameter 'create_trade_block_post_offer_request' is set
+      if @api_client.config.client_side_validation && create_trade_block_post_offer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_trade_block_post_offer_request' when calling TradeBlockApi.create_trade_block_post_offer"
       end
       # resource path
       local_var_path = '/v1/trade-block/posts/{id}/offers'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -288,12 +316,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_trade_block_post_offer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'IdResponse'
@@ -319,19 +352,25 @@ module Crossly
     end
 
     # Author a set-completion recipe (a set of items that, once assembled through trading, unlocks a set-master cosmetic you designed). Born unreviewed until ops approves.
+    # @param create_trade_block_set_recipe_request [CreateTradeBlockSetRecipeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTradeBlockSetRecipeResponse]
-    def create_trade_block_set_recipe(opts = {})
-      data, _status_code, _headers = create_trade_block_set_recipe_with_http_info(opts)
+    def create_trade_block_set_recipe(create_trade_block_set_recipe_request, opts = {})
+      data, _status_code, _headers = create_trade_block_set_recipe_with_http_info(create_trade_block_set_recipe_request, opts)
       data
     end
 
     # Author a set-completion recipe (a set of items that, once assembled through trading, unlocks a set-master cosmetic you designed). Born unreviewed until ops approves.
+    # @param create_trade_block_set_recipe_request [CreateTradeBlockSetRecipeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTradeBlockSetRecipeResponse, Integer, Hash)>] CreateTradeBlockSetRecipeResponse data, response status code and response headers
-    def create_trade_block_set_recipe_with_http_info(opts = {})
+    def create_trade_block_set_recipe_with_http_info(create_trade_block_set_recipe_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TradeBlockApi.create_trade_block_set_recipe ...'
+      end
+      # verify the required parameter 'create_trade_block_set_recipe_request' is set
+      if @api_client.config.client_side_validation && create_trade_block_set_recipe_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_trade_block_set_recipe_request' when calling TradeBlockApi.create_trade_block_set_recipe"
       end
       # resource path
       local_var_path = '/v1/trade-block/set-recipes'
@@ -343,12 +382,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_trade_block_set_recipe_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTradeBlockSetRecipeResponse'

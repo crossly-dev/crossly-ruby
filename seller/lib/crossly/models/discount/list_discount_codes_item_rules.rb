@@ -92,8 +92,8 @@ module Crossly
       {
         :'value' => :'ListDiscountCodesItemRulesValue',
         :'bxgy' => :'ListDiscountCodesItemRulesBxgy',
-        :'spend_tiers' => :'Array<ListDiscountCodesItemRulesSpendTiers>',
-        :'fixed_price_set' => :'ListDiscountCodesItemRulesFixedPriceSet',
+        :'spend_tiers' => :'Array<CreateDiscountCodeRequestRulesSpendTiers>',
+        :'fixed_price_set' => :'CreateDiscountCodeRequestRulesFixedPriceSet',
         :'requirements' => :'ListDiscountCodesItemRulesRequirements',
         :'applies_to' => :'ListAutomaticDiscountsItemAppliesTo',
         :'exclusions' => :'ListAutomaticDiscountsItemExclusions',

@@ -35,6 +35,8 @@ module CrosslyBuyer
 
     attr_accessor :return_policy
 
+    attr_accessor :policy
+
     attr_accessor :booked
 
     attr_accessor :options
@@ -54,6 +56,7 @@ module CrosslyBuyer
         :'require_approval' => :'requireApproval',
         :'available' => :'available',
         :'return_policy' => :'returnPolicy',
+        :'policy' => :'policy',
         :'booked' => :'booked',
         :'options' => :'options',
         :'units_free' => :'unitsFree'
@@ -78,6 +81,7 @@ module CrosslyBuyer
         :'require_approval' => :'Boolean',
         :'available' => :'Boolean',
         :'return_policy' => :'String',
+        :'policy' => :'GetBuyerCatalogListingRentalResponseDataPolicy',
         :'booked' => :'Array<GetBuyerCatalogListingRentalResponseDataBooked>',
         :'options' => :'GetBuyerCatalogListingRentalResponseDataOptions',
         :'units_free' => :'Hash<String, Object>'
@@ -90,6 +94,7 @@ module CrosslyBuyer
         :'weekly_cents',
         :'deposit_cents',
         :'return_policy',
+        :'policy',
       ])
     end
 
@@ -146,6 +151,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'return_policy')
         self.return_policy = attributes[:'return_policy']
+      end
+
+      if attributes.key?(:'policy')
+        self.policy = attributes[:'policy']
       end
 
       if attributes.key?(:'booked')
@@ -243,6 +252,7 @@ module CrosslyBuyer
           require_approval == o.require_approval &&
           available == o.available &&
           return_policy == o.return_policy &&
+          policy == o.policy &&
           booked == o.booked &&
           options == o.options &&
           units_free == o.units_free
@@ -257,7 +267,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [daily_cents, weekly_cents, deposit_cents, min_days, max_days, buffer_days, rent_only, require_approval, available, return_policy, booked, options, units_free].hash
+      [daily_cents, weekly_cents, deposit_cents, min_days, max_days, buffer_days, rent_only, require_approval, available, return_policy, policy, booked, options, units_free].hash
     end
 
     # Builds the object from hash

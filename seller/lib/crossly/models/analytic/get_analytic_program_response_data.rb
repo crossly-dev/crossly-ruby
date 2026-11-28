@@ -82,7 +82,7 @@ module Crossly
       {
         :'program' => :'String',
         :'label' => :'String',
-        :'range' => :'FromTo2',
+        :'range' => :'CreateListingTagRenameRequest',
         :'kpis' => :'Array<GetAnalyticProgramResponseDataKpis>',
         :'trend' => :'GetAnalyticProgramResponseDataTrend',
         :'breakdown' => :'GetAnalyticProgramResponseDataBreakdown',

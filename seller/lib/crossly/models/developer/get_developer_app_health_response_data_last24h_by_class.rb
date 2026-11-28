@@ -19,17 +19,17 @@ module Crossly
 
     attr_accessor :_3xx
 
-    attr_accessor :_4xx
-
     attr_accessor :_5xx
+
+    attr_accessor :_4xx
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'_2xx' => :'2xx',
         :'_3xx' => :'3xx',
-        :'_4xx' => :'4xx',
-        :'_5xx' => :'5xx'
+        :'_5xx' => :'5xx',
+        :'_4xx' => :'4xx'
       }
     end
 
@@ -43,8 +43,8 @@ module Crossly
       {
         :'_2xx' => :'Float',
         :'_3xx' => :'Float',
-        :'_4xx' => :'Float',
-        :'_5xx' => :'Float'
+        :'_5xx' => :'Float',
+        :'_4xx' => :'Float'
       }
     end
 
@@ -77,12 +77,12 @@ module Crossly
         self._3xx = attributes[:'_3xx']
       end
 
-      if attributes.key?(:'_4xx')
-        self._4xx = attributes[:'_4xx']
-      end
-
       if attributes.key?(:'_5xx')
         self._5xx = attributes[:'_5xx']
+      end
+
+      if attributes.key?(:'_4xx')
+        self._4xx = attributes[:'_4xx']
       end
     end
 
@@ -98,12 +98,12 @@ module Crossly
         invalid_properties.push('invalid value for "_3xx", _3xx cannot be nil.')
       end
 
-      if @_4xx.nil?
-        invalid_properties.push('invalid value for "_4xx", _4xx cannot be nil.')
-      end
-
       if @_5xx.nil?
         invalid_properties.push('invalid value for "_5xx", _5xx cannot be nil.')
+      end
+
+      if @_4xx.nil?
+        invalid_properties.push('invalid value for "_4xx", _4xx cannot be nil.')
       end
 
       invalid_properties
@@ -114,8 +114,8 @@ module Crossly
     def valid?
       return false if @_2xx.nil?
       return false if @_3xx.nil?
-      return false if @_4xx.nil?
       return false if @_5xx.nil?
+      return false if @_4xx.nil?
       true
     end
 
@@ -126,8 +126,8 @@ module Crossly
       self.class == o.class &&
           _2xx == o._2xx &&
           _3xx == o._3xx &&
-          _4xx == o._4xx &&
-          _5xx == o._5xx
+          _5xx == o._5xx &&
+          _4xx == o._4xx
     end
 
     # @see the `==` method
@@ -139,7 +139,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [_2xx, _3xx, _4xx, _5xx].hash
+      [_2xx, _3xx, _5xx, _4xx].hash
     end
 
     # Builds the object from hash

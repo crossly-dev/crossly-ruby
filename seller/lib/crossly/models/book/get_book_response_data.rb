@@ -101,7 +101,7 @@ module Crossly
         :'first_sale_year' => :'Float',
         :'period' => :'String',
         :'range' => :'GetBookExpenseResponseDataRange',
-        :'prev_range' => :'FromTo2',
+        :'prev_range' => :'CreateListingTagRenameRequest',
         :'kpis' => :'GetBookResponseDataKpis',
         :'pnl' => :'GetBookResponseDataPnl',
         :'monthly' => :'Array<GetBookResponseDataMonthly>',

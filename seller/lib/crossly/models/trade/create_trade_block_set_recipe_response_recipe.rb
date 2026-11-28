@@ -25,11 +25,11 @@ module Crossly
 
     attr_accessor :updated_at
 
+    attr_accessor :note
+
     attr_accessor :version
 
     attr_accessor :reviewed_at
-
-    attr_accessor :note
 
     attr_accessor :members
 
@@ -49,9 +49,9 @@ module Crossly
         :'active' => :'active',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
+        :'note' => :'note',
         :'version' => :'version',
         :'reviewed_at' => :'reviewedAt',
-        :'note' => :'note',
         :'members' => :'members',
         :'merchant_id' => :'merchantId',
         :'creator_subject_id' => :'creatorSubjectId',
@@ -73,10 +73,10 @@ module Crossly
         :'active' => :'Boolean',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
+        :'note' => :'String',
         :'version' => :'Float',
         :'reviewed_at' => :'Time',
-        :'note' => :'String',
-        :'members' => :'Array<CreateTradeBlockSetRecipeResponseRecipeMembers>',
+        :'members' => :'Array<CreateTradeBlockEvolutionRecipeRequestInputA>',
         :'merchant_id' => :'String',
         :'creator_subject_id' => :'String',
         :'output_cosmetic_id' => :'String',
@@ -87,8 +87,8 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'reviewed_at',
         :'note',
+        :'reviewed_at',
         :'frozen_at'
       ])
     end
@@ -128,16 +128,16 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
+
       if attributes.key?(:'version')
         self.version = attributes[:'version']
       end
 
       if attributes.key?(:'reviewed_at')
         self.reviewed_at = attributes[:'reviewed_at']
-      end
-
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
       end
 
       if attributes.key?(:'members')
@@ -236,9 +236,9 @@ module Crossly
           active == o.active &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
+          note == o.note &&
           version == o.version &&
           reviewed_at == o.reviewed_at &&
-          note == o.note &&
           members == o.members &&
           merchant_id == o.merchant_id &&
           creator_subject_id == o.creator_subject_id &&
@@ -255,7 +255,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, active, created_at, updated_at, version, reviewed_at, note, members, merchant_id, creator_subject_id, output_cosmetic_id, frozen_at].hash
+      [id, name, active, created_at, updated_at, note, version, reviewed_at, members, merchant_id, creator_subject_id, output_cosmetic_id, frozen_at].hash
     end
 
     # Builds the object from hash

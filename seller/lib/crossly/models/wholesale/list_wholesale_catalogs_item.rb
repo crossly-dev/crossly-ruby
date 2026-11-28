@@ -33,11 +33,11 @@ module Crossly
 
     attr_accessor :description
 
-    attr_accessor :listed_at
-
     attr_accessor :slug
 
     attr_accessor :storefront_id
+
+    attr_accessor :listed_at
 
     attr_accessor :min_order_quantity
 
@@ -51,9 +51,9 @@ module Crossly
 
     attr_accessor :visibility
 
-    attr_accessor :return_preset_id
-
     attr_accessor :shipping_preset_id
+
+    attr_accessor :return_preset_id
 
     attr_accessor :payment_preset_id
 
@@ -95,17 +95,17 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'description' => :'description',
-        :'listed_at' => :'listedAt',
         :'slug' => :'slug',
         :'storefront_id' => :'storefrontId',
+        :'listed_at' => :'listedAt',
         :'min_order_quantity' => :'minOrderQuantity',
         :'seller_user_id' => :'sellerUserId',
         :'cover_image_url' => :'coverImageUrl',
         :'min_order_cents' => :'minOrderCents',
         :'listed' => :'listed',
         :'visibility' => :'visibility',
-        :'return_preset_id' => :'returnPresetId',
         :'shipping_preset_id' => :'shippingPresetId',
+        :'return_preset_id' => :'returnPresetId',
         :'payment_preset_id' => :'paymentPresetId',
         :'auto_approve' => :'autoApprove',
         :'requires_business_verification' => :'requiresBusinessVerification',
@@ -140,17 +140,17 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'description' => :'String',
-        :'listed_at' => :'Time',
         :'slug' => :'String',
         :'storefront_id' => :'String',
+        :'listed_at' => :'Time',
         :'min_order_quantity' => :'Float',
         :'seller_user_id' => :'String',
         :'cover_image_url' => :'String',
         :'min_order_cents' => :'Float',
         :'listed' => :'Boolean',
         :'visibility' => :'String',
-        :'return_preset_id' => :'String',
         :'shipping_preset_id' => :'String',
+        :'return_preset_id' => :'String',
         :'payment_preset_id' => :'String',
         :'auto_approve' => :'String',
         :'requires_business_verification' => :'Boolean',
@@ -172,13 +172,13 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'description',
-        :'listed_at',
         :'storefront_id',
+        :'listed_at',
         :'min_order_quantity',
         :'cover_image_url',
         :'min_order_cents',
-        :'return_preset_id',
         :'shipping_preset_id',
+        :'return_preset_id',
         :'payment_preset_id',
         :'ships_from_region',
         :'directory_blurb',
@@ -244,16 +244,16 @@ module Crossly
         self.description = attributes[:'description']
       end
 
-      if attributes.key?(:'listed_at')
-        self.listed_at = attributes[:'listed_at']
-      end
-
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
       end
 
       if attributes.key?(:'storefront_id')
         self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'listed_at')
+        self.listed_at = attributes[:'listed_at']
       end
 
       if attributes.key?(:'min_order_quantity')
@@ -280,12 +280,12 @@ module Crossly
         self.visibility = attributes[:'visibility']
       end
 
-      if attributes.key?(:'return_preset_id')
-        self.return_preset_id = attributes[:'return_preset_id']
-      end
-
       if attributes.key?(:'shipping_preset_id')
         self.shipping_preset_id = attributes[:'shipping_preset_id']
+      end
+
+      if attributes.key?(:'return_preset_id')
+        self.return_preset_id = attributes[:'return_preset_id']
       end
 
       if attributes.key?(:'payment_preset_id')
@@ -449,17 +449,17 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           description == o.description &&
-          listed_at == o.listed_at &&
           slug == o.slug &&
           storefront_id == o.storefront_id &&
+          listed_at == o.listed_at &&
           min_order_quantity == o.min_order_quantity &&
           seller_user_id == o.seller_user_id &&
           cover_image_url == o.cover_image_url &&
           min_order_cents == o.min_order_cents &&
           listed == o.listed &&
           visibility == o.visibility &&
-          return_preset_id == o.return_preset_id &&
           shipping_preset_id == o.shipping_preset_id &&
+          return_preset_id == o.return_preset_id &&
           payment_preset_id == o.payment_preset_id &&
           auto_approve == o.auto_approve &&
           requires_business_verification == o.requires_business_verification &&
@@ -485,7 +485,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [item_count, grant_count, pending_requests, id, name, active, created_at, updated_at, description, listed_at, slug, storefront_id, min_order_quantity, seller_user_id, cover_image_url, min_order_cents, listed, visibility, return_preset_id, shipping_preset_id, payment_preset_id, auto_approve, requires_business_verification, directory_categories, ships_from_region, directory_blurb, boosted_until, case_pack, lead_time_days, verified_only, price_visibility, max_per_order, backorder, restock_eta].hash
+      [item_count, grant_count, pending_requests, id, name, active, created_at, updated_at, description, slug, storefront_id, listed_at, min_order_quantity, seller_user_id, cover_image_url, min_order_cents, listed, visibility, shipping_preset_id, return_preset_id, payment_preset_id, auto_approve, requires_business_verification, directory_categories, ships_from_region, directory_blurb, boosted_until, case_pack, lead_time_days, verified_only, price_visibility, max_per_order, backorder, restock_eta].hash
     end
 
     # Builds the object from hash

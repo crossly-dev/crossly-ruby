@@ -127,7 +127,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @platform.nil?
-      platform_validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "poshmark", "mercari", "depop", "grailed", "vinted", "whatnot", "vestiaire", "offerup", "facebook", "curtsy"])
+      platform_validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "poshmark", "mercari", "facebook", "depop", "grailed", "vinted", "whatnot", "vestiaire", "offerup", "curtsy"])
       return false unless platform_validator.valid?(@platform)
       return false if @required_fields.nil?
       return false if @inline_aspects.nil?
@@ -137,7 +137,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] platform Object to be assigned
     def platform=(platform)
-      validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "poshmark", "mercari", "depop", "grailed", "vinted", "whatnot", "vestiaire", "offerup", "facebook", "curtsy"])
+      validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "poshmark", "mercari", "facebook", "depop", "grailed", "vinted", "whatnot", "vestiaire", "offerup", "curtsy"])
       unless validator.valid?(platform)
         fail ArgumentError, "invalid value for \"platform\", must be one of #{validator.allowable_values}."
       end

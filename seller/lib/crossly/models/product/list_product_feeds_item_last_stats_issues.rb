@@ -31,6 +31,14 @@ module Crossly
 
     attr_accessor :invalid_gtin
 
+    attr_accessor :missing_link
+
+    attr_accessor :invalid_link
+
+    attr_accessor :title_too_long
+
+    attr_accessor :description_too_long
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -41,7 +49,11 @@ module Crossly
         :'missing_brand' => :'missing_brand',
         :'missing_gtin' => :'missing_gtin',
         :'missing_category' => :'missing_category',
-        :'invalid_gtin' => :'invalid_gtin'
+        :'invalid_gtin' => :'invalid_gtin',
+        :'missing_link' => :'missing_link',
+        :'invalid_link' => :'invalid_link',
+        :'title_too_long' => :'title_too_long',
+        :'description_too_long' => :'description_too_long'
       }
     end
 
@@ -60,7 +72,11 @@ module Crossly
         :'missing_brand' => :'Float',
         :'missing_gtin' => :'Float',
         :'missing_category' => :'Float',
-        :'invalid_gtin' => :'Float'
+        :'invalid_gtin' => :'Float',
+        :'missing_link' => :'Float',
+        :'invalid_link' => :'Float',
+        :'title_too_long' => :'Float',
+        :'description_too_long' => :'Float'
       }
     end
 
@@ -74,7 +90,11 @@ module Crossly
         :'missing_brand',
         :'missing_gtin',
         :'missing_category',
-        :'invalid_gtin'
+        :'invalid_gtin',
+        :'missing_link',
+        :'invalid_link',
+        :'title_too_long',
+        :'description_too_long'
       ])
     end
 
@@ -124,6 +144,22 @@ module Crossly
       if attributes.key?(:'invalid_gtin')
         self.invalid_gtin = attributes[:'invalid_gtin']
       end
+
+      if attributes.key?(:'missing_link')
+        self.missing_link = attributes[:'missing_link']
+      end
+
+      if attributes.key?(:'invalid_link')
+        self.invalid_link = attributes[:'invalid_link']
+      end
+
+      if attributes.key?(:'title_too_long')
+        self.title_too_long = attributes[:'title_too_long']
+      end
+
+      if attributes.key?(:'description_too_long')
+        self.description_too_long = attributes[:'description_too_long']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -151,7 +187,11 @@ module Crossly
           missing_brand == o.missing_brand &&
           missing_gtin == o.missing_gtin &&
           missing_category == o.missing_category &&
-          invalid_gtin == o.invalid_gtin
+          invalid_gtin == o.invalid_gtin &&
+          missing_link == o.missing_link &&
+          invalid_link == o.invalid_link &&
+          title_too_long == o.title_too_long &&
+          description_too_long == o.description_too_long
     end
 
     # @see the `==` method
@@ -163,7 +203,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [missing_image, missing_title, missing_price, missing_description, missing_brand, missing_gtin, missing_category, invalid_gtin].hash
+      [missing_image, missing_title, missing_price, missing_description, missing_brand, missing_gtin, missing_category, invalid_gtin, missing_link, invalid_link, title_too_long, description_too_long].hash
     end
 
     # Builds the object from hash

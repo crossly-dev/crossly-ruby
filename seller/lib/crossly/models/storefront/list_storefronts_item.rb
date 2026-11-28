@@ -35,6 +35,8 @@ module Crossly
 
     attr_accessor :onboarded_at
 
+    attr_accessor :currency
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -69,7 +71,8 @@ module Crossly
         :'owner_user_id' => :'ownerUserId',
         :'slug' => :'slug',
         :'name_auto' => :'nameAuto',
-        :'onboarded_at' => :'onboardedAt'
+        :'onboarded_at' => :'onboardedAt',
+        :'currency' => :'currency'
       }
     end
 
@@ -90,14 +93,16 @@ module Crossly
         :'owner_user_id' => :'String',
         :'slug' => :'String',
         :'name_auto' => :'Boolean',
-        :'onboarded_at' => :'Time'
+        :'onboarded_at' => :'Time',
+        :'currency' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'onboarded_at'
+        :'onboarded_at',
+        :'currency'
       ])
     end
 
@@ -154,6 +159,10 @@ module Crossly
 
       if attributes.key?(:'onboarded_at')
         self.onboarded_at = attributes[:'onboarded_at']
+      end
+
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
       end
     end
 
@@ -241,7 +250,8 @@ module Crossly
           owner_user_id == o.owner_user_id &&
           slug == o.slug &&
           name_auto == o.name_auto &&
-          onboarded_at == o.onboarded_at
+          onboarded_at == o.onboarded_at &&
+          currency == o.currency
     end
 
     # @see the `==` method
@@ -253,7 +263,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, status, is_default, owner_user_id, slug, name_auto, onboarded_at].hash
+      [id, name, created_at, updated_at, status, is_default, owner_user_id, slug, name_auto, onboarded_at, currency].hash
     end
 
     # Builds the object from hash

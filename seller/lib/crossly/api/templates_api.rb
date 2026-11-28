@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a template.
+    # @param create_me_template_request [CreateMeTemplateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListMeTemplatesItem]
-    def create_me_template(opts = {})
-      data, _status_code, _headers = create_me_template_with_http_info(opts)
+    def create_me_template(create_me_template_request, opts = {})
+      data, _status_code, _headers = create_me_template_with_http_info(create_me_template_request, opts)
       data
     end
 
     # Create a template.
+    # @param create_me_template_request [CreateMeTemplateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListMeTemplatesItem, Integer, Hash)>] ListMeTemplatesItem data, response status code and response headers
-    def create_me_template_with_http_info(opts = {})
+    def create_me_template_with_http_info(create_me_template_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TemplatesApi.create_me_template ...'
+      end
+      # verify the required parameter 'create_me_template_request' is set
+      if @api_client.config.client_side_validation && create_me_template_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_me_template_request' when calling TemplatesApi.create_me_template"
       end
       # resource path
       local_var_path = '/v1/me/templates'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_me_template_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListMeTemplatesItem'
@@ -134,6 +145,7 @@ module Crossly
     # Render a template's title + description against a context.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateMeTemplateRenderRequest] :create_me_template_render_request 
     # @return [CreateMeTemplateRenderResponse]
     def create_me_template_render(id, opts = {})
       data, _status_code, _headers = create_me_template_render_with_http_info(id, opts)
@@ -143,6 +155,7 @@ module Crossly
     # Render a template&#39;s title + description against a context.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateMeTemplateRenderRequest] :create_me_template_render_request 
     # @return [Array<(CreateMeTemplateRenderResponse, Integer, Hash)>] CreateMeTemplateRenderResponse data, response status code and response headers
     def create_me_template_render_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -162,12 +175,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_me_template_render_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMeTemplateRenderResponse'
@@ -195,7 +213,7 @@ module Crossly
     # Mint or return an existing share token for a template.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateMeTemplateShareResponse]
+    # @return [TokenObject]
     def create_me_template_share(id, opts = {})
       data, _status_code, _headers = create_me_template_share_with_http_info(id, opts)
       data
@@ -204,7 +222,7 @@ module Crossly
     # Mint or return an existing share token for a template.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateMeTemplateShareResponse, Integer, Hash)>] CreateMeTemplateShareResponse data, response status code and response headers
+    # @return [Array<(TokenObject, Integer, Hash)>] TokenObject data, response status code and response headers
     def create_me_template_share_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TemplatesApi.create_me_template_share ...'
@@ -231,7 +249,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateMeTemplateShareResponse'
+      return_type = opts[:debug_return_type] || 'TokenObject'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -558,6 +576,8 @@ module Crossly
 
     # List the seller's templates.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :scope 
+    # @option opts [String] :category 
     # @return [ListMeTemplatesResponse]
     def list_me_templates(opts = {})
       data, _status_code, _headers = list_me_templates_with_http_info(opts)
@@ -566,16 +586,24 @@ module Crossly
 
     # List the seller&#39;s templates.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :scope 
+    # @option opts [String] :category 
     # @return [Array<(ListMeTemplatesResponse, Integer, Hash)>] ListMeTemplatesResponse data, response status code and response headers
     def list_me_templates_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TemplatesApi.list_me_templates ...'
+      end
+      allowable_values = ["description", "listing"]
+      if @api_client.config.client_side_validation && opts[:'scope'] && !allowable_values.include?(opts[:'scope'])
+        fail ArgumentError, "invalid value for \"scope\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/me/templates'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'scope'] = opts[:'scope'] if !opts[:'scope'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -613,24 +641,30 @@ module Crossly
 
     # Patch a template.
     # @param id [String] 
+    # @param create_me_template_request [CreateMeTemplateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListMeTemplatesItem]
-    def update_me_template(id, opts = {})
-      data, _status_code, _headers = update_me_template_with_http_info(id, opts)
+    def update_me_template(id, create_me_template_request, opts = {})
+      data, _status_code, _headers = update_me_template_with_http_info(id, create_me_template_request, opts)
       data
     end
 
     # Patch a template.
     # @param id [String] 
+    # @param create_me_template_request [CreateMeTemplateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListMeTemplatesItem, Integer, Hash)>] ListMeTemplatesItem data, response status code and response headers
-    def update_me_template_with_http_info(id, opts = {})
+    def update_me_template_with_http_info(id, create_me_template_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TemplatesApi.update_me_template ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling TemplatesApi.update_me_template"
+      end
+      # verify the required parameter 'create_me_template_request' is set
+      if @api_client.config.client_side_validation && create_me_template_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_me_template_request' when calling TemplatesApi.update_me_template"
       end
       # resource path
       local_var_path = '/v1/me/templates/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -642,12 +676,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_me_template_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListMeTemplatesItem'

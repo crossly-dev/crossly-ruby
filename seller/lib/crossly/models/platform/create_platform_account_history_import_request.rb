@@ -18,10 +18,14 @@ module Crossly
     # null = All time (no limit); 0 = None; a positive integer = days.
     attr_accessor :days
 
+    # The platform account to save it on (GET /api/v1/connections). Omitted = every pending account.
+    attr_accessor :account_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'days' => :'days'
+        :'days' => :'days',
+        :'account_id' => :'accountId'
       }
     end
 
@@ -33,14 +37,15 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'days' => :'Integer'
+        :'days' => :'Integer',
+        :'account_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'days'
+        :'days',
       ])
     end
 
@@ -62,6 +67,10 @@ module Crossly
       if attributes.key?(:'days')
         self.days = attributes[:'days']
       end
+
+      if attributes.key?(:'account_id')
+        self.account_id = attributes[:'account_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -82,7 +91,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          days == o.days
+          days == o.days &&
+          account_id == o.account_id
     end
 
     # @see the `==` method
@@ -94,7 +104,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [days].hash
+      [days, account_id].hash
     end
 
     # Builds the object from hash

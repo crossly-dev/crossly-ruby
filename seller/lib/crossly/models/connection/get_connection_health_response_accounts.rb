@@ -25,6 +25,9 @@ module Crossly
 
     attr_accessor :platform_username
 
+    # The row's own status (null = never connected). The CN1 alert sweep reads it: only an `active` account alerts here, a needs_reauth one is connection_incidents'.
+    attr_accessor :account_status
+
     # Plain-English \"what is true\" + \"what to do\". Never empty.
     attr_accessor :summary
 
@@ -77,6 +80,7 @@ module Crossly
         :'account_slot' => :'accountSlot',
         :'label' => :'label',
         :'platform_username' => :'platformUsername',
+        :'account_status' => :'accountStatus',
         :'summary' => :'summary',
         :'action' => :'action',
         :'liveness' => :'liveness',
@@ -103,6 +107,7 @@ module Crossly
         :'account_slot' => :'Float',
         :'label' => :'String',
         :'platform_username' => :'String',
+        :'account_status' => :'String',
         :'summary' => :'String',
         :'action' => :'String',
         :'liveness' => :'GetConnectionHealthResponseAccountsLiveness',
@@ -123,6 +128,7 @@ module Crossly
         :'account_slot',
         :'label',
         :'platform_username',
+        :'account_status',
         :'browser',
         :'anchors',
       ])
@@ -161,6 +167,10 @@ module Crossly
 
       if attributes.key?(:'platform_username')
         self.platform_username = attributes[:'platform_username']
+      end
+
+      if attributes.key?(:'account_status')
+        self.account_status = attributes[:'account_status']
       end
 
       if attributes.key?(:'summary')
@@ -253,6 +263,8 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @platform_name.nil?
+      account_status_validator = EnumAttributeValidator.new('String', ["active", "archived", "needs_reauth"])
+      return false unless account_status_validator.valid?(@account_status)
       return false if @summary.nil?
       return false if @action.nil?
       return false if @liveness.nil?
@@ -261,13 +273,23 @@ module Crossly
       state_validator = EnumAttributeValidator.new('String', ["unknown", "unmonitored", "disconnected", "healthy", "stale", "partial_blank", "blank_credential", "signed_out", "anchor_drift", "no_cookies"])
       return false unless state_validator.valid?(@state)
       return false if @severity.nil?
-      severity_validator = EnumAttributeValidator.new('String', ["info", "unknown", "error", "warn", "ok"])
+      severity_validator = EnumAttributeValidator.new('String', ["unknown", "info", "ok", "error", "warn"])
       return false unless severity_validator.valid?(@severity)
       return false if @audience.nil?
-      audience_validator = EnumAttributeValidator.new('String', ["seller", "crossly", "nobody"])
+      audience_validator = EnumAttributeValidator.new('String', ["crossly", "seller", "nobody"])
       return false unless audience_validator.valid?(@audience)
       return false if @notes.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] account_status Object to be assigned
+    def account_status=(account_status)
+      validator = EnumAttributeValidator.new('String', ["active", "archived", "needs_reauth"])
+      unless validator.valid?(account_status)
+        fail ArgumentError, "invalid value for \"account_status\", must be one of #{validator.allowable_values}."
+      end
+      @account_status = account_status
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -283,7 +305,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] severity Object to be assigned
     def severity=(severity)
-      validator = EnumAttributeValidator.new('String', ["info", "unknown", "error", "warn", "ok"])
+      validator = EnumAttributeValidator.new('String', ["unknown", "info", "ok", "error", "warn"])
       unless validator.valid?(severity)
         fail ArgumentError, "invalid value for \"severity\", must be one of #{validator.allowable_values}."
       end
@@ -293,7 +315,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] audience Object to be assigned
     def audience=(audience)
-      validator = EnumAttributeValidator.new('String', ["seller", "crossly", "nobody"])
+      validator = EnumAttributeValidator.new('String', ["crossly", "seller", "nobody"])
       unless validator.valid?(audience)
         fail ArgumentError, "invalid value for \"audience\", must be one of #{validator.allowable_values}."
       end
@@ -310,6 +332,7 @@ module Crossly
           account_slot == o.account_slot &&
           label == o.label &&
           platform_username == o.platform_username &&
+          account_status == o.account_status &&
           summary == o.summary &&
           action == o.action &&
           liveness == o.liveness &&
@@ -331,7 +354,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [platform_name, account_id, account_slot, label, platform_username, summary, action, liveness, browser, platform, state, severity, audience, anchors, notes].hash
+      [platform_name, account_id, account_slot, label, platform_username, account_status, summary, action, liveness, browser, platform, state, severity, audience, anchors, notes].hash
     end
 
     # Builds the object from hash

@@ -283,7 +283,7 @@ end
 
 ## update_source_sync
 
-> <ListSourceSyncItem> update_source_sync(platform)
+> <ListSourceSyncItem> update_source_sync(platform, opts)
 
 Update a store's source-sync settings: on/off, source-owned fields, deletion handling, auto-export channels.
 
@@ -300,10 +300,13 @@ end
 
 api_instance = Crossly::SourceSyncApi.new
 platform = 'shopify' # String | 
+opts = {
+  update_source_sync_request: Crossly::UpdateSourceSyncRequest.new # UpdateSourceSyncRequest | 
+}
 
 begin
   # Update a store's source-sync settings: on/off, source-owned fields, deletion handling, auto-export channels.
-  result = api_instance.update_source_sync(platform)
+  result = api_instance.update_source_sync(platform, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SourceSyncApi->update_source_sync: #{e}"
@@ -314,12 +317,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSourceSyncItem>, Integer, Hash)> update_source_sync_with_http_info(platform)
+> <Array(<ListSourceSyncItem>, Integer, Hash)> update_source_sync_with_http_info(platform, opts)
 
 ```ruby
 begin
   # Update a store's source-sync settings: on/off, source-owned fields, deletion handling, auto-export channels.
-  data, status_code, headers = api_instance.update_source_sync_with_http_info(platform)
+  data, status_code, headers = api_instance.update_source_sync_with_http_info(platform, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSourceSyncItem>
@@ -333,6 +336,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
+| **update_source_sync_request** | **UpdateSourceSyncRequest** |  | [optional] |
 
 ### Return type
 
@@ -344,7 +348,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

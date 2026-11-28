@@ -32,7 +32,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'data' => :'UpdateWorldPropertyRentingResponseData'
+        :'data' => :'UpdateWorldPropertyRentingRequest'
       }
     end
 

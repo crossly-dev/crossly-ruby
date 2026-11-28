@@ -21,20 +21,26 @@ module CrosslyBuyer
     end
     # Watch a search, and be told when it matches.
     # Works immediately — there is no review step. The signing secret is returned ONCE, here; it is never readable again. The first sweep SEEDS without firing: a restock alert created while the item is already in stock has not observed a restock, and a new-listing monitor would otherwise deliver the entire back catalogue.
+    # @param create_buyer_monitor_request [CreateBuyerMonitorRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListBuyerMonitorsItem]
-    def create_buyer_monitor(opts = {})
-      data, _status_code, _headers = create_buyer_monitor_with_http_info(opts)
+    def create_buyer_monitor(create_buyer_monitor_request, opts = {})
+      data, _status_code, _headers = create_buyer_monitor_with_http_info(create_buyer_monitor_request, opts)
       data
     end
 
     # Watch a search, and be told when it matches.
     # Works immediately — there is no review step. The signing secret is returned ONCE, here; it is never readable again. The first sweep SEEDS without firing: a restock alert created while the item is already in stock has not observed a restock, and a new-listing monitor would otherwise deliver the entire back catalogue.
+    # @param create_buyer_monitor_request [CreateBuyerMonitorRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListBuyerMonitorsItem, Integer, Hash)>] ListBuyerMonitorsItem data, response status code and response headers
-    def create_buyer_monitor_with_http_info(opts = {})
+    def create_buyer_monitor_with_http_info(create_buyer_monitor_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerMonitorsApi.create_buyer_monitor ...'
+      end
+      # verify the required parameter 'create_buyer_monitor_request' is set
+      if @api_client.config.client_side_validation && create_buyer_monitor_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_monitor_request' when calling BuyerMonitorsApi.create_buyer_monitor"
       end
       # resource path
       local_var_path = '/v1/buyer/monitors'
@@ -46,12 +52,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_monitor_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListBuyerMonitorsItem'
@@ -258,6 +269,7 @@ module CrosslyBuyer
     # Pause, resume or rename a monitor.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerMonitorRequest] :update_buyer_monitor_request 
     # @return [ListBuyerMonitorsItem]
     def update_buyer_monitor(id, opts = {})
       data, _status_code, _headers = update_buyer_monitor_with_http_info(id, opts)
@@ -267,6 +279,7 @@ module CrosslyBuyer
     # Pause, resume or rename a monitor.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBuyerMonitorRequest] :update_buyer_monitor_request 
     # @return [Array<(ListBuyerMonitorsItem, Integer, Hash)>] ListBuyerMonitorsItem data, response status code and response headers
     def update_buyer_monitor_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -286,12 +299,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_buyer_monitor_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListBuyerMonitorsItem'

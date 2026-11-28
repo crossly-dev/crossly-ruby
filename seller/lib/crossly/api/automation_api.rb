@@ -78,22 +78,28 @@ module Crossly
 
     # Import one or more rules from recipe JSON (single or bundle).
     # Deprecated: automation rules are workflows now. Use /v1/workflows.
+    # @param create_automation_rule_import_request [CreateAutomationRuleImportRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :activate  (default to false)
     # @return [CreateAutomationRuleImportResponse]
-    def create_automation_rule_import(opts = {})
-      data, _status_code, _headers = create_automation_rule_import_with_http_info(opts)
+    def create_automation_rule_import(create_automation_rule_import_request, opts = {})
+      data, _status_code, _headers = create_automation_rule_import_with_http_info(create_automation_rule_import_request, opts)
       data
     end
 
     # Import one or more rules from recipe JSON (single or bundle).
     # Deprecated: automation rules are workflows now. Use /v1/workflows.
+    # @param create_automation_rule_import_request [CreateAutomationRuleImportRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :activate 
     # @return [Array<(CreateAutomationRuleImportResponse, Integer, Hash)>] CreateAutomationRuleImportResponse data, response status code and response headers
-    def create_automation_rule_import_with_http_info(opts = {})
+    def create_automation_rule_import_with_http_info(create_automation_rule_import_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutomationApi.create_automation_rule_import ...'
+      end
+      # verify the required parameter 'create_automation_rule_import_request' is set
+      if @api_client.config.client_side_validation && create_automation_rule_import_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_automation_rule_import_request' when calling AutomationApi.create_automation_rule_import"
       end
       # resource path
       local_var_path = '/v1/automation/rules/import'
@@ -106,12 +112,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_automation_rule_import_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAutomationRuleImportResponse'
@@ -264,20 +275,26 @@ module Crossly
 
     # Dry-run validate one or more recipes against the live catalog.
     # Deprecated: automation rules are workflows now. Use /v1/workflows.
+    # @param create_automation_rule_validate_recipe_request [CreateAutomationRuleValidateRecipeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAutomationRuleValidateRecipeResponse]
-    def create_automation_rule_validate_recipe(opts = {})
-      data, _status_code, _headers = create_automation_rule_validate_recipe_with_http_info(opts)
+    def create_automation_rule_validate_recipe(create_automation_rule_validate_recipe_request, opts = {})
+      data, _status_code, _headers = create_automation_rule_validate_recipe_with_http_info(create_automation_rule_validate_recipe_request, opts)
       data
     end
 
     # Dry-run validate one or more recipes against the live catalog.
     # Deprecated: automation rules are workflows now. Use /v1/workflows.
+    # @param create_automation_rule_validate_recipe_request [CreateAutomationRuleValidateRecipeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAutomationRuleValidateRecipeResponse, Integer, Hash)>] CreateAutomationRuleValidateRecipeResponse data, response status code and response headers
-    def create_automation_rule_validate_recipe_with_http_info(opts = {})
+    def create_automation_rule_validate_recipe_with_http_info(create_automation_rule_validate_recipe_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutomationApi.create_automation_rule_validate_recipe ...'
+      end
+      # verify the required parameter 'create_automation_rule_validate_recipe_request' is set
+      if @api_client.config.client_side_validation && create_automation_rule_validate_recipe_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_automation_rule_validate_recipe_request' when calling AutomationApi.create_automation_rule_validate_recipe"
       end
       # resource path
       local_var_path = '/v1/automation/rules/validate-recipe'
@@ -289,12 +306,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_automation_rule_validate_recipe_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAutomationRuleValidateRecipeResponse'
@@ -441,6 +463,68 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Reprice a listing set, a saved listings view or a category with one strategy. The floor is never breached (breakEvenFloor raises it to cover cost); approvalMode \"ask\" records each change for approval instead of applying it.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateRepricingAssignmentRequest] :create_repricing_assignment_request 
+    # @return [CreateRepricingAssignmentResponse]
+    def create_repricing_assignment(opts = {})
+      data, _status_code, _headers = create_repricing_assignment_with_http_info(opts)
+      data
+    end
+
+    # Reprice a listing set, a saved listings view or a category with one strategy. The floor is never breached (breakEvenFloor raises it to cover cost); approvalMode \&quot;ask\&quot; records each change for approval instead of applying it.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateRepricingAssignmentRequest] :create_repricing_assignment_request 
+    # @return [Array<(CreateRepricingAssignmentResponse, Integer, Hash)>] CreateRepricingAssignmentResponse data, response status code and response headers
+    def create_repricing_assignment_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AutomationApi.create_repricing_assignment ...'
+      end
+      # resource path
+      local_var_path = '/v1/repricing/assignments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_repricing_assignment_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateRepricingAssignmentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AutomationApi.create_repricing_assignment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AutomationApi#create_repricing_assignment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Delete an automation rule.
     # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param id [String] 
@@ -500,6 +584,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AutomationApi#delete_automation_rule\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop a repricing assignment. Its past decisions stay in /v1/reprice-events.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteStoryResponse]
+    def delete_repricing_assignment(id, opts = {})
+      data, _status_code, _headers = delete_repricing_assignment_with_http_info(id, opts)
+      data
+    end
+
+    # Stop a repricing assignment. Its past decisions stay in /v1/reprice-events.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteStoryResponse, Integer, Hash)>] DeleteStoryResponse data, response status code and response headers
+    def delete_repricing_assignment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AutomationApi.delete_repricing_assignment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AutomationApi.delete_repricing_assignment"
+      end
+      # resource path
+      local_var_path = '/v1/repricing/assignments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteStoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AutomationApi.delete_repricing_assignment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AutomationApi#delete_repricing_assignment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -742,6 +887,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The repricing strategies with the settings each takes, the settings every strategy takes, how often an assignment can check, and the approval modes.
+    # @param [Hash] opts the optional parameters
+    # @return [GetRepricingStrategyResponse]
+    def get_repricing_strategy(opts = {})
+      data, _status_code, _headers = get_repricing_strategy_with_http_info(opts)
+      data
+    end
+
+    # The repricing strategies with the settings each takes, the settings every strategy takes, how often an assignment can check, and the approval modes.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRepricingStrategyResponse, Integer, Hash)>] GetRepricingStrategyResponse data, response status code and response headers
+    def get_repricing_strategy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AutomationApi.get_repricing_strategy ...'
+      end
+      # resource path
+      local_var_path = '/v1/repricing/strategies'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRepricingStrategyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AutomationApi.get_repricing_strategy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AutomationApi#get_repricing_strategy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List automation rules.
     # Deprecated: automation rules are workflows now. Use /v1/workflows.
     # @param [Hash] opts the optional parameters
@@ -875,6 +1075,9 @@ module Crossly
 
     # Reprice decisions, newest first: applied, held at a floor, or pending approval (pending=true for only those waiting).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :pending 
+    # @option opts [String] :listing_id 
+    # @option opts [Float] :limit 
     # @return [ListRepriceEventsResponse]
     def list_reprice_events(opts = {})
       data, _status_code, _headers = list_reprice_events_with_http_info(opts)
@@ -883,16 +1086,26 @@ module Crossly
 
     # Reprice decisions, newest first: applied, held at a floor, or pending approval (pending&#x3D;true for only those waiting).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :pending 
+    # @option opts [String] :listing_id 
+    # @option opts [Float] :limit 
     # @return [Array<(ListRepriceEventsResponse, Integer, Hash)>] ListRepriceEventsResponse data, response status code and response headers
     def list_reprice_events_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AutomationApi.list_reprice_events ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'pending'] && !allowable_values.include?(opts[:'pending'])
+        fail ArgumentError, "invalid value for \"pending\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/reprice-events'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'pending'] = opts[:'pending'] if !opts[:'pending'].nil?
+      query_params[:'listingId'] = opts[:'listing_id'] if !opts[:'listing_id'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -924,6 +1137,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AutomationApi#list_reprice_events\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Repricing assignments: which listings are repriced with which strategy, floor and approval mode, with the last price moved, the next check and how many changes wait for approval.
+    # @param [Hash] opts the optional parameters
+    # @return [ListRepricingAssignmentsResponse]
+    def list_repricing_assignments(opts = {})
+      data, _status_code, _headers = list_repricing_assignments_with_http_info(opts)
+      data
+    end
+
+    # Repricing assignments: which listings are repriced with which strategy, floor and approval mode, with the last price moved, the next check and how many changes wait for approval.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListRepricingAssignmentsResponse, Integer, Hash)>] ListRepricingAssignmentsResponse data, response status code and response headers
+    def list_repricing_assignments_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AutomationApi.list_repricing_assignments ...'
+      end
+      # resource path
+      local_var_path = '/v1/repricing/assignments'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListRepricingAssignmentsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AutomationApi.list_repricing_assignments",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AutomationApi#list_repricing_assignments\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -987,6 +1255,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AutomationApi#update_automation_rule\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change a repricing assignment (any field; a new strategy starts from the params sent with it), or pause / resume it with enabled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateRepricingAssignmentRequest] :update_repricing_assignment_request 
+    # @return [CreateRepricingAssignmentResponse]
+    def update_repricing_assignment(id, opts = {})
+      data, _status_code, _headers = update_repricing_assignment_with_http_info(id, opts)
+      data
+    end
+
+    # Change a repricing assignment (any field; a new strategy starts from the params sent with it), or pause / resume it with enabled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateRepricingAssignmentRequest] :update_repricing_assignment_request 
+    # @return [Array<(CreateRepricingAssignmentResponse, Integer, Hash)>] CreateRepricingAssignmentResponse data, response status code and response headers
+    def update_repricing_assignment_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AutomationApi.update_repricing_assignment ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AutomationApi.update_repricing_assignment"
+      end
+      # resource path
+      local_var_path = '/v1/repricing/assignments/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_repricing_assignment_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateRepricingAssignmentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AutomationApi.update_repricing_assignment",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AutomationApi#update_repricing_assignment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

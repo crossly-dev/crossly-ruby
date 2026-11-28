@@ -142,19 +142,25 @@ module Crossly
     end
 
     # Create a new inventory item.
+    # @param create_inventory_request [CreateInventoryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryResponse]
-    def create_inventory(opts = {})
-      data, _status_code, _headers = create_inventory_with_http_info(opts)
+    def create_inventory(create_inventory_request, opts = {})
+      data, _status_code, _headers = create_inventory_with_http_info(create_inventory_request, opts)
       data
     end
 
     # Create a new inventory item.
+    # @param create_inventory_request [CreateInventoryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryResponse, Integer, Hash)>] CreateInventoryResponse data, response status code and response headers
-    def create_inventory_with_http_info(opts = {})
+    def create_inventory_with_http_info(create_inventory_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory ...'
+      end
+      # verify the required parameter 'create_inventory_request' is set
+      if @api_client.config.client_side_validation && create_inventory_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_request' when calling InventoryApi.create_inventory"
       end
       # resource path
       local_var_path = '/v1/inventory'
@@ -166,12 +172,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryResponse'
@@ -197,19 +208,25 @@ module Crossly
     end
 
     # Bulk archive inventory items (soft).
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryBulkArchiveResponse]
-    def create_inventory_bulk_archive(opts = {})
-      data, _status_code, _headers = create_inventory_bulk_archive_with_http_info(opts)
+    def create_inventory_bulk_archive(create_listing_by_id_request, opts = {})
+      data, _status_code, _headers = create_inventory_bulk_archive_with_http_info(create_listing_by_id_request, opts)
       data
     end
 
     # Bulk archive inventory items (soft).
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryBulkArchiveResponse, Integer, Hash)>] CreateInventoryBulkArchiveResponse data, response status code and response headers
-    def create_inventory_bulk_archive_with_http_info(opts = {})
+    def create_inventory_bulk_archive_with_http_info(create_listing_by_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_bulk_archive ...'
+      end
+      # verify the required parameter 'create_listing_by_id_request' is set
+      if @api_client.config.client_side_validation && create_listing_by_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_by_id_request' when calling InventoryApi.create_inventory_bulk_archive"
       end
       # resource path
       local_var_path = '/v1/inventory/bulk-archive'
@@ -221,12 +238,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_by_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryBulkArchiveResponse'
@@ -252,19 +274,25 @@ module Crossly
     end
 
     # Bulk delete inventory items (delinks listings).
+    # @param create_inventory_bulk_delete_request [CreateInventoryBulkDeleteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryBulkDeleteResponse]
-    def create_inventory_bulk_delete(opts = {})
-      data, _status_code, _headers = create_inventory_bulk_delete_with_http_info(opts)
+    def create_inventory_bulk_delete(create_inventory_bulk_delete_request, opts = {})
+      data, _status_code, _headers = create_inventory_bulk_delete_with_http_info(create_inventory_bulk_delete_request, opts)
       data
     end
 
     # Bulk delete inventory items (delinks listings).
+    # @param create_inventory_bulk_delete_request [CreateInventoryBulkDeleteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryBulkDeleteResponse, Integer, Hash)>] CreateInventoryBulkDeleteResponse data, response status code and response headers
-    def create_inventory_bulk_delete_with_http_info(opts = {})
+    def create_inventory_bulk_delete_with_http_info(create_inventory_bulk_delete_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_bulk_delete ...'
+      end
+      # verify the required parameter 'create_inventory_bulk_delete_request' is set
+      if @api_client.config.client_side_validation && create_inventory_bulk_delete_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_bulk_delete_request' when calling InventoryApi.create_inventory_bulk_delete"
       end
       # resource path
       local_var_path = '/v1/inventory/bulk-delete'
@@ -276,12 +304,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_bulk_delete_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryBulkDeleteResponse'
@@ -307,19 +340,25 @@ module Crossly
     end
 
     # Bulk add/remove labels on inventory items.
+    # @param create_inventory_bulk_label_request [CreateInventoryBulkLabelRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingBulkUpdateResponse]
-    def create_inventory_bulk_label(opts = {})
-      data, _status_code, _headers = create_inventory_bulk_label_with_http_info(opts)
+    def create_inventory_bulk_label(create_inventory_bulk_label_request, opts = {})
+      data, _status_code, _headers = create_inventory_bulk_label_with_http_info(create_inventory_bulk_label_request, opts)
       data
     end
 
     # Bulk add/remove labels on inventory items.
+    # @param create_inventory_bulk_label_request [CreateInventoryBulkLabelRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingBulkUpdateResponse, Integer, Hash)>] CreateListingBulkUpdateResponse data, response status code and response headers
-    def create_inventory_bulk_label_with_http_info(opts = {})
+    def create_inventory_bulk_label_with_http_info(create_inventory_bulk_label_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_bulk_label ...'
+      end
+      # verify the required parameter 'create_inventory_bulk_label_request' is set
+      if @api_client.config.client_side_validation && create_inventory_bulk_label_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_bulk_label_request' when calling InventoryApi.create_inventory_bulk_label"
       end
       # resource path
       local_var_path = '/v1/inventory/bulk-labels'
@@ -331,12 +370,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_bulk_label_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingBulkUpdateResponse'
@@ -419,19 +463,25 @@ module Crossly
     end
 
     # Restore archived inventory items (status returns to active, or sold_out when no stock).
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryBulkRestoreResponse]
-    def create_inventory_bulk_restore(opts = {})
-      data, _status_code, _headers = create_inventory_bulk_restore_with_http_info(opts)
+    def create_inventory_bulk_restore(create_listing_by_id_request, opts = {})
+      data, _status_code, _headers = create_inventory_bulk_restore_with_http_info(create_listing_by_id_request, opts)
       data
     end
 
     # Restore archived inventory items (status returns to active, or sold_out when no stock).
+    # @param create_listing_by_id_request [CreateListingByIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryBulkRestoreResponse, Integer, Hash)>] CreateInventoryBulkRestoreResponse data, response status code and response headers
-    def create_inventory_bulk_restore_with_http_info(opts = {})
+    def create_inventory_bulk_restore_with_http_info(create_listing_by_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_bulk_restore ...'
+      end
+      # verify the required parameter 'create_listing_by_id_request' is set
+      if @api_client.config.client_side_validation && create_listing_by_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_by_id_request' when calling InventoryApi.create_inventory_bulk_restore"
       end
       # resource path
       local_var_path = '/v1/inventory/bulk-restore'
@@ -443,12 +493,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_by_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryBulkRestoreResponse'
@@ -536,6 +591,7 @@ module Crossly
 
     # Export inventory as CSV. Round-trips back through csv/import.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateInventoryCsvExportRequest] :create_inventory_csv_export_request 
     # @return [String]
     def create_inventory_csv_export(opts = {})
       data, _status_code, _headers = create_inventory_csv_export_with_http_info(opts)
@@ -544,6 +600,7 @@ module Crossly
 
     # Export inventory as CSV. Round-trips back through csv/import.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateInventoryCsvExportRequest] :create_inventory_csv_export_request 
     # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
     def create_inventory_csv_export_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -559,12 +616,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_inventory_csv_export_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'String'
@@ -590,19 +652,25 @@ module Crossly
     end
 
     # Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview.
+    # @param create_inventory_csv_import_request [CreateInventoryCsvImportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryCsvImportResponse]
-    def create_inventory_csv_import(opts = {})
-      data, _status_code, _headers = create_inventory_csv_import_with_http_info(opts)
+    def create_inventory_csv_import(create_inventory_csv_import_request, opts = {})
+      data, _status_code, _headers = create_inventory_csv_import_with_http_info(create_inventory_csv_import_request, opts)
       data
     end
 
     # Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview.
+    # @param create_inventory_csv_import_request [CreateInventoryCsvImportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryCsvImportResponse, Integer, Hash)>] CreateInventoryCsvImportResponse data, response status code and response headers
-    def create_inventory_csv_import_with_http_info(opts = {})
+    def create_inventory_csv_import_with_http_info(create_inventory_csv_import_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_csv_import ...'
+      end
+      # verify the required parameter 'create_inventory_csv_import_request' is set
+      if @api_client.config.client_side_validation && create_inventory_csv_import_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_csv_import_request' when calling InventoryApi.create_inventory_csv_import"
       end
       # resource path
       local_var_path = '/v1/inventory/csv/import'
@@ -614,12 +682,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_csv_import_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryCsvImportResponse'
@@ -644,20 +717,96 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Release an inventory hold.
+    # Ends a hold now and puts its units back on sale. 404 for a hold that is not yours; 409 `hold_already_released` for one that already ended (released, converted to an order or expired).
+    # @param hold_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateInventoryHoldReleaseRequest] :create_inventory_hold_release_request 
+    # @return [CreateInventoryHoldReleaseResponse]
+    def create_inventory_hold_release(hold_id, opts = {})
+      data, _status_code, _headers = create_inventory_hold_release_with_http_info(hold_id, opts)
+      data
+    end
+
+    # Release an inventory hold.
+    # Ends a hold now and puts its units back on sale. 404 for a hold that is not yours; 409 &#x60;hold_already_released&#x60; for one that already ended (released, converted to an order or expired).
+    # @param hold_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateInventoryHoldReleaseRequest] :create_inventory_hold_release_request 
+    # @return [Array<(CreateInventoryHoldReleaseResponse, Integer, Hash)>] CreateInventoryHoldReleaseResponse data, response status code and response headers
+    def create_inventory_hold_release_with_http_info(hold_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_hold_release ...'
+      end
+      # verify the required parameter 'hold_id' is set
+      if @api_client.config.client_side_validation && hold_id.nil?
+        fail ArgumentError, "Missing the required parameter 'hold_id' when calling InventoryApi.create_inventory_hold_release"
+      end
+      # resource path
+      local_var_path = '/v1/inventory/holds/{holdId}/release'.sub('{' + 'holdId' + '}', CGI.escape(hold_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_inventory_hold_release_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateInventoryHoldReleaseResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.create_inventory_hold_release",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#create_inventory_hold_release\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Rename a label across every inventory item.
+    # @param create_listing_tag_rename_request [CreateListingTagRenameRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdatedResponse]
-    def create_inventory_label_rename(opts = {})
-      data, _status_code, _headers = create_inventory_label_rename_with_http_info(opts)
+    def create_inventory_label_rename(create_listing_tag_rename_request, opts = {})
+      data, _status_code, _headers = create_inventory_label_rename_with_http_info(create_listing_tag_rename_request, opts)
       data
     end
 
     # Rename a label across every inventory item.
+    # @param create_listing_tag_rename_request [CreateListingTagRenameRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdatedResponse, Integer, Hash)>] UpdatedResponse data, response status code and response headers
-    def create_inventory_label_rename_with_http_info(opts = {})
+    def create_inventory_label_rename_with_http_info(create_listing_tag_rename_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_label_rename ...'
+      end
+      # verify the required parameter 'create_listing_tag_rename_request' is set
+      if @api_client.config.client_side_validation && create_listing_tag_rename_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_tag_rename_request' when calling InventoryApi.create_inventory_label_rename"
       end
       # resource path
       local_var_path = '/v1/inventory/labels/rename'
@@ -669,12 +818,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_tag_rename_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdatedResponse'
@@ -700,19 +854,25 @@ module Crossly
     end
 
     # Merge inventory items that are the same physical item into one (stock is not summed).
+    # @param create_inventory_merge_request [CreateInventoryMergeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryMergeResponse]
-    def create_inventory_merge(opts = {})
-      data, _status_code, _headers = create_inventory_merge_with_http_info(opts)
+    def create_inventory_merge(create_inventory_merge_request, opts = {})
+      data, _status_code, _headers = create_inventory_merge_with_http_info(create_inventory_merge_request, opts)
       data
     end
 
     # Merge inventory items that are the same physical item into one (stock is not summed).
+    # @param create_inventory_merge_request [CreateInventoryMergeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryMergeResponse, Integer, Hash)>] CreateInventoryMergeResponse data, response status code and response headers
-    def create_inventory_merge_with_http_info(opts = {})
+    def create_inventory_merge_with_http_info(create_inventory_merge_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_merge ...'
+      end
+      # verify the required parameter 'create_inventory_merge_request' is set
+      if @api_client.config.client_side_validation && create_inventory_merge_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_merge_request' when calling InventoryApi.create_inventory_merge"
       end
       # resource path
       local_var_path = '/v1/inventory/merge'
@@ -724,12 +884,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_merge_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryMergeResponse'
@@ -757,25 +922,31 @@ module Crossly
     # Record a serial, IMEI, or licence key against an inventory item.
     # Creates the unit lazily if no `unitId` is given. Recording BEFORE the item sells is what makes the identifier usable as evidence on a return — one first recorded after a dispute opens is graded `weak` and says so.
     # @param id [String] 
+    # @param create_inventory_unit_identifier_request [CreateInventoryUnitIdentifierRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryUnitIdentifierResponse]
-    def create_inventory_unit_identifier(id, opts = {})
-      data, _status_code, _headers = create_inventory_unit_identifier_with_http_info(id, opts)
+    def create_inventory_unit_identifier(id, create_inventory_unit_identifier_request, opts = {})
+      data, _status_code, _headers = create_inventory_unit_identifier_with_http_info(id, create_inventory_unit_identifier_request, opts)
       data
     end
 
     # Record a serial, IMEI, or licence key against an inventory item.
     # Creates the unit lazily if no &#x60;unitId&#x60; is given. Recording BEFORE the item sells is what makes the identifier usable as evidence on a return — one first recorded after a dispute opens is graded &#x60;weak&#x60; and says so.
     # @param id [String] 
+    # @param create_inventory_unit_identifier_request [CreateInventoryUnitIdentifierRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryUnitIdentifierResponse, Integer, Hash)>] CreateInventoryUnitIdentifierResponse data, response status code and response headers
-    def create_inventory_unit_identifier_with_http_info(id, opts = {})
+    def create_inventory_unit_identifier_with_http_info(id, create_inventory_unit_identifier_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_unit_identifier ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InventoryApi.create_inventory_unit_identifier"
+      end
+      # verify the required parameter 'create_inventory_unit_identifier_request' is set
+      if @api_client.config.client_side_validation && create_inventory_unit_identifier_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_unit_identifier_request' when calling InventoryApi.create_inventory_unit_identifier"
       end
       # resource path
       local_var_path = '/v1/inventory/{id}/units/identifiers'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -787,12 +958,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_unit_identifier_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryUnitIdentifierResponse'
@@ -819,20 +995,26 @@ module Crossly
 
     # Find a unit by identifier.
     # \"Have I ever seen this serial?\" — for when something arrives back and nobody knows which order it belongs to. Scoped to the caller, so it can never be used to probe another seller's stock.
+    # @param create_inventory_unit_lookup_request [CreateInventoryUnitLookupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryUnitLookupResponse]
-    def create_inventory_unit_lookup(opts = {})
-      data, _status_code, _headers = create_inventory_unit_lookup_with_http_info(opts)
+    def create_inventory_unit_lookup(create_inventory_unit_lookup_request, opts = {})
+      data, _status_code, _headers = create_inventory_unit_lookup_with_http_info(create_inventory_unit_lookup_request, opts)
       data
     end
 
     # Find a unit by identifier.
     # \&quot;Have I ever seen this serial?\&quot; — for when something arrives back and nobody knows which order it belongs to. Scoped to the caller, so it can never be used to probe another seller&#39;s stock.
+    # @param create_inventory_unit_lookup_request [CreateInventoryUnitLookupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryUnitLookupResponse, Integer, Hash)>] CreateInventoryUnitLookupResponse data, response status code and response headers
-    def create_inventory_unit_lookup_with_http_info(opts = {})
+    def create_inventory_unit_lookup_with_http_info(create_inventory_unit_lookup_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.create_inventory_unit_lookup ...'
+      end
+      # verify the required parameter 'create_inventory_unit_lookup_request' is set
+      if @api_client.config.client_side_validation && create_inventory_unit_lookup_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inventory_unit_lookup_request' when calling InventoryApi.create_inventory_unit_lookup"
       end
       # resource path
       local_var_path = '/v1/inventory/units/lookup'
@@ -844,12 +1026,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inventory_unit_lookup_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryUnitLookupResponse'
@@ -1896,109 +2083,6 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
-    # @param [Hash] opts the optional parameters
-    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
-    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
-    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
-    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
-    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
-    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
-    # @option opts [String] :labels Comma-separated inventory labels (any of them).
-    # @option opts [String] :platforms Comma-separated platform ids.
-    # @option opts [String] :category Canonical main-category key.
-    # @option opts [String] :brand Brand name.
-    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
-    # @option opts [Integer] :maturity Days an item has to sell within to count as sold in the cohort. Default 30.
-    # @return [GetAnalyticInventoryResponse]
-    def get_analytic_inventory(opts = {})
-      data, _status_code, _headers = get_analytic_inventory_with_http_info(opts)
-      data
-    end
-
-    # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
-    # @param [Hash] opts the optional parameters
-    # @option opts [String] :range Reporting window. Default 30d. custom needs from and to.
-    # @option opts [String] :from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
-    # @option opts [String] :to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom.
-    # @option opts [String] :compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
-    # @option opts [String] :cmp_from YYYY-MM-DD. Only with compare&#x3D;custom.
-    # @option opts [String] :cmp_to YYYY-MM-DD. Only with compare&#x3D;custom.
-    # @option opts [String] :labels Comma-separated inventory labels (any of them).
-    # @option opts [String] :platforms Comma-separated platform ids.
-    # @option opts [String] :category Canonical main-category key.
-    # @option opts [String] :brand Brand name.
-    # @option opts [String] :tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
-    # @option opts [Integer] :maturity Days an item has to sell within to count as sold in the cohort. Default 30.
-    # @return [Array<(GetAnalyticInventoryResponse, Integer, Hash)>] GetAnalyticInventoryResponse data, response status code and response headers
-    def get_analytic_inventory_with_http_info(opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: InventoryApi.get_analytic_inventory ...'
-      end
-      allowable_values = ["7d", "30d", "90d", "1y", "ytd", "all", "custom"]
-      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
-        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
-      end
-      allowable_values = ["prev", "yoy", "none", "custom"]
-      if @api_client.config.client_side_validation && opts[:'compare'] && !allowable_values.include?(opts[:'compare'])
-        fail ArgumentError, "invalid value for \"compare\", must be one of #{allowable_values}"
-      end
-      allowable_values = [30, 60, 90]
-      if @api_client.config.client_side_validation && opts[:'maturity'] && !allowable_values.include?(opts[:'maturity'])
-        fail ArgumentError, "invalid value for \"maturity\", must be one of #{allowable_values}"
-      end
-      # resource path
-      local_var_path = '/v1/analytics/inventory'
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
-      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
-      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
-      query_params[:'compare'] = opts[:'compare'] if !opts[:'compare'].nil?
-      query_params[:'cmpFrom'] = opts[:'cmp_from'] if !opts[:'cmp_from'].nil?
-      query_params[:'cmpTo'] = opts[:'cmp_to'] if !opts[:'cmp_to'].nil?
-      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
-      query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
-      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
-      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
-      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
-      query_params[:'maturity'] = opts[:'maturity'] if !opts[:'maturity'].nil?
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'GetAnalyticInventoryResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
-
-      new_options = opts.merge(
-        :operation => :"InventoryApi.get_analytic_inventory",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: InventoryApi#get_analytic_inventory\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
     # @param event_id [String] 
     # @param [Hash] opts the optional parameters
@@ -2636,6 +2720,8 @@ module Crossly
 
     # Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :start 
+    # @option opts [String] :_end 
     # @return [GetInventorySellThroughResponse]
     def get_inventory_sell_through(opts = {})
       data, _status_code, _headers = get_inventory_sell_through_with_http_info(opts)
@@ -2644,6 +2730,8 @@ module Crossly
 
     # Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :start 
+    # @option opts [String] :_end 
     # @return [Array<(GetInventorySellThroughResponse, Integer, Hash)>] GetInventorySellThroughResponse data, response status code and response headers
     def get_inventory_sell_through_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2654,6 +2742,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'start'] = opts[:'start'] if !opts[:'start'].nil?
+      query_params[:'end'] = opts[:'_end'] if !opts[:'_end'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2753,6 +2843,7 @@ module Crossly
 
     # Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [GetInventoryValueHistoryResponse]
     def get_inventory_value_history(opts = {})
       data, _status_code, _headers = get_inventory_value_history_with_http_info(opts)
@@ -2761,6 +2852,7 @@ module Crossly
 
     # Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [Array<(GetInventoryValueHistoryResponse, Integer, Hash)>] GetInventoryValueHistoryResponse data, response status code and response headers
     def get_inventory_value_history_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2771,6 +2863,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4632,6 +4725,7 @@ module Crossly
     # @option opts [String] :kind Physical goods or Web3 assets (NFTs). Omit for both.
     # @option opts [String] :platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them.
     # @option opts [String] :platform_mode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;.
+    # @option opts [String] :assignee Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id.
     # @option opts [String] :sku Exact SKU match: look up the row a supplier product maps to.
     # @option opts [Time] :updated_since Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
     # @return [ListInventoryResponse]
@@ -4649,6 +4743,7 @@ module Crossly
     # @option opts [String] :kind Physical goods or Web3 assets (NFTs). Omit for both.
     # @option opts [String] :platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them.
     # @option opts [String] :platform_mode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;.
+    # @option opts [String] :assignee Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id.
     # @option opts [String] :sku Exact SKU match: look up the row a supplier product maps to.
     # @option opts [Time] :updated_since Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
     # @return [Array<(ListInventoryResponse, Integer, Hash)>] ListInventoryResponse data, response status code and response headers
@@ -4692,6 +4787,7 @@ module Crossly
       query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
       query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
       query_params[:'platformMode'] = opts[:'platform_mode'] if !opts[:'platform_mode'].nil?
+      query_params[:'assignee'] = opts[:'assignee'] if !opts[:'assignee'].nil?
       query_params[:'sku'] = opts[:'sku'] if !opts[:'sku'].nil?
       query_params[:'updatedSince'] = opts[:'updated_since'] if !opts[:'updated_since'].nil?
 
@@ -4797,6 +4893,133 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: InventoryApi#list_inventory_activity\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the stock problems the holds ledger finds.
+    # `held_but_listed`: every unit of an item is held for a program while a marketplace listing is still live. `expired_hold_unreleased`: a hold ran past its expiry and still keeps its units off sale.
+    # @param [Hash] opts the optional parameters
+    # @return [ListInventoryHoldIssuesResponse]
+    def list_inventory_hold_issues(opts = {})
+      data, _status_code, _headers = list_inventory_hold_issues_with_http_info(opts)
+      data
+    end
+
+    # List the stock problems the holds ledger finds.
+    # &#x60;held_but_listed&#x60;: every unit of an item is held for a program while a marketplace listing is still live. &#x60;expired_hold_unreleased&#x60;: a hold ran past its expiry and still keeps its units off sale.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListInventoryHoldIssuesResponse, Integer, Hash)>] ListInventoryHoldIssuesResponse data, response status code and response headers
+    def list_inventory_hold_issues_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.list_inventory_hold_issues ...'
+      end
+      # resource path
+      local_var_path = '/v1/inventory/holds/issues'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListInventoryHoldIssuesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.list_inventory_hold_issues",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#list_inventory_hold_issues\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the holds on an inventory item.
+    # Each hold names the program that set units aside (`sourceKind`: wholesale_quote, rental_booking, live_lineup, cart, vault_submission, consignment, manual), its record (`sourceId`), how many units and until when. `state` is `active`, `lapsed` (past its expiry, not released yet) or `released`. Holds in force by default; `history=true` adds released ones.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :history 
+    # @return [ListInventoryHoldsResponse]
+    def list_inventory_holds(id, opts = {})
+      data, _status_code, _headers = list_inventory_holds_with_http_info(id, opts)
+      data
+    end
+
+    # List the holds on an inventory item.
+    # Each hold names the program that set units aside (&#x60;sourceKind&#x60;: wholesale_quote, rental_booking, live_lineup, cart, vault_submission, consignment, manual), its record (&#x60;sourceId&#x60;), how many units and until when. &#x60;state&#x60; is &#x60;active&#x60;, &#x60;lapsed&#x60; (past its expiry, not released yet) or &#x60;released&#x60;. Holds in force by default; &#x60;history&#x3D;true&#x60; adds released ones.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :history 
+    # @return [Array<(ListInventoryHoldsResponse, Integer, Hash)>] ListInventoryHoldsResponse data, response status code and response headers
+    def list_inventory_holds_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.list_inventory_holds ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling InventoryApi.list_inventory_holds"
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'history'] && !allowable_values.include?(opts[:'history'])
+        fail ArgumentError, "invalid value for \"history\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/inventory/{id}/holds'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'history'] = opts[:'history'] if !opts[:'history'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListInventoryHoldsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.list_inventory_holds",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#list_inventory_holds\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -5929,8 +6152,8 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your streets.
-    # Streets you hold or asked to found, newest first: `status` (pending review, approved, founding, active, dormant, rejected, released), `upkeep` (active, grace, delinquent -- a delinquent owner collects no stall rent; three weeks late the street is foreclosed and closed), `paidThrough`, `admission`, `occupied` of `plotCount`, `pendingApplications`, and Crossly's `reviewNote`.
+    # Streets your store holds.
+    # Streets the store (`X-Storefront-Id`, else your default store) holds or asked to found, newest first: `status` (pending review, approved, founding, active, dormant, rejected, released), `upkeep` (active, grace, delinquent -- a delinquent owner collects no stall rent; three weeks late the street is foreclosed and closed), `paidThrough`, `admission`, `occupied` of `plotCount`, `pendingApplications`, and Crossly's `reviewNote`.
     # @param [Hash] opts the optional parameters
     # @return [ListSpatialStreetMineResponse]
     def list_spatial_street_mine(opts = {})
@@ -5938,8 +6161,8 @@ module Crossly
       data
     end
 
-    # Your streets.
-    # Streets you hold or asked to found, newest first: &#x60;status&#x60; (pending review, approved, founding, active, dormant, rejected, released), &#x60;upkeep&#x60; (active, grace, delinquent -- a delinquent owner collects no stall rent; three weeks late the street is foreclosed and closed), &#x60;paidThrough&#x60;, &#x60;admission&#x60;, &#x60;occupied&#x60; of &#x60;plotCount&#x60;, &#x60;pendingApplications&#x60;, and Crossly&#39;s &#x60;reviewNote&#x60;.
+    # Streets your store holds.
+    # Streets the store (&#x60;X-Storefront-Id&#x60;, else your default store) holds or asked to found, newest first: &#x60;status&#x60; (pending review, approved, founding, active, dormant, rejected, released), &#x60;upkeep&#x60; (active, grace, delinquent -- a delinquent owner collects no stall rent; three weeks late the street is foreclosed and closed), &#x60;paidThrough&#x60;, &#x60;admission&#x60;, &#x60;occupied&#x60; of &#x60;plotCount&#x60;, &#x60;pendingApplications&#x60;, and Crossly&#39;s &#x60;reviewNote&#x60;.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListSpatialStreetMineResponse, Integer, Hash)>] ListSpatialStreetMineResponse data, response status code and response headers
     def list_spatial_street_mine_with_http_info(opts = {})
@@ -6219,24 +6442,30 @@ module Crossly
 
     # Update an inventory item (partial).
     # @param id [String] 
+    # @param update_inventory_request [UpdateInventoryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInventoryResponse]
-    def update_inventory(id, opts = {})
-      data, _status_code, _headers = update_inventory_with_http_info(id, opts)
+    def update_inventory(id, update_inventory_request, opts = {})
+      data, _status_code, _headers = update_inventory_with_http_info(id, update_inventory_request, opts)
       data
     end
 
     # Update an inventory item (partial).
     # @param id [String] 
+    # @param update_inventory_request [UpdateInventoryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInventoryResponse, Integer, Hash)>] CreateInventoryResponse data, response status code and response headers
-    def update_inventory_with_http_info(id, opts = {})
+    def update_inventory_with_http_info(id, update_inventory_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InventoryApi.update_inventory ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InventoryApi.update_inventory"
+      end
+      # verify the required parameter 'update_inventory_request' is set
+      if @api_client.config.client_side_validation && update_inventory_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_inventory_request' when calling InventoryApi.update_inventory"
       end
       # resource path
       local_var_path = '/v1/inventory/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -6248,12 +6477,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_inventory_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInventoryResponse'
@@ -6278,9 +6512,126 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Assign many inventory items to a teammate, round robin across several, or unassign them (null).
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateOrderAssigneeResponse]
+    def update_inventory_assignee(opts = {})
+      data, _status_code, _headers = update_inventory_assignee_with_http_info(opts)
+      data
+    end
+
+    # Assign many inventory items to a teammate, round robin across several, or unassign them (null).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateOrderAssigneeResponse, Integer, Hash)>] UpdateOrderAssigneeResponse data, response status code and response headers
+    def update_inventory_assignee_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.update_inventory_assignee ...'
+      end
+      # resource path
+      local_var_path = '/v1/inventory/assignee'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateOrderAssigneeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.update_inventory_assignee",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#update_inventory_assignee\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Assign one inventory item to a teammate, or unassign it (null).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateOrderAssigneeByIdResponse]
+    def update_inventory_assignee_by_id(id, opts = {})
+      data, _status_code, _headers = update_inventory_assignee_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Assign one inventory item to a teammate, or unassign it (null).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateOrderAssigneeByIdResponse, Integer, Hash)>] UpdateOrderAssigneeByIdResponse data, response status code and response headers
+    def update_inventory_assignee_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: InventoryApi.update_inventory_assignee_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling InventoryApi.update_inventory_assignee_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/inventory/{id}/assignee'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateOrderAssigneeByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"InventoryApi.update_inventory_assignee_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: InventoryApi#update_inventory_assignee_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create or replace the shop employee in one of your rooms.
     # A full replace, not a patch: every field is written from this body, so read GET /api/v1/spatial/employee/config first and send it back changed. Owner-only — a room this account does not own answers 404, the same as one that does not exist. `brainKind` is idle (stands there), rules (`rules` evaluated in order, first match wins, max 12) or agent (your endpoint decides, and an endpoint URL is then required). A rule is `{ when, afterSeconds?, do: { act, line?, offerId?, itemId? } }`; `when` and `do.act` must come from the published vocabularies and anything else is a 400. NOTHING IN A RULE CARRIES A PRICE — `do.offerId` is a key into your own offers and the server prices it, so an employee can propose a discount it cannot grant. `displayName` and `do.line` must be printable ASCII: they are drawn in the room from a fixed glyph atlas and anything else renders as a floating box, so they are refused rather than silently rewritten. `agentEndpointUrl` is resolved and validated before it is stored — a public-looking hostname that answers with a private address is refused here rather than accepted and then never called. THE SIGNING SECRET IS RETURNED AT MOST ONCE, in the response that MINTS it: when you pass `rotateSecret: true`, or when you set an agent endpoint on a room that had no secret. Store it then — there is no read path that will ever return it again, and `hasAgentSecret` is all any GET will say. Send an Idempotency-Key if you might retry a rotation: without one, a retried rotate mints a SECOND secret and invalidates the one you just received. Saving anything also CLEARS a suspension — if the employee was paused for want of COSM it is back on the floor, and will be paused again by the next refused charge. Note what this endpoint cannot do: it cannot start a conversation. Engagements are emitted by the room as it is drawn, and they are what costs money.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateSpatialEmployeeConfigRequest] :update_spatial_employee_config_request 
     # @return [UpdateSpatialEmployeeConfigResponse]
     def update_spatial_employee_config(opts = {})
       data, _status_code, _headers = update_spatial_employee_config_with_http_info(opts)
@@ -6290,6 +6641,7 @@ module Crossly
     # Create or replace the shop employee in one of your rooms.
     # A full replace, not a patch: every field is written from this body, so read GET /api/v1/spatial/employee/config first and send it back changed. Owner-only — a room this account does not own answers 404, the same as one that does not exist. &#x60;brainKind&#x60; is idle (stands there), rules (&#x60;rules&#x60; evaluated in order, first match wins, max 12) or agent (your endpoint decides, and an endpoint URL is then required). A rule is &#x60;{ when, afterSeconds?, do: { act, line?, offerId?, itemId? } }&#x60;; &#x60;when&#x60; and &#x60;do.act&#x60; must come from the published vocabularies and anything else is a 400. NOTHING IN A RULE CARRIES A PRICE — &#x60;do.offerId&#x60; is a key into your own offers and the server prices it, so an employee can propose a discount it cannot grant. &#x60;displayName&#x60; and &#x60;do.line&#x60; must be printable ASCII: they are drawn in the room from a fixed glyph atlas and anything else renders as a floating box, so they are refused rather than silently rewritten. &#x60;agentEndpointUrl&#x60; is resolved and validated before it is stored — a public-looking hostname that answers with a private address is refused here rather than accepted and then never called. THE SIGNING SECRET IS RETURNED AT MOST ONCE, in the response that MINTS it: when you pass &#x60;rotateSecret: true&#x60;, or when you set an agent endpoint on a room that had no secret. Store it then — there is no read path that will ever return it again, and &#x60;hasAgentSecret&#x60; is all any GET will say. Send an Idempotency-Key if you might retry a rotation: without one, a retried rotate mints a SECOND secret and invalidates the one you just received. Saving anything also CLEARS a suspension — if the employee was paused for want of COSM it is back on the floor, and will be paused again by the next refused charge. Note what this endpoint cannot do: it cannot start a conversation. Engagements are emitted by the room as it is drawn, and they are what costs money.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateSpatialEmployeeConfigRequest] :update_spatial_employee_config_request 
     # @return [Array<(UpdateSpatialEmployeeConfigResponse, Integer, Hash)>] UpdateSpatialEmployeeConfigResponse data, response status code and response headers
     def update_spatial_employee_config_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -6305,12 +6657,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_spatial_employee_config_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateSpatialEmployeeConfigResponse'

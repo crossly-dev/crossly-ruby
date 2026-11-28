@@ -310,7 +310,7 @@ module Crossly
       kind_validator = EnumAttributeValidator.new('String', ["data", "action", "trigger", "read", "flow"])
       return false unless kind_validator.valid?(@kind)
       return false if @group.nil?
-      group_validator = EnumAttributeValidator.new('String', ["data", "listings", "inventory", "orders", "shipping", "account", "offers", "sales", "inbox", "storefront", "notify", "flow", "triggers", "pricing", "social", "ai", "money", "integrations", "lookup"])
+      group_validator = EnumAttributeValidator.new('String', ["data", "storefront", "listings", "inventory", "orders", "shipping", "account", "offers", "sales", "inbox", "notify", "flow", "triggers", "pricing", "social", "ai", "money", "integrations", "lookup"])
       return false unless group_validator.valid?(@group)
       return false if @label.nil?
       return false if @description.nil?
@@ -327,7 +327,7 @@ module Crossly
       return false unless dynamic_ports_validator.valid?(@dynamic_ports)
       return false if @params.nil?
       return false if @output_schema.nil?
-      status_validator = EnumAttributeValidator.new('String', ["ready", "beta"])
+      status_validator = EnumAttributeValidator.new('String', ["beta", "ready"])
       return false unless status_validator.valid?(@status)
       true
     end
@@ -345,7 +345,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] group Object to be assigned
     def group=(group)
-      validator = EnumAttributeValidator.new('String', ["data", "listings", "inventory", "orders", "shipping", "account", "offers", "sales", "inbox", "storefront", "notify", "flow", "triggers", "pricing", "social", "ai", "money", "integrations", "lookup"])
+      validator = EnumAttributeValidator.new('String', ["data", "storefront", "listings", "inventory", "orders", "shipping", "account", "offers", "sales", "inbox", "notify", "flow", "triggers", "pricing", "social", "ai", "money", "integrations", "lookup"])
       unless validator.valid?(group)
         fail ArgumentError, "invalid value for \"group\", must be one of #{validator.allowable_values}."
       end
@@ -385,7 +385,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["ready", "beta"])
+      validator = EnumAttributeValidator.new('String', ["beta", "ready"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

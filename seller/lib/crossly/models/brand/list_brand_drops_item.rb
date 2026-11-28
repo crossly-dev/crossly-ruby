@@ -29,9 +29,9 @@ module Crossly
 
     attr_accessor :released_at
 
-    attr_accessor :published
-
     attr_accessor :storefront_id
+
+    attr_accessor :published
 
     attr_accessor :ends_at
 
@@ -113,8 +113,8 @@ module Crossly
         :'description' => :'description',
         :'status' => :'status',
         :'released_at' => :'releasedAt',
-        :'published' => :'published',
         :'storefront_id' => :'storefrontId',
+        :'published' => :'published',
         :'ends_at' => :'endsAt',
         :'event_id' => :'eventId',
         :'format' => :'format',
@@ -168,8 +168,8 @@ module Crossly
         :'description' => :'String',
         :'status' => :'String',
         :'released_at' => :'Time',
-        :'published' => :'Boolean',
         :'storefront_id' => :'String',
+        :'published' => :'Boolean',
         :'ends_at' => :'Time',
         :'event_id' => :'String',
         :'format' => :'String',
@@ -286,12 +286,12 @@ module Crossly
         self.released_at = attributes[:'released_at']
       end
 
-      if attributes.key?(:'published')
-        self.published = attributes[:'published']
-      end
-
       if attributes.key?(:'storefront_id')
         self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'published')
+        self.published = attributes[:'published']
       end
 
       if attributes.key?(:'ends_at')
@@ -541,8 +541,8 @@ module Crossly
           description == o.description &&
           status == o.status &&
           released_at == o.released_at &&
-          published == o.published &&
           storefront_id == o.storefront_id &&
+          published == o.published &&
           ends_at == o.ends_at &&
           event_id == o.event_id &&
           format == o.format &&
@@ -589,7 +589,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, description, status, released_at, published, storefront_id, ends_at, event_id, format, config, seller_user_id, cover_image_url, platform_listing_ids, drop_at, partner_id, wholesale_unit_cost_cents, units_purchased, supplier_name, po_reference, retail_unit_price_cents, buyer_api_enabled, per_customer_limit, preview_from, published_at, review_note, reviewed_at, placements, announce_at, countdown_at, paused_at, live_stream_id, spatial_drop_id, timezone, featured_status, audience, audience_catalog_id, drop_kind, deposit_bps, ship_by, balance_net_days, listing_count].hash
+      [id, name, created_at, updated_at, description, status, released_at, storefront_id, published, ends_at, event_id, format, config, seller_user_id, cover_image_url, platform_listing_ids, drop_at, partner_id, wholesale_unit_cost_cents, units_purchased, supplier_name, po_reference, retail_unit_price_cents, buyer_api_enabled, per_customer_limit, preview_from, published_at, review_note, reviewed_at, placements, announce_at, countdown_at, paused_at, live_stream_id, spatial_drop_id, timezone, featured_status, audience, audience_catalog_id, drop_kind, deposit_bps, ship_by, balance_net_days, listing_count].hash
     end
 
     # Builds the object from hash

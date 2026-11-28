@@ -135,7 +135,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      since_validator = EnumAttributeValidator.new('String', ["entry", "cost", "fill", "inception"])
+      since_validator = EnumAttributeValidator.new('String', ["fill", "entry", "cost", "inception"])
       return false unless since_validator.valid?(@since)
       return false if @state.nil?
       state_validator = EnumAttributeValidator.new('String', ["live", "open", "closed", "sold", "held", "gone"])
@@ -148,7 +148,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] since Object to be assigned
     def since=(since)
-      validator = EnumAttributeValidator.new('String', ["entry", "cost", "fill", "inception"])
+      validator = EnumAttributeValidator.new('String', ["fill", "entry", "cost", "inception"])
       unless validator.valid?(since)
         fail ArgumentError, "invalid value for \"since\", must be one of #{validator.allowable_values}."
       end

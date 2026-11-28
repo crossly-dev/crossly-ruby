@@ -87,7 +87,7 @@ end
 
 ## create_world_experience_reward_definition
 
-> <CreateWorldExperienceRewardDefinitionResponse> create_world_experience_reward_definition(experience_id)
+> <CreateWorldExperienceRewardDefinitionResponse> create_world_experience_reward_definition(experience_id, opts)
 
 Add a reward scripts can grant: pin, emote, decor, item (your own COSM design), cosm or cbx (with an amount).
 
@@ -104,10 +104,13 @@ end
 
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_reward_definition_request: Crossly::CreateWorldExperienceRewardDefinitionRequest.new({key: 'key_example', kind: 'item', name: 'name_example'}) # CreateWorldExperienceRewardDefinitionRequest | 
+}
 
 begin
   # Add a reward scripts can grant: pin, emote, decor, item (your own COSM design), cosm or cbx (with an amount).
-  result = api_instance.create_world_experience_reward_definition(experience_id)
+  result = api_instance.create_world_experience_reward_definition(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->create_world_experience_reward_definition: #{e}"
@@ -118,12 +121,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceRewardDefinitionResponse>, Integer, Hash)> create_world_experience_reward_definition_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceRewardDefinitionResponse>, Integer, Hash)> create_world_experience_reward_definition_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Add a reward scripts can grant: pin, emote, decor, item (your own COSM design), cosm or cbx (with an amount).
-  data, status_code, headers = api_instance.create_world_experience_reward_definition_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_reward_definition_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceRewardDefinitionResponse>
@@ -137,6 +140,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_reward_definition_request** | **CreateWorldExperienceRewardDefinitionRequest** |  | [optional] |
 
 ### Return type
 
@@ -148,13 +152,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_reward_deposit
 
-> <CreateWorldExperienceRewardDepositResponse> create_world_experience_reward_deposit(experience_id)
+> <CreateWorldExperienceRewardDepositResponse> create_world_experience_reward_deposit(experience_id, opts)
 
 Move available Crossly Carnival earnings into the pool ($1-$10,000). Owner only; idempotent on idempotencyKey.
 
@@ -171,10 +175,13 @@ end
 
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_reward_deposit_request: Crossly::CreateWorldExperienceRewardDepositRequest.new({amount_cents: 3.56, idempotency_key: 'idempotency_key_example'}) # CreateWorldExperienceRewardDepositRequest | 
+}
 
 begin
   # Move available Crossly Carnival earnings into the pool ($1-$10,000). Owner only; idempotent on idempotencyKey.
-  result = api_instance.create_world_experience_reward_deposit(experience_id)
+  result = api_instance.create_world_experience_reward_deposit(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->create_world_experience_reward_deposit: #{e}"
@@ -185,12 +192,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceRewardDepositResponse>, Integer, Hash)> create_world_experience_reward_deposit_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceRewardDepositResponse>, Integer, Hash)> create_world_experience_reward_deposit_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Move available Crossly Carnival earnings into the pool ($1-$10,000). Owner only; idempotent on idempotencyKey.
-  data, status_code, headers = api_instance.create_world_experience_reward_deposit_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_reward_deposit_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceRewardDepositResponse>
@@ -204,6 +211,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_reward_deposit_request** | **CreateWorldExperienceRewardDepositRequest** |  | [optional] |
 
 ### Return type
 
@@ -215,13 +223,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_reward_topup
 
-> <CreateWorldExperienceRewardTopupResponse> create_world_experience_reward_topup(experience_id)
+> <CreateWorldExperienceRewardTopupResponse> create_world_experience_reward_topup(experience_id, opts)
 
 Open a card top-up ($5-$10,000 into the pool; the 2.9% + 30¢ card fee is added on top). Returns checkoutUrl, where the owner pays with Crossly checkout; the pool is credited once when the payment lands. Owner only.
 
@@ -238,10 +246,13 @@ end
 
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_funding_draw_quote_request: Crossly::CreateFundingDrawQuoteRequest.new({amount_cents: 3.56}) # CreateFundingDrawQuoteRequest | 
+}
 
 begin
   # Open a card top-up ($5-$10,000 into the pool; the 2.9% + 30¢ card fee is added on top). Returns checkoutUrl, where the owner pays with Crossly checkout; the pool is credited once when the payment lands. Owner only.
-  result = api_instance.create_world_experience_reward_topup(experience_id)
+  result = api_instance.create_world_experience_reward_topup(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->create_world_experience_reward_topup: #{e}"
@@ -252,12 +263,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceRewardTopupResponse>, Integer, Hash)> create_world_experience_reward_topup_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceRewardTopupResponse>, Integer, Hash)> create_world_experience_reward_topup_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Open a card top-up ($5-$10,000 into the pool; the 2.9% + 30¢ card fee is added on top). Returns checkoutUrl, where the owner pays with Crossly checkout; the pool is credited once when the payment lands. Owner only.
-  data, status_code, headers = api_instance.create_world_experience_reward_topup_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_reward_topup_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceRewardTopupResponse>
@@ -271,6 +282,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_funding_draw_quote_request** | **CreateFundingDrawQuoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -282,7 +294,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -489,7 +501,7 @@ end
 
 ## list_world_experience_reward_grants
 
-> <ListWorldExperienceRewardGrantsResponse> list_world_experience_reward_grants(experience_id)
+> <ListWorldExperienceRewardGrantsResponse> list_world_experience_reward_grants(experience_id, opts)
 
 Every grant, newest first: reward, player sub, amount, cost, status. Cursor-paged; ?sub= for one player.
 
@@ -506,10 +518,15 @@ end
 
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14, # Float | 
+  sub: 'sub_example' # String | 
+}
 
 begin
   # Every grant, newest first: reward, player sub, amount, cost, status. Cursor-paged; ?sub= for one player.
-  result = api_instance.list_world_experience_reward_grants(experience_id)
+  result = api_instance.list_world_experience_reward_grants(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->list_world_experience_reward_grants: #{e}"
@@ -520,12 +537,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldExperienceRewardGrantsResponse>, Integer, Hash)> list_world_experience_reward_grants_with_http_info(experience_id)
+> <Array(<ListWorldExperienceRewardGrantsResponse>, Integer, Hash)> list_world_experience_reward_grants_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Every grant, newest first: reward, player sub, amount, cost, status. Cursor-paged; ?sub= for one player.
-  data, status_code, headers = api_instance.list_world_experience_reward_grants_with_http_info(experience_id)
+  data, status_code, headers = api_instance.list_world_experience_reward_grants_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldExperienceRewardGrantsResponse>
@@ -539,6 +556,9 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **sub** | **String** |  | [optional] |
 
 ### Return type
 
@@ -556,7 +576,7 @@ end
 
 ## list_world_experience_reward_ledger
 
-> <ListWorldExperienceRewardLedgerResponse> list_world_experience_reward_ledger(experience_id)
+> <ListWorldExperienceRewardLedgerResponse> list_world_experience_reward_ledger(experience_id, opts)
 
 The pool's own ledger: deposits, grant draw-downs, refunds. Cursor-paged.
 
@@ -573,10 +593,14 @@ end
 
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # The pool's own ledger: deposits, grant draw-downs, refunds. Cursor-paged.
-  result = api_instance.list_world_experience_reward_ledger(experience_id)
+  result = api_instance.list_world_experience_reward_ledger(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->list_world_experience_reward_ledger: #{e}"
@@ -587,12 +611,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldExperienceRewardLedgerResponse>, Integer, Hash)> list_world_experience_reward_ledger_with_http_info(experience_id)
+> <Array(<ListWorldExperienceRewardLedgerResponse>, Integer, Hash)> list_world_experience_reward_ledger_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # The pool's own ledger: deposits, grant draw-downs, refunds. Cursor-paged.
-  data, status_code, headers = api_instance.list_world_experience_reward_ledger_with_http_info(experience_id)
+  data, status_code, headers = api_instance.list_world_experience_reward_ledger_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldExperienceRewardLedgerResponse>
@@ -606,6 +630,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -690,7 +716,7 @@ end
 
 ## update_world_experience_reward_definition
 
-> <CreateWorldExperienceRewardDefinitionResponse> update_world_experience_reward_definition(experience_id, reward_id)
+> <CreateWorldExperienceRewardDefinitionResponse> update_world_experience_reward_definition(experience_id, reward_id, opts)
 
 Edit a reward: name, description, image, amount, per-player daily cap, on/off. Key and kind never change.
 
@@ -708,10 +734,13 @@ end
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
 reward_id = 'reward_id_example' # String | 
+opts = {
+  update_world_experience_reward_definition_request: Crossly::UpdateWorldExperienceRewardDefinitionRequest.new # UpdateWorldExperienceRewardDefinitionRequest | 
+}
 
 begin
   # Edit a reward: name, description, image, amount, per-player daily cap, on/off. Key and kind never change.
-  result = api_instance.update_world_experience_reward_definition(experience_id, reward_id)
+  result = api_instance.update_world_experience_reward_definition(experience_id, reward_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->update_world_experience_reward_definition: #{e}"
@@ -722,12 +751,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceRewardDefinitionResponse>, Integer, Hash)> update_world_experience_reward_definition_with_http_info(experience_id, reward_id)
+> <Array(<CreateWorldExperienceRewardDefinitionResponse>, Integer, Hash)> update_world_experience_reward_definition_with_http_info(experience_id, reward_id, opts)
 
 ```ruby
 begin
   # Edit a reward: name, description, image, amount, per-player daily cap, on/off. Key and kind never change.
-  data, status_code, headers = api_instance.update_world_experience_reward_definition_with_http_info(experience_id, reward_id)
+  data, status_code, headers = api_instance.update_world_experience_reward_definition_with_http_info(experience_id, reward_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceRewardDefinitionResponse>
@@ -742,6 +771,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **reward_id** | **String** |  |  |
+| **update_world_experience_reward_definition_request** | **UpdateWorldExperienceRewardDefinitionRequest** |  | [optional] |
 
 ### Return type
 
@@ -753,13 +783,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_reward_pool
 
-> <UpdateWorldExperienceRewardPoolResponse> update_world_experience_reward_pool(experience_id)
+> <UpdateWorldExperienceRewardPoolResponse> update_world_experience_reward_pool(experience_id, opts)
 
 Set the pool's daily caps: total value per day, value and grant count per player per day.
 
@@ -776,10 +806,13 @@ end
 
 api_instance = Crossly::WorldsRewardsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  update_world_experience_reward_pool_request: Crossly::UpdateWorldExperienceRewardPoolRequest.new # UpdateWorldExperienceRewardPoolRequest | 
+}
 
 begin
   # Set the pool's daily caps: total value per day, value and grant count per player per day.
-  result = api_instance.update_world_experience_reward_pool(experience_id)
+  result = api_instance.update_world_experience_reward_pool(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsRewardsApi->update_world_experience_reward_pool: #{e}"
@@ -790,12 +823,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperienceRewardPoolResponse>, Integer, Hash)> update_world_experience_reward_pool_with_http_info(experience_id)
+> <Array(<UpdateWorldExperienceRewardPoolResponse>, Integer, Hash)> update_world_experience_reward_pool_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Set the pool's daily caps: total value per day, value and grant count per player per day.
-  data, status_code, headers = api_instance.update_world_experience_reward_pool_with_http_info(experience_id)
+  data, status_code, headers = api_instance.update_world_experience_reward_pool_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperienceRewardPoolResponse>
@@ -809,6 +842,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **update_world_experience_reward_pool_request** | **UpdateWorldExperienceRewardPoolRequest** |  | [optional] |
 
 ### Return type
 
@@ -820,6 +854,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

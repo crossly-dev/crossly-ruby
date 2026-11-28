@@ -22,6 +22,7 @@ module Crossly
     # Add a badge (at most 100 per game). name 1-50 characters, description up to 1000, iconSha256 = the sha256 a png upload answered (POST /v1/world/interactive/assets, kind png); a new icon is shown once a person approved it.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceBadgeRequest] :create_world_experience_badge_request 
     # @return [CreateWorldExperienceBadgeResponse]
     def create_world_experience_badge(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_badge_with_http_info(experience_id, opts)
@@ -31,6 +32,7 @@ module Crossly
     # Add a badge (at most 100 per game). name 1-50 characters, description up to 1000, iconSha256 &#x3D; the sha256 a png upload answered (POST /v1/world/interactive/assets, kind png); a new icon is shown once a person approved it.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceBadgeRequest] :create_world_experience_badge_request 
     # @return [Array<(CreateWorldExperienceBadgeResponse, Integer, Hash)>] CreateWorldExperienceBadgeResponse data, response status code and response headers
     def create_world_experience_badge_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -50,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_badge_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceBadgeResponse'
@@ -320,6 +327,7 @@ module Crossly
 
     # Show (or hide) the game badges you hold on your person page. Off by default.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldBadgeProfileRequest] :update_world_badge_profile_request 
     # @return [UpdateWorldBadgeProfileResponse]
     def update_world_badge_profile(opts = {})
       data, _status_code, _headers = update_world_badge_profile_with_http_info(opts)
@@ -328,6 +336,7 @@ module Crossly
 
     # Show (or hide) the game badges you hold on your person page. Off by default.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldBadgeProfileRequest] :update_world_badge_profile_request 
     # @return [Array<(UpdateWorldBadgeProfileResponse, Integer, Hash)>] UpdateWorldBadgeProfileResponse data, response status code and response headers
     def update_world_badge_profile_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -343,12 +352,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_badge_profile_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldBadgeProfileResponse'
@@ -377,6 +391,7 @@ module Crossly
     # @param experience_id [String] 
     # @param badge_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceBadgeRequest] :update_world_experience_badge_request 
     # @return [CreateWorldExperienceBadgeResponse]
     def update_world_experience_badge(experience_id, badge_id, opts = {})
       data, _status_code, _headers = update_world_experience_badge_with_http_info(experience_id, badge_id, opts)
@@ -387,6 +402,7 @@ module Crossly
     # @param experience_id [String] 
     # @param badge_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceBadgeRequest] :update_world_experience_badge_request 
     # @return [Array<(CreateWorldExperienceBadgeResponse, Integer, Hash)>] CreateWorldExperienceBadgeResponse data, response status code and response headers
     def update_world_experience_badge_with_http_info(experience_id, badge_id, opts = {})
       if @api_client.config.debugging
@@ -410,12 +426,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_badge_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceBadgeResponse'

@@ -96,7 +96,7 @@ This endpoint does not need any parameter.
 
 ## create_world_experience_drop_table
 
-> <CreateWorldExperienceDropTableResponse> create_world_experience_drop_table(experience_id)
+> <CreateWorldExperienceDropTableResponse> create_world_experience_drop_table(experience_id, opts)
 
 Declare a drop table for a paid random item: cosmetic or in-experience outcomes only. Crossly pre-simulates and hashes it.
 
@@ -113,10 +113,13 @@ end
 
 api_instance = Crossly::WorldsMoneyApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_drop_table_request: Crossly::CreateWorldExperienceDropTableRequest.new({name: 'name_example', entries: [{ key: 3.56}]}) # CreateWorldExperienceDropTableRequest | 
+}
 
 begin
   # Declare a drop table for a paid random item: cosmetic or in-experience outcomes only. Crossly pre-simulates and hashes it.
-  result = api_instance.create_world_experience_drop_table(experience_id)
+  result = api_instance.create_world_experience_drop_table(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsMoneyApi->create_world_experience_drop_table: #{e}"
@@ -127,12 +130,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceDropTableResponse>, Integer, Hash)> create_world_experience_drop_table_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceDropTableResponse>, Integer, Hash)> create_world_experience_drop_table_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Declare a drop table for a paid random item: cosmetic or in-experience outcomes only. Crossly pre-simulates and hashes it.
-  data, status_code, headers = api_instance.create_world_experience_drop_table_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_drop_table_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceDropTableResponse>
@@ -146,6 +149,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_drop_table_request** | **CreateWorldExperienceDropTableRequest** |  | [optional] |
 
 ### Return type
 
@@ -157,13 +161,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_product
 
-> <WorldExperienceProductResponse> create_world_experience_product(experience_id)
+> <WorldExperienceProductResponse> create_world_experience_product(experience_id, opts)
 
 Create a product: price 50-100,000 cents (a private server may be free), optional per-country prices. Paid random items need an approved drop table and are never tradeable.
 
@@ -180,10 +184,13 @@ end
 
 api_instance = Crossly::WorldsMoneyApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_product_request: Crossly::CreateWorldExperienceProductRequest.new({kind: 'product', name: 'name_example', price_cents: 3.56}) # CreateWorldExperienceProductRequest | 
+}
 
 begin
   # Create a product: price 50-100,000 cents (a private server may be free), optional per-country prices. Paid random items need an approved drop table and are never tradeable.
-  result = api_instance.create_world_experience_product(experience_id)
+  result = api_instance.create_world_experience_product(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsMoneyApi->create_world_experience_product: #{e}"
@@ -194,12 +201,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceProductResponse>, Integer, Hash)> create_world_experience_product_with_http_info(experience_id)
+> <Array(<WorldExperienceProductResponse>, Integer, Hash)> create_world_experience_product_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Create a product: price 50-100,000 cents (a private server may be free), optional per-country prices. Paid random items need an approved drop table and are never tradeable.
-  data, status_code, headers = api_instance.create_world_experience_product_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_product_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceProductResponse>
@@ -213,6 +220,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_product_request** | **CreateWorldExperienceProductRequest** |  | [optional] |
 
 ### Return type
 
@@ -224,7 +232,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -299,7 +307,7 @@ end
 
 ## create_world_experience_purchase
 
-> <CreateWorldExperiencePurchaseResponse> create_world_experience_purchase(experience_id)
+> <CreateWorldExperiencePurchaseResponse> create_world_experience_purchase(experience_id, opts)
 
 Open a purchase sheet for a product (paid access, a pass…). Returns checkoutPath: the player pays only in the Crossly checkout.
 
@@ -316,10 +324,13 @@ end
 
 api_instance = Crossly::WorldsMoneyApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_purchase_request: Crossly::CreateWorldExperiencePurchaseRequest.new({product_id: 'product_id_example'}) # CreateWorldExperiencePurchaseRequest | 
+}
 
 begin
   # Open a purchase sheet for a product (paid access, a pass…). Returns checkoutPath: the player pays only in the Crossly checkout.
-  result = api_instance.create_world_experience_purchase(experience_id)
+  result = api_instance.create_world_experience_purchase(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsMoneyApi->create_world_experience_purchase: #{e}"
@@ -330,12 +341,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePurchaseResponse>, Integer, Hash)> create_world_experience_purchase_with_http_info(experience_id)
+> <Array(<CreateWorldExperiencePurchaseResponse>, Integer, Hash)> create_world_experience_purchase_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Open a purchase sheet for a product (paid access, a pass…). Returns checkoutPath: the player pays only in the Crossly checkout.
-  data, status_code, headers = api_instance.create_world_experience_purchase_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_purchase_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePurchaseResponse>
@@ -349,6 +360,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_purchase_request** | **CreateWorldExperiencePurchaseRequest** |  | [optional] |
 
 ### Return type
 
@@ -360,7 +372,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1160,7 +1172,7 @@ This endpoint does not need any parameter.
 
 ## list_world_earning_ledger
 
-> <ListWorldEarningLedgerResponse> list_world_earning_ledger
+> <ListWorldEarningLedgerResponse> list_world_earning_ledger(opts)
 
 Your creator ledger, newest first: every earning and reversal. Cursor-paged.
 
@@ -1176,10 +1188,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldsMoneyApi.new
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Your creator ledger, newest first: every earning and reversal. Cursor-paged.
-  result = api_instance.list_world_earning_ledger
+  result = api_instance.list_world_earning_ledger(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsMoneyApi->list_world_earning_ledger: #{e}"
@@ -1190,12 +1206,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldEarningLedgerResponse>, Integer, Hash)> list_world_earning_ledger_with_http_info
+> <Array(<ListWorldEarningLedgerResponse>, Integer, Hash)> list_world_earning_ledger_with_http_info(opts)
 
 ```ruby
 begin
   # Your creator ledger, newest first: every earning and reversal. Cursor-paged.
-  data, status_code, headers = api_instance.list_world_earning_ledger_with_http_info
+  data, status_code, headers = api_instance.list_world_earning_ledger_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldEarningLedgerResponse>
@@ -1206,7 +1222,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1422,7 +1441,7 @@ end
 
 ## list_world_experience_receipts
 
-> <ListWorldExperienceReceiptsResponse> list_world_experience_receipts(experience_id)
+> <ListWorldExperienceReceiptsResponse> list_world_experience_receipts(experience_id, opts)
 
 Every purchase: orderId, sub, product, price, net, state (paid/delivered/granted/refunded/revoked). Cursor-paged; ?since=.
 
@@ -1439,10 +1458,15 @@ end
 
 api_instance = Crossly::WorldsMoneyApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14, # Float | 
+  since: 'since_example' # String | 
+}
 
 begin
   # Every purchase: orderId, sub, product, price, net, state (paid/delivered/granted/refunded/revoked). Cursor-paged; ?since=.
-  result = api_instance.list_world_experience_receipts(experience_id)
+  result = api_instance.list_world_experience_receipts(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsMoneyApi->list_world_experience_receipts: #{e}"
@@ -1453,12 +1477,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldExperienceReceiptsResponse>, Integer, Hash)> list_world_experience_receipts_with_http_info(experience_id)
+> <Array(<ListWorldExperienceReceiptsResponse>, Integer, Hash)> list_world_experience_receipts_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Every purchase: orderId, sub, product, price, net, state (paid/delivered/granted/refunded/revoked). Cursor-paged; ?since=.
-  data, status_code, headers = api_instance.list_world_experience_receipts_with_http_info(experience_id)
+  data, status_code, headers = api_instance.list_world_experience_receipts_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldExperienceReceiptsResponse>
@@ -1472,6 +1496,9 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **since** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1553,7 +1580,7 @@ This endpoint does not need any parameter.
 
 ## update_world_experience_product
 
-> <WorldExperienceProductResponse> update_world_experience_product(experience_id, product_id)
+> <WorldExperienceProductResponse> update_world_experience_product(experience_id, product_id, opts)
 
 Edit a product: name, description, icon, price, regional prices, hourly limit, on/off sale. Kind and place never change.
 
@@ -1571,10 +1598,13 @@ end
 api_instance = Crossly::WorldsMoneyApi.new
 experience_id = 'experience_id_example' # String | 
 product_id = 'product_id_example' # String | 
+opts = {
+  update_world_experience_product_request: Crossly::UpdateWorldExperienceProductRequest.new # UpdateWorldExperienceProductRequest | 
+}
 
 begin
   # Edit a product: name, description, icon, price, regional prices, hourly limit, on/off sale. Kind and place never change.
-  result = api_instance.update_world_experience_product(experience_id, product_id)
+  result = api_instance.update_world_experience_product(experience_id, product_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsMoneyApi->update_world_experience_product: #{e}"
@@ -1585,12 +1615,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceProductResponse>, Integer, Hash)> update_world_experience_product_with_http_info(experience_id, product_id)
+> <Array(<WorldExperienceProductResponse>, Integer, Hash)> update_world_experience_product_with_http_info(experience_id, product_id, opts)
 
 ```ruby
 begin
   # Edit a product: name, description, icon, price, regional prices, hourly limit, on/off sale. Kind and place never change.
-  data, status_code, headers = api_instance.update_world_experience_product_with_http_info(experience_id, product_id)
+  data, status_code, headers = api_instance.update_world_experience_product_with_http_info(experience_id, product_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceProductResponse>
@@ -1605,6 +1635,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **product_id** | **String** |  |  |
+| **update_world_experience_product_request** | **UpdateWorldExperienceProductRequest** |  | [optional] |
 
 ### Return type
 
@@ -1616,6 +1647,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

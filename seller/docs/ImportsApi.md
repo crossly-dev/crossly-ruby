@@ -12,7 +12,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_import
 
-> <CreateImportResponse> create_import
+> <CreateImportResponse> create_import(create_import_request)
 
 Start a bulk-import job for an existing platform connection.
 
@@ -28,10 +28,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ImportsApi.new
+create_import_request = Crossly::CreateImportRequest.new({platform: 'platform_example'}) # CreateImportRequest | 
 
 begin
   # Start a bulk-import job for an existing platform connection.
-  result = api_instance.create_import
+  result = api_instance.create_import(create_import_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ImportsApi->create_import: #{e}"
@@ -42,12 +43,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateImportResponse>, Integer, Hash)> create_import_with_http_info
+> <Array(<CreateImportResponse>, Integer, Hash)> create_import_with_http_info(create_import_request)
 
 ```ruby
 begin
   # Start a bulk-import job for an existing platform connection.
-  data, status_code, headers = api_instance.create_import_with_http_info
+  data, status_code, headers = api_instance.create_import_with_http_info(create_import_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateImportResponse>
@@ -58,7 +59,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_import_request** | **CreateImportRequest** |  |  |
 
 ### Return type
 
@@ -70,7 +73,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

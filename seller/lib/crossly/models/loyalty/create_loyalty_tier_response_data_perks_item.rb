@@ -63,6 +63,8 @@ module Crossly
 
     attr_accessor :bonus_bps
 
+    attr_accessor :days
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -111,7 +113,8 @@ module Crossly
         :'minutes' => :'minutes',
         :'item_id' => :'itemId',
         :'event_id' => :'eventId',
-        :'bonus_bps' => :'bonusBps'
+        :'bonus_bps' => :'bonusBps',
+        :'days' => :'days'
       }
     end
 
@@ -146,7 +149,8 @@ module Crossly
         :'minutes' => :'Float',
         :'item_id' => :'String',
         :'event_id' => :'String',
-        :'bonus_bps' => :'Float'
+        :'bonus_bps' => :'Float',
+        :'days' => :'Float'
       }
     end
 
@@ -276,6 +280,10 @@ module Crossly
       if attributes.key?(:'bonus_bps')
         self.bonus_bps = attributes[:'bonus_bps']
       end
+
+      if attributes.key?(:'days')
+        self.days = attributes[:'days']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -341,7 +349,8 @@ module Crossly
           minutes == o.minutes &&
           item_id == o.item_id &&
           event_id == o.event_id &&
-          bonus_bps == o.bonus_bps
+          bonus_bps == o.bonus_bps &&
+          days == o.days
     end
 
     # @see the `==` method
@@ -353,7 +362,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [type, percent_bps, id, scope, amount_cents, min_subtotal_cents, hours, listing_ids, tag, catalog_id, group_id, collection_id, quantity, multiplier_bps, cents, cadence, valid_days, window_days, deposit_bps, weeks, minutes, item_id, event_id, bonus_bps].hash
+      [type, percent_bps, id, scope, amount_cents, min_subtotal_cents, hours, listing_ids, tag, catalog_id, group_id, collection_id, quantity, multiplier_bps, cents, cadence, valid_days, window_days, deposit_bps, weeks, minutes, item_id, event_id, bonus_bps, days].hash
     end
 
     # Builds the object from hash

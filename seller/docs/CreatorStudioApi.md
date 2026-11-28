@@ -4,6 +4,9 @@ All URIs are relative to *https://crossly.net/api*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
+| [**create_creator_card_game**](CreatorStudioApi.md#create_creator_card_game) | **POST** /v1/creator/cards/games | Compose a card game from your card sets: a game id, its own set code, a name and the set ids; optionally the deck size (8-40), copies per card (1-4), the win condition (most points, or first to N) and the cover (a card with art, or a colour). Paid seller plans only. |
+| [**create_creator_card_game_check**](CreatorStudioApi.md#create_creator_card_game_check) | **POST** /v1/creator/cards/games/{id}/check | The full check publish runs: issues, tcgStaticConformance and bot-vs-bot games of the composed rules. |
+| [**create_creator_card_game_publish**](CreatorStudioApi.md#create_creator_card_game_publish) | **POST** /v1/creator/cards/games/{id}/publish | Publish: the composition must pass its check; its cards, the composed rules, art and cover are packaged and submitted as a new immutable version for review, through the same intake as every card game. |
 | [**create_creator_card_set**](CreatorStudioApi.md#create_creator_card_set) | **POST** /v1/creator/cards/sets | Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only. |
 | [**create_creator_card_set_art**](CreatorStudioApi.md#create_creator_card_set_art) | **POST** /v1/creator/cards/sets/{id}/art/{slug} | One card&#39;s art: a PNG (base64, at most 1 MB and 2048 px), scanned and stored until the version is approved. |
 | [**create_creator_card_set_check**](CreatorStudioApi.md#create_creator_card_set_check) | **POST** /v1/creator/cards/sets/{id}/check | The full check publish runs: draft issues, tcgStaticConformance and bot-vs-bot games of the set. |
@@ -21,9 +24,11 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_creator_review_reply**](CreatorStudioApi.md#create_creator_review_reply) | **POST** /v1/creator/reviews/{reviewId}/reply | Reply to a buyer review of your creation (or change your reply). |
 | [**create_creator_review_report**](CreatorStudioApi.md#create_creator_review_report) | **POST** /v1/creator/reviews/{reviewId}/report | Report a buyer review to Crossly (abuse, spam, not a real buyer). |
 | [**create_creator_review_unhide**](CreatorStudioApi.md#create_creator_review_unhide) | **POST** /v1/creator/reviews/{reviewId}/unhide | Show a hidden buyer review on your page again. |
+| [**delete_creator_card_game**](CreatorStudioApi.md#delete_creator_card_game) | **DELETE** /v1/creator/cards/games/{id} | Delete a composed card game that was never published. |
 | [**delete_creator_card_set**](CreatorStudioApi.md#delete_creator_card_set) | **DELETE** /v1/creator/cards/sets/{id} | Delete a set draft that was never published. |
 | [**delete_creator_item_model**](CreatorStudioApi.md#delete_creator_item_model) | **DELETE** /v1/creator/items/models/{id} | Delete a draft or rejected model. |
 | [**delete_creator_item_wearable**](CreatorStudioApi.md#delete_creator_item_wearable) | **DELETE** /v1/creator/items/wearables/{id} | Delete a draft wearable. |
+| [**get_creator_card_game**](CreatorStudioApi.md#get_creator_card_game) | **GET** /v1/creator/cards/games/{id} | One composed card game with its check: issues by field and conformance problems. |
 | [**get_creator_card_set**](CreatorStudioApi.md#get_creator_card_set) | **GET** /v1/creator/cards/sets/{id} | One set draft with its check: draft issues by field and tcgStaticConformance problems. |
 | [**get_creator_card_set_progress**](CreatorStudioApi.md#get_creator_card_set_progress) | **GET** /v1/creator/cards/sets/{id}/progress | A set&#39;s three steps: live on COSM, the mint threshold toward NFTs, and the print-run cost (trading_cards estimate) against production funding banked. |
 | [**get_creator_collection**](CreatorStudioApi.md#get_creator_collection) | **GET** /v1/creator/collections/{collectionId} | One collection (a card set, a launch or a claimed contract): its six-stage road to the chain, the launch (phase timeline, proceeds, recent mints), sales by marketplace, royalty estimate, holders, its cards or creations with their earnings, holder perks set at mint, and which actions apply. |
@@ -40,6 +45,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_creator_overview**](CreatorStudioApi.md#get_creator_overview) | **GET** /v1/creator/overview | Creator Studio overview: earnings this month and last by rail, live creations, review queue, publish lock and next steps. |
 | [**get_creator_template**](CreatorStudioApi.md#get_creator_template) | **GET** /v1/creator/templates/{format} | The template files for a format (wearable, model, decor, interactive, card_set): crossly-creation.json, creations.csv where it applies, and a README. |
 | [**get_creator_template_zip**](CreatorStudioApi.md#get_creator_template_zip) | **GET** /v1/creator/templates/{format}/zip | A format&#39;s template as a .zip download (the same files as GET /templates/:format, plus its empty folders). |
+| [**list_creator_card_games**](CreatorStudioApi.md#list_creator_card_games) | **GET** /v1/creator/cards/games | Your card games composed from several card sets: the sets, deck size, copies per card, win condition and cover, each with its check. |
 | [**list_creator_card_sets**](CreatorStudioApi.md#list_creator_card_sets) | **GET** /v1/creator/cards/sets | Your card set drafts, each with its road from COSM to print: live on COSM, the mint threshold (collectors, packs opened, resales) and the print-run cost against what NFT sales have banked. |
 | [**list_creator_creation_reviews**](CreatorStudioApi.md#list_creator_creation_reviews) | **GET** /v1/creator/creations/{format}/{id}/reviews | Buyer reviews of one creation, newest first (hidden ones included). |
 | [**list_creator_creations**](CreatorStudioApi.md#list_creator_creations) | **GET** /v1/creator/creations | Every creation of your shop in one list: wearables, 3D objects, decor, interactive objects, each card of your card sets, Classic games and card games, with status, collection, rating, earnings and mint status. |
@@ -49,16 +55,17 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_creator_item_wearables**](CreatorStudioApi.md#list_creator_item_wearables) | **GET** /v1/creator/items/wearables | Your wearables: drafts, in review, live or with changes requested, each with its automated checks and per-colourway designs. |
 | [**list_creator_items**](CreatorStudioApi.md#list_creator_items) | **GET** /v1/creator/items | Every creation of your shop — wearables, decor, uploaded 3D models, interactive objects, Classic games, card games (incl. unpublished designer sets), physical runs — with status, price and earnings. |
 | [**list_creator_reviews**](CreatorStudioApi.md#list_creator_reviews) | **GET** /v1/creator/reviews | Every creator submission (items, interactive objects, Classic games, card games) and its review decision with the reviewer note. |
+| [**update_creator_card_game**](CreatorStudioApi.md#update_creator_card_game) | **PUT** /v1/creator/cards/games/{id} | Save the whole composition: name, description, setTitle, the set ids, deck size, copies per card, win condition and cover. Every word goes through the text filter. Answers the check. |
 | [**update_creator_card_set**](CreatorStudioApi.md#update_creator_card_set) | **PUT** /v1/creator/cards/sets/{id} | Save the whole draft: cards (name, type, rarity, rules text, flavour, power/draw/guard), COSM prices and supply, frame colours, print plan. Every word goes through the text filter. Art is merged: a card without &#x60;art&#x60; (or with art as read) keeps its stored art, &#x60;art: null&#x60; clears it; only the art upload sets art. Answers the check. |
 | [**update_creator_collection_perk**](CreatorStudioApi.md#update_creator_collection_perk) | **PUT** /v1/creator/collections/{collectionId}/perks | Replace a collection&#39;s holder perks: &#x60;{ perks: [...] }&#x60;, at most one of each type: percent_off { percent 1-50 }, early_access { hours 1-720 }, world_item { creationRef, name }, loyalty_tier { tierId, tierName } (one of your loyalty tiers), each with an optional note. 409 when the collection has no launch yet. |
 | [**update_creator_item_wearable**](CreatorStudioApi.md#update_creator_item_wearable) | **PATCH** /v1/creator/items/wearables/{id} | Edit a draft wearable (name, description, colourways, price, edition). Submitted wearables are frozen. |
 
 
-## create_creator_card_set
+## create_creator_card_game
 
-> <CreatorCardSetResponse> create_creator_card_set
+> <CreatorCardGameResponse> create_creator_card_game
 
-Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
+Compose a card game from your card sets: a game id, its own set code, a name and the set ids; optionally the deck size (8-40), copies per card (1-4), the win condition (most points, or first to N) and the cover (a card with art, or a colour). Paid seller plans only.
 
 ### Examples
 
@@ -74,29 +81,29 @@ end
 api_instance = Crossly::CreatorStudioApi.new
 
 begin
-  # Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
-  result = api_instance.create_creator_card_set
+  # Compose a card game from your card sets: a game id, its own set code, a name and the set ids; optionally the deck size (8-40), copies per card (1-4), the win condition (most points, or first to N) and the cover (a card with art, or a colour). Paid seller plans only.
+  result = api_instance.create_creator_card_game
   p result
 rescue Crossly::ApiError => e
-  puts "Error when calling CreatorStudioApi->create_creator_card_set: #{e}"
+  puts "Error when calling CreatorStudioApi->create_creator_card_game: #{e}"
 end
 ```
 
-#### Using the create_creator_card_set_with_http_info variant
+#### Using the create_creator_card_game_with_http_info variant
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorCardSetResponse>, Integer, Hash)> create_creator_card_set_with_http_info
+> <Array(<CreatorCardGameResponse>, Integer, Hash)> create_creator_card_game_with_http_info
 
 ```ruby
 begin
-  # Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
-  data, status_code, headers = api_instance.create_creator_card_set_with_http_info
+  # Compose a card game from your card sets: a game id, its own set code, a name and the set ids; optionally the deck size (8-40), copies per card (1-4), the win condition (most points, or first to N) and the cover (a card with art, or a colour). Paid seller plans only.
+  data, status_code, headers = api_instance.create_creator_card_game_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreatorCardSetResponse>
+  p data # => <CreatorCardGameResponse>
 rescue Crossly::ApiError => e
-  puts "Error when calling CreatorStudioApi->create_creator_card_set_with_http_info: #{e}"
+  puts "Error when calling CreatorStudioApi->create_creator_card_game_with_http_info: #{e}"
 end
 ```
 
@@ -106,7 +113,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**CreatorCardSetResponse**
+**CreatorCardGameResponse**
 
 ### Authorization
 
@@ -118,9 +125,212 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## create_creator_card_game_check
+
+> <CreatorCardGameResponse> create_creator_card_game_check(id)
+
+The full check publish runs: issues, tcgStaticConformance and bot-vs-bot games of the composed rules.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+id = 'id_example' # String | 
+
+begin
+  # The full check publish runs: issues, tcgStaticConformance and bot-vs-bot games of the composed rules.
+  result = api_instance.create_creator_card_game_check(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->create_creator_card_game_check: #{e}"
+end
+```
+
+#### Using the create_creator_card_game_check_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreatorCardGameResponse>, Integer, Hash)> create_creator_card_game_check_with_http_info(id)
+
+```ruby
+begin
+  # The full check publish runs: issues, tcgStaticConformance and bot-vs-bot games of the composed rules.
+  data, status_code, headers = api_instance.create_creator_card_game_check_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreatorCardGameResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->create_creator_card_game_check_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreatorCardGameResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_creator_card_game_publish
+
+> <CreateCreatorCardGamePublishResponse> create_creator_card_game_publish(id)
+
+Publish: the composition must pass its check; its cards, the composed rules, art and cover are packaged and submitted as a new immutable version for review, through the same intake as every card game.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+id = 'id_example' # String | 
+
+begin
+  # Publish: the composition must pass its check; its cards, the composed rules, art and cover are packaged and submitted as a new immutable version for review, through the same intake as every card game.
+  result = api_instance.create_creator_card_game_publish(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->create_creator_card_game_publish: #{e}"
+end
+```
+
+#### Using the create_creator_card_game_publish_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateCreatorCardGamePublishResponse>, Integer, Hash)> create_creator_card_game_publish_with_http_info(id)
+
+```ruby
+begin
+  # Publish: the composition must pass its check; its cards, the composed rules, art and cover are packaged and submitted as a new immutable version for review, through the same intake as every card game.
+  data, status_code, headers = api_instance.create_creator_card_game_publish_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateCreatorCardGamePublishResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->create_creator_card_game_publish_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreateCreatorCardGamePublishResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_creator_card_set
+
+> <CreatorCardSetResponse> create_creator_card_set(opts)
+
+Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  create_creator_card_set_request: Crossly::CreateCreatorCardSetRequest.new({game_id: 'game_id_example', set_code: 'set_code_example', name: 'name_example'}) # CreateCreatorCardSetRequest | 
+}
+
+begin
+  # Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
+  result = api_instance.create_creator_card_set(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->create_creator_card_set: #{e}"
+end
+```
+
+#### Using the create_creator_card_set_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreatorCardSetResponse>, Integer, Hash)> create_creator_card_set_with_http_info(opts)
+
+```ruby
+begin
+  # Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
+  data, status_code, headers = api_instance.create_creator_card_set_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreatorCardSetResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->create_creator_card_set_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_card_set_request** | **CreateCreatorCardSetRequest** |  | [optional] |
+
+### Return type
+
+**CreatorCardSetResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## create_creator_card_set_art
 
-> <CreatorCardSetResponse> create_creator_card_set_art(id, slug)
+> <CreatorCardSetResponse> create_creator_card_set_art(id, slug, opts)
 
 One card's art: a PNG (base64, at most 1 MB and 2048 px), scanned and stored until the version is approved.
 
@@ -138,10 +348,13 @@ end
 api_instance = Crossly::CreatorStudioApi.new
 id = 'id_example' # String | 
 slug = 'slug_example' # String | 
+opts = {
+  create_creator_card_set_art_request: Crossly::CreateCreatorCardSetArtRequest.new({png_base64: 'png_base64_example'}) # CreateCreatorCardSetArtRequest | 
+}
 
 begin
   # One card's art: a PNG (base64, at most 1 MB and 2048 px), scanned and stored until the version is approved.
-  result = api_instance.create_creator_card_set_art(id, slug)
+  result = api_instance.create_creator_card_set_art(id, slug, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_card_set_art: #{e}"
@@ -152,12 +365,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorCardSetResponse>, Integer, Hash)> create_creator_card_set_art_with_http_info(id, slug)
+> <Array(<CreatorCardSetResponse>, Integer, Hash)> create_creator_card_set_art_with_http_info(id, slug, opts)
 
 ```ruby
 begin
   # One card's art: a PNG (base64, at most 1 MB and 2048 px), scanned and stored until the version is approved.
-  data, status_code, headers = api_instance.create_creator_card_set_art_with_http_info(id, slug)
+  data, status_code, headers = api_instance.create_creator_card_set_art_with_http_info(id, slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorCardSetResponse>
@@ -172,6 +385,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **slug** | **String** |  |  |
+| **create_creator_card_set_art_request** | **CreateCreatorCardSetArtRequest** |  | [optional] |
 
 ### Return type
 
@@ -183,7 +397,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -323,7 +537,7 @@ end
 
 ## create_creator_creation_submit
 
-> <CreateCreatorCreationSubmitResponse> create_creator_creation_submit(format, id)
+> <CreateCreatorCreationSubmitResponse> create_creator_creation_submit(format, id, opts)
 
 Send one creation to review through its format's own submit (wearable, model, decor, interactive, card: its whole set). Games are published from world-kit.
 
@@ -341,10 +555,13 @@ end
 api_instance = Crossly::CreatorStudioApi.new
 format = 'format_example' # String | 
 id = 'id_example' # String | 
+opts = {
+  create_creator_creation_submit_request: Crossly::CreateCreatorCreationSubmitRequest.new # CreateCreatorCreationSubmitRequest | 
+}
 
 begin
   # Send one creation to review through its format's own submit (wearable, model, decor, interactive, card: its whole set). Games are published from world-kit.
-  result = api_instance.create_creator_creation_submit(format, id)
+  result = api_instance.create_creator_creation_submit(format, id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_creation_submit: #{e}"
@@ -355,12 +572,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCreatorCreationSubmitResponse>, Integer, Hash)> create_creator_creation_submit_with_http_info(format, id)
+> <Array(<CreateCreatorCreationSubmitResponse>, Integer, Hash)> create_creator_creation_submit_with_http_info(format, id, opts)
 
 ```ruby
 begin
   # Send one creation to review through its format's own submit (wearable, model, decor, interactive, card: its whole set). Games are published from world-kit.
-  data, status_code, headers = api_instance.create_creator_creation_submit_with_http_info(format, id)
+  data, status_code, headers = api_instance.create_creator_creation_submit_with_http_info(format, id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCreatorCreationSubmitResponse>
@@ -375,6 +592,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **format** | **String** |  |  |
 | **id** | **String** |  |  |
+| **create_creator_creation_submit_request** | **CreateCreatorCreationSubmitRequest** |  | [optional] |
 
 ### Return type
 
@@ -386,13 +604,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_import
 
-> <GetCreatorImportResponse> create_creator_import
+> <GetCreatorImportResponse> create_creator_import(opts)
 
 Validate a filled-in template (manifest text, CSV text, every path in the upload): issues with file, line and column, and a preview. Creates nothing.
 
@@ -408,10 +626,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  create_creator_import_request: Crossly::CreateCreatorImportRequest.new({manifest: 'manifest_example'}) # CreateCreatorImportRequest | 
+}
 
 begin
   # Validate a filled-in template (manifest text, CSV text, every path in the upload): issues with file, line and column, and a preview. Creates nothing.
-  result = api_instance.create_creator_import
+  result = api_instance.create_creator_import(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_import: #{e}"
@@ -422,12 +643,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetCreatorImportResponse>, Integer, Hash)> create_creator_import_with_http_info
+> <Array(<GetCreatorImportResponse>, Integer, Hash)> create_creator_import_with_http_info(opts)
 
 ```ruby
 begin
   # Validate a filled-in template (manifest text, CSV text, every path in the upload): issues with file, line and column, and a preview. Creates nothing.
-  data, status_code, headers = api_instance.create_creator_import_with_http_info
+  data, status_code, headers = api_instance.create_creator_import_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetCreatorImportResponse>
@@ -438,7 +659,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_import_request** | **CreateCreatorImportRequest** |  | [optional] |
 
 ### Return type
 
@@ -450,7 +673,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -523,7 +746,7 @@ end
 
 ## create_creator_item_model
 
-> <CreatorItemModelResponse> create_creator_item_model
+> <CreatorItemModelResponse> create_creator_item_model(opts)
 
 Upload a .glb (base64, 4 MB): validated, measured and stored (quarantined until approved). An over-budget model is refused with every failing number.
 
@@ -539,10 +762,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  create_creator_item_model_request: Crossly::CreateCreatorItemModelRequest.new({glb_base64: 'glb_base64_example', name: 'name_example'}) # CreateCreatorItemModelRequest | 
+}
 
 begin
   # Upload a .glb (base64, 4 MB): validated, measured and stored (quarantined until approved). An over-budget model is refused with every failing number.
-  result = api_instance.create_creator_item_model
+  result = api_instance.create_creator_item_model(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_item_model: #{e}"
@@ -553,12 +779,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorItemModelResponse>, Integer, Hash)> create_creator_item_model_with_http_info
+> <Array(<CreatorItemModelResponse>, Integer, Hash)> create_creator_item_model_with_http_info(opts)
 
 ```ruby
 begin
   # Upload a .glb (base64, 4 MB): validated, measured and stored (quarantined until approved). An over-budget model is refused with every failing number.
-  data, status_code, headers = api_instance.create_creator_item_model_with_http_info
+  data, status_code, headers = api_instance.create_creator_item_model_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorItemModelResponse>
@@ -569,7 +795,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_item_model_request** | **CreateCreatorItemModelRequest** |  | [optional] |
 
 ### Return type
 
@@ -581,13 +809,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_item_model_check
 
-> <CreateCreatorItemModelCheckResponse> create_creator_item_model_check
+> <CreateCreatorItemModelCheckResponse> create_creator_item_model_check(opts)
 
 The budget report for a .glb (base64), storing nothing: every limit (triangles, draw calls, texture edge per phone/desktop; size, nodes, meshes, images, animations; bones for wearables) with pass/fail, problems and LOD suggestions.
 
@@ -603,10 +831,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  create_creator_item_model_check_request: Crossly::CreateCreatorItemModelCheckRequest.new({glb_base64: 'glb_base64_example'}) # CreateCreatorItemModelCheckRequest | 
+}
 
 begin
   # The budget report for a .glb (base64), storing nothing: every limit (triangles, draw calls, texture edge per phone/desktop; size, nodes, meshes, images, animations; bones for wearables) with pass/fail, problems and LOD suggestions.
-  result = api_instance.create_creator_item_model_check
+  result = api_instance.create_creator_item_model_check(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_item_model_check: #{e}"
@@ -617,12 +848,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCreatorItemModelCheckResponse>, Integer, Hash)> create_creator_item_model_check_with_http_info
+> <Array(<CreateCreatorItemModelCheckResponse>, Integer, Hash)> create_creator_item_model_check_with_http_info(opts)
 
 ```ruby
 begin
   # The budget report for a .glb (base64), storing nothing: every limit (triangles, draw calls, texture edge per phone/desktop; size, nodes, meshes, images, animations; bones for wearables) with pass/fail, problems and LOD suggestions.
-  data, status_code, headers = api_instance.create_creator_item_model_check_with_http_info
+  data, status_code, headers = api_instance.create_creator_item_model_check_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCreatorItemModelCheckResponse>
@@ -633,7 +864,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_item_model_check_request** | **CreateCreatorItemModelCheckRequest** |  | [optional] |
 
 ### Return type
 
@@ -645,7 +878,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -718,7 +951,7 @@ end
 
 ## create_creator_item_preview
 
-> <CreateCreatorItemPreviewResponse> create_creator_item_preview
+> <CreateCreatorItemPreviewResponse> create_creator_item_preview(opts)
 
 Upload a preview PNG (base64, at most 1 MB and 2048 px): parsed, scanned and stored on the Crossly CDN; answers its https URL.
 
@@ -734,10 +967,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  create_creator_card_set_art_request: Crossly::CreateCreatorCardSetArtRequest.new({png_base64: 'png_base64_example'}) # CreateCreatorCardSetArtRequest | 
+}
 
 begin
   # Upload a preview PNG (base64, at most 1 MB and 2048 px): parsed, scanned and stored on the Crossly CDN; answers its https URL.
-  result = api_instance.create_creator_item_preview
+  result = api_instance.create_creator_item_preview(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_item_preview: #{e}"
@@ -748,12 +984,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCreatorItemPreviewResponse>, Integer, Hash)> create_creator_item_preview_with_http_info
+> <Array(<CreateCreatorItemPreviewResponse>, Integer, Hash)> create_creator_item_preview_with_http_info(opts)
 
 ```ruby
 begin
   # Upload a preview PNG (base64, at most 1 MB and 2048 px): parsed, scanned and stored on the Crossly CDN; answers its https URL.
-  data, status_code, headers = api_instance.create_creator_item_preview_with_http_info
+  data, status_code, headers = api_instance.create_creator_item_preview_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCreatorItemPreviewResponse>
@@ -764,7 +1000,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_card_set_art_request** | **CreateCreatorCardSetArtRequest** |  | [optional] |
 
 ### Return type
 
@@ -776,13 +1014,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_item_wearable
 
-> <CreatorItemWearableResponse> create_creator_item_wearable
+> <CreatorItemWearableResponse> create_creator_item_wearable(opts)
 
 Start a wearable from a template: slug, name, colourways (panel -> #rrggbb), a COSM price and optional edition size. Text is filtered; answers the automated checks. Paid seller plans only.
 
@@ -798,10 +1036,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  create_creator_item_wearable_request: Crossly::CreateCreatorItemWearableRequest.new({template_key: 'template_key_example', slug: 'slug_example', name: 'name_example', colourways: [Crossly::ListCreatorItemWearablesItemColourways.new({name: 'name_example', colors: { key: 3.56}})], price_cosm: 3.56}) # CreateCreatorItemWearableRequest | 
+}
 
 begin
   # Start a wearable from a template: slug, name, colourways (panel -> #rrggbb), a COSM price and optional edition size. Text is filtered; answers the automated checks. Paid seller plans only.
-  result = api_instance.create_creator_item_wearable
+  result = api_instance.create_creator_item_wearable(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_item_wearable: #{e}"
@@ -812,12 +1053,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorItemWearableResponse>, Integer, Hash)> create_creator_item_wearable_with_http_info
+> <Array(<CreatorItemWearableResponse>, Integer, Hash)> create_creator_item_wearable_with_http_info(opts)
 
 ```ruby
 begin
   # Start a wearable from a template: slug, name, colourways (panel -> #rrggbb), a COSM price and optional edition size. Text is filtered; answers the automated checks. Paid seller plans only.
-  data, status_code, headers = api_instance.create_creator_item_wearable_with_http_info
+  data, status_code, headers = api_instance.create_creator_item_wearable_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorItemWearableResponse>
@@ -828,7 +1069,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_item_wearable_request** | **CreateCreatorItemWearableRequest** |  | [optional] |
 
 ### Return type
 
@@ -840,13 +1083,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_item_wearable_submit
 
-> <CreatorItemWearableResponse> create_creator_item_wearable_submit(id)
+> <CreatorItemWearableResponse> create_creator_item_wearable_submit(id, opts)
 
 Submit a wearable whose checks pass: each colourway becomes a COSM design (inactive) filed for review. Needs an https preview image (POST /v1/creator/items/previews).
 
@@ -863,10 +1106,13 @@ end
 
 api_instance = Crossly::CreatorStudioApi.new
 id = 'id_example' # String | 
+opts = {
+  create_creator_item_wearable_submit_request: Crossly::CreateCreatorItemWearableSubmitRequest.new({preview_image_url: 'preview_image_url_example'}) # CreateCreatorItemWearableSubmitRequest | 
+}
 
 begin
   # Submit a wearable whose checks pass: each colourway becomes a COSM design (inactive) filed for review. Needs an https preview image (POST /v1/creator/items/previews).
-  result = api_instance.create_creator_item_wearable_submit(id)
+  result = api_instance.create_creator_item_wearable_submit(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_item_wearable_submit: #{e}"
@@ -877,12 +1123,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorItemWearableResponse>, Integer, Hash)> create_creator_item_wearable_submit_with_http_info(id)
+> <Array(<CreatorItemWearableResponse>, Integer, Hash)> create_creator_item_wearable_submit_with_http_info(id, opts)
 
 ```ruby
 begin
   # Submit a wearable whose checks pass: each colourway becomes a COSM design (inactive) filed for review. Needs an https preview image (POST /v1/creator/items/previews).
-  data, status_code, headers = api_instance.create_creator_item_wearable_submit_with_http_info(id)
+  data, status_code, headers = api_instance.create_creator_item_wearable_submit_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorItemWearableResponse>
@@ -896,6 +1142,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_creator_item_wearable_submit_request** | **CreateCreatorItemWearableSubmitRequest** |  | [optional] |
 
 ### Return type
 
@@ -907,13 +1154,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_review_hide
 
-> <CreatorReviewResponse> create_creator_review_hide(review_id)
+> <CreatorReviewResponse> create_creator_review_hide(review_id, opts)
 
 Hide a buyer review from your public page (it is kept, and its rating still counts).
 
@@ -930,10 +1177,13 @@ end
 
 api_instance = Crossly::CreatorStudioApi.new
 review_id = 'review_id_example' # String | 
+opts = {
+  reason_request2: Crossly::ReasonRequest2.new # ReasonRequest2 | 
+}
 
 begin
   # Hide a buyer review from your public page (it is kept, and its rating still counts).
-  result = api_instance.create_creator_review_hide(review_id)
+  result = api_instance.create_creator_review_hide(review_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_review_hide: #{e}"
@@ -944,12 +1194,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorReviewResponse>, Integer, Hash)> create_creator_review_hide_with_http_info(review_id)
+> <Array(<CreatorReviewResponse>, Integer, Hash)> create_creator_review_hide_with_http_info(review_id, opts)
 
 ```ruby
 begin
   # Hide a buyer review from your public page (it is kept, and its rating still counts).
-  data, status_code, headers = api_instance.create_creator_review_hide_with_http_info(review_id)
+  data, status_code, headers = api_instance.create_creator_review_hide_with_http_info(review_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorReviewResponse>
@@ -963,6 +1213,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **review_id** | **String** |  |  |
+| **reason_request2** | **ReasonRequest2** |  | [optional] |
 
 ### Return type
 
@@ -974,13 +1225,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_review_reply
 
-> <CreatorReviewResponse> create_creator_review_reply(review_id)
+> <CreatorReviewResponse> create_creator_review_reply(review_id, opts)
 
 Reply to a buyer review of your creation (or change your reply).
 
@@ -997,10 +1248,13 @@ end
 
 api_instance = Crossly::CreatorStudioApi.new
 review_id = 'review_id_example' # String | 
+opts = {
+  create_creator_review_reply_request: Crossly::CreateCreatorReviewReplyRequest.new({reply: 'reply_example'}) # CreateCreatorReviewReplyRequest | 
+}
 
 begin
   # Reply to a buyer review of your creation (or change your reply).
-  result = api_instance.create_creator_review_reply(review_id)
+  result = api_instance.create_creator_review_reply(review_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_review_reply: #{e}"
@@ -1011,12 +1265,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorReviewResponse>, Integer, Hash)> create_creator_review_reply_with_http_info(review_id)
+> <Array(<CreatorReviewResponse>, Integer, Hash)> create_creator_review_reply_with_http_info(review_id, opts)
 
 ```ruby
 begin
   # Reply to a buyer review of your creation (or change your reply).
-  data, status_code, headers = api_instance.create_creator_review_reply_with_http_info(review_id)
+  data, status_code, headers = api_instance.create_creator_review_reply_with_http_info(review_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorReviewResponse>
@@ -1030,6 +1284,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **review_id** | **String** |  |  |
+| **create_creator_review_reply_request** | **CreateCreatorReviewReplyRequest** |  | [optional] |
 
 ### Return type
 
@@ -1041,13 +1296,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_review_report
 
-> <CreatorReviewResponse> create_creator_review_report(review_id)
+> <CreatorReviewResponse> create_creator_review_report(review_id, opts)
 
 Report a buyer review to Crossly (abuse, spam, not a real buyer).
 
@@ -1064,10 +1319,13 @@ end
 
 api_instance = Crossly::CreatorStudioApi.new
 review_id = 'review_id_example' # String | 
+opts = {
+  reason_request: Crossly::ReasonRequest.new({reason: 'reason_example'}) # ReasonRequest | 
+}
 
 begin
   # Report a buyer review to Crossly (abuse, spam, not a real buyer).
-  result = api_instance.create_creator_review_report(review_id)
+  result = api_instance.create_creator_review_report(review_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->create_creator_review_report: #{e}"
@@ -1078,12 +1336,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorReviewResponse>, Integer, Hash)> create_creator_review_report_with_http_info(review_id)
+> <Array(<CreatorReviewResponse>, Integer, Hash)> create_creator_review_report_with_http_info(review_id, opts)
 
 ```ruby
 begin
   # Report a buyer review to Crossly (abuse, spam, not a real buyer).
-  data, status_code, headers = api_instance.create_creator_review_report_with_http_info(review_id)
+  data, status_code, headers = api_instance.create_creator_review_report_with_http_info(review_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorReviewResponse>
@@ -1097,6 +1355,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **review_id** | **String** |  |  |
+| **reason_request** | **ReasonRequest** |  | [optional] |
 
 ### Return type
 
@@ -1108,7 +1367,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1168,6 +1427,72 @@ end
 ### Return type
 
 **CreatorReviewResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## delete_creator_card_game
+
+> delete_creator_card_game(id)
+
+Delete a composed card game that was never published.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+id = 'id_example' # String | 
+
+begin
+  # Delete a composed card game that was never published.
+  api_instance.delete_creator_card_game(id)
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->delete_creator_card_game: #{e}"
+end
+```
+
+#### Using the delete_creator_card_game_with_http_info variant
+
+This returns an Array which contains the response data (`nil` in this case), status code and headers.
+
+> <Array(nil, Integer, Hash)> delete_creator_card_game_with_http_info(id)
+
+```ruby
+begin
+  # Delete a composed card game that was never published.
+  data, status_code, headers = api_instance.delete_creator_card_game_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => nil
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->delete_creator_card_game_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+nil (empty response body)
 
 ### Authorization
 
@@ -1366,6 +1691,73 @@ end
 ### Return type
 
 nil (empty response body)
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_creator_card_game
+
+> <CreatorCardGameResponse> get_creator_card_game(id)
+
+One composed card game with its check: issues by field and conformance problems.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+id = 'id_example' # String | 
+
+begin
+  # One composed card game with its check: issues by field and conformance problems.
+  result = api_instance.get_creator_card_game(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->get_creator_card_game: #{e}"
+end
+```
+
+#### Using the get_creator_card_game_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreatorCardGameResponse>, Integer, Hash)> get_creator_card_game_with_http_info(id)
+
+```ruby
+begin
+  # One composed card game with its check: issues by field and conformance problems.
+  data, status_code, headers = api_instance.get_creator_card_game_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreatorCardGameResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->get_creator_card_game_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreatorCardGameResponse**
 
 ### Authorization
 
@@ -2457,6 +2849,70 @@ end
 - **Accept**: application/zip, application/json
 
 
+## list_creator_card_games
+
+> <ListCreatorCardGamesResponse> list_creator_card_games
+
+Your card games composed from several card sets: the sets, deck size, copies per card, win condition and cover, each with its check.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+
+begin
+  # Your card games composed from several card sets: the sets, deck size, copies per card, win condition and cover, each with its check.
+  result = api_instance.list_creator_card_games
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->list_creator_card_games: #{e}"
+end
+```
+
+#### Using the list_creator_card_games_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListCreatorCardGamesResponse>, Integer, Hash)> list_creator_card_games_with_http_info
+
+```ruby
+begin
+  # Your card games composed from several card sets: the sets, deck size, copies per card, win condition and cover, each with its check.
+  data, status_code, headers = api_instance.list_creator_card_games_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListCreatorCardGamesResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->list_creator_card_games_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListCreatorCardGamesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## list_creator_card_sets
 
 > <ListCreatorCardSetsResponse> list_creator_card_sets
@@ -2523,7 +2979,7 @@ This endpoint does not need any parameter.
 
 ## list_creator_creation_reviews
 
-> <ListCreatorCreationReviewsResponse> list_creator_creation_reviews(format, id)
+> <ListCreatorCreationReviewsResponse> list_creator_creation_reviews(format, id, opts)
 
 Buyer reviews of one creation, newest first (hidden ones included).
 
@@ -2541,10 +2997,14 @@ end
 api_instance = Crossly::CreatorStudioApi.new
 format = 'format_example' # String | 
 id = 'id_example' # String | 
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Buyer reviews of one creation, newest first (hidden ones included).
-  result = api_instance.list_creator_creation_reviews(format, id)
+  result = api_instance.list_creator_creation_reviews(format, id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->list_creator_creation_reviews: #{e}"
@@ -2555,12 +3015,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCreatorCreationReviewsResponse>, Integer, Hash)> list_creator_creation_reviews_with_http_info(format, id)
+> <Array(<ListCreatorCreationReviewsResponse>, Integer, Hash)> list_creator_creation_reviews_with_http_info(format, id, opts)
 
 ```ruby
 begin
   # Buyer reviews of one creation, newest first (hidden ones included).
-  data, status_code, headers = api_instance.list_creator_creation_reviews_with_http_info(format, id)
+  data, status_code, headers = api_instance.list_creator_creation_reviews_with_http_info(format, id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCreatorCreationReviewsResponse>
@@ -2575,6 +3035,8 @@ end
 | ---- | ---- | ----------- | ----- |
 | **format** | **String** |  |  |
 | **id** | **String** |  |  |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -2592,7 +3054,7 @@ end
 
 ## list_creator_creations
 
-> <ListCreatorCreationsResponse> list_creator_creations
+> <ListCreatorCreationsResponse> list_creator_creations(opts)
 
 Every creation of your shop in one list: wearables, 3D objects, decor, interactive objects, each card of your card sets, Classic games and card games, with status, collection, rating, earnings and mint status.
 
@@ -2608,10 +3070,17 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorStudioApi.new
+opts = {
+  kind: 'item', # String | 
+  format: 'wearable', # String | 
+  status: 'draft', # String | 
+  collection: 'collection_example', # String | 
+  q: 'q_example' # String | 
+}
 
 begin
   # Every creation of your shop in one list: wearables, 3D objects, decor, interactive objects, each card of your card sets, Classic games and card games, with status, collection, rating, earnings and mint status.
-  result = api_instance.list_creator_creations
+  result = api_instance.list_creator_creations(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->list_creator_creations: #{e}"
@@ -2622,12 +3091,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCreatorCreationsResponse>, Integer, Hash)> list_creator_creations_with_http_info
+> <Array(<ListCreatorCreationsResponse>, Integer, Hash)> list_creator_creations_with_http_info(opts)
 
 ```ruby
 begin
   # Every creation of your shop in one list: wearables, 3D objects, decor, interactive objects, each card of your card sets, Classic games and card games, with status, collection, rating, earnings and mint status.
-  data, status_code, headers = api_instance.list_creator_creations_with_http_info
+  data, status_code, headers = api_instance.list_creator_creations_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCreatorCreationsResponse>
@@ -2638,7 +3107,13 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **kind** | **String** |  | [optional] |
+| **format** | **String** |  | [optional] |
+| **status** | **String** |  | [optional] |
+| **collection** | **String** |  | [optional] |
+| **q** | **String** |  | [optional] |
 
 ### Return type
 
@@ -3092,6 +3567,73 @@ end
 - **Accept**: application/json
 
 
+## update_creator_card_game
+
+> <CreatorCardGameResponse> update_creator_card_game(id)
+
+Save the whole composition: name, description, setTitle, the set ids, deck size, copies per card, win condition and cover. Every word goes through the text filter. Answers the check.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::CreatorStudioApi.new
+id = 'id_example' # String | 
+
+begin
+  # Save the whole composition: name, description, setTitle, the set ids, deck size, copies per card, win condition and cover. Every word goes through the text filter. Answers the check.
+  result = api_instance.update_creator_card_game(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->update_creator_card_game: #{e}"
+end
+```
+
+#### Using the update_creator_card_game_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreatorCardGameResponse>, Integer, Hash)> update_creator_card_game_with_http_info(id)
+
+```ruby
+begin
+  # Save the whole composition: name, description, setTitle, the set ids, deck size, copies per card, win condition and cover. Every word goes through the text filter. Answers the check.
+  data, status_code, headers = api_instance.update_creator_card_game_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreatorCardGameResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling CreatorStudioApi->update_creator_card_game_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**CreatorCardGameResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## update_creator_card_set
 
 > <CreatorCardSetResponse> update_creator_card_set(id)
@@ -3228,7 +3770,7 @@ end
 
 ## update_creator_item_wearable
 
-> <CreatorItemWearableResponse> update_creator_item_wearable(id)
+> <CreatorItemWearableResponse> update_creator_item_wearable(id, opts)
 
 Edit a draft wearable (name, description, colourways, price, edition). Submitted wearables are frozen.
 
@@ -3245,10 +3787,13 @@ end
 
 api_instance = Crossly::CreatorStudioApi.new
 id = 'id_example' # String | 
+opts = {
+  update_creator_item_wearable_request: Crossly::UpdateCreatorItemWearableRequest.new # UpdateCreatorItemWearableRequest | 
+}
 
 begin
   # Edit a draft wearable (name, description, colourways, price, edition). Submitted wearables are frozen.
-  result = api_instance.update_creator_item_wearable(id)
+  result = api_instance.update_creator_item_wearable(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorStudioApi->update_creator_item_wearable: #{e}"
@@ -3259,12 +3804,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatorItemWearableResponse>, Integer, Hash)> update_creator_item_wearable_with_http_info(id)
+> <Array(<CreatorItemWearableResponse>, Integer, Hash)> update_creator_item_wearable_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a draft wearable (name, description, colourways, price, edition). Submitted wearables are frozen.
-  data, status_code, headers = api_instance.update_creator_item_wearable_with_http_info(id)
+  data, status_code, headers = api_instance.update_creator_item_wearable_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatorItemWearableResponse>
@@ -3278,6 +3823,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_creator_item_wearable_request** | **UpdateCreatorItemWearableRequest** |  | [optional] |
 
 ### Return type
 
@@ -3289,6 +3835,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

@@ -245,7 +245,7 @@ module Crossly
       return false if @order.nil?
       return false if @filter.nil?
       return false if @_then.nil?
-      source_validator = EnumAttributeValidator.new('String', ["default", "seller", "legacy"])
+      source_validator = EnumAttributeValidator.new('String', ["default", "legacy", "seller"])
       return false unless source_validator.valid?(@source)
       true
     end
@@ -253,7 +253,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source Object to be assigned
     def source=(source)
-      validator = EnumAttributeValidator.new('String', ["default", "seller", "legacy"])
+      validator = EnumAttributeValidator.new('String', ["default", "legacy", "seller"])
       unless validator.valid?(source)
         fail ArgumentError, "invalid value for \"source\", must be one of #{validator.allowable_values}."
       end

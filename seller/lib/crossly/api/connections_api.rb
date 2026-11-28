@@ -19,6 +19,67 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Unpair a machine. Its access ends at once and any waiting print job is cancelled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteDeviceResponse]
+    def delete_device(id, opts = {})
+      data, _status_code, _headers = delete_device_with_http_info(id, opts)
+      data
+    end
+
+    # Unpair a machine. Its access ends at once and any waiting print job is cancelled.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteDeviceResponse, Integer, Hash)>] DeleteDeviceResponse data, response status code and response headers
+    def delete_device_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ConnectionsApi.delete_device ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ConnectionsApi.delete_device"
+      end
+      # resource path
+      local_var_path = '/v1/devices/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteDeviceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ConnectionsApi.delete_device",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ConnectionsApi#delete_device\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Health of each connected marketplace account, with a plain-English diagnosis.
     # One entry per ACCOUNT, not per platform — a healthy slot 1 must not speak for a dead slot 2. States that were never measured are reported as \"unknown\" rather than as failures.
     # @param [Hash] opts the optional parameters
@@ -132,6 +193,78 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ConnectionsApi#list_devices\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename a paired machine.
+    # @param id [String] 
+    # @param update_device_request [UpdateDeviceRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateDeviceResponse]
+    def update_device(id, update_device_request, opts = {})
+      data, _status_code, _headers = update_device_with_http_info(id, update_device_request, opts)
+      data
+    end
+
+    # Rename a paired machine.
+    # @param id [String] 
+    # @param update_device_request [UpdateDeviceRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateDeviceResponse, Integer, Hash)>] UpdateDeviceResponse data, response status code and response headers
+    def update_device_with_http_info(id, update_device_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ConnectionsApi.update_device ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ConnectionsApi.update_device"
+      end
+      # verify the required parameter 'update_device_request' is set
+      if @api_client.config.client_side_validation && update_device_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_device_request' when calling ConnectionsApi.update_device"
+      end
+      # resource path
+      local_var_path = '/v1/devices/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_device_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateDeviceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ConnectionsApi.update_device",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ConnectionsApi#update_device\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

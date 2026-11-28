@@ -5,7 +5,7 @@ All URIs are relative to *https://crossly.net/api*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**get_app**](AppsApi.md#get_app) | **GET** /v1/apps/{clientId} | Get one listed app by client id or profile slug. 404 if it is not in the directory. |
-| [**get_app_earning**](AppsApi.md#get_app_earning) | **GET** /v1/apps/{id}/earnings | Your OAuth app&#39;s revenue-share earnings: summary + ledger. Owner only. |
+| [**get_app_earning**](AppsApi.md#get_app_earning) | **GET** /v1/apps/{id}/earnings | Your store&#39;s OAuth app&#39;s revenue-share earnings: summary (with the store they pay out to) + ledger. The app&#39;s store owner, or a teammate with apps:read on it. |
 | [**get_app_listing_allowance**](AppsApi.md#get_app_listing_allowance) | **GET** /v1/apps/{id}/listing-allowance | Your OAuth app&#39;s listing allowance (read-only): whether staff let sellers list above their plan through it, its limitMode (separate pool or shared with the plan), limitPeriod (total or monthly), the per-seller limit and the platform scope. Owner only. |
 | [**list_apps**](AppsApi.md#list_apps) | **GET** /v1/apps | Browse the public Crossly app directories: seller apps, buyer apps or both (search, category, sort, featured, paging). |
 
@@ -81,7 +81,7 @@ end
 
 > <GetAppEarningResponse> get_app_earning(id)
 
-Your OAuth app's revenue-share earnings: summary + ledger. Owner only.
+Your store's OAuth app's revenue-share earnings: summary (with the store they pay out to) + ledger. The app's store owner, or a teammate with apps:read on it.
 
 ### Examples
 
@@ -98,7 +98,7 @@ api_instance = Crossly::AppsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 
 begin
-  # Your OAuth app's revenue-share earnings: summary + ledger. Owner only.
+  # Your store's OAuth app's revenue-share earnings: summary (with the store they pay out to) + ledger. The app's store owner, or a teammate with apps:read on it.
   result = api_instance.get_app_earning(id)
   p result
 rescue Crossly::ApiError => e
@@ -114,7 +114,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Your OAuth app's revenue-share earnings: summary + ledger. Owner only.
+  # Your store's OAuth app's revenue-share earnings: summary (with the store they pay out to) + ledger. The app's store owner, or a teammate with apps:read on it.
   data, status_code, headers = api_instance.get_app_earning_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }

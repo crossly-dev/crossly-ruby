@@ -35,6 +35,9 @@ module Crossly
     # 1187: a sync of this wallet adds new NFTs to this store's inventory.
     attr_accessor :auto_import
 
+    # 1197 (spec CN3): the NFT marketplaces this store lists from this wallet on (only its network's).
+    attr_accessor :marketplaces
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -68,7 +71,8 @@ module Crossly
         :'linked_at' => :'linkedAt',
         :'linked_by_user_id' => :'linkedByUserId',
         :'is_default' => :'isDefault',
-        :'auto_import' => :'autoImport'
+        :'auto_import' => :'autoImport',
+        :'marketplaces' => :'marketplaces'
       }
     end
 
@@ -88,7 +92,8 @@ module Crossly
         :'linked_at' => :'String',
         :'linked_by_user_id' => :'String',
         :'is_default' => :'Boolean',
-        :'auto_import' => :'Boolean'
+        :'auto_import' => :'Boolean',
+        :'marketplaces' => :'Array<ListWeb3StoreWalletsItemMarketplacesItem>'
       }
     end
 
@@ -151,6 +156,12 @@ module Crossly
       if attributes.key?(:'auto_import')
         self.auto_import = attributes[:'auto_import']
       end
+
+      if attributes.key?(:'marketplaces')
+        if (value = attributes[:'marketplaces']).is_a?(Array)
+          self.marketplaces = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -181,6 +192,10 @@ module Crossly
         invalid_properties.push('invalid value for "auto_import", auto_import cannot be nil.')
       end
 
+      if @marketplaces.nil?
+        invalid_properties.push('invalid value for "marketplaces", marketplaces cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -195,6 +210,7 @@ module Crossly
       return false if @linked_at.nil?
       return false if @is_default.nil?
       return false if @auto_import.nil?
+      return false if @marketplaces.nil?
       true
     end
 
@@ -221,7 +237,8 @@ module Crossly
           linked_at == o.linked_at &&
           linked_by_user_id == o.linked_by_user_id &&
           is_default == o.is_default &&
-          auto_import == o.auto_import
+          auto_import == o.auto_import &&
+          marketplaces == o.marketplaces
     end
 
     # @see the `==` method
@@ -233,7 +250,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [wallet_id, family, address, label, verified_at, linked_at, linked_by_user_id, is_default, auto_import].hash
+      [wallet_id, family, address, label, verified_at, linked_at, linked_by_user_id, is_default, auto_import, marketplaces].hash
     end
 
     # Builds the object from hash

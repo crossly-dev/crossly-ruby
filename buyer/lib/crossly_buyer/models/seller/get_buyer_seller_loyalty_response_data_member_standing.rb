@@ -21,12 +21,15 @@ module CrosslyBuyer
 
     attr_accessor :points
 
+    attr_accessor :balance
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'spend_cents' => :'spendCents',
         :'orders' => :'orders',
-        :'points' => :'points'
+        :'points' => :'points',
+        :'balance' => :'balance'
       }
     end
 
@@ -40,13 +43,15 @@ module CrosslyBuyer
       {
         :'spend_cents' => :'Float',
         :'orders' => :'Float',
-        :'points' => :'Float'
+        :'points' => :'Float',
+        :'balance' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'balance'
       ])
     end
 
@@ -75,6 +80,10 @@ module CrosslyBuyer
 
       if attributes.key?(:'points')
         self.points = attributes[:'points']
+      end
+
+      if attributes.key?(:'balance')
+        self.balance = attributes[:'balance']
       end
     end
 
@@ -113,7 +122,8 @@ module CrosslyBuyer
       self.class == o.class &&
           spend_cents == o.spend_cents &&
           orders == o.orders &&
-          points == o.points
+          points == o.points &&
+          balance == o.balance
     end
 
     # @see the `==` method
@@ -125,7 +135,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [spend_cents, orders, points].hash
+      [spend_cents, orders, points, balance].hash
     end
 
     # Builds the object from hash

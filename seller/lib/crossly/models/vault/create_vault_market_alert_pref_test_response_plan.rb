@@ -19,9 +19,9 @@ module Crossly
 
     attr_accessor :push
 
-    attr_accessor :webhook
-
     attr_accessor :telegram
+
+    attr_accessor :webhook
 
     attr_accessor :terminal
 
@@ -52,8 +52,8 @@ module Crossly
       {
         :'email' => :'email',
         :'push' => :'push',
-        :'webhook' => :'webhook',
         :'telegram' => :'telegram',
+        :'webhook' => :'webhook',
         :'terminal' => :'terminal'
       }
     end
@@ -68,8 +68,8 @@ module Crossly
       {
         :'email' => :'String',
         :'push' => :'String',
-        :'webhook' => :'String',
         :'telegram' => :'String',
+        :'webhook' => :'String',
         :'terminal' => :'String'
       }
     end
@@ -103,12 +103,12 @@ module Crossly
         self.push = attributes[:'push']
       end
 
-      if attributes.key?(:'webhook')
-        self.webhook = attributes[:'webhook']
-      end
-
       if attributes.key?(:'telegram')
         self.telegram = attributes[:'telegram']
+      end
+
+      if attributes.key?(:'webhook')
+        self.webhook = attributes[:'webhook']
       end
 
       if attributes.key?(:'terminal')
@@ -128,12 +128,12 @@ module Crossly
         invalid_properties.push('invalid value for "push", push cannot be nil.')
       end
 
-      if @webhook.nil?
-        invalid_properties.push('invalid value for "webhook", webhook cannot be nil.')
-      end
-
       if @telegram.nil?
         invalid_properties.push('invalid value for "telegram", telegram cannot be nil.')
+      end
+
+      if @webhook.nil?
+        invalid_properties.push('invalid value for "webhook", webhook cannot be nil.')
       end
 
       if @terminal.nil?
@@ -152,12 +152,12 @@ module Crossly
       return false if @push.nil?
       push_validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
       return false unless push_validator.valid?(@push)
-      return false if @webhook.nil?
-      webhook_validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
-      return false unless webhook_validator.valid?(@webhook)
       return false if @telegram.nil?
       telegram_validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
       return false unless telegram_validator.valid?(@telegram)
+      return false if @webhook.nil?
+      webhook_validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
+      return false unless webhook_validator.valid?(@webhook)
       return false if @terminal.nil?
       terminal_validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
       return false unless terminal_validator.valid?(@terminal)
@@ -185,16 +185,6 @@ module Crossly
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] webhook Object to be assigned
-    def webhook=(webhook)
-      validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
-      unless validator.valid?(webhook)
-        fail ArgumentError, "invalid value for \"webhook\", must be one of #{validator.allowable_values}."
-      end
-      @webhook = webhook
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] telegram Object to be assigned
     def telegram=(telegram)
       validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
@@ -202,6 +192,16 @@ module Crossly
         fail ArgumentError, "invalid value for \"telegram\", must be one of #{validator.allowable_values}."
       end
       @telegram = telegram
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] webhook Object to be assigned
+    def webhook=(webhook)
+      validator = EnumAttributeValidator.new('String', ["unavailable", "off", "send", "quiet"])
+      unless validator.valid?(webhook)
+        fail ArgumentError, "invalid value for \"webhook\", must be one of #{validator.allowable_values}."
+      end
+      @webhook = webhook
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -221,8 +221,8 @@ module Crossly
       self.class == o.class &&
           email == o.email &&
           push == o.push &&
-          webhook == o.webhook &&
           telegram == o.telegram &&
+          webhook == o.webhook &&
           terminal == o.terminal
     end
 
@@ -235,7 +235,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [email, push, webhook, telegram, terminal].hash
+      [email, push, telegram, webhook, terminal].hash
     end
 
     # Builds the object from hash

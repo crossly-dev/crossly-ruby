@@ -284,6 +284,8 @@ module Crossly
     # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [Float] :days 
     # @return [GetStallStreetAerialResponse]
     def get_stall_street_aerial(slug, opts = {})
       data, _status_code, _headers = get_stall_street_aerial_with_http_info(slug, opts)
@@ -293,6 +295,8 @@ module Crossly
     # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [Float] :days 
     # @return [Array<(GetStallStreetAerialResponse, Integer, Hash)>] GetStallStreetAerialResponse data, response status code and response headers
     def get_stall_street_aerial_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -307,6 +311,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -577,6 +583,7 @@ module Crossly
     # Change a booked stall before or while it is up: listingIds (up to 6 of your live listings), awning { colour, pattern }, booth { canopy, pattern, lights, counter, piece } (premium values need holding), sign, attendant.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStallBookingRequest] :update_stall_booking_request 
     # @return [CreateStallBookResponse]
     def update_stall_booking(id, opts = {})
       data, _status_code, _headers = update_stall_booking_with_http_info(id, opts)
@@ -586,6 +593,7 @@ module Crossly
     # Change a booked stall before or while it is up: listingIds (up to 6 of your live listings), awning { colour, pattern }, booth { canopy, pattern, lights, counter, piece } (premium values need holding), sign, attendant.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateStallBookingRequest] :update_stall_booking_request 
     # @return [Array<(CreateStallBookResponse, Integer, Hash)>] CreateStallBookResponse data, response status code and response headers
     def update_stall_booking_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -605,12 +613,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_stall_booking_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateStallBookResponse'

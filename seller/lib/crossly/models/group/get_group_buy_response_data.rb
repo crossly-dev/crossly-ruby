@@ -164,7 +164,7 @@ module Crossly
         :'ms_left' => :'Float',
         :'opens_to_all_at' => :'String',
         :'base_price_cents' => :'Float',
-        :'tiers' => :'Array<GetGroupBuyResponseDataTiers>',
+        :'tiers' => :'Array<MinQtyPriceCents>',
         :'progress' => :'Array<GetGroupBuyResponseDataProgress>',
         :'goal_qty' => :'Float',
         :'min_qty_to_proceed' => :'Float',

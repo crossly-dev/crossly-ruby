@@ -21,6 +21,7 @@ module Crossly
     end
     # Create a lookbook. Pass templateId (classic, editorial, hero, magazine, drop, sale, postcard) to start it from a template styled with your storefront brand kit.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookRequest] :create_lookbook_request 
     # @return [CreateLookbookResponse]
     def create_lookbook(opts = {})
       data, _status_code, _headers = create_lookbook_with_http_info(opts)
@@ -29,6 +30,7 @@ module Crossly
 
     # Create a lookbook. Pass templateId (classic, editorial, hero, magazine, drop, sale, postcard) to start it from a template styled with your storefront brand kit.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookRequest] :create_lookbook_request 
     # @return [Array<(CreateLookbookResponse, Integer, Hash)>] CreateLookbookResponse data, response status code and response headers
     def create_lookbook_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -44,12 +46,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_lookbook_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateLookbookResponse'
@@ -76,6 +83,7 @@ module Crossly
 
     # Email a lookbook to customers now or at scheduledAt. Audience kind subscribers | all | repeat | segment {filters} | handles {handles}; only people with marketing consent who have not unsubscribed receive it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookCampaignRequest] :create_lookbook_campaign_request 
     # @return [LookbookCampaignResponse]
     def create_lookbook_campaign(opts = {})
       data, _status_code, _headers = create_lookbook_campaign_with_http_info(opts)
@@ -84,6 +92,7 @@ module Crossly
 
     # Email a lookbook to customers now or at scheduledAt. Audience kind subscribers | all | repeat | segment {filters} | handles {handles}; only people with marketing consent who have not unsubscribed receive it.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookCampaignRequest] :create_lookbook_campaign_request 
     # @return [Array<(LookbookCampaignResponse, Integer, Hash)>] LookbookCampaignResponse data, response status code and response headers
     def create_lookbook_campaign_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -99,12 +108,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_lookbook_campaign_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'LookbookCampaignResponse'
@@ -192,6 +206,7 @@ module Crossly
 
     # Preview a lookbook email campaign without sending: how many of the audience can receive it (opted in, not suppressed) and the rendered HTML/text.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookCampaignRequest] :create_lookbook_campaign_request 
     # @return [CreateLookbookCampaignPreviewResponse]
     def create_lookbook_campaign_preview(opts = {})
       data, _status_code, _headers = create_lookbook_campaign_preview_with_http_info(opts)
@@ -200,6 +215,7 @@ module Crossly
 
     # Preview a lookbook email campaign without sending: how many of the audience can receive it (opted in, not suppressed) and the rendered HTML/text.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookCampaignRequest] :create_lookbook_campaign_request 
     # @return [Array<(CreateLookbookCampaignPreviewResponse, Integer, Hash)>] CreateLookbookCampaignPreviewResponse data, response status code and response headers
     def create_lookbook_campaign_preview_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -215,12 +231,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_lookbook_campaign_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateLookbookCampaignPreviewResponse'
@@ -248,6 +269,7 @@ module Crossly
     # Make a share link for someone without a Crossly login: role view, comment or edit; expires after ttlHours (1 to 2160, default 168). The url is shown once.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookShareLinkRequest] :create_lookbook_share_link_request 
     # @return [CreateLookbookShareLinkResponse]
     def create_lookbook_share_link(id, opts = {})
       data, _status_code, _headers = create_lookbook_share_link_with_http_info(id, opts)
@@ -257,6 +279,7 @@ module Crossly
     # Make a share link for someone without a Crossly login: role view, comment or edit; expires after ttlHours (1 to 2160, default 168). The url is shown once.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateLookbookShareLinkRequest] :create_lookbook_share_link_request 
     # @return [Array<(CreateLookbookShareLinkResponse, Integer, Hash)>] CreateLookbookShareLinkResponse data, response status code and response headers
     def create_lookbook_share_link_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -276,12 +299,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_lookbook_share_link_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateLookbookShareLinkResponse'
@@ -308,6 +336,7 @@ module Crossly
 
     # Draft a printed lookbook mailing (beta): renders the print-ready PDF with bleed and estimates the cost from your per-piece price. Mails nothing until confirmed.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailJobRequest] :create_print_mail_job_request 
     # @return [CreatePrintMailJobResponse]
     def create_print_mail_job(opts = {})
       data, _status_code, _headers = create_print_mail_job_with_http_info(opts)
@@ -316,6 +345,7 @@ module Crossly
 
     # Draft a printed lookbook mailing (beta): renders the print-ready PDF with bleed and estimates the cost from your per-piece price. Mails nothing until confirmed.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailJobRequest] :create_print_mail_job_request 
     # @return [Array<(CreatePrintMailJobResponse, Integer, Hash)>] CreatePrintMailJobResponse data, response status code and response headers
     def create_print_mail_job_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -331,12 +361,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_print_mail_job_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatePrintMailJobResponse'
@@ -364,6 +399,7 @@ module Crossly
     # Confirm a drafted print job: acknowledgeCharges must be true and pieces must equal the job's piece count. Your Lob or PostGrid account is billed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailJobConfirmRequest] :create_print_mail_job_confirm_request 
     # @return [CreatePrintMailJobConfirmResponse]
     def create_print_mail_job_confirm(id, opts = {})
       data, _status_code, _headers = create_print_mail_job_confirm_with_http_info(id, opts)
@@ -373,6 +409,7 @@ module Crossly
     # Confirm a drafted print job: acknowledgeCharges must be true and pieces must equal the job&#39;s piece count. Your Lob or PostGrid account is billed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailJobConfirmRequest] :create_print_mail_job_confirm_request 
     # @return [Array<(CreatePrintMailJobConfirmResponse, Integer, Hash)>] CreatePrintMailJobConfirmResponse data, response status code and response headers
     def create_print_mail_job_confirm_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -392,12 +429,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_print_mail_job_confirm_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatePrintMailJobConfirmResponse'
@@ -602,6 +644,9 @@ module Crossly
     # Per-recipient results for a campaign: status (queued, sent, failed, skipped + reason), provider message id, opens, clicks, bounce, unsubscribe.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Float] :page 
+    # @option opts [Float] :limit 
     # @return [ListLookbookCampaignRecipientsResponse]
     def list_lookbook_campaign_recipients(id, opts = {})
       data, _status_code, _headers = list_lookbook_campaign_recipients_with_http_info(id, opts)
@@ -611,6 +656,9 @@ module Crossly
     # Per-recipient results for a campaign: status (queued, sent, failed, skipped + reason), provider message id, opens, clicks, bounce, unsubscribe.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Float] :page 
+    # @option opts [Float] :limit 
     # @return [Array<(ListLookbookCampaignRecipientsResponse, Integer, Hash)>] ListLookbookCampaignRecipientsResponse data, response status code and response headers
     def list_lookbook_campaign_recipients_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -620,11 +668,18 @@ module Crossly
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling LookbooksApi.list_lookbook_campaign_recipients"
       end
+      allowable_values = ["skipped", "sent", "failed", "queued"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/lookbook-campaigns/{id}/recipients'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -662,6 +717,7 @@ module Crossly
 
     # Your lookbook campaigns, newest first, with sent / failed / skipped / opened / clicked / bounced / unsubscribed counts.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :collection_id 
     # @return [ListLookbookCampaignsResponse]
     def list_lookbook_campaigns(opts = {})
       data, _status_code, _headers = list_lookbook_campaigns_with_http_info(opts)
@@ -670,6 +726,7 @@ module Crossly
 
     # Your lookbook campaigns, newest first, with sent / failed / skipped / opened / clicked / bounced / unsubscribed counts.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :collection_id 
     # @return [Array<(ListLookbookCampaignsResponse, Integer, Hash)>] ListLookbookCampaignsResponse data, response status code and response headers
     def list_lookbook_campaigns_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -680,6 +737,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'collectionId'] = opts[:'collection_id'] if !opts[:'collection_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -825,9 +883,78 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Set what an email provider sends: uses ⊆ [lookbooks, invoices, receipts]. lookbooks is always on; invoices = wholesale invoices and quotes, receipts = other buyer notices, sent from this address instead of from Crossly.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateEmailProviderUsRequest] :update_email_provider_us_request 
+    # @return [UpdateEmailProviderUsResponse]
+    def update_email_provider_us(id, opts = {})
+      data, _status_code, _headers = update_email_provider_us_with_http_info(id, opts)
+      data
+    end
+
+    # Set what an email provider sends: uses ⊆ [lookbooks, invoices, receipts]. lookbooks is always on; invoices &#x3D; wholesale invoices and quotes, receipts &#x3D; other buyer notices, sent from this address instead of from Crossly.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateEmailProviderUsRequest] :update_email_provider_us_request 
+    # @return [Array<(UpdateEmailProviderUsResponse, Integer, Hash)>] UpdateEmailProviderUsResponse data, response status code and response headers
+    def update_email_provider_us_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: LookbooksApi.update_email_provider_us ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling LookbooksApi.update_email_provider_us"
+      end
+      # resource path
+      local_var_path = '/v1/email-providers/{id}/uses'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_email_provider_us_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateEmailProviderUsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"LookbooksApi.update_email_provider_us",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: LookbooksApi#update_email_provider_us\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Save a new design version. Images must already be on the Crossly CDN; listings must be your own Crossly listings. Pass baseVersion to get a 409 instead of overwriting a newer save.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateLookbookDesignRequest] :update_lookbook_design_request 
     # @return [UpdateLookbookDesignResponse]
     def update_lookbook_design(id, opts = {})
       data, _status_code, _headers = update_lookbook_design_with_http_info(id, opts)
@@ -837,6 +964,7 @@ module Crossly
     # Save a new design version. Images must already be on the Crossly CDN; listings must be your own Crossly listings. Pass baseVersion to get a 409 instead of overwriting a newer save.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateLookbookDesignRequest] :update_lookbook_design_request 
     # @return [Array<(UpdateLookbookDesignResponse, Integer, Hash)>] UpdateLookbookDesignResponse data, response status code and response headers
     def update_lookbook_design_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -856,12 +984,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_lookbook_design_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateLookbookDesignResponse'

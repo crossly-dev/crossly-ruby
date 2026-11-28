@@ -21,6 +21,8 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :variant_id
+
     attr_accessor :quantity
 
     attr_accessor :condition
@@ -32,8 +34,6 @@ module Crossly
     attr_accessor :title
 
     attr_accessor :listing_id
-
-    attr_accessor :variant_id
 
     attr_accessor :batch_id
 
@@ -85,13 +85,13 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
+        :'variant_id' => :'variantId',
         :'quantity' => :'quantity',
         :'condition' => :'condition',
         :'grading' => :'grading',
         :'cost_basis_cents' => :'costBasisCents',
         :'title' => :'title',
         :'listing_id' => :'listingId',
-        :'variant_id' => :'variantId',
         :'batch_id' => :'batchId',
         :'error' => :'error',
         :'position' => :'position',
@@ -128,13 +128,13 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'status' => :'String',
+        :'variant_id' => :'String',
         :'quantity' => :'Float',
         :'condition' => :'String',
         :'grading' => :'CreateBulkBatchItemResponseGrading',
         :'cost_basis_cents' => :'Float',
         :'title' => :'String',
         :'listing_id' => :'String',
-        :'variant_id' => :'String',
         :'batch_id' => :'String',
         :'error' => :'String',
         :'position' => :'Float',
@@ -163,12 +163,12 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'variant_id',
         :'condition',
         :'grading',
         :'cost_basis_cents',
         :'title',
         :'listing_id',
-        :'variant_id',
         :'error',
         :'identify_route',
         :'cell_region',
@@ -217,6 +217,10 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'variant_id')
+        self.variant_id = attributes[:'variant_id']
+      end
+
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
       end
@@ -239,10 +243,6 @@ module Crossly
 
       if attributes.key?(:'listing_id')
         self.listing_id = attributes[:'listing_id']
-      end
-
-      if attributes.key?(:'variant_id')
-        self.variant_id = attributes[:'variant_id']
       end
 
       if attributes.key?(:'batch_id')
@@ -397,13 +397,13 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
+          variant_id == o.variant_id &&
           quantity == o.quantity &&
           condition == o.condition &&
           grading == o.grading &&
           cost_basis_cents == o.cost_basis_cents &&
           title == o.title &&
           listing_id == o.listing_id &&
-          variant_id == o.variant_id &&
           batch_id == o.batch_id &&
           error == o.error &&
           position == o.position &&
@@ -437,7 +437,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, quantity, condition, grading, cost_basis_cents, title, listing_id, variant_id, batch_id, error, position, identify_route, source_image_url, image_urls, cell_region, crop_url, back_image_url, back_crop_url, anchor_kind, anchor_value, sku_id, confidence, price_suggested_cents, price_cents, price_basis, price_sample_size, match_source, magic_run_id, magic_draft_id, scan_capture_id].hash
+      [id, created_at, status, variant_id, quantity, condition, grading, cost_basis_cents, title, listing_id, batch_id, error, position, identify_route, source_image_url, image_urls, cell_region, crop_url, back_image_url, back_crop_url, anchor_kind, anchor_value, sku_id, confidence, price_suggested_cents, price_cents, price_basis, price_sample_size, match_source, magic_run_id, magic_draft_id, scan_capture_id].hash
     end
 
     # Builds the object from hash

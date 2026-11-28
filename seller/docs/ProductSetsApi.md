@@ -16,7 +16,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_product_set
 
-> <ListProductSetsItem> create_product_set
+> <ListProductSetsItem> create_product_set(create_product_set_request)
 
 Create a product set (filters, explicit picks, or both).
 
@@ -32,10 +32,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ProductSetsApi.new
+create_product_set_request = Crossly::CreateProductSetRequest.new({name: 'name_example'}) # CreateProductSetRequest | 
 
 begin
   # Create a product set (filters, explicit picks, or both).
-  result = api_instance.create_product_set
+  result = api_instance.create_product_set(create_product_set_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductSetsApi->create_product_set: #{e}"
@@ -46,12 +47,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListProductSetsItem>, Integer, Hash)> create_product_set_with_http_info
+> <Array(<ListProductSetsItem>, Integer, Hash)> create_product_set_with_http_info(create_product_set_request)
 
 ```ruby
 begin
   # Create a product set (filters, explicit picks, or both).
-  data, status_code, headers = api_instance.create_product_set_with_http_info
+  data, status_code, headers = api_instance.create_product_set_with_http_info(create_product_set_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListProductSetsItem>
@@ -62,7 +63,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_product_set_request** | **CreateProductSetRequest** |  |  |
 
 ### Return type
 
@@ -74,13 +77,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_product_set_bulk
 
-> <CreateProductSetBulkResponse> create_product_set_bulk(id)
+> <CreateProductSetBulkResponse> create_product_set_bulk(id, create_product_set_bulk_request)
 
 Run a bulk action (delist / relist / check-status) against the set's current members.
 
@@ -97,10 +100,11 @@ end
 
 api_instance = Crossly::ProductSetsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_product_set_bulk_request = Crossly::CreateProductSetBulkRequest.new({action: 'delist'}) # CreateProductSetBulkRequest | 
 
 begin
   # Run a bulk action (delist / relist / check-status) against the set's current members.
-  result = api_instance.create_product_set_bulk(id)
+  result = api_instance.create_product_set_bulk(id, create_product_set_bulk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductSetsApi->create_product_set_bulk: #{e}"
@@ -111,12 +115,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductSetBulkResponse>, Integer, Hash)> create_product_set_bulk_with_http_info(id)
+> <Array(<CreateProductSetBulkResponse>, Integer, Hash)> create_product_set_bulk_with_http_info(id, create_product_set_bulk_request)
 
 ```ruby
 begin
   # Run a bulk action (delist / relist / check-status) against the set's current members.
-  data, status_code, headers = api_instance.create_product_set_bulk_with_http_info(id)
+  data, status_code, headers = api_instance.create_product_set_bulk_with_http_info(id, create_product_set_bulk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductSetBulkResponse>
@@ -130,6 +134,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_product_set_bulk_request** | **CreateProductSetBulkRequest** |  |  |
 
 ### Return type
 
@@ -141,13 +146,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_product_set_member
 
-> <ListProductSetsItem> create_product_set_member(id)
+> <ListProductSetsItem> create_product_set_member(id, create_product_set_member_request)
 
 Add / exclude / remove explicit picks for a set.
 
@@ -164,10 +169,11 @@ end
 
 api_instance = Crossly::ProductSetsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_product_set_member_request = Crossly::CreateProductSetMemberRequest.new # CreateProductSetMemberRequest | 
 
 begin
   # Add / exclude / remove explicit picks for a set.
-  result = api_instance.create_product_set_member(id)
+  result = api_instance.create_product_set_member(id, create_product_set_member_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductSetsApi->create_product_set_member: #{e}"
@@ -178,12 +184,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListProductSetsItem>, Integer, Hash)> create_product_set_member_with_http_info(id)
+> <Array(<ListProductSetsItem>, Integer, Hash)> create_product_set_member_with_http_info(id, create_product_set_member_request)
 
 ```ruby
 begin
   # Add / exclude / remove explicit picks for a set.
-  data, status_code, headers = api_instance.create_product_set_member_with_http_info(id)
+  data, status_code, headers = api_instance.create_product_set_member_with_http_info(id, create_product_set_member_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListProductSetsItem>
@@ -197,6 +203,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_product_set_member_request** | **CreateProductSetMemberRequest** |  |  |
 
 ### Return type
 
@@ -208,7 +215,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -485,7 +492,7 @@ This endpoint does not need any parameter.
 
 ## update_product_set
 
-> <ListProductSetsItem> update_product_set(id)
+> <ListProductSetsItem> update_product_set(id, update_product_set_request)
 
 Update a set: rename, description, or replace its filters.
 
@@ -502,10 +509,11 @@ end
 
 api_instance = Crossly::ProductSetsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_product_set_request = Crossly::UpdateProductSetRequest.new # UpdateProductSetRequest | 
 
 begin
   # Update a set: rename, description, or replace its filters.
-  result = api_instance.update_product_set(id)
+  result = api_instance.update_product_set(id, update_product_set_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductSetsApi->update_product_set: #{e}"
@@ -516,12 +524,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListProductSetsItem>, Integer, Hash)> update_product_set_with_http_info(id)
+> <Array(<ListProductSetsItem>, Integer, Hash)> update_product_set_with_http_info(id, update_product_set_request)
 
 ```ruby
 begin
   # Update a set: rename, description, or replace its filters.
-  data, status_code, headers = api_instance.update_product_set_with_http_info(id)
+  data, status_code, headers = api_instance.update_product_set_with_http_info(id, update_product_set_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListProductSetsItem>
@@ -535,6 +543,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_product_set_request** | **UpdateProductSetRequest** |  |  |
 
 ### Return type
 
@@ -546,6 +555,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

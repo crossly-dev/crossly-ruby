@@ -21,20 +21,26 @@ module Crossly
     end
     # Launch an offsite campaign for an item.
     # Creative is built from the structured fields you pass — title, condition as you recorded it, price, image. We generate no prose and invent no claims about condition or authenticity: an ad saying \"mint\" or \"authenticated\" when your listing says neither is a misrepresentation we authored and YOU would take the dispute for. Refuses with 403 when no ad network is wired, rather than returning a campaign that does not exist — a campaign row marked live with nothing behind it would read as spending your money when it is not.
+    # @param create_ad_offsite_campaign_request [CreateAdOffsiteCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAdOffsiteCampaignResponse]
-    def create_ad_offsite_campaign(opts = {})
-      data, _status_code, _headers = create_ad_offsite_campaign_with_http_info(opts)
+    def create_ad_offsite_campaign(create_ad_offsite_campaign_request, opts = {})
+      data, _status_code, _headers = create_ad_offsite_campaign_with_http_info(create_ad_offsite_campaign_request, opts)
       data
     end
 
     # Launch an offsite campaign for an item.
     # Creative is built from the structured fields you pass — title, condition as you recorded it, price, image. We generate no prose and invent no claims about condition or authenticity: an ad saying \&quot;mint\&quot; or \&quot;authenticated\&quot; when your listing says neither is a misrepresentation we authored and YOU would take the dispute for. Refuses with 403 when no ad network is wired, rather than returning a campaign that does not exist — a campaign row marked live with nothing behind it would read as spending your money when it is not.
+    # @param create_ad_offsite_campaign_request [CreateAdOffsiteCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAdOffsiteCampaignResponse, Integer, Hash)>] CreateAdOffsiteCampaignResponse data, response status code and response headers
-    def create_ad_offsite_campaign_with_http_info(opts = {})
+    def create_ad_offsite_campaign_with_http_info(create_ad_offsite_campaign_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_ad_offsite_campaign ...'
+      end
+      # verify the required parameter 'create_ad_offsite_campaign_request' is set
+      if @api_client.config.client_side_validation && create_ad_offsite_campaign_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ad_offsite_campaign_request' when calling AdsApi.create_ad_offsite_campaign"
       end
       # resource path
       local_var_path = '/v1/ads/offsite/campaigns'
@@ -46,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ad_offsite_campaign_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAdOffsiteCampaignResponse'
@@ -134,19 +145,25 @@ module Crossly
     end
 
     # Add listings to a campaign by master listing id: each listing's live row on `platform` joins campaignId (a Crossly campaign uuid, or the marketplace's campaign id). A listing not live there is its own failed result.
+    # @param create_listing_ad_bulk_add_request [CreateListingAdBulkAddRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingAdBulkAddResponse]
-    def create_listing_ad_bulk_add(opts = {})
-      data, _status_code, _headers = create_listing_ad_bulk_add_with_http_info(opts)
+    def create_listing_ad_bulk_add(create_listing_ad_bulk_add_request, opts = {})
+      data, _status_code, _headers = create_listing_ad_bulk_add_with_http_info(create_listing_ad_bulk_add_request, opts)
       data
     end
 
     # Add listings to a campaign by master listing id: each listing&#39;s live row on &#x60;platform&#x60; joins campaignId (a Crossly campaign uuid, or the marketplace&#39;s campaign id). A listing not live there is its own failed result.
+    # @param create_listing_ad_bulk_add_request [CreateListingAdBulkAddRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingAdBulkAddResponse, Integer, Hash)>] CreateListingAdBulkAddResponse data, response status code and response headers
-    def create_listing_ad_bulk_add_with_http_info(opts = {})
+    def create_listing_ad_bulk_add_with_http_info(create_listing_ad_bulk_add_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_bulk_add ...'
+      end
+      # verify the required parameter 'create_listing_ad_bulk_add_request' is set
+      if @api_client.config.client_side_validation && create_listing_ad_bulk_add_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_ad_bulk_add_request' when calling AdsApi.create_listing_ad_bulk_add"
       end
       # resource path
       local_var_path = '/v1/listing-ads/bulk-add'
@@ -158,12 +175,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_ad_bulk_add_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAdBulkAddResponse'
@@ -190,24 +212,30 @@ module Crossly
 
     # Create a campaign on the marketplace: program (promoted_listing_rate = eBay General, a % of the sale; cpc_campaign = eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
     # @param platform [String] 
+    # @param create_listing_ad_campaign_request [CreateListingAdCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingAdCampaignResponse]
-    def create_listing_ad_campaign(platform, opts = {})
-      data, _status_code, _headers = create_listing_ad_campaign_with_http_info(platform, opts)
+    def create_listing_ad_campaign(platform, create_listing_ad_campaign_request, opts = {})
+      data, _status_code, _headers = create_listing_ad_campaign_with_http_info(platform, create_listing_ad_campaign_request, opts)
       data
     end
 
     # Create a campaign on the marketplace: program (promoted_listing_rate &#x3D; eBay General, a % of the sale; cpc_campaign &#x3D; eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
     # @param platform [String] 
+    # @param create_listing_ad_campaign_request [CreateListingAdCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingAdCampaignResponse, Integer, Hash)>] CreateListingAdCampaignResponse data, response status code and response headers
-    def create_listing_ad_campaign_with_http_info(platform, opts = {})
+    def create_listing_ad_campaign_with_http_info(platform, create_listing_ad_campaign_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_campaign ...'
       end
       # verify the required parameter 'platform' is set
       if @api_client.config.client_side_validation && platform.nil?
         fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.create_listing_ad_campaign"
+      end
+      # verify the required parameter 'create_listing_ad_campaign_request' is set
+      if @api_client.config.client_side_validation && create_listing_ad_campaign_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_ad_campaign_request' when calling AdsApi.create_listing_ad_campaign"
       end
       # resource path
       local_var_path = '/v1/listing-ads/{platform}/campaigns'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
@@ -219,12 +247,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_ad_campaign_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAdCampaignResponse'
@@ -252,19 +285,21 @@ module Crossly
     # Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
     # @param platform [String] 
     # @param campaign_id [String] 
+    # @param create_listing_ad_campaign_listing_request [CreateListingAdCampaignListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingAdCampaignListingResponse]
-    def create_listing_ad_campaign_listing(platform, campaign_id, opts = {})
-      data, _status_code, _headers = create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, opts)
+    def create_listing_ad_campaign_listing(platform, campaign_id, create_listing_ad_campaign_listing_request, opts = {})
+      data, _status_code, _headers = create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, create_listing_ad_campaign_listing_request, opts)
       data
     end
 
     # Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
     # @param platform [String] 
     # @param campaign_id [String] 
+    # @param create_listing_ad_campaign_listing_request [CreateListingAdCampaignListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingAdCampaignListingResponse, Integer, Hash)>] CreateListingAdCampaignListingResponse data, response status code and response headers
-    def create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, opts = {})
+    def create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, create_listing_ad_campaign_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_campaign_listing ...'
       end
@@ -276,6 +311,10 @@ module Crossly
       if @api_client.config.client_side_validation && campaign_id.nil?
         fail ArgumentError, "Missing the required parameter 'campaign_id' when calling AdsApi.create_listing_ad_campaign_listing"
       end
+      # verify the required parameter 'create_listing_ad_campaign_listing_request' is set
+      if @api_client.config.client_side_validation && create_listing_ad_campaign_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_ad_campaign_listing_request' when calling AdsApi.create_listing_ad_campaign_listing"
+      end
       # resource path
       local_var_path = '/v1/listing-ads/{platform}/campaigns/{campaignId}/listings'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
 
@@ -286,12 +325,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_ad_campaign_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAdCampaignListingResponse'
@@ -319,19 +363,21 @@ module Crossly
     # Stop promoting listings in a marketplace campaign. One result per listing.
     # @param platform [String] 
     # @param campaign_id [String] 
+    # @param update_live_stream_lineup_request [UpdateLiveStreamLineupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingAdCampaignListingResponse]
-    def create_listing_ad_campaign_listing_remove(platform, campaign_id, opts = {})
-      data, _status_code, _headers = create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, opts)
+    def create_listing_ad_campaign_listing_remove(platform, campaign_id, update_live_stream_lineup_request, opts = {})
+      data, _status_code, _headers = create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, update_live_stream_lineup_request, opts)
       data
     end
 
     # Stop promoting listings in a marketplace campaign. One result per listing.
     # @param platform [String] 
     # @param campaign_id [String] 
+    # @param update_live_stream_lineup_request [UpdateLiveStreamLineupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingAdCampaignListingResponse, Integer, Hash)>] CreateListingAdCampaignListingResponse data, response status code and response headers
-    def create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, opts = {})
+    def create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, update_live_stream_lineup_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_listing_ad_campaign_listing_remove ...'
       end
@@ -343,6 +389,10 @@ module Crossly
       if @api_client.config.client_side_validation && campaign_id.nil?
         fail ArgumentError, "Missing the required parameter 'campaign_id' when calling AdsApi.create_listing_ad_campaign_listing_remove"
       end
+      # verify the required parameter 'update_live_stream_lineup_request' is set
+      if @api_client.config.client_side_validation && update_live_stream_lineup_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_live_stream_lineup_request' when calling AdsApi.create_listing_ad_campaign_listing_remove"
+      end
       # resource path
       local_var_path = '/v1/listing-ads/{platform}/campaigns/{campaignId}/listings/remove'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
 
@@ -353,12 +403,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_live_stream_lineup_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAdCampaignListingResponse'
@@ -384,19 +439,25 @@ module Crossly
     end
 
     # A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
+    # @param create_sponsored_ad_billing_topup_link_request [CreateSponsoredAdBillingTopupLinkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSponsoredAdBillingTopupLinkResponse]
-    def create_sponsored_ad_billing_topup_link(opts = {})
-      data, _status_code, _headers = create_sponsored_ad_billing_topup_link_with_http_info(opts)
+    def create_sponsored_ad_billing_topup_link(create_sponsored_ad_billing_topup_link_request, opts = {})
+      data, _status_code, _headers = create_sponsored_ad_billing_topup_link_with_http_info(create_sponsored_ad_billing_topup_link_request, opts)
       data
     end
 
     # A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
+    # @param create_sponsored_ad_billing_topup_link_request [CreateSponsoredAdBillingTopupLinkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSponsoredAdBillingTopupLinkResponse, Integer, Hash)>] CreateSponsoredAdBillingTopupLinkResponse data, response status code and response headers
-    def create_sponsored_ad_billing_topup_link_with_http_info(opts = {})
+    def create_sponsored_ad_billing_topup_link_with_http_info(create_sponsored_ad_billing_topup_link_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_billing_topup_link ...'
+      end
+      # verify the required parameter 'create_sponsored_ad_billing_topup_link_request' is set
+      if @api_client.config.client_side_validation && create_sponsored_ad_billing_topup_link_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sponsored_ad_billing_topup_link_request' when calling AdsApi.create_sponsored_ad_billing_topup_link"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/billing/topup-link'
@@ -408,12 +469,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sponsored_ad_billing_topup_link_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSponsoredAdBillingTopupLinkResponse'
@@ -439,19 +505,25 @@ module Crossly
     end
 
     # Stop boosting listings in bulk.
+    # @param update_live_stream_lineup_request [UpdateLiveStreamLineupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSponsoredAdBoostRemoveResponse]
-    def create_sponsored_ad_boost_remove(opts = {})
-      data, _status_code, _headers = create_sponsored_ad_boost_remove_with_http_info(opts)
+    def create_sponsored_ad_boost_remove(update_live_stream_lineup_request, opts = {})
+      data, _status_code, _headers = create_sponsored_ad_boost_remove_with_http_info(update_live_stream_lineup_request, opts)
       data
     end
 
     # Stop boosting listings in bulk.
+    # @param update_live_stream_lineup_request [UpdateLiveStreamLineupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSponsoredAdBoostRemoveResponse, Integer, Hash)>] CreateSponsoredAdBoostRemoveResponse data, response status code and response headers
-    def create_sponsored_ad_boost_remove_with_http_info(opts = {})
+    def create_sponsored_ad_boost_remove_with_http_info(update_live_stream_lineup_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.create_sponsored_ad_boost_remove ...'
+      end
+      # verify the required parameter 'update_live_stream_lineup_request' is set
+      if @api_client.config.client_side_validation && update_live_stream_lineup_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_live_stream_lineup_request' when calling AdsApi.create_sponsored_ad_boost_remove"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/boosts/remove'
@@ -463,12 +535,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_live_stream_lineup_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSponsoredAdBoostRemoveResponse'
@@ -729,26 +806,45 @@ module Crossly
 
     # Whether an item can run offsite, and why not.
     # Reasons: `not_opted_in`, `auto_paused`, `network_not_allowed`, `category_not_allowlisted`, `no_adapter`, `no_budget`. The category check is an ALLOWLIST, so an unclassified category is not eligible. That is not bureaucracy: ad networks suspend the ACCOUNT over a prohibited item, and the account is one shared resource across every merchant using this — so one listing could take offsite ads away from all of them. A blocklist would fail open on the first category nobody thought of.
+    # @param network [String] 
+    # @param category [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetAdOffsiteEligibilityResponse]
-    def get_ad_offsite_eligibility(opts = {})
-      data, _status_code, _headers = get_ad_offsite_eligibility_with_http_info(opts)
+    def get_ad_offsite_eligibility(network, category, opts = {})
+      data, _status_code, _headers = get_ad_offsite_eligibility_with_http_info(network, category, opts)
       data
     end
 
     # Whether an item can run offsite, and why not.
     # Reasons: &#x60;not_opted_in&#x60;, &#x60;auto_paused&#x60;, &#x60;network_not_allowed&#x60;, &#x60;category_not_allowlisted&#x60;, &#x60;no_adapter&#x60;, &#x60;no_budget&#x60;. The category check is an ALLOWLIST, so an unclassified category is not eligible. That is not bureaucracy: ad networks suspend the ACCOUNT over a prohibited item, and the account is one shared resource across every merchant using this — so one listing could take offsite ads away from all of them. A blocklist would fail open on the first category nobody thought of.
+    # @param network [String] 
+    # @param category [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetAdOffsiteEligibilityResponse, Integer, Hash)>] GetAdOffsiteEligibilityResponse data, response status code and response headers
-    def get_ad_offsite_eligibility_with_http_info(opts = {})
+    def get_ad_offsite_eligibility_with_http_info(network, category, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.get_ad_offsite_eligibility ...'
+      end
+      # verify the required parameter 'network' is set
+      if @api_client.config.client_side_validation && network.nil?
+        fail ArgumentError, "Missing the required parameter 'network' when calling AdsApi.get_ad_offsite_eligibility"
+      end
+      # verify enum value
+      allowable_values = ["google", "tiktok", "reddit", "meta", "pinterest"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(network)
+        fail ArgumentError, "invalid value for \"network\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'category' is set
+      if @api_client.config.client_side_validation && category.nil?
+        fail ArgumentError, "Missing the required parameter 'category' when calling AdsApi.get_ad_offsite_eligibility"
       end
       # resource path
       local_var_path = '/v1/ads/offsite/eligibility'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'network'] = network
+      query_params[:'category'] = category
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -904,6 +1000,7 @@ module Crossly
 
     # What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh=true re-reads the balance.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :refresh 
     # @return [GetSponsoredAdBillingResponse]
     def get_sponsored_ad_billing(opts = {})
       data, _status_code, _headers = get_sponsored_ad_billing_with_http_info(opts)
@@ -912,16 +1009,22 @@ module Crossly
 
     # What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh&#x3D;true re-reads the balance.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :refresh 
     # @return [Array<(GetSponsoredAdBillingResponse, Integer, Hash)>] GetSponsoredAdBillingResponse data, response status code and response headers
     def get_sponsored_ad_billing_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_billing ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'refresh'] && !allowable_values.include?(opts[:'refresh'])
+        fail ArgumentError, "invalid value for \"refresh\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/billing'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'refresh'] = opts[:'refresh'] if !opts[:'refresh'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1143,6 +1246,8 @@ module Crossly
     # One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has `catalogs`: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [SponsoredAdCampaignResponse]
     def get_sponsored_ad_campaign(id, opts = {})
       data, _status_code, _headers = get_sponsored_ad_campaign_with_http_info(id, opts)
@@ -1152,6 +1257,8 @@ module Crossly
     # One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has &#x60;catalogs&#x60;: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [Array<(SponsoredAdCampaignResponse, Integer, Hash)>] SponsoredAdCampaignResponse data, response status code and response headers
     def get_sponsored_ad_campaign_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1166,6 +1273,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1203,6 +1312,7 @@ module Crossly
 
     # What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh=true re-reads CBX.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :refresh 
     # @return [GetSponsoredAdFundResponse]
     def get_sponsored_ad_fund(opts = {})
       data, _status_code, _headers = get_sponsored_ad_fund_with_http_info(opts)
@@ -1211,16 +1321,22 @@ module Crossly
 
     # What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh&#x3D;true re-reads CBX.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :refresh 
     # @return [Array<(GetSponsoredAdFundResponse, Integer, Hash)>] GetSponsoredAdFundResponse data, response status code and response headers
     def get_sponsored_ad_fund_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.get_sponsored_ad_fund ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'refresh'] && !allowable_values.include?(opts[:'refresh'])
+        fail ArgumentError, "invalid value for \"refresh\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/funds'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'refresh'] = opts[:'refresh'] if !opts[:'refresh'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1258,6 +1374,8 @@ module Crossly
 
     # Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and `catalogs`, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [GetSponsoredAdReportResponse]
     def get_sponsored_ad_report(opts = {})
       data, _status_code, _headers = get_sponsored_ad_report_with_http_info(opts)
@@ -1266,6 +1384,8 @@ module Crossly
 
     # Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and &#x60;catalogs&#x60;, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [Array<(GetSponsoredAdReportResponse, Integer, Hash)>] GetSponsoredAdReportResponse data, response status code and response headers
     def get_sponsored_ad_report_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1276,6 +1396,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1369,6 +1491,7 @@ module Crossly
     # Your ad campaigns on one marketplace (cached up to 15 minutes; refresh=true asks the marketplace now).
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :refresh 
     # @return [ListListingAdCampaignsResponse]
     def list_listing_ad_campaigns(platform, opts = {})
       data, _status_code, _headers = list_listing_ad_campaigns_with_http_info(platform, opts)
@@ -1378,6 +1501,7 @@ module Crossly
     # Your ad campaigns on one marketplace (cached up to 15 minutes; refresh&#x3D;true asks the marketplace now).
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :refresh 
     # @return [Array<(ListListingAdCampaignsResponse, Integer, Hash)>] ListListingAdCampaignsResponse data, response status code and response headers
     def list_listing_ad_campaigns_with_http_info(platform, opts = {})
       if @api_client.config.debugging
@@ -1387,11 +1511,16 @@ module Crossly
       if @api_client.config.client_side_validation && platform.nil?
         fail ArgumentError, "Missing the required parameter 'platform' when calling AdsApi.list_listing_ad_campaigns"
       end
+      allowable_values = ["0", "1", "true", "false"]
+      if @api_client.config.client_side_validation && opts[:'refresh'] && !allowable_values.include?(opts[:'refresh'])
+        fail ArgumentError, "invalid value for \"refresh\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/listing-ads/{platform}/campaigns'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'refresh'] = opts[:'refresh'] if !opts[:'refresh'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1484,6 +1613,9 @@ module Crossly
 
     # Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [String] :before 
+    # @option opts [Float] :limit 
     # @return [ListSponsoredAdBillingHistoryResponse]
     def list_sponsored_ad_billing_history(opts = {})
       data, _status_code, _headers = list_sponsored_ad_billing_history_with_http_info(opts)
@@ -1492,16 +1624,26 @@ module Crossly
 
     # Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [String] :before 
+    # @option opts [Float] :limit 
     # @return [Array<(ListSponsoredAdBillingHistoryResponse, Integer, Hash)>] ListSponsoredAdBillingHistoryResponse data, response status code and response headers
     def list_sponsored_ad_billing_history_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.list_sponsored_ad_billing_history ...'
+      end
+      allowable_values = ["topup", "refund", "credit", "charge", "boost_fee"]
+      if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/billing/history'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
+      query_params[:'before'] = opts[:'before'] if !opts[:'before'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1649,6 +1791,8 @@ module Crossly
 
     # Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [ListSponsoredAdCampaignsResponse]
     def list_sponsored_ad_campaigns(opts = {})
       data, _status_code, _headers = list_sponsored_ad_campaigns_with_http_info(opts)
@@ -1657,6 +1801,8 @@ module Crossly
 
     # Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [Array<(ListSponsoredAdCampaignsResponse, Integer, Hash)>] ListSponsoredAdCampaignsResponse data, response status code and response headers
     def list_sponsored_ad_campaigns_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1667,6 +1813,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1704,6 +1852,8 @@ module Crossly
 
     # Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [ListSponsoredAdListingsResponse]
     def list_sponsored_ad_listings(opts = {})
       data, _status_code, _headers = list_sponsored_ad_listings_with_http_info(opts)
@@ -1712,6 +1862,8 @@ module Crossly
 
     # Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :from 
+    # @option opts [String] :to 
     # @return [Array<(ListSponsoredAdListingsResponse, Integer, Hash)>] ListSponsoredAdListingsResponse data, response status code and response headers
     def list_sponsored_ad_listings_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1722,6 +1874,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1759,20 +1913,26 @@ module Crossly
 
     # Turn offsite ads on or off. Yours alone to set.
     # The toggle. Nothing else in the system sets `enabled` — no onboarding default, no bulk enable, no admin override. `maxOffsiteShareBps` caps how much of your budget may leave the platform, so opting in does not mean discovering the whole thing went to Google. `minReturnBps` sets the floor below which offsite spend auto-pauses: 20000 means we must return $2 of attributed revenue per $1 spent over the window. Toggling either way clears any existing auto-pause, so turning it back on later does not inherit a pause from months ago. When one of your ads brings a buyer who purchases somebody ELSE's item, that is reported to you as spillover so you can judge whether offsite traffic is reaching buyers who want YOUR item, and switch it off if not. It is not credited back — you bought clicks, which is how every ad market works.
+    # @param update_ad_offsite_request [UpdateAdOffsiteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateAdOffsiteResponse]
-    def update_ad_offsite(opts = {})
-      data, _status_code, _headers = update_ad_offsite_with_http_info(opts)
+    def update_ad_offsite(update_ad_offsite_request, opts = {})
+      data, _status_code, _headers = update_ad_offsite_with_http_info(update_ad_offsite_request, opts)
       data
     end
 
     # Turn offsite ads on or off. Yours alone to set.
     # The toggle. Nothing else in the system sets &#x60;enabled&#x60; — no onboarding default, no bulk enable, no admin override. &#x60;maxOffsiteShareBps&#x60; caps how much of your budget may leave the platform, so opting in does not mean discovering the whole thing went to Google. &#x60;minReturnBps&#x60; sets the floor below which offsite spend auto-pauses: 20000 means we must return $2 of attributed revenue per $1 spent over the window. Toggling either way clears any existing auto-pause, so turning it back on later does not inherit a pause from months ago. When one of your ads brings a buyer who purchases somebody ELSE&#39;s item, that is reported to you as spillover so you can judge whether offsite traffic is reaching buyers who want YOUR item, and switch it off if not. It is not credited back — you bought clicks, which is how every ad market works.
+    # @param update_ad_offsite_request [UpdateAdOffsiteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateAdOffsiteResponse, Integer, Hash)>] UpdateAdOffsiteResponse data, response status code and response headers
-    def update_ad_offsite_with_http_info(opts = {})
+    def update_ad_offsite_with_http_info(update_ad_offsite_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.update_ad_offsite ...'
+      end
+      # verify the required parameter 'update_ad_offsite_request' is set
+      if @api_client.config.client_side_validation && update_ad_offsite_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_ad_offsite_request' when calling AdsApi.update_ad_offsite"
       end
       # resource path
       local_var_path = '/v1/ads/offsite'
@@ -1784,12 +1944,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_ad_offsite_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateAdOffsiteResponse'
@@ -1817,19 +1982,21 @@ module Crossly
     # Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
     # @param platform [String] 
     # @param campaign_id [String] 
+    # @param update_listing_ad_campaign_request [UpdateListingAdCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingAdCampaignResponse]
-    def update_listing_ad_campaign(platform, campaign_id, opts = {})
-      data, _status_code, _headers = update_listing_ad_campaign_with_http_info(platform, campaign_id, opts)
+    def update_listing_ad_campaign(platform, campaign_id, update_listing_ad_campaign_request, opts = {})
+      data, _status_code, _headers = update_listing_ad_campaign_with_http_info(platform, campaign_id, update_listing_ad_campaign_request, opts)
       data
     end
 
     # Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
     # @param platform [String] 
     # @param campaign_id [String] 
+    # @param update_listing_ad_campaign_request [UpdateListingAdCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingAdCampaignResponse, Integer, Hash)>] CreateListingAdCampaignResponse data, response status code and response headers
-    def update_listing_ad_campaign_with_http_info(platform, campaign_id, opts = {})
+    def update_listing_ad_campaign_with_http_info(platform, campaign_id, update_listing_ad_campaign_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.update_listing_ad_campaign ...'
       end
@@ -1841,6 +2008,10 @@ module Crossly
       if @api_client.config.client_side_validation && campaign_id.nil?
         fail ArgumentError, "Missing the required parameter 'campaign_id' when calling AdsApi.update_listing_ad_campaign"
       end
+      # verify the required parameter 'update_listing_ad_campaign_request' is set
+      if @api_client.config.client_side_validation && update_listing_ad_campaign_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_listing_ad_campaign_request' when calling AdsApi.update_listing_ad_campaign"
+      end
       # resource path
       local_var_path = '/v1/listing-ads/{platform}/campaigns/{campaignId}'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
 
@@ -1851,12 +2022,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_listing_ad_campaign_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAdCampaignResponse'
@@ -1884,19 +2060,21 @@ module Crossly
     # Change one promoted listing's ad rate (percent of the sale) in the campaign it is in.
     # @param platform [String] 
     # @param platform_listing_id [String] 
+    # @param update_listing_ad_listing_rate_request [UpdateListingAdListingRateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateListingAdListingRateResponse]
-    def update_listing_ad_listing_rate(platform, platform_listing_id, opts = {})
-      data, _status_code, _headers = update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, opts)
+    def update_listing_ad_listing_rate(platform, platform_listing_id, update_listing_ad_listing_rate_request, opts = {})
+      data, _status_code, _headers = update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, update_listing_ad_listing_rate_request, opts)
       data
     end
 
     # Change one promoted listing&#39;s ad rate (percent of the sale) in the campaign it is in.
     # @param platform [String] 
     # @param platform_listing_id [String] 
+    # @param update_listing_ad_listing_rate_request [UpdateListingAdListingRateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateListingAdListingRateResponse, Integer, Hash)>] UpdateListingAdListingRateResponse data, response status code and response headers
-    def update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, opts = {})
+    def update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, update_listing_ad_listing_rate_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.update_listing_ad_listing_rate ...'
       end
@@ -1908,6 +2086,10 @@ module Crossly
       if @api_client.config.client_side_validation && platform_listing_id.nil?
         fail ArgumentError, "Missing the required parameter 'platform_listing_id' when calling AdsApi.update_listing_ad_listing_rate"
       end
+      # verify the required parameter 'update_listing_ad_listing_rate_request' is set
+      if @api_client.config.client_side_validation && update_listing_ad_listing_rate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_listing_ad_listing_rate_request' when calling AdsApi.update_listing_ad_listing_rate"
+      end
       # resource path
       local_var_path = '/v1/listing-ads/{platform}/listings/{platformListingId}/rate'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'platformListingId' + '}', CGI.escape(platform_listing_id.to_s))
 
@@ -1918,12 +2100,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_listing_ad_listing_rate_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateListingAdListingRateResponse'
@@ -1949,19 +2136,25 @@ module Crossly
     end
 
     # Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
+    # @param update_sponsored_ad_billing_auto_topup_request [UpdateSponsoredAdBillingAutoTopupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [SponsoredAdResponse]
-    def update_sponsored_ad_billing_auto_topup(opts = {})
-      data, _status_code, _headers = update_sponsored_ad_billing_auto_topup_with_http_info(opts)
+    def update_sponsored_ad_billing_auto_topup(update_sponsored_ad_billing_auto_topup_request, opts = {})
+      data, _status_code, _headers = update_sponsored_ad_billing_auto_topup_with_http_info(update_sponsored_ad_billing_auto_topup_request, opts)
       data
     end
 
     # Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
+    # @param update_sponsored_ad_billing_auto_topup_request [UpdateSponsoredAdBillingAutoTopupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(SponsoredAdResponse, Integer, Hash)>] SponsoredAdResponse data, response status code and response headers
-    def update_sponsored_ad_billing_auto_topup_with_http_info(opts = {})
+    def update_sponsored_ad_billing_auto_topup_with_http_info(update_sponsored_ad_billing_auto_topup_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.update_sponsored_ad_billing_auto_topup ...'
+      end
+      # verify the required parameter 'update_sponsored_ad_billing_auto_topup_request' is set
+      if @api_client.config.client_side_validation && update_sponsored_ad_billing_auto_topup_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_sponsored_ad_billing_auto_topup_request' when calling AdsApi.update_sponsored_ad_billing_auto_topup"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/billing/auto-topup'
@@ -1973,12 +2166,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_sponsored_ad_billing_auto_topup_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'SponsoredAdResponse'
@@ -2004,19 +2202,25 @@ module Crossly
     end
 
     # Boost listings in bulk (platformListingIds, upliftBps 100–2000 = 1–20%), or change their rate. Your own live Crossly listings only.
+    # @param update_sponsored_ad_boost_request [UpdateSponsoredAdBoostRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateSponsoredAdBoostResponse]
-    def update_sponsored_ad_boost(opts = {})
-      data, _status_code, _headers = update_sponsored_ad_boost_with_http_info(opts)
+    def update_sponsored_ad_boost(update_sponsored_ad_boost_request, opts = {})
+      data, _status_code, _headers = update_sponsored_ad_boost_with_http_info(update_sponsored_ad_boost_request, opts)
       data
     end
 
     # Boost listings in bulk (platformListingIds, upliftBps 100–2000 &#x3D; 1–20%), or change their rate. Your own live Crossly listings only.
+    # @param update_sponsored_ad_boost_request [UpdateSponsoredAdBoostRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateSponsoredAdBoostResponse, Integer, Hash)>] UpdateSponsoredAdBoostResponse data, response status code and response headers
-    def update_sponsored_ad_boost_with_http_info(opts = {})
+    def update_sponsored_ad_boost_with_http_info(update_sponsored_ad_boost_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AdsApi.update_sponsored_ad_boost ...'
+      end
+      # verify the required parameter 'update_sponsored_ad_boost_request' is set
+      if @api_client.config.client_side_validation && update_sponsored_ad_boost_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_sponsored_ad_boost_request' when calling AdsApi.update_sponsored_ad_boost"
       end
       # resource path
       local_var_path = '/v1/sponsored-ads/boosts'
@@ -2028,12 +2232,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_sponsored_ad_boost_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateSponsoredAdBoostResponse'

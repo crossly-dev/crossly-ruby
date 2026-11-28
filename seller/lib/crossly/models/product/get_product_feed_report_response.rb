@@ -29,6 +29,10 @@ module Crossly
     # The first few items exactly as the channel will receive them.
     attr_accessor :sample
 
+    attr_accessor :store
+
+    attr_accessor :currency
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -36,7 +40,9 @@ module Crossly
         :'scanned' => :'scanned',
         :'truncated' => :'truncated',
         :'items' => :'items',
-        :'sample' => :'sample'
+        :'sample' => :'sample',
+        :'store' => :'store',
+        :'currency' => :'currency'
       }
     end
 
@@ -51,8 +57,10 @@ module Crossly
         :'stats' => :'GetProductFeedReportResponseStats',
         :'scanned' => :'Float',
         :'truncated' => :'Boolean',
-        :'items' => :'Array<GetProductFeedReportResponseItems>',
-        :'sample' => :'Array<GetProductFeedReportResponseSample>'
+        :'items' => :'Array<GetProductFeedIssueResponseItems>',
+        :'sample' => :'Array<GetProductFeedReportResponseSample>',
+        :'store' => :'GetProductFeedReportResponseStore',
+        :'currency' => :'GetProductFeedReportResponseCurrency'
       }
     end
 
@@ -100,6 +108,14 @@ module Crossly
           self.sample = value
         end
       end
+
+      if attributes.key?(:'store')
+        self.store = attributes[:'store']
+      end
+
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -126,6 +142,14 @@ module Crossly
         invalid_properties.push('invalid value for "sample", sample cannot be nil.')
       end
 
+      if @store.nil?
+        invalid_properties.push('invalid value for "store", store cannot be nil.')
+      end
+
+      if @currency.nil?
+        invalid_properties.push('invalid value for "currency", currency cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -137,6 +161,8 @@ module Crossly
       return false if @truncated.nil?
       return false if @items.nil?
       return false if @sample.nil?
+      return false if @store.nil?
+      return false if @currency.nil?
       true
     end
 
@@ -149,7 +175,9 @@ module Crossly
           scanned == o.scanned &&
           truncated == o.truncated &&
           items == o.items &&
-          sample == o.sample
+          sample == o.sample &&
+          store == o.store &&
+          currency == o.currency
     end
 
     # @see the `==` method
@@ -161,7 +189,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [stats, scanned, truncated, items, sample].hash
+      [stats, scanned, truncated, items, sample, store, currency].hash
     end
 
     # Builds the object from hash

@@ -7,15 +7,20 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_action_log_export**](ActivityApi.md#create_action_log_export) | **POST** /v1/action-log/exports | Queue an export of the Activity Log: every event (csv, ndjson, pdf) or a summary report (pdf, ndjson). Poll GET /api/v1/action-log/exports/{exportId}, then download it. Exports never contain IP addresses. |
 | [**create_action_log_search_translate**](ActivityApi.md#create_action_log_search_translate) | **POST** /v1/action-log/search/translate | Turn a question in words (\&quot;failed delists on Mercari last week\&quot;) into an Activity Log search: pass the returned &#x60;q&#x60; to GET /api/v1/action-log (or the histogram and csv/ndjson exports). Nothing is run. A 404 with details.code &#x60;not_enabled&#x60; means natural-language search is off for this account. |
 | [**create_detected_event_event_confirm**](ActivityApi.md#create_detected_event_event_confirm) | **POST** /v1/detected-events/events/{id}/confirm | Answer an open ask (canConfirm true): optionally which item it is (itemId, one of the match candidates) and which actions to run instead of the ask&#39;s preselected ones. Returns the event. 409 ask_not_open when the event is not waiting. |
+| [**create_detected_event_event_dismiss**](ActivityApi.md#create_detected_event_event_dismiss) | **POST** /v1/detected-events/events/{id}/dismiss | Close an open ask without acting (status dismissed): nothing runs and nothing is recorded for the event. reason is kept with it. Returns the event. 409 ask_not_open when the event is not waiting. |
+| [**create_detected_event_event_reject**](ActivityApi.md#create_detected_event_event_reject) | **POST** /v1/detected-events/events/{id}/reject | \&quot;Not this item\&quot;: drop the suggested match of an open ask (itemId: just that candidate; omitted: every candidate). The ask stays open with the remaining candidates, or asks which item it is. Returns the event. |
 | [**create_detected_event_event_undo**](ActivityApi.md#create_detected_event_event_undo) | **POST** /v1/detected-events/events/{id}/undo | Undo what Crossly did for an event (canUndo true): every executed action&#39;s stored inverse runs, newest first (restore stock, relist, unlink…). Returns the event. 409 nothing_to_undo when nothing is reversible. |
 | [**create_detected_event_rule**](ActivityApi.md#create_detected_event_rule) | **POST** /v1/detected-events/rules | Create a detection rule: which detected events it applies to (filter + optional condition over any event axis) and what Crossly does then (and else). Without order it is placed most-specific-first, above the default set. Returns the stored rule with its id. |
+| [**create_detected_event_rule_copy**](ActivityApi.md#create_detected_event_rule_copy) | **POST** /v1/detected-events/rules/{ref}/copy | Copy one rule (a stored id, or default.&lt;key&gt; for the store&#39;s effective rule of a situation) into other stores of yours, at the same relative position. A target store that already has its own rule for that situation keeps it unless overwrite is true. Returns what was copied (and whether it replaced a rule) and what was skipped, and why. |
 | [**create_detected_event_rule_place**](ActivityApi.md#create_detected_event_rule_place) | **POST** /v1/detected-events/rules/place | Save one rule and the whole evaluation order in one transaction: rule.id is an existing id (replace) or any new client id (create); ids is every rule id top-down, naming the rule by that id. Returns the stored rule and the list. |
 | [**create_detected_event_rule_reorder**](ActivityApi.md#create_detected_event_rule_reorder) | **POST** /v1/detected-events/rules/reorder | Set the evaluation order: ids top-down, defaults included (ids from the rules list). Rules are re-numbered 10, 20, 30…; a default moved above one of your rules is stored as your edit. Returns the list. |
 | [**create_detected_event_rule_reset_default**](ActivityApi.md#create_detected_event_rule_reset_default) | **POST** /v1/detected-events/rules/reset-defaults | Drop your edits of the shipped default rules (keys, or all when omitted). Returns the list. |
 | [**create_detected_event_simulate**](ActivityApi.md#create_detected_event_simulate) | **POST** /v1/detected-events/simulate | Run one event through the rules without acting: the winning rule, rules it shadowed, the trace, the guards that held actions back and the plan per target with how it would run (direct / relay / ask / skip). event needs only kind; every axis left out takes its default. rules &#x3D; an unsaved draft list. |
 | [**create_detected_event_simulate_impact**](ActivityApi.md#create_detected_event_simulate_impact) | **POST** /v1/detected-events/simulate/impact | What a rule edit would change: your detected events of the last days (default 30, at most 500) re-resolved against the draft rules and against the stored ones. Per event: winning rule and actions before and after, and whether it changed. Nothing runs. |
+| [**create_detected_event_starting_point_preview**](ActivityApi.md#create_detected_event_starting_point_preview) | **POST** /v1/detected-events/starting-point/preview | What applying a starting point would change, nothing saved: per situation its title, the outcome now and after, and whether it would overwrite a default you edited by hand (those are kept: a starting point only rewrites untouched defaults, never your own rules). |
 | [**create_email_event_confirm**](ActivityApi.md#create_email_event_confirm) | **POST** /v1/email-events/{id}/confirm | Confirm an email-detected event: re-run it as certain (a possible sale records the sale and delists the item elsewhere). When several listings could be meant, pass platformListingDbId to choose one. |
 | [**create_email_event_dismiss**](ActivityApi.md#create_email_event_dismiss) | **POST** /v1/email-events/{id}/dismiss | Dismiss an email-detected event (\&quot;not a sale\&quot;): closes the card without acting. |
+| [**create_email_event_reprocess**](ActivityApi.md#create_email_event_reprocess) | **POST** /v1/email-events/{id}/reprocess | Re-process a marketplace email with the current templates (one Crossly did not recognise, could not finish, or ignored). Refused (409) for an email that already changed something, or once its 30-day copy is gone. |
 | [**create_event_policy_decision_confirm**](ActivityApi.md#create_event_policy_decision_confirm) | **POST** /v1/event-policies/decisions/{id}/confirm | Confirm a review decision from a webhook, order poller or app relay (canConfirm true): the event runs again with the seller confirmed, so a review rule runs the strongest allowed non-review action for that cell. Returns the new decision. 409 when the decision was already confirmed or is not confirmable (email review decisions are confirmed on their review card). |
 | [**delete_detected_event_rule**](ActivityApi.md#delete_detected_event_rule) | **DELETE** /v1/detected-events/rules/{id} | Delete a detection rule. Deleting your edit of a default (its id, or default:&lt;key&gt;) brings the shipped default back; deleting a translated event-policy rule deletes that policy rule too. |
 | [**delete_event_policy_rule**](ActivityApi.md#delete_event_policy_rule) | **DELETE** /v1/event-policies/rules/{id} | Delete a rule: its cell falls back to the next scope (platform → global → the built-in default). |
@@ -24,15 +29,22 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_action_log_export_download**](ActivityApi.md#get_action_log_export_download) | **GET** /v1/action-log/exports/{exportId}/download | Download a finished Activity Log export (for 24 hours after it completes). |
 | [**get_action_log_facet**](ActivityApi.md#get_action_log_facet) | **GET** /v1/action-log/facets | Filter options of the caller&#39;s Activity Log (last 90 days): areas with their actions and counts, the team members who acted, platforms and outcomes. |
 | [**get_detected_event_event**](ActivityApi.md#get_detected_event_event) | **GET** /v1/detected-events/events/{id} | One detected event with every report of it (first + corroborations, with correlation and contradiction), the guards that held actions back, the plan and each executed action&#39;s outcome and reversibility. |
+| [**get_detected_event_overview**](ActivityApi.md#get_detected_event_overview) | **GET** /v1/detected-events/overview | What Crossly does today in each situation for the store, computed from the store&#39;s real rules the way the engine decides: per situation its topic, title, the outcome in words, the rule ref that decides it, whether it differs from the recommended default, and narrower rules (one marketplace, account or app) that decide it differently there. Also the headline situations per topic, the starting point (hands_on / balanced / hands_off / custom), how many rules are your own and how many events wait for you. The store is X-Storefront-Id (omitted: the default store). |
+| [**get_detected_event_rule**](ActivityApi.md#get_detected_event_rule) | **GET** /v1/detected-events/rules/{ref} | One detection rule by its ref: a stored rule&#39;s id, or default.&lt;key&gt; for a situation (the store&#39;s effective rule for it: your edit when there is one, else the shipped default). Returns the rule, the situation it decides (topic, title, why it is the default), the choice cards offered for that situation (each a complete rule body, the recommended one first) and which card the rule is (custom when none). A retired key (order.notify, account) opens the key it was split into. 404 when the ref names nothing. |
+| [**get_detected_event_starting_point**](ActivityApi.md#get_detected_event_starting_point) | **GET** /v1/detected-events/starting-point | The store&#39;s starting point: hands_on, balanced (recommended), hands_off, or custom once a default was edited by hand. Preview a change with POST starting-point/preview, apply it with PUT starting-point. |
+| [**get_email_event**](ActivityApi.md#get_email_event) | **GET** /v1/email-events/{id} | One marketplace email Crossly read: what it did with it (outcome), the fields the template extracted, and the mailbox it came from. |
+| [**get_email_event_preview**](ActivityApi.md#get_email_event_preview) | **GET** /v1/email-events/{id}/preview | A marketplace email&#39;s sanitized preview: text only, buyer address lines hidden, links without their query. Crossly keeps each email 30 days; after that this is a 409. |
 | [**get_event_policy**](ActivityApi.md#get_event_policy) | **GET** /v1/event-policies | What Crossly does with each detected marketplace event (sale, listing ended, offer, cancellation, label, shipped, delivered, refund, return, payout, message), per who owns the item (crossly, imported, app_managed, other_tool, untracked). Each matrix cell lists the allowed actions and the effective one, with the scope it comes from (app &gt; platform &gt; global &gt; default). Pass platform (or appId) to see the matrix as that platform&#39;s (or app&#39;s) items see it. Also returns the rules, platforms and connected apps. |
 | [**list_action_log**](ActivityApi.md#list_action_log) | **GET** /v1/action-log | List Activity Log events, newest first. Each event carries &#x60;view&#x60; (title, sentence, fields, failure advice, who did it) and typed &#x60;detail&#x60;. Page with &#x60;cursor&#x60;; &#x60;pagination.total&#x60; counts matches. |
 | [**list_action_log_calls**](ActivityApi.md#list_action_log_calls) | **GET** /v1/action-log/{id}/calls | The outbound platform HTTP calls under an event (oldest first) — platform, operation, method, host, status, latency, error class/message, proxy + recipe id. Answers \&quot;what was sent / what went wrong\&quot;. The URL path, request/response bodies and persisted-query hash are never returned. |
 | [**list_action_log_histogram**](ActivityApi.md#list_action_log_histogram) | **GET** /v1/action-log/histogram | Events per UTC day for the list filters (default: the last 30 days; at most 366). |
-| [**list_detected_event_events**](ActivityApi.md#list_detected_event_events) | **GET** /v1/detected-events/events | Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time). |
+| [**list_detected_event_events**](ActivityApi.md#list_detected_event_events) | **GET** /v1/detected-events/events | Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms, statuses, accounts and channels (comma-separated), one item, listing, order or deciding rule, and since (ISO time). statuses&#x3D;asked is what waits for you; dismissed is an ask closed without acting. Rows from before the rules update carry legacy: true and have no actions. Per store: X-Storefront-Id (omitted: the default store, which also keeps events recorded before stores existed). |
 | [**list_detected_event_rules**](ActivityApi.md#list_detected_event_rules) | **GET** /v1/detected-events/rules | The seller&#39;s detection rules, top-down in the order they are evaluated (first match wins unless a rule says continue): the seller&#39;s own rules, translations of their event-policy rules (source legacy), then the shipped default set (source default, ids default:&lt;key&gt;; a stored edit of a default replaces it). Each rule has a filter (event kinds, platforms, accounts, apps, tags, items), an optional condition over any event axis, the actions it runs (then / else) and its guard loosenings. |
+| [**list_detected_event_situations**](ActivityApi.md#list_detected_event_situations) | **GET** /v1/detected-events/situations | Every situation Crossly decides (a sale of an item in Crossly, a sale not in Crossly with no match, a return opened, a connection lost…), grouped by topic (sales, orders, listings, buyers, account): its title, whether it is a headline row of the Overview, why the default is what it is, its rule ref (default.&lt;key&gt;) and the choice cards offered for it. To pick a card, PUT its body to the rule default:&lt;key&gt;. The same catalog for every seller; GET overview says what each does today. |
 | [**list_email_events**](ActivityApi.md#list_email_events) | **GET** /v1/email-events | List email-detected events waiting for the seller (status&#x3D;needs_review): a possible sale, ended listing, cancellation or other event an email reported that was not certain enough to act on automatically. |
 | [**list_event_policy_decisions**](ActivityApi.md#list_event_policy_decisions) | **GET** /v1/event-policies/decisions | The decision log, newest first: for each detected event, what the rule or default asked for, what was done (after capability fallback and the email confidence ceiling), the rule that decided it, and the outcome (done / skipped / failed / review). Cursor-paged; filter by event, ownership, platform or outcome (outcome&#x3D;review: still waiting for the seller). Kept 90 days. |
 | [**update_detected_event_rule**](ActivityApi.md#update_detected_event_rule) | **PUT** /v1/detected-events/rules/{id} | Replace a detection rule. An id default:&lt;key&gt; stores your edit of that shipped default (delete it, or reset-defaults, to go back to the shipped one). |
+| [**update_detected_event_starting_point**](ActivityApi.md#update_detected_event_starting_point) | **PUT** /v1/detected-events/starting-point | Apply a starting point to the store: rewrites the store&#39;s untouched default rules as ordinary rules (balanced removes them, so the shipped defaults apply). Defaults you edited and your own rules stay as they are; starting points do not stack. Logged to Activity. Returns the starting point now in effect. |
 | [**update_event_policy_rule**](ActivityApi.md#update_event_policy_rule) | **PUT** /v1/event-policies/rules | Set what Crossly does with one kind of detected event for one kind of item: scope global (scopeValue null), platform (scopeValue &#x3D; platform id) or app (scopeValue &#x3D; OAuth app id, app_managed items only). Replaces the rule for the same cell and scope. The action must be one the matrix allows for that cell; import actions exist only for untracked items. |
 
 
@@ -172,7 +184,7 @@ end
 
 ## create_detected_event_event_confirm
 
-> <CreateDetectedEventEventUndoResponse> create_detected_event_event_confirm(id, create_detected_event_event_confirm_request)
+> <DetectedEventEventResponse> create_detected_event_event_confirm(id, create_detected_event_event_confirm_request)
 
 Answer an open ask (canConfirm true): optionally which item it is (itemId, one of the match candidates) and which actions to run instead of the ask's preselected ones. Returns the event. 409 ask_not_open when the event is not waiting.
 
@@ -204,7 +216,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDetectedEventEventUndoResponse>, Integer, Hash)> create_detected_event_event_confirm_with_http_info(id, create_detected_event_event_confirm_request)
+> <Array(<DetectedEventEventResponse>, Integer, Hash)> create_detected_event_event_confirm_with_http_info(id, create_detected_event_event_confirm_request)
 
 ```ruby
 begin
@@ -212,7 +224,7 @@ begin
   data, status_code, headers = api_instance.create_detected_event_event_confirm_with_http_info(id, create_detected_event_event_confirm_request)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateDetectedEventEventUndoResponse>
+  p data # => <DetectedEventEventResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling ActivityApi->create_detected_event_event_confirm_with_http_info: #{e}"
 end
@@ -227,7 +239,145 @@ end
 
 ### Return type
 
-**CreateDetectedEventEventUndoResponse**
+**DetectedEventEventResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_detected_event_event_dismiss
+
+> <DetectedEventEventResponse> create_detected_event_event_dismiss(id, create_detected_event_event_dismiss_request)
+
+Close an open ask without acting (status dismissed): nothing runs and nothing is recorded for the event. reason is kept with it. Returns the event. 409 ask_not_open when the event is not waiting.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_detected_event_event_dismiss_request = Crossly::CreateDetectedEventEventDismissRequest.new # CreateDetectedEventEventDismissRequest | 
+
+begin
+  # Close an open ask without acting (status dismissed): nothing runs and nothing is recorded for the event. reason is kept with it. Returns the event. 409 ask_not_open when the event is not waiting.
+  result = api_instance.create_detected_event_event_dismiss(id, create_detected_event_event_dismiss_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_event_dismiss: #{e}"
+end
+```
+
+#### Using the create_detected_event_event_dismiss_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<DetectedEventEventResponse>, Integer, Hash)> create_detected_event_event_dismiss_with_http_info(id, create_detected_event_event_dismiss_request)
+
+```ruby
+begin
+  # Close an open ask without acting (status dismissed): nothing runs and nothing is recorded for the event. reason is kept with it. Returns the event. 409 ask_not_open when the event is not waiting.
+  data, status_code, headers = api_instance.create_detected_event_event_dismiss_with_http_info(id, create_detected_event_event_dismiss_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <DetectedEventEventResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_event_dismiss_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **create_detected_event_event_dismiss_request** | **CreateDetectedEventEventDismissRequest** |  |  |
+
+### Return type
+
+**DetectedEventEventResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_detected_event_event_reject
+
+> <DetectedEventEventResponse> create_detected_event_event_reject(id, create_detected_event_event_reject_request)
+
+\"Not this item\": drop the suggested match of an open ask (itemId: just that candidate; omitted: every candidate). The ask stays open with the remaining candidates, or asks which item it is. Returns the event.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_detected_event_event_reject_request = Crossly::CreateDetectedEventEventRejectRequest.new # CreateDetectedEventEventRejectRequest | 
+
+begin
+  # \"Not this item\": drop the suggested match of an open ask (itemId: just that candidate; omitted: every candidate). The ask stays open with the remaining candidates, or asks which item it is. Returns the event.
+  result = api_instance.create_detected_event_event_reject(id, create_detected_event_event_reject_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_event_reject: #{e}"
+end
+```
+
+#### Using the create_detected_event_event_reject_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<DetectedEventEventResponse>, Integer, Hash)> create_detected_event_event_reject_with_http_info(id, create_detected_event_event_reject_request)
+
+```ruby
+begin
+  # \"Not this item\": drop the suggested match of an open ask (itemId: just that candidate; omitted: every candidate). The ask stays open with the remaining candidates, or asks which item it is. Returns the event.
+  data, status_code, headers = api_instance.create_detected_event_event_reject_with_http_info(id, create_detected_event_event_reject_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <DetectedEventEventResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_event_reject_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **create_detected_event_event_reject_request** | **CreateDetectedEventEventRejectRequest** |  |  |
+
+### Return type
+
+**DetectedEventEventResponse**
 
 ### Authorization
 
@@ -241,7 +391,7 @@ end
 
 ## create_detected_event_event_undo
 
-> <CreateDetectedEventEventUndoResponse> create_detected_event_event_undo(id)
+> <DetectedEventEventResponse> create_detected_event_event_undo(id)
 
 Undo what Crossly did for an event (canUndo true): every executed action's stored inverse runs, newest first (restore stock, relist, unlink…). Returns the event. 409 nothing_to_undo when nothing is reversible.
 
@@ -272,7 +422,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateDetectedEventEventUndoResponse>, Integer, Hash)> create_detected_event_event_undo_with_http_info(id)
+> <Array(<DetectedEventEventResponse>, Integer, Hash)> create_detected_event_event_undo_with_http_info(id)
 
 ```ruby
 begin
@@ -280,7 +430,7 @@ begin
   data, status_code, headers = api_instance.create_detected_event_event_undo_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateDetectedEventEventUndoResponse>
+  p data # => <DetectedEventEventResponse>
 rescue Crossly::ApiError => e
   puts "Error when calling ActivityApi->create_detected_event_event_undo_with_http_info: #{e}"
 end
@@ -294,7 +444,7 @@ end
 
 ### Return type
 
-**CreateDetectedEventEventUndoResponse**
+**DetectedEventEventResponse**
 
 ### Authorization
 
@@ -362,6 +512,75 @@ end
 ### Return type
 
 **CreateDetectedEventRuleResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_detected_event_rule_copy
+
+> <CreateDetectedEventRuleCopyResponse> create_detected_event_rule_copy(ref, create_detected_event_rule_copy_request)
+
+Copy one rule (a stored id, or default.<key> for the store's effective rule of a situation) into other stores of yours, at the same relative position. A target store that already has its own rule for that situation keeps it unless overwrite is true. Returns what was copied (and whether it replaced a rule) and what was skipped, and why.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+ref = 'ref_example' # String | A rule id, or default.<key> (default:<key> works).
+create_detected_event_rule_copy_request = Crossly::CreateDetectedEventRuleCopyRequest.new({storefront_ids: ['storefront_ids_example']}) # CreateDetectedEventRuleCopyRequest | 
+
+begin
+  # Copy one rule (a stored id, or default.<key> for the store's effective rule of a situation) into other stores of yours, at the same relative position. A target store that already has its own rule for that situation keeps it unless overwrite is true. Returns what was copied (and whether it replaced a rule) and what was skipped, and why.
+  result = api_instance.create_detected_event_rule_copy(ref, create_detected_event_rule_copy_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_rule_copy: #{e}"
+end
+```
+
+#### Using the create_detected_event_rule_copy_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateDetectedEventRuleCopyResponse>, Integer, Hash)> create_detected_event_rule_copy_with_http_info(ref, create_detected_event_rule_copy_request)
+
+```ruby
+begin
+  # Copy one rule (a stored id, or default.<key> for the store's effective rule of a situation) into other stores of yours, at the same relative position. A target store that already has its own rule for that situation keeps it unless overwrite is true. Returns what was copied (and whether it replaced a rule) and what was skipped, and why.
+  data, status_code, headers = api_instance.create_detected_event_rule_copy_with_http_info(ref, create_detected_event_rule_copy_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateDetectedEventRuleCopyResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_rule_copy_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ref** | **String** | A rule id, or default.&lt;key&gt; (default:&lt;key&gt; works). |  |
+| **create_detected_event_rule_copy_request** | **CreateDetectedEventRuleCopyRequest** |  |  |
+
+### Return type
+
+**CreateDetectedEventRuleCopyResponse**
 
 ### Authorization
 
@@ -708,6 +927,73 @@ end
 - **Accept**: application/json
 
 
+## create_detected_event_starting_point_preview
+
+> <CreateDetectedEventStartingPointPreviewResponse> create_detected_event_starting_point_preview(update_detected_event_starting_point_request)
+
+What applying a starting point would change, nothing saved: per situation its title, the outcome now and after, and whether it would overwrite a default you edited by hand (those are kept: a starting point only rewrites untouched defaults, never your own rules).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+update_detected_event_starting_point_request = Crossly::UpdateDetectedEventStartingPointRequest.new({starting_point: 'hands_on'}) # UpdateDetectedEventStartingPointRequest | 
+
+begin
+  # What applying a starting point would change, nothing saved: per situation its title, the outcome now and after, and whether it would overwrite a default you edited by hand (those are kept: a starting point only rewrites untouched defaults, never your own rules).
+  result = api_instance.create_detected_event_starting_point_preview(update_detected_event_starting_point_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_starting_point_preview: #{e}"
+end
+```
+
+#### Using the create_detected_event_starting_point_preview_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateDetectedEventStartingPointPreviewResponse>, Integer, Hash)> create_detected_event_starting_point_preview_with_http_info(update_detected_event_starting_point_request)
+
+```ruby
+begin
+  # What applying a starting point would change, nothing saved: per situation its title, the outcome now and after, and whether it would overwrite a default you edited by hand (those are kept: a starting point only rewrites untouched defaults, never your own rules).
+  data, status_code, headers = api_instance.create_detected_event_starting_point_preview_with_http_info(update_detected_event_starting_point_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateDetectedEventStartingPointPreviewResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_detected_event_starting_point_preview_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_detected_event_starting_point_request** | **UpdateDetectedEventStartingPointRequest** |  |  |
+
+### Return type
+
+**CreateDetectedEventStartingPointPreviewResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## create_email_event_confirm
 
 > <CreateEmailEventConfirmResponse> create_email_event_confirm(id, create_email_event_confirm_request)
@@ -833,6 +1119,73 @@ end
 ### Return type
 
 **IdStatusResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_email_event_reprocess
+
+> <GetEmailEventResponse> create_email_event_reprocess(id)
+
+Re-process a marketplace email with the current templates (one Crossly did not recognise, could not finish, or ignored). Refused (409) for an email that already changed something, or once its 30-day copy is gone.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # Re-process a marketplace email with the current templates (one Crossly did not recognise, could not finish, or ignored). Refused (409) for an email that already changed something, or once its 30-day copy is gone.
+  result = api_instance.create_email_event_reprocess(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_email_event_reprocess: #{e}"
+end
+```
+
+#### Using the create_email_event_reprocess_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetEmailEventResponse>, Integer, Hash)> create_email_event_reprocess_with_http_info(id)
+
+```ruby
+begin
+  # Re-process a marketplace email with the current templates (one Crossly did not recognise, could not finish, or ignored). Refused (409) for an email that already changed something, or once its 30-day copy is gone.
+  data, status_code, headers = api_instance.create_email_event_reprocess_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetEmailEventResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->create_email_event_reprocess_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetEmailEventResponse**
 
 ### Authorization
 
@@ -1377,6 +1730,335 @@ end
 - **Accept**: application/json
 
 
+## get_detected_event_overview
+
+> <GetDetectedEventOverviewResponse> get_detected_event_overview
+
+What Crossly does today in each situation for the store, computed from the store's real rules the way the engine decides: per situation its topic, title, the outcome in words, the rule ref that decides it, whether it differs from the recommended default, and narrower rules (one marketplace, account or app) that decide it differently there. Also the headline situations per topic, the starting point (hands_on / balanced / hands_off / custom), how many rules are your own and how many events wait for you. The store is X-Storefront-Id (omitted: the default store).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+
+begin
+  # What Crossly does today in each situation for the store, computed from the store's real rules the way the engine decides: per situation its topic, title, the outcome in words, the rule ref that decides it, whether it differs from the recommended default, and narrower rules (one marketplace, account or app) that decide it differently there. Also the headline situations per topic, the starting point (hands_on / balanced / hands_off / custom), how many rules are your own and how many events wait for you. The store is X-Storefront-Id (omitted: the default store).
+  result = api_instance.get_detected_event_overview
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_detected_event_overview: #{e}"
+end
+```
+
+#### Using the get_detected_event_overview_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDetectedEventOverviewResponse>, Integer, Hash)> get_detected_event_overview_with_http_info
+
+```ruby
+begin
+  # What Crossly does today in each situation for the store, computed from the store's real rules the way the engine decides: per situation its topic, title, the outcome in words, the rule ref that decides it, whether it differs from the recommended default, and narrower rules (one marketplace, account or app) that decide it differently there. Also the headline situations per topic, the starting point (hands_on / balanced / hands_off / custom), how many rules are your own and how many events wait for you. The store is X-Storefront-Id (omitted: the default store).
+  data, status_code, headers = api_instance.get_detected_event_overview_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDetectedEventOverviewResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_detected_event_overview_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetDetectedEventOverviewResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_detected_event_rule
+
+> <GetDetectedEventRuleResponse> get_detected_event_rule(ref)
+
+One detection rule by its ref: a stored rule's id, or default.<key> for a situation (the store's effective rule for it: your edit when there is one, else the shipped default). Returns the rule, the situation it decides (topic, title, why it is the default), the choice cards offered for that situation (each a complete rule body, the recommended one first) and which card the rule is (custom when none). A retired key (order.notify, account) opens the key it was split into. 404 when the ref names nothing.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+ref = 'ref_example' # String | A stored rule id (uuid), or default.<key> for a situation default (default:<key> also works).
+
+begin
+  # One detection rule by its ref: a stored rule's id, or default.<key> for a situation (the store's effective rule for it: your edit when there is one, else the shipped default). Returns the rule, the situation it decides (topic, title, why it is the default), the choice cards offered for that situation (each a complete rule body, the recommended one first) and which card the rule is (custom when none). A retired key (order.notify, account) opens the key it was split into. 404 when the ref names nothing.
+  result = api_instance.get_detected_event_rule(ref)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_detected_event_rule: #{e}"
+end
+```
+
+#### Using the get_detected_event_rule_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDetectedEventRuleResponse>, Integer, Hash)> get_detected_event_rule_with_http_info(ref)
+
+```ruby
+begin
+  # One detection rule by its ref: a stored rule's id, or default.<key> for a situation (the store's effective rule for it: your edit when there is one, else the shipped default). Returns the rule, the situation it decides (topic, title, why it is the default), the choice cards offered for that situation (each a complete rule body, the recommended one first) and which card the rule is (custom when none). A retired key (order.notify, account) opens the key it was split into. 404 when the ref names nothing.
+  data, status_code, headers = api_instance.get_detected_event_rule_with_http_info(ref)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDetectedEventRuleResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_detected_event_rule_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **ref** | **String** | A stored rule id (uuid), or default.&lt;key&gt; for a situation default (default:&lt;key&gt; also works). |  |
+
+### Return type
+
+**GetDetectedEventRuleResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_detected_event_starting_point
+
+> <GetDetectedEventStartingPointResponse> get_detected_event_starting_point
+
+The store's starting point: hands_on, balanced (recommended), hands_off, or custom once a default was edited by hand. Preview a change with POST starting-point/preview, apply it with PUT starting-point.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+
+begin
+  # The store's starting point: hands_on, balanced (recommended), hands_off, or custom once a default was edited by hand. Preview a change with POST starting-point/preview, apply it with PUT starting-point.
+  result = api_instance.get_detected_event_starting_point
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_detected_event_starting_point: #{e}"
+end
+```
+
+#### Using the get_detected_event_starting_point_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDetectedEventStartingPointResponse>, Integer, Hash)> get_detected_event_starting_point_with_http_info
+
+```ruby
+begin
+  # The store's starting point: hands_on, balanced (recommended), hands_off, or custom once a default was edited by hand. Preview a change with POST starting-point/preview, apply it with PUT starting-point.
+  data, status_code, headers = api_instance.get_detected_event_starting_point_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDetectedEventStartingPointResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_detected_event_starting_point_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetDetectedEventStartingPointResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_email_event
+
+> <GetEmailEventResponse> get_email_event(id)
+
+One marketplace email Crossly read: what it did with it (outcome), the fields the template extracted, and the mailbox it came from.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # One marketplace email Crossly read: what it did with it (outcome), the fields the template extracted, and the mailbox it came from.
+  result = api_instance.get_email_event(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_email_event: #{e}"
+end
+```
+
+#### Using the get_email_event_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetEmailEventResponse>, Integer, Hash)> get_email_event_with_http_info(id)
+
+```ruby
+begin
+  # One marketplace email Crossly read: what it did with it (outcome), the fields the template extracted, and the mailbox it came from.
+  data, status_code, headers = api_instance.get_email_event_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetEmailEventResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_email_event_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetEmailEventResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_email_event_preview
+
+> <GetEmailEventPreviewResponse> get_email_event_preview(id)
+
+A marketplace email's sanitized preview: text only, buyer address lines hidden, links without their query. Crossly keeps each email 30 days; after that this is a 409.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # A marketplace email's sanitized preview: text only, buyer address lines hidden, links without their query. Crossly keeps each email 30 days; after that this is a 409.
+  result = api_instance.get_email_event_preview(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_email_event_preview: #{e}"
+end
+```
+
+#### Using the get_email_event_preview_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetEmailEventPreviewResponse>, Integer, Hash)> get_email_event_preview_with_http_info(id)
+
+```ruby
+begin
+  # A marketplace email's sanitized preview: text only, buyer address lines hidden, links without their query. Crossly keeps each email 30 days; after that this is a 409.
+  data, status_code, headers = api_instance.get_email_event_preview_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetEmailEventPreviewResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->get_email_event_preview_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetEmailEventPreviewResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_event_policy
 
 > <GetEventPolicyResponse> get_event_policy(opts)
@@ -1709,7 +2391,7 @@ end
 
 > <ListDetectedEventEventsResponse> list_detected_event_events(opts)
 
-Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms, statuses, accounts and channels (comma-separated), one item, listing, order or deciding rule, and since (ISO time). statuses=asked is what waits for you; dismissed is an ask closed without acting. Rows from before the rules update carry legacy: true and have no actions. Per store: X-Storefront-Id (omitted: the default store, which also keeps events recorded before stores existed).
 
 ### Examples
 
@@ -1727,14 +2409,20 @@ opts = {
   kinds: 'kinds_example', # String | 
   platforms: 'platforms_example', # String | 
   accounts: 'accounts_example', # String | Comma-separated platform account ids (scope.account).
-  statuses: 'statuses_example', # String | Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected
+  statuses: 'statuses_example', # String | Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected, dismissed
+  channels: 'channels_example', # String | Comma-separated, how it was reported: platform_webhook, platform_poll, cookie_poll, health_probe, listing_discovery, app_push, email, extension, manual
+  item_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | Only events about this inventory item.
+  listing_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | Only events about this platform listing.
+  order_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | Only events about this order.
+  rule_id: 'rule_id_example', # String | Only events this rule decided (a rule id, or default:<key>).
+  ownership: 'ownership_example', # String | Comma-separated, who manages the item (crossly, imported, app_managed, other_tool, untracked).
   since: Time.parse('2013-10-20T19:20:30+01:00'), # Time | 
   cursor: 'cursor_example', # String | 
   limit: 56 # Integer | 
 }
 
 begin
-  # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+  # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms, statuses, accounts and channels (comma-separated), one item, listing, order or deciding rule, and since (ISO time). statuses=asked is what waits for you; dismissed is an ask closed without acting. Rows from before the rules update carry legacy: true and have no actions. Per store: X-Storefront-Id (omitted: the default store, which also keeps events recorded before stores existed).
   result = api_instance.list_detected_event_events(opts)
   p result
 rescue Crossly::ApiError => e
@@ -1750,7 +2438,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+  # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms, statuses, accounts and channels (comma-separated), one item, listing, order or deciding rule, and since (ISO time). statuses=asked is what waits for you; dismissed is an ask closed without acting. Rows from before the rules update carry legacy: true and have no actions. Per store: X-Storefront-Id (omitted: the default store, which also keeps events recorded before stores existed).
   data, status_code, headers = api_instance.list_detected_event_events_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
@@ -1767,7 +2455,13 @@ end
 | **kinds** | **String** |  | [optional] |
 | **platforms** | **String** |  | [optional] |
 | **accounts** | **String** | Comma-separated platform account ids (scope.account). | [optional] |
-| **statuses** | **String** | Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected | [optional] |
+| **statuses** | **String** | Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected, dismissed | [optional] |
+| **channels** | **String** | Comma-separated, how it was reported: platform_webhook, platform_poll, cookie_poll, health_probe, listing_discovery, app_push, email, extension, manual | [optional] |
+| **item_id** | **String** | Only events about this inventory item. | [optional] |
+| **listing_id** | **String** | Only events about this platform listing. | [optional] |
+| **order_id** | **String** | Only events about this order. | [optional] |
+| **rule_id** | **String** | Only events this rule decided (a rule id, or default:&lt;key&gt;). | [optional] |
+| **ownership** | **String** | Comma-separated, who manages the item (crossly, imported, app_managed, other_tool, untracked). | [optional] |
 | **since** | **Time** |  | [optional] |
 | **cursor** | **String** |  | [optional] |
 | **limit** | **Integer** |  | [optional] |
@@ -1839,6 +2533,70 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListDetectedEventRulesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_detected_event_situations
+
+> <ListDetectedEventSituationsResponse> list_detected_event_situations
+
+Every situation Crossly decides (a sale of an item in Crossly, a sale not in Crossly with no match, a return opened, a connection lost…), grouped by topic (sales, orders, listings, buyers, account): its title, whether it is a headline row of the Overview, why the default is what it is, its rule ref (default.<key>) and the choice cards offered for it. To pick a card, PUT its body to the rule default:<key>. The same catalog for every seller; GET overview says what each does today.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+
+begin
+  # Every situation Crossly decides (a sale of an item in Crossly, a sale not in Crossly with no match, a return opened, a connection lost…), grouped by topic (sales, orders, listings, buyers, account): its title, whether it is a headline row of the Overview, why the default is what it is, its rule ref (default.<key>) and the choice cards offered for it. To pick a card, PUT its body to the rule default:<key>. The same catalog for every seller; GET overview says what each does today.
+  result = api_instance.list_detected_event_situations
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->list_detected_event_situations: #{e}"
+end
+```
+
+#### Using the list_detected_event_situations_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListDetectedEventSituationsResponse>, Integer, Hash)> list_detected_event_situations_with_http_info
+
+```ruby
+begin
+  # Every situation Crossly decides (a sale of an item in Crossly, a sale not in Crossly with no match, a return opened, a connection lost…), grouped by topic (sales, orders, listings, buyers, account): its title, whether it is a headline row of the Overview, why the default is what it is, its rule ref (default.<key>) and the choice cards offered for it. To pick a card, PUT its body to the rule default:<key>. The same catalog for every seller; GET overview says what each does today.
+  data, status_code, headers = api_instance.list_detected_event_situations_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListDetectedEventSituationsResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->list_detected_event_situations_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListDetectedEventSituationsResponse**
 
 ### Authorization
 
@@ -2056,6 +2814,73 @@ end
 ### Return type
 
 **CreateDetectedEventRuleResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## update_detected_event_starting_point
+
+> <GetDetectedEventStartingPointResponse> update_detected_event_starting_point(update_detected_event_starting_point_request)
+
+Apply a starting point to the store: rewrites the store's untouched default rules as ordinary rules (balanced removes them, so the shipped defaults apply). Defaults you edited and your own rules stay as they are; starting points do not stack. Logged to Activity. Returns the starting point now in effect.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ActivityApi.new
+update_detected_event_starting_point_request = Crossly::UpdateDetectedEventStartingPointRequest.new({starting_point: 'hands_on'}) # UpdateDetectedEventStartingPointRequest | 
+
+begin
+  # Apply a starting point to the store: rewrites the store's untouched default rules as ordinary rules (balanced removes them, so the shipped defaults apply). Defaults you edited and your own rules stay as they are; starting points do not stack. Logged to Activity. Returns the starting point now in effect.
+  result = api_instance.update_detected_event_starting_point(update_detected_event_starting_point_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->update_detected_event_starting_point: #{e}"
+end
+```
+
+#### Using the update_detected_event_starting_point_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDetectedEventStartingPointResponse>, Integer, Hash)> update_detected_event_starting_point_with_http_info(update_detected_event_starting_point_request)
+
+```ruby
+begin
+  # Apply a starting point to the store: rewrites the store's untouched default rules as ordinary rules (balanced removes them, so the shipped defaults apply). Defaults you edited and your own rules stay as they are; starting points do not stack. Logged to Activity. Returns the starting point now in effect.
+  data, status_code, headers = api_instance.update_detected_event_starting_point_with_http_info(update_detected_event_starting_point_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDetectedEventStartingPointResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ActivityApi->update_detected_event_starting_point_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_detected_event_starting_point_request** | **UpdateDetectedEventStartingPointRequest** |  |  |
+
+### Return type
+
+**GetDetectedEventStartingPointResponse**
 
 ### Authorization
 

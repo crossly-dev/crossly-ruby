@@ -32,7 +32,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_cosm_designer_chain_auto_unlock
 
-> <CreateCosmDesignerChainAutoUnlockResponse> create_cosm_designer_chain_auto_unlock(request_body)
+> <CreateCosmDesignerChainAutoUnlockResponse> create_cosm_designer_chain_auto_unlock(create_cosm_designer_chain_auto_unlock_request)
 
 
 
@@ -50,11 +50,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_chain_auto_unlock_request = Crossly::CreateCosmDesignerChainAutoUnlockRequest.new({cosmetic_id: 'cosmetic_id_example', subject_id: 'subject_id_example', enabled: false}) # CreateCosmDesignerChainAutoUnlockRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_chain_auto_unlock(request_body)
+  result = api_instance.create_cosm_designer_chain_auto_unlock(create_cosm_designer_chain_auto_unlock_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_chain_auto_unlock: #{e}"
@@ -65,12 +65,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerChainAutoUnlockResponse>, Integer, Hash)> create_cosm_designer_chain_auto_unlock_with_http_info(request_body)
+> <Array(<CreateCosmDesignerChainAutoUnlockResponse>, Integer, Hash)> create_cosm_designer_chain_auto_unlock_with_http_info(create_cosm_designer_chain_auto_unlock_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_chain_auto_unlock_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_chain_auto_unlock_with_http_info(create_cosm_designer_chain_auto_unlock_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerChainAutoUnlockResponse>
@@ -83,7 +83,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_chain_auto_unlock_request** | **CreateCosmDesignerChainAutoUnlockRequest** |  |  |
 
 ### Return type
 
@@ -101,7 +101,7 @@ end
 
 ## create_cosm_designer_chain_unlock
 
-> <CreateCosmDesignerChainUnlockResponse> create_cosm_designer_chain_unlock(request_body)
+> <CreateCosmDesignerChainUnlockResponse> create_cosm_designer_chain_unlock(create_cosm_designer_chain_unlock_request)
 
 
 
@@ -119,11 +119,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_chain_unlock_request = Crossly::CreateCosmDesignerChainUnlockRequest.new({subject_id: 'subject_id_example', cosmetic_id: 'cosmetic_id_example'}) # CreateCosmDesignerChainUnlockRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_chain_unlock(request_body)
+  result = api_instance.create_cosm_designer_chain_unlock(create_cosm_designer_chain_unlock_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_chain_unlock: #{e}"
@@ -134,12 +134,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerChainUnlockResponse>, Integer, Hash)> create_cosm_designer_chain_unlock_with_http_info(request_body)
+> <Array(<CreateCosmDesignerChainUnlockResponse>, Integer, Hash)> create_cosm_designer_chain_unlock_with_http_info(create_cosm_designer_chain_unlock_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_chain_unlock_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_chain_unlock_with_http_info(create_cosm_designer_chain_unlock_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerChainUnlockResponse>
@@ -152,7 +152,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_chain_unlock_request** | **CreateCosmDesignerChainUnlockRequest** |  |  |
 
 ### Return type
 
@@ -170,7 +170,7 @@ end
 
 ## create_cosm_designer_materialise
 
-> <CreateCosmDesignerMaterialiseResponse> create_cosm_designer_materialise(request_body)
+> <CreateCosmDesignerMaterialiseResponse> create_cosm_designer_materialise(create_cosm_designer_materialise_request)
 
 
 
@@ -188,11 +188,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_materialise_request = Crossly::CreateCosmDesignerMaterialiseRequest.new({subject_id: 'subject_id_example', ownership_id: 'ownership_id_example', destination_owner: 'destination_owner_example'}) # CreateCosmDesignerMaterialiseRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_materialise(request_body)
+  result = api_instance.create_cosm_designer_materialise(create_cosm_designer_materialise_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_materialise: #{e}"
@@ -203,12 +203,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerMaterialiseResponse>, Integer, Hash)> create_cosm_designer_materialise_with_http_info(request_body)
+> <Array(<CreateCosmDesignerMaterialiseResponse>, Integer, Hash)> create_cosm_designer_materialise_with_http_info(create_cosm_designer_materialise_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_materialise_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_materialise_with_http_info(create_cosm_designer_materialise_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerMaterialiseResponse>
@@ -221,7 +221,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_materialise_request** | **CreateCosmDesignerMaterialiseRequest** |  |  |
 
 ### Return type
 
@@ -239,7 +239,7 @@ end
 
 ## create_cosm_designer_materialise_confirm
 
-> <CreateCosmDesignerMaterialiseConfirmResponse> create_cosm_designer_materialise_confirm(request_body)
+> <CreateCosmDesignerMaterialiseConfirmResponse> create_cosm_designer_materialise_confirm(create_cosm_designer_materialise_confirm_request)
 
 
 
@@ -257,11 +257,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_materialise_confirm_request = Crossly::CreateCosmDesignerMaterialiseConfirmRequest.new({mint_request_id: 'mint_request_id_example', mint_address: 'mint_address_example', tx_sig: 'tx_sig_example'}) # CreateCosmDesignerMaterialiseConfirmRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_materialise_confirm(request_body)
+  result = api_instance.create_cosm_designer_materialise_confirm(create_cosm_designer_materialise_confirm_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_materialise_confirm: #{e}"
@@ -272,12 +272,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerMaterialiseConfirmResponse>, Integer, Hash)> create_cosm_designer_materialise_confirm_with_http_info(request_body)
+> <Array(<CreateCosmDesignerMaterialiseConfirmResponse>, Integer, Hash)> create_cosm_designer_materialise_confirm_with_http_info(create_cosm_designer_materialise_confirm_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_materialise_confirm_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_materialise_confirm_with_http_info(create_cosm_designer_materialise_confirm_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerMaterialiseConfirmResponse>
@@ -290,7 +290,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_materialise_confirm_request** | **CreateCosmDesignerMaterialiseConfirmRequest** |  |  |
 
 ### Return type
 
@@ -308,7 +308,7 @@ end
 
 ## create_cosm_designer_materialise_release
 
-> <CreateWorldJobShiftReleaseResponse> create_cosm_designer_materialise_release(request_body)
+> <CreateWorldJobShiftReleaseResponse> create_cosm_designer_materialise_release(create_cosm_designer_materialise_release_request)
 
 
 
@@ -326,11 +326,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_materialise_release_request = Crossly::CreateCosmDesignerMaterialiseReleaseRequest.new({mint_request_id: 'mint_request_id_example', reason: 'reason_example'}) # CreateCosmDesignerMaterialiseReleaseRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_materialise_release(request_body)
+  result = api_instance.create_cosm_designer_materialise_release(create_cosm_designer_materialise_release_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_materialise_release: #{e}"
@@ -341,12 +341,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldJobShiftReleaseResponse>, Integer, Hash)> create_cosm_designer_materialise_release_with_http_info(request_body)
+> <Array(<CreateWorldJobShiftReleaseResponse>, Integer, Hash)> create_cosm_designer_materialise_release_with_http_info(create_cosm_designer_materialise_release_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_materialise_release_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_materialise_release_with_http_info(create_cosm_designer_materialise_release_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldJobShiftReleaseResponse>
@@ -359,7 +359,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_materialise_release_request** | **CreateCosmDesignerMaterialiseReleaseRequest** |  |  |
 
 ### Return type
 
@@ -377,7 +377,7 @@ end
 
 ## create_cosm_designer_submit_for_review
 
-> <CreateCosmDesignerSubmitForReviewResponse> create_cosm_designer_submit_for_review(request_body)
+> <CreateCosmDesignerSubmitForReviewResponse> create_cosm_designer_submit_for_review(create_cosm_designer_chain_unlock_request)
 
 
 
@@ -395,11 +395,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_chain_unlock_request = Crossly::CreateCosmDesignerChainUnlockRequest.new({subject_id: 'subject_id_example', cosmetic_id: 'cosmetic_id_example'}) # CreateCosmDesignerChainUnlockRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_submit_for_review(request_body)
+  result = api_instance.create_cosm_designer_submit_for_review(create_cosm_designer_chain_unlock_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_submit_for_review: #{e}"
@@ -410,12 +410,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerSubmitForReviewResponse>, Integer, Hash)> create_cosm_designer_submit_for_review_with_http_info(request_body)
+> <Array(<CreateCosmDesignerSubmitForReviewResponse>, Integer, Hash)> create_cosm_designer_submit_for_review_with_http_info(create_cosm_designer_chain_unlock_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_submit_for_review_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_submit_for_review_with_http_info(create_cosm_designer_chain_unlock_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerSubmitForReviewResponse>
@@ -428,7 +428,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_chain_unlock_request** | **CreateCosmDesignerChainUnlockRequest** |  |  |
 
 ### Return type
 
@@ -446,7 +446,7 @@ end
 
 ## create_cosm_designer_term
 
-> <CreateCosmDesignerTermResponse> create_cosm_designer_term(request_body)
+> <CreateCosmDesignerTermResponse> create_cosm_designer_term(create_cosm_designer_term_request)
 
 
 
@@ -464,11 +464,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::DefaultApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+create_cosm_designer_term_request = Crossly::CreateCosmDesignerTermRequest.new({subject_id: 'subject_id_example', cosmetic_id: 'cosmetic_id_example'}) # CreateCosmDesignerTermRequest | 
 
 begin
   
-  result = api_instance.create_cosm_designer_term(request_body)
+  result = api_instance.create_cosm_designer_term(create_cosm_designer_term_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DefaultApi->create_cosm_designer_term: #{e}"
@@ -479,12 +479,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerTermResponse>, Integer, Hash)> create_cosm_designer_term_with_http_info(request_body)
+> <Array(<CreateCosmDesignerTermResponse>, Integer, Hash)> create_cosm_designer_term_with_http_info(create_cosm_designer_term_request)
 
 ```ruby
 begin
   
-  data, status_code, headers = api_instance.create_cosm_designer_term_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_cosm_designer_term_with_http_info(create_cosm_designer_term_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerTermResponse>
@@ -497,7 +497,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_cosm_designer_term_request** | **CreateCosmDesignerTermRequest** |  |  |
 
 ### Return type
 

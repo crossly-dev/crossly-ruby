@@ -66,8 +66,11 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_passport_print**](ListingsApi.md#get_passport_print) | **GET** /v1/passports/print/{jobId} | Where a passport print job sent to your agent is: queued, sent, done, failed, expired or duplicate. |
 | [**get_pricing_setting**](ListingsApi.md#get_pricing_setting) | **GET** /v1/pricing/settings | Selling options: own-price match (Crossly sells your items at your own lower price for the same item on another marketplace; dollar-priced copies only) and layaway (buyers may put items on layaway). Both on by default. |
 | [**get_pricing_sold_comp**](ListingsApi.md#get_pricing_sold_comp) | **GET** /v1/pricing/sold-comps | What one catalog product (market_sku_id, in one condition) actually sold for across Crossly in the last 180 days: median, p25/p75, p10/p90 (null under 10 sales), sale count, last sold, and days from listing to sale (median, p25, p75). Pass marketSkuId (+ optional condition) or one of your listingIds. comps is null until there are 3+ sales from 2+ sellers; holdCode says why there is nothing (no_market_sku, mixed_inventory, below_privacy_floor) — the same reasons a sold_median reprice rule holds. |
+| [**get_rental_policy**](ListingsApi.md#get_rental_policy) | **GET** /v1/rentals/policy | The return and payment policies a rental inherits from Settings › Policies, resolved for the store (or for one listing with ?listingId): preset ids and names, the level each came from, the return line, protections, arrival photos, the deposit claim window in days, a required deposit in basis points, accepted methods, and editPath. |
 | [**get_rental_setting**](ListingsApi.md#get_rental_setting) | **GET** /v1/rentals/settings | The store’s rental defaults (every item inherits them) and its payout timing. |
 | [**get_shop_limit**](ListingsApi.md#get_shop_limit) | **GET** /v1/shop-limits | Your Crossly Shop selling limit: live listings and listed value, used of limit, per store, and the next step. |
+| [**get_stockx_catalog**](ListingsApi.md#get_stockx_catalog) | **GET** /v1/stockx/catalog | Search the StockX catalog (style code, SKU or words) to pick the product a StockX ask is on. |
+| [**get_stockx_catalog_variant_market_data**](ListingsApi.md#get_stockx_catalog_variant_market_data) | **GET** /v1/stockx/catalog/{productId}/variants/{variantId}/market-data | Lowest ask, highest bid and suggested prices for one StockX size. |
 | [**list_event_attendees**](ListingsApi.md#list_event_attendees) | **GET** /v1/events/{id}/attendees | Who RSVPd: display name, avatar, going or interested, and when. No contact details. |
 | [**list_events**](ListingsApi.md#list_events) | **GET** /v1/events | Your events (launches, sales, live shows, drops, meetups, pop-ups, workshops, parties): schedule, status, phase, and going/interested counts. |
 | [**list_listing_ai_detections**](ListingsApi.md#list_listing_ai_detections) | **GET** /v1/listings/{id}/ai-detections | Crossly&#39;s AI-image detections for a listing&#39;s photos. |
@@ -80,11 +83,14 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_passport_events**](ListingsApi.md#list_passport_events) | **GET** /v1/passports/{id}/events | A passport’s event history, newest first (never a buyer or a price). |
 | [**list_passport_print_targets**](ListingsApi.md#list_passport_print_targets) | **GET** /v1/passports/print-targets | Your printer agents (online, printers, default) and the passport label templates each can print. |
 | [**list_passports**](ListingsApi.md#list_passports) | **GET** /v1/passports | Product passports you registered (optionally for one Crossly listing): the code and URL each tag carries. |
-| [**list_rental_offers**](ListingsApi.md#list_rental_offers) | **GET** /v1/rentals/offers | What you offer for rent. |
+| [**list_rental_offers**](ListingsApi.md#list_rental_offers) | **GET** /v1/rentals/offers | What you offer for rent. Each offer carries &#x60;policy&#x60;: the return and payment policies it inherits from Settings › Policies, resolved (preset ids and names, the level they came from, protections, claim window, deposit, accepted methods, and editPath), with &#x60;returnPolicyOverride&#x60; when the offer writes its own return text. |
+| [**list_stockx_catalog_variants**](ListingsApi.md#list_stockx_catalog_variants) | **GET** /v1/stockx/catalog/{productId}/variants | List the sizes (variants) of a StockX catalog product. |
 | [**list_stories**](ListingsApi.md#list_stories) | **GET** /v1/stories | Your active story slides (newest run first, each run in play order), with their overlays: text, listing stickers, @mentions, links, emoji and drawing. |
 | [**update_event**](ListingsApi.md#update_event) | **PATCH** /v1/events/{id} | Edit an event. Omitted fields are unchanged; null clears. |
 | [**update_hotspot**](ListingsApi.md#update_hotspot) | **PUT** /v1/hotspots | Tag your listings at points on a story or lookbook photo (shop the look). Replaces that photo’s tags; at most 12. |
 | [**update_listing**](ListingsApi.md#update_listing) | **PATCH** /v1/listings/{id} | Edit a listing and fan out update jobs to existing platform listings. |
+| [**update_listing_assignee**](ListingsApi.md#update_listing_assignee) | **PATCH** /v1/listings/assignee | Assign many listings to a teammate, round robin across several, or unassign them (null). |
+| [**update_listing_assignee_by_id**](ListingsApi.md#update_listing_assignee_by_id) | **PATCH** /v1/listings/{id}/assignee | Assign one listing to a teammate, or unassign it (null). |
 | [**update_listing_custom**](ListingsApi.md#update_listing_custom) | **PUT** /v1/listings/{id}/customs | Set a listing’s customs: HS code (6–10 digits), country of origin, and countries this item must not ship to on Crossly. Omitted fields are left alone; null (or [] for restrictedCountries) clears. |
 | [**update_listing_platform_listing**](ListingsApi.md#update_listing_platform_listing) | **PATCH** /v1/listings/{id}/platform-listings/{plId} | Set one marketplace copy&#39;s price (e.g. the ebay.com copy of a listing also live on ebay.co.uk), in that copy&#39;s own currency. |
 | [**update_live_stream**](ListingsApi.md#update_live_stream) | **PATCH** /v1/live-streams/{id} | Edit a show that has not ended: title, description, cover, category, start time (not once live) or connection method (browser | phone | encoder). |
@@ -166,7 +172,7 @@ end
 
 ## create_event
 
-> <EventResponse> create_event
+> <EventResponse> create_event(create_event_request)
 
 Create an event. A draft unless publish:true. Linked listings, the live show, the drop and the discount code must all be yours.
 
@@ -182,10 +188,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_event_request = Crossly::CreateEventRequest.new({kind: 'sale', title: 'title_example', starts_at: 'starts_at_example'}) # CreateEventRequest | 
 
 begin
   # Create an event. A draft unless publish:true. Linked listings, the live show, the drop and the discount code must all be yours.
-  result = api_instance.create_event
+  result = api_instance.create_event(create_event_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_event: #{e}"
@@ -196,12 +203,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<EventResponse>, Integer, Hash)> create_event_with_http_info
+> <Array(<EventResponse>, Integer, Hash)> create_event_with_http_info(create_event_request)
 
 ```ruby
 begin
   # Create an event. A draft unless publish:true. Linked listings, the live show, the drop and the discount code must all be yours.
-  data, status_code, headers = api_instance.create_event_with_http_info
+  data, status_code, headers = api_instance.create_event_with_http_info(create_event_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <EventResponse>
@@ -212,7 +219,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_event_request** | **CreateEventRequest** |  |  |
 
 ### Return type
 
@@ -224,7 +233,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -297,7 +306,7 @@ end
 
 ## create_listing
 
-> <CreateListingResponse> create_listing
+> <CreateListingResponse> create_listing(create_listing_request)
 
 Create a listing and fan out crosspost jobs across platforms.
 
@@ -315,10 +324,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_request = Crossly::CreateListingRequest.new({platforms: ['platforms_example'], data: { key: 3.56}}) # CreateListingRequest | 
 
 begin
   # Create a listing and fan out crosspost jobs across platforms.
-  result = api_instance.create_listing
+  result = api_instance.create_listing(create_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing: #{e}"
@@ -329,12 +339,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingResponse>, Integer, Hash)> create_listing_with_http_info
+> <Array(<CreateListingResponse>, Integer, Hash)> create_listing_with_http_info(create_listing_request)
 
 ```ruby
 begin
   # Create a listing and fan out crosspost jobs across platforms.
-  data, status_code, headers = api_instance.create_listing_with_http_info
+  data, status_code, headers = api_instance.create_listing_with_http_info(create_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingResponse>
@@ -345,7 +355,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_request** | **CreateListingRequest** |  |  |
 
 ### Return type
 
@@ -357,13 +369,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk
 
-> <CreateListingBulkResponse> create_listing_bulk
+> <CreateListingBulkResponse> create_listing_bulk(create_listing_bulk_request)
 
 Create up to 50 listings in one call, with a result per item.
 
@@ -381,10 +393,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_request = Crossly::CreateListingBulkRequest.new({items: [3.56]}) # CreateListingBulkRequest | 
 
 begin
   # Create up to 50 listings in one call, with a result per item.
-  result = api_instance.create_listing_bulk
+  result = api_instance.create_listing_bulk(create_listing_bulk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk: #{e}"
@@ -395,12 +408,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkResponse>, Integer, Hash)> create_listing_bulk_with_http_info
+> <Array(<CreateListingBulkResponse>, Integer, Hash)> create_listing_bulk_with_http_info(create_listing_bulk_request)
 
 ```ruby
 begin
   # Create up to 50 listings in one call, with a result per item.
-  data, status_code, headers = api_instance.create_listing_bulk_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_with_http_info(create_listing_bulk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkResponse>
@@ -411,7 +424,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_request** | **CreateListingBulkRequest** |  |  |
 
 ### Return type
 
@@ -423,13 +438,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_check_status
 
-> <CreateListingBulkDeleteResponse> create_listing_bulk_check_status
+> <CreateListingBulkDeleteResponse> create_listing_bulk_check_status(create_listing_bulk_delete_request)
 
 Check listing status on platforms
 
@@ -445,10 +460,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_delete_request = Crossly::CreateListingBulkDeleteRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkDeleteRequest | 
 
 begin
   # Check listing status on platforms
-  result = api_instance.create_listing_bulk_check_status
+  result = api_instance.create_listing_bulk_check_status(create_listing_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_check_status: #{e}"
@@ -459,12 +475,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_check_status_with_http_info
+> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_check_status_with_http_info(create_listing_bulk_delete_request)
 
 ```ruby
 begin
   # Check listing status on platforms
-  data, status_code, headers = api_instance.create_listing_bulk_check_status_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_check_status_with_http_info(create_listing_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkDeleteResponse>
@@ -475,7 +491,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_delete_request** | **CreateListingBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -487,13 +505,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_crosspost
 
-> <CreateListingBulkDeleteResponse> create_listing_bulk_crosspost
+> <CreateListingBulkDeleteResponse> create_listing_bulk_crosspost(create_listing_bulk_relist_request)
 
 Bulk crosspost (no delist phase)
 
@@ -509,10 +527,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_relist_request = Crossly::CreateListingBulkRelistRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkRelistRequest | 
 
 begin
   # Bulk crosspost (no delist phase)
-  result = api_instance.create_listing_bulk_crosspost
+  result = api_instance.create_listing_bulk_crosspost(create_listing_bulk_relist_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_crosspost: #{e}"
@@ -523,12 +542,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_crosspost_with_http_info
+> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_crosspost_with_http_info(create_listing_bulk_relist_request)
 
 ```ruby
 begin
   # Bulk crosspost (no delist phase)
-  data, status_code, headers = api_instance.create_listing_bulk_crosspost_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_crosspost_with_http_info(create_listing_bulk_relist_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkDeleteResponse>
@@ -539,7 +558,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_relist_request** | **CreateListingBulkRelistRequest** |  |  |
 
 ### Return type
 
@@ -551,13 +572,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_delete
 
-> <CreateListingBulkDeleteResponse> create_listing_bulk_delete
+> <CreateListingBulkDeleteResponse> create_listing_bulk_delete(create_listing_bulk_delete_request)
 
 Bulk archive + delist
 
@@ -573,10 +594,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_delete_request = Crossly::CreateListingBulkDeleteRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkDeleteRequest | 
 
 begin
   # Bulk archive + delist
-  result = api_instance.create_listing_bulk_delete
+  result = api_instance.create_listing_bulk_delete(create_listing_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_delete: #{e}"
@@ -587,12 +609,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_delete_with_http_info
+> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_delete_with_http_info(create_listing_bulk_delete_request)
 
 ```ruby
 begin
   # Bulk archive + delist
-  data, status_code, headers = api_instance.create_listing_bulk_delete_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_delete_with_http_info(create_listing_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkDeleteResponse>
@@ -603,7 +625,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_delete_request** | **CreateListingBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -615,13 +639,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_delist
 
-> <CreateListingBulkDeleteResponse> create_listing_bulk_delist
+> <CreateListingBulkDeleteResponse> create_listing_bulk_delist(create_listing_bulk_delete_request)
 
 Bulk delist from platforms
 
@@ -637,10 +661,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_delete_request = Crossly::CreateListingBulkDeleteRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkDeleteRequest | 
 
 begin
   # Bulk delist from platforms
-  result = api_instance.create_listing_bulk_delist
+  result = api_instance.create_listing_bulk_delist(create_listing_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_delist: #{e}"
@@ -651,12 +676,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_delist_with_http_info
+> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_delist_with_http_info(create_listing_bulk_delete_request)
 
 ```ruby
 begin
   # Bulk delist from platforms
-  data, status_code, headers = api_instance.create_listing_bulk_delist_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_delist_with_http_info(create_listing_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkDeleteResponse>
@@ -667,7 +692,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_delete_request** | **CreateListingBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -679,13 +706,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_delist_preview
 
-> <CreateListingBulkDelistPreviewResponse> create_listing_bulk_delist_preview
+> <CreateListingBulkDelistPreviewResponse> create_listing_bulk_delist_preview(create_listing_bulk_delete_request)
 
 Preview which marketplaces a delist would touch
 
@@ -701,10 +728,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_delete_request = Crossly::CreateListingBulkDeleteRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkDeleteRequest | 
 
 begin
   # Preview which marketplaces a delist would touch
-  result = api_instance.create_listing_bulk_delist_preview
+  result = api_instance.create_listing_bulk_delist_preview(create_listing_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_delist_preview: #{e}"
@@ -715,12 +743,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkDelistPreviewResponse>, Integer, Hash)> create_listing_bulk_delist_preview_with_http_info
+> <Array(<CreateListingBulkDelistPreviewResponse>, Integer, Hash)> create_listing_bulk_delist_preview_with_http_info(create_listing_bulk_delete_request)
 
 ```ruby
 begin
   # Preview which marketplaces a delist would touch
-  data, status_code, headers = api_instance.create_listing_bulk_delist_preview_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_delist_preview_with_http_info(create_listing_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkDelistPreviewResponse>
@@ -731,7 +759,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_delete_request** | **CreateListingBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -743,13 +773,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_hard_delete
 
-> <CreateListingBulkHardDeleteResponse> create_listing_bulk_hard_delete
+> <CreateListingBulkHardDeleteResponse> create_listing_bulk_hard_delete(create_listing_bulk_delete_request)
 
 Permanently delete listings (live ones need allowLive)
 
@@ -765,10 +795,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_delete_request = Crossly::CreateListingBulkDeleteRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkDeleteRequest | 
 
 begin
   # Permanently delete listings (live ones need allowLive)
-  result = api_instance.create_listing_bulk_hard_delete
+  result = api_instance.create_listing_bulk_hard_delete(create_listing_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_hard_delete: #{e}"
@@ -779,12 +810,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkHardDeleteResponse>, Integer, Hash)> create_listing_bulk_hard_delete_with_http_info
+> <Array(<CreateListingBulkHardDeleteResponse>, Integer, Hash)> create_listing_bulk_hard_delete_with_http_info(create_listing_bulk_delete_request)
 
 ```ruby
 begin
   # Permanently delete listings (live ones need allowLive)
-  data, status_code, headers = api_instance.create_listing_bulk_hard_delete_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_hard_delete_with_http_info(create_listing_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkHardDeleteResponse>
@@ -795,7 +826,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_delete_request** | **CreateListingBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -807,13 +840,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_relist
 
-> <CreateListingBulkDeleteResponse> create_listing_bulk_relist
+> <CreateListingBulkDeleteResponse> create_listing_bulk_relist(create_listing_bulk_relist_request)
 
 Bulk relist across platforms
 
@@ -829,10 +862,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_relist_request = Crossly::CreateListingBulkRelistRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingBulkRelistRequest | 
 
 begin
   # Bulk relist across platforms
-  result = api_instance.create_listing_bulk_relist
+  result = api_instance.create_listing_bulk_relist(create_listing_bulk_relist_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_relist: #{e}"
@@ -843,12 +877,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_relist_with_http_info
+> <Array(<CreateListingBulkDeleteResponse>, Integer, Hash)> create_listing_bulk_relist_with_http_info(create_listing_bulk_relist_request)
 
 ```ruby
 begin
   # Bulk relist across platforms
-  data, status_code, headers = api_instance.create_listing_bulk_relist_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_relist_with_http_info(create_listing_bulk_relist_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkDeleteResponse>
@@ -859,7 +893,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_relist_request** | **CreateListingBulkRelistRequest** |  |  |
 
 ### Return type
 
@@ -871,13 +907,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_bulk_update
 
-> <CreateListingBulkUpdateResponse> create_listing_bulk_update
+> <CreateListingBulkUpdateResponse> create_listing_bulk_update(create_listing_bulk_update_request)
 
 Bulk update listing fields
 
@@ -893,10 +929,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_bulk_update_request = Crossly::CreateListingBulkUpdateRequest.new({listing_ids: ['listing_ids_example'], updates: Crossly::CreateListingBulkUpdateRequestUpdates.new}) # CreateListingBulkUpdateRequest | 
 
 begin
   # Bulk update listing fields
-  result = api_instance.create_listing_bulk_update
+  result = api_instance.create_listing_bulk_update(create_listing_bulk_update_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_bulk_update: #{e}"
@@ -907,12 +944,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkUpdateResponse>, Integer, Hash)> create_listing_bulk_update_with_http_info
+> <Array(<CreateListingBulkUpdateResponse>, Integer, Hash)> create_listing_bulk_update_with_http_info(create_listing_bulk_update_request)
 
 ```ruby
 begin
   # Bulk update listing fields
-  data, status_code, headers = api_instance.create_listing_bulk_update_with_http_info
+  data, status_code, headers = api_instance.create_listing_bulk_update_with_http_info(create_listing_bulk_update_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkUpdateResponse>
@@ -923,7 +960,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_bulk_update_request** | **CreateListingBulkUpdateRequest** |  |  |
 
 ### Return type
 
@@ -935,13 +974,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_by_id
 
-> <CreateListingByIdResponse> create_listing_by_id
+> <CreateListingByIdResponse> create_listing_by_id(create_listing_by_id_request)
 
 Fetch hydrated listings by ID
 
@@ -957,10 +996,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_by_id_request = Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
 
 begin
   # Fetch hydrated listings by ID
-  result = api_instance.create_listing_by_id
+  result = api_instance.create_listing_by_id(create_listing_by_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_by_id: #{e}"
@@ -971,12 +1011,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingByIdResponse>, Integer, Hash)> create_listing_by_id_with_http_info
+> <Array(<CreateListingByIdResponse>, Integer, Hash)> create_listing_by_id_with_http_info(create_listing_by_id_request)
 
 ```ruby
 begin
   # Fetch hydrated listings by ID
-  data, status_code, headers = api_instance.create_listing_by_id_with_http_info
+  data, status_code, headers = api_instance.create_listing_by_id_with_http_info(create_listing_by_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingByIdResponse>
@@ -987,7 +1027,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  |  |
 
 ### Return type
 
@@ -999,13 +1041,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_check_duplicate
 
-> <CreateListingCheckDuplicateResponse> create_listing_check_duplicate
+> <CreateListingCheckDuplicateResponse> create_listing_check_duplicate(opts)
 
 Check whether the seller already owns something matching this title/photo, and what to do about it.
 
@@ -1021,10 +1063,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  create_listing_check_duplicate_request: Crossly::CreateListingCheckDuplicateRequest.new # CreateListingCheckDuplicateRequest | 
+}
 
 begin
   # Check whether the seller already owns something matching this title/photo, and what to do about it.
-  result = api_instance.create_listing_check_duplicate
+  result = api_instance.create_listing_check_duplicate(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_check_duplicate: #{e}"
@@ -1035,12 +1080,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingCheckDuplicateResponse>, Integer, Hash)> create_listing_check_duplicate_with_http_info
+> <Array(<CreateListingCheckDuplicateResponse>, Integer, Hash)> create_listing_check_duplicate_with_http_info(opts)
 
 ```ruby
 begin
   # Check whether the seller already owns something matching this title/photo, and what to do about it.
-  data, status_code, headers = api_instance.create_listing_check_duplicate_with_http_info
+  data, status_code, headers = api_instance.create_listing_check_duplicate_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingCheckDuplicateResponse>
@@ -1051,7 +1096,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_check_duplicate_request** | **CreateListingCheckDuplicateRequest** |  | [optional] |
 
 ### Return type
 
@@ -1063,13 +1110,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_combine
 
-> <CreateListingCombineResponse> create_listing_combine
+> <CreateListingCombineResponse> create_listing_combine(create_listing_merge_request)
 
 Combine duplicate listings into one: sums their stock, delists and archives the rest.
 
@@ -1085,10 +1132,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_merge_request = Crossly::CreateListingMergeRequest.new({keep_listing_id: 'keep_listing_id_example', merge_listing_ids: ['merge_listing_ids_example']}) # CreateListingMergeRequest | 
 
 begin
   # Combine duplicate listings into one: sums their stock, delists and archives the rest.
-  result = api_instance.create_listing_combine
+  result = api_instance.create_listing_combine(create_listing_merge_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_combine: #{e}"
@@ -1099,12 +1147,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingCombineResponse>, Integer, Hash)> create_listing_combine_with_http_info
+> <Array(<CreateListingCombineResponse>, Integer, Hash)> create_listing_combine_with_http_info(create_listing_merge_request)
 
 ```ruby
 begin
   # Combine duplicate listings into one: sums their stock, delists and archives the rest.
-  data, status_code, headers = api_instance.create_listing_combine_with_http_info
+  data, status_code, headers = api_instance.create_listing_combine_with_http_info(create_listing_merge_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingCombineResponse>
@@ -1115,7 +1163,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_merge_request** | **CreateListingMergeRequest** |  |  |
 
 ### Return type
 
@@ -1127,13 +1177,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_discrepancy_resolve
 
-> <CreateListingDiscrepancyResolveResponse> create_listing_discrepancy_resolve(id, discrepancy_id)
+> <CreateListingDiscrepancyResolveResponse> create_listing_discrepancy_resolve(id, discrepancy_id, create_listing_discrepancy_resolve_request)
 
 Resolve a detected marketplace-drift discrepancy: accept the platform value, push ours back, relist to apply it, or dismiss.
 
@@ -1151,10 +1201,11 @@ end
 api_instance = Crossly::ListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 discrepancy_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_listing_discrepancy_resolve_request = Crossly::CreateListingDiscrepancyResolveRequest.new({action: 'relist'}) # CreateListingDiscrepancyResolveRequest | 
 
 begin
   # Resolve a detected marketplace-drift discrepancy: accept the platform value, push ours back, relist to apply it, or dismiss.
-  result = api_instance.create_listing_discrepancy_resolve(id, discrepancy_id)
+  result = api_instance.create_listing_discrepancy_resolve(id, discrepancy_id, create_listing_discrepancy_resolve_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_discrepancy_resolve: #{e}"
@@ -1165,12 +1216,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingDiscrepancyResolveResponse>, Integer, Hash)> create_listing_discrepancy_resolve_with_http_info(id, discrepancy_id)
+> <Array(<CreateListingDiscrepancyResolveResponse>, Integer, Hash)> create_listing_discrepancy_resolve_with_http_info(id, discrepancy_id, create_listing_discrepancy_resolve_request)
 
 ```ruby
 begin
   # Resolve a detected marketplace-drift discrepancy: accept the platform value, push ours back, relist to apply it, or dismiss.
-  data, status_code, headers = api_instance.create_listing_discrepancy_resolve_with_http_info(id, discrepancy_id)
+  data, status_code, headers = api_instance.create_listing_discrepancy_resolve_with_http_info(id, discrepancy_id, create_listing_discrepancy_resolve_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingDiscrepancyResolveResponse>
@@ -1185,6 +1236,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **discrepancy_id** | **String** |  |  |
+| **create_listing_discrepancy_resolve_request** | **CreateListingDiscrepancyResolveRequest** |  |  |
 
 ### Return type
 
@@ -1196,13 +1248,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_import_by_url
 
-> <CreateListingImportByUrlResponse> create_listing_import_by_url(id)
+> <CreateListingImportByUrlResponse> create_listing_import_by_url(id, create_listing_import_by_url_request)
 
 Attach a real platform listing to this listing by pasting its live URL.
 
@@ -1219,10 +1271,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_listing_import_by_url_request = Crossly::CreateListingImportByUrlRequest.new({platform: 'platform_example', url: 'url_example'}) # CreateListingImportByUrlRequest | 
 
 begin
   # Attach a real platform listing to this listing by pasting its live URL.
-  result = api_instance.create_listing_import_by_url(id)
+  result = api_instance.create_listing_import_by_url(id, create_listing_import_by_url_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_import_by_url: #{e}"
@@ -1233,12 +1286,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingImportByUrlResponse>, Integer, Hash)> create_listing_import_by_url_with_http_info(id)
+> <Array(<CreateListingImportByUrlResponse>, Integer, Hash)> create_listing_import_by_url_with_http_info(id, create_listing_import_by_url_request)
 
 ```ruby
 begin
   # Attach a real platform listing to this listing by pasting its live URL.
-  data, status_code, headers = api_instance.create_listing_import_by_url_with_http_info(id)
+  data, status_code, headers = api_instance.create_listing_import_by_url_with_http_info(id, create_listing_import_by_url_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingImportByUrlResponse>
@@ -1252,6 +1305,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_listing_import_by_url_request** | **CreateListingImportByUrlRequest** |  |  |
 
 ### Return type
 
@@ -1263,13 +1317,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_magic_fill
 
-> <CreateListingMagicFillResponse> create_listing_magic_fill(id)
+> <CreateListingMagicFillResponse> create_listing_magic_fill(id, create_listing_magic_fill_request)
 
 Auto-fill empty fields on one platform tab from the master listing + AI/deterministic taxonomy resolution.
 
@@ -1286,10 +1340,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_listing_magic_fill_request = Crossly::CreateListingMagicFillRequest.new({platform: 'platform_example'}) # CreateListingMagicFillRequest | 
 
 begin
   # Auto-fill empty fields on one platform tab from the master listing + AI/deterministic taxonomy resolution.
-  result = api_instance.create_listing_magic_fill(id)
+  result = api_instance.create_listing_magic_fill(id, create_listing_magic_fill_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_magic_fill: #{e}"
@@ -1300,12 +1355,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingMagicFillResponse>, Integer, Hash)> create_listing_magic_fill_with_http_info(id)
+> <Array(<CreateListingMagicFillResponse>, Integer, Hash)> create_listing_magic_fill_with_http_info(id, create_listing_magic_fill_request)
 
 ```ruby
 begin
   # Auto-fill empty fields on one platform tab from the master listing + AI/deterministic taxonomy resolution.
-  data, status_code, headers = api_instance.create_listing_magic_fill_with_http_info(id)
+  data, status_code, headers = api_instance.create_listing_magic_fill_with_http_info(id, create_listing_magic_fill_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingMagicFillResponse>
@@ -1319,6 +1374,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_listing_magic_fill_request** | **CreateListingMagicFillRequest** |  |  |
 
 ### Return type
 
@@ -1330,13 +1386,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_merge
 
-> <CreateListingMergeResponse> create_listing_merge
+> <CreateListingMergeResponse> create_listing_merge(create_listing_merge_request)
 
 Merge the same item listed on different marketplaces into one listing; all stay live.
 
@@ -1352,10 +1408,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_merge_request = Crossly::CreateListingMergeRequest.new({keep_listing_id: 'keep_listing_id_example', merge_listing_ids: ['merge_listing_ids_example']}) # CreateListingMergeRequest | 
 
 begin
   # Merge the same item listed on different marketplaces into one listing; all stay live.
-  result = api_instance.create_listing_merge
+  result = api_instance.create_listing_merge(create_listing_merge_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_merge: #{e}"
@@ -1366,12 +1423,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingMergeResponse>, Integer, Hash)> create_listing_merge_with_http_info
+> <Array(<CreateListingMergeResponse>, Integer, Hash)> create_listing_merge_with_http_info(create_listing_merge_request)
 
 ```ruby
 begin
   # Merge the same item listed on different marketplaces into one listing; all stay live.
-  data, status_code, headers = api_instance.create_listing_merge_with_http_info
+  data, status_code, headers = api_instance.create_listing_merge_with_http_info(create_listing_merge_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingMergeResponse>
@@ -1382,7 +1439,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_merge_request** | **CreateListingMergeRequest** |  |  |
 
 ### Return type
 
@@ -1394,13 +1453,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_tag_bulk
 
-> <CreateListingTagBulkResponse> create_listing_tag_bulk
+> <CreateListingTagBulkResponse> create_listing_tag_bulk(create_listing_tag_bulk_request)
 
 Add and/or remove tags on many listings (yours only; max 30 tags a listing, 40 chars a tag). `dryRun` reports what would change.
 
@@ -1416,10 +1475,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_tag_bulk_request = Crossly::CreateListingTagBulkRequest.new({listing_ids: ['listing_ids_example']}) # CreateListingTagBulkRequest | 
 
 begin
   # Add and/or remove tags on many listings (yours only; max 30 tags a listing, 40 chars a tag). `dryRun` reports what would change.
-  result = api_instance.create_listing_tag_bulk
+  result = api_instance.create_listing_tag_bulk(create_listing_tag_bulk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_tag_bulk: #{e}"
@@ -1430,12 +1490,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingTagBulkResponse>, Integer, Hash)> create_listing_tag_bulk_with_http_info
+> <Array(<CreateListingTagBulkResponse>, Integer, Hash)> create_listing_tag_bulk_with_http_info(create_listing_tag_bulk_request)
 
 ```ruby
 begin
   # Add and/or remove tags on many listings (yours only; max 30 tags a listing, 40 chars a tag). `dryRun` reports what would change.
-  data, status_code, headers = api_instance.create_listing_tag_bulk_with_http_info
+  data, status_code, headers = api_instance.create_listing_tag_bulk_with_http_info(create_listing_tag_bulk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingTagBulkResponse>
@@ -1446,7 +1506,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_tag_bulk_request** | **CreateListingTagBulkRequest** |  |  |
 
 ### Return type
 
@@ -1458,13 +1520,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_tag_rename
 
-> <CreateListingTagRenameResponse> create_listing_tag_rename
+> <CreateListingTagRenameResponse> create_listing_tag_rename(create_listing_tag_rename_request)
 
 Rename a tag on every listing; merges into `to` when it already exists.
 
@@ -1480,10 +1542,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_listing_tag_rename_request = Crossly::CreateListingTagRenameRequest.new({from: 'from_example', to: 'to_example'}) # CreateListingTagRenameRequest | 
 
 begin
   # Rename a tag on every listing; merges into `to` when it already exists.
-  result = api_instance.create_listing_tag_rename
+  result = api_instance.create_listing_tag_rename(create_listing_tag_rename_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_listing_tag_rename: #{e}"
@@ -1494,12 +1557,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingTagRenameResponse>, Integer, Hash)> create_listing_tag_rename_with_http_info
+> <Array(<CreateListingTagRenameResponse>, Integer, Hash)> create_listing_tag_rename_with_http_info(create_listing_tag_rename_request)
 
 ```ruby
 begin
   # Rename a tag on every listing; merges into `to` when it already exists.
-  data, status_code, headers = api_instance.create_listing_tag_rename_with_http_info
+  data, status_code, headers = api_instance.create_listing_tag_rename_with_http_info(create_listing_tag_rename_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingTagRenameResponse>
@@ -1510,7 +1573,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_tag_rename_request** | **CreateListingTagRenameRequest** |  |  |
 
 ### Return type
 
@@ -1522,13 +1587,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_live_stream
 
-> <LiveStreamResponse> create_live_stream
+> <LiveStreamResponse> create_live_stream(create_live_stream_request)
 
 Schedule a live show: title, start time, optional cover, category and the listings to feature (becomes the lineup, in order).
 
@@ -1544,10 +1609,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_live_stream_request = Crossly::CreateLiveStreamRequest.new({title: 'title_example', scheduled_at: 'scheduled_at_example'}) # CreateLiveStreamRequest | 
 
 begin
   # Schedule a live show: title, start time, optional cover, category and the listings to feature (becomes the lineup, in order).
-  result = api_instance.create_live_stream
+  result = api_instance.create_live_stream(create_live_stream_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_live_stream: #{e}"
@@ -1558,12 +1624,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<LiveStreamResponse>, Integer, Hash)> create_live_stream_with_http_info
+> <Array(<LiveStreamResponse>, Integer, Hash)> create_live_stream_with_http_info(create_live_stream_request)
 
 ```ruby
 begin
   # Schedule a live show: title, start time, optional cover, category and the listings to feature (becomes the lineup, in order).
-  data, status_code, headers = api_instance.create_live_stream_with_http_info
+  data, status_code, headers = api_instance.create_live_stream_with_http_info(create_live_stream_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <LiveStreamResponse>
@@ -1574,7 +1640,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_live_stream_request** | **CreateLiveStreamRequest** |  |  |
 
 ### Return type
 
@@ -1586,7 +1654,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1927,7 +1995,7 @@ end
 
 ## create_passport
 
-> <PassportResponse> create_passport
+> <PassportResponse> create_passport(create_passport_request)
 
 Register a product passport for a Crossly listing or an inventory item you sell, optionally bound to an NFC tag UID (hex). Active at once. Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s sales. For several items with photos and labels, use the drafts flow (POST /passports/drafts).
 
@@ -1943,10 +2011,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_passport_request = Crossly::CreatePassportRequest.new # CreatePassportRequest | 
 
 begin
   # Register a product passport for a Crossly listing or an inventory item you sell, optionally bound to an NFC tag UID (hex). Active at once. Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s sales. For several items with photos and labels, use the drafts flow (POST /passports/drafts).
-  result = api_instance.create_passport
+  result = api_instance.create_passport(create_passport_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_passport: #{e}"
@@ -1957,12 +2026,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PassportResponse>, Integer, Hash)> create_passport_with_http_info
+> <Array(<PassportResponse>, Integer, Hash)> create_passport_with_http_info(create_passport_request)
 
 ```ruby
 begin
   # Register a product passport for a Crossly listing or an inventory item you sell, optionally bound to an NFC tag UID (hex). Active at once. Returns the URL to write to the NFC tag or print as a QR; ownership then follows the item’s sales. For several items with photos and labels, use the drafts flow (POST /passports/drafts).
-  data, status_code, headers = api_instance.create_passport_with_http_info
+  data, status_code, headers = api_instance.create_passport_with_http_info(create_passport_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PassportResponse>
@@ -1973,7 +2042,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_passport_request** | **CreatePassportRequest** |  |  |
 
 ### Return type
 
@@ -1985,13 +2056,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_passport_draft
 
-> <PassportDraftResponse> create_passport_draft
+> <PassportDraftResponse> create_passport_draft(opts)
 
 Start a passport draft for up to 100 inventory items (or Crossly listings): one draft passport per item with its code reserved. Items whose every unit already has a passport come back in skipped.
 
@@ -2007,10 +2078,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  create_passport_draft_request: Crossly::CreatePassportDraftRequest.new # CreatePassportDraftRequest | 
+}
 
 begin
   # Start a passport draft for up to 100 inventory items (or Crossly listings): one draft passport per item with its code reserved. Items whose every unit already has a passport come back in skipped.
-  result = api_instance.create_passport_draft
+  result = api_instance.create_passport_draft(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_passport_draft: #{e}"
@@ -2021,12 +2095,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PassportDraftResponse>, Integer, Hash)> create_passport_draft_with_http_info
+> <Array(<PassportDraftResponse>, Integer, Hash)> create_passport_draft_with_http_info(opts)
 
 ```ruby
 begin
   # Start a passport draft for up to 100 inventory items (or Crossly listings): one draft passport per item with its code reserved. Items whose every unit already has a passport come back in skipped.
-  data, status_code, headers = api_instance.create_passport_draft_with_http_info
+  data, status_code, headers = api_instance.create_passport_draft_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PassportDraftResponse>
@@ -2037,7 +2111,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_passport_draft_request** | **CreatePassportDraftRequest** |  | [optional] |
 
 ### Return type
 
@@ -2049,7 +2125,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2189,7 +2265,7 @@ end
 
 ## create_passport_print
 
-> <CreatePassportPrintResponse> create_passport_print
+> <CreatePassportPrintResponse> create_passport_print(opts)
 
 Print passport labels: sent to your printer agent (the Crossly desktop app includes one) when it is online and prints the template, else a signed PDF link with the reason. Templates: sticker-2in, sticker-1in, label-4x6, hang-tag, sheet-letter, sheet-a4, transfer-card.
 
@@ -2205,10 +2281,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  create_passport_print_request: Crossly::CreatePassportPrintRequest.new({passport_ids: ['passport_ids_example'], template: 'template_example'}) # CreatePassportPrintRequest | 
+}
 
 begin
   # Print passport labels: sent to your printer agent (the Crossly desktop app includes one) when it is online and prints the template, else a signed PDF link with the reason. Templates: sticker-2in, sticker-1in, label-4x6, hang-tag, sheet-letter, sheet-a4, transfer-card.
-  result = api_instance.create_passport_print
+  result = api_instance.create_passport_print(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_passport_print: #{e}"
@@ -2219,12 +2298,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatePassportPrintResponse>, Integer, Hash)> create_passport_print_with_http_info
+> <Array(<CreatePassportPrintResponse>, Integer, Hash)> create_passport_print_with_http_info(opts)
 
 ```ruby
 begin
   # Print passport labels: sent to your printer agent (the Crossly desktop app includes one) when it is online and prints the template, else a signed PDF link with the reason. Templates: sticker-2in, sticker-1in, label-4x6, hang-tag, sheet-letter, sheet-a4, transfer-card.
-  data, status_code, headers = api_instance.create_passport_print_with_http_info
+  data, status_code, headers = api_instance.create_passport_print_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatePassportPrintResponse>
@@ -2235,7 +2314,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_passport_print_request** | **CreatePassportPrintRequest** |  | [optional] |
 
 ### Return type
 
@@ -2247,7 +2328,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2320,7 +2401,7 @@ end
 
 ## create_passport_tag
 
-> <PassportResponse> create_passport_tag(id)
+> <PassportResponse> create_passport_tag(id, create_passport_tag_request)
 
 Bind (or re-bind) a passport to the NFC tag you wrote its nfcUrl to: the tag UID (hex), and whether you locked the tag read-only. Refused once the item has sold, for a locked tag, or a tag already on another item.
 
@@ -2337,10 +2418,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+create_passport_tag_request = Crossly::CreatePassportTagRequest.new({tag_uid: 'tag_uid_example'}) # CreatePassportTagRequest | 
 
 begin
   # Bind (or re-bind) a passport to the NFC tag you wrote its nfcUrl to: the tag UID (hex), and whether you locked the tag read-only. Refused once the item has sold, for a locked tag, or a tag already on another item.
-  result = api_instance.create_passport_tag(id)
+  result = api_instance.create_passport_tag(id, create_passport_tag_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_passport_tag: #{e}"
@@ -2351,12 +2433,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PassportResponse>, Integer, Hash)> create_passport_tag_with_http_info(id)
+> <Array(<PassportResponse>, Integer, Hash)> create_passport_tag_with_http_info(id, create_passport_tag_request)
 
 ```ruby
 begin
   # Bind (or re-bind) a passport to the NFC tag you wrote its nfcUrl to: the tag UID (hex), and whether you locked the tag read-only. Refused once the item has sold, for a locked tag, or a tag already on another item.
-  data, status_code, headers = api_instance.create_passport_tag_with_http_info(id)
+  data, status_code, headers = api_instance.create_passport_tag_with_http_info(id, create_passport_tag_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PassportResponse>
@@ -2370,6 +2452,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_passport_tag_request** | **CreatePassportTagRequest** |  |  |
 
 ### Return type
 
@@ -2381,13 +2464,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_rental_bulk_rentable
 
-> <CreateRentalBulkRentableResponse> create_rental_bulk_rentable
+> <CreateRentalBulkRentableResponse> create_rental_bulk_rentable(create_rental_bulk_rentable_request)
 
 Make up to 200 Crossly listings rentable with the same options (a day rate, or a share of each price).
 
@@ -2403,10 +2486,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_rental_bulk_rentable_request = Crossly::CreateRentalBulkRentableRequest.new({listing_ids: ['listing_ids_example']}) # CreateRentalBulkRentableRequest | 
 
 begin
   # Make up to 200 Crossly listings rentable with the same options (a day rate, or a share of each price).
-  result = api_instance.create_rental_bulk_rentable
+  result = api_instance.create_rental_bulk_rentable(create_rental_bulk_rentable_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_rental_bulk_rentable: #{e}"
@@ -2417,12 +2501,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateRentalBulkRentableResponse>, Integer, Hash)> create_rental_bulk_rentable_with_http_info
+> <Array(<CreateRentalBulkRentableResponse>, Integer, Hash)> create_rental_bulk_rentable_with_http_info(create_rental_bulk_rentable_request)
 
 ```ruby
 begin
   # Make up to 200 Crossly listings rentable with the same options (a day rate, or a share of each price).
-  data, status_code, headers = api_instance.create_rental_bulk_rentable_with_http_info
+  data, status_code, headers = api_instance.create_rental_bulk_rentable_with_http_info(create_rental_bulk_rentable_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateRentalBulkRentableResponse>
@@ -2433,7 +2517,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_rental_bulk_rentable_request** | **CreateRentalBulkRentableRequest** |  |  |
 
 ### Return type
 
@@ -2445,7 +2531,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2520,7 +2606,7 @@ end
 
 ## create_story
 
-> <CreateStoryResponse> create_story
+> <CreateStoryResponse> create_story(create_story_request)
 
 Share a story: 1–10 slides played in order. Each slide is a photo or video plus optional overlays (positions are fractions of the 9:16 frame). Listing stickers must be your own Crossly listings and also tag the slide; @mentions must be real shops. audience: everyone | followers; expiresInHours: 6, 12, 24 or 48.
 
@@ -2536,10 +2622,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_story_request = Crossly::CreateStoryRequest.new({slides: [Crossly::CreateStoryRequestSlides.new({media_url: 'media_url_example'})]}) # CreateStoryRequest | 
 
 begin
   # Share a story: 1–10 slides played in order. Each slide is a photo or video plus optional overlays (positions are fractions of the 9:16 frame). Listing stickers must be your own Crossly listings and also tag the slide; @mentions must be real shops. audience: everyone | followers; expiresInHours: 6, 12, 24 or 48.
-  result = api_instance.create_story
+  result = api_instance.create_story(create_story_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_story: #{e}"
@@ -2550,12 +2637,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateStoryResponse>, Integer, Hash)> create_story_with_http_info
+> <Array(<CreateStoryResponse>, Integer, Hash)> create_story_with_http_info(create_story_request)
 
 ```ruby
 begin
   # Share a story: 1–10 slides played in order. Each slide is a photo or video plus optional overlays (positions are fractions of the 9:16 frame). Listing stickers must be your own Crossly listings and also tag the slide; @mentions must be real shops. audience: everyone | followers; expiresInHours: 6, 12, 24 or 48.
-  data, status_code, headers = api_instance.create_story_with_http_info
+  data, status_code, headers = api_instance.create_story_with_http_info(create_story_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateStoryResponse>
@@ -2566,7 +2653,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_story_request** | **CreateStoryRequest** |  |  |
 
 ### Return type
 
@@ -2578,13 +2667,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_variation_group
 
-> <CreateVariationGroupResponse> create_variation_group
+> <CreateVariationGroupResponse> create_variation_group(create_variation_group_request)
 
 Group listings you already have: a variation (one product, an axis such as Size) or a purchase-rule group (\"buy any 3\").
 
@@ -2600,10 +2689,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_variation_group_request = Crossly::CreateVariationGroupRequest.new({members: [Crossly::CreateVariationGroupRequestMembers.new({listing_id: 'listing_id_example'})]}) # CreateVariationGroupRequest | 
 
 begin
   # Group listings you already have: a variation (one product, an axis such as Size) or a purchase-rule group (\"buy any 3\").
-  result = api_instance.create_variation_group
+  result = api_instance.create_variation_group(create_variation_group_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_variation_group: #{e}"
@@ -2614,12 +2704,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVariationGroupResponse>, Integer, Hash)> create_variation_group_with_http_info
+> <Array(<CreateVariationGroupResponse>, Integer, Hash)> create_variation_group_with_http_info(create_variation_group_request)
 
 ```ruby
 begin
   # Group listings you already have: a variation (one product, an axis such as Size) or a purchase-rule group (\"buy any 3\").
-  data, status_code, headers = api_instance.create_variation_group_with_http_info
+  data, status_code, headers = api_instance.create_variation_group_with_http_info(create_variation_group_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVariationGroupResponse>
@@ -2630,7 +2720,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_variation_group_request** | **CreateVariationGroupRequest** |  |  |
 
 ### Return type
 
@@ -2642,13 +2734,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_variation_group_generate
 
-> <CreateVariationGroupGenerateResponse> create_variation_group_generate
+> <CreateVariationGroupGenerateResponse> create_variation_group_generate(create_variation_group_generate_request)
 
 Turn one listing into a variation group: each new value becomes its own listing (a copy, with its own price, quantity and SKU) and all of them one group.
 
@@ -2664,10 +2756,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_variation_group_generate_request = Crossly::CreateVariationGroupGenerateRequest.new({source_listing_id: 'source_listing_id_example', axis_name: 'axis_name_example', source_value: 'source_value_example', options: [Crossly::CreateVariationGroupGenerateRequestOptions.new({value: 'value_example'})]}) # CreateVariationGroupGenerateRequest | 
 
 begin
   # Turn one listing into a variation group: each new value becomes its own listing (a copy, with its own price, quantity and SKU) and all of them one group.
-  result = api_instance.create_variation_group_generate
+  result = api_instance.create_variation_group_generate(create_variation_group_generate_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_variation_group_generate: #{e}"
@@ -2678,12 +2771,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVariationGroupGenerateResponse>, Integer, Hash)> create_variation_group_generate_with_http_info
+> <Array(<CreateVariationGroupGenerateResponse>, Integer, Hash)> create_variation_group_generate_with_http_info(create_variation_group_generate_request)
 
 ```ruby
 begin
   # Turn one listing into a variation group: each new value becomes its own listing (a copy, with its own price, quantity and SKU) and all of them one group.
-  data, status_code, headers = api_instance.create_variation_group_generate_with_http_info
+  data, status_code, headers = api_instance.create_variation_group_generate_with_http_info(create_variation_group_generate_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVariationGroupGenerateResponse>
@@ -2694,7 +2787,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_variation_group_generate_request** | **CreateVariationGroupGenerateRequest** |  |  |
 
 ### Return type
 
@@ -2706,13 +2801,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_variation_group_generate_matrix
 
-> <CreateVariationGroupGenerateMatrixResponse> create_variation_group_generate_matrix
+> <CreateVariationGroupGenerateMatrixResponse> create_variation_group_generate_matrix(create_variation_group_generate_matrix_request)
 
 Turn one listing into a variation group over up to three axes (Size × Color): each other cell is a listing you already have (listingId) or a new copy of this one with its own price, quantity and SKU.
 
@@ -2728,10 +2823,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+create_variation_group_generate_matrix_request = Crossly::CreateVariationGroupGenerateMatrixRequest.new({source_listing_id: 'source_listing_id_example', axes: [Crossly::CreateVariationGroupGenerateMatrixRequestAxes.new({name: 'name_example', values: ['values_example']})], source_options: { key: 3.56}, cells: [Crossly::CreateVariationGroupGenerateMatrixRequestCells.new({options: { key: 3.56}})]}) # CreateVariationGroupGenerateMatrixRequest | 
 
 begin
   # Turn one listing into a variation group over up to three axes (Size × Color): each other cell is a listing you already have (listingId) or a new copy of this one with its own price, quantity and SKU.
-  result = api_instance.create_variation_group_generate_matrix
+  result = api_instance.create_variation_group_generate_matrix(create_variation_group_generate_matrix_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_variation_group_generate_matrix: #{e}"
@@ -2742,12 +2838,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVariationGroupGenerateMatrixResponse>, Integer, Hash)> create_variation_group_generate_matrix_with_http_info
+> <Array(<CreateVariationGroupGenerateMatrixResponse>, Integer, Hash)> create_variation_group_generate_matrix_with_http_info(create_variation_group_generate_matrix_request)
 
 ```ruby
 begin
   # Turn one listing into a variation group over up to three axes (Size × Color): each other cell is a listing you already have (listingId) or a new copy of this one with its own price, quantity and SKU.
-  data, status_code, headers = api_instance.create_variation_group_generate_matrix_with_http_info
+  data, status_code, headers = api_instance.create_variation_group_generate_matrix_with_http_info(create_variation_group_generate_matrix_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVariationGroupGenerateMatrixResponse>
@@ -2758,7 +2854,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_variation_group_generate_matrix_request** | **CreateVariationGroupGenerateMatrixRequest** |  |  |
 
 ### Return type
 
@@ -2770,13 +2868,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_variation_group_publish
 
-> <CreateVariationGroupPublishResponse> create_variation_group_publish(id)
+> <CreateVariationGroupPublishResponse> create_variation_group_publish(id, create_variation_group_publish_request)
 
 Publish a variation group per platform: one listing with a variation picker where the platform supports it (eBay, Shopify, Etsy), one per option elsewhere. Each platform reports its own outcome.
 
@@ -2793,10 +2891,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+create_variation_group_publish_request = Crossly::CreateVariationGroupPublishRequest.new({platforms: ['platforms_example']}) # CreateVariationGroupPublishRequest | 
 
 begin
   # Publish a variation group per platform: one listing with a variation picker where the platform supports it (eBay, Shopify, Etsy), one per option elsewhere. Each platform reports its own outcome.
-  result = api_instance.create_variation_group_publish(id)
+  result = api_instance.create_variation_group_publish(id, create_variation_group_publish_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_variation_group_publish: #{e}"
@@ -2807,12 +2906,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVariationGroupPublishResponse>, Integer, Hash)> create_variation_group_publish_with_http_info(id)
+> <Array(<CreateVariationGroupPublishResponse>, Integer, Hash)> create_variation_group_publish_with_http_info(id, create_variation_group_publish_request)
 
 ```ruby
 begin
   # Publish a variation group per platform: one listing with a variation picker where the platform supports it (eBay, Shopify, Etsy), one per option elsewhere. Each platform reports its own outcome.
-  data, status_code, headers = api_instance.create_variation_group_publish_with_http_info(id)
+  data, status_code, headers = api_instance.create_variation_group_publish_with_http_info(id, create_variation_group_publish_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVariationGroupPublishResponse>
@@ -2826,6 +2925,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_variation_group_publish_request** | **CreateVariationGroupPublishRequest** |  |  |
 
 ### Return type
 
@@ -2837,13 +2937,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_video_studio_finalize
 
-> <CreateVideoStudioFinalizeResponse> create_video_studio_finalize
+> <CreateVideoStudioFinalizeResponse> create_video_studio_finalize(opts)
 
 Check an uploaded listing video (exists, MP4, size) and, with listingId, set it as that listing's video.
 
@@ -2859,10 +2959,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  create_video_studio_finalize_request: Crossly::CreateVideoStudioFinalizeRequest.new({object_key: 'object_key_example'}) # CreateVideoStudioFinalizeRequest | 
+}
 
 begin
   # Check an uploaded listing video (exists, MP4, size) and, with listingId, set it as that listing's video.
-  result = api_instance.create_video_studio_finalize
+  result = api_instance.create_video_studio_finalize(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->create_video_studio_finalize: #{e}"
@@ -2873,12 +2976,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVideoStudioFinalizeResponse>, Integer, Hash)> create_video_studio_finalize_with_http_info
+> <Array(<CreateVideoStudioFinalizeResponse>, Integer, Hash)> create_video_studio_finalize_with_http_info(opts)
 
 ```ruby
 begin
   # Check an uploaded listing video (exists, MP4, size) and, with listingId, set it as that listing's video.
-  data, status_code, headers = api_instance.create_video_studio_finalize_with_http_info
+  data, status_code, headers = api_instance.create_video_studio_finalize_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVideoStudioFinalizeResponse>
@@ -2889,7 +2992,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_video_studio_finalize_request** | **CreateVideoStudioFinalizeRequest** |  | [optional] |
 
 ### Return type
 
@@ -2901,7 +3006,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4110,7 +4215,7 @@ This endpoint does not need any parameter.
 
 ## get_pricing_sold_comp
 
-> <GetPricingSoldCompResponse> get_pricing_sold_comp
+> <GetPricingSoldCompResponse> get_pricing_sold_comp(opts)
 
 What one catalog product (market_sku_id, in one condition) actually sold for across Crossly in the last 180 days: median, p25/p75, p10/p90 (null under 10 sales), sale count, last sold, and days from listing to sale (median, p25, p75). Pass marketSkuId (+ optional condition) or one of your listingIds. comps is null until there are 3+ sales from 2+ sellers; holdCode says why there is nothing (no_market_sku, mixed_inventory, below_privacy_floor) — the same reasons a sold_median reprice rule holds.
 
@@ -4126,10 +4231,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  market_sku_id: 'market_sku_id_example', # String | 
+  condition: 'condition_example', # String | 
+  listing_id: 'listing_id_example' # String | 
+}
 
 begin
   # What one catalog product (market_sku_id, in one condition) actually sold for across Crossly in the last 180 days: median, p25/p75, p10/p90 (null under 10 sales), sale count, last sold, and days from listing to sale (median, p25, p75). Pass marketSkuId (+ optional condition) or one of your listingIds. comps is null until there are 3+ sales from 2+ sellers; holdCode says why there is nothing (no_market_sku, mixed_inventory, below_privacy_floor) — the same reasons a sold_median reprice rule holds.
-  result = api_instance.get_pricing_sold_comp
+  result = api_instance.get_pricing_sold_comp(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->get_pricing_sold_comp: #{e}"
@@ -4140,12 +4250,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetPricingSoldCompResponse>, Integer, Hash)> get_pricing_sold_comp_with_http_info
+> <Array(<GetPricingSoldCompResponse>, Integer, Hash)> get_pricing_sold_comp_with_http_info(opts)
 
 ```ruby
 begin
   # What one catalog product (market_sku_id, in one condition) actually sold for across Crossly in the last 180 days: median, p25/p75, p10/p90 (null under 10 sales), sale count, last sold, and days from listing to sale (median, p25, p75). Pass marketSkuId (+ optional condition) or one of your listingIds. comps is null until there are 3+ sales from 2+ sellers; holdCode says why there is nothing (no_market_sku, mixed_inventory, below_privacy_floor) — the same reasons a sold_median reprice rule holds.
-  data, status_code, headers = api_instance.get_pricing_sold_comp_with_http_info
+  data, status_code, headers = api_instance.get_pricing_sold_comp_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetPricingSoldCompResponse>
@@ -4156,11 +4266,84 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **market_sku_id** | **String** |  | [optional] |
+| **condition** | **String** |  | [optional] |
+| **listing_id** | **String** |  | [optional] |
 
 ### Return type
 
 **GetPricingSoldCompResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_rental_policy
+
+> <GetRentalPolicyResponse> get_rental_policy(opts)
+
+The return and payment policies a rental inherits from Settings › Policies, resolved for the store (or for one listing with ?listingId): preset ids and names, the level each came from, the return line, protections, arrival photos, the deposit claim window in days, a required deposit in basis points, accepted methods, and editPath.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ListingsApi.new
+opts = {
+  listing_id: 'listing_id_example' # String | 
+}
+
+begin
+  # The return and payment policies a rental inherits from Settings › Policies, resolved for the store (or for one listing with ?listingId): preset ids and names, the level each came from, the return line, protections, arrival photos, the deposit claim window in days, a required deposit in basis points, accepted methods, and editPath.
+  result = api_instance.get_rental_policy(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->get_rental_policy: #{e}"
+end
+```
+
+#### Using the get_rental_policy_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetRentalPolicyResponse>, Integer, Hash)> get_rental_policy_with_http_info(opts)
+
+```ruby
+begin
+  # The return and payment policies a rental inherits from Settings › Policies, resolved for the store (or for one listing with ?listingId): preset ids and names, the level each came from, the return line, protections, arrival photos, the deposit claim window in days, a required deposit in basis points, accepted methods, and editPath.
+  data, status_code, headers = api_instance.get_rental_policy_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetRentalPolicyResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->get_rental_policy_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **listing_id** | **String** |  | [optional] |
+
+### Return type
+
+**GetRentalPolicyResponse**
 
 ### Authorization
 
@@ -4291,6 +4474,152 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetShopLimitResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_stockx_catalog
+
+> <GetStockxCatalogResponse> get_stockx_catalog(q, opts)
+
+Search the StockX catalog (style code, SKU or words) to pick the product a StockX ask is on.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ListingsApi.new
+q = 'q_example' # String | 
+opts = {
+  page: 56, # Integer | 
+  page_size: 56 # Integer | 
+}
+
+begin
+  # Search the StockX catalog (style code, SKU or words) to pick the product a StockX ask is on.
+  result = api_instance.get_stockx_catalog(q, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->get_stockx_catalog: #{e}"
+end
+```
+
+#### Using the get_stockx_catalog_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetStockxCatalogResponse>, Integer, Hash)> get_stockx_catalog_with_http_info(q, opts)
+
+```ruby
+begin
+  # Search the StockX catalog (style code, SKU or words) to pick the product a StockX ask is on.
+  data, status_code, headers = api_instance.get_stockx_catalog_with_http_info(q, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetStockxCatalogResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->get_stockx_catalog_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  |  |
+| **page** | **Integer** |  | [optional] |
+| **page_size** | **Integer** |  | [optional] |
+
+### Return type
+
+**GetStockxCatalogResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_stockx_catalog_variant_market_data
+
+> <GetStockxCatalogVariantMarketDataResponse> get_stockx_catalog_variant_market_data(product_id, variant_id, opts)
+
+Lowest ask, highest bid and suggested prices for one StockX size.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ListingsApi.new
+product_id = 'product_id_example' # String | 
+variant_id = 'variant_id_example' # String | 
+opts = {
+  currency: 'currency_example' # String | 
+}
+
+begin
+  # Lowest ask, highest bid and suggested prices for one StockX size.
+  result = api_instance.get_stockx_catalog_variant_market_data(product_id, variant_id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->get_stockx_catalog_variant_market_data: #{e}"
+end
+```
+
+#### Using the get_stockx_catalog_variant_market_data_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetStockxCatalogVariantMarketDataResponse>, Integer, Hash)> get_stockx_catalog_variant_market_data_with_http_info(product_id, variant_id, opts)
+
+```ruby
+begin
+  # Lowest ask, highest bid and suggested prices for one StockX size.
+  data, status_code, headers = api_instance.get_stockx_catalog_variant_market_data_with_http_info(product_id, variant_id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetStockxCatalogVariantMarketDataResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->get_stockx_catalog_variant_market_data_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **product_id** | **String** |  |  |
+| **variant_id** | **String** |  |  |
+| **currency** | **String** |  | [optional] |
+
+### Return type
+
+**GetStockxCatalogVariantMarketDataResponse**
 
 ### Authorization
 
@@ -4797,8 +5126,9 @@ opts = {
   sku: 'sku_example', # String | Exact SKU match: look up the row a supplier product maps to.
   updated_since: Time.parse('2013-10-20T19:20:30+01:00'), # Time | Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
   kind: 'physical', # String | Physical goods or Web3 assets (NFT listings). Omit for both.
-  tag: TODO, # AnyOfstringarray | Only listings carrying ANY of these tags (case-insensitive): repeat `tag` or comma-separate.
-  still_live: true # Boolean | Only listings still active on at least one marketplace. With status=sold: sold items still buyable somewhere (a delist failed, is pending or never ran).
+  tag: ['inner_example'], # Array<String> | Only listings carrying ANY of these tags (case-insensitive): repeat `tag` or comma-separate.
+  still_live: true, # Boolean | Only listings still active on at least one marketplace. With status=sold: sold items still buyable somewhere (a delist failed, is pending or never ran).
+  assignee: 'assignee_example' # String | Work assignment: 'me' (your own seat), 'none' (unassigned), 'any' (assigned to someone) or a team member id.
 }
 
 begin
@@ -4839,8 +5169,9 @@ end
 | **sku** | **String** | Exact SKU match: look up the row a supplier product maps to. | [optional] |
 | **updated_since** | **Time** | Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw. | [optional] |
 | **kind** | **String** | Physical goods or Web3 assets (NFT listings). Omit for both. | [optional] |
-| **tag** | [**AnyOfstringarray**](.md) | Only listings carrying ANY of these tags (case-insensitive): repeat &#x60;tag&#x60; or comma-separate. | [optional] |
+| **tag** | **Array&lt;String&gt;** | Only listings carrying ANY of these tags (case-insensitive): repeat &#x60;tag&#x60; or comma-separate. | [optional] |
 | **still_live** | **Boolean** | Only listings still active on at least one marketplace. With status&#x3D;sold: sold items still buyable somewhere (a delist failed, is pending or never ran). | [optional] |
+| **assignee** | **String** | Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id. | [optional] |
 
 ### Return type
 
@@ -5053,7 +5384,7 @@ This endpoint does not need any parameter.
 
 ## list_passports
 
-> <ListPassportsResponse> list_passports
+> <ListPassportsResponse> list_passports(opts)
 
 Product passports you registered (optionally for one Crossly listing): the code and URL each tag carries.
 
@@ -5069,10 +5400,21 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  q: 'q_example', # String | 
+  status: 'active', # String | 
+  custody: 'in_vault', # String | 
+  tag: 'none', # String | 
+  printed: 'no', # String | 
+  item_id: 'item_id_example', # String | 
+  platform_listing_id: 'platform_listing_id_example', # String | 
+  cursor: 'cursor_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Product passports you registered (optionally for one Crossly listing): the code and URL each tag carries.
-  result = api_instance.list_passports
+  result = api_instance.list_passports(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->list_passports: #{e}"
@@ -5083,12 +5425,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListPassportsResponse>, Integer, Hash)> list_passports_with_http_info
+> <Array(<ListPassportsResponse>, Integer, Hash)> list_passports_with_http_info(opts)
 
 ```ruby
 begin
   # Product passports you registered (optionally for one Crossly listing): the code and URL each tag carries.
-  data, status_code, headers = api_instance.list_passports_with_http_info
+  data, status_code, headers = api_instance.list_passports_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListPassportsResponse>
@@ -5099,7 +5441,17 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  | [optional] |
+| **status** | **String** |  | [optional] |
+| **custody** | **String** |  | [optional] |
+| **tag** | **String** |  | [optional] |
+| **printed** | **String** |  | [optional] |
+| **item_id** | **String** |  | [optional] |
+| **platform_listing_id** | **String** |  | [optional] |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -5119,7 +5471,7 @@ This endpoint does not need any parameter.
 
 > <ListRentalOffersResponse> list_rental_offers
 
-What you offer for rent.
+What you offer for rent. Each offer carries `policy`: the return and payment policies it inherits from Settings › Policies, resolved (preset ids and names, the level they came from, protections, claim window, deposit, accepted methods, and editPath), with `returnPolicyOverride` when the offer writes its own return text.
 
 ### Examples
 
@@ -5135,7 +5487,7 @@ end
 api_instance = Crossly::ListingsApi.new
 
 begin
-  # What you offer for rent.
+  # What you offer for rent. Each offer carries `policy`: the return and payment policies it inherits from Settings › Policies, resolved (preset ids and names, the level they came from, protections, claim window, deposit, accepted methods, and editPath), with `returnPolicyOverride` when the offer writes its own return text.
   result = api_instance.list_rental_offers
   p result
 rescue Crossly::ApiError => e
@@ -5151,7 +5503,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # What you offer for rent.
+  # What you offer for rent. Each offer carries `policy`: the return and payment policies it inherits from Settings › Policies, resolved (preset ids and names, the level they came from, protections, claim window, deposit, accepted methods, and editPath), with `returnPolicyOverride` when the offer writes its own return text.
   data, status_code, headers = api_instance.list_rental_offers_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -5168,6 +5520,73 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListRentalOffersResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_stockx_catalog_variants
+
+> <ListStockxCatalogVariantsResponse> list_stockx_catalog_variants(product_id)
+
+List the sizes (variants) of a StockX catalog product.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ListingsApi.new
+product_id = 'product_id_example' # String | 
+
+begin
+  # List the sizes (variants) of a StockX catalog product.
+  result = api_instance.list_stockx_catalog_variants(product_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->list_stockx_catalog_variants: #{e}"
+end
+```
+
+#### Using the list_stockx_catalog_variants_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListStockxCatalogVariantsResponse>, Integer, Hash)> list_stockx_catalog_variants_with_http_info(product_id)
+
+```ruby
+begin
+  # List the sizes (variants) of a StockX catalog product.
+  data, status_code, headers = api_instance.list_stockx_catalog_variants_with_http_info(product_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListStockxCatalogVariantsResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->list_stockx_catalog_variants_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **product_id** | **String** |  |  |
+
+### Return type
+
+**ListStockxCatalogVariantsResponse**
 
 ### Authorization
 
@@ -5245,7 +5664,7 @@ This endpoint does not need any parameter.
 
 ## update_event
 
-> <EventResponse> update_event(id)
+> <EventResponse> update_event(id, update_event_request)
 
 Edit an event. Omitted fields are unchanged; null clears.
 
@@ -5262,10 +5681,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+update_event_request = Crossly::UpdateEventRequest.new # UpdateEventRequest | 
 
 begin
   # Edit an event. Omitted fields are unchanged; null clears.
-  result = api_instance.update_event(id)
+  result = api_instance.update_event(id, update_event_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_event: #{e}"
@@ -5276,12 +5696,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<EventResponse>, Integer, Hash)> update_event_with_http_info(id)
+> <Array(<EventResponse>, Integer, Hash)> update_event_with_http_info(id, update_event_request)
 
 ```ruby
 begin
   # Edit an event. Omitted fields are unchanged; null clears.
-  data, status_code, headers = api_instance.update_event_with_http_info(id)
+  data, status_code, headers = api_instance.update_event_with_http_info(id, update_event_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <EventResponse>
@@ -5295,6 +5715,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_event_request** | **UpdateEventRequest** |  |  |
 
 ### Return type
 
@@ -5306,13 +5727,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_hotspot
 
-> <UpdateHotspotResponse> update_hotspot
+> <UpdateHotspotResponse> update_hotspot(update_hotspot_request)
 
 Tag your listings at points on a story or lookbook photo (shop the look). Replaces that photo’s tags; at most 12.
 
@@ -5328,10 +5749,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+update_hotspot_request = Crossly::UpdateHotspotRequest.new({target_type: 'story', target_id: 'target_id_example', spots: [Crossly::UpdateHotspotRequestSpots.new({platform_listing_id: 'platform_listing_id_example', x: 3.56, y: 3.56})]}) # UpdateHotspotRequest | 
 
 begin
   # Tag your listings at points on a story or lookbook photo (shop the look). Replaces that photo’s tags; at most 12.
-  result = api_instance.update_hotspot
+  result = api_instance.update_hotspot(update_hotspot_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_hotspot: #{e}"
@@ -5342,12 +5764,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateHotspotResponse>, Integer, Hash)> update_hotspot_with_http_info
+> <Array(<UpdateHotspotResponse>, Integer, Hash)> update_hotspot_with_http_info(update_hotspot_request)
 
 ```ruby
 begin
   # Tag your listings at points on a story or lookbook photo (shop the look). Replaces that photo’s tags; at most 12.
-  data, status_code, headers = api_instance.update_hotspot_with_http_info
+  data, status_code, headers = api_instance.update_hotspot_with_http_info(update_hotspot_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateHotspotResponse>
@@ -5358,7 +5780,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_hotspot_request** | **UpdateHotspotRequest** |  |  |
 
 ### Return type
 
@@ -5370,7 +5794,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -5443,9 +5867,140 @@ end
 - **Accept**: application/json
 
 
+## update_listing_assignee
+
+> <UpdateOrderAssigneeResponse> update_listing_assignee
+
+Assign many listings to a teammate, round robin across several, or unassign them (null).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ListingsApi.new
+
+begin
+  # Assign many listings to a teammate, round robin across several, or unassign them (null).
+  result = api_instance.update_listing_assignee
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->update_listing_assignee: #{e}"
+end
+```
+
+#### Using the update_listing_assignee_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateOrderAssigneeResponse>, Integer, Hash)> update_listing_assignee_with_http_info
+
+```ruby
+begin
+  # Assign many listings to a teammate, round robin across several, or unassign them (null).
+  data, status_code, headers = api_instance.update_listing_assignee_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateOrderAssigneeResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->update_listing_assignee_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**UpdateOrderAssigneeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_listing_assignee_by_id
+
+> <UpdateOrderAssigneeByIdResponse> update_listing_assignee_by_id(id)
+
+Assign one listing to a teammate, or unassign it (null).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::ListingsApi.new
+id = 'id_example' # String | 
+
+begin
+  # Assign one listing to a teammate, or unassign it (null).
+  result = api_instance.update_listing_assignee_by_id(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->update_listing_assignee_by_id: #{e}"
+end
+```
+
+#### Using the update_listing_assignee_by_id_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateOrderAssigneeByIdResponse>, Integer, Hash)> update_listing_assignee_by_id_with_http_info(id)
+
+```ruby
+begin
+  # Assign one listing to a teammate, or unassign it (null).
+  data, status_code, headers = api_instance.update_listing_assignee_by_id_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateOrderAssigneeByIdResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling ListingsApi->update_listing_assignee_by_id_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**UpdateOrderAssigneeByIdResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## update_listing_custom
 
-> <UpdateListingCustomResponse> update_listing_custom(id)
+> <UpdateListingCustomResponse> update_listing_custom(id, update_listing_custom_request)
 
 Set a listing’s customs: HS code (6–10 digits), country of origin, and countries this item must not ship to on Crossly. Omitted fields are left alone; null (or [] for restrictedCountries) clears.
 
@@ -5462,10 +6017,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_listing_custom_request = Crossly::UpdateListingCustomRequest.new # UpdateListingCustomRequest | 
 
 begin
   # Set a listing’s customs: HS code (6–10 digits), country of origin, and countries this item must not ship to on Crossly. Omitted fields are left alone; null (or [] for restrictedCountries) clears.
-  result = api_instance.update_listing_custom(id)
+  result = api_instance.update_listing_custom(id, update_listing_custom_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_listing_custom: #{e}"
@@ -5476,12 +6032,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateListingCustomResponse>, Integer, Hash)> update_listing_custom_with_http_info(id)
+> <Array(<UpdateListingCustomResponse>, Integer, Hash)> update_listing_custom_with_http_info(id, update_listing_custom_request)
 
 ```ruby
 begin
   # Set a listing’s customs: HS code (6–10 digits), country of origin, and countries this item must not ship to on Crossly. Omitted fields are left alone; null (or [] for restrictedCountries) clears.
-  data, status_code, headers = api_instance.update_listing_custom_with_http_info(id)
+  data, status_code, headers = api_instance.update_listing_custom_with_http_info(id, update_listing_custom_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateListingCustomResponse>
@@ -5495,6 +6051,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_listing_custom_request** | **UpdateListingCustomRequest** |  |  |
 
 ### Return type
 
@@ -5506,13 +6063,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_listing_platform_listing
 
-> <UpdateListingPlatformListingResponse> update_listing_platform_listing(id, pl_id)
+> <UpdateListingPlatformListingResponse> update_listing_platform_listing(id, pl_id, update_listing_platform_listing_request)
 
 Set one marketplace copy's price (e.g. the ebay.com copy of a listing also live on ebay.co.uk), in that copy's own currency.
 
@@ -5530,10 +6087,11 @@ end
 api_instance = Crossly::ListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 pl_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_listing_platform_listing_request = Crossly::UpdateListingPlatformListingRequest.new({price: 3.56}) # UpdateListingPlatformListingRequest | 
 
 begin
   # Set one marketplace copy's price (e.g. the ebay.com copy of a listing also live on ebay.co.uk), in that copy's own currency.
-  result = api_instance.update_listing_platform_listing(id, pl_id)
+  result = api_instance.update_listing_platform_listing(id, pl_id, update_listing_platform_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_listing_platform_listing: #{e}"
@@ -5544,12 +6102,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateListingPlatformListingResponse>, Integer, Hash)> update_listing_platform_listing_with_http_info(id, pl_id)
+> <Array(<UpdateListingPlatformListingResponse>, Integer, Hash)> update_listing_platform_listing_with_http_info(id, pl_id, update_listing_platform_listing_request)
 
 ```ruby
 begin
   # Set one marketplace copy's price (e.g. the ebay.com copy of a listing also live on ebay.co.uk), in that copy's own currency.
-  data, status_code, headers = api_instance.update_listing_platform_listing_with_http_info(id, pl_id)
+  data, status_code, headers = api_instance.update_listing_platform_listing_with_http_info(id, pl_id, update_listing_platform_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateListingPlatformListingResponse>
@@ -5564,6 +6122,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **pl_id** | **String** |  |  |
+| **update_listing_platform_listing_request** | **UpdateListingPlatformListingRequest** |  |  |
 
 ### Return type
 
@@ -5575,13 +6134,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_live_stream
 
-> <LiveStreamResponse> update_live_stream(id)
+> <LiveStreamResponse> update_live_stream(id, opts)
 
 Edit a show that has not ended: title, description, cover, category, start time (not once live) or connection method (browser | phone | encoder).
 
@@ -5598,10 +6157,13 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+opts = {
+  update_live_stream_request: Crossly::UpdateLiveStreamRequest.new # UpdateLiveStreamRequest | 
+}
 
 begin
   # Edit a show that has not ended: title, description, cover, category, start time (not once live) or connection method (browser | phone | encoder).
-  result = api_instance.update_live_stream(id)
+  result = api_instance.update_live_stream(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_live_stream: #{e}"
@@ -5612,12 +6174,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<LiveStreamResponse>, Integer, Hash)> update_live_stream_with_http_info(id)
+> <Array(<LiveStreamResponse>, Integer, Hash)> update_live_stream_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a show that has not ended: title, description, cover, category, start time (not once live) or connection method (browser | phone | encoder).
-  data, status_code, headers = api_instance.update_live_stream_with_http_info(id)
+  data, status_code, headers = api_instance.update_live_stream_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <LiveStreamResponse>
@@ -5631,6 +6193,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_live_stream_request** | **UpdateLiveStreamRequest** |  | [optional] |
 
 ### Return type
 
@@ -5642,13 +6205,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_live_stream_lineup
 
-> <UpdateLiveStreamLineupResponse> update_live_stream_lineup(id)
+> <UpdateLiveStreamLineupResponse> update_live_stream_lineup(id, update_live_stream_lineup_request)
 
 Set a live show’s lineup: your Crossly listings, in the order you will sell them. Buyers see it before they join; a sale of a lineup item while the show is live is recorded at its replay moment.
 
@@ -5665,10 +6228,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+update_live_stream_lineup_request = Crossly::UpdateLiveStreamLineupRequest.new({platform_listing_ids: ['platform_listing_ids_example']}) # UpdateLiveStreamLineupRequest | 
 
 begin
   # Set a live show’s lineup: your Crossly listings, in the order you will sell them. Buyers see it before they join; a sale of a lineup item while the show is live is recorded at its replay moment.
-  result = api_instance.update_live_stream_lineup(id)
+  result = api_instance.update_live_stream_lineup(id, update_live_stream_lineup_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_live_stream_lineup: #{e}"
@@ -5679,12 +6243,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateLiveStreamLineupResponse>, Integer, Hash)> update_live_stream_lineup_with_http_info(id)
+> <Array(<UpdateLiveStreamLineupResponse>, Integer, Hash)> update_live_stream_lineup_with_http_info(id, update_live_stream_lineup_request)
 
 ```ruby
 begin
   # Set a live show’s lineup: your Crossly listings, in the order you will sell them. Buyers see it before they join; a sale of a lineup item while the show is live is recorded at its replay moment.
-  data, status_code, headers = api_instance.update_live_stream_lineup_with_http_info(id)
+  data, status_code, headers = api_instance.update_live_stream_lineup_with_http_info(id, update_live_stream_lineup_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateLiveStreamLineupResponse>
@@ -5698,6 +6262,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_live_stream_lineup_request** | **UpdateLiveStreamLineupRequest** |  |  |
 
 ### Return type
 
@@ -5709,13 +6274,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_passport
 
-> <UpdatePassportResponse> update_passport(id)
+> <UpdatePassportResponse> update_passport(id, opts)
 
 Change what a passport says (title, condition, maker, year, materials, notes) or add photo URLs (photos append: a passport keeps the ones it was registered with).
 
@@ -5732,10 +6297,13 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+opts = {
+  update_passport_request: Crossly::UpdatePassportRequest.new # UpdatePassportRequest | 
+}
 
 begin
   # Change what a passport says (title, condition, maker, year, materials, notes) or add photo URLs (photos append: a passport keeps the ones it was registered with).
-  result = api_instance.update_passport(id)
+  result = api_instance.update_passport(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_passport: #{e}"
@@ -5746,12 +6314,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdatePassportResponse>, Integer, Hash)> update_passport_with_http_info(id)
+> <Array(<UpdatePassportResponse>, Integer, Hash)> update_passport_with_http_info(id, opts)
 
 ```ruby
 begin
   # Change what a passport says (title, condition, maker, year, materials, notes) or add photo URLs (photos append: a passport keeps the ones it was registered with).
-  data, status_code, headers = api_instance.update_passport_with_http_info(id)
+  data, status_code, headers = api_instance.update_passport_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdatePassportResponse>
@@ -5765,6 +6333,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_passport_request** | **UpdatePassportRequest** |  | [optional] |
 
 ### Return type
 
@@ -5776,13 +6345,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_passport_draft
 
-> <PassportDraftResponse> update_passport_draft(id)
+> <PassportDraftResponse> update_passport_draft(id, opts)
 
 Move a draft to a step, pick its label template, add items or remove draft passports.
 
@@ -5799,10 +6368,13 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+opts = {
+  update_passport_draft_request: Crossly::UpdatePassportDraftRequest.new # UpdatePassportDraftRequest | 
+}
 
 begin
   # Move a draft to a step, pick its label template, add items or remove draft passports.
-  result = api_instance.update_passport_draft(id)
+  result = api_instance.update_passport_draft(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_passport_draft: #{e}"
@@ -5813,12 +6385,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PassportDraftResponse>, Integer, Hash)> update_passport_draft_with_http_info(id)
+> <Array(<PassportDraftResponse>, Integer, Hash)> update_passport_draft_with_http_info(id, opts)
 
 ```ruby
 begin
   # Move a draft to a step, pick its label template, add items or remove draft passports.
-  data, status_code, headers = api_instance.update_passport_draft_with_http_info(id)
+  data, status_code, headers = api_instance.update_passport_draft_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PassportDraftResponse>
@@ -5832,6 +6404,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_passport_draft_request** | **UpdatePassportDraftRequest** |  | [optional] |
 
 ### Return type
 
@@ -5843,13 +6416,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_pricing_setting
 
-> <GetPricingSettingResponse> update_pricing_setting
+> <GetPricingSettingResponse> update_pricing_setting(update_pricing_setting_request)
 
 Turn own-price match and/or layaway on or off for every one of your stores. One store: PUT /v1/storefronts/{id}/settings.
 
@@ -5865,10 +6438,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+update_pricing_setting_request = Crossly::UpdatePricingSettingRequest.new # UpdatePricingSettingRequest | 
 
 begin
   # Turn own-price match and/or layaway on or off for every one of your stores. One store: PUT /v1/storefronts/{id}/settings.
-  result = api_instance.update_pricing_setting
+  result = api_instance.update_pricing_setting(update_pricing_setting_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_pricing_setting: #{e}"
@@ -5879,12 +6453,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetPricingSettingResponse>, Integer, Hash)> update_pricing_setting_with_http_info
+> <Array(<GetPricingSettingResponse>, Integer, Hash)> update_pricing_setting_with_http_info(update_pricing_setting_request)
 
 ```ruby
 begin
   # Turn own-price match and/or layaway on or off for every one of your stores. One store: PUT /v1/storefronts/{id}/settings.
-  data, status_code, headers = api_instance.update_pricing_setting_with_http_info
+  data, status_code, headers = api_instance.update_pricing_setting_with_http_info(update_pricing_setting_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetPricingSettingResponse>
@@ -5895,7 +6469,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_pricing_setting_request** | **UpdatePricingSettingRequest** |  |  |
 
 ### Return type
 
@@ -5907,13 +6483,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_rental_offer
 
-> <UpdateRentalOfferResponse> update_rental_offer(platform_listing_id)
+> <UpdateRentalOfferResponse> update_rental_offer(platform_listing_id, update_rental_offer_request)
 
 Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, rent-only (off sale while offered), seller approval, unavailable date ranges (blackoutRanges, inclusive YYYY-MM-DD) and a return policy. Keeps the listing’s own rental terms in step. Needs a ship-from address.
 
@@ -5930,10 +6506,11 @@ end
 
 api_instance = Crossly::ListingsApi.new
 platform_listing_id = 'platform_listing_id_example' # String | 
+update_rental_offer_request = Crossly::UpdateRentalOfferRequest.new({daily_cents: 3.56, deposit_cents: 3.56, min_days: 3.56, max_days: 3.56, buffer_days: 3.56}) # UpdateRentalOfferRequest | 
 
 begin
   # Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, rent-only (off sale while offered), seller approval, unavailable date ranges (blackoutRanges, inclusive YYYY-MM-DD) and a return policy. Keeps the listing’s own rental terms in step. Needs a ship-from address.
-  result = api_instance.update_rental_offer(platform_listing_id)
+  result = api_instance.update_rental_offer(platform_listing_id, update_rental_offer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_rental_offer: #{e}"
@@ -5944,12 +6521,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateRentalOfferResponse>, Integer, Hash)> update_rental_offer_with_http_info(platform_listing_id)
+> <Array(<UpdateRentalOfferResponse>, Integer, Hash)> update_rental_offer_with_http_info(platform_listing_id, update_rental_offer_request)
 
 ```ruby
 begin
   # Offer a Crossly listing for rent: day rate, optional week rate, deposit, min/max days, turnaround buffer, rent-only (off sale while offered), seller approval, unavailable date ranges (blackoutRanges, inclusive YYYY-MM-DD) and a return policy. Keeps the listing’s own rental terms in step. Needs a ship-from address.
-  data, status_code, headers = api_instance.update_rental_offer_with_http_info(platform_listing_id)
+  data, status_code, headers = api_instance.update_rental_offer_with_http_info(platform_listing_id, update_rental_offer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateRentalOfferResponse>
@@ -5963,6 +6540,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **platform_listing_id** | **String** |  |  |
+| **update_rental_offer_request** | **UpdateRentalOfferRequest** |  |  |
 
 ### Return type
 
@@ -5974,13 +6552,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_rental_setting
 
-> <GetRentalSettingResponse> update_rental_setting
+> <GetRentalSettingResponse> update_rental_setting(opts)
 
 Set the store’s rental defaults and payout timing (on_start needs 3 rentals that came back).
 
@@ -5996,10 +6574,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ListingsApi.new
+opts = {
+  update_rental_setting_request: Crossly::UpdateRentalSettingRequest.new # UpdateRentalSettingRequest | 
+}
 
 begin
   # Set the store’s rental defaults and payout timing (on_start needs 3 rentals that came back).
-  result = api_instance.update_rental_setting
+  result = api_instance.update_rental_setting(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_rental_setting: #{e}"
@@ -6010,12 +6591,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetRentalSettingResponse>, Integer, Hash)> update_rental_setting_with_http_info
+> <Array(<GetRentalSettingResponse>, Integer, Hash)> update_rental_setting_with_http_info(opts)
 
 ```ruby
 begin
   # Set the store’s rental defaults and payout timing (on_start needs 3 rentals that came back).
-  data, status_code, headers = api_instance.update_rental_setting_with_http_info
+  data, status_code, headers = api_instance.update_rental_setting_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetRentalSettingResponse>
@@ -6026,7 +6607,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_rental_setting_request** | **UpdateRentalSettingRequest** |  | [optional] |
 
 ### Return type
 
@@ -6038,13 +6621,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_variation_group
 
-> <CreateVariationGroupResponse> update_variation_group(id)
+> <CreateVariationGroupResponse> update_variation_group(id, opts)
 
 Retitle a group, rename its axis, or change a group's purchase rule (written into every member's description).
 
@@ -6061,10 +6644,13 @@ end
 
 api_instance = Crossly::ListingsApi.new
 id = 'id_example' # String | 
+opts = {
+  update_variation_group_request: Crossly::UpdateVariationGroupRequest.new # UpdateVariationGroupRequest | 
+}
 
 begin
   # Retitle a group, rename its axis, or change a group's purchase rule (written into every member's description).
-  result = api_instance.update_variation_group(id)
+  result = api_instance.update_variation_group(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ListingsApi->update_variation_group: #{e}"
@@ -6075,12 +6661,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVariationGroupResponse>, Integer, Hash)> update_variation_group_with_http_info(id)
+> <Array(<CreateVariationGroupResponse>, Integer, Hash)> update_variation_group_with_http_info(id, opts)
 
 ```ruby
 begin
   # Retitle a group, rename its axis, or change a group's purchase rule (written into every member's description).
-  data, status_code, headers = api_instance.update_variation_group_with_http_info(id)
+  data, status_code, headers = api_instance.update_variation_group_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVariationGroupResponse>
@@ -6094,6 +6680,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_variation_group_request** | **UpdateVariationGroupRequest** |  | [optional] |
 
 ### Return type
 
@@ -6105,6 +6692,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

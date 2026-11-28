@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # AI reply suggestion for a conversation.
+    # @param create_inbox_ai_suggest_request [CreateInboxAiSuggestRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxAiSuggestResponse]
-    def create_inbox_ai_suggest(opts = {})
-      data, _status_code, _headers = create_inbox_ai_suggest_with_http_info(opts)
+    def create_inbox_ai_suggest(create_inbox_ai_suggest_request, opts = {})
+      data, _status_code, _headers = create_inbox_ai_suggest_with_http_info(create_inbox_ai_suggest_request, opts)
       data
     end
 
     # AI reply suggestion for a conversation.
+    # @param create_inbox_ai_suggest_request [CreateInboxAiSuggestRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxAiSuggestResponse, Integer, Hash)>] CreateInboxAiSuggestResponse data, response status code and response headers
-    def create_inbox_ai_suggest_with_http_info(opts = {})
+    def create_inbox_ai_suggest_with_http_info(create_inbox_ai_suggest_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_ai_suggest ...'
+      end
+      # verify the required parameter 'create_inbox_ai_suggest_request' is set
+      if @api_client.config.client_side_validation && create_inbox_ai_suggest_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_ai_suggest_request' when calling InboxApi.create_inbox_ai_suggest"
       end
       # resource path
       local_var_path = '/v1/inbox/ai-suggest'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_ai_suggest_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxAiSuggestResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Create a canned response (added to the end of the list).
+    # @param create_inbox_canned_response_request [CreateInboxCannedResponseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxCannedResponseResponse]
-    def create_inbox_canned_response(opts = {})
-      data, _status_code, _headers = create_inbox_canned_response_with_http_info(opts)
+    def create_inbox_canned_response(create_inbox_canned_response_request, opts = {})
+      data, _status_code, _headers = create_inbox_canned_response_with_http_info(create_inbox_canned_response_request, opts)
       data
     end
 
     # Create a canned response (added to the end of the list).
+    # @param create_inbox_canned_response_request [CreateInboxCannedResponseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxCannedResponseResponse, Integer, Hash)>] CreateInboxCannedResponseResponse data, response status code and response headers
-    def create_inbox_canned_response_with_http_info(opts = {})
+    def create_inbox_canned_response_with_http_info(create_inbox_canned_response_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_canned_response ...'
+      end
+      # verify the required parameter 'create_inbox_canned_response_request' is set
+      if @api_client.config.client_side_validation && create_inbox_canned_response_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_canned_response_request' when calling InboxApi.create_inbox_canned_response"
       end
       # resource path
       local_var_path = '/v1/inbox/canned-responses'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_canned_response_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxCannedResponseResponse'
@@ -130,19 +152,25 @@ module Crossly
     end
 
     # Bulk mark read / mark unread / soft-delete conversations.
+    # @param create_inbox_conversation_bulk_request [CreateInboxConversationBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxConversationBulkResponse]
-    def create_inbox_conversation_bulk(opts = {})
-      data, _status_code, _headers = create_inbox_conversation_bulk_with_http_info(opts)
+    def create_inbox_conversation_bulk(create_inbox_conversation_bulk_request, opts = {})
+      data, _status_code, _headers = create_inbox_conversation_bulk_with_http_info(create_inbox_conversation_bulk_request, opts)
       data
     end
 
     # Bulk mark read / mark unread / soft-delete conversations.
+    # @param create_inbox_conversation_bulk_request [CreateInboxConversationBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxConversationBulkResponse, Integer, Hash)>] CreateInboxConversationBulkResponse data, response status code and response headers
-    def create_inbox_conversation_bulk_with_http_info(opts = {})
+    def create_inbox_conversation_bulk_with_http_info(create_inbox_conversation_bulk_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_conversation_bulk ...'
+      end
+      # verify the required parameter 'create_inbox_conversation_bulk_request' is set
+      if @api_client.config.client_side_validation && create_inbox_conversation_bulk_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_conversation_bulk_request' when calling InboxApi.create_inbox_conversation_bulk"
       end
       # resource path
       local_var_path = '/v1/inbox/conversations/bulk'
@@ -154,12 +182,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_conversation_bulk_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxConversationBulkResponse'
@@ -185,19 +218,25 @@ module Crossly
     end
 
     # AI reply suggestion for multiple conversations — draft or send.
+    # @param create_inbox_conversation_bulk_ai_respond_request [CreateInboxConversationBulkAiRespondRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxConversationBulkAiRespondResponse]
-    def create_inbox_conversation_bulk_ai_respond(opts = {})
-      data, _status_code, _headers = create_inbox_conversation_bulk_ai_respond_with_http_info(opts)
+    def create_inbox_conversation_bulk_ai_respond(create_inbox_conversation_bulk_ai_respond_request, opts = {})
+      data, _status_code, _headers = create_inbox_conversation_bulk_ai_respond_with_http_info(create_inbox_conversation_bulk_ai_respond_request, opts)
       data
     end
 
     # AI reply suggestion for multiple conversations — draft or send.
+    # @param create_inbox_conversation_bulk_ai_respond_request [CreateInboxConversationBulkAiRespondRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxConversationBulkAiRespondResponse, Integer, Hash)>] CreateInboxConversationBulkAiRespondResponse data, response status code and response headers
-    def create_inbox_conversation_bulk_ai_respond_with_http_info(opts = {})
+    def create_inbox_conversation_bulk_ai_respond_with_http_info(create_inbox_conversation_bulk_ai_respond_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_conversation_bulk_ai_respond ...'
+      end
+      # verify the required parameter 'create_inbox_conversation_bulk_ai_respond_request' is set
+      if @api_client.config.client_side_validation && create_inbox_conversation_bulk_ai_respond_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_conversation_bulk_ai_respond_request' when calling InboxApi.create_inbox_conversation_bulk_ai_respond"
       end
       # resource path
       local_var_path = '/v1/inbox/conversations/bulk-ai-respond'
@@ -209,12 +248,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_conversation_bulk_ai_respond_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxConversationBulkAiRespondResponse'
@@ -241,24 +285,30 @@ module Crossly
 
     # Accept / counter / decline an active offer on a conversation.
     # @param id [String] 
+    # @param create_inbox_conversation_offer_action_request [CreateInboxConversationOfferActionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateInboxConversationResponse]
-    def create_inbox_conversation_offer_action(id, opts = {})
-      data, _status_code, _headers = create_inbox_conversation_offer_action_with_http_info(id, opts)
+    def create_inbox_conversation_offer_action(id, create_inbox_conversation_offer_action_request, opts = {})
+      data, _status_code, _headers = create_inbox_conversation_offer_action_with_http_info(id, create_inbox_conversation_offer_action_request, opts)
       data
     end
 
     # Accept / counter / decline an active offer on a conversation.
     # @param id [String] 
+    # @param create_inbox_conversation_offer_action_request [CreateInboxConversationOfferActionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateInboxConversationResponse, Integer, Hash)>] UpdateInboxConversationResponse data, response status code and response headers
-    def create_inbox_conversation_offer_action_with_http_info(id, opts = {})
+    def create_inbox_conversation_offer_action_with_http_info(id, create_inbox_conversation_offer_action_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_conversation_offer_action ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.create_inbox_conversation_offer_action"
+      end
+      # verify the required parameter 'create_inbox_conversation_offer_action_request' is set
+      if @api_client.config.client_side_validation && create_inbox_conversation_offer_action_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_conversation_offer_action_request' when calling InboxApi.create_inbox_conversation_offer_action"
       end
       # resource path
       local_var_path = '/v1/inbox/conversations/{id}/offer-action'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -270,12 +320,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_conversation_offer_action_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateInboxConversationResponse'
@@ -363,24 +418,30 @@ module Crossly
 
     # Accept, counter, or decline an offer on a conversation.
     # @param id [String] 
+    # @param create_inbox_offer_request [CreateInboxOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxOfferResponse]
-    def create_inbox_offer(id, opts = {})
-      data, _status_code, _headers = create_inbox_offer_with_http_info(id, opts)
+    def create_inbox_offer(id, create_inbox_offer_request, opts = {})
+      data, _status_code, _headers = create_inbox_offer_with_http_info(id, create_inbox_offer_request, opts)
       data
     end
 
     # Accept, counter, or decline an offer on a conversation.
     # @param id [String] 
+    # @param create_inbox_offer_request [CreateInboxOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxOfferResponse, Integer, Hash)>] CreateInboxOfferResponse data, response status code and response headers
-    def create_inbox_offer_with_http_info(id, opts = {})
+    def create_inbox_offer_with_http_info(id, create_inbox_offer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_offer ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.create_inbox_offer"
+      end
+      # verify the required parameter 'create_inbox_offer_request' is set
+      if @api_client.config.client_side_validation && create_inbox_offer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_inbox_offer_request' when calling InboxApi.create_inbox_offer"
       end
       # resource path
       local_var_path = '/v1/inbox/{id}/offer'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -392,12 +453,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_inbox_offer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxOfferResponse'
@@ -424,24 +490,30 @@ module Crossly
 
     # Send a reply to a conversation thread.
     # @param id [String] 
+    # @param body_request [BodyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxReplyResponse]
-    def create_inbox_reply(id, opts = {})
-      data, _status_code, _headers = create_inbox_reply_with_http_info(id, opts)
+    def create_inbox_reply(id, body_request, opts = {})
+      data, _status_code, _headers = create_inbox_reply_with_http_info(id, body_request, opts)
       data
     end
 
     # Send a reply to a conversation thread.
     # @param id [String] 
+    # @param body_request [BodyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxReplyResponse, Integer, Hash)>] CreateInboxReplyResponse data, response status code and response headers
-    def create_inbox_reply_with_http_info(id, opts = {})
+    def create_inbox_reply_with_http_info(id, body_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_inbox_reply ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.create_inbox_reply"
+      end
+      # verify the required parameter 'body_request' is set
+      if @api_client.config.client_side_validation && body_request.nil?
+        fail ArgumentError, "Missing the required parameter 'body_request' when calling InboxApi.create_inbox_reply"
       end
       # resource path
       local_var_path = '/v1/inbox/{id}/reply'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -453,12 +525,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxReplyResponse'
@@ -557,24 +634,30 @@ module Crossly
 
     # Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
     # @param id [String] 
+    # @param create_video_request_answer_request [CreateVideoRequestAnswerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVideoRequestAnswerResponse]
-    def create_video_request_answer(id, opts = {})
-      data, _status_code, _headers = create_video_request_answer_with_http_info(id, opts)
+    def create_video_request_answer(id, create_video_request_answer_request, opts = {})
+      data, _status_code, _headers = create_video_request_answer_with_http_info(id, create_video_request_answer_request, opts)
       data
     end
 
     # Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
     # @param id [String] 
+    # @param create_video_request_answer_request [CreateVideoRequestAnswerRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVideoRequestAnswerResponse, Integer, Hash)>] CreateVideoRequestAnswerResponse data, response status code and response headers
-    def create_video_request_answer_with_http_info(id, opts = {})
+    def create_video_request_answer_with_http_info(id, create_video_request_answer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_video_request_answer ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.create_video_request_answer"
+      end
+      # verify the required parameter 'create_video_request_answer_request' is set
+      if @api_client.config.client_side_validation && create_video_request_answer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_video_request_answer_request' when calling InboxApi.create_video_request_answer"
       end
       # resource path
       local_var_path = '/v1/video-requests/{id}/answer'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -586,12 +669,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_video_request_answer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVideoRequestAnswerResponse'
@@ -619,6 +707,7 @@ module Crossly
     # Decline a video request, with an optional note to the buyer.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVideoRequestDeclineRequest] :create_video_request_decline_request 
     # @return [CreateVideoRequestAnswerResponse]
     def create_video_request_decline(id, opts = {})
       data, _status_code, _headers = create_video_request_decline_with_http_info(id, opts)
@@ -628,6 +717,7 @@ module Crossly
     # Decline a video request, with an optional note to the buyer.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVideoRequestDeclineRequest] :create_video_request_decline_request 
     # @return [Array<(CreateVideoRequestAnswerResponse, Integer, Hash)>] CreateVideoRequestAnswerResponse data, response status code and response headers
     def create_video_request_decline_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -647,12 +737,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_video_request_decline_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVideoRequestAnswerResponse'
@@ -678,19 +773,25 @@ module Crossly
     end
 
     # A presigned upload for a video answer: PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then answer with publicUrl.
+    # @param create_funding_invoice_file_request [CreateFundingInvoiceFileRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVideoRequestUploadUrlResponse]
-    def create_video_request_upload_url(opts = {})
-      data, _status_code, _headers = create_video_request_upload_url_with_http_info(opts)
+    def create_video_request_upload_url(create_funding_invoice_file_request, opts = {})
+      data, _status_code, _headers = create_video_request_upload_url_with_http_info(create_funding_invoice_file_request, opts)
       data
     end
 
     # A presigned upload for a video answer: PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then answer with publicUrl.
+    # @param create_funding_invoice_file_request [CreateFundingInvoiceFileRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVideoRequestUploadUrlResponse, Integer, Hash)>] CreateVideoRequestUploadUrlResponse data, response status code and response headers
-    def create_video_request_upload_url_with_http_info(opts = {})
+    def create_video_request_upload_url_with_http_info(create_funding_invoice_file_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.create_video_request_upload_url ...'
+      end
+      # verify the required parameter 'create_funding_invoice_file_request' is set
+      if @api_client.config.client_side_validation && create_funding_invoice_file_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_invoice_file_request' when calling InboxApi.create_video_request_upload_url"
       end
       # resource path
       local_var_path = '/v1/video-requests/upload-url'
@@ -702,12 +803,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_invoice_file_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVideoRequestUploadUrlResponse'
@@ -1162,6 +1268,7 @@ module Crossly
 
     # Buyers asking for a video of your items. status: open (default), answered, declined or all.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
     # @return [ListVideoRequestsResponse]
     def list_video_requests(opts = {})
       data, _status_code, _headers = list_video_requests_with_http_info(opts)
@@ -1170,16 +1277,22 @@ module Crossly
 
     # Buyers asking for a video of your items. status: open (default), answered, declined or all.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
     # @return [Array<(ListVideoRequestsResponse, Integer, Hash)>] ListVideoRequestsResponse data, response status code and response headers
     def list_video_requests_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.list_video_requests ...'
+      end
+      allowable_values = ["all", "open", "declined", "answered"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/video-requests'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1217,24 +1330,30 @@ module Crossly
 
     # Update a canned response.
     # @param id [String] 
+    # @param update_inbox_canned_response_request [UpdateInboxCannedResponseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateInboxCannedResponseResponse]
-    def update_inbox_canned_response(id, opts = {})
-      data, _status_code, _headers = update_inbox_canned_response_with_http_info(id, opts)
+    def update_inbox_canned_response(id, update_inbox_canned_response_request, opts = {})
+      data, _status_code, _headers = update_inbox_canned_response_with_http_info(id, update_inbox_canned_response_request, opts)
       data
     end
 
     # Update a canned response.
     # @param id [String] 
+    # @param update_inbox_canned_response_request [UpdateInboxCannedResponseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateInboxCannedResponseResponse, Integer, Hash)>] CreateInboxCannedResponseResponse data, response status code and response headers
-    def update_inbox_canned_response_with_http_info(id, opts = {})
+    def update_inbox_canned_response_with_http_info(id, update_inbox_canned_response_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.update_inbox_canned_response ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.update_inbox_canned_response"
+      end
+      # verify the required parameter 'update_inbox_canned_response_request' is set
+      if @api_client.config.client_side_validation && update_inbox_canned_response_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_inbox_canned_response_request' when calling InboxApi.update_inbox_canned_response"
       end
       # resource path
       local_var_path = '/v1/inbox/canned-responses/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1246,12 +1365,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_inbox_canned_response_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateInboxCannedResponseResponse'
@@ -1346,24 +1470,30 @@ module Crossly
 
     # Mark read / change status / close conversation.
     # @param id [String] 
+    # @param update_inbox_conversation_request [UpdateInboxConversationRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateInboxConversationResponse]
-    def update_inbox_conversation(id, opts = {})
-      data, _status_code, _headers = update_inbox_conversation_with_http_info(id, opts)
+    def update_inbox_conversation(id, update_inbox_conversation_request, opts = {})
+      data, _status_code, _headers = update_inbox_conversation_with_http_info(id, update_inbox_conversation_request, opts)
       data
     end
 
     # Mark read / change status / close conversation.
     # @param id [String] 
+    # @param update_inbox_conversation_request [UpdateInboxConversationRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateInboxConversationResponse, Integer, Hash)>] UpdateInboxConversationResponse data, response status code and response headers
-    def update_inbox_conversation_with_http_info(id, opts = {})
+    def update_inbox_conversation_with_http_info(id, update_inbox_conversation_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InboxApi.update_inbox_conversation ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling InboxApi.update_inbox_conversation"
+      end
+      # verify the required parameter 'update_inbox_conversation_request' is set
+      if @api_client.config.client_side_validation && update_inbox_conversation_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_inbox_conversation_request' when calling InboxApi.update_inbox_conversation"
       end
       # resource path
       local_var_path = '/v1/inbox/conversations/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1375,12 +1505,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_inbox_conversation_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateInboxConversationResponse'

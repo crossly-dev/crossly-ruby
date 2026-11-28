@@ -149,7 +149,7 @@ module Crossly
       requested_validator = EnumAttributeValidator.new('String', ["record", "ignore", "review", "mark_ended", "notify", "record_and_delist", "import_and_record", "mark_ended_and_delist", "import", "apply", "apply_and_restock"])
       return false unless requested_validator.valid?(@requested)
       return false if @scope.nil?
-      scope_validator = EnumAttributeValidator.new('String', ["default", "platform", "app", "global"])
+      scope_validator = EnumAttributeValidator.new('String', ["default", "app", "platform", "global"])
       return false unless scope_validator.valid?(@scope)
       true
     end
@@ -177,7 +177,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] scope Object to be assigned
     def scope=(scope)
-      validator = EnumAttributeValidator.new('String', ["default", "platform", "app", "global"])
+      validator = EnumAttributeValidator.new('String', ["default", "app", "platform", "global"])
       unless validator.valid?(scope)
         fail ArgumentError, "invalid value for \"scope\", must be one of #{validator.allowable_values}."
       end

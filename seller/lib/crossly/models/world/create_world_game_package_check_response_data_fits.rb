@@ -15,15 +15,15 @@ require 'time'
 
 module Crossly
   class CreateWorldGamePackageCheckResponseDataFits
-    attr_accessor :phone
-
     attr_accessor :desktop
+
+    attr_accessor :phone
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'phone' => :'phone',
-        :'desktop' => :'desktop'
+        :'desktop' => :'desktop',
+        :'phone' => :'phone'
       }
     end
 
@@ -35,8 +35,8 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'phone' => :'Boolean',
-        :'desktop' => :'Boolean'
+        :'desktop' => :'Boolean',
+        :'phone' => :'Boolean'
       }
     end
 
@@ -61,12 +61,12 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'phone')
-        self.phone = attributes[:'phone']
-      end
-
       if attributes.key?(:'desktop')
         self.desktop = attributes[:'desktop']
+      end
+
+      if attributes.key?(:'phone')
+        self.phone = attributes[:'phone']
       end
     end
 
@@ -74,12 +74,12 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @phone.nil?
-        invalid_properties.push('invalid value for "phone", phone cannot be nil.')
-      end
-
       if @desktop.nil?
         invalid_properties.push('invalid value for "desktop", desktop cannot be nil.')
+      end
+
+      if @phone.nil?
+        invalid_properties.push('invalid value for "phone", phone cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @phone.nil?
       return false if @desktop.nil?
+      return false if @phone.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          phone == o.phone &&
-          desktop == o.desktop
+          desktop == o.desktop &&
+          phone == o.phone
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [phone, desktop].hash
+      [desktop, phone].hash
     end
 
     # Builds the object from hash

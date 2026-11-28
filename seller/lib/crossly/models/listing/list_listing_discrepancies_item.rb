@@ -29,11 +29,11 @@ module Crossly
 
     attr_accessor :marketplace_id
 
-    attr_accessor :last_error
-
     attr_accessor :source
 
     attr_accessor :listing_id
+
+    attr_accessor :last_error
 
     attr_accessor :field
 
@@ -59,9 +59,9 @@ module Crossly
         :'platform' => :'platform',
         :'account_slot' => :'accountSlot',
         :'marketplace_id' => :'marketplaceId',
-        :'last_error' => :'lastError',
         :'source' => :'source',
         :'listing_id' => :'listingId',
+        :'last_error' => :'lastError',
         :'field' => :'field',
         :'our_value' => :'ourValue',
         :'remote_value' => :'remoteValue',
@@ -87,9 +87,9 @@ module Crossly
         :'platform' => :'String',
         :'account_slot' => :'Float',
         :'marketplace_id' => :'String',
-        :'last_error' => :'String',
         :'source' => :'String',
         :'listing_id' => :'String',
+        :'last_error' => :'String',
         :'field' => :'String',
         :'our_value' => :'String',
         :'remote_value' => :'String',
@@ -154,16 +154,16 @@ module Crossly
         self.marketplace_id = attributes[:'marketplace_id']
       end
 
-      if attributes.key?(:'last_error')
-        self.last_error = attributes[:'last_error']
-      end
-
       if attributes.key?(:'source')
         self.source = attributes[:'source']
       end
 
       if attributes.key?(:'listing_id')
         self.listing_id = attributes[:'listing_id']
+      end
+
+      if attributes.key?(:'last_error')
+        self.last_error = attributes[:'last_error']
       end
 
       if attributes.key?(:'field')
@@ -280,9 +280,9 @@ module Crossly
           platform == o.platform &&
           account_slot == o.account_slot &&
           marketplace_id == o.marketplace_id &&
-          last_error == o.last_error &&
           source == o.source &&
           listing_id == o.listing_id &&
+          last_error == o.last_error &&
           field == o.field &&
           our_value == o.our_value &&
           remote_value == o.remote_value &&
@@ -301,7 +301,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, user_id, platform, account_slot, marketplace_id, last_error, source, listing_id, field, our_value, remote_value, first_detected_at, last_detected_at, dismissed_at, dismissed_remote_value].hash
+      [id, created_at, updated_at, user_id, platform, account_slot, marketplace_id, source, listing_id, last_error, field, our_value, remote_value, first_detected_at, last_detected_at, dismissed_at, dismissed_remote_value].hash
     end
 
     # Builds the object from hash

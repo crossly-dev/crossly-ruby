@@ -21,6 +21,7 @@ module Crossly
     end
     # Invite a buyer by email to one or more of your catalogs. Binds to their account now if they have one, or when they sign up.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleBuyerInviteRequest] :create_wholesale_buyer_invite_request 
     # @return [CreateWholesaleBuyerInviteResponse]
     def create_wholesale_buyer_invite(opts = {})
       data, _status_code, _headers = create_wholesale_buyer_invite_with_http_info(opts)
@@ -29,6 +30,7 @@ module Crossly
 
     # Invite a buyer by email to one or more of your catalogs. Binds to their account now if they have one, or when they sign up.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleBuyerInviteRequest] :create_wholesale_buyer_invite_request 
     # @return [Array<(CreateWholesaleBuyerInviteResponse, Integer, Hash)>] CreateWholesaleBuyerInviteResponse data, response status code and response headers
     def create_wholesale_buyer_invite_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -44,12 +46,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_buyer_invite_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleBuyerInviteResponse'
@@ -76,6 +83,7 @@ module Crossly
 
     # Revoke every catalog grant a buyer (or invited email) has with you. Their terms and invoices are kept.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleBuyerRemoveRequest] :create_wholesale_buyer_remove_request 
     # @return [CreateWholesaleBuyerRemoveResponse]
     def create_wholesale_buyer_remove(opts = {})
       data, _status_code, _headers = create_wholesale_buyer_remove_with_http_info(opts)
@@ -84,6 +92,7 @@ module Crossly
 
     # Revoke every catalog grant a buyer (or invited email) has with you. Their terms and invoices are kept.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleBuyerRemoveRequest] :create_wholesale_buyer_remove_request 
     # @return [Array<(CreateWholesaleBuyerRemoveResponse, Integer, Hash)>] CreateWholesaleBuyerRemoveResponse data, response status code and response headers
     def create_wholesale_buyer_remove_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -99,12 +108,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_buyer_remove_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleBuyerRemoveResponse'
@@ -131,6 +145,7 @@ module Crossly
 
     # Create a catalog. visibility public | public_prices_private (prices for approved buyers) | private_discoverable (listed, opened on approval) | link (anyone with the URL) | invite (named buyers only; \"private\" is accepted as invite); autoApprove never | verified | all; the cascade terms (minOrderQuantity, casePack, leadTimeDays, verifiedOnly, priceVisibility, maxPerOrder, backorder, restockEta, preset ids) default every item; listed advertises a public catalog in the wholesale directory (never its prices).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleCatalogRequest] :create_wholesale_catalog_request 
     # @return [CreateWholesaleCatalogResponse]
     def create_wholesale_catalog(opts = {})
       data, _status_code, _headers = create_wholesale_catalog_with_http_info(opts)
@@ -139,6 +154,7 @@ module Crossly
 
     # Create a catalog. visibility public | public_prices_private (prices for approved buyers) | private_discoverable (listed, opened on approval) | link (anyone with the URL) | invite (named buyers only; \&quot;private\&quot; is accepted as invite); autoApprove never | verified | all; the cascade terms (minOrderQuantity, casePack, leadTimeDays, verifiedOnly, priceVisibility, maxPerOrder, backorder, restockEta, preset ids) default every item; listed advertises a public catalog in the wholesale directory (never its prices).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleCatalogRequest] :create_wholesale_catalog_request 
     # @return [Array<(CreateWholesaleCatalogResponse, Integer, Hash)>] CreateWholesaleCatalogResponse data, response status code and response headers
     def create_wholesale_catalog_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -154,12 +170,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_catalog_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleCatalogResponse'
@@ -184,9 +205,77 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Email a pending catalog invite again (an invited address with no Crossly account yet). One send per invite every 15 minutes: 429 with Retry-After inside that window. grantId is the catalogs[].grantId of GET /wholesale/buyers. Uses the X-Storefront-Id store.
+    # @param id [String] 
+    # @param grant_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateWholesaleCatalogAccessResendResponse]
+    def create_wholesale_catalog_access_resend(id, grant_id, opts = {})
+      data, _status_code, _headers = create_wholesale_catalog_access_resend_with_http_info(id, grant_id, opts)
+      data
+    end
+
+    # Email a pending catalog invite again (an invited address with no Crossly account yet). One send per invite every 15 minutes: 429 with Retry-After inside that window. grantId is the catalogs[].grantId of GET /wholesale/buyers. Uses the X-Storefront-Id store.
+    # @param id [String] 
+    # @param grant_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWholesaleCatalogAccessResendResponse, Integer, Hash)>] CreateWholesaleCatalogAccessResendResponse data, response status code and response headers
+    def create_wholesale_catalog_access_resend_with_http_info(id, grant_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WholesaleApi.create_wholesale_catalog_access_resend ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WholesaleApi.create_wholesale_catalog_access_resend"
+      end
+      # verify the required parameter 'grant_id' is set
+      if @api_client.config.client_side_validation && grant_id.nil?
+        fail ArgumentError, "Missing the required parameter 'grant_id' when calling WholesaleApi.create_wholesale_catalog_access_resend"
+      end
+      # resource path
+      local_var_path = '/v1/wholesale/catalogs/{id}/access/{grantId}/resend'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'grantId' + '}', CGI.escape(grant_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWholesaleCatalogAccessResendResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WholesaleApi.create_wholesale_catalog_access_resend",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WholesaleApi#create_wholesale_catalog_access_resend\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Add your Crossly listings to a catalog (up to 500), each with an optional wholesalePriceCents, minOrderQuantity and casePack. Items already in the catalog have their terms updated.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleCatalogItemRequest] :create_wholesale_catalog_item_request 
     # @return [CreateWholesaleCatalogItemResponse]
     def create_wholesale_catalog_item(id, opts = {})
       data, _status_code, _headers = create_wholesale_catalog_item_with_http_info(id, opts)
@@ -196,6 +285,7 @@ module Crossly
     # Add your Crossly listings to a catalog (up to 500), each with an optional wholesalePriceCents, minOrderQuantity and casePack. Items already in the catalog have their terms updated.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleCatalogItemRequest] :create_wholesale_catalog_item_request 
     # @return [Array<(CreateWholesaleCatalogItemResponse, Integer, Hash)>] CreateWholesaleCatalogItemResponse data, response status code and response headers
     def create_wholesale_catalog_item_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -215,12 +305,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_catalog_item_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleCatalogItemResponse'
@@ -247,6 +342,7 @@ module Crossly
 
     # Create a draft trade drop: name, dropAt (ISO; when it opens), audience trade|catalog (+ audienceCatalogId), kind release|prebook. A pre-book needs depositBps (100-9900) and shipBy (YYYY-MM-DD), and takes balanceNetDays (0-90) for the balance invoice. listingIds are your listing ids, each on Crossly. A pre-book makes its listings pre-orders, so buyers pay the deposit at checkout. Schedule it with PATCH status \"scheduled\".
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleDropRequest] :create_wholesale_drop_request 
     # @return [CreateWholesaleDropResponse]
     def create_wholesale_drop(opts = {})
       data, _status_code, _headers = create_wholesale_drop_with_http_info(opts)
@@ -255,6 +351,7 @@ module Crossly
 
     # Create a draft trade drop: name, dropAt (ISO; when it opens), audience trade|catalog (+ audienceCatalogId), kind release|prebook. A pre-book needs depositBps (100-9900) and shipBy (YYYY-MM-DD), and takes balanceNetDays (0-90) for the balance invoice. listingIds are your listing ids, each on Crossly. A pre-book makes its listings pre-orders, so buyers pay the deposit at checkout. Schedule it with PATCH status \&quot;scheduled\&quot;.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleDropRequest] :create_wholesale_drop_request 
     # @return [Array<(CreateWholesaleDropResponse, Integer, Hash)>] CreateWholesaleDropResponse data, response status code and response headers
     def create_wholesale_drop_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -270,12 +367,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_drop_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleDropResponse'
@@ -364,6 +466,7 @@ module Crossly
     # Answer an open freight request with a figure in CENTS (and an optional note).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleFreightRequestAnswerRequest] :create_wholesale_freight_request_answer_request 
     # @return [CreateWholesaleFreightRequestAnswerResponse]
     def create_wholesale_freight_request_answer(id, opts = {})
       data, _status_code, _headers = create_wholesale_freight_request_answer_with_http_info(id, opts)
@@ -373,6 +476,7 @@ module Crossly
     # Answer an open freight request with a figure in CENTS (and an optional note).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleFreightRequestAnswerRequest] :create_wholesale_freight_request_answer_request 
     # @return [Array<(CreateWholesaleFreightRequestAnswerResponse, Integer, Hash)>] CreateWholesaleFreightRequestAnswerResponse data, response status code and response headers
     def create_wholesale_freight_request_answer_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -392,12 +496,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_freight_request_answer_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleFreightRequestAnswerResponse'
@@ -424,6 +533,7 @@ module Crossly
 
     # Create a customer group with a discount in basis points (up to 9000). A buyer in several groups gets the best rate, never a stacked one.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleGroupRequest] :create_wholesale_group_request 
     # @return [CreateWholesaleGroupResponse]
     def create_wholesale_group(opts = {})
       data, _status_code, _headers = create_wholesale_group_with_http_info(opts)
@@ -432,6 +542,7 @@ module Crossly
 
     # Create a customer group with a discount in basis points (up to 9000). A buyer in several groups gets the best rate, never a stacked one.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleGroupRequest] :create_wholesale_group_request 
     # @return [Array<(CreateWholesaleGroupResponse, Integer, Hash)>] CreateWholesaleGroupResponse data, response status code and response headers
     def create_wholesale_group_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -447,12 +558,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_group_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleGroupResponse'
@@ -480,6 +596,7 @@ module Crossly
     # Add a buyer to a group by account id or by the email of an existing Crossly account.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleBuyerRemoveRequest] :create_wholesale_buyer_remove_request 
     # @return [CreateWholesaleGroupMemberResponse]
     def create_wholesale_group_member(id, opts = {})
       data, _status_code, _headers = create_wholesale_group_member_with_http_info(id, opts)
@@ -489,6 +606,7 @@ module Crossly
     # Add a buyer to a group by account id or by the email of an existing Crossly account.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleBuyerRemoveRequest] :create_wholesale_buyer_remove_request 
     # @return [Array<(CreateWholesaleGroupMemberResponse, Integer, Hash)>] CreateWholesaleGroupMemberResponse data, response status code and response headers
     def create_wholesale_group_member_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -508,12 +626,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_buyer_remove_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleGroupMemberResponse'
@@ -541,6 +664,7 @@ module Crossly
     # Issue a credit note on an on-account invoice (short shipment, damaged, pricing error, returned, goodwill, other): at most the balance due. Numbered <invoice>-CN<n>; settling the rest closes the invoice paid. Not a refund.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleInvoiceCreditNoteRequest] :create_wholesale_invoice_credit_note_request 
     # @return [CreateWholesaleInvoiceCreditNoteResponse]
     def create_wholesale_invoice_credit_note(id, opts = {})
       data, _status_code, _headers = create_wholesale_invoice_credit_note_with_http_info(id, opts)
@@ -550,6 +674,7 @@ module Crossly
     # Issue a credit note on an on-account invoice (short shipment, damaged, pricing error, returned, goodwill, other): at most the balance due. Numbered &lt;invoice&gt;-CN&lt;n&gt;; settling the rest closes the invoice paid. Not a refund.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleInvoiceCreditNoteRequest] :create_wholesale_invoice_credit_note_request 
     # @return [Array<(CreateWholesaleInvoiceCreditNoteResponse, Integer, Hash)>] CreateWholesaleInvoiceCreditNoteResponse data, response status code and response headers
     def create_wholesale_invoice_credit_note_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -569,12 +694,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_invoice_credit_note_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleInvoiceCreditNoteResponse'
@@ -663,6 +793,7 @@ module Crossly
     # Record a payment the buyer made to you directly: method ach | check | wire | card | other, a reference, and amountCents (omit for the whole balance). When the invoice is settled, Crossly's fee and the tax it remits are charged to your billing card.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleInvoiceMarkPaidRequest] :create_wholesale_invoice_mark_paid_request 
     # @return [WholesaleInvoiceResponse]
     def create_wholesale_invoice_mark_paid(id, opts = {})
       data, _status_code, _headers = create_wholesale_invoice_mark_paid_with_http_info(id, opts)
@@ -672,6 +803,7 @@ module Crossly
     # Record a payment the buyer made to you directly: method ach | check | wire | card | other, a reference, and amountCents (omit for the whole balance). When the invoice is settled, Crossly&#39;s fee and the tax it remits are charged to your billing card.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleInvoiceMarkPaidRequest] :create_wholesale_invoice_mark_paid_request 
     # @return [Array<(WholesaleInvoiceResponse, Integer, Hash)>] WholesaleInvoiceResponse data, response status code and response headers
     def create_wholesale_invoice_mark_paid_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -691,12 +823,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_invoice_mark_paid_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WholesaleInvoiceResponse'
@@ -846,6 +983,7 @@ module Crossly
     # Write off what is left on an invoice (bad debt): it closes as written_off and stops counting against the buyer's credit.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [NoteRequest] :note_request 
     # @return [WholesaleInvoiceResponse]
     def create_wholesale_invoice_write_off(id, opts = {})
       data, _status_code, _headers = create_wholesale_invoice_write_off_with_http_info(id, opts)
@@ -855,6 +993,7 @@ module Crossly
     # Write off what is left on an invoice (bad debt): it closes as written_off and stops counting against the buyer&#39;s credit.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [NoteRequest] :note_request 
     # @return [Array<(WholesaleInvoiceResponse, Integer, Hash)>] WholesaleInvoiceResponse data, response status code and response headers
     def create_wholesale_invoice_write_off_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -874,12 +1013,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'note_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WholesaleInvoiceResponse'
@@ -906,6 +1050,7 @@ module Crossly
 
     # Check a ships-from origin ({ postalCode, country, city?, region? }) with the shipping validator without saving it. 400 invalid_ships_from with the issues; 422 for an embargoed origin.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleProfileShipsFromValidateRequest] :create_wholesale_profile_ships_from_validate_request 
     # @return [CreateWholesaleProfileShipsFromValidateResponse]
     def create_wholesale_profile_ships_from_validate(opts = {})
       data, _status_code, _headers = create_wholesale_profile_ships_from_validate_with_http_info(opts)
@@ -914,6 +1059,7 @@ module Crossly
 
     # Check a ships-from origin ({ postalCode, country, city?, region? }) with the shipping validator without saving it. 400 invalid_ships_from with the issues; 422 for an embargoed origin.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleProfileShipsFromValidateRequest] :create_wholesale_profile_ships_from_validate_request 
     # @return [Array<(CreateWholesaleProfileShipsFromValidateResponse, Integer, Hash)>] CreateWholesaleProfileShipsFromValidateResponse data, response status code and response headers
     def create_wholesale_profile_ships_from_validate_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -929,12 +1075,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_profile_ships_from_validate_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleProfileShipsFromValidateResponse'
@@ -962,6 +1113,7 @@ module Crossly
     # Answer (or revise) a quote: a unit price in CENTS per item you quote, an expiresAt (ISO, at most 90 days out) and an optional note. Items left out are not quoted. The buyer is notified and can accept until expiry.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleQuoteAnswerRequest] :create_wholesale_quote_answer_request 
     # @return [WholesaleQuoteResponse]
     def create_wholesale_quote_answer(id, opts = {})
       data, _status_code, _headers = create_wholesale_quote_answer_with_http_info(id, opts)
@@ -971,6 +1123,7 @@ module Crossly
     # Answer (or revise) a quote: a unit price in CENTS per item you quote, an expiresAt (ISO, at most 90 days out) and an optional note. Items left out are not quoted. The buyer is notified and can accept until expiry.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleQuoteAnswerRequest] :create_wholesale_quote_answer_request 
     # @return [Array<(WholesaleQuoteResponse, Integer, Hash)>] WholesaleQuoteResponse data, response status code and response headers
     def create_wholesale_quote_answer_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -990,12 +1143,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_quote_answer_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WholesaleQuoteResponse'
@@ -1023,6 +1181,7 @@ module Crossly
     # Decline a quote request, with an optional reason the buyer sees.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest2] :reason_request2 
     # @return [WholesaleQuoteResponse]
     def create_wholesale_quote_decline(id, opts = {})
       data, _status_code, _headers = create_wholesale_quote_decline_with_http_info(id, opts)
@@ -1032,6 +1191,7 @@ module Crossly
     # Decline a quote request, with an optional reason the buyer sees.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest2] :reason_request2 
     # @return [Array<(WholesaleQuoteResponse, Integer, Hash)>] WholesaleQuoteResponse data, response status code and response headers
     def create_wholesale_quote_decline_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1051,12 +1211,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'reason_request2'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WholesaleQuoteResponse'
@@ -1084,6 +1249,7 @@ module Crossly
     # Approve (grants access to that catalog; optional groupId adds the buyer to a customer group) or decline (optional reason) an access request.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleRequestDecideRequest] :create_wholesale_request_decide_request 
     # @return [CreateWholesaleRequestDecideResponse]
     def create_wholesale_request_decide(id, opts = {})
       data, _status_code, _headers = create_wholesale_request_decide_with_http_info(id, opts)
@@ -1093,6 +1259,7 @@ module Crossly
     # Approve (grants access to that catalog; optional groupId adds the buyer to a customer group) or decline (optional reason) an access request.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleRequestDecideRequest] :create_wholesale_request_decide_request 
     # @return [Array<(CreateWholesaleRequestDecideResponse, Integer, Hash)>] CreateWholesaleRequestDecideResponse data, response status code and response headers
     def create_wholesale_request_decide_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1112,12 +1279,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_request_decide_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleRequestDecideResponse'
@@ -1144,6 +1316,7 @@ module Crossly
 
     # One ladder for many listings: breaks as [{ minQuantity, discountBps }] off each listing's own price. Returns how many were updated and which were skipped and why.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleTierBulkRequest] :create_wholesale_tier_bulk_request 
     # @return [CreateWholesaleTierBulkResponse]
     def create_wholesale_tier_bulk(opts = {})
       data, _status_code, _headers = create_wholesale_tier_bulk_with_http_info(opts)
@@ -1152,6 +1325,7 @@ module Crossly
 
     # One ladder for many listings: breaks as [{ minQuantity, discountBps }] off each listing&#39;s own price. Returns how many were updated and which were skipped and why.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWholesaleTierBulkRequest] :create_wholesale_tier_bulk_request 
     # @return [Array<(CreateWholesaleTierBulkResponse, Integer, Hash)>] CreateWholesaleTierBulkResponse data, response status code and response headers
     def create_wholesale_tier_bulk_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1167,12 +1341,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_wholesale_tier_bulk_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleTierBulkResponse'
@@ -1315,6 +1494,73 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: WholesaleApi#delete_wholesale_catalog\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Revoke one buyer's (or invited address's) access to this ONE catalog; their other catalogs, terms, groups and invoices are kept. /wholesale/buyers/remove revokes every catalog. Uses the X-Storefront-Id store.
+    # @param id [String] 
+    # @param grant_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteWholesaleCatalogAccessResponse]
+    def delete_wholesale_catalog_access(id, grant_id, opts = {})
+      data, _status_code, _headers = delete_wholesale_catalog_access_with_http_info(id, grant_id, opts)
+      data
+    end
+
+    # Revoke one buyer&#39;s (or invited address&#39;s) access to this ONE catalog; their other catalogs, terms, groups and invoices are kept. /wholesale/buyers/remove revokes every catalog. Uses the X-Storefront-Id store.
+    # @param id [String] 
+    # @param grant_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteWholesaleCatalogAccessResponse, Integer, Hash)>] DeleteWholesaleCatalogAccessResponse data, response status code and response headers
+    def delete_wholesale_catalog_access_with_http_info(id, grant_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WholesaleApi.delete_wholesale_catalog_access ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WholesaleApi.delete_wholesale_catalog_access"
+      end
+      # verify the required parameter 'grant_id' is set
+      if @api_client.config.client_side_validation && grant_id.nil?
+        fail ArgumentError, "Missing the required parameter 'grant_id' when calling WholesaleApi.delete_wholesale_catalog_access"
+      end
+      # resource path
+      local_var_path = '/v1/wholesale/catalogs/{id}/access/{grantId}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'grantId' + '}', CGI.escape(grant_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteWholesaleCatalogAccessResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WholesaleApi.delete_wholesale_catalog_access",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WholesaleApi#delete_wholesale_catalog_access\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2047,6 +2293,9 @@ module Crossly
 
     # The trade terms that apply to a catalog item (?catalogId&platformListingId), a catalog (?catalogId) or the trade profile alone, each with its source (item, catalog, profile, default), plus the return, payment and shipping policies they resolve to.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :catalog_id 
+    # @option opts [String] :platform_listing_id 
+    # @option opts [String] :storefront_id 
     # @return [GetWholesaleTermPreviewResponse]
     def get_wholesale_term_preview(opts = {})
       data, _status_code, _headers = get_wholesale_term_preview_with_http_info(opts)
@@ -2055,6 +2304,9 @@ module Crossly
 
     # The trade terms that apply to a catalog item (?catalogId&amp;platformListingId), a catalog (?catalogId) or the trade profile alone, each with its source (item, catalog, profile, default), plus the return, payment and shipping policies they resolve to.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :catalog_id 
+    # @option opts [String] :platform_listing_id 
+    # @option opts [String] :storefront_id 
     # @return [Array<(GetWholesaleTermPreviewResponse, Integer, Hash)>] GetWholesaleTermPreviewResponse data, response status code and response headers
     def get_wholesale_term_preview_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2065,6 +2317,9 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'catalogId'] = opts[:'catalog_id'] if !opts[:'catalog_id'].nil?
+      query_params[:'platformListingId'] = opts[:'platform_listing_id'] if !opts[:'platform_listing_id'].nil?
+      query_params[:'storefrontId'] = opts[:'storefront_id'] if !opts[:'storefront_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2273,6 +2528,7 @@ module Crossly
 
     # Your trade drops and pre-books: audience (trade = your approved trade buyers, catalog = whoever can open audienceCatalogId), kind (release | prebook), deposit, ship date, status, and for a pre-book its reservation totals (buyers, units, deposits taken, balances still to invoice).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
     # @return [ListWholesaleDropsResponse]
     def list_wholesale_drops(opts = {})
       data, _status_code, _headers = list_wholesale_drops_with_http_info(opts)
@@ -2281,16 +2537,22 @@ module Crossly
 
     # Your trade drops and pre-books: audience (trade &#x3D; your approved trade buyers, catalog &#x3D; whoever can open audienceCatalogId), kind (release | prebook), deposit, ship date, status, and for a pre-book its reservation totals (buyers, units, deposits taken, balances still to invoice).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
     # @return [Array<(ListWholesaleDropsResponse, Integer, Hash)>] ListWholesaleDropsResponse data, response status code and response headers
     def list_wholesale_drops_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WholesaleApi.list_wholesale_drops ...'
+      end
+      allowable_values = ["draft", "live", "cancelled", "scheduled", "ended", "sold_out"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/wholesale/drops'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2438,6 +2700,9 @@ module Crossly
 
     # On-account invoices, newest first, with balance due. ?status=unpaid for open, partial and overdue together.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [String] :buyer_user_id 
+    # @option opts [Float] :limit 
     # @return [ListWholesaleInvoicesResponse]
     def list_wholesale_invoices(opts = {})
       data, _status_code, _headers = list_wholesale_invoices_with_http_info(opts)
@@ -2446,16 +2711,26 @@ module Crossly
 
     # On-account invoices, newest first, with balance due. ?status&#x3D;unpaid for open, partial and overdue together.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [String] :buyer_user_id 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWholesaleInvoicesResponse, Integer, Hash)>] ListWholesaleInvoicesResponse data, response status code and response headers
     def list_wholesale_invoices_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WholesaleApi.list_wholesale_invoices ...'
+      end
+      allowable_values = ["partial", "open", "void", "paid", "overdue", "unpaid", "written_off"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/wholesale/invoices'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'buyerUserId'] = opts[:'buyer_user_id'] if !opts[:'buyer_user_id'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2548,6 +2823,7 @@ module Crossly
 
     # Quote requests (RFQ) from trade buyers: items with quantity and target price, your quoted prices and expiry. ?status=open lists the ones waiting on you or the buyer.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
     # @return [ListWholesaleQuotesResponse]
     def list_wholesale_quotes(opts = {})
       data, _status_code, _headers = list_wholesale_quotes_with_http_info(opts)
@@ -2556,16 +2832,22 @@ module Crossly
 
     # Quote requests (RFQ) from trade buyers: items with quantity and target price, your quoted prices and expiry. ?status&#x3D;open lists the ones waiting on you or the buyer.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
     # @return [Array<(ListWholesaleQuotesResponse, Integer, Hash)>] ListWholesaleQuotesResponse data, response status code and response headers
     def list_wholesale_quotes_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WholesaleApi.list_wholesale_quotes ...'
+      end
+      allowable_values = ["all", "expired", "open", "accepted", "declined", "requested", "withdrawn", "answered"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/wholesale/quotes'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2714,6 +2996,7 @@ module Crossly
     # Set a buyer's account terms: netDays (0-120) for paying on account, creditLimitCents (the most they may owe you at once; null = no limit) and discountPercentBps (their negotiated rate).
     # @param buyer_user_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleBuyerTermRequest] :update_wholesale_buyer_term_request 
     # @return [UpdateWholesaleBuyerTermResponse]
     def update_wholesale_buyer_term(buyer_user_id, opts = {})
       data, _status_code, _headers = update_wholesale_buyer_term_with_http_info(buyer_user_id, opts)
@@ -2723,6 +3006,7 @@ module Crossly
     # Set a buyer&#39;s account terms: netDays (0-120) for paying on account, creditLimitCents (the most they may owe you at once; null &#x3D; no limit) and discountPercentBps (their negotiated rate).
     # @param buyer_user_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleBuyerTermRequest] :update_wholesale_buyer_term_request 
     # @return [Array<(UpdateWholesaleBuyerTermResponse, Integer, Hash)>] UpdateWholesaleBuyerTermResponse data, response status code and response headers
     def update_wholesale_buyer_term_with_http_info(buyer_user_id, opts = {})
       if @api_client.config.debugging
@@ -2742,12 +3026,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_buyer_term_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWholesaleBuyerTermResponse'
@@ -2775,6 +3064,7 @@ module Crossly
     # Edit a catalog: name, slug, description, cover image, visibility, opening-order minimum, trade gate, directory listing, active.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleCatalogRequest] :update_wholesale_catalog_request 
     # @return [CreateWholesaleCatalogResponse]
     def update_wholesale_catalog(id, opts = {})
       data, _status_code, _headers = update_wholesale_catalog_with_http_info(id, opts)
@@ -2784,6 +3074,7 @@ module Crossly
     # Edit a catalog: name, slug, description, cover image, visibility, opening-order minimum, trade gate, directory listing, active.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleCatalogRequest] :update_wholesale_catalog_request 
     # @return [Array<(CreateWholesaleCatalogResponse, Integer, Hash)>] CreateWholesaleCatalogResponse data, response status code and response headers
     def update_wholesale_catalog_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2803,12 +3094,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_catalog_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleCatalogResponse'
@@ -2836,6 +3132,7 @@ module Crossly
     # Change many catalog items at once: items[] sets each row (trade price, MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids); or platformListingIds + set applies the same values to each, set.pctOffRetailBps pricing each from its retail price.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleCatalogItemRequest] :update_wholesale_catalog_item_request 
     # @return [UpdateWholesaleCatalogItemResponse]
     def update_wholesale_catalog_item(id, opts = {})
       data, _status_code, _headers = update_wholesale_catalog_item_with_http_info(id, opts)
@@ -2845,6 +3142,7 @@ module Crossly
     # Change many catalog items at once: items[] sets each row (trade price, MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids); or platformListingIds + set applies the same values to each, set.pctOffRetailBps pricing each from its retail price.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleCatalogItemRequest] :update_wholesale_catalog_item_request 
     # @return [Array<(UpdateWholesaleCatalogItemResponse, Integer, Hash)>] UpdateWholesaleCatalogItemResponse data, response status code and response headers
     def update_wholesale_catalog_item_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2864,12 +3162,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_catalog_item_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWholesaleCatalogItemResponse'
@@ -2898,6 +3201,7 @@ module Crossly
     # @param id [String] 
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleCatalogItemByPlatformListingIdRequest] :update_wholesale_catalog_item_by_platform_listing_id_request 
     # @return [UpdateGroupBuyResponse]
     def update_wholesale_catalog_item_by_platform_listing_id(id, platform_listing_id, opts = {})
       data, _status_code, _headers = update_wholesale_catalog_item_by_platform_listing_id_with_http_info(id, platform_listing_id, opts)
@@ -2908,6 +3212,7 @@ module Crossly
     # @param id [String] 
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleCatalogItemByPlatformListingIdRequest] :update_wholesale_catalog_item_by_platform_listing_id_request 
     # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def update_wholesale_catalog_item_by_platform_listing_id_with_http_info(id, platform_listing_id, opts = {})
       if @api_client.config.debugging
@@ -2931,12 +3236,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_catalog_item_by_platform_listing_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
@@ -2964,6 +3274,7 @@ module Crossly
     # Set the merchandising order: platform listing ids, first to last. Items left out keep their relative order after these.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateLiveStreamLineupRequest] :update_live_stream_lineup_request 
     # @return [ListWholesaleCatalogItemsResponse]
     def update_wholesale_catalog_item_order(id, opts = {})
       data, _status_code, _headers = update_wholesale_catalog_item_order_with_http_info(id, opts)
@@ -2973,6 +3284,7 @@ module Crossly
     # Set the merchandising order: platform listing ids, first to last. Items left out keep their relative order after these.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateLiveStreamLineupRequest] :update_live_stream_lineup_request 
     # @return [Array<(ListWholesaleCatalogItemsResponse, Integer, Hash)>] ListWholesaleCatalogItemsResponse data, response status code and response headers
     def update_wholesale_catalog_item_order_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2992,12 +3304,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_live_stream_lineup_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListWholesaleCatalogItemsResponse'
@@ -3025,6 +3342,7 @@ module Crossly
     # Edit a trade drop (any create field but kind), schedule it (status \"scheduled\", with dropAt in the future) or cancel it. A live drop can only be cancelled or have endsAt / perCustomerLimit changed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleDropRequest] :update_wholesale_drop_request 
     # @return [CreateWholesaleDropResponse]
     def update_wholesale_drop(id, opts = {})
       data, _status_code, _headers = update_wholesale_drop_with_http_info(id, opts)
@@ -3034,6 +3352,7 @@ module Crossly
     # Edit a trade drop (any create field but kind), schedule it (status \&quot;scheduled\&quot;, with dropAt in the future) or cancel it. A live drop can only be cancelled or have endsAt / perCustomerLimit changed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleDropRequest] :update_wholesale_drop_request 
     # @return [Array<(CreateWholesaleDropResponse, Integer, Hash)>] CreateWholesaleDropResponse data, response status code and response headers
     def update_wholesale_drop_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -3053,12 +3372,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_drop_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleDropResponse'
@@ -3086,6 +3410,7 @@ module Crossly
     # Rename a group, change its discount, or pause it (active=false).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleGroupRequest] :update_wholesale_group_request 
     # @return [CreateWholesaleGroupResponse]
     def update_wholesale_group(id, opts = {})
       data, _status_code, _headers = update_wholesale_group_with_http_info(id, opts)
@@ -3095,6 +3420,7 @@ module Crossly
     # Rename a group, change its discount, or pause it (active&#x3D;false).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleGroupRequest] :update_wholesale_group_request 
     # @return [Array<(CreateWholesaleGroupResponse, Integer, Hash)>] CreateWholesaleGroupResponse data, response status code and response headers
     def update_wholesale_group_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -3114,12 +3440,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_group_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWholesaleGroupResponse'
@@ -3147,6 +3478,7 @@ module Crossly
     # Replace one listing's quantity breaks: [{ minQuantity ≥ 2, unitPriceCents }], each cheaper than the last and than the list price. An empty list removes them. Applies to every buyer at checkout.
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleListingTierRequest] :update_wholesale_listing_tier_request 
     # @return [UpdateWholesaleListingTierResponse]
     def update_wholesale_listing_tier(platform_listing_id, opts = {})
       data, _status_code, _headers = update_wholesale_listing_tier_with_http_info(platform_listing_id, opts)
@@ -3156,6 +3488,7 @@ module Crossly
     # Replace one listing&#39;s quantity breaks: [{ minQuantity ≥ 2, unitPriceCents }], each cheaper than the last and than the list price. An empty list removes them. Applies to every buyer at checkout.
     # @param platform_listing_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleListingTierRequest] :update_wholesale_listing_tier_request 
     # @return [Array<(UpdateWholesaleListingTierResponse, Integer, Hash)>] UpdateWholesaleListingTierResponse data, response status code and response headers
     def update_wholesale_listing_tier_with_http_info(platform_listing_id, opts = {})
       if @api_client.config.debugging
@@ -3175,12 +3508,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_listing_tier_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWholesaleListingTierResponse'
@@ -3207,6 +3545,7 @@ module Crossly
 
     # Save a store's trade profile. Omitted fields are unchanged; null clears. shipsFrom is checked by the shipping validator (400 invalid_ships_from). The profile is the bottom of the trade-terms cascade: catalogs and items that leave a term empty inherit it — saving never rewrites catalogs. Preset ids must be your own presets of that kind.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleProfileRequest] :update_wholesale_profile_request 
     # @return [UpdateWholesaleProfileResponse]
     def update_wholesale_profile(opts = {})
       data, _status_code, _headers = update_wholesale_profile_with_http_info(opts)
@@ -3215,6 +3554,7 @@ module Crossly
 
     # Save a store&#39;s trade profile. Omitted fields are unchanged; null clears. shipsFrom is checked by the shipping validator (400 invalid_ships_from). The profile is the bottom of the trade-terms cascade: catalogs and items that leave a term empty inherit it — saving never rewrites catalogs. Preset ids must be your own presets of that kind.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleProfileRequest] :update_wholesale_profile_request 
     # @return [Array<(UpdateWholesaleProfileResponse, Integer, Hash)>] UpdateWholesaleProfileResponse data, response status code and response headers
     def update_wholesale_profile_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -3230,12 +3570,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_profile_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWholesaleProfileResponse'
@@ -3263,6 +3608,7 @@ module Crossly
     # Reserve N units of an inventory item for wholesale: retail channels advertise the rest and come down when only the reserve is left. 0 clears it.
     # @param inventory_item_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleReserveRequest] :update_wholesale_reserve_request 
     # @return [GetWholesaleReserveResponse]
     def update_wholesale_reserve(inventory_item_id, opts = {})
       data, _status_code, _headers = update_wholesale_reserve_with_http_info(inventory_item_id, opts)
@@ -3272,6 +3618,7 @@ module Crossly
     # Reserve N units of an inventory item for wholesale: retail channels advertise the rest and come down when only the reserve is left. 0 clears it.
     # @param inventory_item_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWholesaleReserveRequest] :update_wholesale_reserve_request 
     # @return [Array<(GetWholesaleReserveResponse, Integer, Hash)>] GetWholesaleReserveResponse data, response status code and response headers
     def update_wholesale_reserve_with_http_info(inventory_item_id, opts = {})
       if @api_client.config.debugging
@@ -3291,12 +3638,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_wholesale_reserve_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWholesaleReserveResponse'

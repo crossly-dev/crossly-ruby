@@ -7,6 +7,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_wholesale_buyer_invite**](WholesaleApi.md#create_wholesale_buyer_invite) | **POST** /v1/wholesale/buyers/invite | Invite a buyer by email to one or more of your catalogs. Binds to their account now if they have one, or when they sign up. |
 | [**create_wholesale_buyer_remove**](WholesaleApi.md#create_wholesale_buyer_remove) | **POST** /v1/wholesale/buyers/remove | Revoke every catalog grant a buyer (or invited email) has with you. Their terms and invoices are kept. |
 | [**create_wholesale_catalog**](WholesaleApi.md#create_wholesale_catalog) | **POST** /v1/wholesale/catalogs | Create a catalog. visibility public | public_prices_private (prices for approved buyers) | private_discoverable (listed, opened on approval) | link (anyone with the URL) | invite (named buyers only; \&quot;private\&quot; is accepted as invite); autoApprove never | verified | all; the cascade terms (minOrderQuantity, casePack, leadTimeDays, verifiedOnly, priceVisibility, maxPerOrder, backorder, restockEta, preset ids) default every item; listed advertises a public catalog in the wholesale directory (never its prices). |
+| [**create_wholesale_catalog_access_resend**](WholesaleApi.md#create_wholesale_catalog_access_resend) | **POST** /v1/wholesale/catalogs/{id}/access/{grantId}/resend | Email a pending catalog invite again (an invited address with no Crossly account yet). One send per invite every 15 minutes: 429 with Retry-After inside that window. grantId is the catalogs[].grantId of GET /wholesale/buyers. Uses the X-Storefront-Id store. |
 | [**create_wholesale_catalog_item**](WholesaleApi.md#create_wholesale_catalog_item) | **POST** /v1/wholesale/catalogs/{id}/items | Add your Crossly listings to a catalog (up to 500), each with an optional wholesalePriceCents, minOrderQuantity and casePack. Items already in the catalog have their terms updated. |
 | [**create_wholesale_drop**](WholesaleApi.md#create_wholesale_drop) | **POST** /v1/wholesale/drops | Create a draft trade drop: name, dropAt (ISO; when it opens), audience trade|catalog (+ audienceCatalogId), kind release|prebook. A pre-book needs depositBps (100-9900) and shipBy (YYYY-MM-DD), and takes balanceNetDays (0-90) for the balance invoice. listingIds are your listing ids, each on Crossly. A pre-book makes its listings pre-orders, so buyers pay the deposit at checkout. Schedule it with PATCH status \&quot;scheduled\&quot;. |
 | [**create_wholesale_drop_release**](WholesaleApi.md#create_wholesale_drop_release) | **POST** /v1/wholesale/drops/{id}/release | Release a live pre-book: every reserved balance becomes an invoice on account to its buyer (due in the drop balanceNetDays), emailed, and the drop ends. Safe to retry: only balances not yet invoiced are invoiced. Returns { invoiced, balanceCents, invoiceIds }. |
@@ -26,6 +27,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_wholesale_tier_bulk**](WholesaleApi.md#create_wholesale_tier_bulk) | **POST** /v1/wholesale/tiers/bulk | One ladder for many listings: breaks as [{ minQuantity, discountBps }] off each listing&#39;s own price. Returns how many were updated and which were skipped and why. |
 | [**delete_wholesale_buyer_term**](WholesaleApi.md#delete_wholesale_buyer_term) | **DELETE** /v1/wholesale/buyers/{buyerUserId}/terms | Switch a buyer&#39;s account terms off. Invoices already issued are unaffected. |
 | [**delete_wholesale_catalog**](WholesaleApi.md#delete_wholesale_catalog) | **DELETE** /v1/wholesale/catalogs/{id} | Delete a catalog with its items, grants and access requests. Orders and invoices are untouched. |
+| [**delete_wholesale_catalog_access**](WholesaleApi.md#delete_wholesale_catalog_access) | **DELETE** /v1/wholesale/catalogs/{id}/access/{grantId} | Revoke one buyer&#39;s (or invited address&#39;s) access to this ONE catalog; their other catalogs, terms, groups and invoices are kept. /wholesale/buyers/remove revokes every catalog. Uses the X-Storefront-Id store. |
 | [**delete_wholesale_catalog_item**](WholesaleApi.md#delete_wholesale_catalog_item) | **DELETE** /v1/wholesale/catalogs/{id}/items/{platformListingId} | Take an item out of a catalog. The listing itself is untouched. |
 | [**delete_wholesale_group**](WholesaleApi.md#delete_wholesale_group) | **DELETE** /v1/wholesale/groups/{id} | Delete a customer group. Its members keep any other group or account rate. |
 | [**delete_wholesale_group_member**](WholesaleApi.md#delete_wholesale_group_member) | **DELETE** /v1/wholesale/groups/{id}/members/{buyerUserId} | Take a buyer out of a group. |
@@ -64,7 +66,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_wholesale_buyer_invite
 
-> <CreateWholesaleBuyerInviteResponse> create_wholesale_buyer_invite
+> <CreateWholesaleBuyerInviteResponse> create_wholesale_buyer_invite(opts)
 
 Invite a buyer by email to one or more of your catalogs. Binds to their account now if they have one, or when they sign up.
 
@@ -80,10 +82,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_buyer_invite_request: Crossly::CreateWholesaleBuyerInviteRequest.new({email: 'email_example', catalog_ids: ['catalog_ids_example']}) # CreateWholesaleBuyerInviteRequest | 
+}
 
 begin
   # Invite a buyer by email to one or more of your catalogs. Binds to their account now if they have one, or when they sign up.
-  result = api_instance.create_wholesale_buyer_invite
+  result = api_instance.create_wholesale_buyer_invite(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_buyer_invite: #{e}"
@@ -94,12 +99,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleBuyerInviteResponse>, Integer, Hash)> create_wholesale_buyer_invite_with_http_info
+> <Array(<CreateWholesaleBuyerInviteResponse>, Integer, Hash)> create_wholesale_buyer_invite_with_http_info(opts)
 
 ```ruby
 begin
   # Invite a buyer by email to one or more of your catalogs. Binds to their account now if they have one, or when they sign up.
-  data, status_code, headers = api_instance.create_wholesale_buyer_invite_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_buyer_invite_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleBuyerInviteResponse>
@@ -110,7 +115,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_buyer_invite_request** | **CreateWholesaleBuyerInviteRequest** |  | [optional] |
 
 ### Return type
 
@@ -122,13 +129,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_buyer_remove
 
-> <CreateWholesaleBuyerRemoveResponse> create_wholesale_buyer_remove
+> <CreateWholesaleBuyerRemoveResponse> create_wholesale_buyer_remove(opts)
 
 Revoke every catalog grant a buyer (or invited email) has with you. Their terms and invoices are kept.
 
@@ -144,10 +151,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_buyer_remove_request: Crossly::CreateWholesaleBuyerRemoveRequest.new # CreateWholesaleBuyerRemoveRequest | 
+}
 
 begin
   # Revoke every catalog grant a buyer (or invited email) has with you. Their terms and invoices are kept.
-  result = api_instance.create_wholesale_buyer_remove
+  result = api_instance.create_wholesale_buyer_remove(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_buyer_remove: #{e}"
@@ -158,12 +168,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleBuyerRemoveResponse>, Integer, Hash)> create_wholesale_buyer_remove_with_http_info
+> <Array(<CreateWholesaleBuyerRemoveResponse>, Integer, Hash)> create_wholesale_buyer_remove_with_http_info(opts)
 
 ```ruby
 begin
   # Revoke every catalog grant a buyer (or invited email) has with you. Their terms and invoices are kept.
-  data, status_code, headers = api_instance.create_wholesale_buyer_remove_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_buyer_remove_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleBuyerRemoveResponse>
@@ -174,7 +184,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_buyer_remove_request** | **CreateWholesaleBuyerRemoveRequest** |  | [optional] |
 
 ### Return type
 
@@ -186,13 +198,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_catalog
 
-> <CreateWholesaleCatalogResponse> create_wholesale_catalog
+> <CreateWholesaleCatalogResponse> create_wholesale_catalog(opts)
 
 Create a catalog. visibility public | public_prices_private (prices for approved buyers) | private_discoverable (listed, opened on approval) | link (anyone with the URL) | invite (named buyers only; \"private\" is accepted as invite); autoApprove never | verified | all; the cascade terms (minOrderQuantity, casePack, leadTimeDays, verifiedOnly, priceVisibility, maxPerOrder, backorder, restockEta, preset ids) default every item; listed advertises a public catalog in the wholesale directory (never its prices).
 
@@ -208,10 +220,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_catalog_request: Crossly::CreateWholesaleCatalogRequest.new({name: 'name_example'}) # CreateWholesaleCatalogRequest | 
+}
 
 begin
   # Create a catalog. visibility public | public_prices_private (prices for approved buyers) | private_discoverable (listed, opened on approval) | link (anyone with the URL) | invite (named buyers only; \"private\" is accepted as invite); autoApprove never | verified | all; the cascade terms (minOrderQuantity, casePack, leadTimeDays, verifiedOnly, priceVisibility, maxPerOrder, backorder, restockEta, preset ids) default every item; listed advertises a public catalog in the wholesale directory (never its prices).
-  result = api_instance.create_wholesale_catalog
+  result = api_instance.create_wholesale_catalog(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_catalog: #{e}"
@@ -222,12 +237,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleCatalogResponse>, Integer, Hash)> create_wholesale_catalog_with_http_info
+> <Array(<CreateWholesaleCatalogResponse>, Integer, Hash)> create_wholesale_catalog_with_http_info(opts)
 
 ```ruby
 begin
   # Create a catalog. visibility public | public_prices_private (prices for approved buyers) | private_discoverable (listed, opened on approval) | link (anyone with the URL) | invite (named buyers only; \"private\" is accepted as invite); autoApprove never | verified | all; the cascade terms (minOrderQuantity, casePack, leadTimeDays, verifiedOnly, priceVisibility, maxPerOrder, backorder, restockEta, preset ids) default every item; listed advertises a public catalog in the wholesale directory (never its prices).
-  data, status_code, headers = api_instance.create_wholesale_catalog_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_catalog_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleCatalogResponse>
@@ -238,11 +253,82 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_catalog_request** | **CreateWholesaleCatalogRequest** |  | [optional] |
 
 ### Return type
 
 **CreateWholesaleCatalogResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_wholesale_catalog_access_resend
+
+> <CreateWholesaleCatalogAccessResendResponse> create_wholesale_catalog_access_resend(id, grant_id)
+
+Email a pending catalog invite again (an invited address with no Crossly account yet). One send per invite every 15 minutes: 429 with Retry-After inside that window. grantId is the catalogs[].grantId of GET /wholesale/buyers. Uses the X-Storefront-Id store.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WholesaleApi.new
+id = 'id_example' # String | 
+grant_id = 'grant_id_example' # String | 
+
+begin
+  # Email a pending catalog invite again (an invited address with no Crossly account yet). One send per invite every 15 minutes: 429 with Retry-After inside that window. grantId is the catalogs[].grantId of GET /wholesale/buyers. Uses the X-Storefront-Id store.
+  result = api_instance.create_wholesale_catalog_access_resend(id, grant_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WholesaleApi->create_wholesale_catalog_access_resend: #{e}"
+end
+```
+
+#### Using the create_wholesale_catalog_access_resend_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateWholesaleCatalogAccessResendResponse>, Integer, Hash)> create_wholesale_catalog_access_resend_with_http_info(id, grant_id)
+
+```ruby
+begin
+  # Email a pending catalog invite again (an invited address with no Crossly account yet). One send per invite every 15 minutes: 429 with Retry-After inside that window. grantId is the catalogs[].grantId of GET /wholesale/buyers. Uses the X-Storefront-Id store.
+  data, status_code, headers = api_instance.create_wholesale_catalog_access_resend_with_http_info(id, grant_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateWholesaleCatalogAccessResendResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WholesaleApi->create_wholesale_catalog_access_resend_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **grant_id** | **String** |  |  |
+
+### Return type
+
+**CreateWholesaleCatalogAccessResendResponse**
 
 ### Authorization
 
@@ -256,7 +342,7 @@ This endpoint does not need any parameter.
 
 ## create_wholesale_catalog_item
 
-> <CreateWholesaleCatalogItemResponse> create_wholesale_catalog_item(id)
+> <CreateWholesaleCatalogItemResponse> create_wholesale_catalog_item(id, opts)
 
 Add your Crossly listings to a catalog (up to 500), each with an optional wholesalePriceCents, minOrderQuantity and casePack. Items already in the catalog have their terms updated.
 
@@ -273,10 +359,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_catalog_item_request: Crossly::CreateWholesaleCatalogItemRequest.new({items: [Crossly::CreateWholesaleCatalogItemRequestItems.new({platform_listing_id: 'platform_listing_id_example'})]}) # CreateWholesaleCatalogItemRequest | 
+}
 
 begin
   # Add your Crossly listings to a catalog (up to 500), each with an optional wholesalePriceCents, minOrderQuantity and casePack. Items already in the catalog have their terms updated.
-  result = api_instance.create_wholesale_catalog_item(id)
+  result = api_instance.create_wholesale_catalog_item(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_catalog_item: #{e}"
@@ -287,12 +376,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleCatalogItemResponse>, Integer, Hash)> create_wholesale_catalog_item_with_http_info(id)
+> <Array(<CreateWholesaleCatalogItemResponse>, Integer, Hash)> create_wholesale_catalog_item_with_http_info(id, opts)
 
 ```ruby
 begin
   # Add your Crossly listings to a catalog (up to 500), each with an optional wholesalePriceCents, minOrderQuantity and casePack. Items already in the catalog have their terms updated.
-  data, status_code, headers = api_instance.create_wholesale_catalog_item_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_catalog_item_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleCatalogItemResponse>
@@ -306,6 +395,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_catalog_item_request** | **CreateWholesaleCatalogItemRequest** |  | [optional] |
 
 ### Return type
 
@@ -317,13 +407,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_drop
 
-> <CreateWholesaleDropResponse> create_wholesale_drop
+> <CreateWholesaleDropResponse> create_wholesale_drop(opts)
 
 Create a draft trade drop: name, dropAt (ISO; when it opens), audience trade|catalog (+ audienceCatalogId), kind release|prebook. A pre-book needs depositBps (100-9900) and shipBy (YYYY-MM-DD), and takes balanceNetDays (0-90) for the balance invoice. listingIds are your listing ids, each on Crossly. A pre-book makes its listings pre-orders, so buyers pay the deposit at checkout. Schedule it with PATCH status \"scheduled\".
 
@@ -339,10 +429,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_drop_request: Crossly::CreateWholesaleDropRequest.new({name: 'name_example', drop_at: 'drop_at_example', audience: 'catalog'}) # CreateWholesaleDropRequest | 
+}
 
 begin
   # Create a draft trade drop: name, dropAt (ISO; when it opens), audience trade|catalog (+ audienceCatalogId), kind release|prebook. A pre-book needs depositBps (100-9900) and shipBy (YYYY-MM-DD), and takes balanceNetDays (0-90) for the balance invoice. listingIds are your listing ids, each on Crossly. A pre-book makes its listings pre-orders, so buyers pay the deposit at checkout. Schedule it with PATCH status \"scheduled\".
-  result = api_instance.create_wholesale_drop
+  result = api_instance.create_wholesale_drop(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_drop: #{e}"
@@ -353,12 +446,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleDropResponse>, Integer, Hash)> create_wholesale_drop_with_http_info
+> <Array(<CreateWholesaleDropResponse>, Integer, Hash)> create_wholesale_drop_with_http_info(opts)
 
 ```ruby
 begin
   # Create a draft trade drop: name, dropAt (ISO; when it opens), audience trade|catalog (+ audienceCatalogId), kind release|prebook. A pre-book needs depositBps (100-9900) and shipBy (YYYY-MM-DD), and takes balanceNetDays (0-90) for the balance invoice. listingIds are your listing ids, each on Crossly. A pre-book makes its listings pre-orders, so buyers pay the deposit at checkout. Schedule it with PATCH status \"scheduled\".
-  data, status_code, headers = api_instance.create_wholesale_drop_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_drop_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleDropResponse>
@@ -369,7 +462,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_drop_request** | **CreateWholesaleDropRequest** |  | [optional] |
 
 ### Return type
 
@@ -381,7 +476,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -454,7 +549,7 @@ end
 
 ## create_wholesale_freight_request_answer
 
-> <CreateWholesaleFreightRequestAnswerResponse> create_wholesale_freight_request_answer(id)
+> <CreateWholesaleFreightRequestAnswerResponse> create_wholesale_freight_request_answer(id, opts)
 
 Answer an open freight request with a figure in CENTS (and an optional note).
 
@@ -471,10 +566,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_freight_request_answer_request: Crossly::CreateWholesaleFreightRequestAnswerRequest.new({quoted_cents: 3.56}) # CreateWholesaleFreightRequestAnswerRequest | 
+}
 
 begin
   # Answer an open freight request with a figure in CENTS (and an optional note).
-  result = api_instance.create_wholesale_freight_request_answer(id)
+  result = api_instance.create_wholesale_freight_request_answer(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_freight_request_answer: #{e}"
@@ -485,12 +583,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleFreightRequestAnswerResponse>, Integer, Hash)> create_wholesale_freight_request_answer_with_http_info(id)
+> <Array(<CreateWholesaleFreightRequestAnswerResponse>, Integer, Hash)> create_wholesale_freight_request_answer_with_http_info(id, opts)
 
 ```ruby
 begin
   # Answer an open freight request with a figure in CENTS (and an optional note).
-  data, status_code, headers = api_instance.create_wholesale_freight_request_answer_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_freight_request_answer_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleFreightRequestAnswerResponse>
@@ -504,6 +602,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_freight_request_answer_request** | **CreateWholesaleFreightRequestAnswerRequest** |  | [optional] |
 
 ### Return type
 
@@ -515,13 +614,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_group
 
-> <CreateWholesaleGroupResponse> create_wholesale_group
+> <CreateWholesaleGroupResponse> create_wholesale_group(opts)
 
 Create a customer group with a discount in basis points (up to 9000). A buyer in several groups gets the best rate, never a stacked one.
 
@@ -537,10 +636,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_group_request: Crossly::CreateWholesaleGroupRequest.new({name: 'name_example', discount_percent_bps: 3.56}) # CreateWholesaleGroupRequest | 
+}
 
 begin
   # Create a customer group with a discount in basis points (up to 9000). A buyer in several groups gets the best rate, never a stacked one.
-  result = api_instance.create_wholesale_group
+  result = api_instance.create_wholesale_group(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_group: #{e}"
@@ -551,12 +653,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleGroupResponse>, Integer, Hash)> create_wholesale_group_with_http_info
+> <Array(<CreateWholesaleGroupResponse>, Integer, Hash)> create_wholesale_group_with_http_info(opts)
 
 ```ruby
 begin
   # Create a customer group with a discount in basis points (up to 9000). A buyer in several groups gets the best rate, never a stacked one.
-  data, status_code, headers = api_instance.create_wholesale_group_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_group_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleGroupResponse>
@@ -567,7 +669,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_group_request** | **CreateWholesaleGroupRequest** |  | [optional] |
 
 ### Return type
 
@@ -579,13 +683,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_group_member
 
-> <CreateWholesaleGroupMemberResponse> create_wholesale_group_member(id)
+> <CreateWholesaleGroupMemberResponse> create_wholesale_group_member(id, opts)
 
 Add a buyer to a group by account id or by the email of an existing Crossly account.
 
@@ -602,10 +706,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_buyer_remove_request: Crossly::CreateWholesaleBuyerRemoveRequest.new # CreateWholesaleBuyerRemoveRequest | 
+}
 
 begin
   # Add a buyer to a group by account id or by the email of an existing Crossly account.
-  result = api_instance.create_wholesale_group_member(id)
+  result = api_instance.create_wholesale_group_member(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_group_member: #{e}"
@@ -616,12 +723,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleGroupMemberResponse>, Integer, Hash)> create_wholesale_group_member_with_http_info(id)
+> <Array(<CreateWholesaleGroupMemberResponse>, Integer, Hash)> create_wholesale_group_member_with_http_info(id, opts)
 
 ```ruby
 begin
   # Add a buyer to a group by account id or by the email of an existing Crossly account.
-  data, status_code, headers = api_instance.create_wholesale_group_member_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_group_member_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleGroupMemberResponse>
@@ -635,6 +742,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_buyer_remove_request** | **CreateWholesaleBuyerRemoveRequest** |  | [optional] |
 
 ### Return type
 
@@ -646,13 +754,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_invoice_credit_note
 
-> <CreateWholesaleInvoiceCreditNoteResponse> create_wholesale_invoice_credit_note(id)
+> <CreateWholesaleInvoiceCreditNoteResponse> create_wholesale_invoice_credit_note(id, opts)
 
 Issue a credit note on an on-account invoice (short shipment, damaged, pricing error, returned, goodwill, other): at most the balance due. Numbered <invoice>-CN<n>; settling the rest closes the invoice paid. Not a refund.
 
@@ -669,10 +777,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_invoice_credit_note_request: Crossly::CreateWholesaleInvoiceCreditNoteRequest.new({amount_cents: 3.56, reason: 'other'}) # CreateWholesaleInvoiceCreditNoteRequest | 
+}
 
 begin
   # Issue a credit note on an on-account invoice (short shipment, damaged, pricing error, returned, goodwill, other): at most the balance due. Numbered <invoice>-CN<n>; settling the rest closes the invoice paid. Not a refund.
-  result = api_instance.create_wholesale_invoice_credit_note(id)
+  result = api_instance.create_wholesale_invoice_credit_note(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_invoice_credit_note: #{e}"
@@ -683,12 +794,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleInvoiceCreditNoteResponse>, Integer, Hash)> create_wholesale_invoice_credit_note_with_http_info(id)
+> <Array(<CreateWholesaleInvoiceCreditNoteResponse>, Integer, Hash)> create_wholesale_invoice_credit_note_with_http_info(id, opts)
 
 ```ruby
 begin
   # Issue a credit note on an on-account invoice (short shipment, damaged, pricing error, returned, goodwill, other): at most the balance due. Numbered <invoice>-CN<n>; settling the rest closes the invoice paid. Not a refund.
-  data, status_code, headers = api_instance.create_wholesale_invoice_credit_note_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_invoice_credit_note_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleInvoiceCreditNoteResponse>
@@ -702,6 +813,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_invoice_credit_note_request** | **CreateWholesaleInvoiceCreditNoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -713,7 +825,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -786,7 +898,7 @@ end
 
 ## create_wholesale_invoice_mark_paid
 
-> <WholesaleInvoiceResponse> create_wholesale_invoice_mark_paid(id)
+> <WholesaleInvoiceResponse> create_wholesale_invoice_mark_paid(id, opts)
 
 Record a payment the buyer made to you directly: method ach | check | wire | card | other, a reference, and amountCents (omit for the whole balance). When the invoice is settled, Crossly's fee and the tax it remits are charged to your billing card.
 
@@ -803,10 +915,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_invoice_mark_paid_request: Crossly::CreateWholesaleInvoiceMarkPaidRequest.new({method: 'check'}) # CreateWholesaleInvoiceMarkPaidRequest | 
+}
 
 begin
   # Record a payment the buyer made to you directly: method ach | check | wire | card | other, a reference, and amountCents (omit for the whole balance). When the invoice is settled, Crossly's fee and the tax it remits are charged to your billing card.
-  result = api_instance.create_wholesale_invoice_mark_paid(id)
+  result = api_instance.create_wholesale_invoice_mark_paid(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_invoice_mark_paid: #{e}"
@@ -817,12 +932,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WholesaleInvoiceResponse>, Integer, Hash)> create_wholesale_invoice_mark_paid_with_http_info(id)
+> <Array(<WholesaleInvoiceResponse>, Integer, Hash)> create_wholesale_invoice_mark_paid_with_http_info(id, opts)
 
 ```ruby
 begin
   # Record a payment the buyer made to you directly: method ach | check | wire | card | other, a reference, and amountCents (omit for the whole balance). When the invoice is settled, Crossly's fee and the tax it remits are charged to your billing card.
-  data, status_code, headers = api_instance.create_wholesale_invoice_mark_paid_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_invoice_mark_paid_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WholesaleInvoiceResponse>
@@ -836,6 +951,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_invoice_mark_paid_request** | **CreateWholesaleInvoiceMarkPaidRequest** |  | [optional] |
 
 ### Return type
 
@@ -847,7 +963,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -987,7 +1103,7 @@ end
 
 ## create_wholesale_invoice_write_off
 
-> <WholesaleInvoiceResponse> create_wholesale_invoice_write_off(id)
+> <WholesaleInvoiceResponse> create_wholesale_invoice_write_off(id, opts)
 
 Write off what is left on an invoice (bad debt): it closes as written_off and stops counting against the buyer's credit.
 
@@ -1004,10 +1120,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  note_request: Crossly::NoteRequest.new # NoteRequest | 
+}
 
 begin
   # Write off what is left on an invoice (bad debt): it closes as written_off and stops counting against the buyer's credit.
-  result = api_instance.create_wholesale_invoice_write_off(id)
+  result = api_instance.create_wholesale_invoice_write_off(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_invoice_write_off: #{e}"
@@ -1018,12 +1137,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WholesaleInvoiceResponse>, Integer, Hash)> create_wholesale_invoice_write_off_with_http_info(id)
+> <Array(<WholesaleInvoiceResponse>, Integer, Hash)> create_wholesale_invoice_write_off_with_http_info(id, opts)
 
 ```ruby
 begin
   # Write off what is left on an invoice (bad debt): it closes as written_off and stops counting against the buyer's credit.
-  data, status_code, headers = api_instance.create_wholesale_invoice_write_off_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_invoice_write_off_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WholesaleInvoiceResponse>
@@ -1037,6 +1156,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **note_request** | **NoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -1048,13 +1168,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_profile_ships_from_validate
 
-> <CreateWholesaleProfileShipsFromValidateResponse> create_wholesale_profile_ships_from_validate
+> <CreateWholesaleProfileShipsFromValidateResponse> create_wholesale_profile_ships_from_validate(opts)
 
 Check a ships-from origin ({ postalCode, country, city?, region? }) with the shipping validator without saving it. 400 invalid_ships_from with the issues; 422 for an embargoed origin.
 
@@ -1070,10 +1190,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_profile_ships_from_validate_request: Crossly::CreateWholesaleProfileShipsFromValidateRequest.new({postal_code: 'postal_code_example', country: 'country_example'}) # CreateWholesaleProfileShipsFromValidateRequest | 
+}
 
 begin
   # Check a ships-from origin ({ postalCode, country, city?, region? }) with the shipping validator without saving it. 400 invalid_ships_from with the issues; 422 for an embargoed origin.
-  result = api_instance.create_wholesale_profile_ships_from_validate
+  result = api_instance.create_wholesale_profile_ships_from_validate(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_profile_ships_from_validate: #{e}"
@@ -1084,12 +1207,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleProfileShipsFromValidateResponse>, Integer, Hash)> create_wholesale_profile_ships_from_validate_with_http_info
+> <Array(<CreateWholesaleProfileShipsFromValidateResponse>, Integer, Hash)> create_wholesale_profile_ships_from_validate_with_http_info(opts)
 
 ```ruby
 begin
   # Check a ships-from origin ({ postalCode, country, city?, region? }) with the shipping validator without saving it. 400 invalid_ships_from with the issues; 422 for an embargoed origin.
-  data, status_code, headers = api_instance.create_wholesale_profile_ships_from_validate_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_profile_ships_from_validate_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleProfileShipsFromValidateResponse>
@@ -1100,7 +1223,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_profile_ships_from_validate_request** | **CreateWholesaleProfileShipsFromValidateRequest** |  | [optional] |
 
 ### Return type
 
@@ -1112,13 +1237,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_quote_answer
 
-> <WholesaleQuoteResponse> create_wholesale_quote_answer(id)
+> <WholesaleQuoteResponse> create_wholesale_quote_answer(id, opts)
 
 Answer (or revise) a quote: a unit price in CENTS per item you quote, an expiresAt (ISO, at most 90 days out) and an optional note. Items left out are not quoted. The buyer is notified and can accept until expiry.
 
@@ -1135,10 +1260,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_quote_answer_request: Crossly::CreateWholesaleQuoteAnswerRequest.new({items: [Crossly::CreateWholesaleQuoteAnswerRequestItems.new({item_id: 'item_id_example', unit_price_cents: 3.56})], expires_at: 'expires_at_example'}) # CreateWholesaleQuoteAnswerRequest | 
+}
 
 begin
   # Answer (or revise) a quote: a unit price in CENTS per item you quote, an expiresAt (ISO, at most 90 days out) and an optional note. Items left out are not quoted. The buyer is notified and can accept until expiry.
-  result = api_instance.create_wholesale_quote_answer(id)
+  result = api_instance.create_wholesale_quote_answer(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_quote_answer: #{e}"
@@ -1149,12 +1277,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WholesaleQuoteResponse>, Integer, Hash)> create_wholesale_quote_answer_with_http_info(id)
+> <Array(<WholesaleQuoteResponse>, Integer, Hash)> create_wholesale_quote_answer_with_http_info(id, opts)
 
 ```ruby
 begin
   # Answer (or revise) a quote: a unit price in CENTS per item you quote, an expiresAt (ISO, at most 90 days out) and an optional note. Items left out are not quoted. The buyer is notified and can accept until expiry.
-  data, status_code, headers = api_instance.create_wholesale_quote_answer_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_quote_answer_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WholesaleQuoteResponse>
@@ -1168,6 +1296,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_quote_answer_request** | **CreateWholesaleQuoteAnswerRequest** |  | [optional] |
 
 ### Return type
 
@@ -1179,13 +1308,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_quote_decline
 
-> <WholesaleQuoteResponse> create_wholesale_quote_decline(id)
+> <WholesaleQuoteResponse> create_wholesale_quote_decline(id, opts)
 
 Decline a quote request, with an optional reason the buyer sees.
 
@@ -1202,10 +1331,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  reason_request2: Crossly::ReasonRequest2.new # ReasonRequest2 | 
+}
 
 begin
   # Decline a quote request, with an optional reason the buyer sees.
-  result = api_instance.create_wholesale_quote_decline(id)
+  result = api_instance.create_wholesale_quote_decline(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_quote_decline: #{e}"
@@ -1216,12 +1348,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WholesaleQuoteResponse>, Integer, Hash)> create_wholesale_quote_decline_with_http_info(id)
+> <Array(<WholesaleQuoteResponse>, Integer, Hash)> create_wholesale_quote_decline_with_http_info(id, opts)
 
 ```ruby
 begin
   # Decline a quote request, with an optional reason the buyer sees.
-  data, status_code, headers = api_instance.create_wholesale_quote_decline_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_quote_decline_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WholesaleQuoteResponse>
@@ -1235,6 +1367,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **reason_request2** | **ReasonRequest2** |  | [optional] |
 
 ### Return type
 
@@ -1246,13 +1379,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_request_decide
 
-> <CreateWholesaleRequestDecideResponse> create_wholesale_request_decide(id)
+> <CreateWholesaleRequestDecideResponse> create_wholesale_request_decide(id, opts)
 
 Approve (grants access to that catalog; optional groupId adds the buyer to a customer group) or decline (optional reason) an access request.
 
@@ -1269,10 +1402,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  create_wholesale_request_decide_request: Crossly::CreateWholesaleRequestDecideRequest.new({decision: 'decline'}) # CreateWholesaleRequestDecideRequest | 
+}
 
 begin
   # Approve (grants access to that catalog; optional groupId adds the buyer to a customer group) or decline (optional reason) an access request.
-  result = api_instance.create_wholesale_request_decide(id)
+  result = api_instance.create_wholesale_request_decide(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_request_decide: #{e}"
@@ -1283,12 +1419,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleRequestDecideResponse>, Integer, Hash)> create_wholesale_request_decide_with_http_info(id)
+> <Array(<CreateWholesaleRequestDecideResponse>, Integer, Hash)> create_wholesale_request_decide_with_http_info(id, opts)
 
 ```ruby
 begin
   # Approve (grants access to that catalog; optional groupId adds the buyer to a customer group) or decline (optional reason) an access request.
-  data, status_code, headers = api_instance.create_wholesale_request_decide_with_http_info(id)
+  data, status_code, headers = api_instance.create_wholesale_request_decide_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleRequestDecideResponse>
@@ -1302,6 +1438,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_wholesale_request_decide_request** | **CreateWholesaleRequestDecideRequest** |  | [optional] |
 
 ### Return type
 
@@ -1313,13 +1450,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_wholesale_tier_bulk
 
-> <CreateWholesaleTierBulkResponse> create_wholesale_tier_bulk
+> <CreateWholesaleTierBulkResponse> create_wholesale_tier_bulk(opts)
 
 One ladder for many listings: breaks as [{ minQuantity, discountBps }] off each listing's own price. Returns how many were updated and which were skipped and why.
 
@@ -1335,10 +1472,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  create_wholesale_tier_bulk_request: Crossly::CreateWholesaleTierBulkRequest.new({platform_listing_ids: ['platform_listing_ids_example'], breaks: [Crossly::CreateWholesaleTierBulkRequestBreaks.new({min_quantity: 3.56, discount_bps: 3.56})]}) # CreateWholesaleTierBulkRequest | 
+}
 
 begin
   # One ladder for many listings: breaks as [{ minQuantity, discountBps }] off each listing's own price. Returns how many were updated and which were skipped and why.
-  result = api_instance.create_wholesale_tier_bulk
+  result = api_instance.create_wholesale_tier_bulk(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->create_wholesale_tier_bulk: #{e}"
@@ -1349,12 +1489,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleTierBulkResponse>, Integer, Hash)> create_wholesale_tier_bulk_with_http_info
+> <Array(<CreateWholesaleTierBulkResponse>, Integer, Hash)> create_wholesale_tier_bulk_with_http_info(opts)
 
 ```ruby
 begin
   # One ladder for many listings: breaks as [{ minQuantity, discountBps }] off each listing's own price. Returns how many were updated and which were skipped and why.
-  data, status_code, headers = api_instance.create_wholesale_tier_bulk_with_http_info
+  data, status_code, headers = api_instance.create_wholesale_tier_bulk_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleTierBulkResponse>
@@ -1365,7 +1505,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_wholesale_tier_bulk_request** | **CreateWholesaleTierBulkRequest** |  | [optional] |
 
 ### Return type
 
@@ -1377,7 +1519,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1504,6 +1646,75 @@ end
 ### Return type
 
 **UpdateGroupBuyResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## delete_wholesale_catalog_access
+
+> <DeleteWholesaleCatalogAccessResponse> delete_wholesale_catalog_access(id, grant_id)
+
+Revoke one buyer's (or invited address's) access to this ONE catalog; their other catalogs, terms, groups and invoices are kept. /wholesale/buyers/remove revokes every catalog. Uses the X-Storefront-Id store.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WholesaleApi.new
+id = 'id_example' # String | 
+grant_id = 'grant_id_example' # String | 
+
+begin
+  # Revoke one buyer's (or invited address's) access to this ONE catalog; their other catalogs, terms, groups and invoices are kept. /wholesale/buyers/remove revokes every catalog. Uses the X-Storefront-Id store.
+  result = api_instance.delete_wholesale_catalog_access(id, grant_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WholesaleApi->delete_wholesale_catalog_access: #{e}"
+end
+```
+
+#### Using the delete_wholesale_catalog_access_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<DeleteWholesaleCatalogAccessResponse>, Integer, Hash)> delete_wholesale_catalog_access_with_http_info(id, grant_id)
+
+```ruby
+begin
+  # Revoke one buyer's (or invited address's) access to this ONE catalog; their other catalogs, terms, groups and invoices are kept. /wholesale/buyers/remove revokes every catalog. Uses the X-Storefront-Id store.
+  data, status_code, headers = api_instance.delete_wholesale_catalog_access_with_http_info(id, grant_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <DeleteWholesaleCatalogAccessResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WholesaleApi->delete_wholesale_catalog_access_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **grant_id** | **String** |  |  |
+
+### Return type
+
+**DeleteWholesaleCatalogAccessResponse**
 
 ### Authorization
 
@@ -2316,7 +2527,7 @@ end
 
 ## get_wholesale_term_preview
 
-> <GetWholesaleTermPreviewResponse> get_wholesale_term_preview
+> <GetWholesaleTermPreviewResponse> get_wholesale_term_preview(opts)
 
 The trade terms that apply to a catalog item (?catalogId&platformListingId), a catalog (?catalogId) or the trade profile alone, each with its source (item, catalog, profile, default), plus the return, payment and shipping policies they resolve to.
 
@@ -2332,10 +2543,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  catalog_id: 'catalog_id_example', # String | 
+  platform_listing_id: 'platform_listing_id_example', # String | 
+  storefront_id: 'storefront_id_example' # String | 
+}
 
 begin
   # The trade terms that apply to a catalog item (?catalogId&platformListingId), a catalog (?catalogId) or the trade profile alone, each with its source (item, catalog, profile, default), plus the return, payment and shipping policies they resolve to.
-  result = api_instance.get_wholesale_term_preview
+  result = api_instance.get_wholesale_term_preview(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->get_wholesale_term_preview: #{e}"
@@ -2346,12 +2562,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWholesaleTermPreviewResponse>, Integer, Hash)> get_wholesale_term_preview_with_http_info
+> <Array(<GetWholesaleTermPreviewResponse>, Integer, Hash)> get_wholesale_term_preview_with_http_info(opts)
 
 ```ruby
 begin
   # The trade terms that apply to a catalog item (?catalogId&platformListingId), a catalog (?catalogId) or the trade profile alone, each with its source (item, catalog, profile, default), plus the return, payment and shipping policies they resolve to.
-  data, status_code, headers = api_instance.get_wholesale_term_preview_with_http_info
+  data, status_code, headers = api_instance.get_wholesale_term_preview_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWholesaleTermPreviewResponse>
@@ -2362,7 +2578,11 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **catalog_id** | **String** |  | [optional] |
+| **platform_listing_id** | **String** |  | [optional] |
+| **storefront_id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -2575,7 +2795,7 @@ This endpoint does not need any parameter.
 
 ## list_wholesale_drops
 
-> <ListWholesaleDropsResponse> list_wholesale_drops
+> <ListWholesaleDropsResponse> list_wholesale_drops(opts)
 
 Your trade drops and pre-books: audience (trade = your approved trade buyers, catalog = whoever can open audienceCatalogId), kind (release | prebook), deposit, ship date, status, and for a pre-book its reservation totals (buyers, units, deposits taken, balances still to invoice).
 
@@ -2591,10 +2811,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  status: 'draft' # String | 
+}
 
 begin
   # Your trade drops and pre-books: audience (trade = your approved trade buyers, catalog = whoever can open audienceCatalogId), kind (release | prebook), deposit, ship date, status, and for a pre-book its reservation totals (buyers, units, deposits taken, balances still to invoice).
-  result = api_instance.list_wholesale_drops
+  result = api_instance.list_wholesale_drops(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->list_wholesale_drops: #{e}"
@@ -2605,12 +2828,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWholesaleDropsResponse>, Integer, Hash)> list_wholesale_drops_with_http_info
+> <Array(<ListWholesaleDropsResponse>, Integer, Hash)> list_wholesale_drops_with_http_info(opts)
 
 ```ruby
 begin
   # Your trade drops and pre-books: audience (trade = your approved trade buyers, catalog = whoever can open audienceCatalogId), kind (release | prebook), deposit, ship date, status, and for a pre-book its reservation totals (buyers, units, deposits taken, balances still to invoice).
-  data, status_code, headers = api_instance.list_wholesale_drops_with_http_info
+  data, status_code, headers = api_instance.list_wholesale_drops_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWholesaleDropsResponse>
@@ -2621,7 +2844,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
 
 ### Return type
 
@@ -2767,7 +2992,7 @@ This endpoint does not need any parameter.
 
 ## list_wholesale_invoices
 
-> <ListWholesaleInvoicesResponse> list_wholesale_invoices
+> <ListWholesaleInvoicesResponse> list_wholesale_invoices(opts)
 
 On-account invoices, newest first, with balance due. ?status=unpaid for open, partial and overdue together.
 
@@ -2783,10 +3008,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  status: 'partial', # String | 
+  buyer_user_id: 'buyer_user_id_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # On-account invoices, newest first, with balance due. ?status=unpaid for open, partial and overdue together.
-  result = api_instance.list_wholesale_invoices
+  result = api_instance.list_wholesale_invoices(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->list_wholesale_invoices: #{e}"
@@ -2797,12 +3027,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWholesaleInvoicesResponse>, Integer, Hash)> list_wholesale_invoices_with_http_info
+> <Array(<ListWholesaleInvoicesResponse>, Integer, Hash)> list_wholesale_invoices_with_http_info(opts)
 
 ```ruby
 begin
   # On-account invoices, newest first, with balance due. ?status=unpaid for open, partial and overdue together.
-  data, status_code, headers = api_instance.list_wholesale_invoices_with_http_info
+  data, status_code, headers = api_instance.list_wholesale_invoices_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWholesaleInvoicesResponse>
@@ -2813,7 +3043,11 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
+| **buyer_user_id** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -2895,7 +3129,7 @@ This endpoint does not need any parameter.
 
 ## list_wholesale_quotes
 
-> <ListWholesaleQuotesResponse> list_wholesale_quotes
+> <ListWholesaleQuotesResponse> list_wholesale_quotes(opts)
 
 Quote requests (RFQ) from trade buyers: items with quantity and target price, your quoted prices and expiry. ?status=open lists the ones waiting on you or the buyer.
 
@@ -2911,10 +3145,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  status: 'all' # String | 
+}
 
 begin
   # Quote requests (RFQ) from trade buyers: items with quantity and target price, your quoted prices and expiry. ?status=open lists the ones waiting on you or the buyer.
-  result = api_instance.list_wholesale_quotes
+  result = api_instance.list_wholesale_quotes(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->list_wholesale_quotes: #{e}"
@@ -2925,12 +3162,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWholesaleQuotesResponse>, Integer, Hash)> list_wholesale_quotes_with_http_info
+> <Array(<ListWholesaleQuotesResponse>, Integer, Hash)> list_wholesale_quotes_with_http_info(opts)
 
 ```ruby
 begin
   # Quote requests (RFQ) from trade buyers: items with quantity and target price, your quoted prices and expiry. ?status=open lists the ones waiting on you or the buyer.
-  data, status_code, headers = api_instance.list_wholesale_quotes_with_http_info
+  data, status_code, headers = api_instance.list_wholesale_quotes_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWholesaleQuotesResponse>
@@ -2941,7 +3178,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
 
 ### Return type
 
@@ -3087,7 +3326,7 @@ This endpoint does not need any parameter.
 
 ## update_wholesale_buyer_term
 
-> <UpdateWholesaleBuyerTermResponse> update_wholesale_buyer_term(buyer_user_id)
+> <UpdateWholesaleBuyerTermResponse> update_wholesale_buyer_term(buyer_user_id, opts)
 
 Set a buyer's account terms: netDays (0-120) for paying on account, creditLimitCents (the most they may owe you at once; null = no limit) and discountPercentBps (their negotiated rate).
 
@@ -3104,10 +3343,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 buyer_user_id = 'buyer_user_id_example' # String | 
+opts = {
+  update_wholesale_buyer_term_request: Crossly::UpdateWholesaleBuyerTermRequest.new({net_days: 3.56}) # UpdateWholesaleBuyerTermRequest | 
+}
 
 begin
   # Set a buyer's account terms: netDays (0-120) for paying on account, creditLimitCents (the most they may owe you at once; null = no limit) and discountPercentBps (their negotiated rate).
-  result = api_instance.update_wholesale_buyer_term(buyer_user_id)
+  result = api_instance.update_wholesale_buyer_term(buyer_user_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_buyer_term: #{e}"
@@ -3118,12 +3360,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWholesaleBuyerTermResponse>, Integer, Hash)> update_wholesale_buyer_term_with_http_info(buyer_user_id)
+> <Array(<UpdateWholesaleBuyerTermResponse>, Integer, Hash)> update_wholesale_buyer_term_with_http_info(buyer_user_id, opts)
 
 ```ruby
 begin
   # Set a buyer's account terms: netDays (0-120) for paying on account, creditLimitCents (the most they may owe you at once; null = no limit) and discountPercentBps (their negotiated rate).
-  data, status_code, headers = api_instance.update_wholesale_buyer_term_with_http_info(buyer_user_id)
+  data, status_code, headers = api_instance.update_wholesale_buyer_term_with_http_info(buyer_user_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWholesaleBuyerTermResponse>
@@ -3137,6 +3379,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **buyer_user_id** | **String** |  |  |
+| **update_wholesale_buyer_term_request** | **UpdateWholesaleBuyerTermRequest** |  | [optional] |
 
 ### Return type
 
@@ -3148,13 +3391,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_catalog
 
-> <CreateWholesaleCatalogResponse> update_wholesale_catalog(id)
+> <CreateWholesaleCatalogResponse> update_wholesale_catalog(id, opts)
 
 Edit a catalog: name, slug, description, cover image, visibility, opening-order minimum, trade gate, directory listing, active.
 
@@ -3171,10 +3414,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  update_wholesale_catalog_request: Crossly::UpdateWholesaleCatalogRequest.new # UpdateWholesaleCatalogRequest | 
+}
 
 begin
   # Edit a catalog: name, slug, description, cover image, visibility, opening-order minimum, trade gate, directory listing, active.
-  result = api_instance.update_wholesale_catalog(id)
+  result = api_instance.update_wholesale_catalog(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_catalog: #{e}"
@@ -3185,12 +3431,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleCatalogResponse>, Integer, Hash)> update_wholesale_catalog_with_http_info(id)
+> <Array(<CreateWholesaleCatalogResponse>, Integer, Hash)> update_wholesale_catalog_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a catalog: name, slug, description, cover image, visibility, opening-order minimum, trade gate, directory listing, active.
-  data, status_code, headers = api_instance.update_wholesale_catalog_with_http_info(id)
+  data, status_code, headers = api_instance.update_wholesale_catalog_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleCatalogResponse>
@@ -3204,6 +3450,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_wholesale_catalog_request** | **UpdateWholesaleCatalogRequest** |  | [optional] |
 
 ### Return type
 
@@ -3215,13 +3462,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_catalog_item
 
-> <UpdateWholesaleCatalogItemResponse> update_wholesale_catalog_item(id)
+> <UpdateWholesaleCatalogItemResponse> update_wholesale_catalog_item(id, opts)
 
 Change many catalog items at once: items[] sets each row (trade price, MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids); or platformListingIds + set applies the same values to each, set.pctOffRetailBps pricing each from its retail price.
 
@@ -3238,10 +3485,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  update_wholesale_catalog_item_request: Crossly::UpdateWholesaleCatalogItemRequest.new # UpdateWholesaleCatalogItemRequest | 
+}
 
 begin
   # Change many catalog items at once: items[] sets each row (trade price, MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids); or platformListingIds + set applies the same values to each, set.pctOffRetailBps pricing each from its retail price.
-  result = api_instance.update_wholesale_catalog_item(id)
+  result = api_instance.update_wholesale_catalog_item(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_catalog_item: #{e}"
@@ -3252,12 +3502,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWholesaleCatalogItemResponse>, Integer, Hash)> update_wholesale_catalog_item_with_http_info(id)
+> <Array(<UpdateWholesaleCatalogItemResponse>, Integer, Hash)> update_wholesale_catalog_item_with_http_info(id, opts)
 
 ```ruby
 begin
   # Change many catalog items at once: items[] sets each row (trade price, MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids); or platformListingIds + set applies the same values to each, set.pctOffRetailBps pricing each from its retail price.
-  data, status_code, headers = api_instance.update_wholesale_catalog_item_with_http_info(id)
+  data, status_code, headers = api_instance.update_wholesale_catalog_item_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWholesaleCatalogItemResponse>
@@ -3271,6 +3521,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_wholesale_catalog_item_request** | **UpdateWholesaleCatalogItemRequest** |  | [optional] |
 
 ### Return type
 
@@ -3282,13 +3533,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_catalog_item_by_platform_listing_id
 
-> <UpdateGroupBuyResponse> update_wholesale_catalog_item_by_platform_listing_id(id, platform_listing_id)
+> <UpdateGroupBuyResponse> update_wholesale_catalog_item_by_platform_listing_id(id, platform_listing_id, opts)
 
 Change one item's trade price and its own trade terms in this catalog (MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids). null clears = inherit from the catalog.
 
@@ -3306,10 +3557,13 @@ end
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
 platform_listing_id = 'platform_listing_id_example' # String | 
+opts = {
+  update_wholesale_catalog_item_by_platform_listing_id_request: Crossly::UpdateWholesaleCatalogItemByPlatformListingIdRequest.new # UpdateWholesaleCatalogItemByPlatformListingIdRequest | 
+}
 
 begin
   # Change one item's trade price and its own trade terms in this catalog (MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids). null clears = inherit from the catalog.
-  result = api_instance.update_wholesale_catalog_item_by_platform_listing_id(id, platform_listing_id)
+  result = api_instance.update_wholesale_catalog_item_by_platform_listing_id(id, platform_listing_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_catalog_item_by_platform_listing_id: #{e}"
@@ -3320,12 +3574,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> update_wholesale_catalog_item_by_platform_listing_id_with_http_info(id, platform_listing_id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> update_wholesale_catalog_item_by_platform_listing_id_with_http_info(id, platform_listing_id, opts)
 
 ```ruby
 begin
   # Change one item's trade price and its own trade terms in this catalog (MOQ, case pack, lead time, max per order, backorder, restock date, verified-only, price visibility, preset ids). null clears = inherit from the catalog.
-  data, status_code, headers = api_instance.update_wholesale_catalog_item_by_platform_listing_id_with_http_info(id, platform_listing_id)
+  data, status_code, headers = api_instance.update_wholesale_catalog_item_by_platform_listing_id_with_http_info(id, platform_listing_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateGroupBuyResponse>
@@ -3340,6 +3594,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **platform_listing_id** | **String** |  |  |
+| **update_wholesale_catalog_item_by_platform_listing_id_request** | **UpdateWholesaleCatalogItemByPlatformListingIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -3351,13 +3606,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_catalog_item_order
 
-> <ListWholesaleCatalogItemsResponse> update_wholesale_catalog_item_order(id)
+> <ListWholesaleCatalogItemsResponse> update_wholesale_catalog_item_order(id, opts)
 
 Set the merchandising order: platform listing ids, first to last. Items left out keep their relative order after these.
 
@@ -3374,10 +3629,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  update_live_stream_lineup_request: Crossly::UpdateLiveStreamLineupRequest.new({platform_listing_ids: ['platform_listing_ids_example']}) # UpdateLiveStreamLineupRequest | 
+}
 
 begin
   # Set the merchandising order: platform listing ids, first to last. Items left out keep their relative order after these.
-  result = api_instance.update_wholesale_catalog_item_order(id)
+  result = api_instance.update_wholesale_catalog_item_order(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_catalog_item_order: #{e}"
@@ -3388,12 +3646,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWholesaleCatalogItemsResponse>, Integer, Hash)> update_wholesale_catalog_item_order_with_http_info(id)
+> <Array(<ListWholesaleCatalogItemsResponse>, Integer, Hash)> update_wholesale_catalog_item_order_with_http_info(id, opts)
 
 ```ruby
 begin
   # Set the merchandising order: platform listing ids, first to last. Items left out keep their relative order after these.
-  data, status_code, headers = api_instance.update_wholesale_catalog_item_order_with_http_info(id)
+  data, status_code, headers = api_instance.update_wholesale_catalog_item_order_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWholesaleCatalogItemsResponse>
@@ -3407,6 +3665,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_live_stream_lineup_request** | **UpdateLiveStreamLineupRequest** |  | [optional] |
 
 ### Return type
 
@@ -3418,13 +3677,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_drop
 
-> <CreateWholesaleDropResponse> update_wholesale_drop(id)
+> <CreateWholesaleDropResponse> update_wholesale_drop(id, opts)
 
 Edit a trade drop (any create field but kind), schedule it (status \"scheduled\", with dropAt in the future) or cancel it. A live drop can only be cancelled or have endsAt / perCustomerLimit changed.
 
@@ -3441,10 +3700,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  update_wholesale_drop_request: Crossly::UpdateWholesaleDropRequest.new # UpdateWholesaleDropRequest | 
+}
 
 begin
   # Edit a trade drop (any create field but kind), schedule it (status \"scheduled\", with dropAt in the future) or cancel it. A live drop can only be cancelled or have endsAt / perCustomerLimit changed.
-  result = api_instance.update_wholesale_drop(id)
+  result = api_instance.update_wholesale_drop(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_drop: #{e}"
@@ -3455,12 +3717,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleDropResponse>, Integer, Hash)> update_wholesale_drop_with_http_info(id)
+> <Array(<CreateWholesaleDropResponse>, Integer, Hash)> update_wholesale_drop_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a trade drop (any create field but kind), schedule it (status \"scheduled\", with dropAt in the future) or cancel it. A live drop can only be cancelled or have endsAt / perCustomerLimit changed.
-  data, status_code, headers = api_instance.update_wholesale_drop_with_http_info(id)
+  data, status_code, headers = api_instance.update_wholesale_drop_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleDropResponse>
@@ -3474,6 +3736,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_wholesale_drop_request** | **UpdateWholesaleDropRequest** |  | [optional] |
 
 ### Return type
 
@@ -3485,13 +3748,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_group
 
-> <CreateWholesaleGroupResponse> update_wholesale_group(id)
+> <CreateWholesaleGroupResponse> update_wholesale_group(id, opts)
 
 Rename a group, change its discount, or pause it (active=false).
 
@@ -3508,10 +3771,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 id = 'id_example' # String | 
+opts = {
+  update_wholesale_group_request: Crossly::UpdateWholesaleGroupRequest.new # UpdateWholesaleGroupRequest | 
+}
 
 begin
   # Rename a group, change its discount, or pause it (active=false).
-  result = api_instance.update_wholesale_group(id)
+  result = api_instance.update_wholesale_group(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_group: #{e}"
@@ -3522,12 +3788,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWholesaleGroupResponse>, Integer, Hash)> update_wholesale_group_with_http_info(id)
+> <Array(<CreateWholesaleGroupResponse>, Integer, Hash)> update_wholesale_group_with_http_info(id, opts)
 
 ```ruby
 begin
   # Rename a group, change its discount, or pause it (active=false).
-  data, status_code, headers = api_instance.update_wholesale_group_with_http_info(id)
+  data, status_code, headers = api_instance.update_wholesale_group_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWholesaleGroupResponse>
@@ -3541,6 +3807,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_wholesale_group_request** | **UpdateWholesaleGroupRequest** |  | [optional] |
 
 ### Return type
 
@@ -3552,13 +3819,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_listing_tier
 
-> <UpdateWholesaleListingTierResponse> update_wholesale_listing_tier(platform_listing_id)
+> <UpdateWholesaleListingTierResponse> update_wholesale_listing_tier(platform_listing_id, opts)
 
 Replace one listing's quantity breaks: [{ minQuantity ≥ 2, unitPriceCents }], each cheaper than the last and than the list price. An empty list removes them. Applies to every buyer at checkout.
 
@@ -3575,10 +3842,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 platform_listing_id = 'platform_listing_id_example' # String | 
+opts = {
+  update_wholesale_listing_tier_request: Crossly::UpdateWholesaleListingTierRequest.new({tiers: [Crossly::UpdateWholesaleListingTierItem.new({min_quantity: 3.56, unit_price_cents: 3.56})]}) # UpdateWholesaleListingTierRequest | 
+}
 
 begin
   # Replace one listing's quantity breaks: [{ minQuantity ≥ 2, unitPriceCents }], each cheaper than the last and than the list price. An empty list removes them. Applies to every buyer at checkout.
-  result = api_instance.update_wholesale_listing_tier(platform_listing_id)
+  result = api_instance.update_wholesale_listing_tier(platform_listing_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_listing_tier: #{e}"
@@ -3589,12 +3859,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWholesaleListingTierResponse>, Integer, Hash)> update_wholesale_listing_tier_with_http_info(platform_listing_id)
+> <Array(<UpdateWholesaleListingTierResponse>, Integer, Hash)> update_wholesale_listing_tier_with_http_info(platform_listing_id, opts)
 
 ```ruby
 begin
   # Replace one listing's quantity breaks: [{ minQuantity ≥ 2, unitPriceCents }], each cheaper than the last and than the list price. An empty list removes them. Applies to every buyer at checkout.
-  data, status_code, headers = api_instance.update_wholesale_listing_tier_with_http_info(platform_listing_id)
+  data, status_code, headers = api_instance.update_wholesale_listing_tier_with_http_info(platform_listing_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWholesaleListingTierResponse>
@@ -3608,6 +3878,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **platform_listing_id** | **String** |  |  |
+| **update_wholesale_listing_tier_request** | **UpdateWholesaleListingTierRequest** |  | [optional] |
 
 ### Return type
 
@@ -3619,13 +3890,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_profile
 
-> <UpdateWholesaleProfileResponse> update_wholesale_profile
+> <UpdateWholesaleProfileResponse> update_wholesale_profile(opts)
 
 Save a store's trade profile. Omitted fields are unchanged; null clears. shipsFrom is checked by the shipping validator (400 invalid_ships_from). The profile is the bottom of the trade-terms cascade: catalogs and items that leave a term empty inherit it — saving never rewrites catalogs. Preset ids must be your own presets of that kind.
 
@@ -3641,10 +3912,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WholesaleApi.new
+opts = {
+  update_wholesale_profile_request: Crossly::UpdateWholesaleProfileRequest.new # UpdateWholesaleProfileRequest | 
+}
 
 begin
   # Save a store's trade profile. Omitted fields are unchanged; null clears. shipsFrom is checked by the shipping validator (400 invalid_ships_from). The profile is the bottom of the trade-terms cascade: catalogs and items that leave a term empty inherit it — saving never rewrites catalogs. Preset ids must be your own presets of that kind.
-  result = api_instance.update_wholesale_profile
+  result = api_instance.update_wholesale_profile(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_profile: #{e}"
@@ -3655,12 +3929,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWholesaleProfileResponse>, Integer, Hash)> update_wholesale_profile_with_http_info
+> <Array(<UpdateWholesaleProfileResponse>, Integer, Hash)> update_wholesale_profile_with_http_info(opts)
 
 ```ruby
 begin
   # Save a store's trade profile. Omitted fields are unchanged; null clears. shipsFrom is checked by the shipping validator (400 invalid_ships_from). The profile is the bottom of the trade-terms cascade: catalogs and items that leave a term empty inherit it — saving never rewrites catalogs. Preset ids must be your own presets of that kind.
-  data, status_code, headers = api_instance.update_wholesale_profile_with_http_info
+  data, status_code, headers = api_instance.update_wholesale_profile_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWholesaleProfileResponse>
@@ -3671,7 +3945,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_wholesale_profile_request** | **UpdateWholesaleProfileRequest** |  | [optional] |
 
 ### Return type
 
@@ -3683,13 +3959,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_wholesale_reserve
 
-> <GetWholesaleReserveResponse> update_wholesale_reserve(inventory_item_id)
+> <GetWholesaleReserveResponse> update_wholesale_reserve(inventory_item_id, opts)
 
 Reserve N units of an inventory item for wholesale: retail channels advertise the rest and come down when only the reserve is left. 0 clears it.
 
@@ -3706,10 +3982,13 @@ end
 
 api_instance = Crossly::WholesaleApi.new
 inventory_item_id = 'inventory_item_id_example' # String | 
+opts = {
+  update_wholesale_reserve_request: Crossly::UpdateWholesaleReserveRequest.new({units: 3.56}) # UpdateWholesaleReserveRequest | 
+}
 
 begin
   # Reserve N units of an inventory item for wholesale: retail channels advertise the rest and come down when only the reserve is left. 0 clears it.
-  result = api_instance.update_wholesale_reserve(inventory_item_id)
+  result = api_instance.update_wholesale_reserve(inventory_item_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WholesaleApi->update_wholesale_reserve: #{e}"
@@ -3720,12 +3999,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWholesaleReserveResponse>, Integer, Hash)> update_wholesale_reserve_with_http_info(inventory_item_id)
+> <Array(<GetWholesaleReserveResponse>, Integer, Hash)> update_wholesale_reserve_with_http_info(inventory_item_id, opts)
 
 ```ruby
 begin
   # Reserve N units of an inventory item for wholesale: retail channels advertise the rest and come down when only the reserve is left. 0 clears it.
-  data, status_code, headers = api_instance.update_wholesale_reserve_with_http_info(inventory_item_id)
+  data, status_code, headers = api_instance.update_wholesale_reserve_with_http_info(inventory_item_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWholesaleReserveResponse>
@@ -3739,6 +4018,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **inventory_item_id** | **String** |  |  |
+| **update_wholesale_reserve_request** | **UpdateWholesaleReserveRequest** |  | [optional] |
 
 ### Return type
 
@@ -3750,6 +4030,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

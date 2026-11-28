@@ -35,7 +35,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_tcg_challenge
 
-> <TcgResponse> create_tcg_challenge(game)
+> <TcgResponse> create_tcg_challenge(game, opts)
 
 Open a 1v1 challenge with one of your decks; another player joins it.
 
@@ -52,10 +52,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  deck_id_request: Crossly::DeckIdRequest.new({deck_id: 'deck_id_example'}) # DeckIdRequest | 
+}
 
 begin
   # Open a 1v1 challenge with one of your decks; another player joins it.
-  result = api_instance.create_tcg_challenge(game)
+  result = api_instance.create_tcg_challenge(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_challenge: #{e}"
@@ -66,12 +69,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TcgResponse>, Integer, Hash)> create_tcg_challenge_with_http_info(game)
+> <Array(<TcgResponse>, Integer, Hash)> create_tcg_challenge_with_http_info(game, opts)
 
 ```ruby
 begin
   # Open a 1v1 challenge with one of your decks; another player joins it.
-  data, status_code, headers = api_instance.create_tcg_challenge_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_challenge_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TcgResponse>
@@ -85,6 +88,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **deck_id_request** | **DeckIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -96,13 +100,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_deck
 
-> <CreateTcgDeckResponse> create_tcg_deck(game)
+> <CreateTcgDeckResponse> create_tcg_deck(game, opts)
 
 Create (no id) or update a deck: its lead (Crew Boss, Mastermind or Keeper) and 40 cards you own, checked against the deck rules of its game.
 
@@ -119,10 +123,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  create_tcg_deck_request: Crossly::CreateTcgDeckRequest.new({name: 'name_example', boss: 'boss_example', cards: ['cards_example']}) # CreateTcgDeckRequest | 
+}
 
 begin
   # Create (no id) or update a deck: its lead (Crew Boss, Mastermind or Keeper) and 40 cards you own, checked against the deck rules of its game.
-  result = api_instance.create_tcg_deck(game)
+  result = api_instance.create_tcg_deck(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_deck: #{e}"
@@ -133,12 +140,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgDeckResponse>, Integer, Hash)> create_tcg_deck_with_http_info(game)
+> <Array(<CreateTcgDeckResponse>, Integer, Hash)> create_tcg_deck_with_http_info(game, opts)
 
 ```ruby
 begin
   # Create (no id) or update a deck: its lead (Crew Boss, Mastermind or Keeper) and 40 cards you own, checked against the deck rules of its game.
-  data, status_code, headers = api_instance.create_tcg_deck_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_deck_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgDeckResponse>
@@ -152,6 +159,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **create_tcg_deck_request** | **CreateTcgDeckRequest** |  | [optional] |
 
 ### Return type
 
@@ -163,13 +171,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_match_act
 
-> <TcgResponse> create_tcg_match_act(id)
+> <TcgResponse> create_tcg_match_act(id, opts)
 
 Make one move: { action } as listed in the match's legal moves. The engine checks it.
 
@@ -186,10 +194,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 id = 'id_example' # String | 
+opts = {
+  create_tcg_match_act_request: Crossly::CreateTcgMatchActRequest.new({action: Crossly::CreateTcgMatchActRequestAction.new({t: 't_example'})}) # CreateTcgMatchActRequest | 
+}
 
 begin
   # Make one move: { action } as listed in the match's legal moves. The engine checks it.
-  result = api_instance.create_tcg_match_act(id)
+  result = api_instance.create_tcg_match_act(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_match_act: #{e}"
@@ -200,12 +211,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TcgResponse>, Integer, Hash)> create_tcg_match_act_with_http_info(id)
+> <Array(<TcgResponse>, Integer, Hash)> create_tcg_match_act_with_http_info(id, opts)
 
 ```ruby
 begin
   # Make one move: { action } as listed in the match's legal moves. The engine checks it.
-  data, status_code, headers = api_instance.create_tcg_match_act_with_http_info(id)
+  data, status_code, headers = api_instance.create_tcg_match_act_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TcgResponse>
@@ -219,6 +230,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_tcg_match_act_request** | **CreateTcgMatchActRequest** |  | [optional] |
 
 ### Return type
 
@@ -230,13 +242,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_match_join
 
-> <TcgResponse> create_tcg_match_join(id)
+> <TcgResponse> create_tcg_match_join(id, opts)
 
 Join an open 1v1 challenge with one of your decks.
 
@@ -253,10 +265,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 id = 'id_example' # String | 
+opts = {
+  deck_id_request: Crossly::DeckIdRequest.new({deck_id: 'deck_id_example'}) # DeckIdRequest | 
+}
 
 begin
   # Join an open 1v1 challenge with one of your decks.
-  result = api_instance.create_tcg_match_join(id)
+  result = api_instance.create_tcg_match_join(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_match_join: #{e}"
@@ -267,12 +282,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TcgResponse>, Integer, Hash)> create_tcg_match_join_with_http_info(id)
+> <Array(<TcgResponse>, Integer, Hash)> create_tcg_match_join_with_http_info(id, opts)
 
 ```ruby
 begin
   # Join an open 1v1 challenge with one of your decks.
-  data, status_code, headers = api_instance.create_tcg_match_join_with_http_info(id)
+  data, status_code, headers = api_instance.create_tcg_match_join_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TcgResponse>
@@ -286,6 +301,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **deck_id_request** | **DeckIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -297,7 +313,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -370,7 +386,7 @@ end
 
 ## create_tcg_practice
 
-> <TcgResponse> create_tcg_practice(game)
+> <TcgResponse> create_tcg_practice(game, opts)
 
 Start a practice match against the house bot with one of your decks.
 
@@ -387,10 +403,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  deck_id_request: Crossly::DeckIdRequest.new({deck_id: 'deck_id_example'}) # DeckIdRequest | 
+}
 
 begin
   # Start a practice match against the house bot with one of your decks.
-  result = api_instance.create_tcg_practice(game)
+  result = api_instance.create_tcg_practice(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_practice: #{e}"
@@ -401,12 +420,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TcgResponse>, Integer, Hash)> create_tcg_practice_with_http_info(game)
+> <Array(<TcgResponse>, Integer, Hash)> create_tcg_practice_with_http_info(game, opts)
 
 ```ruby
 begin
   # Start a practice match against the house bot with one of your decks.
-  data, status_code, headers = api_instance.create_tcg_practice_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_practice_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TcgResponse>
@@ -420,6 +439,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **deck_id_request** | **DeckIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -431,13 +451,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_queue
 
-> <CreateTcgQueueResponse> create_tcg_queue(game)
+> <CreateTcgQueueResponse> create_tcg_queue(game, opts)
 
 Join the ranked queue with an owned, legal deck (free). Returns the match at once when an opponent fits.
 
@@ -454,10 +474,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  deck_id_request: Crossly::DeckIdRequest.new({deck_id: 'deck_id_example'}) # DeckIdRequest | 
+}
 
 begin
   # Join the ranked queue with an owned, legal deck (free). Returns the match at once when an opponent fits.
-  result = api_instance.create_tcg_queue(game)
+  result = api_instance.create_tcg_queue(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_queue: #{e}"
@@ -468,12 +491,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgQueueResponse>, Integer, Hash)> create_tcg_queue_with_http_info(game)
+> <Array(<CreateTcgQueueResponse>, Integer, Hash)> create_tcg_queue_with_http_info(game, opts)
 
 ```ruby
 begin
   # Join the ranked queue with an owned, legal deck (free). Returns the match at once when an opponent fits.
-  data, status_code, headers = api_instance.create_tcg_queue_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_queue_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgQueueResponse>
@@ -487,6 +510,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **deck_id_request** | **DeckIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -498,13 +522,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_starter
 
-> <CreateTcgStarterResponse> create_tcg_starter(game)
+> <CreateTcgStarterResponse> create_tcg_starter(game, opts)
 
 Claim the free starter deck for a game, choosing its faction (once per account; account-bound, untradeable).
 
@@ -521,10 +545,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  create_tcg_starter_request: Crossly::CreateTcgStarterRequest.new({faction: 'faction_example'}) # CreateTcgStarterRequest | 
+}
 
 begin
   # Claim the free starter deck for a game, choosing its faction (once per account; account-bound, untradeable).
-  result = api_instance.create_tcg_starter(game)
+  result = api_instance.create_tcg_starter(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_starter: #{e}"
@@ -535,12 +562,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgStarterResponse>, Integer, Hash)> create_tcg_starter_with_http_info(game)
+> <Array(<CreateTcgStarterResponse>, Integer, Hash)> create_tcg_starter_with_http_info(game, opts)
 
 ```ruby
 begin
   # Claim the free starter deck for a game, choosing its faction (once per account; account-bound, untradeable).
-  data, status_code, headers = api_instance.create_tcg_starter_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_starter_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgStarterResponse>
@@ -554,6 +581,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **create_tcg_starter_request** | **CreateTcgStarterRequest** |  | [optional] |
 
 ### Return type
 
@@ -565,13 +593,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_table
 
-> <TcgResponse> create_tcg_table(game)
+> <TcgResponse> create_tcg_table(game, opts)
 
 Sit at a table with your free starter deck (claimed now if you never did: starter names it, else one is picked for you): joins the oldest open 1v1 challenge, or opens one; already waiting, your own seat back.
 
@@ -588,10 +616,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  create_tcg_table_request: Crossly::CreateTcgTableRequest.new # CreateTcgTableRequest | 
+}
 
 begin
   # Sit at a table with your free starter deck (claimed now if you never did: starter names it, else one is picked for you): joins the oldest open 1v1 challenge, or opens one; already waiting, your own seat back.
-  result = api_instance.create_tcg_table(game)
+  result = api_instance.create_tcg_table(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_table: #{e}"
@@ -602,12 +633,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TcgResponse>, Integer, Hash)> create_tcg_table_with_http_info(game)
+> <Array(<TcgResponse>, Integer, Hash)> create_tcg_table_with_http_info(game, opts)
 
 ```ruby
 begin
   # Sit at a table with your free starter deck (claimed now if you never did: starter names it, else one is picked for you): joins the oldest open 1v1 challenge, or opens one; already waiting, your own seat back.
-  data, status_code, headers = api_instance.create_tcg_table_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_table_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TcgResponse>
@@ -621,6 +652,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **create_tcg_table_request** | **CreateTcgTableRequest** |  | [optional] |
 
 ### Return type
 
@@ -632,13 +664,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_tournament
 
-> <CreateTcgTournamentResponse> create_tcg_tournament(game)
+> <CreateTcgTournamentResponse> create_tcg_tournament(game, opts)
 
 Host a Swiss tournament: name, optional top cut (4 or 8), round length, player cap and start time.
 
@@ -655,10 +687,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 game = 'game_example' # String | 
+opts = {
+  create_tcg_tournament_request: Crossly::CreateTcgTournamentRequest.new({name: 'name_example'}) # CreateTcgTournamentRequest | 
+}
 
 begin
   # Host a Swiss tournament: name, optional top cut (4 or 8), round length, player cap and start time.
-  result = api_instance.create_tcg_tournament(game)
+  result = api_instance.create_tcg_tournament(game, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_tournament: #{e}"
@@ -669,12 +704,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgTournamentResponse>, Integer, Hash)> create_tcg_tournament_with_http_info(game)
+> <Array(<CreateTcgTournamentResponse>, Integer, Hash)> create_tcg_tournament_with_http_info(game, opts)
 
 ```ruby
 begin
   # Host a Swiss tournament: name, optional top cut (4 or 8), round length, player cap and start time.
-  data, status_code, headers = api_instance.create_tcg_tournament_with_http_info(game)
+  data, status_code, headers = api_instance.create_tcg_tournament_with_http_info(game, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgTournamentResponse>
@@ -688,6 +723,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **game** | **String** |  |  |
+| **create_tcg_tournament_request** | **CreateTcgTournamentRequest** |  | [optional] |
 
 ### Return type
 
@@ -699,7 +735,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -772,7 +808,7 @@ end
 
 ## create_tcg_tournament_register
 
-> <TcgTournamentResponse> create_tcg_tournament_register(id)
+> <TcgTournamentResponse> create_tcg_tournament_register(id, opts)
 
 Enter a tournament with an owned, legal deck before it starts.
 
@@ -789,10 +825,13 @@ end
 
 api_instance = Crossly::TCGApi.new
 id = 'id_example' # String | 
+opts = {
+  deck_id_request: Crossly::DeckIdRequest.new({deck_id: 'deck_id_example'}) # DeckIdRequest | 
+}
 
 begin
   # Enter a tournament with an owned, legal deck before it starts.
-  result = api_instance.create_tcg_tournament_register(id)
+  result = api_instance.create_tcg_tournament_register(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGApi->create_tcg_tournament_register: #{e}"
@@ -803,12 +842,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TcgTournamentResponse>, Integer, Hash)> create_tcg_tournament_register_with_http_info(id)
+> <Array(<TcgTournamentResponse>, Integer, Hash)> create_tcg_tournament_register_with_http_info(id, opts)
 
 ```ruby
 begin
   # Enter a tournament with an owned, legal deck before it starts.
-  data, status_code, headers = api_instance.create_tcg_tournament_register_with_http_info(id)
+  data, status_code, headers = api_instance.create_tcg_tournament_register_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TcgTournamentResponse>
@@ -822,6 +861,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **deck_id_request** | **DeckIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -833,7 +873,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

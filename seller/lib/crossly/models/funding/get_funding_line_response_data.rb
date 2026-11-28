@@ -41,6 +41,8 @@ module Crossly
 
     attr_accessor :autorepay_pct
 
+    attr_accessor :late_rules
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -55,7 +57,8 @@ module Crossly
         :'next_due' => :'nextDue',
         :'overdue' => :'overdue',
         :'schedule' => :'schedule',
-        :'autorepay_pct' => :'autorepayPct'
+        :'autorepay_pct' => :'autorepayPct',
+        :'late_rules' => :'lateRules'
       }
     end
 
@@ -78,7 +81,8 @@ module Crossly
         :'next_due' => :'GetFundingLineResponseDataNextDue',
         :'overdue' => :'GetFundingLineResponseDataOverdue',
         :'schedule' => :'Array<GetFundingLineResponseDataSchedule>',
-        :'autorepay_pct' => :'Float'
+        :'autorepay_pct' => :'Float',
+        :'late_rules' => :'GetFundingLineResponseDataLateRules'
       }
     end
 
@@ -155,6 +159,10 @@ module Crossly
       if attributes.key?(:'autorepay_pct')
         self.autorepay_pct = attributes[:'autorepay_pct']
       end
+
+      if attributes.key?(:'late_rules')
+        self.late_rules = attributes[:'late_rules']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -197,6 +205,10 @@ module Crossly
         invalid_properties.push('invalid value for "autorepay_pct", autorepay_pct cannot be nil.')
       end
 
+      if @late_rules.nil?
+        invalid_properties.push('invalid value for "late_rules", late_rules cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -212,6 +224,7 @@ module Crossly
       return false if @utilization_bps.nil?
       return false if @schedule.nil?
       return false if @autorepay_pct.nil?
+      return false if @late_rules.nil?
       true
     end
 
@@ -231,7 +244,8 @@ module Crossly
           next_due == o.next_due &&
           overdue == o.overdue &&
           schedule == o.schedule &&
-          autorepay_pct == o.autorepay_pct
+          autorepay_pct == o.autorepay_pct &&
+          late_rules == o.late_rules
     end
 
     # @see the `==` method
@@ -243,7 +257,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [merchant_id, line, outstanding_cents, principal_outstanding_cents, interest_outstanding_cents, accrued_interest_cents, payoff_cents, utilization_bps, next_due, overdue, schedule, autorepay_pct].hash
+      [merchant_id, line, outstanding_cents, principal_outstanding_cents, interest_outstanding_cents, accrued_interest_cents, payoff_cents, utilization_bps, next_due, overdue, schedule, autorepay_pct, late_rules].hash
     end
 
     # Builds the object from hash

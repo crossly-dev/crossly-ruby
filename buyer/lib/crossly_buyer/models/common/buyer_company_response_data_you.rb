@@ -121,7 +121,7 @@ module CrosslyBuyer
     def valid?
       return false if @member_id.nil?
       return false if @role.nil?
-      role_validator = EnumAttributeValidator.new('String', ["buyer", "viewer", "owner", "accounts_payable"])
+      role_validator = EnumAttributeValidator.new('String', ["buyer", "owner", "viewer", "accounts_payable"])
       return false unless role_validator.valid?(@role)
       true
     end
@@ -129,7 +129,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] role Object to be assigned
     def role=(role)
-      validator = EnumAttributeValidator.new('String', ["buyer", "viewer", "owner", "accounts_payable"])
+      validator = EnumAttributeValidator.new('String', ["buyer", "owner", "viewer", "accounts_payable"])
       unless validator.valid?(role)
         fail ArgumentError, "invalid value for \"role\", must be one of #{validator.allowable_values}."
       end

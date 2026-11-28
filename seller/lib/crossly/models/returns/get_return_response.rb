@@ -25,6 +25,8 @@ module Crossly
 
     attr_accessor :notes
 
+    attr_accessor :assignee_member_id
+
     attr_accessor :refund_amount
 
     attr_accessor :order_id
@@ -57,6 +59,7 @@ module Crossly
         :'user_id' => :'userId',
         :'status' => :'status',
         :'notes' => :'notes',
+        :'assignee_member_id' => :'assigneeMemberId',
         :'refund_amount' => :'refundAmount',
         :'order_id' => :'orderId',
         :'reason' => :'reason',
@@ -85,6 +88,7 @@ module Crossly
         :'user_id' => :'String',
         :'status' => :'String',
         :'notes' => :'String',
+        :'assignee_member_id' => :'String',
         :'refund_amount' => :'String',
         :'order_id' => :'String',
         :'reason' => :'String',
@@ -104,6 +108,7 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'notes',
+        :'assignee_member_id',
         :'refund_amount',
         :'reason',
         :'received_at',
@@ -149,6 +154,10 @@ module Crossly
 
       if attributes.key?(:'notes')
         self.notes = attributes[:'notes']
+      end
+
+      if attributes.key?(:'assignee_member_id')
+        self.assignee_member_id = attributes[:'assignee_member_id']
       end
 
       if attributes.key?(:'refund_amount')
@@ -258,6 +267,7 @@ module Crossly
           user_id == o.user_id &&
           status == o.status &&
           notes == o.notes &&
+          assignee_member_id == o.assignee_member_id &&
           refund_amount == o.refund_amount &&
           order_id == o.order_id &&
           reason == o.reason &&
@@ -281,7 +291,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, status, notes, refund_amount, order_id, reason, received_at, restocked_to_inventory_item_id, requested_at, inspected_at, inspected_unit_id, inspected_identifier, identity_check, restocked_at, dispute_case_id].hash
+      [id, created_at, user_id, status, notes, assignee_member_id, refund_amount, order_id, reason, received_at, restocked_to_inventory_item_id, requested_at, inspected_at, inspected_unit_id, inspected_identifier, identity_check, restocked_at, dispute_case_id].hash
     end
 
     # Builds the object from hash

@@ -28,7 +28,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_production_candidate_accept
 
-> <CreateProductionCandidateAcceptResponse> create_production_candidate_accept(id)
+> <CreateProductionCandidateAcceptResponse> create_production_candidate_accept(id, create_production_candidate_accept_request)
 
 Accept a graduated design's production terms (edition size, cost, holder access).
 
@@ -45,10 +45,11 @@ end
 
 api_instance = Crossly::ProductionApi.new
 id = 'id_example' # String | 
+create_production_candidate_accept_request = Crossly::CreateProductionCandidateAcceptRequest.new({edition_size: 3.56, retail_price_cents: 3.56}) # CreateProductionCandidateAcceptRequest | 
 
 begin
   # Accept a graduated design's production terms (edition size, cost, holder access).
-  result = api_instance.create_production_candidate_accept(id)
+  result = api_instance.create_production_candidate_accept(id, create_production_candidate_accept_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_candidate_accept: #{e}"
@@ -59,12 +60,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionCandidateAcceptResponse>, Integer, Hash)> create_production_candidate_accept_with_http_info(id)
+> <Array(<CreateProductionCandidateAcceptResponse>, Integer, Hash)> create_production_candidate_accept_with_http_info(id, create_production_candidate_accept_request)
 
 ```ruby
 begin
   # Accept a graduated design's production terms (edition size, cost, holder access).
-  data, status_code, headers = api_instance.create_production_candidate_accept_with_http_info(id)
+  data, status_code, headers = api_instance.create_production_candidate_accept_with_http_info(id, create_production_candidate_accept_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionCandidateAcceptResponse>
@@ -78,6 +79,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_production_candidate_accept_request** | **CreateProductionCandidateAcceptRequest** |  |  |
 
 ### Return type
 
@@ -89,7 +91,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -162,7 +164,7 @@ end
 
 ## create_production_candidate_vote
 
-> <CreateProductionCandidateVoteResponse> create_production_candidate_vote(id)
+> <CreateProductionCandidateVoteResponse> create_production_candidate_vote(id, opts)
 
 Back (support: true) or un-back a design on the production ballot. One vote per person per design; voters must have bought on Crossly.
 
@@ -179,10 +181,13 @@ end
 
 api_instance = Crossly::ProductionApi.new
 id = 'id_example' # String | 
+opts = {
+  create_production_candidate_vote_request: Crossly::CreateProductionCandidateVoteRequest.new({support: false}) # CreateProductionCandidateVoteRequest | 
+}
 
 begin
   # Back (support: true) or un-back a design on the production ballot. One vote per person per design; voters must have bought on Crossly.
-  result = api_instance.create_production_candidate_vote(id)
+  result = api_instance.create_production_candidate_vote(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_candidate_vote: #{e}"
@@ -193,12 +198,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionCandidateVoteResponse>, Integer, Hash)> create_production_candidate_vote_with_http_info(id)
+> <Array(<CreateProductionCandidateVoteResponse>, Integer, Hash)> create_production_candidate_vote_with_http_info(id, opts)
 
 ```ruby
 begin
   # Back (support: true) or un-back a design on the production ballot. One vote per person per design; voters must have bought on Crossly.
-  data, status_code, headers = api_instance.create_production_candidate_vote_with_http_info(id)
+  data, status_code, headers = api_instance.create_production_candidate_vote_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionCandidateVoteResponse>
@@ -212,6 +217,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_production_candidate_vote_request** | **CreateProductionCandidateVoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -223,13 +229,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_production_design_brief
 
-> <CreateProductionDesignSpecResponse> create_production_design_brief(cosmetic_id)
+> <CreateProductionDesignSpecResponse> create_production_design_brief(cosmetic_id, create_production_design_brief_request)
 
 Set a design's production brief (materials, finish, box, reference images).
 
@@ -246,10 +252,11 @@ end
 
 api_instance = Crossly::ProductionApi.new
 cosmetic_id = 'cosmetic_id_example' # String | 
+create_production_design_brief_request = Crossly::CreateProductionDesignBriefRequest.new # CreateProductionDesignBriefRequest | 
 
 begin
   # Set a design's production brief (materials, finish, box, reference images).
-  result = api_instance.create_production_design_brief(cosmetic_id)
+  result = api_instance.create_production_design_brief(cosmetic_id, create_production_design_brief_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_design_brief: #{e}"
@@ -260,12 +267,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionDesignSpecResponse>, Integer, Hash)> create_production_design_brief_with_http_info(cosmetic_id)
+> <Array(<CreateProductionDesignSpecResponse>, Integer, Hash)> create_production_design_brief_with_http_info(cosmetic_id, create_production_design_brief_request)
 
 ```ruby
 begin
   # Set a design's production brief (materials, finish, box, reference images).
-  data, status_code, headers = api_instance.create_production_design_brief_with_http_info(cosmetic_id)
+  data, status_code, headers = api_instance.create_production_design_brief_with_http_info(cosmetic_id, create_production_design_brief_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionDesignSpecResponse>
@@ -279,6 +286,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **cosmetic_id** | **String** |  |  |
+| **create_production_design_brief_request** | **CreateProductionDesignBriefRequest** |  |  |
 
 ### Return type
 
@@ -290,13 +298,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_production_design_consent
 
-> <CreateProductionDesignSpecResponse> create_production_design_consent(cosmetic_id)
+> <CreateProductionDesignSpecResponse> create_production_design_consent(cosmetic_id, create_production_design_consent_request)
 
 Opt a design in or out of physical production.
 
@@ -313,10 +321,11 @@ end
 
 api_instance = Crossly::ProductionApi.new
 cosmetic_id = 'cosmetic_id_example' # String | 
+create_production_design_consent_request = Crossly::CreateProductionDesignConsentRequest.new({opt_out: false}) # CreateProductionDesignConsentRequest | 
 
 begin
   # Opt a design in or out of physical production.
-  result = api_instance.create_production_design_consent(cosmetic_id)
+  result = api_instance.create_production_design_consent(cosmetic_id, create_production_design_consent_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_design_consent: #{e}"
@@ -327,12 +336,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionDesignSpecResponse>, Integer, Hash)> create_production_design_consent_with_http_info(cosmetic_id)
+> <Array(<CreateProductionDesignSpecResponse>, Integer, Hash)> create_production_design_consent_with_http_info(cosmetic_id, create_production_design_consent_request)
 
 ```ruby
 begin
   # Opt a design in or out of physical production.
-  data, status_code, headers = api_instance.create_production_design_consent_with_http_info(cosmetic_id)
+  data, status_code, headers = api_instance.create_production_design_consent_with_http_info(cosmetic_id, create_production_design_consent_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionDesignSpecResponse>
@@ -346,6 +355,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **cosmetic_id** | **String** |  |  |
+| **create_production_design_consent_request** | **CreateProductionDesignConsentRequest** |  |  |
 
 ### Return type
 
@@ -357,13 +367,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_production_design_spec
 
-> <CreateProductionDesignSpecResponse> create_production_design_spec(cosmetic_id)
+> <CreateProductionDesignSpecResponse> create_production_design_spec(cosmetic_id, create_production_design_spec_request)
 
 Set a design's production spec (category, materials, complexity, packaging).
 
@@ -380,10 +390,11 @@ end
 
 api_instance = Crossly::ProductionApi.new
 cosmetic_id = 'cosmetic_id_example' # String | 
+create_production_design_spec_request = Crossly::CreateProductionDesignSpecRequest.new({category: 'other', material_tier: 'standard', complexity: 'simple', packaging: 'box'}) # CreateProductionDesignSpecRequest | 
 
 begin
   # Set a design's production spec (category, materials, complexity, packaging).
-  result = api_instance.create_production_design_spec(cosmetic_id)
+  result = api_instance.create_production_design_spec(cosmetic_id, create_production_design_spec_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_design_spec: #{e}"
@@ -394,12 +405,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionDesignSpecResponse>, Integer, Hash)> create_production_design_spec_with_http_info(cosmetic_id)
+> <Array(<CreateProductionDesignSpecResponse>, Integer, Hash)> create_production_design_spec_with_http_info(cosmetic_id, create_production_design_spec_request)
 
 ```ruby
 begin
   # Set a design's production spec (category, materials, complexity, packaging).
-  data, status_code, headers = api_instance.create_production_design_spec_with_http_info(cosmetic_id)
+  data, status_code, headers = api_instance.create_production_design_spec_with_http_info(cosmetic_id, create_production_design_spec_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionDesignSpecResponse>
@@ -413,6 +424,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **cosmetic_id** | **String** |  |  |
+| **create_production_design_spec_request** | **CreateProductionDesignSpecRequest** |  |  |
 
 ### Return type
 
@@ -424,13 +436,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_production_estimate
 
-> <CreateProductionEstimateResponse> create_production_estimate
+> <CreateProductionEstimateResponse> create_production_estimate(create_production_estimate_request)
 
 Estimate a run's landed cost from a spec + edition size (overshoots for safety).
 
@@ -446,10 +458,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ProductionApi.new
+create_production_estimate_request = Crossly::CreateProductionEstimateRequest.new({spec: Crossly::CreateProductionDesignSpecRequest.new({category: 'other', material_tier: 'standard', complexity: 'simple', packaging: 'box'}), edition_size: 3.56}) # CreateProductionEstimateRequest | 
 
 begin
   # Estimate a run's landed cost from a spec + edition size (overshoots for safety).
-  result = api_instance.create_production_estimate
+  result = api_instance.create_production_estimate(create_production_estimate_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_estimate: #{e}"
@@ -460,12 +473,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionEstimateResponse>, Integer, Hash)> create_production_estimate_with_http_info
+> <Array(<CreateProductionEstimateResponse>, Integer, Hash)> create_production_estimate_with_http_info(create_production_estimate_request)
 
 ```ruby
 begin
   # Estimate a run's landed cost from a spec + edition size (overshoots for safety).
-  data, status_code, headers = api_instance.create_production_estimate_with_http_info
+  data, status_code, headers = api_instance.create_production_estimate_with_http_info(create_production_estimate_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionEstimateResponse>
@@ -476,7 +489,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_production_estimate_request** | **CreateProductionEstimateRequest** |  |  |
 
 ### Return type
 
@@ -488,13 +503,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_production_run_purchase
 
-> <CreateProductionRunPurchaseResponse> create_production_run_purchase(id)
+> <CreateProductionRunPurchaseResponse> create_production_run_purchase(id, opts)
 
 Buy a limited-edition unit of a physical run (holder pricing applies).
 
@@ -511,10 +526,13 @@ end
 
 api_instance = Crossly::ProductionApi.new
 id = 'id_example' # String | 
+opts = {
+  create_production_run_purchase_request: Crossly::CreateProductionRunPurchaseRequest.new # CreateProductionRunPurchaseRequest | 
+}
 
 begin
   # Buy a limited-edition unit of a physical run (holder pricing applies).
-  result = api_instance.create_production_run_purchase(id)
+  result = api_instance.create_production_run_purchase(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->create_production_run_purchase: #{e}"
@@ -525,12 +543,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateProductionRunPurchaseResponse>, Integer, Hash)> create_production_run_purchase_with_http_info(id)
+> <Array(<CreateProductionRunPurchaseResponse>, Integer, Hash)> create_production_run_purchase_with_http_info(id, opts)
 
 ```ruby
 begin
   # Buy a limited-edition unit of a physical run (holder pricing applies).
-  data, status_code, headers = api_instance.create_production_run_purchase_with_http_info(id)
+  data, status_code, headers = api_instance.create_production_run_purchase_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateProductionRunPurchaseResponse>
@@ -544,6 +562,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_production_run_purchase_request** | **CreateProductionRunPurchaseRequest** |  | [optional] |
 
 ### Return type
 
@@ -555,7 +574,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1282,7 +1301,7 @@ end
 
 ## update_production_po
 
-> <UpdateProductionPoResponse> update_production_po(po_id)
+> <UpdateProductionPoResponse> update_production_po(po_id, update_production_po_request)
 
 Ops: update a PO (supplier, freight, actuals, QC, status). Admin PAT only.
 
@@ -1299,10 +1318,11 @@ end
 
 api_instance = Crossly::ProductionApi.new
 po_id = 'po_id_example' # String | 
+update_production_po_request = Crossly::UpdateProductionPoRequest.new # UpdateProductionPoRequest | 
 
 begin
   # Ops: update a PO (supplier, freight, actuals, QC, status). Admin PAT only.
-  result = api_instance.update_production_po(po_id)
+  result = api_instance.update_production_po(po_id, update_production_po_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ProductionApi->update_production_po: #{e}"
@@ -1313,12 +1333,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateProductionPoResponse>, Integer, Hash)> update_production_po_with_http_info(po_id)
+> <Array(<UpdateProductionPoResponse>, Integer, Hash)> update_production_po_with_http_info(po_id, update_production_po_request)
 
 ```ruby
 begin
   # Ops: update a PO (supplier, freight, actuals, QC, status). Admin PAT only.
-  data, status_code, headers = api_instance.update_production_po_with_http_info(po_id)
+  data, status_code, headers = api_instance.update_production_po_with_http_info(po_id, update_production_po_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateProductionPoResponse>
@@ -1332,6 +1352,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **po_id** | **String** |  |  |
+| **update_production_po_request** | **UpdateProductionPoRequest** |  |  |
 
 ### Return type
 
@@ -1343,6 +1364,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

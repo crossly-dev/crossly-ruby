@@ -15,13 +15,15 @@ require 'time'
 
 module Crossly
   class GetVaultMarketAlertPrefResponseMatrix
+    attr_accessor :fill
+
     attr_accessor :account
 
     attr_accessor :price
 
-    attr_accessor :fill
-
     attr_accessor :auction
+
+    attr_accessor :follow
 
     attr_accessor :prediction
 
@@ -39,8 +41,6 @@ module Crossly
 
     attr_accessor :set_goal
 
-    attr_accessor :follow
-
     attr_accessor :share_offering
 
     attr_accessor :share_vote
@@ -52,10 +52,11 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'fill' => :'fill',
         :'account' => :'account',
         :'price' => :'price',
-        :'fill' => :'fill',
         :'auction' => :'auction',
+        :'follow' => :'follow',
         :'prediction' => :'prediction',
         :'option_expiry' => :'option_expiry',
         :'margin_call' => :'margin_call',
@@ -64,7 +65,6 @@ module Crossly
         :'market_open' => :'market_open',
         :'receipt_token' => :'receipt_token',
         :'set_goal' => :'set_goal',
-        :'follow' => :'follow',
         :'share_offering' => :'share_offering',
         :'share_vote' => :'share_vote',
         :'option_settlement' => :'option_settlement',
@@ -80,23 +80,23 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'account' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'price' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'fill' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'auction' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'prediction' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'option_expiry' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'margin_call' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'adl' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'p2p_loan' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'market_open' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'receipt_token' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'set_goal' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'follow' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'share_offering' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'share_vote' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'option_settlement' => :'GetVaultMarketAlertPrefResponseMatrixAccount',
-        :'prediction_odds' => :'GetVaultMarketAlertPrefResponseMatrixAccount'
+        :'fill' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'account' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'price' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'auction' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'follow' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'prediction' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'option_expiry' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'margin_call' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'adl' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'p2p_loan' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'market_open' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'receipt_token' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'set_goal' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'share_offering' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'share_vote' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'option_settlement' => :'GetVaultMarketAlertPrefResponseMatrixFill',
+        :'prediction_odds' => :'GetVaultMarketAlertPrefResponseMatrixFill'
       }
     end
 
@@ -121,6 +121,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'fill')
+        self.fill = attributes[:'fill']
+      end
+
       if attributes.key?(:'account')
         self.account = attributes[:'account']
       end
@@ -129,12 +133,12 @@ module Crossly
         self.price = attributes[:'price']
       end
 
-      if attributes.key?(:'fill')
-        self.fill = attributes[:'fill']
-      end
-
       if attributes.key?(:'auction')
         self.auction = attributes[:'auction']
+      end
+
+      if attributes.key?(:'follow')
+        self.follow = attributes[:'follow']
       end
 
       if attributes.key?(:'prediction')
@@ -169,10 +173,6 @@ module Crossly
         self.set_goal = attributes[:'set_goal']
       end
 
-      if attributes.key?(:'follow')
-        self.follow = attributes[:'follow']
-      end
-
       if attributes.key?(:'share_offering')
         self.share_offering = attributes[:'share_offering']
       end
@@ -194,6 +194,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @fill.nil?
+        invalid_properties.push('invalid value for "fill", fill cannot be nil.')
+      end
+
       if @account.nil?
         invalid_properties.push('invalid value for "account", account cannot be nil.')
       end
@@ -202,12 +206,12 @@ module Crossly
         invalid_properties.push('invalid value for "price", price cannot be nil.')
       end
 
-      if @fill.nil?
-        invalid_properties.push('invalid value for "fill", fill cannot be nil.')
-      end
-
       if @auction.nil?
         invalid_properties.push('invalid value for "auction", auction cannot be nil.')
+      end
+
+      if @follow.nil?
+        invalid_properties.push('invalid value for "follow", follow cannot be nil.')
       end
 
       if @prediction.nil?
@@ -242,10 +246,6 @@ module Crossly
         invalid_properties.push('invalid value for "set_goal", set_goal cannot be nil.')
       end
 
-      if @follow.nil?
-        invalid_properties.push('invalid value for "follow", follow cannot be nil.')
-      end
-
       if @share_offering.nil?
         invalid_properties.push('invalid value for "share_offering", share_offering cannot be nil.')
       end
@@ -268,10 +268,11 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @fill.nil?
       return false if @account.nil?
       return false if @price.nil?
-      return false if @fill.nil?
       return false if @auction.nil?
+      return false if @follow.nil?
       return false if @prediction.nil?
       return false if @option_expiry.nil?
       return false if @margin_call.nil?
@@ -280,7 +281,6 @@ module Crossly
       return false if @market_open.nil?
       return false if @receipt_token.nil?
       return false if @set_goal.nil?
-      return false if @follow.nil?
       return false if @share_offering.nil?
       return false if @share_vote.nil?
       return false if @option_settlement.nil?
@@ -293,10 +293,11 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          fill == o.fill &&
           account == o.account &&
           price == o.price &&
-          fill == o.fill &&
           auction == o.auction &&
+          follow == o.follow &&
           prediction == o.prediction &&
           option_expiry == o.option_expiry &&
           margin_call == o.margin_call &&
@@ -305,7 +306,6 @@ module Crossly
           market_open == o.market_open &&
           receipt_token == o.receipt_token &&
           set_goal == o.set_goal &&
-          follow == o.follow &&
           share_offering == o.share_offering &&
           share_vote == o.share_vote &&
           option_settlement == o.option_settlement &&
@@ -321,7 +321,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [account, price, fill, auction, prediction, option_expiry, margin_call, adl, p2p_loan, market_open, receipt_token, set_goal, follow, share_offering, share_vote, option_settlement, prediction_odds].hash
+      [fill, account, price, auction, follow, prediction, option_expiry, margin_call, adl, p2p_loan, market_open, receipt_token, set_goal, share_offering, share_vote, option_settlement, prediction_odds].hash
     end
 
     # Builds the object from hash

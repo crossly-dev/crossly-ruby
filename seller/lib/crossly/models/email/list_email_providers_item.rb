@@ -37,7 +37,15 @@ module Crossly
 
     attr_accessor :last_test_ok
 
+    # A sanitized line (spec SE4), never the provider's own text.
     attr_accessor :last_test_error
+
+    attr_accessor :storefront_id
+
+    attr_accessor :last_used_at
+
+    # What it sends (migration 1483; store-send.ts EMAIL_SENDER_USES): lookbooks, and on request invoices, receipts.
+    attr_accessor :uses
 
     attr_accessor :created_at
 
@@ -56,6 +64,9 @@ module Crossly
         :'last_tested_at' => :'lastTestedAt',
         :'last_test_ok' => :'lastTestOk',
         :'last_test_error' => :'lastTestError',
+        :'storefront_id' => :'storefrontId',
+        :'last_used_at' => :'lastUsedAt',
+        :'uses' => :'uses',
         :'created_at' => :'createdAt'
       }
     end
@@ -80,6 +91,9 @@ module Crossly
         :'last_tested_at' => :'Time',
         :'last_test_ok' => :'Boolean',
         :'last_test_error' => :'String',
+        :'storefront_id' => :'String',
+        :'last_used_at' => :'Time',
+        :'uses' => :'Array<String>',
         :'created_at' => :'Time'
       }
     end
@@ -92,6 +106,8 @@ module Crossly
         :'last_tested_at',
         :'last_test_ok',
         :'last_test_error',
+        :'storefront_id',
+        :'last_used_at',
       ])
     end
 
@@ -160,6 +176,20 @@ module Crossly
         self.last_test_error = attributes[:'last_test_error']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'last_used_at')
+        self.last_used_at = attributes[:'last_used_at']
+      end
+
+      if attributes.key?(:'uses')
+        if (value = attributes[:'uses']).is_a?(Array)
+          self.uses = value
+        end
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -197,6 +227,10 @@ module Crossly
         invalid_properties.push('invalid value for "is_default", is_default cannot be nil.')
       end
 
+      if @uses.nil?
+        invalid_properties.push('invalid value for "uses", uses cannot be nil.')
+      end
+
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
@@ -214,6 +248,7 @@ module Crossly
       return false if @from_email.nil?
       return false if @config_preview.nil?
       return false if @is_default.nil?
+      return false if @uses.nil?
       return false if @created_at.nil?
       true
     end
@@ -235,6 +270,9 @@ module Crossly
           last_tested_at == o.last_tested_at &&
           last_test_ok == o.last_test_ok &&
           last_test_error == o.last_test_error &&
+          storefront_id == o.storefront_id &&
+          last_used_at == o.last_used_at &&
+          uses == o.uses &&
           created_at == o.created_at
     end
 
@@ -247,7 +285,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, provider, provider_label, label, from_email, from_name, reply_to, config_preview, is_default, last_tested_at, last_test_ok, last_test_error, created_at].hash
+      [id, provider, provider_label, label, from_email, from_name, reply_to, config_preview, is_default, last_tested_at, last_test_ok, last_test_error, storefront_id, last_used_at, uses, created_at].hash
     end
 
     # Builds the object from hash

@@ -23,6 +23,12 @@ module Crossly
 
     attr_accessor :platform
 
+    attr_accessor :currency
+
+    attr_accessor :storefront_id
+
+    attr_accessor :variant_id
+
     attr_accessor :net_profit
 
     attr_accessor :shipping_cost
@@ -31,13 +37,9 @@ module Crossly
 
     attr_accessor :inventory_item_id
 
-    attr_accessor :currency
-
     attr_accessor :listing_id
 
     attr_accessor :platform_listing_id
-
-    attr_accessor :storefront_id
 
     attr_accessor :platform_order_id
 
@@ -69,8 +71,6 @@ module Crossly
 
     attr_accessor :variant_sku
 
-    attr_accessor :variant_id
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -78,14 +78,15 @@ module Crossly
         :'id' => :'id',
         :'user_id' => :'userId',
         :'platform' => :'platform',
+        :'currency' => :'currency',
+        :'storefront_id' => :'storefrontId',
+        :'variant_id' => :'variantId',
         :'net_profit' => :'netProfit',
         :'shipping_cost' => :'shippingCost',
         :'shipping_charged' => :'shippingCharged',
         :'inventory_item_id' => :'inventoryItemId',
-        :'currency' => :'currency',
         :'listing_id' => :'listingId',
         :'platform_listing_id' => :'platformListingId',
-        :'storefront_id' => :'storefrontId',
         :'platform_order_id' => :'platformOrderId',
         :'cost_of_goods' => :'costOfGoods',
         :'cancelled_at' => :'cancelledAt',
@@ -100,8 +101,7 @@ module Crossly
         :'documents' => :'documents',
         :'refunded_amount' => :'refundedAmount',
         :'details_pending' => :'detailsPending',
-        :'variant_sku' => :'variantSku',
-        :'variant_id' => :'variantId'
+        :'variant_sku' => :'variantSku'
       }
     end
 
@@ -117,14 +117,15 @@ module Crossly
         :'id' => :'String',
         :'user_id' => :'String',
         :'platform' => :'String',
+        :'currency' => :'String',
+        :'storefront_id' => :'String',
+        :'variant_id' => :'String',
         :'net_profit' => :'String',
         :'shipping_cost' => :'String',
         :'shipping_charged' => :'String',
         :'inventory_item_id' => :'String',
-        :'currency' => :'String',
         :'listing_id' => :'String',
         :'platform_listing_id' => :'String',
-        :'storefront_id' => :'String',
         :'platform_order_id' => :'String',
         :'cost_of_goods' => :'String',
         :'cancelled_at' => :'Time',
@@ -139,8 +140,7 @@ module Crossly
         :'documents' => :'Array<ListSalesItemDocuments>',
         :'refunded_amount' => :'String',
         :'details_pending' => :'Boolean',
-        :'variant_sku' => :'String',
-        :'variant_id' => :'String'
+        :'variant_sku' => :'String'
       }
     end
 
@@ -148,14 +148,15 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'app_share',
+        :'currency',
+        :'storefront_id',
+        :'variant_id',
         :'net_profit',
         :'shipping_cost',
         :'shipping_charged',
         :'inventory_item_id',
-        :'currency',
         :'listing_id',
         :'platform_listing_id',
-        :'storefront_id',
         :'platform_order_id',
         :'cost_of_goods',
         :'cancelled_at',
@@ -167,8 +168,7 @@ module Crossly
         :'fee_source',
         :'documents',
         :'refunded_amount',
-        :'variant_sku',
-        :'variant_id'
+        :'variant_sku'
       ])
     end
 
@@ -203,6 +203,18 @@ module Crossly
         self.platform = attributes[:'platform']
       end
 
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'variant_id')
+        self.variant_id = attributes[:'variant_id']
+      end
+
       if attributes.key?(:'net_profit')
         self.net_profit = attributes[:'net_profit']
       end
@@ -219,20 +231,12 @@ module Crossly
         self.inventory_item_id = attributes[:'inventory_item_id']
       end
 
-      if attributes.key?(:'currency')
-        self.currency = attributes[:'currency']
-      end
-
       if attributes.key?(:'listing_id')
         self.listing_id = attributes[:'listing_id']
       end
 
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
-      end
-
-      if attributes.key?(:'storefront_id')
-        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'platform_order_id')
@@ -296,10 +300,6 @@ module Crossly
       if attributes.key?(:'variant_sku')
         self.variant_sku = attributes[:'variant_sku']
       end
-
-      if attributes.key?(:'variant_id')
-        self.variant_id = attributes[:'variant_id']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -354,14 +354,15 @@ module Crossly
           id == o.id &&
           user_id == o.user_id &&
           platform == o.platform &&
+          currency == o.currency &&
+          storefront_id == o.storefront_id &&
+          variant_id == o.variant_id &&
           net_profit == o.net_profit &&
           shipping_cost == o.shipping_cost &&
           shipping_charged == o.shipping_charged &&
           inventory_item_id == o.inventory_item_id &&
-          currency == o.currency &&
           listing_id == o.listing_id &&
           platform_listing_id == o.platform_listing_id &&
-          storefront_id == o.storefront_id &&
           platform_order_id == o.platform_order_id &&
           cost_of_goods == o.cost_of_goods &&
           cancelled_at == o.cancelled_at &&
@@ -376,8 +377,7 @@ module Crossly
           documents == o.documents &&
           refunded_amount == o.refunded_amount &&
           details_pending == o.details_pending &&
-          variant_sku == o.variant_sku &&
-          variant_id == o.variant_id
+          variant_sku == o.variant_sku
     end
 
     # @see the `==` method
@@ -389,7 +389,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [app_share, id, user_id, platform, net_profit, shipping_cost, shipping_charged, inventory_item_id, currency, listing_id, platform_listing_id, storefront_id, platform_order_id, cost_of_goods, cancelled_at, deleted_at, order_id, sale_price, platform_fee, tax_collected, fee_source, detected_by, detected_at, documents, refunded_amount, details_pending, variant_sku, variant_id].hash
+      [app_share, id, user_id, platform, currency, storefront_id, variant_id, net_profit, shipping_cost, shipping_charged, inventory_item_id, listing_id, platform_listing_id, platform_order_id, cost_of_goods, cancelled_at, deleted_at, order_id, sale_price, platform_fee, tax_collected, fee_source, detected_by, detected_at, documents, refunded_amount, details_pending, variant_sku].hash
     end
 
     # Builds the object from hash

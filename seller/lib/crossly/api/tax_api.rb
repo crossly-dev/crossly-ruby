@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a mileage entry.
+    # @param create_mileage_request [CreateMileageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateMileageResponse]
-    def create_mileage(opts = {})
-      data, _status_code, _headers = create_mileage_with_http_info(opts)
+    def create_mileage(create_mileage_request, opts = {})
+      data, _status_code, _headers = create_mileage_with_http_info(create_mileage_request, opts)
       data
     end
 
     # Create a mileage entry.
+    # @param create_mileage_request [CreateMileageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateMileageResponse, Integer, Hash)>] CreateMileageResponse data, response status code and response headers
-    def create_mileage_with_http_info(opts = {})
+    def create_mileage_with_http_info(create_mileage_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TaxApi.create_mileage ...'
+      end
+      # verify the required parameter 'create_mileage_request' is set
+      if @api_client.config.client_side_validation && create_mileage_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_mileage_request' when calling TaxApi.create_mileage"
       end
       # resource path
       local_var_path = '/v1/mileage'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_mileage_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMileageResponse'
@@ -135,61 +146,6 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your tax profile: time zone for books boundaries, filing status, state, set-aside and rate assumptions, accounting method, and business name, EIN and address.
-    # @param [Hash] opts the optional parameters
-    # @return [GetBookTaxProfileResponse]
-    def get_book_tax_profile(opts = {})
-      data, _status_code, _headers = get_book_tax_profile_with_http_info(opts)
-      data
-    end
-
-    # Your tax profile: time zone for books boundaries, filing status, state, set-aside and rate assumptions, accounting method, and business name, EIN and address.
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(GetBookTaxProfileResponse, Integer, Hash)>] GetBookTaxProfileResponse data, response status code and response headers
-    def get_book_tax_profile_with_http_info(opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: TaxApi.get_book_tax_profile ...'
-      end
-      # resource path
-      local_var_path = '/v1/books/tax-profile'
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'GetBookTaxProfileResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
-
-      new_options = opts.merge(
-        :operation => :"TaxApi.get_book_tax_profile",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: TaxApi#get_book_tax_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # Annual mileage totals + IRS deduction. Each trip is priced at the IRS rate on its own date (2026 has two rates, listed in `rates`); `ratePerMile` is the January rate.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :year Calendar tax year. Default the current year.
@@ -244,67 +200,6 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: TaxApi#get_mileage_summary\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
-    # Who collected sales tax on one Crossly marketplace order, where, and the seller notice.
-    # @param id [String] 
-    # @param [Hash] opts the optional parameters
-    # @return [GetOrderSalesTaxResponse]
-    def get_order_sales_tax(id, opts = {})
-      data, _status_code, _headers = get_order_sales_tax_with_http_info(id, opts)
-      data
-    end
-
-    # Who collected sales tax on one Crossly marketplace order, where, and the seller notice.
-    # @param id [String] 
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(GetOrderSalesTaxResponse, Integer, Hash)>] GetOrderSalesTaxResponse data, response status code and response headers
-    def get_order_sales_tax_with_http_info(id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: TaxApi.get_order_sales_tax ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling TaxApi.get_order_sales_tax"
-      end
-      # resource path
-      local_var_path = '/v1/orders/{id}/sales-tax'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'GetOrderSalesTaxResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
-
-      new_options = opts.merge(
-        :operation => :"TaxApi.get_order_sales_tax",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: TaxApi#get_order_sales_tax\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -372,6 +267,7 @@ module Crossly
 
     # Schedule C JSON for a tax year (default the current year), from the same P&L as GET /v1/books: line 1 gross receipts before refunds, line 2 refunds, COGS in Part III, completed sales only. GET /v1/books has the full P&L by period.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :year 
     # @return [GetTaxScheduleCResponse]
     def get_tax_schedule_c(opts = {})
       data, _status_code, _headers = get_tax_schedule_c_with_http_info(opts)
@@ -380,6 +276,7 @@ module Crossly
 
     # Schedule C JSON for a tax year (default the current year), from the same P&amp;L as GET /v1/books: line 1 gross receipts before refunds, line 2 refunds, COGS in Part III, completed sales only. GET /v1/books has the full P&amp;L by period.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :year 
     # @return [Array<(GetTaxScheduleCResponse, Integer, Hash)>] GetTaxScheduleCResponse data, response status code and response headers
     def get_tax_schedule_c_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -390,6 +287,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'year'] = opts[:'year'] if !opts[:'year'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -637,81 +535,32 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Update your tax profile: time zone, filing status, state, set-aside and rate assumptions (basis points), accounting method, business name, EIN and address. Fields left out are unchanged.
-    # @param [Hash] opts the optional parameters
-    # @return [GetBookTaxProfileResponse]
-    def update_book_tax_profile(opts = {})
-      data, _status_code, _headers = update_book_tax_profile_with_http_info(opts)
-      data
-    end
-
-    # Update your tax profile: time zone, filing status, state, set-aside and rate assumptions (basis points), accounting method, business name, EIN and address. Fields left out are unchanged.
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(GetBookTaxProfileResponse, Integer, Hash)>] GetBookTaxProfileResponse data, response status code and response headers
-    def update_book_tax_profile_with_http_info(opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: TaxApi.update_book_tax_profile ...'
-      end
-      # resource path
-      local_var_path = '/v1/books/tax-profile'
-
-      # query parameters
-      query_params = opts[:query_params] || {}
-
-      # header parameters
-      header_params = opts[:header_params] || {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = opts[:form_params] || {}
-
-      # http body (model)
-      post_body = opts[:debug_body]
-
-      # return_type
-      return_type = opts[:debug_return_type] || 'GetBookTaxProfileResponse'
-
-      # auth_names
-      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
-
-      new_options = opts.merge(
-        :operation => :"TaxApi.update_book_tax_profile",
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => return_type
-      )
-
-      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: TaxApi#update_book_tax_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # Update a mileage entry.
     # @param id [String] 
+    # @param update_mileage_request [UpdateMileageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateMileageResponse]
-    def update_mileage(id, opts = {})
-      data, _status_code, _headers = update_mileage_with_http_info(id, opts)
+    def update_mileage(id, update_mileage_request, opts = {})
+      data, _status_code, _headers = update_mileage_with_http_info(id, update_mileage_request, opts)
       data
     end
 
     # Update a mileage entry.
     # @param id [String] 
+    # @param update_mileage_request [UpdateMileageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateMileageResponse, Integer, Hash)>] CreateMileageResponse data, response status code and response headers
-    def update_mileage_with_http_info(id, opts = {})
+    def update_mileage_with_http_info(id, update_mileage_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TaxApi.update_mileage ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling TaxApi.update_mileage"
+      end
+      # verify the required parameter 'update_mileage_request' is set
+      if @api_client.config.client_side_validation && update_mileage_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_mileage_request' when calling TaxApi.update_mileage"
       end
       # resource path
       local_var_path = '/v1/mileage/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -723,12 +572,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_mileage_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMileageResponse'

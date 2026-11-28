@@ -21,9 +21,13 @@ module Crossly
 
     attr_accessor :active_provider
 
-    attr_accessor :providers
-
     attr_accessor :capabilities
+
+    attr_accessor :actions
+
+    attr_accessor :limited
+
+    attr_accessor :providers
 
     attr_accessor :custom_config
 
@@ -57,8 +61,10 @@ module Crossly
         :'has_key' => :'hasKey',
         :'ai_enabled' => :'aiEnabled',
         :'active_provider' => :'activeProvider',
-        :'providers' => :'providers',
         :'capabilities' => :'capabilities',
+        :'actions' => :'actions',
+        :'limited' => :'limited',
+        :'providers' => :'providers',
         :'custom_config' => :'customConfig',
         :'image' => :'image'
       }
@@ -75,16 +81,20 @@ module Crossly
         :'has_key' => :'Boolean',
         :'ai_enabled' => :'Boolean',
         :'active_provider' => :'String',
+        :'capabilities' => :'GetAiStatusResponseOneOfCapabilities',
+        :'actions' => :'Object',
+        :'limited' => :'Boolean',
         :'providers' => :'Hash<String, Object>',
-        :'capabilities' => :'GetAiStatusResponseCapabilities',
-        :'custom_config' => :'GetAiStatusResponseCustomConfig',
-        :'image' => :'GetAiStatusResponseImage'
+        :'custom_config' => :'CreateAiKeyResponseKeyCustomConfig',
+        :'image' => :'GetAiRoutingResponseImage'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'active_provider',
+        :'actions',
         :'custom_config',
       ])
     end
@@ -116,14 +126,22 @@ module Crossly
         self.active_provider = attributes[:'active_provider']
       end
 
+      if attributes.key?(:'capabilities')
+        self.capabilities = attributes[:'capabilities']
+      end
+
+      if attributes.key?(:'actions')
+        self.actions = attributes[:'actions']
+      end
+
+      if attributes.key?(:'limited')
+        self.limited = attributes[:'limited']
+      end
+
       if attributes.key?(:'providers')
         if (value = attributes[:'providers']).is_a?(Hash)
           self.providers = value
         end
-      end
-
-      if attributes.key?(:'capabilities')
-        self.capabilities = attributes[:'capabilities']
       end
 
       if attributes.key?(:'custom_config')
@@ -147,20 +165,8 @@ module Crossly
         invalid_properties.push('invalid value for "ai_enabled", ai_enabled cannot be nil.')
       end
 
-      if @active_provider.nil?
-        invalid_properties.push('invalid value for "active_provider", active_provider cannot be nil.')
-      end
-
-      if @providers.nil?
-        invalid_properties.push('invalid value for "providers", providers cannot be nil.')
-      end
-
       if @capabilities.nil?
         invalid_properties.push('invalid value for "capabilities", capabilities cannot be nil.')
-      end
-
-      if @image.nil?
-        invalid_properties.push('invalid value for "image", image cannot be nil.')
       end
 
       invalid_properties
@@ -171,12 +177,9 @@ module Crossly
     def valid?
       return false if @has_key.nil?
       return false if @ai_enabled.nil?
-      return false if @active_provider.nil?
       active_provider_validator = EnumAttributeValidator.new('String', ["custom", "openai", "anthropic", "google", "groq", "openrouter", "xai", "together"])
       return false unless active_provider_validator.valid?(@active_provider)
-      return false if @providers.nil?
       return false if @capabilities.nil?
-      return false if @image.nil?
       true
     end
 
@@ -198,8 +201,10 @@ module Crossly
           has_key == o.has_key &&
           ai_enabled == o.ai_enabled &&
           active_provider == o.active_provider &&
-          providers == o.providers &&
           capabilities == o.capabilities &&
+          actions == o.actions &&
+          limited == o.limited &&
+          providers == o.providers &&
           custom_config == o.custom_config &&
           image == o.image
     end
@@ -213,7 +218,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [has_key, ai_enabled, active_provider, providers, capabilities, custom_config, image].hash
+      [has_key, ai_enabled, active_provider, capabilities, actions, limited, providers, custom_config, image].hash
     end
 
     # Builds the object from hash

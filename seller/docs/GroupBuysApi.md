@@ -17,7 +17,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_group_buy
 
-> <CreateBreakResponse> create_group_buy
+> <CreateBreakResponse> create_group_buy(create_group_buy_request)
 
 Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
 
@@ -33,10 +33,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::GroupBuysApi.new
+create_group_buy_request = Crossly::CreateGroupBuyRequest.new({listing_slug: 'listing_slug_example', tiers: [Crossly::CreateGroupBuyRequestTiers.new({min_buyers: 3.56, price_cents: 3.56})], min_buyers: 3.56, days: 3.56}) # CreateGroupBuyRequest | 
 
 begin
   # Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
-  result = api_instance.create_group_buy
+  result = api_instance.create_group_buy(create_group_buy_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GroupBuysApi->create_group_buy: #{e}"
@@ -47,12 +48,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBreakResponse>, Integer, Hash)> create_group_buy_with_http_info
+> <Array(<CreateBreakResponse>, Integer, Hash)> create_group_buy_with_http_info(create_group_buy_request)
 
 ```ruby
 begin
   # Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
-  data, status_code, headers = api_instance.create_group_buy_with_http_info
+  data, status_code, headers = api_instance.create_group_buy_with_http_info(create_group_buy_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBreakResponse>
@@ -63,7 +64,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_group_buy_request** | **CreateGroupBuyRequest** |  |  |
 
 ### Return type
 
@@ -75,7 +78,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -215,7 +218,7 @@ end
 
 ## create_group_buy_extend
 
-> <CreateGroupBuyExtendResponse> create_group_buy_extend(id)
+> <CreateGroupBuyExtendResponse> create_group_buy_extend(id, opts)
 
 Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
 
@@ -232,10 +235,13 @@ end
 
 api_instance = Crossly::GroupBuysApi.new
 id = 'id_example' # String | 
+opts = {
+  create_group_buy_extend_request: Crossly::CreateGroupBuyExtendRequest.new({days: 3.56}) # CreateGroupBuyExtendRequest | 
+}
 
 begin
   # Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
-  result = api_instance.create_group_buy_extend(id)
+  result = api_instance.create_group_buy_extend(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GroupBuysApi->create_group_buy_extend: #{e}"
@@ -246,12 +252,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateGroupBuyExtendResponse>, Integer, Hash)> create_group_buy_extend_with_http_info(id)
+> <Array(<CreateGroupBuyExtendResponse>, Integer, Hash)> create_group_buy_extend_with_http_info(id, opts)
 
 ```ruby
 begin
   # Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
-  data, status_code, headers = api_instance.create_group_buy_extend_with_http_info(id)
+  data, status_code, headers = api_instance.create_group_buy_extend_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateGroupBuyExtendResponse>
@@ -265,6 +271,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_group_buy_extend_request** | **CreateGroupBuyExtendRequest** |  | [optional] |
 
 ### Return type
 
@@ -276,13 +283,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_group_buy_message
 
-> <CreateGroupBuyMessageResponse> create_group_buy_message(id)
+> <CreateGroupBuyMessageResponse> create_group_buy_message(id, opts)
 
 Send a notification to every buyer committed to the group buy.
 
@@ -299,10 +306,13 @@ end
 
 api_instance = Crossly::GroupBuysApi.new
 id = 'id_example' # String | 
+opts = {
+  create_group_buy_message_request: Crossly::CreateGroupBuyMessageRequest.new({title: 'title_example', body: 'body_example'}) # CreateGroupBuyMessageRequest | 
+}
 
 begin
   # Send a notification to every buyer committed to the group buy.
-  result = api_instance.create_group_buy_message(id)
+  result = api_instance.create_group_buy_message(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GroupBuysApi->create_group_buy_message: #{e}"
@@ -313,12 +323,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateGroupBuyMessageResponse>, Integer, Hash)> create_group_buy_message_with_http_info(id)
+> <Array(<CreateGroupBuyMessageResponse>, Integer, Hash)> create_group_buy_message_with_http_info(id, opts)
 
 ```ruby
 begin
   # Send a notification to every buyer committed to the group buy.
-  data, status_code, headers = api_instance.create_group_buy_message_with_http_info(id)
+  data, status_code, headers = api_instance.create_group_buy_message_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateGroupBuyMessageResponse>
@@ -332,6 +342,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_group_buy_message_request** | **CreateGroupBuyMessageRequest** |  | [optional] |
 
 ### Return type
 
@@ -343,7 +354,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -547,7 +558,7 @@ This endpoint does not need any parameter.
 
 ## update_group_buy
 
-> <UpdateGroupBuyResponse> update_group_buy(id)
+> <UpdateGroupBuyResponse> update_group_buy(id, opts)
 
 Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
 
@@ -564,10 +575,13 @@ end
 
 api_instance = Crossly::GroupBuysApi.new
 id = 'id_example' # String | 
+opts = {
+  update_group_buy_request: Crossly::UpdateGroupBuyRequest.new # UpdateGroupBuyRequest | 
+}
 
 begin
   # Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
-  result = api_instance.update_group_buy(id)
+  result = api_instance.update_group_buy(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GroupBuysApi->update_group_buy: #{e}"
@@ -578,12 +592,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> update_group_buy_with_http_info(id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> update_group_buy_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
-  data, status_code, headers = api_instance.update_group_buy_with_http_info(id)
+  data, status_code, headers = api_instance.update_group_buy_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateGroupBuyResponse>
@@ -597,6 +611,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_group_buy_request** | **UpdateGroupBuyRequest** |  | [optional] |
 
 ### Return type
 
@@ -608,6 +623,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

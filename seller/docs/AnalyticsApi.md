@@ -298,7 +298,7 @@ end
 
 ## get_analytic_bookkeeping
 
-> <GetAnalyticBookkeepingResponse> get_analytic_bookkeeping
+> <GetAnalyticBookkeepingResponse> get_analytic_bookkeeping(opts)
 
 Monthly P&L + per-platform breakdown for a calendar year.
 
@@ -314,10 +314,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AnalyticsApi.new
+opts = {
+  year: 8.14 # Float | 
+}
 
 begin
   # Monthly P&L + per-platform breakdown for a calendar year.
-  result = api_instance.get_analytic_bookkeeping
+  result = api_instance.get_analytic_bookkeeping(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AnalyticsApi->get_analytic_bookkeeping: #{e}"
@@ -328,12 +331,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetAnalyticBookkeepingResponse>, Integer, Hash)> get_analytic_bookkeeping_with_http_info
+> <Array(<GetAnalyticBookkeepingResponse>, Integer, Hash)> get_analytic_bookkeeping_with_http_info(opts)
 
 ```ruby
 begin
   # Monthly P&L + per-platform breakdown for a calendar year.
-  data, status_code, headers = api_instance.get_analytic_bookkeeping_with_http_info
+  data, status_code, headers = api_instance.get_analytic_bookkeeping_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetAnalyticBookkeepingResponse>
@@ -344,7 +347,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **year** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -508,7 +513,7 @@ end
 
 ## get_analytic_dashboard
 
-> <GetAnalyticDashboardResponse> get_analytic_dashboard
+> <GetAnalyticDashboardResponse> get_analytic_dashboard(opts)
 
 Composite dashboard: KPIs + breakdowns + recent activity.
 
@@ -524,10 +529,17 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AnalyticsApi.new
+opts = {
+  range: 'custom', # String | 
+  start_date: 'start_date_example', # String | 
+  end_date: 'end_date_example', # String | 
+  labels: 'labels_example', # String | 
+  tz: 'tz_example' # String | 
+}
 
 begin
   # Composite dashboard: KPIs + breakdowns + recent activity.
-  result = api_instance.get_analytic_dashboard
+  result = api_instance.get_analytic_dashboard(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AnalyticsApi->get_analytic_dashboard: #{e}"
@@ -538,12 +550,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetAnalyticDashboardResponse>, Integer, Hash)> get_analytic_dashboard_with_http_info
+> <Array(<GetAnalyticDashboardResponse>, Integer, Hash)> get_analytic_dashboard_with_http_info(opts)
 
 ```ruby
 begin
   # Composite dashboard: KPIs + breakdowns + recent activity.
-  data, status_code, headers = api_instance.get_analytic_dashboard_with_http_info
+  data, status_code, headers = api_instance.get_analytic_dashboard_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetAnalyticDashboardResponse>
@@ -554,7 +566,13 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **range** | **String** |  | [optional] |
+| **start_date** | **String** |  | [optional] |
+| **end_date** | **String** |  | [optional] |
+| **labels** | **String** |  | [optional] |
+| **tz** | **String** |  | [optional] |
 
 ### Return type
 
@@ -803,7 +821,7 @@ end
 
 ## get_analytic_item
 
-> <GetAnalyticItemResponse> get_analytic_item
+> <GetAnalyticItemResponse> get_analytic_item(opts)
 
 Per-item P&L for sold inventory.
 
@@ -819,10 +837,16 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AnalyticsApi.new
+opts = {
+  page: 8.14, # Float | 
+  limit: 8.14, # Float | 
+  sort_by: 'platform', # String | 
+  sort_order: 'asc' # String | 
+}
 
 begin
   # Per-item P&L for sold inventory.
-  result = api_instance.get_analytic_item
+  result = api_instance.get_analytic_item(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AnalyticsApi->get_analytic_item: #{e}"
@@ -833,12 +857,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetAnalyticItemResponse>, Integer, Hash)> get_analytic_item_with_http_info
+> <Array(<GetAnalyticItemResponse>, Integer, Hash)> get_analytic_item_with_http_info(opts)
 
 ```ruby
 begin
   # Per-item P&L for sold inventory.
-  data, status_code, headers = api_instance.get_analytic_item_with_http_info
+  data, status_code, headers = api_instance.get_analytic_item_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetAnalyticItemResponse>
@@ -849,7 +873,12 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **page** | **Float** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **sort_by** | **String** |  | [optional] |
+| **sort_order** | **String** |  | [optional] |
 
 ### Return type
 

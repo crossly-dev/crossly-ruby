@@ -21,15 +21,17 @@ module Crossly
 
     attr_accessor :description
 
-    attr_accessor :category
-
     attr_accessor :slug
+
+    attr_accessor :category
 
     attr_accessor :image_url
 
     attr_accessor :verified
 
     attr_accessor :hidden_at
+
+    attr_accessor :discord
 
     attr_accessor :refreshed_at
 
@@ -50,8 +52,6 @@ module Crossly
     attr_accessor :banner_url
 
     attr_accessor :twitter
-
-    attr_accessor :discord
 
     attr_accessor :deployed_block
 
@@ -81,11 +81,12 @@ module Crossly
         :'symbol' => :'symbol',
         :'name' => :'name',
         :'description' => :'description',
-        :'category' => :'category',
         :'slug' => :'slug',
+        :'category' => :'category',
         :'image_url' => :'imageUrl',
         :'verified' => :'verified',
         :'hidden_at' => :'hiddenAt',
+        :'discord' => :'discord',
         :'refreshed_at' => :'refreshedAt',
         :'external_url' => :'externalUrl',
         :'chain' => :'chain',
@@ -96,7 +97,6 @@ module Crossly
         :'first_seen_at' => :'firstSeenAt',
         :'banner_url' => :'bannerUrl',
         :'twitter' => :'twitter',
-        :'discord' => :'discord',
         :'deployed_block' => :'deployedBlock',
         :'collectors' => :'collectors',
         :'indexed_at' => :'indexedAt',
@@ -122,11 +122,12 @@ module Crossly
         :'symbol' => :'String',
         :'name' => :'String',
         :'description' => :'String',
-        :'category' => :'String',
         :'slug' => :'String',
+        :'category' => :'String',
         :'image_url' => :'String',
         :'verified' => :'Boolean',
         :'hidden_at' => :'Time',
+        :'discord' => :'String',
         :'refreshed_at' => :'Time',
         :'external_url' => :'String',
         :'chain' => :'String',
@@ -137,7 +138,6 @@ module Crossly
         :'first_seen_at' => :'Time',
         :'banner_url' => :'String',
         :'twitter' => :'String',
-        :'discord' => :'String',
         :'deployed_block' => :'Float',
         :'collectors' => :'Float',
         :'indexed_at' => :'Time',
@@ -158,17 +158,17 @@ module Crossly
         :'symbol',
         :'name',
         :'description',
-        :'category',
         :'slug',
+        :'category',
         :'image_url',
         :'hidden_at',
+        :'discord',
         :'external_url',
         :'token_type',
         :'total_supply',
         :'featured_rank',
         :'banner_url',
         :'twitter',
-        :'discord',
         :'deployed_block',
         :'indexed_at',
         :'indexed_count',
@@ -209,12 +209,12 @@ module Crossly
         self.description = attributes[:'description']
       end
 
-      if attributes.key?(:'category')
-        self.category = attributes[:'category']
-      end
-
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
+      end
+
+      if attributes.key?(:'category')
+        self.category = attributes[:'category']
       end
 
       if attributes.key?(:'image_url')
@@ -227,6 +227,10 @@ module Crossly
 
       if attributes.key?(:'hidden_at')
         self.hidden_at = attributes[:'hidden_at']
+      end
+
+      if attributes.key?(:'discord')
+        self.discord = attributes[:'discord']
       end
 
       if attributes.key?(:'refreshed_at')
@@ -267,10 +271,6 @@ module Crossly
 
       if attributes.key?(:'twitter')
         self.twitter = attributes[:'twitter']
-      end
-
-      if attributes.key?(:'discord')
-        self.discord = attributes[:'discord']
       end
 
       if attributes.key?(:'deployed_block')
@@ -369,11 +369,12 @@ module Crossly
           symbol == o.symbol &&
           name == o.name &&
           description == o.description &&
-          category == o.category &&
           slug == o.slug &&
+          category == o.category &&
           image_url == o.image_url &&
           verified == o.verified &&
           hidden_at == o.hidden_at &&
+          discord == o.discord &&
           refreshed_at == o.refreshed_at &&
           external_url == o.external_url &&
           chain == o.chain &&
@@ -384,7 +385,6 @@ module Crossly
           first_seen_at == o.first_seen_at &&
           banner_url == o.banner_url &&
           twitter == o.twitter &&
-          discord == o.discord &&
           deployed_block == o.deployed_block &&
           collectors == o.collectors &&
           indexed_at == o.indexed_at &&
@@ -407,7 +407,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [symbol, name, description, category, slug, image_url, verified, hidden_at, refreshed_at, external_url, chain, contract, token_type, total_supply, featured_rank, first_seen_at, banner_url, twitter, discord, deployed_block, collectors, indexed_at, indexed_count, image_source, banner_source, image_thumb_url, banner_thumb_url, rehost_checked_at, hidden_reason, hidden_category].hash
+      [symbol, name, description, slug, category, image_url, verified, hidden_at, discord, refreshed_at, external_url, chain, contract, token_type, total_supply, featured_rank, first_seen_at, banner_url, twitter, deployed_block, collectors, indexed_at, indexed_count, image_source, banner_source, image_thumb_url, banner_thumb_url, rehost_checked_at, hidden_reason, hidden_category].hash
     end
 
     # Builds the object from hash

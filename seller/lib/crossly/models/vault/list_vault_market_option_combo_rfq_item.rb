@@ -23,8 +23,6 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :strategy
-
     attr_accessor :closed_at
 
     attr_accessor :holder_account_id
@@ -32,6 +30,8 @@ module Crossly
     attr_accessor :side
 
     attr_accessor :series_id
+
+    attr_accessor :strategy
 
     attr_accessor :combo_key
 
@@ -74,11 +74,11 @@ module Crossly
         :'created_at' => :'createdAt',
         :'expires_at' => :'expiresAt',
         :'status' => :'status',
-        :'strategy' => :'strategy',
         :'closed_at' => :'closedAt',
         :'holder_account_id' => :'holderAccountId',
         :'side' => :'side',
         :'series_id' => :'seriesId',
+        :'strategy' => :'strategy',
         :'combo_key' => :'comboKey',
         :'legs' => :'legs',
         :'qty_milli' => :'qtyMilli',
@@ -100,11 +100,11 @@ module Crossly
         :'created_at' => :'Time',
         :'expires_at' => :'Time',
         :'status' => :'String',
-        :'strategy' => :'String',
         :'closed_at' => :'Time',
         :'holder_account_id' => :'String',
         :'side' => :'String',
         :'series_id' => :'String',
+        :'strategy' => :'String',
         :'combo_key' => :'String',
         :'legs' => :'Array<ListVaultMarketOptionCombosItemLegs>',
         :'qty_milli' => :'Float',
@@ -155,10 +155,6 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'strategy')
-        self.strategy = attributes[:'strategy']
-      end
-
       if attributes.key?(:'closed_at')
         self.closed_at = attributes[:'closed_at']
       end
@@ -173,6 +169,10 @@ module Crossly
 
       if attributes.key?(:'series_id')
         self.series_id = attributes[:'series_id']
+      end
+
+      if attributes.key?(:'strategy')
+        self.strategy = attributes[:'strategy']
       end
 
       if attributes.key?(:'combo_key')
@@ -222,16 +222,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @strategy.nil?
-        invalid_properties.push('invalid value for "strategy", strategy cannot be nil.')
-      end
-
       if @side.nil?
         invalid_properties.push('invalid value for "side", side cannot be nil.')
       end
 
       if @series_id.nil?
         invalid_properties.push('invalid value for "series_id", series_id cannot be nil.')
+      end
+
+      if @strategy.nil?
+        invalid_properties.push('invalid value for "strategy", strategy cannot be nil.')
       end
 
       if @combo_key.nil?
@@ -260,13 +260,13 @@ module Crossly
       return false if @created_at.nil?
       return false if @expires_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["cancelled", "open", "expired", "filled"])
+      status_validator = EnumAttributeValidator.new('String', ["expired", "cancelled", "open", "filled"])
       return false unless status_validator.valid?(@status)
-      return false if @strategy.nil?
       return false if @side.nil?
       side_validator = EnumAttributeValidator.new('String', ["buy", "sell"])
       return false unless side_validator.valid?(@side)
       return false if @series_id.nil?
+      return false if @strategy.nil?
       return false if @combo_key.nil?
       return false if @legs.nil?
       return false if @qty_milli.nil?
@@ -277,7 +277,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["cancelled", "open", "expired", "filled"])
+      validator = EnumAttributeValidator.new('String', ["expired", "cancelled", "open", "filled"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -303,11 +303,11 @@ module Crossly
           created_at == o.created_at &&
           expires_at == o.expires_at &&
           status == o.status &&
-          strategy == o.strategy &&
           closed_at == o.closed_at &&
           holder_account_id == o.holder_account_id &&
           side == o.side &&
           series_id == o.series_id &&
+          strategy == o.strategy &&
           combo_key == o.combo_key &&
           legs == o.legs &&
           qty_milli == o.qty_milli &&
@@ -325,7 +325,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, expires_at, status, strategy, closed_at, holder_account_id, side, series_id, combo_key, legs, qty_milli, limit_cents, requester_user_id, combo_fill_id].hash
+      [id, created_at, expires_at, status, closed_at, holder_account_id, side, series_id, strategy, combo_key, legs, qty_milli, limit_cents, requester_user_id, combo_fill_id].hash
     end
 
     # Builds the object from hash

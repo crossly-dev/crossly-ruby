@@ -37,9 +37,9 @@ module Crossly
 
     attr_accessor :updated_at
 
-    attr_accessor :published
-
     attr_accessor :storefront_id
+
+    attr_accessor :published
 
     attr_accessor :published_at
 
@@ -50,14 +50,6 @@ module Crossly
     attr_accessor :banner_image_url
 
     attr_accessor :bundle_discount_bps
-
-    attr_accessor :return_preset_id
-
-    attr_accessor :shipping_preset_id
-
-    attr_accessor :payment_preset_id
-
-    attr_accessor :custom_domain
 
     attr_accessor :featured_listing_ids
 
@@ -70,6 +62,8 @@ module Crossly
     attr_accessor :ship_from_country
 
     attr_accessor :accepts_custom_orders
+
+    attr_accessor :custom_domain
 
     attr_accessor :custom_domain_verified_at
 
@@ -102,6 +96,12 @@ module Crossly
     attr_accessor :return_address_id
 
     attr_accessor :match_own_prices
+
+    attr_accessor :shipping_preset_id
+
+    attr_accessor :return_preset_id
+
+    attr_accessor :payment_preset_id
 
     attr_accessor :site_published_at
 
@@ -161,23 +161,20 @@ module Crossly
         :'arrival_condition_window_hours' => :'arrivalConditionWindowHours',
         :'theme' => :'theme',
         :'updated_at' => :'updatedAt',
-        :'published' => :'published',
         :'storefront_id' => :'storefrontId',
+        :'published' => :'published',
         :'published_at' => :'publishedAt',
         :'bio' => :'bio',
         :'tagline' => :'tagline',
         :'banner_image_url' => :'bannerImageUrl',
         :'bundle_discount_bps' => :'bundleDiscountBps',
-        :'return_preset_id' => :'returnPresetId',
-        :'shipping_preset_id' => :'shippingPresetId',
-        :'payment_preset_id' => :'paymentPresetId',
-        :'custom_domain' => :'customDomain',
         :'featured_listing_ids' => :'featuredListingIds',
         :'ship_from_city' => :'shipFromCity',
         :'ship_from_state' => :'shipFromState',
         :'ship_from_zip' => :'shipFromZip',
         :'ship_from_country' => :'shipFromCountry',
         :'accepts_custom_orders' => :'acceptsCustomOrders',
+        :'custom_domain' => :'customDomain',
         :'custom_domain_verified_at' => :'customDomainVerifiedAt',
         :'logo_image_url' => :'logoImageUrl',
         :'seo_title' => :'seoTitle',
@@ -194,6 +191,9 @@ module Crossly
         :'ship_from_address_id' => :'shipFromAddressId',
         :'return_address_id' => :'returnAddressId',
         :'match_own_prices' => :'matchOwnPrices',
+        :'shipping_preset_id' => :'shippingPresetId',
+        :'return_preset_id' => :'returnPresetId',
+        :'payment_preset_id' => :'paymentPresetId',
         :'site_published_at' => :'sitePublishedAt',
         :'site_draft_updated_at' => :'siteDraftUpdatedAt',
         :'site_enabled' => :'siteEnabled',
@@ -227,23 +227,20 @@ module Crossly
         :'arrival_condition_window_hours' => :'Float',
         :'theme' => :'Hash<String, Object>',
         :'updated_at' => :'Time',
-        :'published' => :'Boolean',
         :'storefront_id' => :'String',
+        :'published' => :'Boolean',
         :'published_at' => :'Time',
         :'bio' => :'String',
         :'tagline' => :'String',
         :'banner_image_url' => :'String',
         :'bundle_discount_bps' => :'Float',
-        :'return_preset_id' => :'String',
-        :'shipping_preset_id' => :'String',
-        :'payment_preset_id' => :'String',
-        :'custom_domain' => :'String',
         :'featured_listing_ids' => :'Array<String>',
         :'ship_from_city' => :'String',
         :'ship_from_state' => :'String',
         :'ship_from_zip' => :'String',
         :'ship_from_country' => :'String',
         :'accepts_custom_orders' => :'Boolean',
+        :'custom_domain' => :'String',
         :'custom_domain_verified_at' => :'Time',
         :'logo_image_url' => :'String',
         :'seo_title' => :'String',
@@ -260,6 +257,9 @@ module Crossly
         :'ship_from_address_id' => :'String',
         :'return_address_id' => :'String',
         :'match_own_prices' => :'Boolean',
+        :'shipping_preset_id' => :'String',
+        :'return_preset_id' => :'String',
+        :'payment_preset_id' => :'String',
         :'site_published_at' => :'Time',
         :'site_draft_updated_at' => :'Time',
         :'site_enabled' => :'Boolean',
@@ -290,15 +290,12 @@ module Crossly
         :'bio',
         :'tagline',
         :'banner_image_url',
-        :'return_preset_id',
-        :'shipping_preset_id',
-        :'payment_preset_id',
-        :'custom_domain',
         :'featured_listing_ids',
         :'ship_from_city',
         :'ship_from_state',
         :'ship_from_zip',
         :'ship_from_country',
+        :'custom_domain',
         :'custom_domain_verified_at',
         :'logo_image_url',
         :'seo_title',
@@ -314,6 +311,9 @@ module Crossly
         :'return_country',
         :'ship_from_address_id',
         :'return_address_id',
+        :'shipping_preset_id',
+        :'return_preset_id',
+        :'payment_preset_id',
         :'site_published_at',
         :'site_draft_updated_at',
         :'trade_site_published_at',
@@ -384,12 +384,12 @@ module Crossly
         self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'published')
-        self.published = attributes[:'published']
-      end
-
       if attributes.key?(:'storefront_id')
         self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'published')
+        self.published = attributes[:'published']
       end
 
       if attributes.key?(:'published_at')
@@ -410,22 +410,6 @@ module Crossly
 
       if attributes.key?(:'bundle_discount_bps')
         self.bundle_discount_bps = attributes[:'bundle_discount_bps']
-      end
-
-      if attributes.key?(:'return_preset_id')
-        self.return_preset_id = attributes[:'return_preset_id']
-      end
-
-      if attributes.key?(:'shipping_preset_id')
-        self.shipping_preset_id = attributes[:'shipping_preset_id']
-      end
-
-      if attributes.key?(:'payment_preset_id')
-        self.payment_preset_id = attributes[:'payment_preset_id']
-      end
-
-      if attributes.key?(:'custom_domain')
-        self.custom_domain = attributes[:'custom_domain']
       end
 
       if attributes.key?(:'featured_listing_ids')
@@ -452,6 +436,10 @@ module Crossly
 
       if attributes.key?(:'accepts_custom_orders')
         self.accepts_custom_orders = attributes[:'accepts_custom_orders']
+      end
+
+      if attributes.key?(:'custom_domain')
+        self.custom_domain = attributes[:'custom_domain']
       end
 
       if attributes.key?(:'custom_domain_verified_at')
@@ -518,6 +506,18 @@ module Crossly
         self.match_own_prices = attributes[:'match_own_prices']
       end
 
+      if attributes.key?(:'shipping_preset_id')
+        self.shipping_preset_id = attributes[:'shipping_preset_id']
+      end
+
+      if attributes.key?(:'return_preset_id')
+        self.return_preset_id = attributes[:'return_preset_id']
+      end
+
+      if attributes.key?(:'payment_preset_id')
+        self.payment_preset_id = attributes[:'payment_preset_id']
+      end
+
       if attributes.key?(:'site_published_at')
         self.site_published_at = attributes[:'site_published_at']
       end
@@ -577,12 +577,12 @@ module Crossly
         invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
-      if @published.nil?
-        invalid_properties.push('invalid value for "published", published cannot be nil.')
-      end
-
       if @storefront_id.nil?
         invalid_properties.push('invalid value for "storefront_id", storefront_id cannot be nil.')
+      end
+
+      if @published.nil?
+        invalid_properties.push('invalid value for "published", published cannot be nil.')
       end
 
       if @bundle_discount_bps.nil?
@@ -633,8 +633,8 @@ module Crossly
     def valid?
       return false if @store_policies.nil?
       return false if @updated_at.nil?
-      return false if @published.nil?
       return false if @storefront_id.nil?
+      return false if @published.nil?
       return false if @bundle_discount_bps.nil?
       return false if @accepts_custom_orders.nil?
       return false if @match_own_prices.nil?
@@ -676,23 +676,20 @@ module Crossly
           arrival_condition_window_hours == o.arrival_condition_window_hours &&
           theme == o.theme &&
           updated_at == o.updated_at &&
-          published == o.published &&
           storefront_id == o.storefront_id &&
+          published == o.published &&
           published_at == o.published_at &&
           bio == o.bio &&
           tagline == o.tagline &&
           banner_image_url == o.banner_image_url &&
           bundle_discount_bps == o.bundle_discount_bps &&
-          return_preset_id == o.return_preset_id &&
-          shipping_preset_id == o.shipping_preset_id &&
-          payment_preset_id == o.payment_preset_id &&
-          custom_domain == o.custom_domain &&
           featured_listing_ids == o.featured_listing_ids &&
           ship_from_city == o.ship_from_city &&
           ship_from_state == o.ship_from_state &&
           ship_from_zip == o.ship_from_zip &&
           ship_from_country == o.ship_from_country &&
           accepts_custom_orders == o.accepts_custom_orders &&
+          custom_domain == o.custom_domain &&
           custom_domain_verified_at == o.custom_domain_verified_at &&
           logo_image_url == o.logo_image_url &&
           seo_title == o.seo_title &&
@@ -709,6 +706,9 @@ module Crossly
           ship_from_address_id == o.ship_from_address_id &&
           return_address_id == o.return_address_id &&
           match_own_prices == o.match_own_prices &&
+          shipping_preset_id == o.shipping_preset_id &&
+          return_preset_id == o.return_preset_id &&
+          payment_preset_id == o.payment_preset_id &&
           site_published_at == o.site_published_at &&
           site_draft_updated_at == o.site_draft_updated_at &&
           site_enabled == o.site_enabled &&
@@ -731,7 +731,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [store_policies, offers_free_shipping, free_shipping_threshold_cents, offers_local_pickup, local_courier_enabled, accepts_layaway, seller_protections, request_arrival_condition, arrival_condition_window_hours, theme, updated_at, published, storefront_id, published_at, bio, tagline, banner_image_url, bundle_discount_bps, return_preset_id, shipping_preset_id, payment_preset_id, custom_domain, featured_listing_ids, ship_from_city, ship_from_state, ship_from_zip, ship_from_country, accepts_custom_orders, custom_domain_verified_at, logo_image_url, seo_title, seo_description, auto_share_hours, last_shared_at, return_name, return_street1, return_street2, return_city, return_state, return_zip, return_country, ship_from_address_id, return_address_id, match_own_prices, site_published_at, site_draft_updated_at, site_enabled, branding_defaults, trade_site_published_at, trade_site_draft_updated_at, trade_site_enabled, trade_site_gating, policy_summary, policy_source, uses_own_policy].hash
+      [store_policies, offers_free_shipping, free_shipping_threshold_cents, offers_local_pickup, local_courier_enabled, accepts_layaway, seller_protections, request_arrival_condition, arrival_condition_window_hours, theme, updated_at, storefront_id, published, published_at, bio, tagline, banner_image_url, bundle_discount_bps, featured_listing_ids, ship_from_city, ship_from_state, ship_from_zip, ship_from_country, accepts_custom_orders, custom_domain, custom_domain_verified_at, logo_image_url, seo_title, seo_description, auto_share_hours, last_shared_at, return_name, return_street1, return_street2, return_city, return_state, return_zip, return_country, ship_from_address_id, return_address_id, match_own_prices, shipping_preset_id, return_preset_id, payment_preset_id, site_published_at, site_draft_updated_at, site_enabled, branding_defaults, trade_site_published_at, trade_site_draft_updated_at, trade_site_enabled, trade_site_gating, policy_summary, policy_source, uses_own_policy].hash
     end
 
     # Builds the object from hash

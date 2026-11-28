@@ -81,19 +81,25 @@ module Crossly
     end
 
     # Scan one item and match it automatically (drafts only, never publishes).
+    # @param create_magic_auto_item_request [CreateMagicAutoItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateMagicAutoItemResponse]
-    def create_magic_auto_item(opts = {})
-      data, _status_code, _headers = create_magic_auto_item_with_http_info(opts)
+    def create_magic_auto_item(create_magic_auto_item_request, opts = {})
+      data, _status_code, _headers = create_magic_auto_item_with_http_info(create_magic_auto_item_request, opts)
       data
     end
 
     # Scan one item and match it automatically (drafts only, never publishes).
+    # @param create_magic_auto_item_request [CreateMagicAutoItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateMagicAutoItemResponse, Integer, Hash)>] CreateMagicAutoItemResponse data, response status code and response headers
-    def create_magic_auto_item_with_http_info(opts = {})
+    def create_magic_auto_item_with_http_info(create_magic_auto_item_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_auto_item ...'
+      end
+      # verify the required parameter 'create_magic_auto_item_request' is set
+      if @api_client.config.client_side_validation && create_magic_auto_item_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_magic_auto_item_request' when calling MagicApi.create_magic_auto_item"
       end
       # resource path
       local_var_path = '/v1/magic/auto/items'
@@ -105,12 +111,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_magic_auto_item_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMagicAutoItemResponse'
@@ -138,6 +149,7 @@ module Crossly
     # Score a Magic List run automatically; a confident match in auto mode becomes a draft.
     # @param run_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateMagicAutoRunRequest] :create_magic_auto_run_request 
     # @return [CreateMagicAutoRunResponse]
     def create_magic_auto_run(run_id, opts = {})
       data, _status_code, _headers = create_magic_auto_run_with_http_info(run_id, opts)
@@ -147,6 +159,7 @@ module Crossly
     # Score a Magic List run automatically; a confident match in auto mode becomes a draft.
     # @param run_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateMagicAutoRunRequest] :create_magic_auto_run_request 
     # @return [Array<(CreateMagicAutoRunResponse, Integer, Hash)>] CreateMagicAutoRunResponse data, response status code and response headers
     def create_magic_auto_run_with_http_info(run_id, opts = {})
       if @api_client.config.debugging
@@ -166,12 +179,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_magic_auto_run_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMagicAutoRunResponse'
@@ -199,6 +217,7 @@ module Crossly
     # Record a seller swipe session (kept and rejected match keys) for a Magic List run.
     # @param run_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateMagicAutoRunSwipeRequest] :create_magic_auto_run_swipe_request 
     # @return [CreateMagicAutoRunSwipeResponse]
     def create_magic_auto_run_swipe(run_id, opts = {})
       data, _status_code, _headers = create_magic_auto_run_swipe_with_http_info(run_id, opts)
@@ -208,6 +227,7 @@ module Crossly
     # Record a seller swipe session (kept and rejected match keys) for a Magic List run.
     # @param run_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateMagicAutoRunSwipeRequest] :create_magic_auto_run_swipe_request 
     # @return [Array<(CreateMagicAutoRunSwipeResponse, Integer, Hash)>] CreateMagicAutoRunSwipeResponse data, response status code and response headers
     def create_magic_auto_run_swipe_with_http_info(run_id, opts = {})
       if @api_client.config.debugging
@@ -227,12 +247,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_magic_auto_run_swipe_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMagicAutoRunSwipeResponse'
@@ -257,20 +282,26 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Run a Magic List image scan.
+    # Run a Magic List image scan. Optional matchMode (off | auto | review_all) sets this scan's automated matching; omitted = your remembered default.
+    # @param create_magic_scan_request [CreateMagicScanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateMagicScanResponse]
-    def create_magic_scan(opts = {})
-      data, _status_code, _headers = create_magic_scan_with_http_info(opts)
+    def create_magic_scan(create_magic_scan_request, opts = {})
+      data, _status_code, _headers = create_magic_scan_with_http_info(create_magic_scan_request, opts)
       data
     end
 
-    # Run a Magic List image scan.
+    # Run a Magic List image scan. Optional matchMode (off | auto | review_all) sets this scan&#39;s automated matching; omitted &#x3D; your remembered default.
+    # @param create_magic_scan_request [CreateMagicScanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateMagicScanResponse, Integer, Hash)>] CreateMagicScanResponse data, response status code and response headers
-    def create_magic_scan_with_http_info(opts = {})
+    def create_magic_scan_with_http_info(create_magic_scan_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_scan ...'
+      end
+      # verify the required parameter 'create_magic_scan_request' is set
+      if @api_client.config.client_side_validation && create_magic_scan_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_magic_scan_request' when calling MagicApi.create_magic_scan"
       end
       # resource path
       local_var_path = '/v1/magic/scan'
@@ -282,12 +313,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_magic_scan_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMagicScanResponse'
@@ -314,24 +350,30 @@ module Crossly
 
     # Synthesize a draft from confirmed matches.
     # @param run_id [String] 
+    # @param create_magic_scan_synthesize_request [CreateMagicScanSynthesizeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateMagicScanSynthesizeResponse]
-    def create_magic_scan_synthesize(run_id, opts = {})
-      data, _status_code, _headers = create_magic_scan_synthesize_with_http_info(run_id, opts)
+    def create_magic_scan_synthesize(run_id, create_magic_scan_synthesize_request, opts = {})
+      data, _status_code, _headers = create_magic_scan_synthesize_with_http_info(run_id, create_magic_scan_synthesize_request, opts)
       data
     end
 
     # Synthesize a draft from confirmed matches.
     # @param run_id [String] 
+    # @param create_magic_scan_synthesize_request [CreateMagicScanSynthesizeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateMagicScanSynthesizeResponse, Integer, Hash)>] CreateMagicScanSynthesizeResponse data, response status code and response headers
-    def create_magic_scan_synthesize_with_http_info(run_id, opts = {})
+    def create_magic_scan_synthesize_with_http_info(run_id, create_magic_scan_synthesize_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: MagicApi.create_magic_scan_synthesize ...'
       end
       # verify the required parameter 'run_id' is set
       if @api_client.config.client_side_validation && run_id.nil?
         fail ArgumentError, "Missing the required parameter 'run_id' when calling MagicApi.create_magic_scan_synthesize"
+      end
+      # verify the required parameter 'create_magic_scan_synthesize_request' is set
+      if @api_client.config.client_side_validation && create_magic_scan_synthesize_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_magic_scan_synthesize_request' when calling MagicApi.create_magic_scan_synthesize"
       end
       # resource path
       local_var_path = '/v1/magic/scan/{runId}/synthesize'.sub('{' + 'runId' + '}', CGI.escape(run_id.to_s))
@@ -343,12 +385,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_magic_scan_synthesize_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateMagicScanSynthesizeResponse'

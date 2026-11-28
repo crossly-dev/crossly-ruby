@@ -15,15 +15,15 @@ require 'time'
 
 module Crossly
   class GetStorefrontResponseDataSocialLinks
+    attr_accessor :facebook
+
     attr_accessor :website
 
     attr_accessor :x
 
-    attr_accessor :facebook
+    attr_accessor :instagram
 
     attr_accessor :tiktok
-
-    attr_accessor :instagram
 
     attr_accessor :youtube
 
@@ -32,11 +32,11 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'facebook' => :'facebook',
         :'website' => :'website',
         :'x' => :'x',
-        :'facebook' => :'facebook',
-        :'tiktok' => :'tiktok',
         :'instagram' => :'instagram',
+        :'tiktok' => :'tiktok',
         :'youtube' => :'youtube',
         :'pinterest' => :'pinterest'
       }
@@ -50,11 +50,11 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'facebook' => :'String',
         :'website' => :'String',
         :'x' => :'String',
-        :'facebook' => :'String',
-        :'tiktok' => :'String',
         :'instagram' => :'String',
+        :'tiktok' => :'String',
         :'youtube' => :'String',
         :'pinterest' => :'String'
       }
@@ -63,11 +63,11 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'facebook',
         :'website',
         :'x',
-        :'facebook',
-        :'tiktok',
         :'instagram',
+        :'tiktok',
         :'youtube',
         :'pinterest'
       ])
@@ -88,6 +88,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'facebook')
+        self.facebook = attributes[:'facebook']
+      end
+
       if attributes.key?(:'website')
         self.website = attributes[:'website']
       end
@@ -96,16 +100,12 @@ module Crossly
         self.x = attributes[:'x']
       end
 
-      if attributes.key?(:'facebook')
-        self.facebook = attributes[:'facebook']
+      if attributes.key?(:'instagram')
+        self.instagram = attributes[:'instagram']
       end
 
       if attributes.key?(:'tiktok')
         self.tiktok = attributes[:'tiktok']
-      end
-
-      if attributes.key?(:'instagram')
-        self.instagram = attributes[:'instagram']
       end
 
       if attributes.key?(:'youtube')
@@ -135,11 +135,11 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          facebook == o.facebook &&
           website == o.website &&
           x == o.x &&
-          facebook == o.facebook &&
-          tiktok == o.tiktok &&
           instagram == o.instagram &&
+          tiktok == o.tiktok &&
           youtube == o.youtube &&
           pinterest == o.pinterest
     end
@@ -153,7 +153,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [website, x, facebook, tiktok, instagram, youtube, pinterest].hash
+      [facebook, website, x, instagram, tiktok, youtube, pinterest].hash
     end
 
     # Builds the object from hash

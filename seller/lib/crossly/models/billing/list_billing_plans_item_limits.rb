@@ -30,6 +30,12 @@ module Crossly
 
     attr_accessor :team_mode
 
+    # Magic List photo identifications a month.
+    attr_accessor :vision_calls_per_month
+
+    # Connection addresses (region slots) included before the extra-account add-on.
+    attr_accessor :included_accounts
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +45,9 @@ module Crossly
         :'email_sale_detection' => :'emailSaleDetection',
         :'ai_enhancements' => :'aiEnhancements',
         :'bulk_actions' => :'bulkActions',
-        :'team_mode' => :'teamMode'
+        :'team_mode' => :'teamMode',
+        :'vision_calls_per_month' => :'visionCallsPerMonth',
+        :'included_accounts' => :'includedAccounts'
       }
     end
 
@@ -57,7 +65,9 @@ module Crossly
         :'email_sale_detection' => :'Boolean',
         :'ai_enhancements' => :'Float',
         :'bulk_actions' => :'Boolean',
-        :'team_mode' => :'Boolean'
+        :'team_mode' => :'Boolean',
+        :'vision_calls_per_month' => :'Float',
+        :'included_accounts' => :'Float'
       }
     end
 
@@ -68,6 +78,7 @@ module Crossly
         :'crossposts_per_month',
         :'automation_rules',
         :'ai_enhancements',
+        :'vision_calls_per_month',
       ])
     end
 
@@ -113,6 +124,14 @@ module Crossly
       if attributes.key?(:'team_mode')
         self.team_mode = attributes[:'team_mode']
       end
+
+      if attributes.key?(:'vision_calls_per_month')
+        self.vision_calls_per_month = attributes[:'vision_calls_per_month']
+      end
+
+      if attributes.key?(:'included_accounts')
+        self.included_accounts = attributes[:'included_accounts']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -131,6 +150,10 @@ module Crossly
         invalid_properties.push('invalid value for "team_mode", team_mode cannot be nil.')
       end
 
+      if @included_accounts.nil?
+        invalid_properties.push('invalid value for "included_accounts", included_accounts cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -140,6 +163,7 @@ module Crossly
       return false if @email_sale_detection.nil?
       return false if @bulk_actions.nil?
       return false if @team_mode.nil?
+      return false if @included_accounts.nil?
       true
     end
 
@@ -154,7 +178,9 @@ module Crossly
           email_sale_detection == o.email_sale_detection &&
           ai_enhancements == o.ai_enhancements &&
           bulk_actions == o.bulk_actions &&
-          team_mode == o.team_mode
+          team_mode == o.team_mode &&
+          vision_calls_per_month == o.vision_calls_per_month &&
+          included_accounts == o.included_accounts
     end
 
     # @see the `==` method
@@ -166,7 +192,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [items_per_month, crossposts_per_month, automation_rules, email_sale_detection, ai_enhancements, bulk_actions, team_mode].hash
+      [items_per_month, crossposts_per_month, automation_rules, email_sale_detection, ai_enhancements, bulk_actions, team_mode, vision_calls_per_month, included_accounts].hash
     end
 
     # Builds the object from hash

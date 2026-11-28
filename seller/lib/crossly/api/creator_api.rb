@@ -21,6 +21,7 @@ module Crossly
     end
     # Issue an experience API key for a back-end or CI: name, creator scopes (worlds:*, items:write — only ones your token holds), an IP allowlist (CIDRs; 0.0.0.0/0 + ::/0 for anywhere), optional experienceIds and expiresInDays. The token is in the response ONCE.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorExperienceKeyRequest] :create_creator_experience_key_request 
     # @return [CreateCreatorExperienceKeyResponse]
     def create_creator_experience_key(opts = {})
       data, _status_code, _headers = create_creator_experience_key_with_http_info(opts)
@@ -29,6 +30,7 @@ module Crossly
 
     # Issue an experience API key for a back-end or CI: name, creator scopes (worlds:*, items:write — only ones your token holds), an IP allowlist (CIDRs; 0.0.0.0/0 + ::/0 for anywhere), optional experienceIds and expiresInDays. The token is in the response ONCE.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorExperienceKeyRequest] :create_creator_experience_key_request 
     # @return [Array<(CreateCreatorExperienceKeyResponse, Integer, Hash)>] CreateCreatorExperienceKeyResponse data, response status code and response headers
     def create_creator_experience_key_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -44,12 +46,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_experience_key_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCreatorExperienceKeyResponse'
@@ -77,6 +84,7 @@ module Crossly
     # Rotate a key: a replacement with the same settings (its token shown ONCE); the old key keeps working for overlapHours (default 24, 0 = revoke now, max 168).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorExperienceKeyRotateRequest] :create_creator_experience_key_rotate_request 
     # @return [CreateCreatorExperienceKeyRotateResponse]
     def create_creator_experience_key_rotate(id, opts = {})
       data, _status_code, _headers = create_creator_experience_key_rotate_with_http_info(id, opts)
@@ -86,6 +94,7 @@ module Crossly
     # Rotate a key: a replacement with the same settings (its token shown ONCE); the old key keeps working for overlapHours (default 24, 0 &#x3D; revoke now, max 168).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorExperienceKeyRotateRequest] :create_creator_experience_key_rotate_request 
     # @return [Array<(CreateCreatorExperienceKeyRotateResponse, Integer, Hash)>] CreateCreatorExperienceKeyRotateResponse data, response status code and response headers
     def create_creator_experience_key_rotate_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -105,12 +114,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_experience_key_rotate_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCreatorExperienceKeyRotateResponse'
@@ -253,6 +267,8 @@ module Crossly
 
     # Your experience API keys, newest first (never the secret). ?includeRevoked=true for the history; ?experienceId= for the keys that reach one game (a game's own keys are narrowed to it alone). Cursor-paged: pass pagination.nextCursor back as ?cursor=.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :include_revoked 
+    # @option opts [String] :experience_id 
     # @return [ListCreatorExperienceKeysResponse]
     def list_creator_experience_keys(opts = {})
       data, _status_code, _headers = list_creator_experience_keys_with_http_info(opts)
@@ -261,16 +277,24 @@ module Crossly
 
     # Your experience API keys, newest first (never the secret). ?includeRevoked&#x3D;true for the history; ?experienceId&#x3D; for the keys that reach one game (a game&#39;s own keys are narrowed to it alone). Cursor-paged: pass pagination.nextCursor back as ?cursor&#x3D;.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :include_revoked 
+    # @option opts [String] :experience_id 
     # @return [Array<(ListCreatorExperienceKeysResponse, Integer, Hash)>] ListCreatorExperienceKeysResponse data, response status code and response headers
     def list_creator_experience_keys_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CreatorApi.list_creator_experience_keys ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'include_revoked'] && !allowable_values.include?(opts[:'include_revoked'])
+        fail ArgumentError, "invalid value for \"include_revoked\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/creator/experience-keys'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'includeRevoked'] = opts[:'include_revoked'] if !opts[:'include_revoked'].nil?
+      query_params[:'experienceId'] = opts[:'experience_id'] if !opts[:'experience_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

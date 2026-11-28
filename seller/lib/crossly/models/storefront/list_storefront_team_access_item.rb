@@ -29,6 +29,12 @@ module Crossly
 
     attr_accessor :member_user_id
 
+    attr_accessor :spending_cap_cents
+
+    attr_accessor :limits
+
+    attr_accessor :updated_by_user_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -38,7 +44,10 @@ module Crossly
         :'scopes' => :'scopes',
         :'owner_user_id' => :'ownerUserId',
         :'storefront_id' => :'storefrontId',
-        :'member_user_id' => :'memberUserId'
+        :'member_user_id' => :'memberUserId',
+        :'spending_cap_cents' => :'spendingCapCents',
+        :'limits' => :'limits',
+        :'updated_by_user_id' => :'updatedByUserId'
       }
     end
 
@@ -56,7 +65,10 @@ module Crossly
         :'scopes' => :'Array<String>',
         :'owner_user_id' => :'String',
         :'storefront_id' => :'String',
-        :'member_user_id' => :'String'
+        :'member_user_id' => :'String',
+        :'spending_cap_cents' => :'Float',
+        :'limits' => :'Hash<String, Object>',
+        :'updated_by_user_id' => :'String'
       }
     end
 
@@ -65,6 +77,8 @@ module Crossly
       Set.new([
         :'revoked_at',
         :'storefront_id',
+        :'spending_cap_cents',
+        :'updated_by_user_id'
       ])
     end
 
@@ -112,6 +126,20 @@ module Crossly
       if attributes.key?(:'member_user_id')
         self.member_user_id = attributes[:'member_user_id']
       end
+
+      if attributes.key?(:'spending_cap_cents')
+        self.spending_cap_cents = attributes[:'spending_cap_cents']
+      end
+
+      if attributes.key?(:'limits')
+        if (value = attributes[:'limits']).is_a?(Hash)
+          self.limits = value
+        end
+      end
+
+      if attributes.key?(:'updated_by_user_id')
+        self.updated_by_user_id = attributes[:'updated_by_user_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -138,6 +166,10 @@ module Crossly
         invalid_properties.push('invalid value for "member_user_id", member_user_id cannot be nil.')
       end
 
+      if @limits.nil?
+        invalid_properties.push('invalid value for "limits", limits cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -149,6 +181,7 @@ module Crossly
       return false if @scopes.nil?
       return false if @owner_user_id.nil?
       return false if @member_user_id.nil?
+      return false if @limits.nil?
       true
     end
 
@@ -163,7 +196,10 @@ module Crossly
           scopes == o.scopes &&
           owner_user_id == o.owner_user_id &&
           storefront_id == o.storefront_id &&
-          member_user_id == o.member_user_id
+          member_user_id == o.member_user_id &&
+          spending_cap_cents == o.spending_cap_cents &&
+          limits == o.limits &&
+          updated_by_user_id == o.updated_by_user_id
     end
 
     # @see the `==` method
@@ -175,7 +211,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, revoked_at, scopes, owner_user_id, storefront_id, member_user_id].hash
+      [id, created_at, revoked_at, scopes, owner_user_id, storefront_id, member_user_id, spending_cap_cents, limits, updated_by_user_id].hash
     end
 
     # Builds the object from hash

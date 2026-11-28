@@ -19,13 +19,13 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :kind
+
     attr_accessor :ends_at
 
     attr_accessor :reason
 
     attr_accessor :started_at
-
-    attr_accessor :kind
 
     attr_accessor :price_cents
 
@@ -72,10 +72,10 @@ module Crossly
       {
         :'id' => :'id',
         :'status' => :'status',
+        :'kind' => :'kind',
         :'ends_at' => :'endsAt',
         :'reason' => :'reason',
         :'started_at' => :'startedAt',
-        :'kind' => :'kind',
         :'price_cents' => :'priceCents',
         :'trade_id' => :'tradeId',
         :'bid_id' => :'bidId',
@@ -98,10 +98,10 @@ module Crossly
       {
         :'id' => :'String',
         :'status' => :'String',
+        :'kind' => :'String',
         :'ends_at' => :'Time',
         :'reason' => :'String',
         :'started_at' => :'Time',
-        :'kind' => :'String',
         :'price_cents' => :'Object',
         :'trade_id' => :'String',
         :'bid_id' => :'String',
@@ -151,6 +151,10 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
       end
@@ -161,10 +165,6 @@ module Crossly
 
       if attributes.key?(:'started_at')
         self.started_at = attributes[:'started_at']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'price_cents')
@@ -216,6 +216,10 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
       if @ends_at.nil?
         invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
       end
@@ -226,10 +230,6 @@ module Crossly
 
       if @started_at.nil?
         invalid_properties.push('invalid value for "started_at", started_at cannot be nil.')
-      end
-
-      if @kind.nil?
-        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
       if @position_id.nil?
@@ -244,12 +244,12 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @status.nil?
-      return false if @ends_at.nil?
-      return false if @reason.nil?
-      return false if @started_at.nil?
       return false if @kind.nil?
       kind_validator = EnumAttributeValidator.new('String', ["buy_in", "sell_off"])
       return false unless kind_validator.valid?(@kind)
+      return false if @ends_at.nil?
+      return false if @reason.nil?
+      return false if @started_at.nil?
       return false if @position_id.nil?
       true
     end
@@ -271,10 +271,10 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           status == o.status &&
+          kind == o.kind &&
           ends_at == o.ends_at &&
           reason == o.reason &&
           started_at == o.started_at &&
-          kind == o.kind &&
           price_cents == o.price_cents &&
           trade_id == o.trade_id &&
           bid_id == o.bid_id &&
@@ -295,7 +295,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, ends_at, reason, started_at, kind, price_cents, trade_id, bid_id, ask_id, vault_item_id, position_id, mark_cents, settled_at, checked_at].hash
+      [id, status, kind, ends_at, reason, started_at, price_cents, trade_id, bid_id, ask_id, vault_item_id, position_id, mark_cents, settled_at, checked_at].hash
     end
 
     # Builds the object from hash

@@ -21,7 +21,10 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :request_url
+    # Where the keys go: a v1 route (cardnexus) or the dashboard's connect dialog.
+    attr_accessor :connect_with
+
+    attr_accessor :docs_url
 
     attr_accessor :message
 
@@ -31,7 +34,8 @@ module Crossly
         :'url' => :'url',
         :'one_shot' => :'oneShot',
         :'status' => :'status',
-        :'request_url' => :'requestUrl',
+        :'connect_with' => :'connectWith',
+        :'docs_url' => :'docsUrl',
         :'message' => :'message'
       }
     end
@@ -47,7 +51,8 @@ module Crossly
         :'url' => :'String',
         :'one_shot' => :'Boolean',
         :'status' => :'String',
-        :'request_url' => :'String',
+        :'connect_with' => :'String',
+        :'docs_url' => :'String',
         :'message' => :'String'
       }
     end
@@ -85,8 +90,12 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'request_url')
-        self.request_url = attributes[:'request_url']
+      if attributes.key?(:'connect_with')
+        self.connect_with = attributes[:'connect_with']
+      end
+
+      if attributes.key?(:'docs_url')
+        self.docs_url = attributes[:'docs_url']
       end
 
       if attributes.key?(:'message')
@@ -115,7 +124,8 @@ module Crossly
           url == o.url &&
           one_shot == o.one_shot &&
           status == o.status &&
-          request_url == o.request_url &&
+          connect_with == o.connect_with &&
+          docs_url == o.docs_url &&
           message == o.message
     end
 
@@ -128,7 +138,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [url, one_shot, status, request_url, message].hash
+      [url, one_shot, status, connect_with, docs_url, message].hash
     end
 
     # Builds the object from hash

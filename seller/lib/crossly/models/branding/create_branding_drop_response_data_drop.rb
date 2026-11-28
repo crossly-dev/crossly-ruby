@@ -71,6 +71,11 @@ module Crossly
 
     attr_accessor :href
 
+    attr_accessor :linked_group_buy
+
+    # E5: the drop's Crossly listings with their stock now; only set by getSellerDrop.
+    attr_accessor :restock_listings
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -127,6 +132,8 @@ module Crossly
         :'units_available' => :'unitsAvailable',
         :'current_price_cents' => :'currentPriceCents',
         :'href' => :'href',
+        :'linked_group_buy' => :'linkedGroupBuy',
+        :'restock_listings' => :'restockListings',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt'
       }
@@ -167,6 +174,8 @@ module Crossly
         :'units_available' => :'Float',
         :'current_price_cents' => :'Float',
         :'href' => :'String',
+        :'linked_group_buy' => :'ListBrandingDropsItemLinkedGroupBuy',
+        :'restock_listings' => :'Array<Hash<String, Object>>',
         :'created_at' => :'String',
         :'updated_at' => :'String'
       }
@@ -191,6 +200,8 @@ module Crossly
         :'review_note',
         :'units_available',
         :'current_price_cents',
+        :'linked_group_buy',
+        :'restock_listings',
       ])
     end
 
@@ -319,6 +330,16 @@ module Crossly
 
       if attributes.key?(:'href')
         self.href = attributes[:'href']
+      end
+
+      if attributes.key?(:'linked_group_buy')
+        self.linked_group_buy = attributes[:'linked_group_buy']
+      end
+
+      if attributes.key?(:'restock_listings')
+        if (value = attributes[:'restock_listings']).is_a?(Array)
+          self.restock_listings = value
+        end
       end
 
       if attributes.key?(:'created_at')
@@ -452,6 +473,8 @@ module Crossly
           units_available == o.units_available &&
           current_price_cents == o.current_price_cents &&
           href == o.href &&
+          linked_group_buy == o.linked_group_buy &&
+          restock_listings == o.restock_listings &&
           created_at == o.created_at &&
           updated_at == o.updated_at
     end
@@ -465,7 +488,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, description, cover_image_url, storefront_id, status, phase, format, placements, announce_at, countdown_at, drop_at, ends_at, paused_at, timezone, live_stream_id, event_id, spatial_drop_id, featured_status, partner_id, review_note, config, waves, counts, units_available, current_price_cents, href, created_at, updated_at].hash
+      [id, name, description, cover_image_url, storefront_id, status, phase, format, placements, announce_at, countdown_at, drop_at, ends_at, paused_at, timezone, live_stream_id, event_id, spatial_drop_id, featured_status, partner_id, review_note, config, waves, counts, units_available, current_price_cents, href, linked_group_buy, restock_listings, created_at, updated_at].hash
     end
 
     # Builds the object from hash

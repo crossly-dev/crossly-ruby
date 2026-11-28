@@ -185,7 +185,7 @@ module Crossly
     def valid?
       return false if @connection_id.nil?
       return false if @platform.nil?
-      platform_validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "shopify", "allegro", "trademe", "google_shopping"])
+      platform_validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "shopify", "google_shopping", "allegro", "trademe"])
       return false unless platform_validator.valid?(@platform)
       return false if @label.nil?
       return false if @eligible.nil?
@@ -199,7 +199,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] platform Object to be assigned
     def platform=(platform)
-      validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "shopify", "allegro", "trademe", "google_shopping"])
+      validator = EnumAttributeValidator.new('String', ["ebay", "etsy", "shopify", "google_shopping", "allegro", "trademe"])
       unless validator.valid?(platform)
         fail ArgumentError, "invalid value for \"platform\", must be one of #{validator.allowable_values}."
       end

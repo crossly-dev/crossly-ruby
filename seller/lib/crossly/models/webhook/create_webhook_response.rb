@@ -19,26 +19,85 @@ module Crossly
 
     attr_accessor :id
 
+    attr_accessor :name
+
     attr_accessor :created_at
 
     attr_accessor :description
+
+    attr_accessor :storefront_id
+
+    attr_accessor :kind
+
+    attr_accessor :enabled
+
+    attr_accessor :consecutive_failures
+
+    attr_accessor :last_error
+
+    attr_accessor :last_error_at
 
     attr_accessor :events
 
     attr_accessor :url
 
-    attr_accessor :enabled
+    attr_accessor :last_delivery_at
+
+    attr_accessor :oauth_app_id
+
+    attr_accessor :destination
+
+    attr_accessor :event_delivery
+
+    attr_accessor :has_bot_token
+
+    # json: the custom header NAMES (values are credentials and never leave the api).
+    attr_accessor :header_names
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'secret' => :'secret',
         :'id' => :'id',
+        :'name' => :'name',
         :'created_at' => :'createdAt',
         :'description' => :'description',
+        :'storefront_id' => :'storefrontId',
+        :'kind' => :'kind',
+        :'enabled' => :'enabled',
+        :'consecutive_failures' => :'consecutiveFailures',
+        :'last_error' => :'lastError',
+        :'last_error_at' => :'lastErrorAt',
         :'events' => :'events',
         :'url' => :'url',
-        :'enabled' => :'enabled'
+        :'last_delivery_at' => :'lastDeliveryAt',
+        :'oauth_app_id' => :'oauthAppId',
+        :'destination' => :'destination',
+        :'event_delivery' => :'eventDelivery',
+        :'has_bot_token' => :'hasBotToken',
+        :'header_names' => :'headerNames'
       }
     end
 
@@ -52,18 +111,37 @@ module Crossly
       {
         :'secret' => :'String',
         :'id' => :'String',
+        :'name' => :'String',
         :'created_at' => :'Time',
         :'description' => :'String',
+        :'storefront_id' => :'String',
+        :'kind' => :'String',
+        :'enabled' => :'Boolean',
+        :'consecutive_failures' => :'Float',
+        :'last_error' => :'String',
+        :'last_error_at' => :'Time',
         :'events' => :'Array<String>',
         :'url' => :'String',
-        :'enabled' => :'Boolean'
+        :'last_delivery_at' => :'Time',
+        :'oauth_app_id' => :'String',
+        :'destination' => :'Hash<String, Object>',
+        :'event_delivery' => :'Boolean',
+        :'has_bot_token' => :'Boolean',
+        :'header_names' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'secret',
+        :'name',
         :'description',
+        :'storefront_id',
+        :'last_error',
+        :'last_error_at',
+        :'last_delivery_at',
+        :'oauth_app_id',
       ])
     end
 
@@ -90,12 +168,40 @@ module Crossly
         self.id = attributes[:'id']
       end
 
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'enabled')
+        self.enabled = attributes[:'enabled']
+      end
+
+      if attributes.key?(:'consecutive_failures')
+        self.consecutive_failures = attributes[:'consecutive_failures']
+      end
+
+      if attributes.key?(:'last_error')
+        self.last_error = attributes[:'last_error']
+      end
+
+      if attributes.key?(:'last_error_at')
+        self.last_error_at = attributes[:'last_error_at']
       end
 
       if attributes.key?(:'events')
@@ -108,8 +214,32 @@ module Crossly
         self.url = attributes[:'url']
       end
 
-      if attributes.key?(:'enabled')
-        self.enabled = attributes[:'enabled']
+      if attributes.key?(:'last_delivery_at')
+        self.last_delivery_at = attributes[:'last_delivery_at']
+      end
+
+      if attributes.key?(:'oauth_app_id')
+        self.oauth_app_id = attributes[:'oauth_app_id']
+      end
+
+      if attributes.key?(:'destination')
+        if (value = attributes[:'destination']).is_a?(Hash)
+          self.destination = value
+        end
+      end
+
+      if attributes.key?(:'event_delivery')
+        self.event_delivery = attributes[:'event_delivery']
+      end
+
+      if attributes.key?(:'has_bot_token')
+        self.has_bot_token = attributes[:'has_bot_token']
+      end
+
+      if attributes.key?(:'header_names')
+        if (value = attributes[:'header_names']).is_a?(Array)
+          self.header_names = value
+        end
       end
     end
 
@@ -117,16 +247,24 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @secret.nil?
-        invalid_properties.push('invalid value for "secret", secret cannot be nil.')
-      end
-
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @enabled.nil?
+        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
+      end
+
+      if @consecutive_failures.nil?
+        invalid_properties.push('invalid value for "consecutive_failures", consecutive_failures cannot be nil.')
       end
 
       if @events.nil?
@@ -137,8 +275,20 @@ module Crossly
         invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
-      if @enabled.nil?
-        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
+      if @destination.nil?
+        invalid_properties.push('invalid value for "destination", destination cannot be nil.')
+      end
+
+      if @event_delivery.nil?
+        invalid_properties.push('invalid value for "event_delivery", event_delivery cannot be nil.')
+      end
+
+      if @has_bot_token.nil?
+        invalid_properties.push('invalid value for "has_bot_token", has_bot_token cannot be nil.')
+      end
+
+      if @header_names.nil?
+        invalid_properties.push('invalid value for "header_names", header_names cannot be nil.')
       end
 
       invalid_properties
@@ -147,13 +297,30 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @secret.nil?
       return false if @id.nil?
       return false if @created_at.nil?
+      return false if @kind.nil?
+      kind_validator = EnumAttributeValidator.new('String', ["json", "teams", "discord", "slack", "telegram", "google_chat", "mattermost", "zapier"])
+      return false unless kind_validator.valid?(@kind)
+      return false if @enabled.nil?
+      return false if @consecutive_failures.nil?
       return false if @events.nil?
       return false if @url.nil?
-      return false if @enabled.nil?
+      return false if @destination.nil?
+      return false if @event_delivery.nil?
+      return false if @has_bot_token.nil?
+      return false if @header_names.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] kind Object to be assigned
+    def kind=(kind)
+      validator = EnumAttributeValidator.new('String', ["json", "teams", "discord", "slack", "telegram", "google_chat", "mattermost", "zapier"])
+      unless validator.valid?(kind)
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
+      end
+      @kind = kind
     end
 
     # Checks equality by comparing each attribute.
@@ -163,11 +330,23 @@ module Crossly
       self.class == o.class &&
           secret == o.secret &&
           id == o.id &&
+          name == o.name &&
           created_at == o.created_at &&
           description == o.description &&
+          storefront_id == o.storefront_id &&
+          kind == o.kind &&
+          enabled == o.enabled &&
+          consecutive_failures == o.consecutive_failures &&
+          last_error == o.last_error &&
+          last_error_at == o.last_error_at &&
           events == o.events &&
           url == o.url &&
-          enabled == o.enabled
+          last_delivery_at == o.last_delivery_at &&
+          oauth_app_id == o.oauth_app_id &&
+          destination == o.destination &&
+          event_delivery == o.event_delivery &&
+          has_bot_token == o.has_bot_token &&
+          header_names == o.header_names
     end
 
     # @see the `==` method
@@ -179,7 +358,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [secret, id, created_at, description, events, url, enabled].hash
+      [secret, id, name, created_at, description, storefront_id, kind, enabled, consecutive_failures, last_error, last_error_at, events, url, last_delivery_at, oauth_app_id, destination, event_delivery, has_bot_token, header_names].hash
     end
 
     # Builds the object from hash

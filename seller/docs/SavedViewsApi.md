@@ -12,7 +12,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_saved_view
 
-> <ListSavedViewsItem> create_saved_view
+> <ListSavedViewsItem> create_saved_view(create_saved_view_request)
 
 Create a saved view preset.
 
@@ -28,10 +28,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SavedViewsApi.new
+create_saved_view_request = Crossly::CreateSavedViewRequest.new({resource: 'listings', name: 'name_example'}) # CreateSavedViewRequest | 
 
 begin
   # Create a saved view preset.
-  result = api_instance.create_saved_view
+  result = api_instance.create_saved_view(create_saved_view_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SavedViewsApi->create_saved_view: #{e}"
@@ -42,12 +43,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSavedViewsItem>, Integer, Hash)> create_saved_view_with_http_info
+> <Array(<ListSavedViewsItem>, Integer, Hash)> create_saved_view_with_http_info(create_saved_view_request)
 
 ```ruby
 begin
   # Create a saved view preset.
-  data, status_code, headers = api_instance.create_saved_view_with_http_info
+  data, status_code, headers = api_instance.create_saved_view_with_http_info(create_saved_view_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSavedViewsItem>
@@ -58,7 +59,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_saved_view_request** | **CreateSavedViewRequest** |  |  |
 
 ### Return type
 
@@ -70,7 +73,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -212,7 +215,7 @@ end
 
 ## update_saved_view
 
-> <ListSavedViewsItem> update_saved_view(id)
+> <ListSavedViewsItem> update_saved_view(id, update_saved_view_request)
 
 Update a saved view preset.
 
@@ -229,10 +232,11 @@ end
 
 api_instance = Crossly::SavedViewsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_saved_view_request = Crossly::UpdateSavedViewRequest.new # UpdateSavedViewRequest | 
 
 begin
   # Update a saved view preset.
-  result = api_instance.update_saved_view(id)
+  result = api_instance.update_saved_view(id, update_saved_view_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SavedViewsApi->update_saved_view: #{e}"
@@ -243,12 +247,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSavedViewsItem>, Integer, Hash)> update_saved_view_with_http_info(id)
+> <Array(<ListSavedViewsItem>, Integer, Hash)> update_saved_view_with_http_info(id, update_saved_view_request)
 
 ```ruby
 begin
   # Update a saved view preset.
-  data, status_code, headers = api_instance.update_saved_view_with_http_info(id)
+  data, status_code, headers = api_instance.update_saved_view_with_http_info(id, update_saved_view_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSavedViewsItem>
@@ -262,6 +266,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_saved_view_request** | **UpdateSavedViewRequest** |  |  |
 
 ### Return type
 
@@ -273,6 +278,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

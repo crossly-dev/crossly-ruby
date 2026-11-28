@@ -157,7 +157,7 @@ module Crossly
       return false if @index.nil?
       return false if @name.nil?
       return false if @format.nil?
-      format_validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive"])
+      format_validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive", "card_game"])
       return false unless format_validator.valid?(@format)
       return false if @issues.nil?
       true
@@ -166,7 +166,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] format Object to be assigned
     def format=(format)
-      validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive"])
+      validator = EnumAttributeValidator.new('String', ["card_set", "wearable", "model", "decor", "interactive", "card_game"])
       unless validator.valid?(format)
         fail ArgumentError, "invalid value for \"format\", must be one of #{validator.allowable_values}."
       end

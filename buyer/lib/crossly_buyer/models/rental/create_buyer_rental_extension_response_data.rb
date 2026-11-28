@@ -21,7 +21,11 @@ module CrosslyBuyer
 
     attr_accessor :cents
 
+    attr_accessor :free_days
+
     attr_accessor :client_secret
+
+    attr_accessor :note
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -29,7 +33,9 @@ module CrosslyBuyer
         :'extension_id' => :'extensionId',
         :'status' => :'status',
         :'cents' => :'cents',
-        :'client_secret' => :'clientSecret'
+        :'free_days' => :'freeDays',
+        :'client_secret' => :'clientSecret',
+        :'note' => :'note'
       }
     end
 
@@ -44,14 +50,16 @@ module CrosslyBuyer
         :'extension_id' => :'String',
         :'status' => :'String',
         :'cents' => :'Float',
-        :'client_secret' => :'Object'
+        :'free_days' => :'Float',
+        :'client_secret' => :'Object',
+        :'note' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'client_secret'
+        :'client_secret',
       ])
     end
 
@@ -82,8 +90,16 @@ module CrosslyBuyer
         self.cents = attributes[:'cents']
       end
 
+      if attributes.key?(:'free_days')
+        self.free_days = attributes[:'free_days']
+      end
+
       if attributes.key?(:'client_secret')
         self.client_secret = attributes[:'client_secret']
+      end
+
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
       end
     end
 
@@ -103,6 +119,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "cents", cents cannot be nil.')
       end
 
+      if @free_days.nil?
+        invalid_properties.push('invalid value for "free_days", free_days cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -112,6 +132,7 @@ module CrosslyBuyer
       return false if @extension_id.nil?
       return false if @status.nil?
       return false if @cents.nil?
+      return false if @free_days.nil?
       true
     end
 
@@ -123,7 +144,9 @@ module CrosslyBuyer
           extension_id == o.extension_id &&
           status == o.status &&
           cents == o.cents &&
-          client_secret == o.client_secret
+          free_days == o.free_days &&
+          client_secret == o.client_secret &&
+          note == o.note
     end
 
     # @see the `==` method
@@ -135,7 +158,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [extension_id, status, cents, client_secret].hash
+      [extension_id, status, cents, free_days, client_secret, note].hash
     end
 
     # Builds the object from hash

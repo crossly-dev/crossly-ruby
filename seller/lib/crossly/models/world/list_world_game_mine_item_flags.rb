@@ -125,7 +125,7 @@ module Crossly
       return false if @open_reports.nil?
       return false if @changes_requested.nil?
       return false if @moderation.nil?
-      moderation_validator = EnumAttributeValidator.new('String', ["unlisted", "ok", "taken_down"])
+      moderation_validator = EnumAttributeValidator.new('String', ["ok", "unlisted", "taken_down"])
       return false unless moderation_validator.valid?(@moderation)
       true
     end
@@ -133,7 +133,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] moderation Object to be assigned
     def moderation=(moderation)
-      validator = EnumAttributeValidator.new('String', ["unlisted", "ok", "taken_down"])
+      validator = EnumAttributeValidator.new('String', ["ok", "unlisted", "taken_down"])
       unless validator.valid?(moderation)
         fail ArgumentError, "invalid value for \"moderation\", must be one of #{validator.allowable_values}."
       end

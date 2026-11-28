@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Append a parsed receipt to the sourcing ledger.
+    # @param create_sourcing_receipt_request [CreateSourcingReceiptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSourcingReceiptResponse]
-    def create_sourcing_receipt(opts = {})
-      data, _status_code, _headers = create_sourcing_receipt_with_http_info(opts)
+    def create_sourcing_receipt(create_sourcing_receipt_request, opts = {})
+      data, _status_code, _headers = create_sourcing_receipt_with_http_info(create_sourcing_receipt_request, opts)
       data
     end
 
     # Append a parsed receipt to the sourcing ledger.
+    # @param create_sourcing_receipt_request [CreateSourcingReceiptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSourcingReceiptResponse, Integer, Hash)>] CreateSourcingReceiptResponse data, response status code and response headers
-    def create_sourcing_receipt_with_http_info(opts = {})
+    def create_sourcing_receipt_with_http_info(create_sourcing_receipt_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: SourcingApi.create_sourcing_receipt ...'
+      end
+      # verify the required parameter 'create_sourcing_receipt_request' is set
+      if @api_client.config.client_side_validation && create_sourcing_receipt_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_sourcing_receipt_request' when calling SourcingApi.create_sourcing_receipt"
       end
       # resource path
       local_var_path = '/v1/sourcing/receipts'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_sourcing_receipt_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSourcingReceiptResponse'

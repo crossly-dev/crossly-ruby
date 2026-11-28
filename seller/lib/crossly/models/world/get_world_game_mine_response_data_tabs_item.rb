@@ -22,6 +22,7 @@ module Crossly
     REWARDS = "rewards".freeze
     ACCESS = "access".freeze
     PLACES = "places".freeze
+    LOCALIZATION = "localization".freeze
     VERSIONS = "versions".freeze
     ASSETS = "assets".freeze
     SAFETY = "safety".freeze

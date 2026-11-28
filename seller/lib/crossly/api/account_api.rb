@@ -199,6 +199,7 @@ module Crossly
 
     # Confirm again a deletion paused because the account was in use.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateAccountReconfirmDeletionRequest] :create_account_reconfirm_deletion_request 
     # @return [CreateAccountReconfirmDeletionResponse]
     def create_account_reconfirm_deletion(opts = {})
       data, _status_code, _headers = create_account_reconfirm_deletion_with_http_info(opts)
@@ -207,6 +208,7 @@ module Crossly
 
     # Confirm again a deletion paused because the account was in use.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateAccountReconfirmDeletionRequest] :create_account_reconfirm_deletion_request 
     # @return [Array<(CreateAccountReconfirmDeletionResponse, Integer, Hash)>] CreateAccountReconfirmDeletionResponse data, response status code and response headers
     def create_account_reconfirm_deletion_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -222,12 +224,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_account_reconfirm_deletion_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAccountReconfirmDeletionResponse'
@@ -254,6 +261,7 @@ module Crossly
 
     # Schedule account deletion after a grace period. Requires confirmEmail.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateAccountRequestDeletionRequest] :create_account_request_deletion_request 
     # @return [CreateAccountRequestDeletionResponse]
     def create_account_request_deletion(opts = {})
       data, _status_code, _headers = create_account_request_deletion_with_http_info(opts)
@@ -262,6 +270,7 @@ module Crossly
 
     # Schedule account deletion after a grace period. Requires confirmEmail.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateAccountRequestDeletionRequest] :create_account_request_deletion_request 
     # @return [Array<(CreateAccountRequestDeletionResponse, Integer, Hash)>] CreateAccountRequestDeletionResponse data, response status code and response headers
     def create_account_request_deletion_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -277,12 +286,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_account_request_deletion_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAccountRequestDeletionResponse'
@@ -303,6 +317,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AccountApi#create_account_request_deletion\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Sign out several sessions at once.
+    # @param create_auth_session_sign_out_request [CreateAuthSessionSignOutRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateAuthSessionSignOutResponse]
+    def create_auth_session_sign_out(create_auth_session_sign_out_request, opts = {})
+      data, _status_code, _headers = create_auth_session_sign_out_with_http_info(create_auth_session_sign_out_request, opts)
+      data
+    end
+
+    # Sign out several sessions at once.
+    # @param create_auth_session_sign_out_request [CreateAuthSessionSignOutRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateAuthSessionSignOutResponse, Integer, Hash)>] CreateAuthSessionSignOutResponse data, response status code and response headers
+    def create_auth_session_sign_out_with_http_info(create_auth_session_sign_out_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.create_auth_session_sign_out ...'
+      end
+      # verify the required parameter 'create_auth_session_sign_out_request' is set
+      if @api_client.config.client_side_validation && create_auth_session_sign_out_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_auth_session_sign_out_request' when calling AccountApi.create_auth_session_sign_out"
+      end
+      # resource path
+      local_var_path = '/v1/auth/sessions/sign-out'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_auth_session_sign_out_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAuthSessionSignOutResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.create_auth_session_sign_out",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#create_auth_session_sign_out\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -659,6 +739,116 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Which notifications reach you, per event and channel (email, push, in-app).
+    # @param [Hash] opts the optional parameters
+    # @return [GetAccountNotificationPreferenceResponse]
+    def get_account_notification_preference(opts = {})
+      data, _status_code, _headers = get_account_notification_preference_with_http_info(opts)
+      data
+    end
+
+    # Which notifications reach you, per event and channel (email, push, in-app).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAccountNotificationPreferenceResponse, Integer, Hash)>] GetAccountNotificationPreferenceResponse data, response status code and response headers
+    def get_account_notification_preference_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.get_account_notification_preference ...'
+      end
+      # resource path
+      local_var_path = '/v1/account/notification-preferences'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAccountNotificationPreferenceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.get_account_notification_preference",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#get_account_notification_preference\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # How you sign in (Atlas): linked providers, password, passkeys, two-step.
+    # @param [Hash] opts the optional parameters
+    # @return [GetAccountSignInIdentityResponse]
+    def get_account_sign_in_identity(opts = {})
+      data, _status_code, _headers = get_account_sign_in_identity_with_http_info(opts)
+      data
+    end
+
+    # How you sign in (Atlas): linked providers, password, passkeys, two-step.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAccountSignInIdentityResponse, Integer, Hash)>] GetAccountSignInIdentityResponse data, response status code and response headers
+    def get_account_sign_in_identity_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.get_account_sign_in_identity ...'
+      end
+      # resource path
+      local_var_path = '/v1/account/sign-in-identity'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAccountSignInIdentityResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.get_account_sign_in_identity",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#get_account_sign_in_identity\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Identity check — authenticated user + PAT scopes + account state.
     # @param [Hash] opts the optional parameters
     # @return [GetMeResponse]
@@ -771,26 +961,79 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List active browser auth sessions.
+    # List, search and filter your sign-in sessions.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :status 
+    # @option opts [String] :device_type 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [Integer] :page 
+    # @option opts [Integer] :limit 
     # @return [ListAuthSessionsResponse]
     def list_auth_sessions(opts = {})
       data, _status_code, _headers = list_auth_sessions_with_http_info(opts)
       data
     end
 
-    # List active browser auth sessions.
+    # List, search and filter your sign-in sessions.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :status 
+    # @option opts [String] :device_type 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [Integer] :page 
+    # @option opts [Integer] :limit 
     # @return [Array<(ListAuthSessionsResponse, Integer, Hash)>] ListAuthSessionsResponse data, response status code and response headers
     def list_auth_sessions_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountApi.list_auth_sessions ...'
       end
+      if @api_client.config.client_side_validation && !opts[:'q'].nil? && opts[:'q'].to_s.length > 120
+        fail ArgumentError, 'invalid value for "opts[:"q"]" when calling AccountApi.list_auth_sessions, the character length must be smaller than or equal to 120.'
+      end
+
+      allowable_values = ["active", "expired", "all"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["all", "desktop", "mobile", "tablet", "app", "unknown"]
+      if @api_client.config.client_side_validation && opts[:'device_type'] && !allowable_values.include?(opts[:'device_type'])
+        fail ArgumentError, "invalid value for \"device_type\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'from'].nil? && opts[:'from'].to_s.length > 10
+        fail ArgumentError, 'invalid value for "opts[:"from"]" when calling AccountApi.list_auth_sessions, the character length must be smaller than or equal to 10.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'to'].nil? && opts[:'to'].to_s.length > 10
+        fail ArgumentError, 'invalid value for "opts[:"to"]" when calling AccountApi.list_auth_sessions, the character length must be smaller than or equal to 10.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling AccountApi.list_auth_sessions, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling AccountApi.list_auth_sessions, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling AccountApi.list_auth_sessions, must be greater than or equal to 1.'
+      end
+
       # resource path
       local_var_path = '/v1/auth/sessions'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'deviceType'] = opts[:'device_type'] if !opts[:'device_type'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -826,7 +1069,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List third-party OAuth apps with access to this account.
+    # List third-party OAuth apps with access to this account, each with its publisher (the store that owns it). Optional: q, scope, lastUsed (7d|30d|90d|never|stale), page, pageSize.
     # @param [Hash] opts the optional parameters
     # @return [ListConnectedAppsResponse]
     def list_connected_apps(opts = {})
@@ -834,7 +1077,7 @@ module Crossly
       data
     end
 
-    # List third-party OAuth apps with access to this account.
+    # List third-party OAuth apps with access to this account, each with its publisher (the store that owns it). Optional: q, scope, lastUsed (7d|30d|90d|never|stale), page, pageSize.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListConnectedAppsResponse, Integer, Hash)>] ListConnectedAppsResponse data, response status code and response headers
     def list_connected_apps_with_http_info(opts = {})
@@ -877,6 +1120,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AccountApi#list_connected_apps\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Turn notifications on or off per event and channel (email, push, in-app).
+    # @param update_account_notification_preference_request [UpdateAccountNotificationPreferenceRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetAccountNotificationPreferenceResponse]
+    def update_account_notification_preference(update_account_notification_preference_request, opts = {})
+      data, _status_code, _headers = update_account_notification_preference_with_http_info(update_account_notification_preference_request, opts)
+      data
+    end
+
+    # Turn notifications on or off per event and channel (email, push, in-app).
+    # @param update_account_notification_preference_request [UpdateAccountNotificationPreferenceRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAccountNotificationPreferenceResponse, Integer, Hash)>] GetAccountNotificationPreferenceResponse data, response status code and response headers
+    def update_account_notification_preference_with_http_info(update_account_notification_preference_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountApi.update_account_notification_preference ...'
+      end
+      # verify the required parameter 'update_account_notification_preference_request' is set
+      if @api_client.config.client_side_validation && update_account_notification_preference_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_account_notification_preference_request' when calling AccountApi.update_account_notification_preference"
+      end
+      # resource path
+      local_var_path = '/v1/account/notification-preferences'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_account_notification_preference_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAccountNotificationPreferenceResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountApi.update_account_notification_preference",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountApi#update_account_notification_preference\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

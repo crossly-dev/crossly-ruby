@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Set a price alert on a token, or on a whole collection without tokenId: you are notified when one is listed at or below `price` (the chain's native coin). Setting it again moves the price.
+    # @param create_web3_alert_request [CreateWeb3AlertRequest] 
     # @param [Hash] opts the optional parameters
     # @return [IdResponse]
-    def create_web3_alert(opts = {})
-      data, _status_code, _headers = create_web3_alert_with_http_info(opts)
+    def create_web3_alert(create_web3_alert_request, opts = {})
+      data, _status_code, _headers = create_web3_alert_with_http_info(create_web3_alert_request, opts)
       data
     end
 
     # Set a price alert on a token, or on a whole collection without tokenId: you are notified when one is listed at or below &#x60;price&#x60; (the chain&#39;s native coin). Setting it again moves the price.
+    # @param create_web3_alert_request [CreateWeb3AlertRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
-    def create_web3_alert_with_http_info(opts = {})
+    def create_web3_alert_with_http_info(create_web3_alert_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_alert ...'
+      end
+      # verify the required parameter 'create_web3_alert_request' is set
+      if @api_client.config.client_side_validation && create_web3_alert_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_alert_request' when calling Web3Api.create_web3_alert"
       end
       # resource path
       local_var_path = '/v1/web3/alerts'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_alert_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'IdResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Start an English auction on a token in your linked wallet: `reserve` is the opening bid in the chain's native coin, `hours` its length (1–720). Bids must rise 5%; a late bid extends the end by 10 minutes.
+    # @param create_web3_auction_request [CreateWeb3AuctionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3AuctionResponse]
-    def create_web3_auction(opts = {})
-      data, _status_code, _headers = create_web3_auction_with_http_info(opts)
+    def create_web3_auction(create_web3_auction_request, opts = {})
+      data, _status_code, _headers = create_web3_auction_with_http_info(create_web3_auction_request, opts)
       data
     end
 
     # Start an English auction on a token in your linked wallet: &#x60;reserve&#x60; is the opening bid in the chain&#39;s native coin, &#x60;hours&#x60; its length (1–720). Bids must rise 5%; a late bid extends the end by 10 minutes.
+    # @param create_web3_auction_request [CreateWeb3AuctionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3AuctionResponse, Integer, Hash)>] CreateWeb3AuctionResponse data, response status code and response headers
-    def create_web3_auction_with_http_info(opts = {})
+    def create_web3_auction_with_http_info(create_web3_auction_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_auction ...'
+      end
+      # verify the required parameter 'create_web3_auction_request' is set
+      if @api_client.config.client_side_validation && create_web3_auction_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_auction_request' when calling Web3Api.create_web3_auction"
       end
       # resource path
       local_var_path = '/v1/web3/auctions'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_auction_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3AuctionResponse'
@@ -191,19 +213,25 @@ module Crossly
     end
 
     # Claim an EVM collection as its creator: its owner() must be one of your verified wallets. Returns `{ chain, contract }`.
+    # @param create_web3_creator_claim_request [CreateWeb3CreatorClaimRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3CreatorClaimResponse]
-    def create_web3_creator_claim(opts = {})
-      data, _status_code, _headers = create_web3_creator_claim_with_http_info(opts)
+    def create_web3_creator_claim(create_web3_creator_claim_request, opts = {})
+      data, _status_code, _headers = create_web3_creator_claim_with_http_info(create_web3_creator_claim_request, opts)
       data
     end
 
     # Claim an EVM collection as its creator: its owner() must be one of your verified wallets. Returns &#x60;{ chain, contract }&#x60;.
+    # @param create_web3_creator_claim_request [CreateWeb3CreatorClaimRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3CreatorClaimResponse, Integer, Hash)>] CreateWeb3CreatorClaimResponse data, response status code and response headers
-    def create_web3_creator_claim_with_http_info(opts = {})
+    def create_web3_creator_claim_with_http_info(create_web3_creator_claim_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_creator_claim ...'
+      end
+      # verify the required parameter 'create_web3_creator_claim_request' is set
+      if @api_client.config.client_side_validation && create_web3_creator_claim_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_creator_claim_request' when calling Web3Api.create_web3_creator_claim"
       end
       # resource path
       local_var_path = '/v1/web3/creator/claims'
@@ -215,12 +243,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_creator_claim_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3CreatorClaimResponse'
@@ -246,19 +279,25 @@ module Crossly
     end
 
     # Submit signed Seaport listings for several marketplaces at once (crossly, opensea); results per marketplace.
+    # @param create_web3_crosslist_request [CreateWeb3CrosslistRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3CrosslistResponse]
-    def create_web3_crosslist(opts = {})
-      data, _status_code, _headers = create_web3_crosslist_with_http_info(opts)
+    def create_web3_crosslist(create_web3_crosslist_request, opts = {})
+      data, _status_code, _headers = create_web3_crosslist_with_http_info(create_web3_crosslist_request, opts)
       data
     end
 
     # Submit signed Seaport listings for several marketplaces at once (crossly, opensea); results per marketplace.
+    # @param create_web3_crosslist_request [CreateWeb3CrosslistRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3CrosslistResponse, Integer, Hash)>] CreateWeb3CrosslistResponse data, response status code and response headers
-    def create_web3_crosslist_with_http_info(opts = {})
+    def create_web3_crosslist_with_http_info(create_web3_crosslist_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_crosslist ...'
+      end
+      # verify the required parameter 'create_web3_crosslist_request' is set
+      if @api_client.config.client_side_validation && create_web3_crosslist_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_crosslist_request' when calling Web3Api.create_web3_crosslist"
       end
       # resource path
       local_var_path = '/v1/web3/crosslist'
@@ -270,12 +309,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_crosslist_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3CrosslistResponse'
@@ -362,19 +406,25 @@ module Crossly
     end
 
     # Favourite an NFT, or unfavourite it if it already is. Returns `{ favorited }`.
+    # @param create_web3_favorite_request [CreateWeb3FavoriteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3FavoriteResponse]
-    def create_web3_favorite(opts = {})
-      data, _status_code, _headers = create_web3_favorite_with_http_info(opts)
+    def create_web3_favorite(create_web3_favorite_request, opts = {})
+      data, _status_code, _headers = create_web3_favorite_with_http_info(create_web3_favorite_request, opts)
       data
     end
 
     # Favourite an NFT, or unfavourite it if it already is. Returns &#x60;{ favorited }&#x60;.
+    # @param create_web3_favorite_request [CreateWeb3FavoriteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3FavoriteResponse, Integer, Hash)>] CreateWeb3FavoriteResponse data, response status code and response headers
-    def create_web3_favorite_with_http_info(opts = {})
+    def create_web3_favorite_with_http_info(create_web3_favorite_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_favorite ...'
+      end
+      # verify the required parameter 'create_web3_favorite_request' is set
+      if @api_client.config.client_side_validation && create_web3_favorite_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_favorite_request' when calling Web3Api.create_web3_favorite"
       end
       # resource path
       local_var_path = '/v1/web3/favorites'
@@ -386,12 +436,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_favorite_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3FavoriteResponse'
@@ -417,19 +472,25 @@ module Crossly
     end
 
     # Draft a launchpad collection: name, symbol, supply, mint price (wei of the chain’s native currency), schedule, optional holder phase and royalty. Crossly takes 5% of each mint inside the contract.
+    # @param create_web3_launch_request [CreateWeb3LaunchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3LaunchesItem]
-    def create_web3_launch(opts = {})
-      data, _status_code, _headers = create_web3_launch_with_http_info(opts)
+    def create_web3_launch(create_web3_launch_request, opts = {})
+      data, _status_code, _headers = create_web3_launch_with_http_info(create_web3_launch_request, opts)
       data
     end
 
     # Draft a launchpad collection: name, symbol, supply, mint price (wei of the chain’s native currency), schedule, optional holder phase and royalty. Crossly takes 5% of each mint inside the contract.
+    # @param create_web3_launch_request [CreateWeb3LaunchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWeb3LaunchesItem, Integer, Hash)>] ListWeb3LaunchesItem data, response status code and response headers
-    def create_web3_launch_with_http_info(opts = {})
+    def create_web3_launch_with_http_info(create_web3_launch_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_launch ...'
+      end
+      # verify the required parameter 'create_web3_launch_request' is set
+      if @api_client.config.client_side_validation && create_web3_launch_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_launch_request' when calling Web3Api.create_web3_launch"
       end
       # resource path
       local_var_path = '/v1/web3/launches'
@@ -441,12 +502,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_launch_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListWeb3LaunchesItem'
@@ -777,19 +843,25 @@ module Crossly
     end
 
     # Place a signed Seaport 1.6 order (listing, offer or collection offer) in the Crossly book.
+    # @param create_web3_order_request [CreateWeb3OrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3OrderResponse]
-    def create_web3_order(opts = {})
-      data, _status_code, _headers = create_web3_order_with_http_info(opts)
+    def create_web3_order(create_web3_order_request, opts = {})
+      data, _status_code, _headers = create_web3_order_with_http_info(create_web3_order_request, opts)
       data
     end
 
     # Place a signed Seaport 1.6 order (listing, offer or collection offer) in the Crossly book.
+    # @param create_web3_order_request [CreateWeb3OrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3OrderResponse, Integer, Hash)>] CreateWeb3OrderResponse data, response status code and response headers
-    def create_web3_order_with_http_info(opts = {})
+    def create_web3_order_with_http_info(create_web3_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_order ...'
+      end
+      # verify the required parameter 'create_web3_order_request' is set
+      if @api_client.config.client_side_validation && create_web3_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_order_request' when calling Web3Api.create_web3_order"
       end
       # resource path
       local_var_path = '/v1/web3/orders'
@@ -801,12 +873,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3OrderResponse'
@@ -899,19 +976,25 @@ module Crossly
     end
 
     # Fulfilments for sweeping several listings in one Seaport transaction; unfillable ones are skipped with a reason.
+    # @param create_web3_order_fulfillment_batch_request [CreateWeb3OrderFulfillmentBatchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3OrderFulfillmentBatchResponse]
-    def create_web3_order_fulfillment_batch(opts = {})
-      data, _status_code, _headers = create_web3_order_fulfillment_batch_with_http_info(opts)
+    def create_web3_order_fulfillment_batch(create_web3_order_fulfillment_batch_request, opts = {})
+      data, _status_code, _headers = create_web3_order_fulfillment_batch_with_http_info(create_web3_order_fulfillment_batch_request, opts)
       data
     end
 
     # Fulfilments for sweeping several listings in one Seaport transaction; unfillable ones are skipped with a reason.
+    # @param create_web3_order_fulfillment_batch_request [CreateWeb3OrderFulfillmentBatchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3OrderFulfillmentBatchResponse, Integer, Hash)>] CreateWeb3OrderFulfillmentBatchResponse data, response status code and response headers
-    def create_web3_order_fulfillment_batch_with_http_info(opts = {})
+    def create_web3_order_fulfillment_batch_with_http_info(create_web3_order_fulfillment_batch_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_order_fulfillment_batch ...'
+      end
+      # verify the required parameter 'create_web3_order_fulfillment_batch_request' is set
+      if @api_client.config.client_side_validation && create_web3_order_fulfillment_batch_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_order_fulfillment_batch_request' when calling Web3Api.create_web3_order_fulfillment_batch"
       end
       # resource path
       local_var_path = '/v1/web3/orders/fulfillment-batch'
@@ -923,12 +1006,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_order_fulfillment_batch_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3OrderFulfillmentBatchResponse'
@@ -954,19 +1042,25 @@ module Crossly
     end
 
     # Make an NFT you hold redeemable for one of your physical inventory items.
+    # @param create_web3_phygital_request [CreateWeb3PhygitalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3PhygitalResponse]
-    def create_web3_phygital(opts = {})
-      data, _status_code, _headers = create_web3_phygital_with_http_info(opts)
+    def create_web3_phygital(create_web3_phygital_request, opts = {})
+      data, _status_code, _headers = create_web3_phygital_with_http_info(create_web3_phygital_request, opts)
       data
     end
 
     # Make an NFT you hold redeemable for one of your physical inventory items.
+    # @param create_web3_phygital_request [CreateWeb3PhygitalRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3PhygitalResponse, Integer, Hash)>] CreateWeb3PhygitalResponse data, response status code and response headers
-    def create_web3_phygital_with_http_info(opts = {})
+    def create_web3_phygital_with_http_info(create_web3_phygital_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_phygital ...'
+      end
+      # verify the required parameter 'create_web3_phygital_request' is set
+      if @api_client.config.client_side_validation && create_web3_phygital_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_phygital_request' when calling Web3Api.create_web3_phygital"
       end
       # resource path
       local_var_path = '/v1/web3/phygitals'
@@ -978,12 +1072,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_phygital_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3PhygitalResponse'
@@ -1010,24 +1109,30 @@ module Crossly
 
     # Redeem a phygital you hold (checked on-chain) for its physical item, with a shipping address. Once per phygital.
     # @param id [String] 
+    # @param create_web3_phygital_redeem_request [CreateWeb3PhygitalRedeemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3PhygitalRedeemResponse]
-    def create_web3_phygital_redeem(id, opts = {})
-      data, _status_code, _headers = create_web3_phygital_redeem_with_http_info(id, opts)
+    def create_web3_phygital_redeem(id, create_web3_phygital_redeem_request, opts = {})
+      data, _status_code, _headers = create_web3_phygital_redeem_with_http_info(id, create_web3_phygital_redeem_request, opts)
       data
     end
 
     # Redeem a phygital you hold (checked on-chain) for its physical item, with a shipping address. Once per phygital.
     # @param id [String] 
+    # @param create_web3_phygital_redeem_request [CreateWeb3PhygitalRedeemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3PhygitalRedeemResponse, Integer, Hash)>] CreateWeb3PhygitalRedeemResponse data, response status code and response headers
-    def create_web3_phygital_redeem_with_http_info(id, opts = {})
+    def create_web3_phygital_redeem_with_http_info(id, create_web3_phygital_redeem_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_phygital_redeem ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.create_web3_phygital_redeem"
+      end
+      # verify the required parameter 'create_web3_phygital_redeem_request' is set
+      if @api_client.config.client_side_validation && create_web3_phygital_redeem_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_phygital_redeem_request' when calling Web3Api.create_web3_phygital_redeem"
       end
       # resource path
       local_var_path = '/v1/web3/phygitals/{id}/redeem'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1039,12 +1144,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_phygital_redeem_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3PhygitalRedeemResponse'
@@ -1071,24 +1181,30 @@ module Crossly
 
     # Mark a redemption shipped with its carrier and tracking number; the redeemer is notified.
     # @param id [String] 
+    # @param create_web3_phygital_redemption_ship_request [CreateWeb3PhygitalRedemptionShipRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
-    def create_web3_phygital_redemption_ship(id, opts = {})
-      data, _status_code, _headers = create_web3_phygital_redemption_ship_with_http_info(id, opts)
+    def create_web3_phygital_redemption_ship(id, create_web3_phygital_redemption_ship_request, opts = {})
+      data, _status_code, _headers = create_web3_phygital_redemption_ship_with_http_info(id, create_web3_phygital_redemption_ship_request, opts)
       data
     end
 
     # Mark a redemption shipped with its carrier and tracking number; the redeemer is notified.
     # @param id [String] 
+    # @param create_web3_phygital_redemption_ship_request [CreateWeb3PhygitalRedemptionShipRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def create_web3_phygital_redemption_ship_with_http_info(id, opts = {})
+    def create_web3_phygital_redemption_ship_with_http_info(id, create_web3_phygital_redemption_ship_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_phygital_redemption_ship ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling Web3Api.create_web3_phygital_redemption_ship"
+      end
+      # verify the required parameter 'create_web3_phygital_redemption_ship_request' is set
+      if @api_client.config.client_side_validation && create_web3_phygital_redemption_ship_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_phygital_redemption_ship_request' when calling Web3Api.create_web3_phygital_redemption_ship"
       end
       # resource path
       local_var_path = '/v1/web3/phygitals/redemptions/{id}/ship'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1100,12 +1216,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_phygital_redemption_ship_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'
@@ -1131,19 +1252,25 @@ module Crossly
     end
 
     # Draft a Rarible V2 listing for an NFT in your linked wallet: the EIP-712 order to sign and whether Rarible's transfer proxy is approved.
+    # @param create_web3_rarible_draft_request [CreateWeb3RaribleDraftRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3RaribleDraftResponse]
-    def create_web3_rarible_draft(opts = {})
-      data, _status_code, _headers = create_web3_rarible_draft_with_http_info(opts)
+    def create_web3_rarible_draft(create_web3_rarible_draft_request, opts = {})
+      data, _status_code, _headers = create_web3_rarible_draft_with_http_info(create_web3_rarible_draft_request, opts)
       data
     end
 
     # Draft a Rarible V2 listing for an NFT in your linked wallet: the EIP-712 order to sign and whether Rarible&#39;s transfer proxy is approved.
+    # @param create_web3_rarible_draft_request [CreateWeb3RaribleDraftRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3RaribleDraftResponse, Integer, Hash)>] CreateWeb3RaribleDraftResponse data, response status code and response headers
-    def create_web3_rarible_draft_with_http_info(opts = {})
+    def create_web3_rarible_draft_with_http_info(create_web3_rarible_draft_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_rarible_draft ...'
+      end
+      # verify the required parameter 'create_web3_rarible_draft_request' is set
+      if @api_client.config.client_side_validation && create_web3_rarible_draft_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_rarible_draft_request' when calling Web3Api.create_web3_rarible_draft"
       end
       # resource path
       local_var_path = '/v1/web3/rarible/draft'
@@ -1155,12 +1282,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_rarible_draft_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3RaribleDraftResponse'
@@ -1186,19 +1318,25 @@ module Crossly
     end
 
     # Submit a signed Rarible V2 listing: the signature is verified, then the order is posted to Rarible and recorded.
+    # @param create_web3_rarible_listing_request [CreateWeb3RaribleListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OrderHashResponse]
-    def create_web3_rarible_listing(opts = {})
-      data, _status_code, _headers = create_web3_rarible_listing_with_http_info(opts)
+    def create_web3_rarible_listing(create_web3_rarible_listing_request, opts = {})
+      data, _status_code, _headers = create_web3_rarible_listing_with_http_info(create_web3_rarible_listing_request, opts)
       data
     end
 
     # Submit a signed Rarible V2 listing: the signature is verified, then the order is posted to Rarible and recorded.
+    # @param create_web3_rarible_listing_request [CreateWeb3RaribleListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OrderHashResponse, Integer, Hash)>] OrderHashResponse data, response status code and response headers
-    def create_web3_rarible_listing_with_http_info(opts = {})
+    def create_web3_rarible_listing_with_http_info(create_web3_rarible_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_rarible_listing ...'
+      end
+      # verify the required parameter 'create_web3_rarible_listing_request' is set
+      if @api_client.config.client_side_validation && create_web3_rarible_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_rarible_listing_request' when calling Web3Api.create_web3_rarible_listing"
       end
       # resource path
       local_var_path = '/v1/web3/rarible/listings'
@@ -1210,12 +1348,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_rarible_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OrderHashResponse'
@@ -1242,18 +1385,20 @@ module Crossly
 
     # Build an unsigned listing transaction on the Crossly book, Tensor or Magic Eden for a Solana NFT in your linked wallet.
     # @param marketplace [String] 
+    # @param create_web3_solana_list_tx_request [CreateWeb3SolanaListTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaListTxResponse]
-    def create_web3_solana_list_tx(marketplace, opts = {})
-      data, _status_code, _headers = create_web3_solana_list_tx_with_http_info(marketplace, opts)
+    def create_web3_solana_list_tx(marketplace, create_web3_solana_list_tx_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_list_tx_with_http_info(marketplace, create_web3_solana_list_tx_request, opts)
       data
     end
 
     # Build an unsigned listing transaction on the Crossly book, Tensor or Magic Eden for a Solana NFT in your linked wallet.
     # @param marketplace [String] 
+    # @param create_web3_solana_list_tx_request [CreateWeb3SolanaListTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaListTxResponse, Integer, Hash)>] CreateWeb3SolanaListTxResponse data, response status code and response headers
-    def create_web3_solana_list_tx_with_http_info(marketplace, opts = {})
+    def create_web3_solana_list_tx_with_http_info(marketplace, create_web3_solana_list_tx_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_list_tx ...'
       end
@@ -1266,6 +1411,10 @@ module Crossly
       if @api_client.config.client_side_validation && !allowable_values.include?(marketplace)
         fail ArgumentError, "invalid value for \"marketplace\", must be one of #{allowable_values}"
       end
+      # verify the required parameter 'create_web3_solana_list_tx_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_list_tx_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_list_tx_request' when calling Web3Api.create_web3_solana_list_tx"
+      end
       # resource path
       local_var_path = '/v1/web3/solana/{marketplace}/list-tx'.sub('{' + 'marketplace' + '}', CGI.escape(marketplace.to_s))
 
@@ -1276,12 +1425,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_list_tx_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaListTxResponse'
@@ -1308,18 +1462,20 @@ module Crossly
 
     # Record a Crossly-book, Tensor or Magic Eden listing your wallet sent (read back from the chain first).
     # @param marketplace [String] 
+    # @param create_web3_solana_listing_request [CreateWeb3SolanaListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OrderHashResponse]
-    def create_web3_solana_listing(marketplace, opts = {})
-      data, _status_code, _headers = create_web3_solana_listing_with_http_info(marketplace, opts)
+    def create_web3_solana_listing(marketplace, create_web3_solana_listing_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_listing_with_http_info(marketplace, create_web3_solana_listing_request, opts)
       data
     end
 
     # Record a Crossly-book, Tensor or Magic Eden listing your wallet sent (read back from the chain first).
     # @param marketplace [String] 
+    # @param create_web3_solana_listing_request [CreateWeb3SolanaListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OrderHashResponse, Integer, Hash)>] OrderHashResponse data, response status code and response headers
-    def create_web3_solana_listing_with_http_info(marketplace, opts = {})
+    def create_web3_solana_listing_with_http_info(marketplace, create_web3_solana_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_listing ...'
       end
@@ -1332,6 +1488,10 @@ module Crossly
       if @api_client.config.client_side_validation && !allowable_values.include?(marketplace)
         fail ArgumentError, "invalid value for \"marketplace\", must be one of #{allowable_values}"
       end
+      # verify the required parameter 'create_web3_solana_listing_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_listing_request' when calling Web3Api.create_web3_solana_listing"
+      end
       # resource path
       local_var_path = '/v1/web3/solana/{marketplace}/listings'.sub('{' + 'marketplace' + '}', CGI.escape(marketplace.to_s))
 
@@ -1342,12 +1502,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OrderHashResponse'
@@ -1373,19 +1538,25 @@ module Crossly
     end
 
     # Record a sent bid; it is recorded only once its trade state exists on chain.
+    # @param create_web3_solana_offer_request [CreateWeb3SolanaOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OrderHashResponse]
-    def create_web3_solana_offer(opts = {})
-      data, _status_code, _headers = create_web3_solana_offer_with_http_info(opts)
+    def create_web3_solana_offer(create_web3_solana_offer_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_offer_with_http_info(create_web3_solana_offer_request, opts)
       data
     end
 
     # Record a sent bid; it is recorded only once its trade state exists on chain.
+    # @param create_web3_solana_offer_request [CreateWeb3SolanaOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OrderHashResponse, Integer, Hash)>] OrderHashResponse data, response status code and response headers
-    def create_web3_solana_offer_with_http_info(opts = {})
+    def create_web3_solana_offer_with_http_info(create_web3_solana_offer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_offer ...'
+      end
+      # verify the required parameter 'create_web3_solana_offer_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_offer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_offer_request' when calling Web3Api.create_web3_solana_offer"
       end
       # resource path
       local_var_path = '/v1/web3/solana/offers'
@@ -1397,12 +1568,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_offer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OrderHashResponse'
@@ -1429,24 +1605,30 @@ module Crossly
 
     # Build the sale into a bid from your linked wallet that holds the NFT (sell + execute_sale, one transaction).
     # @param hash [String] 
+    # @param create_web3_solana_offer_accept_tx_request [CreateWeb3SolanaOfferAcceptTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaListTxResponse]
-    def create_web3_solana_offer_accept_tx(hash, opts = {})
-      data, _status_code, _headers = create_web3_solana_offer_accept_tx_with_http_info(hash, opts)
+    def create_web3_solana_offer_accept_tx(hash, create_web3_solana_offer_accept_tx_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_offer_accept_tx_with_http_info(hash, create_web3_solana_offer_accept_tx_request, opts)
       data
     end
 
     # Build the sale into a bid from your linked wallet that holds the NFT (sell + execute_sale, one transaction).
     # @param hash [String] 
+    # @param create_web3_solana_offer_accept_tx_request [CreateWeb3SolanaOfferAcceptTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaListTxResponse, Integer, Hash)>] CreateWeb3SolanaListTxResponse data, response status code and response headers
-    def create_web3_solana_offer_accept_tx_with_http_info(hash, opts = {})
+    def create_web3_solana_offer_accept_tx_with_http_info(hash, create_web3_solana_offer_accept_tx_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_offer_accept_tx ...'
       end
       # verify the required parameter 'hash' is set
       if @api_client.config.client_side_validation && hash.nil?
         fail ArgumentError, "Missing the required parameter 'hash' when calling Web3Api.create_web3_solana_offer_accept_tx"
+      end
+      # verify the required parameter 'create_web3_solana_offer_accept_tx_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_offer_accept_tx_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_offer_accept_tx_request' when calling Web3Api.create_web3_solana_offer_accept_tx"
       end
       # resource path
       local_var_path = '/v1/web3/solana/offers/{hash}/accept-tx'.sub('{' + 'hash' + '}', CGI.escape(hash.to_s))
@@ -1458,12 +1640,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_offer_accept_tx_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaListTxResponse'
@@ -1490,24 +1677,30 @@ module Crossly
 
     # Build the cancel of your bid: the SOL your other bids do not need comes back.
     # @param hash [String] 
+    # @param create_web3_solana_offer_cancel_tx_request [CreateWeb3SolanaOfferCancelTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaListTxResponse]
-    def create_web3_solana_offer_cancel_tx(hash, opts = {})
-      data, _status_code, _headers = create_web3_solana_offer_cancel_tx_with_http_info(hash, opts)
+    def create_web3_solana_offer_cancel_tx(hash, create_web3_solana_offer_cancel_tx_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_offer_cancel_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request, opts)
       data
     end
 
     # Build the cancel of your bid: the SOL your other bids do not need comes back.
     # @param hash [String] 
+    # @param create_web3_solana_offer_cancel_tx_request [CreateWeb3SolanaOfferCancelTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaListTxResponse, Integer, Hash)>] CreateWeb3SolanaListTxResponse data, response status code and response headers
-    def create_web3_solana_offer_cancel_tx_with_http_info(hash, opts = {})
+    def create_web3_solana_offer_cancel_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_offer_cancel_tx ...'
       end
       # verify the required parameter 'hash' is set
       if @api_client.config.client_side_validation && hash.nil?
         fail ArgumentError, "Missing the required parameter 'hash' when calling Web3Api.create_web3_solana_offer_cancel_tx"
+      end
+      # verify the required parameter 'create_web3_solana_offer_cancel_tx_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_offer_cancel_tx_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_offer_cancel_tx_request' when calling Web3Api.create_web3_solana_offer_cancel_tx"
       end
       # resource path
       local_var_path = '/v1/web3/solana/offers/{hash}/cancel-tx'.sub('{' + 'hash' + '}', CGI.escape(hash.to_s))
@@ -1519,12 +1712,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_offer_cancel_tx_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaListTxResponse'
@@ -1551,24 +1749,30 @@ module Crossly
 
     # Apply a sent accept or cancel once the chain shows the bid closed.
     # @param hash [String] 
+    # @param create_web3_solana_offer_confirm_request [CreateWeb3SolanaOfferConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaOfferConfirmResponse]
-    def create_web3_solana_offer_confirm(hash, opts = {})
-      data, _status_code, _headers = create_web3_solana_offer_confirm_with_http_info(hash, opts)
+    def create_web3_solana_offer_confirm(hash, create_web3_solana_offer_confirm_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_offer_confirm_with_http_info(hash, create_web3_solana_offer_confirm_request, opts)
       data
     end
 
     # Apply a sent accept or cancel once the chain shows the bid closed.
     # @param hash [String] 
+    # @param create_web3_solana_offer_confirm_request [CreateWeb3SolanaOfferConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaOfferConfirmResponse, Integer, Hash)>] CreateWeb3SolanaOfferConfirmResponse data, response status code and response headers
-    def create_web3_solana_offer_confirm_with_http_info(hash, opts = {})
+    def create_web3_solana_offer_confirm_with_http_info(hash, create_web3_solana_offer_confirm_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_offer_confirm ...'
       end
       # verify the required parameter 'hash' is set
       if @api_client.config.client_side_validation && hash.nil?
         fail ArgumentError, "Missing the required parameter 'hash' when calling Web3Api.create_web3_solana_offer_confirm"
+      end
+      # verify the required parameter 'create_web3_solana_offer_confirm_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_offer_confirm_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_offer_confirm_request' when calling Web3Api.create_web3_solana_offer_confirm"
       end
       # resource path
       local_var_path = '/v1/web3/solana/offers/{hash}/confirm'.sub('{' + 'hash' + '}', CGI.escape(hash.to_s))
@@ -1580,12 +1784,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_offer_confirm_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaOfferConfirmResponse'
@@ -1611,19 +1820,25 @@ module Crossly
     end
 
     # Build a bid on a Solana NFT on Crossly's book for your linked wallet to sign; the SOL goes into your Auction House escrow.
+    # @param create_web3_solana_offer_tx_request [CreateWeb3SolanaOfferTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaOfferTxResponse]
-    def create_web3_solana_offer_tx(opts = {})
-      data, _status_code, _headers = create_web3_solana_offer_tx_with_http_info(opts)
+    def create_web3_solana_offer_tx(create_web3_solana_offer_tx_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_offer_tx_with_http_info(create_web3_solana_offer_tx_request, opts)
       data
     end
 
     # Build a bid on a Solana NFT on Crossly&#39;s book for your linked wallet to sign; the SOL goes into your Auction House escrow.
+    # @param create_web3_solana_offer_tx_request [CreateWeb3SolanaOfferTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaOfferTxResponse, Integer, Hash)>] CreateWeb3SolanaOfferTxResponse data, response status code and response headers
-    def create_web3_solana_offer_tx_with_http_info(opts = {})
+    def create_web3_solana_offer_tx_with_http_info(create_web3_solana_offer_tx_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_offer_tx ...'
+      end
+      # verify the required parameter 'create_web3_solana_offer_tx_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_offer_tx_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_offer_tx_request' when calling Web3Api.create_web3_solana_offer_tx"
       end
       # resource path
       local_var_path = '/v1/web3/solana/offers/tx'
@@ -1635,12 +1850,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_offer_tx_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaOfferTxResponse'
@@ -1667,24 +1887,30 @@ module Crossly
 
     # Build the unsigned transaction that buys a Solana listing (price capped at the listed price).
     # @param hash [String] 
+    # @param create_web3_solana_order_buy_tx_request [CreateWeb3SolanaOrderBuyTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaOrderBuyTxResponse]
-    def create_web3_solana_order_buy_tx(hash, opts = {})
-      data, _status_code, _headers = create_web3_solana_order_buy_tx_with_http_info(hash, opts)
+    def create_web3_solana_order_buy_tx(hash, create_web3_solana_order_buy_tx_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_order_buy_tx_with_http_info(hash, create_web3_solana_order_buy_tx_request, opts)
       data
     end
 
     # Build the unsigned transaction that buys a Solana listing (price capped at the listed price).
     # @param hash [String] 
+    # @param create_web3_solana_order_buy_tx_request [CreateWeb3SolanaOrderBuyTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaOrderBuyTxResponse, Integer, Hash)>] CreateWeb3SolanaOrderBuyTxResponse data, response status code and response headers
-    def create_web3_solana_order_buy_tx_with_http_info(hash, opts = {})
+    def create_web3_solana_order_buy_tx_with_http_info(hash, create_web3_solana_order_buy_tx_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_order_buy_tx ...'
       end
       # verify the required parameter 'hash' is set
       if @api_client.config.client_side_validation && hash.nil?
         fail ArgumentError, "Missing the required parameter 'hash' when calling Web3Api.create_web3_solana_order_buy_tx"
+      end
+      # verify the required parameter 'create_web3_solana_order_buy_tx_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_order_buy_tx_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_order_buy_tx_request' when calling Web3Api.create_web3_solana_order_buy_tx"
       end
       # resource path
       local_var_path = '/v1/web3/solana/orders/{hash}/buy-tx'.sub('{' + 'hash' + '}', CGI.escape(hash.to_s))
@@ -1696,12 +1922,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_order_buy_tx_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaOrderBuyTxResponse'
@@ -1728,24 +1959,30 @@ module Crossly
 
     # Apply a sent Solana buy or delist to the book (the transaction is read back from the chain).
     # @param hash [String] 
+    # @param create_web3_solana_order_confirm_request [CreateWeb3SolanaOrderConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaOfferConfirmResponse]
-    def create_web3_solana_order_confirm(hash, opts = {})
-      data, _status_code, _headers = create_web3_solana_order_confirm_with_http_info(hash, opts)
+    def create_web3_solana_order_confirm(hash, create_web3_solana_order_confirm_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_order_confirm_with_http_info(hash, create_web3_solana_order_confirm_request, opts)
       data
     end
 
     # Apply a sent Solana buy or delist to the book (the transaction is read back from the chain).
     # @param hash [String] 
+    # @param create_web3_solana_order_confirm_request [CreateWeb3SolanaOrderConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaOfferConfirmResponse, Integer, Hash)>] CreateWeb3SolanaOfferConfirmResponse data, response status code and response headers
-    def create_web3_solana_order_confirm_with_http_info(hash, opts = {})
+    def create_web3_solana_order_confirm_with_http_info(hash, create_web3_solana_order_confirm_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_order_confirm ...'
       end
       # verify the required parameter 'hash' is set
       if @api_client.config.client_side_validation && hash.nil?
         fail ArgumentError, "Missing the required parameter 'hash' when calling Web3Api.create_web3_solana_order_confirm"
+      end
+      # verify the required parameter 'create_web3_solana_order_confirm_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_order_confirm_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_order_confirm_request' when calling Web3Api.create_web3_solana_order_confirm"
       end
       # resource path
       local_var_path = '/v1/web3/solana/orders/{hash}/confirm'.sub('{' + 'hash' + '}', CGI.escape(hash.to_s))
@@ -1757,12 +1994,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_order_confirm_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaOfferConfirmResponse'
@@ -1789,24 +2031,30 @@ module Crossly
 
     # Build the unsigned transaction that takes your Solana listing down.
     # @param hash [String] 
+    # @param create_web3_solana_offer_cancel_tx_request [CreateWeb3SolanaOfferCancelTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3SolanaListTxResponse]
-    def create_web3_solana_order_delist_tx(hash, opts = {})
-      data, _status_code, _headers = create_web3_solana_order_delist_tx_with_http_info(hash, opts)
+    def create_web3_solana_order_delist_tx(hash, create_web3_solana_offer_cancel_tx_request, opts = {})
+      data, _status_code, _headers = create_web3_solana_order_delist_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request, opts)
       data
     end
 
     # Build the unsigned transaction that takes your Solana listing down.
     # @param hash [String] 
+    # @param create_web3_solana_offer_cancel_tx_request [CreateWeb3SolanaOfferCancelTxRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3SolanaListTxResponse, Integer, Hash)>] CreateWeb3SolanaListTxResponse data, response status code and response headers
-    def create_web3_solana_order_delist_tx_with_http_info(hash, opts = {})
+    def create_web3_solana_order_delist_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_solana_order_delist_tx ...'
       end
       # verify the required parameter 'hash' is set
       if @api_client.config.client_side_validation && hash.nil?
         fail ArgumentError, "Missing the required parameter 'hash' when calling Web3Api.create_web3_solana_order_delist_tx"
+      end
+      # verify the required parameter 'create_web3_solana_offer_cancel_tx_request' is set
+      if @api_client.config.client_side_validation && create_web3_solana_offer_cancel_tx_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_solana_offer_cancel_tx_request' when calling Web3Api.create_web3_solana_order_delist_tx"
       end
       # resource path
       local_var_path = '/v1/web3/solana/orders/{hash}/delist-tx'.sub('{' + 'hash' + '}', CGI.escape(hash.to_s))
@@ -1818,12 +2066,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_solana_offer_cancel_tx_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3SolanaListTxResponse'
@@ -2179,19 +2432,25 @@ module Crossly
     end
 
     # Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
+    # @param create_web3_store_wallet_request [CreateWeb3StoreWalletRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3StoreWalletResponse]
-    def create_web3_store_wallet(opts = {})
-      data, _status_code, _headers = create_web3_store_wallet_with_http_info(opts)
+    def create_web3_store_wallet(create_web3_store_wallet_request, opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_with_http_info(create_web3_store_wallet_request, opts)
       data
     end
 
     # Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
+    # @param create_web3_store_wallet_request [CreateWeb3StoreWalletRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3StoreWalletResponse, Integer, Hash)>] CreateWeb3StoreWalletResponse data, response status code and response headers
-    def create_web3_store_wallet_with_http_info(opts = {})
+    def create_web3_store_wallet_with_http_info(create_web3_store_wallet_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet ...'
+      end
+      # verify the required parameter 'create_web3_store_wallet_request' is set
+      if @api_client.config.client_side_validation && create_web3_store_wallet_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_store_wallet_request' when calling Web3Api.create_web3_store_wallet"
       end
       # resource path
       local_var_path = '/v1/web3/store-wallets'
@@ -2203,12 +2462,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_store_wallet_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3StoreWalletResponse'
@@ -2234,19 +2498,25 @@ module Crossly
     end
 
     # Start adding a selling wallet to the store: the message the wallet signs.
+    # @param create_web3_wallet_challenge_request [CreateWeb3WalletChallengeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3WalletChallengeResponse]
-    def create_web3_store_wallet_challenge(opts = {})
-      data, _status_code, _headers = create_web3_store_wallet_challenge_with_http_info(opts)
+    def create_web3_store_wallet_challenge(create_web3_wallet_challenge_request, opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_challenge_with_http_info(create_web3_wallet_challenge_request, opts)
       data
     end
 
     # Start adding a selling wallet to the store: the message the wallet signs.
+    # @param create_web3_wallet_challenge_request [CreateWeb3WalletChallengeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3WalletChallengeResponse, Integer, Hash)>] CreateWeb3WalletChallengeResponse data, response status code and response headers
-    def create_web3_store_wallet_challenge_with_http_info(opts = {})
+    def create_web3_store_wallet_challenge_with_http_info(create_web3_wallet_challenge_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_challenge ...'
+      end
+      # verify the required parameter 'create_web3_wallet_challenge_request' is set
+      if @api_client.config.client_side_validation && create_web3_wallet_challenge_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_wallet_challenge_request' when calling Web3Api.create_web3_store_wallet_challenge"
       end
       # resource path
       local_var_path = '/v1/web3/store-wallets/challenge'
@@ -2258,12 +2528,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_wallet_challenge_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3WalletChallengeResponse'
@@ -2290,24 +2565,30 @@ module Crossly
 
     # Add picked NFTs (`tokens: [{ chain, contract, tokenId }]`) from a store wallet to inventory.
     # @param wallet_id [String] 
+    # @param create_web3_store_wallet_import_request [CreateWeb3StoreWalletImportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3WalletImportResponse]
-    def create_web3_store_wallet_import(wallet_id, opts = {})
-      data, _status_code, _headers = create_web3_store_wallet_import_with_http_info(wallet_id, opts)
+    def create_web3_store_wallet_import(wallet_id, create_web3_store_wallet_import_request, opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_import_with_http_info(wallet_id, create_web3_store_wallet_import_request, opts)
       data
     end
 
     # Add picked NFTs (&#x60;tokens: [{ chain, contract, tokenId }]&#x60;) from a store wallet to inventory.
     # @param wallet_id [String] 
+    # @param create_web3_store_wallet_import_request [CreateWeb3StoreWalletImportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3WalletImportResponse, Integer, Hash)>] CreateWeb3WalletImportResponse data, response status code and response headers
-    def create_web3_store_wallet_import_with_http_info(wallet_id, opts = {})
+    def create_web3_store_wallet_import_with_http_info(wallet_id, create_web3_store_wallet_import_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_import ...'
       end
       # verify the required parameter 'wallet_id' is set
       if @api_client.config.client_side_validation && wallet_id.nil?
         fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.create_web3_store_wallet_import"
+      end
+      # verify the required parameter 'create_web3_store_wallet_import_request' is set
+      if @api_client.config.client_side_validation && create_web3_store_wallet_import_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_store_wallet_import_request' when calling Web3Api.create_web3_store_wallet_import"
       end
       # resource path
       local_var_path = '/v1/web3/store-wallets/{walletId}/import'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
@@ -2319,12 +2600,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_store_wallet_import_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3WalletImportResponse'
@@ -2411,19 +2697,25 @@ module Crossly
     end
 
     # Finish adding a selling wallet: verify its signature and link it to the store.
+    # @param create_web3_store_wallet_verify_request [CreateWeb3StoreWalletVerifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3StoreWalletResponse]
-    def create_web3_store_wallet_verify(opts = {})
-      data, _status_code, _headers = create_web3_store_wallet_verify_with_http_info(opts)
+    def create_web3_store_wallet_verify(create_web3_store_wallet_verify_request, opts = {})
+      data, _status_code, _headers = create_web3_store_wallet_verify_with_http_info(create_web3_store_wallet_verify_request, opts)
       data
     end
 
     # Finish adding a selling wallet: verify its signature and link it to the store.
+    # @param create_web3_store_wallet_verify_request [CreateWeb3StoreWalletVerifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3StoreWalletResponse, Integer, Hash)>] CreateWeb3StoreWalletResponse data, response status code and response headers
-    def create_web3_store_wallet_verify_with_http_info(opts = {})
+    def create_web3_store_wallet_verify_with_http_info(create_web3_store_wallet_verify_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_store_wallet_verify ...'
+      end
+      # verify the required parameter 'create_web3_store_wallet_verify_request' is set
+      if @api_client.config.client_side_validation && create_web3_store_wallet_verify_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_store_wallet_verify_request' when calling Web3Api.create_web3_store_wallet_verify"
       end
       # resource path
       local_var_path = '/v1/web3/store-wallets/verify'
@@ -2435,12 +2727,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_store_wallet_verify_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3StoreWalletResponse'
@@ -2539,19 +2836,25 @@ module Crossly
     end
 
     # Apply a Seaport transaction's fills and cancels to the Crossly book (read from the receipt).
+    # @param create_web3_transaction_request [CreateWeb3TransactionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3TransactionResponse]
-    def create_web3_transaction(opts = {})
-      data, _status_code, _headers = create_web3_transaction_with_http_info(opts)
+    def create_web3_transaction(create_web3_transaction_request, opts = {})
+      data, _status_code, _headers = create_web3_transaction_with_http_info(create_web3_transaction_request, opts)
       data
     end
 
     # Apply a Seaport transaction&#39;s fills and cancels to the Crossly book (read from the receipt).
+    # @param create_web3_transaction_request [CreateWeb3TransactionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3TransactionResponse, Integer, Hash)>] CreateWeb3TransactionResponse data, response status code and response headers
-    def create_web3_transaction_with_http_info(opts = {})
+    def create_web3_transaction_with_http_info(create_web3_transaction_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_transaction ...'
+      end
+      # verify the required parameter 'create_web3_transaction_request' is set
+      if @api_client.config.client_side_validation && create_web3_transaction_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_transaction_request' when calling Web3Api.create_web3_transaction"
       end
       # resource path
       local_var_path = '/v1/web3/transactions'
@@ -2563,12 +2866,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_transaction_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3TransactionResponse'
@@ -2594,19 +2902,25 @@ module Crossly
     end
 
     # Start linking a wallet: returns the message the wallet must sign.
+    # @param create_web3_wallet_challenge_request [CreateWeb3WalletChallengeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3WalletChallengeResponse]
-    def create_web3_wallet_challenge(opts = {})
-      data, _status_code, _headers = create_web3_wallet_challenge_with_http_info(opts)
+    def create_web3_wallet_challenge(create_web3_wallet_challenge_request, opts = {})
+      data, _status_code, _headers = create_web3_wallet_challenge_with_http_info(create_web3_wallet_challenge_request, opts)
       data
     end
 
     # Start linking a wallet: returns the message the wallet must sign.
+    # @param create_web3_wallet_challenge_request [CreateWeb3WalletChallengeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3WalletChallengeResponse, Integer, Hash)>] CreateWeb3WalletChallengeResponse data, response status code and response headers
-    def create_web3_wallet_challenge_with_http_info(opts = {})
+    def create_web3_wallet_challenge_with_http_info(create_web3_wallet_challenge_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_wallet_challenge ...'
+      end
+      # verify the required parameter 'create_web3_wallet_challenge_request' is set
+      if @api_client.config.client_side_validation && create_web3_wallet_challenge_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_wallet_challenge_request' when calling Web3Api.create_web3_wallet_challenge"
       end
       # resource path
       local_var_path = '/v1/web3/wallets/challenge'
@@ -2618,12 +2932,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_wallet_challenge_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3WalletChallengeResponse'
@@ -2771,19 +3090,25 @@ module Crossly
     end
 
     # Finish linking a wallet with its signature over the challenge message.
+    # @param create_web3_wallet_verify_request [CreateWeb3WalletVerifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWeb3WalletVerifyResponse]
-    def create_web3_wallet_verify(opts = {})
-      data, _status_code, _headers = create_web3_wallet_verify_with_http_info(opts)
+    def create_web3_wallet_verify(create_web3_wallet_verify_request, opts = {})
+      data, _status_code, _headers = create_web3_wallet_verify_with_http_info(create_web3_wallet_verify_request, opts)
       data
     end
 
     # Finish linking a wallet with its signature over the challenge message.
+    # @param create_web3_wallet_verify_request [CreateWeb3WalletVerifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWeb3WalletVerifyResponse, Integer, Hash)>] CreateWeb3WalletVerifyResponse data, response status code and response headers
-    def create_web3_wallet_verify_with_http_info(opts = {})
+    def create_web3_wallet_verify_with_http_info(create_web3_wallet_verify_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.create_web3_wallet_verify ...'
+      end
+      # verify the required parameter 'create_web3_wallet_verify_request' is set
+      if @api_client.config.client_side_validation && create_web3_wallet_verify_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_web3_wallet_verify_request' when calling Web3Api.create_web3_wallet_verify"
       end
       # resource path
       local_var_path = '/v1/web3/wallets/verify'
@@ -2795,12 +3120,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_web3_wallet_verify_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWeb3WalletVerifyResponse'
@@ -3450,6 +3780,8 @@ module Crossly
 
     # The Web3 directory's categories and chains, with how many collections each holds.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
     # @return [GetWeb3BrowseResponse]
     def get_web3_browse(opts = {})
       data, _status_code, _headers = get_web3_browse_with_http_info(opts)
@@ -3458,16 +3790,28 @@ module Crossly
 
     # The Web3 directory&#39;s categories and chains, with how many collections each holds.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
     # @return [Array<(GetWeb3BrowseResponse, Integer, Hash)>] GetWeb3BrowseResponse data, response status code and response headers
     def get_web3_browse_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_browse ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pfps", "art", "gaming", "memberships", "music", "photography", "sports-collectibles", "physical-collectibles", "virtual-worlds", "domains"]
+      if @api_client.config.client_side_validation && opts[:'category'] && !allowable_values.include?(opts[:'category'])
+        fail ArgumentError, "invalid value for \"category\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/browse'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -3708,6 +4052,13 @@ module Crossly
     # @param chain [String] 
     # @param contract [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :offset 
+    # @option opts [Float] :limit 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [String] :trait 
+    # @option opts [Boolean] :listed 
+    # @option opts [String] :page_key 
     # @return [GetWeb3CollectionItemResponse]
     def get_web3_collection_item(chain, contract, opts = {})
       data, _status_code, _headers = get_web3_collection_item_with_http_info(chain, contract, opts)
@@ -3718,6 +4069,13 @@ module Crossly
     # @param chain [String] 
     # @param contract [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :offset 
+    # @option opts [Float] :limit 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [String] :trait 
+    # @option opts [Boolean] :listed 
+    # @option opts [String] :page_key 
     # @return [Array<(GetWeb3CollectionItemResponse, Integer, Hash)>] GetWeb3CollectionItemResponse data, response status code and response headers
     def get_web3_collection_item_with_http_info(chain, contract, opts = {})
       if @api_client.config.debugging
@@ -3731,11 +4089,22 @@ module Crossly
       if @api_client.config.client_side_validation && contract.nil?
         fail ArgumentError, "Missing the required parameter 'contract' when calling Web3Api.get_web3_collection_item"
       end
+      allowable_values = ["id", "price", "rarity"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/web3/collections/{chain}/{contract}/items'.sub('{' + 'chain' + '}', CGI.escape(chain.to_s)).sub('{' + 'contract' + '}', CGI.escape(contract.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'trait'] = opts[:'trait'] if !opts[:'trait'].nil?
+      query_params[:'listed'] = opts[:'listed'] if !opts[:'listed'].nil?
+      query_params[:'pageKey'] = opts[:'page_key'] if !opts[:'page_key'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -3841,19 +4210,23 @@ module Crossly
     # Token ids in a collection with one trait — what a trait offer commits to.
     # @param chain [String] 
     # @param contract [String] 
+    # @param type [String] 
+    # @param value [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetWeb3CollectionTraitTokenResponse]
-    def get_web3_collection_trait_token(chain, contract, opts = {})
-      data, _status_code, _headers = get_web3_collection_trait_token_with_http_info(chain, contract, opts)
+    def get_web3_collection_trait_token(chain, contract, type, value, opts = {})
+      data, _status_code, _headers = get_web3_collection_trait_token_with_http_info(chain, contract, type, value, opts)
       data
     end
 
     # Token ids in a collection with one trait — what a trait offer commits to.
     # @param chain [String] 
     # @param contract [String] 
+    # @param type [String] 
+    # @param value [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetWeb3CollectionTraitTokenResponse, Integer, Hash)>] GetWeb3CollectionTraitTokenResponse data, response status code and response headers
-    def get_web3_collection_trait_token_with_http_info(chain, contract, opts = {})
+    def get_web3_collection_trait_token_with_http_info(chain, contract, type, value, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_collection_trait_token ...'
       end
@@ -3865,11 +4238,21 @@ module Crossly
       if @api_client.config.client_side_validation && contract.nil?
         fail ArgumentError, "Missing the required parameter 'contract' when calling Web3Api.get_web3_collection_trait_token"
       end
+      # verify the required parameter 'type' is set
+      if @api_client.config.client_side_validation && type.nil?
+        fail ArgumentError, "Missing the required parameter 'type' when calling Web3Api.get_web3_collection_trait_token"
+      end
+      # verify the required parameter 'value' is set
+      if @api_client.config.client_side_validation && value.nil?
+        fail ArgumentError, "Missing the required parameter 'value' when calling Web3Api.get_web3_collection_trait_token"
+      end
       # resource path
       local_var_path = '/v1/web3/collections/{chain}/{contract}/trait-tokens'.sub('{' + 'chain' + '}', CGI.escape(chain.to_s)).sub('{' + 'contract' + '}', CGI.escape(contract.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'type'] = type
+      query_params[:'value'] = value
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4028,25 +4411,51 @@ module Crossly
     end
 
     # Each marketplace's terms for listing a token: Crossly fee, OpenSea required fees and zone, Tensor availability.
+    # @param chain [String] 
+    # @param contract [String] 
+    # @param token_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetWeb3CrosslistQuoteResponse]
-    def get_web3_crosslist_quote(opts = {})
-      data, _status_code, _headers = get_web3_crosslist_quote_with_http_info(opts)
+    def get_web3_crosslist_quote(chain, contract, token_id, opts = {})
+      data, _status_code, _headers = get_web3_crosslist_quote_with_http_info(chain, contract, token_id, opts)
       data
     end
 
     # Each marketplace&#39;s terms for listing a token: Crossly fee, OpenSea required fees and zone, Tensor availability.
+    # @param chain [String] 
+    # @param contract [String] 
+    # @param token_id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetWeb3CrosslistQuoteResponse, Integer, Hash)>] GetWeb3CrosslistQuoteResponse data, response status code and response headers
-    def get_web3_crosslist_quote_with_http_info(opts = {})
+    def get_web3_crosslist_quote_with_http_info(chain, contract, token_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_crosslist_quote ...'
+      end
+      # verify the required parameter 'chain' is set
+      if @api_client.config.client_side_validation && chain.nil?
+        fail ArgumentError, "Missing the required parameter 'chain' when calling Web3Api.get_web3_crosslist_quote"
+      end
+      # verify enum value
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(chain)
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'contract' is set
+      if @api_client.config.client_side_validation && contract.nil?
+        fail ArgumentError, "Missing the required parameter 'contract' when calling Web3Api.get_web3_crosslist_quote"
+      end
+      # verify the required parameter 'token_id' is set
+      if @api_client.config.client_side_validation && token_id.nil?
+        fail ArgumentError, "Missing the required parameter 'token_id' when calling Web3Api.get_web3_crosslist_quote"
       end
       # resource path
       local_var_path = '/v1/web3/crosslist/quote'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = chain
+      query_params[:'contract'] = contract
+      query_params[:'tokenId'] = token_id
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4446,6 +4855,7 @@ module Crossly
     # @param chain [String] 
     # @param hash [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :token_id 
     # @return [GetWeb3OrderFulfillmentResponse]
     def get_web3_order_fulfillment(chain, hash, opts = {})
       data, _status_code, _headers = get_web3_order_fulfillment_with_http_info(chain, hash, opts)
@@ -4456,6 +4866,7 @@ module Crossly
     # @param chain [String] 
     # @param hash [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :token_id 
     # @return [Array<(GetWeb3OrderFulfillmentResponse, Integer, Hash)>] GetWeb3OrderFulfillmentResponse data, response status code and response headers
     def get_web3_order_fulfillment_with_http_info(chain, hash, opts = {})
       if @api_client.config.debugging
@@ -4474,6 +4885,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'tokenId'] = opts[:'token_id'] if !opts[:'token_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4693,25 +5105,32 @@ module Crossly
     end
 
     # One calendar year of NFT disposals from your linked wallets as CSV text: acquired, sold, proceeds, cost basis, gain (coin and USD).
+    # @param year [Float] 
     # @param [Hash] opts the optional parameters
     # @return [GetWeb3PortfolioTaxResponse]
-    def get_web3_portfolio_tax(opts = {})
-      data, _status_code, _headers = get_web3_portfolio_tax_with_http_info(opts)
+    def get_web3_portfolio_tax(year, opts = {})
+      data, _status_code, _headers = get_web3_portfolio_tax_with_http_info(year, opts)
       data
     end
 
     # One calendar year of NFT disposals from your linked wallets as CSV text: acquired, sold, proceeds, cost basis, gain (coin and USD).
+    # @param year [Float] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetWeb3PortfolioTaxResponse, Integer, Hash)>] GetWeb3PortfolioTaxResponse data, response status code and response headers
-    def get_web3_portfolio_tax_with_http_info(opts = {})
+    def get_web3_portfolio_tax_with_http_info(year, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.get_web3_portfolio_tax ...'
+      end
+      # verify the required parameter 'year' is set
+      if @api_client.config.client_side_validation && year.nil?
+        fail ArgumentError, "Missing the required parameter 'year' when calling Web3Api.get_web3_portfolio_tax"
       end
       # resource path
       local_var_path = '/v1/web3/portfolio/tax'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'year'] = year
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5245,6 +5664,10 @@ module Crossly
 
     # Listings, offers, sales and cancels in the Crossly book, newest first.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :contract 
+    # @option opts [String] :token_id 
+    # @option opts [Float] :limit 
     # @return [ListWeb3ActivityResponse]
     def list_web3_activity(opts = {})
       data, _status_code, _headers = list_web3_activity_with_http_info(opts)
@@ -5253,16 +5676,28 @@ module Crossly
 
     # Listings, offers, sales and cancels in the Crossly book, newest first.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :contract 
+    # @option opts [String] :token_id 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3ActivityResponse, Integer, Hash)>] ListWeb3ActivityResponse data, response status code and response headers
     def list_web3_activity_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_activity ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/activity'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'contract'] = opts[:'contract'] if !opts[:'contract'].nil?
+      query_params[:'tokenId'] = opts[:'token_id'] if !opts[:'token_id'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5410,6 +5845,8 @@ module Crossly
 
     # Live English auctions on the Crossly book, ending soonest first, each with its top bid and the least the next bid can be.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [Float] :limit 
     # @return [ListWeb3AuctionsResponse]
     def list_web3_auctions(opts = {})
       data, _status_code, _headers = list_web3_auctions_with_http_info(opts)
@@ -5418,16 +5855,24 @@ module Crossly
 
     # Live English auctions on the Crossly book, ending soonest first, each with its top bid and the least the next bid can be.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3AuctionsResponse, Integer, Hash)>] ListWeb3AuctionsResponse data, response status code and response headers
     def list_web3_auctions_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_auctions ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/auctions'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5465,6 +5910,16 @@ module Crossly
 
     # Browse NFT collections by chain, category and name; sort hot (Crossly sales, listings, favourites), new, volume, floor or name.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [Boolean] :listed 
+    # @option opts [Boolean] :verified 
+    # @option opts [String] :floor_min Floor range in the chosen chain&#39;s native coin, e.g. 0.5 (ETH); ignored without a chain.
+    # @option opts [String] :floor_max 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [ListWeb3BrowseCollectionsResponse]
     def list_web3_browse_collections(opts = {})
       data, _status_code, _headers = list_web3_browse_collections_with_http_info(opts)
@@ -5473,16 +5928,48 @@ module Crossly
 
     # Browse NFT collections by chain, category and name; sort hot (Crossly sales, listings, favourites), new, volume, floor or name.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [String] :q 
+    # @option opts [String] :sort 
+    # @option opts [Boolean] :listed 
+    # @option opts [Boolean] :verified 
+    # @option opts [String] :floor_min Floor range in the chosen chain&#39;s native coin, e.g. 0.5 (ETH); ignored without a chain.
+    # @option opts [String] :floor_max 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [Array<(ListWeb3BrowseCollectionsResponse, Integer, Hash)>] ListWeb3BrowseCollectionsResponse data, response status code and response headers
     def list_web3_browse_collections_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_browse_collections ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pfps", "art", "gaming", "memberships", "music", "photography", "sports-collectibles", "physical-collectibles", "virtual-worlds", "domains"]
+      if @api_client.config.client_side_validation && opts[:'category'] && !allowable_values.include?(opts[:'category'])
+        fail ArgumentError, "invalid value for \"category\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["name", "new", "hot", "floor", "volume"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/browse/collections'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'listed'] = opts[:'listed'] if !opts[:'listed'].nil?
+      query_params[:'verified'] = opts[:'verified'] if !opts[:'verified'].nil?
+      query_params[:'floorMin'] = opts[:'floor_min'] if !opts[:'floor_min'].nil?
+      query_params[:'floorMax'] = opts[:'floor_max'] if !opts[:'floor_max'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5520,6 +6007,9 @@ module Crossly
 
     # Hot NFTs: what is for sale on Crossly first, then tokens from the hottest collections.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [Float] :limit 
     # @return [ListWeb3BrowseTokensResponse]
     def list_web3_browse_tokens(opts = {})
       data, _status_code, _headers = list_web3_browse_tokens_with_http_info(opts)
@@ -5528,16 +6018,30 @@ module Crossly
 
     # Hot NFTs: what is for sale on Crossly first, then tokens from the hottest collections.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3BrowseTokensResponse, Integer, Hash)>] ListWeb3BrowseTokensResponse data, response status code and response headers
     def list_web3_browse_tokens_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_browse_tokens ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pfps", "art", "gaming", "memberships", "music", "photography", "sports-collectibles", "physical-collectibles", "virtual-worlds", "domains"]
+      if @api_client.config.client_side_validation && opts[:'category'] && !allowable_values.include?(opts[:'category'])
+        fail ArgumentError, "invalid value for \"category\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/browse/tokens'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5575,6 +6079,9 @@ module Crossly
 
     # Open bundle listings (2–30 NFTs for one price), newest first, by chain or by a contract any item is from.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :contract 
+    # @option opts [Float] :limit 
     # @return [ListWeb3BundlesResponse]
     def list_web3_bundles(opts = {})
       data, _status_code, _headers = list_web3_bundles_with_http_info(opts)
@@ -5583,16 +6090,26 @@ module Crossly
 
     # Open bundle listings (2–30 NFTs for one price), newest first, by chain or by a contract any item is from.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :contract 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3BundlesResponse, Integer, Hash)>] ListWeb3BundlesResponse data, response status code and response headers
     def list_web3_bundles_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_bundles ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/bundles'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'contract'] = opts[:'contract'] if !opts[:'contract'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5632,6 +6149,7 @@ module Crossly
     # @param chain [String] 
     # @param contract [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [ListWeb3CollectionHistoryResponse]
     def list_web3_collection_history(chain, contract, opts = {})
       data, _status_code, _headers = list_web3_collection_history_with_http_info(chain, contract, opts)
@@ -5642,6 +6160,7 @@ module Crossly
     # @param chain [String] 
     # @param contract [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [Array<(ListWeb3CollectionHistoryResponse, Integer, Hash)>] ListWeb3CollectionHistoryResponse data, response status code and response headers
     def list_web3_collection_history_with_http_info(chain, contract, opts = {})
       if @api_client.config.debugging
@@ -5660,6 +6179,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -5697,6 +6217,8 @@ module Crossly
 
     # Collections ranked by 30-day Crossly volume, with floor and listed count.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [Float] :limit 
     # @return [ListWeb3CollectionsResponse]
     def list_web3_collections(opts = {})
       data, _status_code, _headers = list_web3_collections_with_http_info(opts)
@@ -5705,16 +6227,24 @@ module Crossly
 
     # Collections ranked by 30-day Crossly volume, with floor and listed count.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3CollectionsResponse, Integer, Hash)>] ListWeb3CollectionsResponse data, response status code and response headers
     def list_web3_collections_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_collections ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/collections'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -6033,6 +6563,11 @@ module Crossly
 
     # Open NFT listings in the Crossly book — the cheapest per token.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :contract 
+    # @option opts [String] :sort 
+    # @option opts [Float] :page 
+    # @option opts [Float] :limit 
     # @return [ListWeb3ListingsResponse]
     def list_web3_listings(opts = {})
       data, _status_code, _headers = list_web3_listings_with_http_info(opts)
@@ -6041,16 +6576,34 @@ module Crossly
 
     # Open NFT listings in the Crossly book — the cheapest per token.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :contract 
+    # @option opts [String] :sort 
+    # @option opts [Float] :page 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3ListingsResponse, Integer, Hash)>] ListWeb3ListingsResponse data, response status code and response headers
     def list_web3_listings_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_listings ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["price_asc", "price_desc", "recent"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/listings'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'contract'] = opts[:'contract'] if !opts[:'contract'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -6336,6 +6889,10 @@ module Crossly
 
     # Collections by sales volume over 24h, 7d or 30d, in one coin: the ETH chains together, or Polygon / Solana on their own.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :window 
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [Float] :limit 
     # @return [ListWeb3RankingsResponse]
     def list_web3_rankings(opts = {})
       data, _status_code, _headers = list_web3_rankings_with_http_info(opts)
@@ -6344,16 +6901,36 @@ module Crossly
 
     # Collections by sales volume over 24h, 7d or 30d, in one coin: the ETH chains together, or Polygon / Solana on their own.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :window 
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [Float] :limit 
     # @return [Array<(ListWeb3RankingsResponse, Integer, Hash)>] ListWeb3RankingsResponse data, response status code and response headers
     def list_web3_rankings_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_rankings ...'
+      end
+      allowable_values = ["7d", "30d", "24h"]
+      if @api_client.config.client_side_validation && opts[:'window'] && !allowable_values.include?(opts[:'window'])
+        fail ArgumentError, "invalid value for \"window\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pfps", "art", "gaming", "memberships", "music", "photography", "sports-collectibles", "physical-collectibles", "virtual-worlds", "domains"]
+      if @api_client.config.client_side_validation && opts[:'category'] && !allowable_values.include?(opts[:'category'])
+        fail ArgumentError, "invalid value for \"category\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/rankings'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'window'] = opts[:'window'] if !opts[:'window'].nil?
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -6446,6 +7023,10 @@ module Crossly
 
     # The latest NFT sales across the directory, from the chain (Seaport and Blur) and the Crossly book, newest first; page with `before`.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [Float] :limit 
+    # @option opts [String] :before 
     # @return [ListWeb3SalesResponse]
     def list_web3_sales(opts = {})
       data, _status_code, _headers = list_web3_sales_with_http_info(opts)
@@ -6454,16 +7035,32 @@ module Crossly
 
     # The latest NFT sales across the directory, from the chain (Seaport and Blur) and the Crossly book, newest first; page with &#x60;before&#x60;.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :chain 
+    # @option opts [String] :category 
+    # @option opts [Float] :limit 
+    # @option opts [String] :before 
     # @return [Array<(ListWeb3SalesResponse, Integer, Hash)>] ListWeb3SalesResponse data, response status code and response headers
     def list_web3_sales_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_sales ...'
+      end
+      allowable_values = ["ethereum", "base", "polygon", "arbitrum", "optimism", "solana"]
+      if @api_client.config.client_side_validation && opts[:'chain'] && !allowable_values.include?(opts[:'chain'])
+        fail ArgumentError, "invalid value for \"chain\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["pfps", "art", "gaming", "memberships", "music", "photography", "sports-collectibles", "physical-collectibles", "virtual-worlds", "domains"]
+      if @api_client.config.client_side_validation && opts[:'category'] && !allowable_values.include?(opts[:'category'])
+        fail ArgumentError, "invalid value for \"category\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/web3/sales'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'before'] = opts[:'before'] if !opts[:'before'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -6500,25 +7097,32 @@ module Crossly
     end
 
     # Find collections by contract address (every chain) or by name.
+    # @param q [String] 
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3SearchResponse]
-    def list_web3_search(opts = {})
-      data, _status_code, _headers = list_web3_search_with_http_info(opts)
+    def list_web3_search(q, opts = {})
+      data, _status_code, _headers = list_web3_search_with_http_info(q, opts)
       data
     end
 
     # Find collections by contract address (every chain) or by name.
+    # @param q [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWeb3SearchResponse, Integer, Hash)>] ListWeb3SearchResponse data, response status code and response headers
-    def list_web3_search_with_http_info(opts = {})
+    def list_web3_search_with_http_info(q, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_search ...'
+      end
+      # verify the required parameter 'q' is set
+      if @api_client.config.client_side_validation && q.nil?
+        fail ArgumentError, "Missing the required parameter 'q' when calling Web3Api.list_web3_search"
       end
       # resource path
       local_var_path = '/v1/web3/search'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = q
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -6555,25 +7159,32 @@ module Crossly
     end
 
     # Find tokens by collection name and number: 'pudgy 42', 'Bored Ape #1234'.
+    # @param q [String] 
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3SearchTokensResponse]
-    def list_web3_search_tokens(opts = {})
-      data, _status_code, _headers = list_web3_search_tokens_with_http_info(opts)
+    def list_web3_search_tokens(q, opts = {})
+      data, _status_code, _headers = list_web3_search_tokens_with_http_info(q, opts)
       data
     end
 
     # Find tokens by collection name and number: &#39;pudgy 42&#39;, &#39;Bored Ape #1234&#39;.
+    # @param q [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWeb3SearchTokensResponse, Integer, Hash)>] ListWeb3SearchTokensResponse data, response status code and response headers
-    def list_web3_search_tokens_with_http_info(opts = {})
+    def list_web3_search_tokens_with_http_info(q, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_search_tokens ...'
+      end
+      # verify the required parameter 'q' is set
+      if @api_client.config.client_side_validation && q.nil?
+        fail ArgumentError, "Missing the required parameter 'q' when calling Web3Api.list_web3_search_tokens"
       end
       # resource path
       local_var_path = '/v1/web3/search/tokens'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = q
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -6660,6 +7271,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#list_web3_store_wallet_balances\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Each NFT marketplace's status for this store: Live only with a usable API key AND a verified store wallet of its network switched on for it. `keyMode` is `crossly` (Crossly's key, nothing to set up) or `own_key` (connect your own key).
+    # @param [Hash] opts the optional parameters
+    # @return [ListWeb3StoreWalletMarketplacesResponse]
+    def list_web3_store_wallet_marketplaces(opts = {})
+      data, _status_code, _headers = list_web3_store_wallet_marketplaces_with_http_info(opts)
+      data
+    end
+
+    # Each NFT marketplace&#39;s status for this store: Live only with a usable API key AND a verified store wallet of its network switched on for it. &#x60;keyMode&#x60; is &#x60;crossly&#x60; (Crossly&#39;s key, nothing to set up) or &#x60;own_key&#x60; (connect your own key).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWeb3StoreWalletMarketplacesResponse, Integer, Hash)>] ListWeb3StoreWalletMarketplacesResponse data, response status code and response headers
+    def list_web3_store_wallet_marketplaces_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.list_web3_store_wallet_marketplaces ...'
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/marketplaces'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWeb3StoreWalletMarketplacesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.list_web3_store_wallet_marketplaces",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#list_web3_store_wallet_marketplaces\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -6830,19 +7496,25 @@ module Crossly
     end
 
     # DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
+    # @param update_web3_holder_perk_request [UpdateWeb3HolderPerkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWeb3HolderPerkResponse]
-    def update_web3_holder_perk(opts = {})
-      data, _status_code, _headers = update_web3_holder_perk_with_http_info(opts)
+    def update_web3_holder_perk(update_web3_holder_perk_request, opts = {})
+      data, _status_code, _headers = update_web3_holder_perk_with_http_info(update_web3_holder_perk_request, opts)
       data
     end
 
     # DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
+    # @param update_web3_holder_perk_request [UpdateWeb3HolderPerkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWeb3HolderPerkResponse, Integer, Hash)>] UpdateWeb3HolderPerkResponse data, response status code and response headers
-    def update_web3_holder_perk_with_http_info(opts = {})
+    def update_web3_holder_perk_with_http_info(update_web3_holder_perk_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_holder_perk ...'
+      end
+      # verify the required parameter 'update_web3_holder_perk_request' is set
+      if @api_client.config.client_side_validation && update_web3_holder_perk_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_web3_holder_perk_request' when calling Web3Api.update_web3_holder_perk"
       end
       # resource path
       local_var_path = '/v1/web3/holder-perks'
@@ -6854,12 +7526,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_web3_holder_perk_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWeb3HolderPerkResponse'
@@ -7069,18 +7746,20 @@ module Crossly
 
     # Save your own API key for a marketplace (checked against the marketplace first where it can be); stored encrypted.
     # @param marketplace [String] 
+    # @param update_web3_marketplace_key_request [UpdateWeb3MarketplaceKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListWeb3MarketplaceKeysItem]
-    def update_web3_marketplace_key(marketplace, opts = {})
-      data, _status_code, _headers = update_web3_marketplace_key_with_http_info(marketplace, opts)
+    def update_web3_marketplace_key(marketplace, update_web3_marketplace_key_request, opts = {})
+      data, _status_code, _headers = update_web3_marketplace_key_with_http_info(marketplace, update_web3_marketplace_key_request, opts)
       data
     end
 
     # Save your own API key for a marketplace (checked against the marketplace first where it can be); stored encrypted.
     # @param marketplace [String] 
+    # @param update_web3_marketplace_key_request [UpdateWeb3MarketplaceKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWeb3MarketplaceKeysItem, Integer, Hash)>] ListWeb3MarketplaceKeysItem data, response status code and response headers
-    def update_web3_marketplace_key_with_http_info(marketplace, opts = {})
+    def update_web3_marketplace_key_with_http_info(marketplace, update_web3_marketplace_key_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_marketplace_key ...'
       end
@@ -7093,6 +7772,10 @@ module Crossly
       if @api_client.config.client_side_validation && !allowable_values.include?(marketplace)
         fail ArgumentError, "invalid value for \"marketplace\", must be one of #{allowable_values}"
       end
+      # verify the required parameter 'update_web3_marketplace_key_request' is set
+      if @api_client.config.client_side_validation && update_web3_marketplace_key_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_web3_marketplace_key_request' when calling Web3Api.update_web3_marketplace_key"
+      end
       # resource path
       local_var_path = '/v1/web3/marketplace-keys/{marketplace}'.sub('{' + 'marketplace' + '}', CGI.escape(marketplace.to_s))
 
@@ -7103,12 +7786,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_web3_marketplace_key_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListWeb3MarketplaceKeysItem'
@@ -7135,24 +7823,30 @@ module Crossly
 
     # Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
     # @param wallet_id [String] 
+    # @param update_web3_store_wallet_request [UpdateWeb3StoreWalletRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateWeb3StoreWalletResponse]
-    def update_web3_store_wallet(wallet_id, opts = {})
-      data, _status_code, _headers = update_web3_store_wallet_with_http_info(wallet_id, opts)
+    def update_web3_store_wallet(wallet_id, update_web3_store_wallet_request, opts = {})
+      data, _status_code, _headers = update_web3_store_wallet_with_http_info(wallet_id, update_web3_store_wallet_request, opts)
       data
     end
 
     # Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
     # @param wallet_id [String] 
+    # @param update_web3_store_wallet_request [UpdateWeb3StoreWalletRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateWeb3StoreWalletResponse, Integer, Hash)>] UpdateWeb3StoreWalletResponse data, response status code and response headers
-    def update_web3_store_wallet_with_http_info(wallet_id, opts = {})
+    def update_web3_store_wallet_with_http_info(wallet_id, update_web3_store_wallet_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_store_wallet ...'
       end
       # verify the required parameter 'wallet_id' is set
       if @api_client.config.client_side_validation && wallet_id.nil?
         fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.update_web3_store_wallet"
+      end
+      # verify the required parameter 'update_web3_store_wallet_request' is set
+      if @api_client.config.client_side_validation && update_web3_store_wallet_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_web3_store_wallet_request' when calling Web3Api.update_web3_store_wallet"
       end
       # resource path
       local_var_path = '/v1/web3/store-wallets/{walletId}'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s))
@@ -7164,12 +7858,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_web3_store_wallet_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWeb3StoreWalletResponse'
@@ -7251,6 +7950,89 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: Web3Api#update_web3_store_wallet_default\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Switch one NFT marketplace (opensea, rarible on EVM; magic_eden, tensor on Solana) on or off for a store wallet: `{ enabled }`.
+    # @param wallet_id [String] 
+    # @param marketplace [String] 
+    # @param enabled_request [EnabledRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateWeb3StoreWalletResponse]
+    def update_web3_store_wallet_marketplace(wallet_id, marketplace, enabled_request, opts = {})
+      data, _status_code, _headers = update_web3_store_wallet_marketplace_with_http_info(wallet_id, marketplace, enabled_request, opts)
+      data
+    end
+
+    # Switch one NFT marketplace (opensea, rarible on EVM; magic_eden, tensor on Solana) on or off for a store wallet: &#x60;{ enabled }&#x60;.
+    # @param wallet_id [String] 
+    # @param marketplace [String] 
+    # @param enabled_request [EnabledRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateWeb3StoreWalletResponse, Integer, Hash)>] UpdateWeb3StoreWalletResponse data, response status code and response headers
+    def update_web3_store_wallet_marketplace_with_http_info(wallet_id, marketplace, enabled_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: Web3Api.update_web3_store_wallet_marketplace ...'
+      end
+      # verify the required parameter 'wallet_id' is set
+      if @api_client.config.client_side_validation && wallet_id.nil?
+        fail ArgumentError, "Missing the required parameter 'wallet_id' when calling Web3Api.update_web3_store_wallet_marketplace"
+      end
+      # verify the required parameter 'marketplace' is set
+      if @api_client.config.client_side_validation && marketplace.nil?
+        fail ArgumentError, "Missing the required parameter 'marketplace' when calling Web3Api.update_web3_store_wallet_marketplace"
+      end
+      # verify enum value
+      allowable_values = ["opensea", "rarible", "magic_eden", "tensor"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(marketplace)
+        fail ArgumentError, "invalid value for \"marketplace\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'enabled_request' is set
+      if @api_client.config.client_side_validation && enabled_request.nil?
+        fail ArgumentError, "Missing the required parameter 'enabled_request' when calling Web3Api.update_web3_store_wallet_marketplace"
+      end
+      # resource path
+      local_var_path = '/v1/web3/store-wallets/{walletId}/marketplaces/{marketplace}'.sub('{' + 'walletId' + '}', CGI.escape(wallet_id.to_s)).sub('{' + 'marketplace' + '}', CGI.escape(marketplace.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(enabled_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateWeb3StoreWalletResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"Web3Api.update_web3_store_wallet_marketplace",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: Web3Api#update_web3_store_wallet_marketplace\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

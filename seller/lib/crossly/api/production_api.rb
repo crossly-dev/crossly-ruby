@@ -21,24 +21,30 @@ module Crossly
     end
     # Accept a graduated design's production terms (edition size, cost, holder access).
     # @param id [String] 
+    # @param create_production_candidate_accept_request [CreateProductionCandidateAcceptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateProductionCandidateAcceptResponse]
-    def create_production_candidate_accept(id, opts = {})
-      data, _status_code, _headers = create_production_candidate_accept_with_http_info(id, opts)
+    def create_production_candidate_accept(id, create_production_candidate_accept_request, opts = {})
+      data, _status_code, _headers = create_production_candidate_accept_with_http_info(id, create_production_candidate_accept_request, opts)
       data
     end
 
     # Accept a graduated design&#39;s production terms (edition size, cost, holder access).
     # @param id [String] 
+    # @param create_production_candidate_accept_request [CreateProductionCandidateAcceptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateProductionCandidateAcceptResponse, Integer, Hash)>] CreateProductionCandidateAcceptResponse data, response status code and response headers
-    def create_production_candidate_accept_with_http_info(id, opts = {})
+    def create_production_candidate_accept_with_http_info(id, create_production_candidate_accept_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductionApi.create_production_candidate_accept ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling ProductionApi.create_production_candidate_accept"
+      end
+      # verify the required parameter 'create_production_candidate_accept_request' is set
+      if @api_client.config.client_side_validation && create_production_candidate_accept_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_production_candidate_accept_request' when calling ProductionApi.create_production_candidate_accept"
       end
       # resource path
       local_var_path = '/v1/production/candidates/{id}/accept'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -50,12 +56,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_production_candidate_accept_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionCandidateAcceptResponse'
@@ -144,6 +155,7 @@ module Crossly
     # Back (support: true) or un-back a design on the production ballot. One vote per person per design; voters must have bought on Crossly.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateProductionCandidateVoteRequest] :create_production_candidate_vote_request 
     # @return [CreateProductionCandidateVoteResponse]
     def create_production_candidate_vote(id, opts = {})
       data, _status_code, _headers = create_production_candidate_vote_with_http_info(id, opts)
@@ -153,6 +165,7 @@ module Crossly
     # Back (support: true) or un-back a design on the production ballot. One vote per person per design; voters must have bought on Crossly.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateProductionCandidateVoteRequest] :create_production_candidate_vote_request 
     # @return [Array<(CreateProductionCandidateVoteResponse, Integer, Hash)>] CreateProductionCandidateVoteResponse data, response status code and response headers
     def create_production_candidate_vote_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -172,12 +185,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_production_candidate_vote_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionCandidateVoteResponse'
@@ -204,24 +222,30 @@ module Crossly
 
     # Set a design's production brief (materials, finish, box, reference images).
     # @param cosmetic_id [String] 
+    # @param create_production_design_brief_request [CreateProductionDesignBriefRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateProductionDesignSpecResponse]
-    def create_production_design_brief(cosmetic_id, opts = {})
-      data, _status_code, _headers = create_production_design_brief_with_http_info(cosmetic_id, opts)
+    def create_production_design_brief(cosmetic_id, create_production_design_brief_request, opts = {})
+      data, _status_code, _headers = create_production_design_brief_with_http_info(cosmetic_id, create_production_design_brief_request, opts)
       data
     end
 
     # Set a design&#39;s production brief (materials, finish, box, reference images).
     # @param cosmetic_id [String] 
+    # @param create_production_design_brief_request [CreateProductionDesignBriefRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateProductionDesignSpecResponse, Integer, Hash)>] CreateProductionDesignSpecResponse data, response status code and response headers
-    def create_production_design_brief_with_http_info(cosmetic_id, opts = {})
+    def create_production_design_brief_with_http_info(cosmetic_id, create_production_design_brief_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductionApi.create_production_design_brief ...'
       end
       # verify the required parameter 'cosmetic_id' is set
       if @api_client.config.client_side_validation && cosmetic_id.nil?
         fail ArgumentError, "Missing the required parameter 'cosmetic_id' when calling ProductionApi.create_production_design_brief"
+      end
+      # verify the required parameter 'create_production_design_brief_request' is set
+      if @api_client.config.client_side_validation && create_production_design_brief_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_production_design_brief_request' when calling ProductionApi.create_production_design_brief"
       end
       # resource path
       local_var_path = '/v1/production/designs/{cosmeticId}/brief'.sub('{' + 'cosmeticId' + '}', CGI.escape(cosmetic_id.to_s))
@@ -233,12 +257,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_production_design_brief_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionDesignSpecResponse'
@@ -265,24 +294,30 @@ module Crossly
 
     # Opt a design in or out of physical production.
     # @param cosmetic_id [String] 
+    # @param create_production_design_consent_request [CreateProductionDesignConsentRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateProductionDesignSpecResponse]
-    def create_production_design_consent(cosmetic_id, opts = {})
-      data, _status_code, _headers = create_production_design_consent_with_http_info(cosmetic_id, opts)
+    def create_production_design_consent(cosmetic_id, create_production_design_consent_request, opts = {})
+      data, _status_code, _headers = create_production_design_consent_with_http_info(cosmetic_id, create_production_design_consent_request, opts)
       data
     end
 
     # Opt a design in or out of physical production.
     # @param cosmetic_id [String] 
+    # @param create_production_design_consent_request [CreateProductionDesignConsentRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateProductionDesignSpecResponse, Integer, Hash)>] CreateProductionDesignSpecResponse data, response status code and response headers
-    def create_production_design_consent_with_http_info(cosmetic_id, opts = {})
+    def create_production_design_consent_with_http_info(cosmetic_id, create_production_design_consent_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductionApi.create_production_design_consent ...'
       end
       # verify the required parameter 'cosmetic_id' is set
       if @api_client.config.client_side_validation && cosmetic_id.nil?
         fail ArgumentError, "Missing the required parameter 'cosmetic_id' when calling ProductionApi.create_production_design_consent"
+      end
+      # verify the required parameter 'create_production_design_consent_request' is set
+      if @api_client.config.client_side_validation && create_production_design_consent_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_production_design_consent_request' when calling ProductionApi.create_production_design_consent"
       end
       # resource path
       local_var_path = '/v1/production/designs/{cosmeticId}/consent'.sub('{' + 'cosmeticId' + '}', CGI.escape(cosmetic_id.to_s))
@@ -294,12 +329,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_production_design_consent_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionDesignSpecResponse'
@@ -326,24 +366,30 @@ module Crossly
 
     # Set a design's production spec (category, materials, complexity, packaging).
     # @param cosmetic_id [String] 
+    # @param create_production_design_spec_request [CreateProductionDesignSpecRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateProductionDesignSpecResponse]
-    def create_production_design_spec(cosmetic_id, opts = {})
-      data, _status_code, _headers = create_production_design_spec_with_http_info(cosmetic_id, opts)
+    def create_production_design_spec(cosmetic_id, create_production_design_spec_request, opts = {})
+      data, _status_code, _headers = create_production_design_spec_with_http_info(cosmetic_id, create_production_design_spec_request, opts)
       data
     end
 
     # Set a design&#39;s production spec (category, materials, complexity, packaging).
     # @param cosmetic_id [String] 
+    # @param create_production_design_spec_request [CreateProductionDesignSpecRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateProductionDesignSpecResponse, Integer, Hash)>] CreateProductionDesignSpecResponse data, response status code and response headers
-    def create_production_design_spec_with_http_info(cosmetic_id, opts = {})
+    def create_production_design_spec_with_http_info(cosmetic_id, create_production_design_spec_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductionApi.create_production_design_spec ...'
       end
       # verify the required parameter 'cosmetic_id' is set
       if @api_client.config.client_side_validation && cosmetic_id.nil?
         fail ArgumentError, "Missing the required parameter 'cosmetic_id' when calling ProductionApi.create_production_design_spec"
+      end
+      # verify the required parameter 'create_production_design_spec_request' is set
+      if @api_client.config.client_side_validation && create_production_design_spec_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_production_design_spec_request' when calling ProductionApi.create_production_design_spec"
       end
       # resource path
       local_var_path = '/v1/production/designs/{cosmeticId}/spec'.sub('{' + 'cosmeticId' + '}', CGI.escape(cosmetic_id.to_s))
@@ -355,12 +401,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_production_design_spec_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionDesignSpecResponse'
@@ -386,19 +437,25 @@ module Crossly
     end
 
     # Estimate a run's landed cost from a spec + edition size (overshoots for safety).
+    # @param create_production_estimate_request [CreateProductionEstimateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateProductionEstimateResponse]
-    def create_production_estimate(opts = {})
-      data, _status_code, _headers = create_production_estimate_with_http_info(opts)
+    def create_production_estimate(create_production_estimate_request, opts = {})
+      data, _status_code, _headers = create_production_estimate_with_http_info(create_production_estimate_request, opts)
       data
     end
 
     # Estimate a run&#39;s landed cost from a spec + edition size (overshoots for safety).
+    # @param create_production_estimate_request [CreateProductionEstimateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateProductionEstimateResponse, Integer, Hash)>] CreateProductionEstimateResponse data, response status code and response headers
-    def create_production_estimate_with_http_info(opts = {})
+    def create_production_estimate_with_http_info(create_production_estimate_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductionApi.create_production_estimate ...'
+      end
+      # verify the required parameter 'create_production_estimate_request' is set
+      if @api_client.config.client_side_validation && create_production_estimate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_production_estimate_request' when calling ProductionApi.create_production_estimate"
       end
       # resource path
       local_var_path = '/v1/production/estimate'
@@ -410,12 +467,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_production_estimate_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionEstimateResponse'
@@ -443,6 +505,7 @@ module Crossly
     # Buy a limited-edition unit of a physical run (holder pricing applies).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateProductionRunPurchaseRequest] :create_production_run_purchase_request 
     # @return [CreateProductionRunPurchaseResponse]
     def create_production_run_purchase(id, opts = {})
       data, _status_code, _headers = create_production_run_purchase_with_http_info(id, opts)
@@ -452,6 +515,7 @@ module Crossly
     # Buy a limited-edition unit of a physical run (holder pricing applies).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateProductionRunPurchaseRequest] :create_production_run_purchase_request 
     # @return [Array<(CreateProductionRunPurchaseResponse, Integer, Hash)>] CreateProductionRunPurchaseResponse data, response status code and response headers
     def create_production_run_purchase_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -471,12 +535,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_production_run_purchase_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductionRunPurchaseResponse'
@@ -1135,24 +1204,30 @@ module Crossly
 
     # Ops: update a PO (supplier, freight, actuals, QC, status). Admin PAT only.
     # @param po_id [String] 
+    # @param update_production_po_request [UpdateProductionPoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateProductionPoResponse]
-    def update_production_po(po_id, opts = {})
-      data, _status_code, _headers = update_production_po_with_http_info(po_id, opts)
+    def update_production_po(po_id, update_production_po_request, opts = {})
+      data, _status_code, _headers = update_production_po_with_http_info(po_id, update_production_po_request, opts)
       data
     end
 
     # Ops: update a PO (supplier, freight, actuals, QC, status). Admin PAT only.
     # @param po_id [String] 
+    # @param update_production_po_request [UpdateProductionPoRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateProductionPoResponse, Integer, Hash)>] UpdateProductionPoResponse data, response status code and response headers
-    def update_production_po_with_http_info(po_id, opts = {})
+    def update_production_po_with_http_info(po_id, update_production_po_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductionApi.update_production_po ...'
       end
       # verify the required parameter 'po_id' is set
       if @api_client.config.client_side_validation && po_id.nil?
         fail ArgumentError, "Missing the required parameter 'po_id' when calling ProductionApi.update_production_po"
+      end
+      # verify the required parameter 'update_production_po_request' is set
+      if @api_client.config.client_side_validation && update_production_po_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_production_po_request' when calling ProductionApi.update_production_po"
       end
       # resource path
       local_var_path = '/v1/production/pos/{poId}'.sub('{' + 'poId' + '}', CGI.escape(po_id.to_s))
@@ -1164,12 +1239,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_production_po_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateProductionPoResponse'

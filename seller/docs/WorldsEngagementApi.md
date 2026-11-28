@@ -24,7 +24,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_world_experience_experience_event
 
-> <WorldExperienceExperienceEventResponse> create_world_experience_experience_event(experience_id)
+> <WorldExperienceExperienceEventResponse> create_world_experience_experience_event(experience_id, opts)
 
 Schedule an Experience Event shown on the game's card: title, description, start/end (5 min–14 days, ≤ 180 days ahead), thumbnail, place. With liveEventId it follows that live-ops event's schedule.
 
@@ -41,10 +41,13 @@ end
 
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_experience_event_request: Crossly::CreateWorldExperienceExperienceEventRequest.new({title: 'title_example'}) # CreateWorldExperienceExperienceEventRequest | 
+}
 
 begin
   # Schedule an Experience Event shown on the game's card: title, description, start/end (5 min–14 days, ≤ 180 days ahead), thumbnail, place. With liveEventId it follows that live-ops event's schedule.
-  result = api_instance.create_world_experience_experience_event(experience_id)
+  result = api_instance.create_world_experience_experience_event(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->create_world_experience_experience_event: #{e}"
@@ -55,12 +58,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceExperienceEventResponse>, Integer, Hash)> create_world_experience_experience_event_with_http_info(experience_id)
+> <Array(<WorldExperienceExperienceEventResponse>, Integer, Hash)> create_world_experience_experience_event_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Schedule an Experience Event shown on the game's card: title, description, start/end (5 min–14 days, ≤ 180 days ahead), thumbnail, place. With liveEventId it follows that live-ops event's schedule.
-  data, status_code, headers = api_instance.create_world_experience_experience_event_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_experience_event_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceExperienceEventResponse>
@@ -74,6 +77,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_experience_event_request** | **CreateWorldExperienceExperienceEventRequest** |  | [optional] |
 
 ### Return type
 
@@ -85,7 +89,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -160,7 +164,7 @@ end
 
 ## create_world_experience_experience_event_rsvp
 
-> <WorldExperienceExperienceEventResponse> create_world_experience_experience_event_rsvp(experience_id, event_id)
+> <WorldExperienceExperienceEventResponse> create_world_experience_experience_event_rsvp(experience_id, event_id, opts)
 
 RSVP (going: true) or take it back. remind: true also turns the experience's notifications on, so the 15-minute reminder can reach you.
 
@@ -178,10 +182,13 @@ end
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
 event_id = 'event_id_example' # String | 
+opts = {
+  create_world_experience_experience_event_rsvp_request: Crossly::CreateWorldExperienceExperienceEventRsvpRequest.new({going: false}) # CreateWorldExperienceExperienceEventRsvpRequest | 
+}
 
 begin
   # RSVP (going: true) or take it back. remind: true also turns the experience's notifications on, so the 15-minute reminder can reach you.
-  result = api_instance.create_world_experience_experience_event_rsvp(experience_id, event_id)
+  result = api_instance.create_world_experience_experience_event_rsvp(experience_id, event_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->create_world_experience_experience_event_rsvp: #{e}"
@@ -192,12 +199,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceExperienceEventResponse>, Integer, Hash)> create_world_experience_experience_event_rsvp_with_http_info(experience_id, event_id)
+> <Array(<WorldExperienceExperienceEventResponse>, Integer, Hash)> create_world_experience_experience_event_rsvp_with_http_info(experience_id, event_id, opts)
 
 ```ruby
 begin
   # RSVP (going: true) or take it back. remind: true also turns the experience's notifications on, so the 15-minute reminder can reach you.
-  data, status_code, headers = api_instance.create_world_experience_experience_event_rsvp_with_http_info(experience_id, event_id)
+  data, status_code, headers = api_instance.create_world_experience_experience_event_rsvp_with_http_info(experience_id, event_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceExperienceEventResponse>
@@ -212,6 +219,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **event_id** | **String** |  |  |
+| **create_world_experience_experience_event_rsvp_request** | **CreateWorldExperienceExperienceEventRsvpRequest** |  | [optional] |
 
 ### Return type
 
@@ -223,13 +231,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_notification
 
-> <CreateWorldExperienceNotificationResponse> create_world_experience_notification(experience_id)
+> <CreateWorldExperienceNotificationResponse> create_world_experience_notification(experience_id, opts)
 
 Send an approved template to one player (sub) or up to 100 (subs). Only players who turned notifications on, 13+, not banned, at most 2 a day per player and outside their quiet hours receive it; every other send is logged as suppressed with its reason.
 
@@ -246,10 +254,13 @@ end
 
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_notification_request: Crossly::CreateWorldExperienceNotificationRequest.new({template_key: 'template_key_example'}) # CreateWorldExperienceNotificationRequest | 
+}
 
 begin
   # Send an approved template to one player (sub) or up to 100 (subs). Only players who turned notifications on, 13+, not banned, at most 2 a day per player and outside their quiet hours receive it; every other send is logged as suppressed with its reason.
-  result = api_instance.create_world_experience_notification(experience_id)
+  result = api_instance.create_world_experience_notification(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->create_world_experience_notification: #{e}"
@@ -260,12 +271,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceNotificationResponse>, Integer, Hash)> create_world_experience_notification_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceNotificationResponse>, Integer, Hash)> create_world_experience_notification_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Send an approved template to one player (sub) or up to 100 (subs). Only players who turned notifications on, 13+, not banned, at most 2 a day per player and outside their quiet hours receive it; every other send is logged as suppressed with its reason.
-  data, status_code, headers = api_instance.create_world_experience_notification_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_notification_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceNotificationResponse>
@@ -279,6 +290,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_notification_request** | **CreateWorldExperienceNotificationRequest** |  | [optional] |
 
 ### Return type
 
@@ -290,7 +302,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -432,7 +444,7 @@ end
 
 ## get_world_experience_notification_report
 
-> <GetWorldExperienceNotificationReportResponse> get_world_experience_notification_report(experience_id)
+> <GetWorldExperienceNotificationReportResponse> get_world_experience_notification_report(experience_id, opts)
 
 Sends over the last N days (default 7, max 90): delivered, suppressed by reason, per template, and how many players turned notifications on.
 
@@ -449,10 +461,13 @@ end
 
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  days: 8.14 # Float | 
+}
 
 begin
   # Sends over the last N days (default 7, max 90): delivered, suppressed by reason, per template, and how many players turned notifications on.
-  result = api_instance.get_world_experience_notification_report(experience_id)
+  result = api_instance.get_world_experience_notification_report(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->get_world_experience_notification_report: #{e}"
@@ -463,12 +478,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperienceNotificationReportResponse>, Integer, Hash)> get_world_experience_notification_report_with_http_info(experience_id)
+> <Array(<GetWorldExperienceNotificationReportResponse>, Integer, Hash)> get_world_experience_notification_report_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Sends over the last N days (default 7, max 90): delivered, suppressed by reason, per template, and how many players turned notifications on.
-  data, status_code, headers = api_instance.get_world_experience_notification_report_with_http_info(experience_id)
+  data, status_code, headers = api_instance.get_world_experience_notification_report_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperienceNotificationReportResponse>
@@ -482,6 +497,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -499,7 +515,7 @@ end
 
 ## list_world_experience_event_upcoming
 
-> <ListWorldExperienceEventUpcomingResponse> list_world_experience_event_upcoming
+> <ListWorldExperienceEventUpcomingResponse> list_world_experience_event_upcoming(opts)
 
 Events across public experiences in the next 7 days (and live now), soonest first — the Carnival Plaza's \"Coming up\" board.
 
@@ -515,10 +531,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldsEngagementApi.new
+opts = {
+  limit: 8.14 # Float | 
+}
 
 begin
   # Events across public experiences in the next 7 days (and live now), soonest first — the Carnival Plaza's \"Coming up\" board.
-  result = api_instance.list_world_experience_event_upcoming
+  result = api_instance.list_world_experience_event_upcoming(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->list_world_experience_event_upcoming: #{e}"
@@ -529,12 +548,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldExperienceEventUpcomingResponse>, Integer, Hash)> list_world_experience_event_upcoming_with_http_info
+> <Array(<ListWorldExperienceEventUpcomingResponse>, Integer, Hash)> list_world_experience_event_upcoming_with_http_info(opts)
 
 ```ruby
 begin
   # Events across public experiences in the next 7 days (and live now), soonest first — the Carnival Plaza's \"Coming up\" board.
-  data, status_code, headers = api_instance.list_world_experience_event_upcoming_with_http_info
+  data, status_code, headers = api_instance.list_world_experience_event_upcoming_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldExperienceEventUpcomingResponse>
@@ -545,7 +564,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -892,7 +913,7 @@ This endpoint does not need any parameter.
 
 ## update_world_experience_experience_event
 
-> <WorldExperienceExperienceEventResponse> update_world_experience_experience_event(experience_id, event_id)
+> <WorldExperienceExperienceEventResponse> update_world_experience_experience_event(experience_id, event_id, opts)
 
 Change an event. A started event keeps its start; a new start time earns RSVPs a new reminder.
 
@@ -910,10 +931,13 @@ end
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
 event_id = 'event_id_example' # String | 
+opts = {
+  update_world_experience_experience_event_request: Crossly::UpdateWorldExperienceExperienceEventRequest.new # UpdateWorldExperienceExperienceEventRequest | 
+}
 
 begin
   # Change an event. A started event keeps its start; a new start time earns RSVPs a new reminder.
-  result = api_instance.update_world_experience_experience_event(experience_id, event_id)
+  result = api_instance.update_world_experience_experience_event(experience_id, event_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->update_world_experience_experience_event: #{e}"
@@ -924,12 +948,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldExperienceExperienceEventResponse>, Integer, Hash)> update_world_experience_experience_event_with_http_info(experience_id, event_id)
+> <Array(<WorldExperienceExperienceEventResponse>, Integer, Hash)> update_world_experience_experience_event_with_http_info(experience_id, event_id, opts)
 
 ```ruby
 begin
   # Change an event. A started event keeps its start; a new start time earns RSVPs a new reminder.
-  data, status_code, headers = api_instance.update_world_experience_experience_event_with_http_info(experience_id, event_id)
+  data, status_code, headers = api_instance.update_world_experience_experience_event_with_http_info(experience_id, event_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldExperienceExperienceEventResponse>
@@ -944,6 +968,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **event_id** | **String** |  |  |
+| **update_world_experience_experience_event_request** | **UpdateWorldExperienceExperienceEventRequest** |  | [optional] |
 
 ### Return type
 
@@ -955,13 +980,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_notification_opt_in
 
-> <GetWorldExperienceNotificationOptInResponse> update_world_experience_notification_opt_in(experience_id)
+> <GetWorldExperienceNotificationOptInResponse> update_world_experience_notification_opt_in(experience_id, opts)
 
 Turn this experience's notifications on or off for you. timeZone (IANA) keeps them out of your night.
 
@@ -978,10 +1003,13 @@ end
 
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  update_world_experience_notification_opt_in_request: Crossly::UpdateWorldExperienceNotificationOptInRequest.new({opted_in: false}) # UpdateWorldExperienceNotificationOptInRequest | 
+}
 
 begin
   # Turn this experience's notifications on or off for you. timeZone (IANA) keeps them out of your night.
-  result = api_instance.update_world_experience_notification_opt_in(experience_id)
+  result = api_instance.update_world_experience_notification_opt_in(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->update_world_experience_notification_opt_in: #{e}"
@@ -992,12 +1020,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperienceNotificationOptInResponse>, Integer, Hash)> update_world_experience_notification_opt_in_with_http_info(experience_id)
+> <Array(<GetWorldExperienceNotificationOptInResponse>, Integer, Hash)> update_world_experience_notification_opt_in_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Turn this experience's notifications on or off for you. timeZone (IANA) keeps them out of your night.
-  data, status_code, headers = api_instance.update_world_experience_notification_opt_in_with_http_info(experience_id)
+  data, status_code, headers = api_instance.update_world_experience_notification_opt_in_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperienceNotificationOptInResponse>
@@ -1011,6 +1039,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **update_world_experience_notification_opt_in_request** | **UpdateWorldExperienceNotificationOptInRequest** |  | [optional] |
 
 ### Return type
 
@@ -1022,13 +1051,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_notification_template
 
-> <UpdateWorldExperienceNotificationTemplateResponse> update_world_experience_notification_template(experience_id, key)
+> <UpdateWorldExperienceNotificationTemplateResponse> update_world_experience_notification_template(experience_id, key, opts)
 
 Create or reword a template. Clean words with no link are approved at once; anything the text filter flags, or any link, waits for Crossly review (24 h). Rewording re-reviews.
 
@@ -1046,10 +1075,13 @@ end
 api_instance = Crossly::WorldsEngagementApi.new
 experience_id = 'experience_id_example' # String | 
 key = 'key_example' # String | 
+opts = {
+  create_group_buy_message_request: Crossly::CreateGroupBuyMessageRequest.new({title: 'title_example', body: 'body_example'}) # CreateGroupBuyMessageRequest | 
+}
 
 begin
   # Create or reword a template. Clean words with no link are approved at once; anything the text filter flags, or any link, waits for Crossly review (24 h). Rewording re-reviews.
-  result = api_instance.update_world_experience_notification_template(experience_id, key)
+  result = api_instance.update_world_experience_notification_template(experience_id, key, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsEngagementApi->update_world_experience_notification_template: #{e}"
@@ -1060,12 +1092,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperienceNotificationTemplateResponse>, Integer, Hash)> update_world_experience_notification_template_with_http_info(experience_id, key)
+> <Array(<UpdateWorldExperienceNotificationTemplateResponse>, Integer, Hash)> update_world_experience_notification_template_with_http_info(experience_id, key, opts)
 
 ```ruby
 begin
   # Create or reword a template. Clean words with no link are approved at once; anything the text filter flags, or any link, waits for Crossly review (24 h). Rewording re-reviews.
-  data, status_code, headers = api_instance.update_world_experience_notification_template_with_http_info(experience_id, key)
+  data, status_code, headers = api_instance.update_world_experience_notification_template_with_http_info(experience_id, key, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperienceNotificationTemplateResponse>
@@ -1080,6 +1112,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **key** | **String** |  |  |
+| **create_group_buy_message_request** | **CreateGroupBuyMessageRequest** |  | [optional] |
 
 ### Return type
 
@@ -1091,6 +1124,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

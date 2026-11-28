@@ -1593,7 +1593,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_block
 
-> <ListVaultMarketBlocksItem> create_vault_market_block
+> <ListVaultMarketBlocksItem> create_vault_market_block(create_vault_market_block_request)
 
 Place a block buy for an entity: one order booked to the first sub-account in `plan` (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share's cash moves between the entity's own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
 
@@ -1609,10 +1609,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_block_request = Crossly::CreateVaultMarketBlockRequest.new({entity_id: 'entity_id_example', order: Crossly::CreateVaultMarketBlockRequestOrder.new({quantity: 3.56, side: 'buy', book_key: 'book_key_example'}), plan: [Crossly::CreateVaultMarketBlockRequestPlan.new({subaccount_id: 'subaccount_id_example', quantity: 3.56})]}) # CreateVaultMarketBlockRequest | 
 
 begin
   # Place a block buy for an entity: one order booked to the first sub-account in `plan` (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share's cash moves between the entity's own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
-  result = api_instance.create_vault_market_block
+  result = api_instance.create_vault_market_block(create_vault_market_block_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_block: #{e}"
@@ -1623,12 +1624,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketBlocksItem>, Integer, Hash)> create_vault_market_block_with_http_info
+> <Array(<ListVaultMarketBlocksItem>, Integer, Hash)> create_vault_market_block_with_http_info(create_vault_market_block_request)
 
 ```ruby
 begin
   # Place a block buy for an entity: one order booked to the first sub-account in `plan` (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share's cash moves between the entity's own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
-  data, status_code, headers = api_instance.create_vault_market_block_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_block_with_http_info(create_vault_market_block_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketBlocksItem>
@@ -1639,7 +1640,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_block_request** | **CreateVaultMarketBlockRequest** |  |  |
 
 ### Return type
 
@@ -1651,7 +1654,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2114,7 +2117,7 @@ end
 
 ## create_vault_market_dcm_link
 
-> <CreateVaultMarketDcmLinkResponse> create_vault_market_dcm_link
+> <CreateVaultMarketDcmLinkResponse> create_vault_market_dcm_link(create_vault_market_dcm_link_request)
 
 Link a partner exchange account to your account (or to a firm sub-account you manage, `subaccountId`) so Crossly can show its positions: `accountRef` (the account id there) and `code` (the one-time link code it gave you). The partner must confirm the code; the code is never stored. Read-only: Crossly never trades on it.
 
@@ -2130,10 +2133,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_dcm_link_request = Crossly::CreateVaultMarketDcmLinkRequest.new({account_ref: 'account_ref_example', code: 'code_example'}) # CreateVaultMarketDcmLinkRequest | 
 
 begin
   # Link a partner exchange account to your account (or to a firm sub-account you manage, `subaccountId`) so Crossly can show its positions: `accountRef` (the account id there) and `code` (the one-time link code it gave you). The partner must confirm the code; the code is never stored. Read-only: Crossly never trades on it.
-  result = api_instance.create_vault_market_dcm_link
+  result = api_instance.create_vault_market_dcm_link(create_vault_market_dcm_link_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_dcm_link: #{e}"
@@ -2144,12 +2148,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketDcmLinkResponse>, Integer, Hash)> create_vault_market_dcm_link_with_http_info
+> <Array(<CreateVaultMarketDcmLinkResponse>, Integer, Hash)> create_vault_market_dcm_link_with_http_info(create_vault_market_dcm_link_request)
 
 ```ruby
 begin
   # Link a partner exchange account to your account (or to a firm sub-account you manage, `subaccountId`) so Crossly can show its positions: `accountRef` (the account id there) and `code` (the one-time link code it gave you). The partner must confirm the code; the code is never stored. Read-only: Crossly never trades on it.
-  data, status_code, headers = api_instance.create_vault_market_dcm_link_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_dcm_link_with_http_info(create_vault_market_dcm_link_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketDcmLinkResponse>
@@ -2160,7 +2164,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_dcm_link_request** | **CreateVaultMarketDcmLinkRequest** |  |  |
 
 ### Return type
 
@@ -2172,13 +2178,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_dcm_unlink
 
-> <CreateVaultMarketDcmUnlinkResponse> create_vault_market_dcm_unlink
+> <CreateVaultMarketDcmUnlinkResponse> create_vault_market_dcm_unlink(opts)
 
 Unlink the partner exchange account from your account (or the firm sub-account `subaccountId`): Crossly stops reading it and its hedges leave portfolio margin.
 
@@ -2194,10 +2200,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  create_vault_market_dcm_unlink_request: Crossly::CreateVaultMarketDcmUnlinkRequest.new # CreateVaultMarketDcmUnlinkRequest | 
+}
 
 begin
   # Unlink the partner exchange account from your account (or the firm sub-account `subaccountId`): Crossly stops reading it and its hedges leave portfolio margin.
-  result = api_instance.create_vault_market_dcm_unlink
+  result = api_instance.create_vault_market_dcm_unlink(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_dcm_unlink: #{e}"
@@ -2208,12 +2217,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketDcmUnlinkResponse>, Integer, Hash)> create_vault_market_dcm_unlink_with_http_info
+> <Array(<CreateVaultMarketDcmUnlinkResponse>, Integer, Hash)> create_vault_market_dcm_unlink_with_http_info(opts)
 
 ```ruby
 begin
   # Unlink the partner exchange account from your account (or the firm sub-account `subaccountId`): Crossly stops reading it and its hedges leave portfolio margin.
-  data, status_code, headers = api_instance.create_vault_market_dcm_unlink_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_dcm_unlink_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketDcmUnlinkResponse>
@@ -2224,7 +2233,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_dcm_unlink_request** | **CreateVaultMarketDcmUnlinkRequest** |  | [optional] |
 
 ### Return type
 
@@ -2236,7 +2247,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2693,7 +2704,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_entity
 
-> <CreateVaultMarketEntityResponse> create_vault_market_entity
+> <CreateVaultMarketEntityResponse> create_vault_market_entity(create_vault_market_entity_request)
 
 Open an entity account: you become its admin and the custodian partner starts KYB (its own flow; Crossly keeps only its reference). Needs a verified ID and the custodian (503 names what is missing).
 
@@ -2709,10 +2720,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_entity_request = Crossly::CreateVaultMarketEntityRequest.new({legal_name: 'legal_name_example', entity_type: 'llc', jurisdiction: 'jurisdiction_example'}) # CreateVaultMarketEntityRequest | 
 
 begin
   # Open an entity account: you become its admin and the custodian partner starts KYB (its own flow; Crossly keeps only its reference). Needs a verified ID and the custodian (503 names what is missing).
-  result = api_instance.create_vault_market_entity
+  result = api_instance.create_vault_market_entity(create_vault_market_entity_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_entity: #{e}"
@@ -2723,12 +2735,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketEntityResponse>, Integer, Hash)> create_vault_market_entity_with_http_info
+> <Array(<CreateVaultMarketEntityResponse>, Integer, Hash)> create_vault_market_entity_with_http_info(create_vault_market_entity_request)
 
 ```ruby
 begin
   # Open an entity account: you become its admin and the custodian partner starts KYB (its own flow; Crossly keeps only its reference). Needs a verified ID and the custodian (503 names what is missing).
-  data, status_code, headers = api_instance.create_vault_market_entity_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_entity_with_http_info(create_vault_market_entity_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketEntityResponse>
@@ -2739,7 +2751,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_entity_request** | **CreateVaultMarketEntityRequest** |  |  |
 
 ### Return type
 
@@ -2751,7 +2765,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2824,7 +2838,7 @@ end
 
 ## create_vault_market_entity_halt
 
-> <CreateVaultMarketEntityHaltResponse> create_vault_market_entity_halt(id)
+> <CreateVaultMarketEntityHaltResponse> create_vault_market_entity_halt(id, create_vault_market_entity_halt_request)
 
 Admin or risk: the firm kill switch. Halts the entity (no `subaccountId`) or one sub-account: open orders on it are cancelled and no new ones are placed until cleared.
 
@@ -2841,10 +2855,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_entity_halt_request = Crossly::CreateVaultMarketEntityHaltRequest.new({reason: 'reason_example'}) # CreateVaultMarketEntityHaltRequest | 
 
 begin
   # Admin or risk: the firm kill switch. Halts the entity (no `subaccountId`) or one sub-account: open orders on it are cancelled and no new ones are placed until cleared.
-  result = api_instance.create_vault_market_entity_halt(id)
+  result = api_instance.create_vault_market_entity_halt(id, create_vault_market_entity_halt_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_entity_halt: #{e}"
@@ -2855,12 +2870,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketEntityHaltResponse>, Integer, Hash)> create_vault_market_entity_halt_with_http_info(id)
+> <Array(<CreateVaultMarketEntityHaltResponse>, Integer, Hash)> create_vault_market_entity_halt_with_http_info(id, create_vault_market_entity_halt_request)
 
 ```ruby
 begin
   # Admin or risk: the firm kill switch. Halts the entity (no `subaccountId`) or one sub-account: open orders on it are cancelled and no new ones are placed until cleared.
-  data, status_code, headers = api_instance.create_vault_market_entity_halt_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_entity_halt_with_http_info(id, create_vault_market_entity_halt_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketEntityHaltResponse>
@@ -2874,6 +2889,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_entity_halt_request** | **CreateVaultMarketEntityHaltRequest** |  |  |
 
 ### Return type
 
@@ -2885,7 +2901,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2960,7 +2976,7 @@ end
 
 ## create_vault_market_entity_invitation
 
-> <GetVaultMarketEntityResponse> create_vault_market_entity_invitation(id)
+> <GetVaultMarketEntityResponse> create_vault_market_entity_invitation(id, create_world_space_request_by_user_id_request)
 
 Accept or decline an invitation (`accept`). Trading, admin and risk roles need a verified ID to accept.
 
@@ -2977,10 +2993,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_world_space_request_by_user_id_request = Crossly::CreateWorldSpaceRequestByUserIdRequest.new({accept: false}) # CreateWorldSpaceRequestByUserIdRequest | 
 
 begin
   # Accept or decline an invitation (`accept`). Trading, admin and risk roles need a verified ID to accept.
-  result = api_instance.create_vault_market_entity_invitation(id)
+  result = api_instance.create_vault_market_entity_invitation(id, create_world_space_request_by_user_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_entity_invitation: #{e}"
@@ -2991,12 +3008,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketEntityResponse>, Integer, Hash)> create_vault_market_entity_invitation_with_http_info(id)
+> <Array(<GetVaultMarketEntityResponse>, Integer, Hash)> create_vault_market_entity_invitation_with_http_info(id, create_world_space_request_by_user_id_request)
 
 ```ruby
 begin
   # Accept or decline an invitation (`accept`). Trading, admin and risk roles need a verified ID to accept.
-  data, status_code, headers = api_instance.create_vault_market_entity_invitation_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_entity_invitation_with_http_info(id, create_world_space_request_by_user_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketEntityResponse>
@@ -3010,6 +3027,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_space_request_by_user_id_request** | **CreateWorldSpaceRequestByUserIdRequest** |  |  |
 
 ### Return type
 
@@ -3021,7 +3039,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3094,7 +3112,7 @@ end
 
 ## create_vault_market_entity_member
 
-> <GetVaultMarketEntityByIdResponse> create_vault_market_entity_member(id)
+> <GetVaultMarketEntityByIdResponse> create_vault_market_entity_member(id, create_vault_market_entity_member_request)
 
 Admin: invite a Crossly user by email as admin, trader, risk, ops or viewer (a viewer can never place an order), with optional limits and sub-accounts.
 
@@ -3111,10 +3129,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_entity_member_request = Crossly::CreateVaultMarketEntityMemberRequest.new({email: 'email_example', role: 'viewer'}) # CreateVaultMarketEntityMemberRequest | 
 
 begin
   # Admin: invite a Crossly user by email as admin, trader, risk, ops or viewer (a viewer can never place an order), with optional limits and sub-accounts.
-  result = api_instance.create_vault_market_entity_member(id)
+  result = api_instance.create_vault_market_entity_member(id, create_vault_market_entity_member_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_entity_member: #{e}"
@@ -3125,12 +3144,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> create_vault_market_entity_member_with_http_info(id)
+> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> create_vault_market_entity_member_with_http_info(id, create_vault_market_entity_member_request)
 
 ```ruby
 begin
   # Admin: invite a Crossly user by email as admin, trader, risk, ops or viewer (a viewer can never place an order), with optional limits and sub-accounts.
-  data, status_code, headers = api_instance.create_vault_market_entity_member_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_entity_member_with_http_info(id, create_vault_market_entity_member_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketEntityByIdResponse>
@@ -3144,6 +3163,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_entity_member_request** | **CreateVaultMarketEntityMemberRequest** |  |  |
 
 ### Return type
 
@@ -3155,13 +3175,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_entity_subaccount
 
-> <GetVaultMarketEntityByIdResponse> create_vault_market_entity_subaccount(id)
+> <GetVaultMarketEntityByIdResponse> create_vault_market_entity_subaccount(id, create_vault_market_entity_subaccount_request)
 
 Admin: open a sub-account once the custodian approved the entity; its limits are held to the entity's caps.
 
@@ -3178,10 +3198,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_entity_subaccount_request = Crossly::CreateVaultMarketEntitySubaccountRequest.new({name: 'name_example'}) # CreateVaultMarketEntitySubaccountRequest | 
 
 begin
   # Admin: open a sub-account once the custodian approved the entity; its limits are held to the entity's caps.
-  result = api_instance.create_vault_market_entity_subaccount(id)
+  result = api_instance.create_vault_market_entity_subaccount(id, create_vault_market_entity_subaccount_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_entity_subaccount: #{e}"
@@ -3192,12 +3213,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> create_vault_market_entity_subaccount_with_http_info(id)
+> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> create_vault_market_entity_subaccount_with_http_info(id, create_vault_market_entity_subaccount_request)
 
 ```ruby
 begin
   # Admin: open a sub-account once the custodian approved the entity; its limits are held to the entity's caps.
-  data, status_code, headers = api_instance.create_vault_market_entity_subaccount_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_entity_subaccount_with_http_info(id, create_vault_market_entity_subaccount_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketEntityByIdResponse>
@@ -3211,6 +3232,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_entity_subaccount_request** | **CreateVaultMarketEntitySubaccountRequest** |  |  |
 
 ### Return type
 
@@ -3222,7 +3244,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3626,7 +3648,7 @@ end
 
 ## create_vault_market_grade_to_vault
 
-> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault
+> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault(opts)
 
 Start Grade to Vault on one item (`source` inventory or vault_unit). With `runId` the grading slot is booked at once (free; your saved card is charged only if the run locks). Nothing is listed until you confirm a price after the grade.
 
@@ -3642,10 +3664,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  create_vault_market_grade_to_vault_request: Crossly::CreateVaultMarketGradeToVaultRequest.new({source: 'inventory'}) # CreateVaultMarketGradeToVaultRequest | 
+}
 
 begin
   # Start Grade to Vault on one item (`source` inventory or vault_unit). With `runId` the grading slot is booked at once (free; your saved card is charged only if the run locks). Nothing is listed until you confirm a price after the grade.
-  result = api_instance.create_vault_market_grade_to_vault
+  result = api_instance.create_vault_market_grade_to_vault(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_grade_to_vault: #{e}"
@@ -3656,12 +3681,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_with_http_info
+> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_with_http_info(opts)
 
 ```ruby
 begin
   # Start Grade to Vault on one item (`source` inventory or vault_unit). With `runId` the grading slot is booked at once (free; your saved card is charged only if the run locks). Nothing is listed until you confirm a price after the grade.
-  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradeToVaultItem>
@@ -3672,7 +3697,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_grade_to_vault_request** | **CreateVaultMarketGradeToVaultRequest** |  | [optional] |
 
 ### Return type
 
@@ -3684,13 +3711,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_grade_to_vault_book
 
-> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault_book(id)
+> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault_book(id, opts)
 
 Book (or re-book) the grading slot of a flow still at \"picked\". Answers 503 naming GRADING_HUB_ADDRESS when runs are not open.
 
@@ -3707,10 +3734,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_grade_to_vault_book_request: Crossly::CreateVaultMarketGradeToVaultBookRequest.new({run_id: 'run_id_example'}) # CreateVaultMarketGradeToVaultBookRequest | 
+}
 
 begin
   # Book (or re-book) the grading slot of a flow still at \"picked\". Answers 503 naming GRADING_HUB_ADDRESS when runs are not open.
-  result = api_instance.create_vault_market_grade_to_vault_book(id)
+  result = api_instance.create_vault_market_grade_to_vault_book(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_grade_to_vault_book: #{e}"
@@ -3721,12 +3751,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_book_with_http_info(id)
+> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_book_with_http_info(id, opts)
 
 ```ruby
 begin
   # Book (or re-book) the grading slot of a flow still at \"picked\". Answers 503 naming GRADING_HUB_ADDRESS when runs are not open.
-  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_book_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_book_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradeToVaultItem>
@@ -3740,6 +3770,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_grade_to_vault_book_request** | **CreateVaultMarketGradeToVaultBookRequest** |  | [optional] |
 
 ### Return type
 
@@ -3751,7 +3782,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3891,7 +3922,7 @@ end
 
 ## create_vault_market_grade_to_vault_list
 
-> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault_list(id)
+> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault_list(id, opts)
 
 Confirm the price for the grade the unit came back with (`confirm: true`, `gradeKey` must match the unit). Pre-trade risk, the price band and the ID line apply, then one shelf ask is placed on the Crossly order book.
 
@@ -3908,10 +3939,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_grade_to_vault_list_request: Crossly::CreateVaultMarketGradeToVaultListRequest.new({price_cents: 3.56, grade_key: 'grade_key_example', confirm: false}) # CreateVaultMarketGradeToVaultListRequest | 
+}
 
 begin
   # Confirm the price for the grade the unit came back with (`confirm: true`, `gradeKey` must match the unit). Pre-trade risk, the price band and the ID line apply, then one shelf ask is placed on the Crossly order book.
-  result = api_instance.create_vault_market_grade_to_vault_list(id)
+  result = api_instance.create_vault_market_grade_to_vault_list(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_grade_to_vault_list: #{e}"
@@ -3922,12 +3956,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_list_with_http_info(id)
+> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_list_with_http_info(id, opts)
 
 ```ruby
 begin
   # Confirm the price for the grade the unit came back with (`confirm: true`, `gradeKey` must match the unit). Pre-trade risk, the price band and the ID line apply, then one shelf ask is placed on the Crossly order book.
-  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_list_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_list_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradeToVaultItem>
@@ -3941,6 +3975,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_grade_to_vault_list_request** | **CreateVaultMarketGradeToVaultListRequest** |  | [optional] |
 
 ### Return type
 
@@ -3952,13 +3987,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_grade_to_vault_shipped
 
-> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault_shipped(id)
+> <ListVaultMarketGradeToVaultItem> create_vault_market_grade_to_vault_shipped(id, opts)
 
 You mailed the card to the grading hub (an inventory card, once its run locked).
 
@@ -3975,10 +4010,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_grading_submission_shipped_request: Crossly::CreateGradingSubmissionShippedRequest.new # CreateGradingSubmissionShippedRequest | 
+}
 
 begin
   # You mailed the card to the grading hub (an inventory card, once its run locked).
-  result = api_instance.create_vault_market_grade_to_vault_shipped(id)
+  result = api_instance.create_vault_market_grade_to_vault_shipped(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_grade_to_vault_shipped: #{e}"
@@ -3989,12 +4027,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_shipped_with_http_info(id)
+> <Array(<ListVaultMarketGradeToVaultItem>, Integer, Hash)> create_vault_market_grade_to_vault_shipped_with_http_info(id, opts)
 
 ```ruby
 begin
   # You mailed the card to the grading hub (an inventory card, once its run locked).
-  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_shipped_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_grade_to_vault_shipped_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradeToVaultItem>
@@ -4008,6 +4046,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_grading_submission_shipped_request** | **CreateGradingSubmissionShippedRequest** |  | [optional] |
 
 ### Return type
 
@@ -4019,7 +4058,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -6670,7 +6709,7 @@ end
 
 ## create_vault_market_option_combo
 
-> <CreateVaultMarketOptionComboResponse> create_vault_market_option_combo
+> <CreateVaultMarketOptionComboResponse> create_vault_market_option_combo(create_vault_market_option_combo_request)
 
 Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
 
@@ -6686,10 +6725,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_option_combo_request = Crossly::CreateVaultMarketOptionComboRequest.new({legs: [Crossly::CreateVaultMarketOptionComboRequestLegs.new({contract_id: 'contract_id_example', side: 'buy'})], quantity: 3.56, limit_net_cents: 3.56}) # CreateVaultMarketOptionComboRequest | 
 
 begin
   # Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
-  result = api_instance.create_vault_market_option_combo
+  result = api_instance.create_vault_market_option_combo(create_vault_market_option_combo_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_option_combo: #{e}"
@@ -6700,12 +6740,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketOptionComboResponse>, Integer, Hash)> create_vault_market_option_combo_with_http_info
+> <Array(<CreateVaultMarketOptionComboResponse>, Integer, Hash)> create_vault_market_option_combo_with_http_info(create_vault_market_option_combo_request)
 
 ```ruby
 begin
   # Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
-  data, status_code, headers = api_instance.create_vault_market_option_combo_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_option_combo_with_http_info(create_vault_market_option_combo_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketOptionComboResponse>
@@ -6716,7 +6756,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_option_combo_request** | **CreateVaultMarketOptionComboRequest** |  |  |
 
 ### Return type
 
@@ -6728,7 +6770,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -7133,7 +7175,7 @@ end
 
 ## create_vault_market_option_covered_call
 
-> <CreateVaultMarketOptionCoveredCallResponse> create_vault_market_option_covered_call
+> <CreateVaultMarketOptionCoveredCallResponse> create_vault_market_option_covered_call(create_vault_market_option_covered_call_request)
 
 Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
 
@@ -7149,10 +7191,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_option_covered_call_request = Crossly::CreateVaultMarketOptionCoveredCallRequest.new({vault_item_id: 'vault_item_id_example', contract_id: 'contract_id_example'}) # CreateVaultMarketOptionCoveredCallRequest | 
 
 begin
   # Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
-  result = api_instance.create_vault_market_option_covered_call
+  result = api_instance.create_vault_market_option_covered_call(create_vault_market_option_covered_call_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_option_covered_call: #{e}"
@@ -7163,12 +7206,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketOptionCoveredCallResponse>, Integer, Hash)> create_vault_market_option_covered_call_with_http_info
+> <Array(<CreateVaultMarketOptionCoveredCallResponse>, Integer, Hash)> create_vault_market_option_covered_call_with_http_info(create_vault_market_option_covered_call_request)
 
 ```ruby
 begin
   # Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
-  data, status_code, headers = api_instance.create_vault_market_option_covered_call_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_option_covered_call_with_http_info(create_vault_market_option_covered_call_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketOptionCoveredCallResponse>
@@ -7179,7 +7222,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_option_covered_call_request** | **CreateVaultMarketOptionCoveredCallRequest** |  |  |
 
 ### Return type
 
@@ -7191,7 +7236,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -7456,7 +7501,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_option_order
 
-> <CreateVaultMarketOptionOrderResponse> create_vault_market_option_order
+> <CreateVaultMarketOptionOrderResponse> create_vault_market_option_order(create_vault_market_option_order_request)
 
 Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
 
@@ -7472,10 +7517,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_option_order_request = Crossly::CreateVaultMarketOptionOrderRequest.new({contract_id: 'contract_id_example', side: 'buy', quantity: 3.56}) # CreateVaultMarketOptionOrderRequest | 
 
 begin
   # Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
-  result = api_instance.create_vault_market_option_order
+  result = api_instance.create_vault_market_option_order(create_vault_market_option_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_option_order: #{e}"
@@ -7486,12 +7532,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketOptionOrderResponse>, Integer, Hash)> create_vault_market_option_order_with_http_info
+> <Array(<CreateVaultMarketOptionOrderResponse>, Integer, Hash)> create_vault_market_option_order_with_http_info(create_vault_market_option_order_request)
 
 ```ruby
 begin
   # Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
-  data, status_code, headers = api_instance.create_vault_market_option_order_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_option_order_with_http_info(create_vault_market_option_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketOptionOrderResponse>
@@ -7502,7 +7548,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_option_order_request** | **CreateVaultMarketOptionOrderRequest** |  |  |
 
 ### Return type
 
@@ -7514,7 +7562,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -7846,7 +7894,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_option_quote
 
-> <CreateVaultMarketOptionQuoteResponse> create_vault_market_option_quote
+> <CreateVaultMarketOptionQuoteResponse> create_vault_market_option_quote(create_vault_market_option_quote_request)
 
 Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
 
@@ -7862,10 +7910,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_option_quote_request = Crossly::CreateVaultMarketOptionQuoteRequest.new({contract_id: 'contract_id_example', side: 'buy', quantity: 3.56}) # CreateVaultMarketOptionQuoteRequest | 
 
 begin
   # Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
-  result = api_instance.create_vault_market_option_quote
+  result = api_instance.create_vault_market_option_quote(create_vault_market_option_quote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_option_quote: #{e}"
@@ -7876,12 +7925,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketOptionQuoteResponse>, Integer, Hash)> create_vault_market_option_quote_with_http_info
+> <Array(<CreateVaultMarketOptionQuoteResponse>, Integer, Hash)> create_vault_market_option_quote_with_http_info(create_vault_market_option_quote_request)
 
 ```ruby
 begin
   # Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
-  data, status_code, headers = api_instance.create_vault_market_option_quote_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_option_quote_with_http_info(create_vault_market_option_quote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketOptionQuoteResponse>
@@ -7892,7 +7941,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_option_quote_request** | **CreateVaultMarketOptionQuoteRequest** |  |  |
 
 ### Return type
 
@@ -7904,7 +7955,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8242,7 +8293,7 @@ end
 
 ## create_vault_market_option_roll
 
-> <CreateVaultMarketOptionRollResponse> create_vault_market_option_roll
+> <CreateVaultMarketOptionRollResponse> create_vault_market_option_roll(create_vault_market_option_roll_request)
 
 Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
 
@@ -8258,10 +8309,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_option_roll_request = Crossly::CreateVaultMarketOptionRollRequest.new({from_contract_id: 'from_contract_id_example', to_contract_id: 'to_contract_id_example', limit_net_cents: 3.56}) # CreateVaultMarketOptionRollRequest | 
 
 begin
   # Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
-  result = api_instance.create_vault_market_option_roll
+  result = api_instance.create_vault_market_option_roll(create_vault_market_option_roll_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_option_roll: #{e}"
@@ -8272,12 +8324,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketOptionRollResponse>, Integer, Hash)> create_vault_market_option_roll_with_http_info
+> <Array(<CreateVaultMarketOptionRollResponse>, Integer, Hash)> create_vault_market_option_roll_with_http_info(create_vault_market_option_roll_request)
 
 ```ruby
 begin
   # Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
-  data, status_code, headers = api_instance.create_vault_market_option_roll_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_option_roll_with_http_info(create_vault_market_option_roll_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketOptionRollResponse>
@@ -8288,7 +8340,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_option_roll_request** | **CreateVaultMarketOptionRollRequest** |  |  |
 
 ### Return type
 
@@ -8300,7 +8354,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8504,7 +8558,7 @@ end
 
 ## create_vault_market_p2p_loan_refi_auction
 
-> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_loan_refi_auction(id)
+> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_loan_refi_auction(id, opts)
 
 Borrower: look for a cheaper lender. A refinancing auction runs for `hours` (1-72, default 24); the rate a new lender gets climbs from `startAprBps` (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
 
@@ -8521,10 +8575,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_p2p_loan_refi_auction_request: Crossly::CreateVaultMarketP2pLoanRefiAuctionRequest.new # CreateVaultMarketP2pLoanRefiAuctionRequest | 
+}
 
 begin
   # Borrower: look for a cheaper lender. A refinancing auction runs for `hours` (1-72, default 24); the rate a new lender gets climbs from `startAprBps` (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
-  result = api_instance.create_vault_market_p2p_loan_refi_auction(id)
+  result = api_instance.create_vault_market_p2p_loan_refi_auction(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_p2p_loan_refi_auction: #{e}"
@@ -8535,12 +8592,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_loan_refi_auction_with_http_info(id)
+> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_loan_refi_auction_with_http_info(id, opts)
 
 ```ruby
 begin
   # Borrower: look for a cheaper lender. A refinancing auction runs for `hours` (1-72, default 24); the rate a new lender gets climbs from `startAprBps` (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
-  data, status_code, headers = api_instance.create_vault_market_p2p_loan_refi_auction_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_p2p_loan_refi_auction_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketP2pLoanResponse>
@@ -8554,6 +8611,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_p2p_loan_refi_auction_request** | **CreateVaultMarketP2pLoanRefiAuctionRequest** |  | [optional] |
 
 ### Return type
 
@@ -8565,7 +8623,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8638,7 +8696,7 @@ end
 
 ## create_vault_market_p2p_loan_refinance
 
-> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_loan_refinance(id)
+> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_loan_refinance(id, opts)
 
 Take over a loan in a refinancing auction (a lender call or a borrower search for a cheaper lender): you pay the old lender everything owed now (refused above `maxPayoffCents`), which becomes your loan to the same borrower at the auction rate now. Needs a verified ID, an active account and the current lending terms. Pass `requestId` to make a retry safe.
 
@@ -8655,10 +8713,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_p2p_loan_refinance_request: Crossly::CreateVaultMarketP2pLoanRefinanceRequest.new # CreateVaultMarketP2pLoanRefinanceRequest | 
+}
 
 begin
   # Take over a loan in a refinancing auction (a lender call or a borrower search for a cheaper lender): you pay the old lender everything owed now (refused above `maxPayoffCents`), which becomes your loan to the same borrower at the auction rate now. Needs a verified ID, an active account and the current lending terms. Pass `requestId` to make a retry safe.
-  result = api_instance.create_vault_market_p2p_loan_refinance(id)
+  result = api_instance.create_vault_market_p2p_loan_refinance(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_p2p_loan_refinance: #{e}"
@@ -8669,12 +8730,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_loan_refinance_with_http_info(id)
+> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_loan_refinance_with_http_info(id, opts)
 
 ```ruby
 begin
   # Take over a loan in a refinancing auction (a lender call or a borrower search for a cheaper lender): you pay the old lender everything owed now (refused above `maxPayoffCents`), which becomes your loan to the same borrower at the auction rate now. Needs a verified ID, an active account and the current lending terms. Pass `requestId` to make a retry safe.
-  data, status_code, headers = api_instance.create_vault_market_p2p_loan_refinance_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_p2p_loan_refinance_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketP2pLoanResponse>
@@ -8688,6 +8749,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_p2p_loan_refinance_request** | **CreateVaultMarketP2pLoanRefinanceRequest** |  | [optional] |
 
 ### Return type
 
@@ -8699,13 +8761,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_p2p_loan_repay
 
-> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_loan_repay(id)
+> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_loan_repay(id, opts)
 
 Borrower: repay from your custodian account to the lender. Without `amountCents`, in full (principal plus interest to the second; the unit is free once the custodian has it). With `amountCents` below what is owed, a part payment: interest first, then principal, at least the interest owed now and at least $1; the loan stays open on the principal left. Pass `requestId` to make a retry safe.
 
@@ -8722,10 +8784,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_p2p_loan_repay_request: Crossly::CreateVaultMarketP2pLoanRepayRequest.new # CreateVaultMarketP2pLoanRepayRequest | 
+}
 
 begin
   # Borrower: repay from your custodian account to the lender. Without `amountCents`, in full (principal plus interest to the second; the unit is free once the custodian has it). With `amountCents` below what is owed, a part payment: interest first, then principal, at least the interest owed now and at least $1; the loan stays open on the principal left. Pass `requestId` to make a retry safe.
-  result = api_instance.create_vault_market_p2p_loan_repay(id)
+  result = api_instance.create_vault_market_p2p_loan_repay(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_p2p_loan_repay: #{e}"
@@ -8736,12 +8801,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_loan_repay_with_http_info(id)
+> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_loan_repay_with_http_info(id, opts)
 
 ```ruby
 begin
   # Borrower: repay from your custodian account to the lender. Without `amountCents`, in full (principal plus interest to the second; the unit is free once the custodian has it). With `amountCents` below what is owed, a part payment: interest first, then principal, at least the interest owed now and at least $1; the loan stays open on the principal left. Pass `requestId` to make a retry safe.
-  data, status_code, headers = api_instance.create_vault_market_p2p_loan_repay_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_p2p_loan_repay_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketP2pLoanResponse>
@@ -8755,6 +8820,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_p2p_loan_repay_request** | **CreateVaultMarketP2pLoanRepayRequest** |  | [optional] |
 
 ### Return type
 
@@ -8766,13 +8832,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_p2p_offer
 
-> <ListVaultMarketP2pOffersItem> create_vault_market_p2p_offer
+> <ListVaultMarketP2pOffersItem> create_vault_market_p2p_offer(create_vault_market_p2p_offer_request)
 
 Offer to lend: `principalCents` per loan at `aprBps` a year against an item (`bookKey`) or one unit (`vaultItemId`), for up to `maxLoans` loans, lasting `expiresInDays` (default 90). Nothing is held: the custodian pays from your own account when a borrower takes it. Needs a verified ID, an active account and the current lending terms.
 
@@ -8788,10 +8854,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_p2p_offer_request = Crossly::CreateVaultMarketP2pOfferRequest.new({principal_cents: 3.56, apr_bps: 3.56}) # CreateVaultMarketP2pOfferRequest | 
 
 begin
   # Offer to lend: `principalCents` per loan at `aprBps` a year against an item (`bookKey`) or one unit (`vaultItemId`), for up to `maxLoans` loans, lasting `expiresInDays` (default 90). Nothing is held: the custodian pays from your own account when a borrower takes it. Needs a verified ID, an active account and the current lending terms.
-  result = api_instance.create_vault_market_p2p_offer
+  result = api_instance.create_vault_market_p2p_offer(create_vault_market_p2p_offer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_p2p_offer: #{e}"
@@ -8802,12 +8869,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketP2pOffersItem>, Integer, Hash)> create_vault_market_p2p_offer_with_http_info
+> <Array(<ListVaultMarketP2pOffersItem>, Integer, Hash)> create_vault_market_p2p_offer_with_http_info(create_vault_market_p2p_offer_request)
 
 ```ruby
 begin
   # Offer to lend: `principalCents` per loan at `aprBps` a year against an item (`bookKey`) or one unit (`vaultItemId`), for up to `maxLoans` loans, lasting `expiresInDays` (default 90). Nothing is held: the custodian pays from your own account when a borrower takes it. Needs a verified ID, an active account and the current lending terms.
-  data, status_code, headers = api_instance.create_vault_market_p2p_offer_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_p2p_offer_with_http_info(create_vault_market_p2p_offer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketP2pOffersItem>
@@ -8818,7 +8885,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_p2p_offer_request** | **CreateVaultMarketP2pOfferRequest** |  |  |
 
 ### Return type
 
@@ -8830,7 +8899,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8903,7 +8972,7 @@ end
 
 ## create_vault_market_p2p_offer_take
 
-> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_offer_take(id)
+> <GetVaultMarketP2pLoanResponse> create_vault_market_p2p_offer_take(id, create_vault_market_p2p_offer_take_request)
 
 Borrow: take an offer against one of your stored vault units (`vaultItemId`). The unit is pledged (no listing, lending or withdrawal) and the principal is paid into your custodian account. Interest accrues by the second; repay any time. Pass `requestId` to make a retry safe.
 
@@ -8920,10 +8989,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_p2p_offer_take_request = Crossly::CreateVaultMarketP2pOfferTakeRequest.new({vault_item_id: 'vault_item_id_example'}) # CreateVaultMarketP2pOfferTakeRequest | 
 
 begin
   # Borrow: take an offer against one of your stored vault units (`vaultItemId`). The unit is pledged (no listing, lending or withdrawal) and the principal is paid into your custodian account. Interest accrues by the second; repay any time. Pass `requestId` to make a retry safe.
-  result = api_instance.create_vault_market_p2p_offer_take(id)
+  result = api_instance.create_vault_market_p2p_offer_take(id, create_vault_market_p2p_offer_take_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_p2p_offer_take: #{e}"
@@ -8934,12 +9004,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_offer_take_with_http_info(id)
+> <Array(<GetVaultMarketP2pLoanResponse>, Integer, Hash)> create_vault_market_p2p_offer_take_with_http_info(id, create_vault_market_p2p_offer_take_request)
 
 ```ruby
 begin
   # Borrow: take an offer against one of your stored vault units (`vaultItemId`). The unit is pledged (no listing, lending or withdrawal) and the principal is paid into your custodian account. Interest accrues by the second; repay any time. Pass `requestId` to make a retry safe.
-  data, status_code, headers = api_instance.create_vault_market_p2p_offer_take_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_p2p_offer_take_with_http_info(id, create_vault_market_p2p_offer_take_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketP2pLoanResponse>
@@ -8953,6 +9023,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_p2p_offer_take_request** | **CreateVaultMarketP2pOfferTakeRequest** |  |  |
 
 ### Return type
 
@@ -8964,7 +9035,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -9488,7 +9559,7 @@ end
 
 ## create_vault_market_portfolio_margin_enroll
 
-> <CreateVaultMarketPortfolioMarginEnrollResponse> create_vault_market_portfolio_margin_enroll
+> <CreateVaultMarketPortfolioMarginEnrollResponse> create_vault_market_portfolio_margin_enroll(create_vault_market_portfolio_margin_leave_request)
 
 Admin: put a firm sub-account under portfolio margin. Needs VAULT_LEVERAGE_VENUE, your ID, an ECP-attested entity that passed KYB, and the minimum equity. Its positions are then margined on the whole account, recalculated every 5 minutes; calls and auctions are unchanged. Audited.
 
@@ -9504,10 +9575,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_portfolio_margin_leave_request = Crossly::CreateVaultMarketPortfolioMarginLeaveRequest.new({subaccount_id: 'subaccount_id_example'}) # CreateVaultMarketPortfolioMarginLeaveRequest | 
 
 begin
   # Admin: put a firm sub-account under portfolio margin. Needs VAULT_LEVERAGE_VENUE, your ID, an ECP-attested entity that passed KYB, and the minimum equity. Its positions are then margined on the whole account, recalculated every 5 minutes; calls and auctions are unchanged. Audited.
-  result = api_instance.create_vault_market_portfolio_margin_enroll
+  result = api_instance.create_vault_market_portfolio_margin_enroll(create_vault_market_portfolio_margin_leave_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_portfolio_margin_enroll: #{e}"
@@ -9518,12 +9590,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketPortfolioMarginEnrollResponse>, Integer, Hash)> create_vault_market_portfolio_margin_enroll_with_http_info
+> <Array(<CreateVaultMarketPortfolioMarginEnrollResponse>, Integer, Hash)> create_vault_market_portfolio_margin_enroll_with_http_info(create_vault_market_portfolio_margin_leave_request)
 
 ```ruby
 begin
   # Admin: put a firm sub-account under portfolio margin. Needs VAULT_LEVERAGE_VENUE, your ID, an ECP-attested entity that passed KYB, and the minimum equity. Its positions are then margined on the whole account, recalculated every 5 minutes; calls and auctions are unchanged. Audited.
-  data, status_code, headers = api_instance.create_vault_market_portfolio_margin_enroll_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_portfolio_margin_enroll_with_http_info(create_vault_market_portfolio_margin_leave_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketPortfolioMarginEnrollResponse>
@@ -9534,7 +9606,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_portfolio_margin_leave_request** | **CreateVaultMarketPortfolioMarginLeaveRequest** |  |  |
 
 ### Return type
 
@@ -9546,13 +9620,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_portfolio_margin_leave
 
-> <CreateVaultMarketPortfolioMarginLeaveResponse> create_vault_market_portfolio_margin_leave
+> <CreateVaultMarketPortfolioMarginLeaveResponse> create_vault_market_portfolio_margin_leave(create_vault_market_portfolio_margin_leave_request)
 
 Admin: take a firm sub-account off portfolio margin. Each position is then held to its own tier floors again and may be called at once. Audited.
 
@@ -9568,10 +9642,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_portfolio_margin_leave_request = Crossly::CreateVaultMarketPortfolioMarginLeaveRequest.new({subaccount_id: 'subaccount_id_example'}) # CreateVaultMarketPortfolioMarginLeaveRequest | 
 
 begin
   # Admin: take a firm sub-account off portfolio margin. Each position is then held to its own tier floors again and may be called at once. Audited.
-  result = api_instance.create_vault_market_portfolio_margin_leave
+  result = api_instance.create_vault_market_portfolio_margin_leave(create_vault_market_portfolio_margin_leave_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_portfolio_margin_leave: #{e}"
@@ -9582,12 +9657,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketPortfolioMarginLeaveResponse>, Integer, Hash)> create_vault_market_portfolio_margin_leave_with_http_info
+> <Array(<CreateVaultMarketPortfolioMarginLeaveResponse>, Integer, Hash)> create_vault_market_portfolio_margin_leave_with_http_info(create_vault_market_portfolio_margin_leave_request)
 
 ```ruby
 begin
   # Admin: take a firm sub-account off portfolio margin. Each position is then held to its own tier floors again and may be called at once. Audited.
-  data, status_code, headers = api_instance.create_vault_market_portfolio_margin_leave_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_portfolio_margin_leave_with_http_info(create_vault_market_portfolio_margin_leave_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketPortfolioMarginLeaveResponse>
@@ -9598,7 +9673,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_portfolio_margin_leave_request** | **CreateVaultMarketPortfolioMarginLeaveRequest** |  |  |
 
 ### Return type
 
@@ -9610,7 +9687,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -12090,7 +12167,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_pro_order
 
-> <CreateVaultMarketProOrderResponse> create_vault_market_pro_order
+> <CreateVaultMarketProOrderResponse> create_vault_market_pro_order(create_vault_market_pro_order_request)
 
 Place an order on a vault book: limit, market (protected, IOC), stop or stop-limit; GTC, GTD, IOC or FOK; post-only; an iceberg `displayQuantity`; a TWAP or VWAP algo over a window. Idempotent on `clientOrderId`. `subaccountId` trades for a firm sub-account you may trade (your role, its KYB, its limits, no firm halt; buys pay from its custodian account and land in it).
 
@@ -12106,10 +12183,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_pro_order_request = Crossly::CreateVaultMarketProOrderRequest.new({book_key: 'book_key_example', side: 'buy', quantity: 3.56}) # CreateVaultMarketProOrderRequest | 
 
 begin
   # Place an order on a vault book: limit, market (protected, IOC), stop or stop-limit; GTC, GTD, IOC or FOK; post-only; an iceberg `displayQuantity`; a TWAP or VWAP algo over a window. Idempotent on `clientOrderId`. `subaccountId` trades for a firm sub-account you may trade (your role, its KYB, its limits, no firm halt; buys pay from its custodian account and land in it).
-  result = api_instance.create_vault_market_pro_order
+  result = api_instance.create_vault_market_pro_order(create_vault_market_pro_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_pro_order: #{e}"
@@ -12120,12 +12198,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketProOrderResponse>, Integer, Hash)> create_vault_market_pro_order_with_http_info
+> <Array(<CreateVaultMarketProOrderResponse>, Integer, Hash)> create_vault_market_pro_order_with_http_info(create_vault_market_pro_order_request)
 
 ```ruby
 begin
   # Place an order on a vault book: limit, market (protected, IOC), stop or stop-limit; GTC, GTD, IOC or FOK; post-only; an iceberg `displayQuantity`; a TWAP or VWAP algo over a window. Idempotent on `clientOrderId`. `subaccountId` trades for a firm sub-account you may trade (your role, its KYB, its limits, no firm halt; buys pay from its custodian account and land in it).
-  data, status_code, headers = api_instance.create_vault_market_pro_order_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_pro_order_with_http_info(create_vault_market_pro_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketProOrderResponse>
@@ -12136,7 +12214,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_pro_order_request** | **CreateVaultMarketProOrderRequest** |  |  |
 
 ### Return type
 
@@ -12148,7 +12228,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -12221,7 +12301,7 @@ end
 
 ## create_vault_market_pro_order_cancel_all
 
-> <CreateVaultMarketProOrderCancelAllResponse> create_vault_market_pro_order_cancel_all
+> <CreateVaultMarketProOrderCancelAllResponse> create_vault_market_pro_order_cancel_all(opts)
 
 Cancel every open order, or every one on a book key. Returns `{ cancelled }`.
 
@@ -12237,10 +12317,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  create_vault_market_pro_order_cancel_all_request: Crossly::CreateVaultMarketProOrderCancelAllRequest.new # CreateVaultMarketProOrderCancelAllRequest | 
+}
 
 begin
   # Cancel every open order, or every one on a book key. Returns `{ cancelled }`.
-  result = api_instance.create_vault_market_pro_order_cancel_all
+  result = api_instance.create_vault_market_pro_order_cancel_all(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_pro_order_cancel_all: #{e}"
@@ -12251,12 +12334,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketProOrderCancelAllResponse>, Integer, Hash)> create_vault_market_pro_order_cancel_all_with_http_info
+> <Array(<CreateVaultMarketProOrderCancelAllResponse>, Integer, Hash)> create_vault_market_pro_order_cancel_all_with_http_info(opts)
 
 ```ruby
 begin
   # Cancel every open order, or every one on a book key. Returns `{ cancelled }`.
-  data, status_code, headers = api_instance.create_vault_market_pro_order_cancel_all_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_pro_order_cancel_all_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketProOrderCancelAllResponse>
@@ -12267,7 +12350,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_pro_order_cancel_all_request** | **CreateVaultMarketProOrderCancelAllRequest** |  | [optional] |
 
 ### Return type
 
@@ -12279,7 +12364,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -13205,7 +13290,7 @@ end
 
 ## create_vault_market_share_auto_invest
 
-> <ListVaultMarketShareAutoInvestItem> create_vault_market_share_auto_invest
+> <ListVaultMarketShareAutoInvestItem> create_vault_market_share_auto_invest(create_vault_market_share_auto_invest_request)
 
 Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
 
@@ -13221,10 +13306,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_share_auto_invest_request = Crossly::CreateVaultMarketShareAutoInvestRequest.new({amount_cents: 3.56, every: 'monthly'}) # CreateVaultMarketShareAutoInvestRequest | 
 
 begin
   # Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
-  result = api_instance.create_vault_market_share_auto_invest
+  result = api_instance.create_vault_market_share_auto_invest(create_vault_market_share_auto_invest_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_auto_invest: #{e}"
@@ -13235,12 +13321,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketShareAutoInvestItem>, Integer, Hash)> create_vault_market_share_auto_invest_with_http_info
+> <Array(<ListVaultMarketShareAutoInvestItem>, Integer, Hash)> create_vault_market_share_auto_invest_with_http_info(create_vault_market_share_auto_invest_request)
 
 ```ruby
 begin
   # Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
-  data, status_code, headers = api_instance.create_vault_market_share_auto_invest_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_share_auto_invest_with_http_info(create_vault_market_share_auto_invest_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketShareAutoInvestItem>
@@ -13251,7 +13337,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_share_auto_invest_request** | **CreateVaultMarketShareAutoInvestRequest** |  |  |
 
 ### Return type
 
@@ -13263,7 +13351,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -13336,7 +13424,7 @@ end
 
 ## create_vault_market_share_auto_invest_update
 
-> <ListVaultMarketShareAutoInvestItem> create_vault_market_share_auto_invest_update(id)
+> <ListVaultMarketShareAutoInvestItem> create_vault_market_share_auto_invest_update(id, create_vault_market_share_auto_invest_update_request)
 
 Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
 
@@ -13353,10 +13441,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_auto_invest_update_request = Crossly::CreateVaultMarketShareAutoInvestUpdateRequest.new # CreateVaultMarketShareAutoInvestUpdateRequest | 
 
 begin
   # Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
-  result = api_instance.create_vault_market_share_auto_invest_update(id)
+  result = api_instance.create_vault_market_share_auto_invest_update(id, create_vault_market_share_auto_invest_update_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_auto_invest_update: #{e}"
@@ -13367,12 +13456,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketShareAutoInvestItem>, Integer, Hash)> create_vault_market_share_auto_invest_update_with_http_info(id)
+> <Array(<ListVaultMarketShareAutoInvestItem>, Integer, Hash)> create_vault_market_share_auto_invest_update_with_http_info(id, create_vault_market_share_auto_invest_update_request)
 
 ```ruby
 begin
   # Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
-  data, status_code, headers = api_instance.create_vault_market_share_auto_invest_update_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_auto_invest_update_with_http_info(id, create_vault_market_share_auto_invest_update_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketShareAutoInvestItem>
@@ -13386,6 +13475,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_auto_invest_update_request** | **CreateVaultMarketShareAutoInvestUpdateRequest** |  |  |
 
 ### Return type
 
@@ -13397,13 +13487,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_basket_buy
 
-> <CreateVaultMarketShareBasketBuyResponse> create_vault_market_share_basket_buy(id)
+> <CreateVaultMarketShareBasketBuyResponse> create_vault_market_share_basket_buy(id, create_vault_market_share_basket_buy_request)
 
 Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
 
@@ -13420,10 +13510,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_basket_buy_request = Crossly::CreateVaultMarketShareBasketBuyRequest.new({amount_cents: 3.56}) # CreateVaultMarketShareBasketBuyRequest | 
 
 begin
   # Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
-  result = api_instance.create_vault_market_share_basket_buy(id)
+  result = api_instance.create_vault_market_share_basket_buy(id, create_vault_market_share_basket_buy_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_basket_buy: #{e}"
@@ -13434,12 +13525,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareBasketBuyResponse>, Integer, Hash)> create_vault_market_share_basket_buy_with_http_info(id)
+> <Array(<CreateVaultMarketShareBasketBuyResponse>, Integer, Hash)> create_vault_market_share_basket_buy_with_http_info(id, create_vault_market_share_basket_buy_request)
 
 ```ruby
 begin
   # Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
-  data, status_code, headers = api_instance.create_vault_market_share_basket_buy_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_basket_buy_with_http_info(id, create_vault_market_share_basket_buy_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareBasketBuyResponse>
@@ -13453,6 +13544,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_basket_buy_request** | **CreateVaultMarketShareBasketBuyRequest** |  |  |
 
 ### Return type
 
@@ -13464,7 +13556,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -13537,7 +13629,7 @@ end
 
 ## create_vault_market_share_buyout_vote
 
-> <CreateVaultMarketShareBuyoutFundResponse> create_vault_market_share_buyout_vote(id)
+> <CreateVaultMarketShareBuyoutFundResponse> create_vault_market_share_buyout_vote(id, create_vault_market_share_buyout_vote_request)
 
 Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
 
@@ -13554,10 +13646,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_buyout_vote_request = Crossly::CreateVaultMarketShareBuyoutVoteRequest.new({choice: 'no'}) # CreateVaultMarketShareBuyoutVoteRequest | 
 
 begin
   # Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
-  result = api_instance.create_vault_market_share_buyout_vote(id)
+  result = api_instance.create_vault_market_share_buyout_vote(id, create_vault_market_share_buyout_vote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_buyout_vote: #{e}"
@@ -13568,12 +13661,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareBuyoutFundResponse>, Integer, Hash)> create_vault_market_share_buyout_vote_with_http_info(id)
+> <Array(<CreateVaultMarketShareBuyoutFundResponse>, Integer, Hash)> create_vault_market_share_buyout_vote_with_http_info(id, create_vault_market_share_buyout_vote_request)
 
 ```ruby
 begin
   # Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
-  data, status_code, headers = api_instance.create_vault_market_share_buyout_vote_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_buyout_vote_with_http_info(id, create_vault_market_share_buyout_vote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareBuyoutFundResponse>
@@ -13587,6 +13680,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_buyout_vote_request** | **CreateVaultMarketShareBuyoutVoteRequest** |  |  |
 
 ### Return type
 
@@ -13598,7 +13692,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -13936,7 +14030,7 @@ end
 
 ## create_vault_market_share_investor
 
-> <GetVaultMarketShareInvestorResponse> create_vault_market_share_investor
+> <GetVaultMarketShareInvestorResponse> create_vault_market_share_investor(create_vault_market_share_investor_request)
 
 Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
 
@@ -13952,10 +14046,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_share_investor_request = Crossly::CreateVaultMarketShareInvestorRequest.new({accept_terms: 'accept_terms_example'}) # CreateVaultMarketShareInvestorRequest | 
 
 begin
   # Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
-  result = api_instance.create_vault_market_share_investor
+  result = api_instance.create_vault_market_share_investor(create_vault_market_share_investor_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_investor: #{e}"
@@ -13966,12 +14061,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketShareInvestorResponse>, Integer, Hash)> create_vault_market_share_investor_with_http_info
+> <Array(<GetVaultMarketShareInvestorResponse>, Integer, Hash)> create_vault_market_share_investor_with_http_info(create_vault_market_share_investor_request)
 
 ```ruby
 begin
   # Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
-  data, status_code, headers = api_instance.create_vault_market_share_investor_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_share_investor_with_http_info(create_vault_market_share_investor_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketShareInvestorResponse>
@@ -13982,7 +14077,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_share_investor_request** | **CreateVaultMarketShareInvestorRequest** |  |  |
 
 ### Return type
 
@@ -13994,7 +14091,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -14198,7 +14295,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_share_paper_sery_order
 
-> <CreateVaultMarketSharePaperSeryOrderResponse> create_vault_market_share_paper_sery_order(id)
+> <CreateVaultMarketSharePaperSeryOrderResponse> create_vault_market_share_paper_sery_order(id, create_vault_market_share_sery_order_request)
 
 Place a practice order (play money) with the same rules as the real share book.
 
@@ -14215,10 +14312,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_order_request = Crossly::CreateVaultMarketShareSeryOrderRequest.new({side: 'buy', type: 'limit'}) # CreateVaultMarketShareSeryOrderRequest | 
 
 begin
   # Place a practice order (play money) with the same rules as the real share book.
-  result = api_instance.create_vault_market_share_paper_sery_order(id)
+  result = api_instance.create_vault_market_share_paper_sery_order(id, create_vault_market_share_sery_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_paper_sery_order: #{e}"
@@ -14229,12 +14327,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketSharePaperSeryOrderResponse>, Integer, Hash)> create_vault_market_share_paper_sery_order_with_http_info(id)
+> <Array(<CreateVaultMarketSharePaperSeryOrderResponse>, Integer, Hash)> create_vault_market_share_paper_sery_order_with_http_info(id, create_vault_market_share_sery_order_request)
 
 ```ruby
 begin
   # Place a practice order (play money) with the same rules as the real share book.
-  data, status_code, headers = api_instance.create_vault_market_share_paper_sery_order_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_paper_sery_order_with_http_info(id, create_vault_market_share_sery_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketSharePaperSeryOrderResponse>
@@ -14248,6 +14346,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_order_request** | **CreateVaultMarketShareSeryOrderRequest** |  |  |
 
 ### Return type
 
@@ -14259,13 +14358,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_paper_sery_subscribe
 
-> <GetVaultMarketSharePaperResponse> create_vault_market_share_paper_sery_subscribe(id)
+> <GetVaultMarketSharePaperResponse> create_vault_market_share_paper_sery_subscribe(id, create_vault_market_share_paper_sery_subscribe_request)
 
 Subscribe with play money to a practice series’ offering.
 
@@ -14282,10 +14381,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_paper_sery_subscribe_request = Crossly::CreateVaultMarketSharePaperSerySubscribeRequest.new({shares: 3.56}) # CreateVaultMarketSharePaperSerySubscribeRequest | 
 
 begin
   # Subscribe with play money to a practice series’ offering.
-  result = api_instance.create_vault_market_share_paper_sery_subscribe(id)
+  result = api_instance.create_vault_market_share_paper_sery_subscribe(id, create_vault_market_share_paper_sery_subscribe_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_paper_sery_subscribe: #{e}"
@@ -14296,12 +14396,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketSharePaperResponse>, Integer, Hash)> create_vault_market_share_paper_sery_subscribe_with_http_info(id)
+> <Array(<GetVaultMarketSharePaperResponse>, Integer, Hash)> create_vault_market_share_paper_sery_subscribe_with_http_info(id, create_vault_market_share_paper_sery_subscribe_request)
 
 ```ruby
 begin
   # Subscribe with play money to a practice series’ offering.
-  data, status_code, headers = api_instance.create_vault_market_share_paper_sery_subscribe_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_paper_sery_subscribe_with_http_info(id, create_vault_market_share_paper_sery_subscribe_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketSharePaperResponse>
@@ -14315,6 +14415,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_paper_sery_subscribe_request** | **CreateVaultMarketSharePaperSerySubscribeRequest** |  |  |
 
 ### Return type
 
@@ -14326,13 +14427,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_room_hide
 
-> <CreateVaultMarketShareRoomHideResponse> create_vault_market_share_room_hide(id)
+> <CreateVaultMarketShareRoomHideResponse> create_vault_market_share_room_hide(id, reason_request)
 
 Take down one of your own holder-room posts (`reason`).
 
@@ -14349,10 +14450,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+reason_request = Crossly::ReasonRequest.new({reason: 'reason_example'}) # ReasonRequest | 
 
 begin
   # Take down one of your own holder-room posts (`reason`).
-  result = api_instance.create_vault_market_share_room_hide(id)
+  result = api_instance.create_vault_market_share_room_hide(id, reason_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_room_hide: #{e}"
@@ -14363,12 +14465,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareRoomHideResponse>, Integer, Hash)> create_vault_market_share_room_hide_with_http_info(id)
+> <Array(<CreateVaultMarketShareRoomHideResponse>, Integer, Hash)> create_vault_market_share_room_hide_with_http_info(id, reason_request)
 
 ```ruby
 begin
   # Take down one of your own holder-room posts (`reason`).
-  data, status_code, headers = api_instance.create_vault_market_share_room_hide_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_room_hide_with_http_info(id, reason_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareRoomHideResponse>
@@ -14382,6 +14484,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **reason_request** | **ReasonRequest** |  |  |
 
 ### Return type
 
@@ -14393,13 +14496,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery
 
-> <ListVaultMarketShareSeriesItem> create_vault_market_share_sery
+> <ListVaultMarketShareSeriesItem> create_vault_market_share_sery(create_vault_market_share_sery_request)
 
 Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
 
@@ -14415,10 +14518,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_share_sery_request = Crossly::CreateVaultMarketShareSeryRequest.new({vault_item_id: 'vault_item_id_example'}) # CreateVaultMarketShareSeryRequest | 
 
 begin
   # Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
-  result = api_instance.create_vault_market_share_sery
+  result = api_instance.create_vault_market_share_sery(create_vault_market_share_sery_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery: #{e}"
@@ -14429,12 +14533,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketShareSeriesItem>, Integer, Hash)> create_vault_market_share_sery_with_http_info
+> <Array(<ListVaultMarketShareSeriesItem>, Integer, Hash)> create_vault_market_share_sery_with_http_info(create_vault_market_share_sery_request)
 
 ```ruby
 begin
   # Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_share_sery_with_http_info(create_vault_market_share_sery_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketShareSeriesItem>
@@ -14445,7 +14549,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_share_sery_request** | **CreateVaultMarketShareSeryRequest** |  |  |
 
 ### Return type
 
@@ -14457,13 +14563,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_buyout
 
-> <CreateVaultMarketShareBuyoutFundResponse> create_vault_market_share_sery_buyout(id)
+> <CreateVaultMarketShareBuyoutFundResponse> create_vault_market_share_sery_buyout(id, create_vault_market_share_sery_buyout_request)
 
 Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
 
@@ -14480,10 +14586,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_buyout_request = Crossly::CreateVaultMarketShareSeryBuyoutRequest.new({offer_cents: 3.56}) # CreateVaultMarketShareSeryBuyoutRequest | 
 
 begin
   # Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
-  result = api_instance.create_vault_market_share_sery_buyout(id)
+  result = api_instance.create_vault_market_share_sery_buyout(id, create_vault_market_share_sery_buyout_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_buyout: #{e}"
@@ -14494,12 +14601,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareBuyoutFundResponse>, Integer, Hash)> create_vault_market_share_sery_buyout_with_http_info(id)
+> <Array(<CreateVaultMarketShareBuyoutFundResponse>, Integer, Hash)> create_vault_market_share_sery_buyout_with_http_info(id, create_vault_market_share_sery_buyout_request)
 
 ```ruby
 begin
   # Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_buyout_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_buyout_with_http_info(id, create_vault_market_share_sery_buyout_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareBuyoutFundResponse>
@@ -14513,6 +14620,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_buyout_request** | **CreateVaultMarketShareSeryBuyoutRequest** |  |  |
 
 ### Return type
 
@@ -14524,13 +14632,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_gift
 
-> <ListVaultMarketShareGiftsItem> create_vault_market_share_sery_gift(id)
+> <ListVaultMarketShareGiftsItem> create_vault_market_share_sery_gift(id, create_vault_market_share_sery_gift_request)
 
 Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
 
@@ -14547,10 +14655,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_gift_request = Crossly::CreateVaultMarketShareSeryGiftRequest.new({to: 'to_example', shares: 3.56}) # CreateVaultMarketShareSeryGiftRequest | 
 
 begin
   # Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
-  result = api_instance.create_vault_market_share_sery_gift(id)
+  result = api_instance.create_vault_market_share_sery_gift(id, create_vault_market_share_sery_gift_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_gift: #{e}"
@@ -14561,12 +14670,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketShareGiftsItem>, Integer, Hash)> create_vault_market_share_sery_gift_with_http_info(id)
+> <Array(<ListVaultMarketShareGiftsItem>, Integer, Hash)> create_vault_market_share_sery_gift_with_http_info(id, create_vault_market_share_sery_gift_request)
 
 ```ruby
 begin
   # Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_gift_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_gift_with_http_info(id, create_vault_market_share_sery_gift_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketShareGiftsItem>
@@ -14580,6 +14689,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_gift_request** | **CreateVaultMarketShareSeryGiftRequest** |  |  |
 
 ### Return type
 
@@ -14591,13 +14701,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_order
 
-> <ListVaultMarketShareOrdersItem> create_vault_market_share_sery_order(id)
+> <ListVaultMarketShareOrdersItem> create_vault_market_share_sery_order(id, create_vault_market_share_sery_order_request)
 
 Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
 
@@ -14614,10 +14724,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_order_request = Crossly::CreateVaultMarketShareSeryOrderRequest.new({side: 'buy', type: 'limit'}) # CreateVaultMarketShareSeryOrderRequest | 
 
 begin
   # Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
-  result = api_instance.create_vault_market_share_sery_order(id)
+  result = api_instance.create_vault_market_share_sery_order(id, create_vault_market_share_sery_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_order: #{e}"
@@ -14628,12 +14739,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketShareOrdersItem>, Integer, Hash)> create_vault_market_share_sery_order_with_http_info(id)
+> <Array(<ListVaultMarketShareOrdersItem>, Integer, Hash)> create_vault_market_share_sery_order_with_http_info(id, create_vault_market_share_sery_order_request)
 
 ```ruby
 begin
   # Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_order_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_order_with_http_info(id, create_vault_market_share_sery_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketShareOrdersItem>
@@ -14647,6 +14758,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_order_request** | **CreateVaultMarketShareSeryOrderRequest** |  |  |
 
 ### Return type
 
@@ -14658,13 +14770,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_recombine
 
-> <CreateVaultMarketShareSeryRecombineResponse> create_vault_market_share_sery_recombine(id)
+> <CreateVaultMarketShareSeryRecombineResponse> create_vault_market_share_sery_recombine(id, opts)
 
 You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
 
@@ -14681,10 +14793,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_share_sery_recombine_request: Crossly::CreateVaultMarketShareSeryRecombineRequest.new # CreateVaultMarketShareSeryRecombineRequest | 
+}
 
 begin
   # You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
-  result = api_instance.create_vault_market_share_sery_recombine(id)
+  result = api_instance.create_vault_market_share_sery_recombine(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_recombine: #{e}"
@@ -14695,12 +14810,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareSeryRecombineResponse>, Integer, Hash)> create_vault_market_share_sery_recombine_with_http_info(id)
+> <Array(<CreateVaultMarketShareSeryRecombineResponse>, Integer, Hash)> create_vault_market_share_sery_recombine_with_http_info(id, opts)
 
 ```ruby
 begin
   # You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_recombine_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_recombine_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareSeryRecombineResponse>
@@ -14714,6 +14829,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_recombine_request** | **CreateVaultMarketShareSeryRecombineRequest** |  | [optional] |
 
 ### Return type
 
@@ -14725,13 +14841,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_room
 
-> <CreateVaultMarketShareSeryRoomResponse> create_vault_market_share_sery_room(id)
+> <CreateVaultMarketShareSeryRoomResponse> create_vault_market_share_sery_room(id, body_request)
 
 Post in the holder room (shareholders only), up to 1,000 characters.
 
@@ -14748,10 +14864,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+body_request = Crossly::BodyRequest.new({body: 'body_example'}) # BodyRequest | 
 
 begin
   # Post in the holder room (shareholders only), up to 1,000 characters.
-  result = api_instance.create_vault_market_share_sery_room(id)
+  result = api_instance.create_vault_market_share_sery_room(id, body_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_room: #{e}"
@@ -14762,12 +14879,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareSeryRoomResponse>, Integer, Hash)> create_vault_market_share_sery_room_with_http_info(id)
+> <Array(<CreateVaultMarketShareSeryRoomResponse>, Integer, Hash)> create_vault_market_share_sery_room_with_http_info(id, body_request)
 
 ```ruby
 begin
   # Post in the holder room (shareholders only), up to 1,000 characters.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_room_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_room_with_http_info(id, body_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareSeryRoomResponse>
@@ -14781,6 +14898,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **body_request** | **BodyRequest** |  |  |
 
 ### Return type
 
@@ -14792,13 +14910,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_subscribe
 
-> <ListVaultMarketShareSubscriptionsItem> create_vault_market_share_sery_subscribe(id)
+> <ListVaultMarketShareSubscriptionsItem> create_vault_market_share_sery_subscribe(id, create_vault_market_share_sery_subscribe_request)
 
 Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
 
@@ -14815,10 +14933,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_subscribe_request = Crossly::CreateVaultMarketShareSerySubscribeRequest.new({shares: 3.56}) # CreateVaultMarketShareSerySubscribeRequest | 
 
 begin
   # Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
-  result = api_instance.create_vault_market_share_sery_subscribe(id)
+  result = api_instance.create_vault_market_share_sery_subscribe(id, create_vault_market_share_sery_subscribe_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_subscribe: #{e}"
@@ -14829,12 +14948,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketShareSubscriptionsItem>, Integer, Hash)> create_vault_market_share_sery_subscribe_with_http_info(id)
+> <Array(<ListVaultMarketShareSubscriptionsItem>, Integer, Hash)> create_vault_market_share_sery_subscribe_with_http_info(id, create_vault_market_share_sery_subscribe_request)
 
 ```ruby
 begin
   # Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_subscribe_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_subscribe_with_http_info(id, create_vault_market_share_sery_subscribe_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketShareSubscriptionsItem>
@@ -14848,6 +14967,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_subscribe_request** | **CreateVaultMarketShareSerySubscribeRequest** |  |  |
 
 ### Return type
 
@@ -14859,13 +14979,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_unwatch
 
-> <CreateVaultMarketShareSeryWatchResponse> create_vault_market_share_sery_unwatch(id)
+> <CreateVaultMarketShareSeryWatchResponse> create_vault_market_share_sery_unwatch(id, opts)
 
 Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
 
@@ -14882,10 +15002,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_share_sery_unwatch_request: Crossly::CreateVaultMarketShareSeryUnwatchRequest.new({kind: 'notify'}) # CreateVaultMarketShareSeryUnwatchRequest | 
+}
 
 begin
   # Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
-  result = api_instance.create_vault_market_share_sery_unwatch(id)
+  result = api_instance.create_vault_market_share_sery_unwatch(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_unwatch: #{e}"
@@ -14896,12 +15019,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareSeryWatchResponse>, Integer, Hash)> create_vault_market_share_sery_unwatch_with_http_info(id)
+> <Array(<CreateVaultMarketShareSeryWatchResponse>, Integer, Hash)> create_vault_market_share_sery_unwatch_with_http_info(id, opts)
 
 ```ruby
 begin
   # Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
-  data, status_code, headers = api_instance.create_vault_market_share_sery_unwatch_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_unwatch_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareSeryWatchResponse>
@@ -14915,6 +15038,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_unwatch_request** | **CreateVaultMarketShareSeryUnwatchRequest** |  | [optional] |
 
 ### Return type
 
@@ -14926,13 +15050,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_update
 
-> <IdResponse> create_vault_market_share_sery_update(id)
+> <IdResponse> create_vault_market_share_sery_update(id, create_vault_market_share_sery_update_request)
 
 Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
 
@@ -14949,10 +15073,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_update_request = Crossly::CreateVaultMarketShareSeryUpdateRequest.new({kind: 'condition', title: 'title_example', body: 'body_example'}) # CreateVaultMarketShareSeryUpdateRequest | 
 
 begin
   # Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
-  result = api_instance.create_vault_market_share_sery_update(id)
+  result = api_instance.create_vault_market_share_sery_update(id, create_vault_market_share_sery_update_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_update: #{e}"
@@ -14963,12 +15088,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<IdResponse>, Integer, Hash)> create_vault_market_share_sery_update_with_http_info(id)
+> <Array(<IdResponse>, Integer, Hash)> create_vault_market_share_sery_update_with_http_info(id, create_vault_market_share_sery_update_request)
 
 ```ruby
 begin
   # Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
-  data, status_code, headers = api_instance.create_vault_market_share_sery_update_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_update_with_http_info(id, create_vault_market_share_sery_update_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <IdResponse>
@@ -14982,6 +15107,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_update_request** | **CreateVaultMarketShareSeryUpdateRequest** |  |  |
 
 ### Return type
 
@@ -14993,13 +15119,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_share_sery_watch
 
-> <CreateVaultMarketShareSeryWatchResponse> create_vault_market_share_sery_watch(id)
+> <CreateVaultMarketShareSeryWatchResponse> create_vault_market_share_sery_watch(id, create_vault_market_share_sery_watch_request)
 
 Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
 
@@ -15016,10 +15142,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_market_share_sery_watch_request = Crossly::CreateVaultMarketShareSeryWatchRequest.new({kind: 'notify'}) # CreateVaultMarketShareSeryWatchRequest | 
 
 begin
   # Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
-  result = api_instance.create_vault_market_share_sery_watch(id)
+  result = api_instance.create_vault_market_share_sery_watch(id, create_vault_market_share_sery_watch_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_sery_watch: #{e}"
@@ -15030,12 +15157,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareSeryWatchResponse>, Integer, Hash)> create_vault_market_share_sery_watch_with_http_info(id)
+> <Array(<CreateVaultMarketShareSeryWatchResponse>, Integer, Hash)> create_vault_market_share_sery_watch_with_http_info(id, create_vault_market_share_sery_watch_request)
 
 ```ruby
 begin
   # Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
-  data, status_code, headers = api_instance.create_vault_market_share_sery_watch_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_sery_watch_with_http_info(id, create_vault_market_share_sery_watch_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareSeryWatchResponse>
@@ -15049,6 +15176,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_sery_watch_request** | **CreateVaultMarketShareSeryWatchRequest** |  |  |
 
 ### Return type
 
@@ -15060,7 +15188,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -15200,7 +15328,7 @@ end
 
 ## create_vault_market_share_viewing_book
 
-> <CreateVaultMarketShareViewingBookResponse> create_vault_market_share_viewing_book(id)
+> <CreateVaultMarketShareViewingBookResponse> create_vault_market_share_viewing_book(id, opts)
 
 Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
 
@@ -15217,10 +15345,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_share_viewing_book_request: Crossly::CreateVaultMarketShareViewingBookRequest.new # CreateVaultMarketShareViewingBookRequest | 
+}
 
 begin
   # Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
-  result = api_instance.create_vault_market_share_viewing_book(id)
+  result = api_instance.create_vault_market_share_viewing_book(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_share_viewing_book: #{e}"
@@ -15231,12 +15362,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketShareViewingBookResponse>, Integer, Hash)> create_vault_market_share_viewing_book_with_http_info(id)
+> <Array(<CreateVaultMarketShareViewingBookResponse>, Integer, Hash)> create_vault_market_share_viewing_book_with_http_info(id, opts)
 
 ```ruby
 begin
   # Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
-  data, status_code, headers = api_instance.create_vault_market_share_viewing_book_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_share_viewing_book_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketShareViewingBookResponse>
@@ -15250,6 +15381,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_share_viewing_book_request** | **CreateVaultMarketShareViewingBookRequest** |  | [optional] |
 
 ### Return type
 
@@ -15261,7 +15393,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -15398,7 +15530,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_supply_batch_label
 
-> <GetVaultMarketSupplyBatchResponse> create_vault_market_supply_batch_label(id)
+> <GetVaultMarketSupplyBatchResponse> create_vault_market_supply_batch_label(id, opts)
 
 Buy a box's prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
 
@@ -15415,10 +15547,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_supply_batch_label_request: Crossly::CreateVaultMarketSupplyBatchLabelRequest.new # CreateVaultMarketSupplyBatchLabelRequest | 
+}
 
 begin
   # Buy a box's prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
-  result = api_instance.create_vault_market_supply_batch_label(id)
+  result = api_instance.create_vault_market_supply_batch_label(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_supply_batch_label: #{e}"
@@ -15429,12 +15564,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketSupplyBatchResponse>, Integer, Hash)> create_vault_market_supply_batch_label_with_http_info(id)
+> <Array(<GetVaultMarketSupplyBatchResponse>, Integer, Hash)> create_vault_market_supply_batch_label_with_http_info(id, opts)
 
 ```ruby
 begin
   # Buy a box's prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
-  data, status_code, headers = api_instance.create_vault_market_supply_batch_label_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_supply_batch_label_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketSupplyBatchResponse>
@@ -15448,6 +15583,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_supply_batch_label_request** | **CreateVaultMarketSupplyBatchLabelRequest** |  | [optional] |
 
 ### Return type
 
@@ -15459,7 +15595,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -15532,7 +15668,7 @@ end
 
 ## create_vault_market_supply_send
 
-> <CreateVaultMarketSupplySendResponse> create_vault_market_supply_send
+> <CreateVaultMarketSupplySendResponse> create_vault_market_supply_send(create_vault_market_supply_send_request)
 
 Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
 
@@ -15548,10 +15684,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_supply_send_request = Crossly::CreateVaultMarketSupplySendRequest.new({items: [Crossly::CreateVaultMarketSupplySendRequestItems.new({inventory_item_id: 'inventory_item_id_example'})]}) # CreateVaultMarketSupplySendRequest | 
 
 begin
   # Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
-  result = api_instance.create_vault_market_supply_send
+  result = api_instance.create_vault_market_supply_send(create_vault_market_supply_send_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_supply_send: #{e}"
@@ -15562,12 +15699,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketSupplySendResponse>, Integer, Hash)> create_vault_market_supply_send_with_http_info
+> <Array(<CreateVaultMarketSupplySendResponse>, Integer, Hash)> create_vault_market_supply_send_with_http_info(create_vault_market_supply_send_request)
 
 ```ruby
 begin
   # Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
-  data, status_code, headers = api_instance.create_vault_market_supply_send_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_supply_send_with_http_info(create_vault_market_supply_send_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketSupplySendResponse>
@@ -15578,7 +15715,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_supply_send_request** | **CreateVaultMarketSupplySendRequest** |  |  |
 
 ### Return type
 
@@ -15590,13 +15729,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_supply_send_in
 
-> <CreateVaultMarketSupplySendInResponse> create_vault_market_supply_send_in
+> <CreateVaultMarketSupplySendInResponse> create_vault_market_supply_send_in(create_vault_market_supply_send_in_request)
 
 Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
 
@@ -15612,10 +15751,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_supply_send_in_request = Crossly::CreateVaultMarketSupplySendInRequest.new({items: [Crossly::CreateVaultMarketSupplySendInRequestItems.new({inventory_item_id: 'inventory_item_id_example'})], method: 'label'}) # CreateVaultMarketSupplySendInRequest | 
 
 begin
   # Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
-  result = api_instance.create_vault_market_supply_send_in
+  result = api_instance.create_vault_market_supply_send_in(create_vault_market_supply_send_in_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_supply_send_in: #{e}"
@@ -15626,12 +15766,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketSupplySendInResponse>, Integer, Hash)> create_vault_market_supply_send_in_with_http_info
+> <Array(<CreateVaultMarketSupplySendInResponse>, Integer, Hash)> create_vault_market_supply_send_in_with_http_info(create_vault_market_supply_send_in_request)
 
 ```ruby
 begin
   # Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
-  data, status_code, headers = api_instance.create_vault_market_supply_send_in_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_supply_send_in_with_http_info(create_vault_market_supply_send_in_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketSupplySendInResponse>
@@ -15642,7 +15782,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_supply_send_in_request** | **CreateVaultMarketSupplySendInRequest** |  |  |
 
 ### Return type
 
@@ -15654,7 +15796,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -16254,7 +16396,7 @@ end
 
 ## create_vault_market_valuation_statement
 
-> <CreateVaultMarketValuationStatementResponse> create_vault_market_valuation_statement
+> <CreateVaultMarketValuationStatementResponse> create_vault_market_valuation_statement(create_vault_market_valuation_statement_request)
 
 Issue an insurance or appraisal statement for a day: frozen with the sha256 of its record, sealed in the Crossly audit chain, with a public verify link. preparedFor and policyRef are printed on it and never shown on verify. Moves no money.
 
@@ -16270,10 +16412,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_market_valuation_statement_request = Crossly::CreateVaultMarketValuationStatementRequest.new({purpose: 'appraisal'}) # CreateVaultMarketValuationStatementRequest | 
 
 begin
   # Issue an insurance or appraisal statement for a day: frozen with the sha256 of its record, sealed in the Crossly audit chain, with a public verify link. preparedFor and policyRef are printed on it and never shown on verify. Moves no money.
-  result = api_instance.create_vault_market_valuation_statement
+  result = api_instance.create_vault_market_valuation_statement(create_vault_market_valuation_statement_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_valuation_statement: #{e}"
@@ -16284,12 +16427,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketValuationStatementResponse>, Integer, Hash)> create_vault_market_valuation_statement_with_http_info
+> <Array(<CreateVaultMarketValuationStatementResponse>, Integer, Hash)> create_vault_market_valuation_statement_with_http_info(create_vault_market_valuation_statement_request)
 
 ```ruby
 begin
   # Issue an insurance or appraisal statement for a day: frozen with the sha256 of its record, sealed in the Crossly audit chain, with a public verify link. preparedFor and policyRef are printed on it and never shown on verify. Moves no money.
-  data, status_code, headers = api_instance.create_vault_market_valuation_statement_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_valuation_statement_with_http_info(create_vault_market_valuation_statement_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketValuationStatementResponse>
@@ -16300,7 +16443,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_valuation_statement_request** | **CreateVaultMarketValuationStatementRequest** |  |  |
 
 ### Return type
 
@@ -16312,7 +16457,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -16382,7 +16527,7 @@ This endpoint does not need any parameter.
 
 ## create_vault_market_widget_token
 
-> <CreateVaultMarketWidgetTokenResponse> create_vault_market_widget_token
+> <CreateVaultMarketWidgetTokenResponse> create_vault_market_widget_token(opts)
 
 Mint a widget token for one phone (`deviceName`, `installId`); minting again with the same pair replaces that phone token. The token reads the widget summary and nothing else, and is returned once. At most five phones.
 
@@ -16398,10 +16543,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  create_vault_market_widget_token_request: Crossly::CreateVaultMarketWidgetTokenRequest.new({device_name: 'device_name_example', install_id: 'install_id_example'}) # CreateVaultMarketWidgetTokenRequest | 
+}
 
 begin
   # Mint a widget token for one phone (`deviceName`, `installId`); minting again with the same pair replaces that phone token. The token reads the widget summary and nothing else, and is returned once. At most five phones.
-  result = api_instance.create_vault_market_widget_token
+  result = api_instance.create_vault_market_widget_token(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_market_widget_token: #{e}"
@@ -16412,12 +16560,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketWidgetTokenResponse>, Integer, Hash)> create_vault_market_widget_token_with_http_info
+> <Array(<CreateVaultMarketWidgetTokenResponse>, Integer, Hash)> create_vault_market_widget_token_with_http_info(opts)
 
 ```ruby
 begin
   # Mint a widget token for one phone (`deviceName`, `installId`); minting again with the same pair replaces that phone token. The token reads the widget summary and nothing else, and is returned once. At most five phones.
-  data, status_code, headers = api_instance.create_vault_market_widget_token_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_widget_token_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketWidgetTokenResponse>
@@ -16428,7 +16576,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_widget_token_request** | **CreateVaultMarketWidgetTokenRequest** |  | [optional] |
 
 ### Return type
 
@@ -16440,13 +16590,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_receipt_token_confirm
 
-> <CreateVaultReceiptTokenConfirmResponse> create_vault_receipt_token_confirm(id)
+> <CreateVaultReceiptTokenConfirmResponse> create_vault_receipt_token_confirm(id, opts)
 
 After your wallet sent the export: read the chain and mark the token live once its one token exists. Pass the `signature` your wallet returned to record it (kept only if it landed).
 
@@ -16463,10 +16613,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_receipt_token_confirm_request: Crossly::CreateVaultReceiptTokenConfirmRequest.new # CreateVaultReceiptTokenConfirmRequest | 
+}
 
 begin
   # After your wallet sent the export: read the chain and mark the token live once its one token exists. Pass the `signature` your wallet returned to record it (kept only if it landed).
-  result = api_instance.create_vault_receipt_token_confirm(id)
+  result = api_instance.create_vault_receipt_token_confirm(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_receipt_token_confirm: #{e}"
@@ -16477,12 +16630,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultReceiptTokenConfirmResponse>, Integer, Hash)> create_vault_receipt_token_confirm_with_http_info(id)
+> <Array(<CreateVaultReceiptTokenConfirmResponse>, Integer, Hash)> create_vault_receipt_token_confirm_with_http_info(id, opts)
 
 ```ruby
 begin
   # After your wallet sent the export: read the chain and mark the token live once its one token exists. Pass the `signature` your wallet returned to record it (kept only if it landed).
-  data, status_code, headers = api_instance.create_vault_receipt_token_confirm_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_receipt_token_confirm_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultReceiptTokenConfirmResponse>
@@ -16496,6 +16649,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_receipt_token_confirm_request** | **CreateVaultReceiptTokenConfirmRequest** |  | [optional] |
 
 ### Return type
 
@@ -16507,13 +16661,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_receipt_token_export
 
-> <CreateVaultReceiptTokenExportResponse> create_vault_receipt_token_export
+> <CreateVaultReceiptTokenExportResponse> create_vault_receipt_token_export(create_vault_receipt_token_export_request)
 
 Send one unit (`vaultItemId`) warehouse receipt to one of your verified Solana wallets (`wallet`) as a token, accepting the current terms (`acceptTerms`). Returns a base64 transaction already signed by the new mint and the receipts authority: your wallet pays the rent and must sign and send it within about two minutes, then call confirm. Nothing is minted until it does. Needs a verified ID; the unit must be stored, unpledged, not lent and not for sale.
 
@@ -16529,10 +16683,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_receipt_token_export_request = Crossly::CreateVaultReceiptTokenExportRequest.new({vault_item_id: 'vault_item_id_example', wallet: 'wallet_example', accept_terms: 'accept_terms_example'}) # CreateVaultReceiptTokenExportRequest | 
 
 begin
   # Send one unit (`vaultItemId`) warehouse receipt to one of your verified Solana wallets (`wallet`) as a token, accepting the current terms (`acceptTerms`). Returns a base64 transaction already signed by the new mint and the receipts authority: your wallet pays the rent and must sign and send it within about two minutes, then call confirm. Nothing is minted until it does. Needs a verified ID; the unit must be stored, unpledged, not lent and not for sale.
-  result = api_instance.create_vault_receipt_token_export
+  result = api_instance.create_vault_receipt_token_export(create_vault_receipt_token_export_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_receipt_token_export: #{e}"
@@ -16543,12 +16698,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultReceiptTokenExportResponse>, Integer, Hash)> create_vault_receipt_token_export_with_http_info
+> <Array(<CreateVaultReceiptTokenExportResponse>, Integer, Hash)> create_vault_receipt_token_export_with_http_info(create_vault_receipt_token_export_request)
 
 ```ruby
 begin
   # Send one unit (`vaultItemId`) warehouse receipt to one of your verified Solana wallets (`wallet`) as a token, accepting the current terms (`acceptTerms`). Returns a base64 transaction already signed by the new mint and the receipts authority: your wallet pays the rent and must sign and send it within about two minutes, then call confirm. Nothing is minted until it does. Needs a verified ID; the unit must be stored, unpledged, not lent and not for sale.
-  data, status_code, headers = api_instance.create_vault_receipt_token_export_with_http_info
+  data, status_code, headers = api_instance.create_vault_receipt_token_export_with_http_info(create_vault_receipt_token_export_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultReceiptTokenExportResponse>
@@ -16559,7 +16714,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_receipt_token_export_request** | **CreateVaultReceiptTokenExportRequest** |  |  |
 
 ### Return type
 
@@ -16571,13 +16728,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_receipt_token_redeem
 
-> <CreateVaultReceiptTokenRedeemResponse> create_vault_receipt_token_redeem(id)
+> <CreateVaultReceiptTokenRedeemResponse> create_vault_receipt_token_redeem(id, create_vault_receipt_token_redeem_request)
 
 Redeem a receipt token held in one of your verified Solana wallets (`wallet`): returns an unsigned base64 burn your wallet signs and sends (it also closes the token account and returns its rent to you). Once it lands, call redeem/confirm and the unit is yours in the vault. Refused while the token is frozen.
 
@@ -16594,10 +16751,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+create_vault_receipt_token_redeem_request = Crossly::CreateVaultReceiptTokenRedeemRequest.new({wallet: 'wallet_example'}) # CreateVaultReceiptTokenRedeemRequest | 
 
 begin
   # Redeem a receipt token held in one of your verified Solana wallets (`wallet`): returns an unsigned base64 burn your wallet signs and sends (it also closes the token account and returns its rent to you). Once it lands, call redeem/confirm and the unit is yours in the vault. Refused while the token is frozen.
-  result = api_instance.create_vault_receipt_token_redeem(id)
+  result = api_instance.create_vault_receipt_token_redeem(id, create_vault_receipt_token_redeem_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_receipt_token_redeem: #{e}"
@@ -16608,12 +16766,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultReceiptTokenRedeemResponse>, Integer, Hash)> create_vault_receipt_token_redeem_with_http_info(id)
+> <Array(<CreateVaultReceiptTokenRedeemResponse>, Integer, Hash)> create_vault_receipt_token_redeem_with_http_info(id, create_vault_receipt_token_redeem_request)
 
 ```ruby
 begin
   # Redeem a receipt token held in one of your verified Solana wallets (`wallet`): returns an unsigned base64 burn your wallet signs and sends (it also closes the token account and returns its rent to you). Once it lands, call redeem/confirm and the unit is yours in the vault. Refused while the token is frozen.
-  data, status_code, headers = api_instance.create_vault_receipt_token_redeem_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_receipt_token_redeem_with_http_info(id, create_vault_receipt_token_redeem_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultReceiptTokenRedeemResponse>
@@ -16627,6 +16785,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_receipt_token_redeem_request** | **CreateVaultReceiptTokenRedeemRequest** |  |  |
 
 ### Return type
 
@@ -16638,13 +16797,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_receipt_token_redeem_confirm
 
-> <CreateVaultReceiptTokenRedeemConfirmResponse> create_vault_receipt_token_redeem_confirm(id)
+> <CreateVaultReceiptTokenRedeemConfirmResponse> create_vault_receipt_token_redeem_confirm(id, opts)
 
 After your wallet sent the redeem: read the chain; once the token is burned the unit moves into your vault (if it was not yours already). Pass the `signature` to record it.
 
@@ -16661,10 +16820,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_receipt_token_confirm_request: Crossly::CreateVaultReceiptTokenConfirmRequest.new # CreateVaultReceiptTokenConfirmRequest | 
+}
 
 begin
   # After your wallet sent the redeem: read the chain; once the token is burned the unit moves into your vault (if it was not yours already). Pass the `signature` to record it.
-  result = api_instance.create_vault_receipt_token_redeem_confirm(id)
+  result = api_instance.create_vault_receipt_token_redeem_confirm(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_receipt_token_redeem_confirm: #{e}"
@@ -16675,12 +16837,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultReceiptTokenRedeemConfirmResponse>, Integer, Hash)> create_vault_receipt_token_redeem_confirm_with_http_info(id)
+> <Array(<CreateVaultReceiptTokenRedeemConfirmResponse>, Integer, Hash)> create_vault_receipt_token_redeem_confirm_with_http_info(id, opts)
 
 ```ruby
 begin
   # After your wallet sent the redeem: read the chain; once the token is burned the unit moves into your vault (if it was not yours already). Pass the `signature` to record it.
-  data, status_code, headers = api_instance.create_vault_receipt_token_redeem_confirm_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_receipt_token_redeem_confirm_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultReceiptTokenRedeemConfirmResponse>
@@ -16694,6 +16856,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_receipt_token_confirm_request** | **CreateVaultReceiptTokenConfirmRequest** |  | [optional] |
 
 ### Return type
 
@@ -16705,13 +16868,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_receipt_token_wallet_allow
 
-> <CreateVaultReceiptTokenWalletAllowResponse> create_vault_receipt_token_wallet_allow
+> <CreateVaultReceiptTokenWalletAllowResponse> create_vault_receipt_token_wallet_allow(create_vault_receipt_token_redeem_request)
 
 Put one of your verified Solana wallets (`wallet`) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
 
@@ -16727,10 +16890,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+create_vault_receipt_token_redeem_request = Crossly::CreateVaultReceiptTokenRedeemRequest.new({wallet: 'wallet_example'}) # CreateVaultReceiptTokenRedeemRequest | 
 
 begin
   # Put one of your verified Solana wallets (`wallet`) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
-  result = api_instance.create_vault_receipt_token_wallet_allow
+  result = api_instance.create_vault_receipt_token_wallet_allow(create_vault_receipt_token_redeem_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->create_vault_receipt_token_wallet_allow: #{e}"
@@ -16741,12 +16905,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultReceiptTokenWalletAllowResponse>, Integer, Hash)> create_vault_receipt_token_wallet_allow_with_http_info
+> <Array(<CreateVaultReceiptTokenWalletAllowResponse>, Integer, Hash)> create_vault_receipt_token_wallet_allow_with_http_info(create_vault_receipt_token_redeem_request)
 
 ```ruby
 begin
   # Put one of your verified Solana wallets (`wallet`) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
-  data, status_code, headers = api_instance.create_vault_receipt_token_wallet_allow_with_http_info
+  data, status_code, headers = api_instance.create_vault_receipt_token_wallet_allow_with_http_info(create_vault_receipt_token_redeem_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultReceiptTokenWalletAllowResponse>
@@ -16757,7 +16921,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_receipt_token_redeem_request** | **CreateVaultReceiptTokenRedeemRequest** |  |  |
 
 ### Return type
 
@@ -16769,7 +16935,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -22094,7 +22260,7 @@ end
 
 ## get_vault_market_index_feed_funding
 
-> <GetVaultMarketIndexFeedFundingResponse> get_vault_market_index_feed_funding(slug)
+> <GetVaultMarketIndexFeedFundingResponse> get_vault_market_index_feed_funding(slug, premium_bps, opts)
 
 Reference funding for a perpetual-style future on the index: your premium `premiumBps` (TWAP of (impact mid - index)/index) through F = P + clamp(I - P, ±0.05%) per 8 h, |F| capped at 0.5%/day, with the index level it is relative to. The partner DCM computes and settles funding; this is the reference math.
 
@@ -22111,10 +22277,14 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 slug = 'slug_example' # String | 
+premium_bps = 8.14 # Float | 
+opts = {
+  interest_bps: 8.14 # Float | 
+}
 
 begin
   # Reference funding for a perpetual-style future on the index: your premium `premiumBps` (TWAP of (impact mid - index)/index) through F = P + clamp(I - P, ±0.05%) per 8 h, |F| capped at 0.5%/day, with the index level it is relative to. The partner DCM computes and settles funding; this is the reference math.
-  result = api_instance.get_vault_market_index_feed_funding(slug)
+  result = api_instance.get_vault_market_index_feed_funding(slug, premium_bps, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->get_vault_market_index_feed_funding: #{e}"
@@ -22125,12 +22295,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketIndexFeedFundingResponse>, Integer, Hash)> get_vault_market_index_feed_funding_with_http_info(slug)
+> <Array(<GetVaultMarketIndexFeedFundingResponse>, Integer, Hash)> get_vault_market_index_feed_funding_with_http_info(slug, premium_bps, opts)
 
 ```ruby
 begin
   # Reference funding for a perpetual-style future on the index: your premium `premiumBps` (TWAP of (impact mid - index)/index) through F = P + clamp(I - P, ±0.05%) per 8 h, |F| capped at 0.5%/day, with the index level it is relative to. The partner DCM computes and settles funding; this is the reference math.
-  data, status_code, headers = api_instance.get_vault_market_index_feed_funding_with_http_info(slug)
+  data, status_code, headers = api_instance.get_vault_market_index_feed_funding_with_http_info(slug, premium_bps, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketIndexFeedFundingResponse>
@@ -22144,6 +22314,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **premium_bps** | **Float** |  |  |
+| **interest_bps** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -22161,7 +22333,7 @@ end
 
 ## get_vault_market_index_feed_settlement
 
-> <GetVaultMarketIndexFeedSettlementResponse> get_vault_market_index_feed_settlement(slug)
+> <GetVaultMarketIndexFeedSettlementResponse> get_vault_market_index_feed_settlement(slug, opts)
 
 The frozen 7-day TWAP settlement series for a licensed index (written once a day, never restated), with the closes behind each value. Signed like the feed.
 
@@ -22178,10 +22350,13 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 slug = 'slug_example' # String | 
+opts = {
+  days: 8.14 # Float | 
+}
 
 begin
   # The frozen 7-day TWAP settlement series for a licensed index (written once a day, never restated), with the closes behind each value. Signed like the feed.
-  result = api_instance.get_vault_market_index_feed_settlement(slug)
+  result = api_instance.get_vault_market_index_feed_settlement(slug, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->get_vault_market_index_feed_settlement: #{e}"
@@ -22192,12 +22367,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketIndexFeedSettlementResponse>, Integer, Hash)> get_vault_market_index_feed_settlement_with_http_info(slug)
+> <Array(<GetVaultMarketIndexFeedSettlementResponse>, Integer, Hash)> get_vault_market_index_feed_settlement_with_http_info(slug, opts)
 
 ```ruby
 begin
   # The frozen 7-day TWAP settlement series for a licensed index (written once a day, never restated), with the closes behind each value. Signed like the feed.
-  data, status_code, headers = api_instance.get_vault_market_index_feed_settlement_with_http_info(slug)
+  data, status_code, headers = api_instance.get_vault_market_index_feed_settlement_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketIndexFeedSettlementResponse>
@@ -22211,6 +22386,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -27516,7 +27692,7 @@ This endpoint does not need any parameter.
 
 ## get_vault_market_prediction_stream
 
-> String get_vault_market_prediction_stream
+> String get_vault_market_prediction_stream(markets)
 
 A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
 
@@ -27532,10 +27708,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+markets = 'markets_example' # String | 
 
 begin
   # A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
-  result = api_instance.get_vault_market_prediction_stream
+  result = api_instance.get_vault_market_prediction_stream(markets)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->get_vault_market_prediction_stream: #{e}"
@@ -27546,12 +27723,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(String, Integer, Hash)> get_vault_market_prediction_stream_with_http_info
+> <Array(String, Integer, Hash)> get_vault_market_prediction_stream_with_http_info(markets)
 
 ```ruby
 begin
   # A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
-  data, status_code, headers = api_instance.get_vault_market_prediction_stream_with_http_info
+  data, status_code, headers = api_instance.get_vault_market_prediction_stream_with_http_info(markets)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => String
@@ -27562,7 +27739,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **markets** | **String** |  |  |
 
 ### Return type
 
@@ -28098,7 +28277,7 @@ This endpoint does not need any parameter.
 
 ## get_vault_market_pro_stream
 
-> String get_vault_market_pro_stream
+> String get_vault_market_pro_stream(book_key)
 
 A long-lived text/event-stream for a book key: `snapshot` first, then `depth`, `trades`, `mark` and `halt` events as they change.
 
@@ -28114,10 +28293,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+book_key = 'book_key_example' # String | 
 
 begin
   # A long-lived text/event-stream for a book key: `snapshot` first, then `depth`, `trades`, `mark` and `halt` events as they change.
-  result = api_instance.get_vault_market_pro_stream
+  result = api_instance.get_vault_market_pro_stream(book_key)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->get_vault_market_pro_stream: #{e}"
@@ -28128,12 +28308,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(String, Integer, Hash)> get_vault_market_pro_stream_with_http_info
+> <Array(String, Integer, Hash)> get_vault_market_pro_stream_with_http_info(book_key)
 
 ```ruby
 begin
   # A long-lived text/event-stream for a book key: `snapshot` first, then `depth`, `trades`, `mark` and `halt` events as they change.
-  data, status_code, headers = api_instance.get_vault_market_pro_stream_with_http_info
+  data, status_code, headers = api_instance.get_vault_market_pro_stream_with_http_info(book_key)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => String
@@ -28144,7 +28324,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **book_key** | **String** |  |  |
 
 ### Return type
 
@@ -34544,7 +34726,7 @@ This endpoint does not need any parameter.
 
 ## list_vault_market_grade_to_vault
 
-> <ListVaultMarketGradeToVaultResponse> list_vault_market_grade_to_vault
+> <ListVaultMarketGradeToVaultResponse> list_vault_market_grade_to_vault(opts)
 
 Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. `live=1` for those still going.
 
@@ -34560,10 +34742,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  live: '0' # String | 
+}
 
 begin
   # Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. `live=1` for those still going.
-  result = api_instance.list_vault_market_grade_to_vault
+  result = api_instance.list_vault_market_grade_to_vault(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->list_vault_market_grade_to_vault: #{e}"
@@ -34574,12 +34759,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradeToVaultResponse>, Integer, Hash)> list_vault_market_grade_to_vault_with_http_info
+> <Array(<ListVaultMarketGradeToVaultResponse>, Integer, Hash)> list_vault_market_grade_to_vault_with_http_info(opts)
 
 ```ruby
 begin
   # Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. `live=1` for those still going.
-  data, status_code, headers = api_instance.list_vault_market_grade_to_vault_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_grade_to_vault_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradeToVaultResponse>
@@ -34590,7 +34775,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **live** | **String** |  | [optional] |
 
 ### Return type
 
@@ -37957,7 +38144,7 @@ This endpoint does not need any parameter.
 
 ## list_vault_market_partner_finder
 
-> <ListVaultMarketPartnerFinderResponse> list_vault_market_partner_finder
+> <ListVaultMarketPartnerFinderResponse> list_vault_market_partner_finder(opts)
 
 Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
 
@@ -37973,10 +38160,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  postal_code: 'postal_code_example', # String | 
+  service: 'consignment' # String | 
+}
 
 begin
   # Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
-  result = api_instance.list_vault_market_partner_finder
+  result = api_instance.list_vault_market_partner_finder(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->list_vault_market_partner_finder: #{e}"
@@ -37987,12 +38178,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketPartnerFinderResponse>, Integer, Hash)> list_vault_market_partner_finder_with_http_info
+> <Array(<ListVaultMarketPartnerFinderResponse>, Integer, Hash)> list_vault_market_partner_finder_with_http_info(opts)
 
 ```ruby
 begin
   # Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
-  data, status_code, headers = api_instance.list_vault_market_partner_finder_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_partner_finder_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketPartnerFinderResponse>
@@ -38003,7 +38194,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **postal_code** | **String** |  | [optional] |
+| **service** | **String** |  | [optional] |
 
 ### Return type
 
@@ -41245,7 +41439,7 @@ This endpoint does not need any parameter.
 
 ## list_vault_market_supply_declared_values
 
-> <ListVaultMarketSupplyDeclaredValuesResponse> list_vault_market_supply_declared_values
+> <ListVaultMarketSupplyDeclaredValuesResponse> list_vault_market_supply_declared_values(opts)
 
 What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
 
@@ -41261,10 +41455,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  inventory_item_ids: 'inventory_item_ids_example' # String | 
+}
 
 begin
   # What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
-  result = api_instance.list_vault_market_supply_declared_values
+  result = api_instance.list_vault_market_supply_declared_values(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->list_vault_market_supply_declared_values: #{e}"
@@ -41275,12 +41472,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketSupplyDeclaredValuesResponse>, Integer, Hash)> list_vault_market_supply_declared_values_with_http_info
+> <Array(<ListVaultMarketSupplyDeclaredValuesResponse>, Integer, Hash)> list_vault_market_supply_declared_values_with_http_info(opts)
 
 ```ruby
 begin
   # What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
-  data, status_code, headers = api_instance.list_vault_market_supply_declared_values_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_supply_declared_values_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketSupplyDeclaredValuesResponse>
@@ -41291,7 +41488,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **inventory_item_ids** | **String** |  | [optional] |
 
 ### Return type
 
@@ -41309,7 +41508,7 @@ This endpoint does not need any parameter.
 
 ## list_vault_market_supply_deposits
 
-> <ListVaultMarketSupplyDepositsResponse> list_vault_market_supply_deposits
+> <ListVaultMarketSupplyDepositsResponse> list_vault_market_supply_deposits(opts)
 
 Your units sent to the vault, newest first, each with its state and its key's Instant Exit line (\"Instant Exit now: $X (N% of mark)\" or \"No market yet\"). Filter with `inventoryItemIds` (comma-separated).
 
@@ -41325,10 +41524,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  inventory_item_ids: 'inventory_item_ids_example' # String | 
+}
 
 begin
   # Your units sent to the vault, newest first, each with its state and its key's Instant Exit line (\"Instant Exit now: $X (N% of mark)\" or \"No market yet\"). Filter with `inventoryItemIds` (comma-separated).
-  result = api_instance.list_vault_market_supply_deposits
+  result = api_instance.list_vault_market_supply_deposits(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->list_vault_market_supply_deposits: #{e}"
@@ -41339,12 +41541,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketSupplyDepositsResponse>, Integer, Hash)> list_vault_market_supply_deposits_with_http_info
+> <Array(<ListVaultMarketSupplyDepositsResponse>, Integer, Hash)> list_vault_market_supply_deposits_with_http_info(opts)
 
 ```ruby
 begin
   # Your units sent to the vault, newest first, each with its state and its key's Instant Exit line (\"Instant Exit now: $X (N% of mark)\" or \"No market yet\"). Filter with `inventoryItemIds` (comma-separated).
-  data, status_code, headers = api_instance.list_vault_market_supply_deposits_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_supply_deposits_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketSupplyDepositsResponse>
@@ -41355,7 +41557,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **inventory_item_ids** | **String** |  | [optional] |
 
 ### Return type
 
@@ -41373,7 +41577,7 @@ This endpoint does not need any parameter.
 
 ## list_vault_market_supply_eligibility
 
-> <ListVaultMarketSupplyEligibilityResponse> list_vault_market_supply_eligibility
+> <ListVaultMarketSupplyEligibilityResponse> list_vault_market_supply_eligibility(opts)
 
 Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
 
@@ -41389,10 +41593,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  inventory_item_ids: 'inventory_item_ids_example', # String | 
+  listing_id: 'listing_id_example' # String | 
+}
 
 begin
   # Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
-  result = api_instance.list_vault_market_supply_eligibility
+  result = api_instance.list_vault_market_supply_eligibility(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->list_vault_market_supply_eligibility: #{e}"
@@ -41403,12 +41611,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketSupplyEligibilityResponse>, Integer, Hash)> list_vault_market_supply_eligibility_with_http_info
+> <Array(<ListVaultMarketSupplyEligibilityResponse>, Integer, Hash)> list_vault_market_supply_eligibility_with_http_info(opts)
 
 ```ruby
 begin
   # Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
-  data, status_code, headers = api_instance.list_vault_market_supply_eligibility_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_supply_eligibility_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketSupplyEligibilityResponse>
@@ -41419,7 +41627,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **inventory_item_ids** | **String** |  | [optional] |
+| **listing_id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -42333,7 +42544,7 @@ This endpoint does not need any parameter.
 
 ## update_vault_market_auto_buy
 
-> <UpdateVaultMarketAutoBuyResponse> update_vault_market_auto_buy
+> <UpdateVaultMarketAutoBuyResponse> update_vault_market_auto_buy(update_vault_market_auto_buy_request)
 
 Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
 
@@ -42349,10 +42560,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+update_vault_market_auto_buy_request = Crossly::UpdateVaultMarketAutoBuyRequest.new({share_bps: 3.56, wants: [Crossly::UpdateVaultMarketAutoBuyRequestWants.new({book_key: 'book_key_example'})]}) # UpdateVaultMarketAutoBuyRequest | 
 
 begin
   # Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
-  result = api_instance.update_vault_market_auto_buy
+  result = api_instance.update_vault_market_auto_buy(update_vault_market_auto_buy_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_auto_buy: #{e}"
@@ -42363,12 +42575,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateVaultMarketAutoBuyResponse>, Integer, Hash)> update_vault_market_auto_buy_with_http_info
+> <Array(<UpdateVaultMarketAutoBuyResponse>, Integer, Hash)> update_vault_market_auto_buy_with_http_info(update_vault_market_auto_buy_request)
 
 ```ruby
 begin
   # Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
-  data, status_code, headers = api_instance.update_vault_market_auto_buy_with_http_info
+  data, status_code, headers = api_instance.update_vault_market_auto_buy_with_http_info(update_vault_market_auto_buy_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateVaultMarketAutoBuyResponse>
@@ -42379,7 +42591,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_vault_market_auto_buy_request** | **UpdateVaultMarketAutoBuyRequest** |  |  |
 
 ### Return type
 
@@ -42391,13 +42605,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_vault_market_block_allocation
 
-> <ListVaultMarketBlocksItem> update_vault_market_block_allocation(order_id)
+> <ListVaultMarketBlocksItem> update_vault_market_block_allocation(order_id, update_vault_market_block_allocation_request)
 
 Post-trade allocation: set or replace the plan for a buy you placed for one of the entity's sub-accounts (that sub-account leads). Refused once any share has moved.
 
@@ -42414,10 +42628,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 order_id = 'order_id_example' # String | 
+update_vault_market_block_allocation_request = Crossly::UpdateVaultMarketBlockAllocationRequest.new({plan: [Crossly::CreateVaultMarketBlockRequestPlan.new({subaccount_id: 'subaccount_id_example', quantity: 3.56})]}) # UpdateVaultMarketBlockAllocationRequest | 
 
 begin
   # Post-trade allocation: set or replace the plan for a buy you placed for one of the entity's sub-accounts (that sub-account leads). Refused once any share has moved.
-  result = api_instance.update_vault_market_block_allocation(order_id)
+  result = api_instance.update_vault_market_block_allocation(order_id, update_vault_market_block_allocation_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_block_allocation: #{e}"
@@ -42428,12 +42643,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketBlocksItem>, Integer, Hash)> update_vault_market_block_allocation_with_http_info(order_id)
+> <Array(<ListVaultMarketBlocksItem>, Integer, Hash)> update_vault_market_block_allocation_with_http_info(order_id, update_vault_market_block_allocation_request)
 
 ```ruby
 begin
   # Post-trade allocation: set or replace the plan for a buy you placed for one of the entity's sub-accounts (that sub-account leads). Refused once any share has moved.
-  data, status_code, headers = api_instance.update_vault_market_block_allocation_with_http_info(order_id)
+  data, status_code, headers = api_instance.update_vault_market_block_allocation_with_http_info(order_id, update_vault_market_block_allocation_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketBlocksItem>
@@ -42447,6 +42662,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **order_id** | **String** |  |  |
+| **update_vault_market_block_allocation_request** | **UpdateVaultMarketBlockAllocationRequest** |  |  |
 
 ### Return type
 
@@ -42458,7 +42674,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -42659,7 +42875,7 @@ end
 
 ## update_vault_market_entity_member
 
-> <GetVaultMarketEntityByIdResponse> update_vault_market_entity_member(id, member_id)
+> <GetVaultMarketEntityByIdResponse> update_vault_market_entity_member(id, member_id, opts)
 
 Admin: change a member's role, limits or sub-accounts. The last admin cannot be demoted.
 
@@ -42677,10 +42893,13 @@ end
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
 member_id = 'member_id_example' # String | 
+opts = {
+  update_vault_market_entity_member_request: Crossly::UpdateVaultMarketEntityMemberRequest.new # UpdateVaultMarketEntityMemberRequest | 
+}
 
 begin
   # Admin: change a member's role, limits or sub-accounts. The last admin cannot be demoted.
-  result = api_instance.update_vault_market_entity_member(id, member_id)
+  result = api_instance.update_vault_market_entity_member(id, member_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_entity_member: #{e}"
@@ -42691,12 +42910,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> update_vault_market_entity_member_with_http_info(id, member_id)
+> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> update_vault_market_entity_member_with_http_info(id, member_id, opts)
 
 ```ruby
 begin
   # Admin: change a member's role, limits or sub-accounts. The last admin cannot be demoted.
-  data, status_code, headers = api_instance.update_vault_market_entity_member_with_http_info(id, member_id)
+  data, status_code, headers = api_instance.update_vault_market_entity_member_with_http_info(id, member_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketEntityByIdResponse>
@@ -42711,6 +42930,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **member_id** | **String** |  |  |
+| **update_vault_market_entity_member_request** | **UpdateVaultMarketEntityMemberRequest** |  | [optional] |
 
 ### Return type
 
@@ -42722,13 +42942,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_vault_market_entity_subaccount_limit
 
-> <GetVaultMarketEntityByIdResponse> update_vault_market_entity_subaccount_limit(id, sub_id)
+> <GetVaultMarketEntityByIdResponse> update_vault_market_entity_subaccount_limit(id, sub_id, update_vault_market_entity_subaccount_limit_request)
 
 Admin: set a sub-account's limits (per-order notional, units per key, gross, net, leverage), held to the entity's caps. `limits: null` clears them.
 
@@ -42746,10 +42966,11 @@ end
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
 sub_id = 'sub_id_example' # String | 
+update_vault_market_entity_subaccount_limit_request = Crossly::UpdateVaultMarketEntitySubaccountLimitRequest.new # UpdateVaultMarketEntitySubaccountLimitRequest | 
 
 begin
   # Admin: set a sub-account's limits (per-order notional, units per key, gross, net, leverage), held to the entity's caps. `limits: null` clears them.
-  result = api_instance.update_vault_market_entity_subaccount_limit(id, sub_id)
+  result = api_instance.update_vault_market_entity_subaccount_limit(id, sub_id, update_vault_market_entity_subaccount_limit_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_entity_subaccount_limit: #{e}"
@@ -42760,12 +42981,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id)
+> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id, update_vault_market_entity_subaccount_limit_request)
 
 ```ruby
 begin
   # Admin: set a sub-account's limits (per-order notional, units per key, gross, net, leverage), held to the entity's caps. `limits: null` clears them.
-  data, status_code, headers = api_instance.update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id)
+  data, status_code, headers = api_instance.update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id, update_vault_market_entity_subaccount_limit_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketEntityByIdResponse>
@@ -42780,6 +43001,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **sub_id** | **String** |  |  |
+| **update_vault_market_entity_subaccount_limit_request** | **UpdateVaultMarketEntitySubaccountLimitRequest** |  |  |
 
 ### Return type
 
@@ -42791,13 +43013,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_vault_market_entity_usd_election
 
-> <GetVaultMarketEntityByIdResponse> update_vault_market_entity_usd_election(id)
+> <GetVaultMarketEntityByIdResponse> update_vault_market_entity_usd_election(id, update_vault_market_entity_usd_election_request)
 
 Admin: elect USD for the entity (`usdOnly`). Its sub-accounts then post collateral in USD only and pay every fee in USD, and any CBX reward paid to one of them is converted to USD by the custodian in that account. Audited; it can be turned off again.
 
@@ -42814,10 +43036,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+update_vault_market_entity_usd_election_request = Crossly::UpdateVaultMarketEntityUsdElectionRequest.new({usd_only: false}) # UpdateVaultMarketEntityUsdElectionRequest | 
 
 begin
   # Admin: elect USD for the entity (`usdOnly`). Its sub-accounts then post collateral in USD only and pay every fee in USD, and any CBX reward paid to one of them is converted to USD by the custodian in that account. Audited; it can be turned off again.
-  result = api_instance.update_vault_market_entity_usd_election(id)
+  result = api_instance.update_vault_market_entity_usd_election(id, update_vault_market_entity_usd_election_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_entity_usd_election: #{e}"
@@ -42828,12 +43051,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> update_vault_market_entity_usd_election_with_http_info(id)
+> <Array(<GetVaultMarketEntityByIdResponse>, Integer, Hash)> update_vault_market_entity_usd_election_with_http_info(id, update_vault_market_entity_usd_election_request)
 
 ```ruby
 begin
   # Admin: elect USD for the entity (`usdOnly`). Its sub-accounts then post collateral in USD only and pay every fee in USD, and any CBX reward paid to one of them is converted to USD by the custodian in that account. Audited; it can be turned off again.
-  data, status_code, headers = api_instance.update_vault_market_entity_usd_election_with_http_info(id)
+  data, status_code, headers = api_instance.update_vault_market_entity_usd_election_with_http_info(id, update_vault_market_entity_usd_election_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketEntityByIdResponse>
@@ -42847,6 +43070,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_vault_market_entity_usd_election_request** | **UpdateVaultMarketEntityUsdElectionRequest** |  |  |
 
 ### Return type
 
@@ -42858,7 +43082,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -43126,7 +43350,7 @@ end
 
 ## update_vault_market_item_sell_from
 
-> <GetVaultMarketItemLocationResponse> update_vault_market_item_sell_from(inventory_item_id)
+> <GetVaultMarketItemLocationResponse> update_vault_market_item_sell_from(inventory_item_id, update_vault_market_item_sell_from_request)
 
 Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
 
@@ -43143,10 +43367,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 inventory_item_id = 'inventory_item_id_example' # String | 
+update_vault_market_item_sell_from_request = Crossly::UpdateVaultMarketItemSellFromRequest.new({sell_from: 'vault_first'}) # UpdateVaultMarketItemSellFromRequest | 
 
 begin
   # Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
-  result = api_instance.update_vault_market_item_sell_from(inventory_item_id)
+  result = api_instance.update_vault_market_item_sell_from(inventory_item_id, update_vault_market_item_sell_from_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_item_sell_from: #{e}"
@@ -43157,12 +43382,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketItemLocationResponse>, Integer, Hash)> update_vault_market_item_sell_from_with_http_info(inventory_item_id)
+> <Array(<GetVaultMarketItemLocationResponse>, Integer, Hash)> update_vault_market_item_sell_from_with_http_info(inventory_item_id, update_vault_market_item_sell_from_request)
 
 ```ruby
 begin
   # Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
-  data, status_code, headers = api_instance.update_vault_market_item_sell_from_with_http_info(inventory_item_id)
+  data, status_code, headers = api_instance.update_vault_market_item_sell_from_with_http_info(inventory_item_id, update_vault_market_item_sell_from_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketItemLocationResponse>
@@ -43176,6 +43401,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **inventory_item_id** | **String** |  |  |
+| **update_vault_market_item_sell_from_request** | **UpdateVaultMarketItemSellFromRequest** |  |  |
 
 ### Return type
 
@@ -43187,7 +43413,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -43577,7 +43803,7 @@ This endpoint does not need any parameter.
 
 ## update_vault_market_partner_me
 
-> <UpdateVaultMarketPartnerMeResponse> update_vault_market_partner_me
+> <UpdateVaultMarketPartnerMeResponse> update_vault_market_partner_me(opts)
 
 Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
 
@@ -43593,10 +43819,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  update_vault_market_partner_me_request: Crossly::UpdateVaultMarketPartnerMeRequest.new # UpdateVaultMarketPartnerMeRequest | 
+}
 
 begin
   # Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
-  result = api_instance.update_vault_market_partner_me
+  result = api_instance.update_vault_market_partner_me(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_partner_me: #{e}"
@@ -43607,12 +43836,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateVaultMarketPartnerMeResponse>, Integer, Hash)> update_vault_market_partner_me_with_http_info
+> <Array(<UpdateVaultMarketPartnerMeResponse>, Integer, Hash)> update_vault_market_partner_me_with_http_info(opts)
 
 ```ruby
 begin
   # Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
-  data, status_code, headers = api_instance.update_vault_market_partner_me_with_http_info
+  data, status_code, headers = api_instance.update_vault_market_partner_me_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateVaultMarketPartnerMeResponse>
@@ -43623,7 +43852,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_vault_market_partner_me_request** | **UpdateVaultMarketPartnerMeRequest** |  | [optional] |
 
 ### Return type
 
@@ -43635,7 +43866,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -44168,7 +44399,7 @@ end
 
 ## update_vault_market_setting
 
-> <GetVaultMarketSettingResponse> update_vault_market_setting
+> <GetVaultMarketSettingResponse> update_vault_market_setting(opts)
 
 Change your vault defaults; send only the fields you change.
 
@@ -44184,10 +44415,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::VaultMarketsApi.new
+opts = {
+  update_vault_market_setting_request: Crossly::UpdateVaultMarketSettingRequest.new # UpdateVaultMarketSettingRequest | 
+}
 
 begin
   # Change your vault defaults; send only the fields you change.
-  result = api_instance.update_vault_market_setting
+  result = api_instance.update_vault_market_setting(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_setting: #{e}"
@@ -44198,12 +44432,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetVaultMarketSettingResponse>, Integer, Hash)> update_vault_market_setting_with_http_info
+> <Array(<GetVaultMarketSettingResponse>, Integer, Hash)> update_vault_market_setting_with_http_info(opts)
 
 ```ruby
 begin
   # Change your vault defaults; send only the fields you change.
-  data, status_code, headers = api_instance.update_vault_market_setting_with_http_info
+  data, status_code, headers = api_instance.update_vault_market_setting_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetVaultMarketSettingResponse>
@@ -44214,7 +44448,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_vault_market_setting_request** | **UpdateVaultMarketSettingRequest** |  | [optional] |
 
 ### Return type
 
@@ -44226,7 +44462,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -44299,7 +44535,7 @@ end
 
 ## update_vault_market_supply_deposit
 
-> <UpdateVaultMarketSupplyDepositResponse> update_vault_market_supply_deposit(id)
+> <UpdateVaultMarketSupplyDepositResponse> update_vault_market_supply_deposit(id, update_vault_market_supply_deposit_request)
 
 Change a deposit's toggles: `autoListBps` (list at that share of the mark once stored; null = do not) and `lendWhenIdle`.
 
@@ -44316,10 +44552,11 @@ end
 
 api_instance = Crossly::VaultMarketsApi.new
 id = 'id_example' # String | 
+update_vault_market_supply_deposit_request = Crossly::UpdateVaultMarketSupplyDepositRequest.new # UpdateVaultMarketSupplyDepositRequest | 
 
 begin
   # Change a deposit's toggles: `autoListBps` (list at that share of the mark once stored; null = do not) and `lendWhenIdle`.
-  result = api_instance.update_vault_market_supply_deposit(id)
+  result = api_instance.update_vault_market_supply_deposit(id, update_vault_market_supply_deposit_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling VaultMarketsApi->update_vault_market_supply_deposit: #{e}"
@@ -44330,12 +44567,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateVaultMarketSupplyDepositResponse>, Integer, Hash)> update_vault_market_supply_deposit_with_http_info(id)
+> <Array(<UpdateVaultMarketSupplyDepositResponse>, Integer, Hash)> update_vault_market_supply_deposit_with_http_info(id, update_vault_market_supply_deposit_request)
 
 ```ruby
 begin
   # Change a deposit's toggles: `autoListBps` (list at that share of the mark once stored; null = do not) and `lendWhenIdle`.
-  data, status_code, headers = api_instance.update_vault_market_supply_deposit_with_http_info(id)
+  data, status_code, headers = api_instance.update_vault_market_supply_deposit_with_http_info(id, update_vault_market_supply_deposit_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateVaultMarketSupplyDepositResponse>
@@ -44349,6 +44586,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_vault_market_supply_deposit_request** | **UpdateVaultMarketSupplyDepositRequest** |  |  |
 
 ### Return type
 
@@ -44360,7 +44598,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

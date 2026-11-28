@@ -25,17 +25,17 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :title
-
     attr_accessor :slug
 
     attr_accessor :storefront_id
 
+    attr_accessor :kind
+
+    attr_accessor :title
+
     attr_accessor :ends_at
 
     attr_accessor :cancelled_at
-
-    attr_accessor :kind
 
     attr_accessor :config
 
@@ -97,12 +97,12 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'description' => :'description',
         :'status' => :'status',
-        :'title' => :'title',
         :'slug' => :'slug',
         :'storefront_id' => :'storefrontId',
+        :'kind' => :'kind',
+        :'title' => :'title',
         :'ends_at' => :'endsAt',
         :'cancelled_at' => :'cancelledAt',
-        :'kind' => :'kind',
         :'config' => :'config',
         :'seller_user_id' => :'sellerUserId',
         :'cover_image_url' => :'coverImageUrl',
@@ -145,12 +145,12 @@ module Crossly
         :'updated_at' => :'Time',
         :'description' => :'String',
         :'status' => :'String',
-        :'title' => :'String',
         :'slug' => :'String',
         :'storefront_id' => :'String',
+        :'kind' => :'String',
+        :'title' => :'String',
         :'ends_at' => :'Time',
         :'cancelled_at' => :'Time',
-        :'kind' => :'String',
         :'config' => :'Hash<String, Object>',
         :'seller_user_id' => :'String',
         :'cover_image_url' => :'String',
@@ -238,10 +238,6 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'slug')
         self.slug = attributes[:'slug']
       end
@@ -250,16 +246,20 @@ module Crossly
         self.storefront_id = attributes[:'storefront_id']
       end
 
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
+      end
+
       if attributes.key?(:'ends_at')
         self.ends_at = attributes[:'ends_at']
       end
 
       if attributes.key?(:'cancelled_at')
         self.cancelled_at = attributes[:'cancelled_at']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'config')
@@ -399,16 +399,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @title.nil?
-        invalid_properties.push('invalid value for "title", title cannot be nil.')
-      end
-
       if @slug.nil?
         invalid_properties.push('invalid value for "slug", slug cannot be nil.')
       end
 
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @title.nil?
+        invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @config.nil?
@@ -473,9 +473,9 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @status.nil?
-      return false if @title.nil?
       return false if @slug.nil?
       return false if @kind.nil?
+      return false if @title.nil?
       return false if @config.nil?
       return false if @seller_user_id.nil?
       return false if @view_count.nil?
@@ -502,12 +502,12 @@ module Crossly
           updated_at == o.updated_at &&
           description == o.description &&
           status == o.status &&
-          title == o.title &&
           slug == o.slug &&
           storefront_id == o.storefront_id &&
+          kind == o.kind &&
+          title == o.title &&
           ends_at == o.ends_at &&
           cancelled_at == o.cancelled_at &&
-          kind == o.kind &&
           config == o.config &&
           seller_user_id == o.seller_user_id &&
           cover_image_url == o.cover_image_url &&
@@ -545,7 +545,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, description, status, title, slug, storefront_id, ends_at, cancelled_at, kind, config, seller_user_id, cover_image_url, view_count, starts_at, live_stream_id, timezone, listing_ids, notified_at, discount_code_id, cancel_reason, series_id, capacity, location_type, location_text, location_url, rsvp_enabled, feature_on_storefront, notify_followers, recurrence, cohost_user_ids, ticketing_enabled, check_in_enabled, world_config, world_ref, reminders_sent].hash
+      [id, created_at, updated_at, description, status, slug, storefront_id, kind, title, ends_at, cancelled_at, config, seller_user_id, cover_image_url, view_count, starts_at, live_stream_id, timezone, listing_ids, notified_at, discount_code_id, cancel_reason, series_id, capacity, location_type, location_text, location_url, rsvp_enabled, feature_on_storefront, notify_followers, recurrence, cohost_user_ids, ticketing_enabled, check_in_enabled, world_config, world_ref, reminders_sent].hash
     end
 
     # Builds the object from hash

@@ -15,7 +15,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_field_rule
 
-> <ListFieldRulesItem> create_field_rule
+> <ListFieldRulesItem> create_field_rule(create_field_rule_request)
 
 Create a per-channel field rule.
 
@@ -31,10 +31,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FieldRulesApi.new
+create_field_rule_request = Crossly::CreateFieldRuleRequest.new({name: 'name_example', platform: 'platform_example', target: 'description', actions: [Crossly::CreateFieldRuleRequestActionsItem.new({type: 'type_example'})]}) # CreateFieldRuleRequest | 
 
 begin
   # Create a per-channel field rule.
-  result = api_instance.create_field_rule
+  result = api_instance.create_field_rule(create_field_rule_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FieldRulesApi->create_field_rule: #{e}"
@@ -45,12 +46,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListFieldRulesItem>, Integer, Hash)> create_field_rule_with_http_info
+> <Array(<ListFieldRulesItem>, Integer, Hash)> create_field_rule_with_http_info(create_field_rule_request)
 
 ```ruby
 begin
   # Create a per-channel field rule.
-  data, status_code, headers = api_instance.create_field_rule_with_http_info
+  data, status_code, headers = api_instance.create_field_rule_with_http_info(create_field_rule_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListFieldRulesItem>
@@ -61,7 +62,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_field_rule_request** | **CreateFieldRuleRequest** |  |  |
 
 ### Return type
 
@@ -73,13 +76,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_field_rule_preview
 
-> <CreateFieldRulePreviewResponse> create_field_rule_preview
+> <CreateFieldRulePreviewResponse> create_field_rule_preview(create_field_rule_preview_request)
 
 Preview field-rule output for a listing on one channel.
 
@@ -95,10 +98,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FieldRulesApi.new
+create_field_rule_preview_request = Crossly::CreateFieldRulePreviewRequest.new({platform: 'platform_example'}) # CreateFieldRulePreviewRequest | 
 
 begin
   # Preview field-rule output for a listing on one channel.
-  result = api_instance.create_field_rule_preview
+  result = api_instance.create_field_rule_preview(create_field_rule_preview_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FieldRulesApi->create_field_rule_preview: #{e}"
@@ -109,12 +113,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFieldRulePreviewResponse>, Integer, Hash)> create_field_rule_preview_with_http_info
+> <Array(<CreateFieldRulePreviewResponse>, Integer, Hash)> create_field_rule_preview_with_http_info(create_field_rule_preview_request)
 
 ```ruby
 begin
   # Preview field-rule output for a listing on one channel.
-  data, status_code, headers = api_instance.create_field_rule_preview_with_http_info
+  data, status_code, headers = api_instance.create_field_rule_preview_with_http_info(create_field_rule_preview_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFieldRulePreviewResponse>
@@ -125,7 +129,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_field_rule_preview_request** | **CreateFieldRulePreviewRequest** |  |  |
 
 ### Return type
 
@@ -137,13 +143,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_field_rule_reorder
 
-> <OkResponse> create_field_rule_reorder
+> <OkResponse> create_field_rule_reorder(create_field_rule_reorder_request)
 
 Set the run order of several field rules.
 
@@ -159,10 +165,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FieldRulesApi.new
+create_field_rule_reorder_request = Crossly::CreateFieldRuleReorderRequest.new({order: [Crossly::CreateFieldRuleReorderRequestOrder.new({id: 'id_example', position: 3.56})]}) # CreateFieldRuleReorderRequest | 
 
 begin
   # Set the run order of several field rules.
-  result = api_instance.create_field_rule_reorder
+  result = api_instance.create_field_rule_reorder(create_field_rule_reorder_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FieldRulesApi->create_field_rule_reorder: #{e}"
@@ -173,12 +180,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> create_field_rule_reorder_with_http_info
+> <Array(<OkResponse>, Integer, Hash)> create_field_rule_reorder_with_http_info(create_field_rule_reorder_request)
 
 ```ruby
 begin
   # Set the run order of several field rules.
-  data, status_code, headers = api_instance.create_field_rule_reorder_with_http_info
+  data, status_code, headers = api_instance.create_field_rule_reorder_with_http_info(create_field_rule_reorder_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -189,7 +196,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_field_rule_reorder_request** | **CreateFieldRuleReorderRequest** |  |  |
 
 ### Return type
 
@@ -201,7 +210,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -410,7 +419,7 @@ end
 
 ## update_field_rule
 
-> <ListFieldRulesItem> update_field_rule(id)
+> <ListFieldRulesItem> update_field_rule(id, update_field_rule_request)
 
 Update a field rule.
 
@@ -427,10 +436,11 @@ end
 
 api_instance = Crossly::FieldRulesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_field_rule_request = Crossly::UpdateFieldRuleRequest.new # UpdateFieldRuleRequest | 
 
 begin
   # Update a field rule.
-  result = api_instance.update_field_rule(id)
+  result = api_instance.update_field_rule(id, update_field_rule_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FieldRulesApi->update_field_rule: #{e}"
@@ -441,12 +451,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListFieldRulesItem>, Integer, Hash)> update_field_rule_with_http_info(id)
+> <Array(<ListFieldRulesItem>, Integer, Hash)> update_field_rule_with_http_info(id, update_field_rule_request)
 
 ```ruby
 begin
   # Update a field rule.
-  data, status_code, headers = api_instance.update_field_rule_with_http_info(id)
+  data, status_code, headers = api_instance.update_field_rule_with_http_info(id, update_field_rule_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListFieldRulesItem>
@@ -460,6 +470,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_field_rule_request** | **UpdateFieldRuleRequest** |  |  |
 
 ### Return type
 
@@ -471,6 +482,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

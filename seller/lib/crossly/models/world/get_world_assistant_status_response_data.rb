@@ -18,7 +18,7 @@ module Crossly
     # Crossly's key is configured on this server.
     attr_accessor :configured
 
-    # The creator has a usable own AI key (Settings → AI).
+    # The creator has a usable own AI key (Settings › Account & notifications › Your AI key).
     attr_accessor :own_key
 
     attr_accessor :allowance

@@ -257,7 +257,7 @@ module CrosslyBuyer
     # @return true if the model is valid
     def valid?
       return false if @tier.nil?
-      tier_validator = EnumAttributeValidator.new('String', ["none", "identifier", "visual", "vision"])
+      tier_validator = EnumAttributeValidator.new('String', ["vision", "none", "identifier", "visual"])
       return false unless tier_validator.valid?(@tier)
       return false if @confidence.nil?
       return false if @vision_quota_exhausted.nil?
@@ -275,7 +275,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tier Object to be assigned
     def tier=(tier)
-      validator = EnumAttributeValidator.new('String', ["none", "identifier", "visual", "vision"])
+      validator = EnumAttributeValidator.new('String', ["vision", "none", "identifier", "visual"])
       unless validator.valid?(tier)
         fail ArgumentError, "invalid value for \"tier\", must be one of #{validator.allowable_values}."
       end

@@ -204,7 +204,7 @@ module Crossly
       return false if @base_size.nil?
       return false if @radius.nil?
       return false if @button_style.nil?
-      button_style_validator = EnumAttributeValidator.new('String', ["solid", "pill", "outline", "soft", "underline"])
+      button_style_validator = EnumAttributeValidator.new('String', ["solid", "outline", "pill", "soft", "underline"])
       return false unless button_style_validator.valid?(@button_style)
       return false if @density.nil?
       density_validator = EnumAttributeValidator.new('String', ["compact", "comfortable", "airy"])
@@ -217,7 +217,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] button_style Object to be assigned
     def button_style=(button_style)
-      validator = EnumAttributeValidator.new('String', ["solid", "pill", "outline", "soft", "underline"])
+      validator = EnumAttributeValidator.new('String', ["solid", "outline", "pill", "soft", "underline"])
       unless validator.valid?(button_style)
         fail ArgumentError, "invalid value for \"button_style\", must be one of #{validator.allowable_values}."
       end

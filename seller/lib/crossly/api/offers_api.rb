@@ -19,7 +19,7 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Accept, decline, or counter a buyer offer on a Crossly marketplace listing.
+    # Accept, decline, or counter a buyer offer on a Crossly marketplace listing. The response carries floorCents and floorSource (listing | item | break_even | null): your floor for that listing, null for a bundle.
     # @param id [String] Offer UUID.
     # @param create_offer_respond_request [CreateOfferRespondRequest] 
     # @param [Hash] opts the optional parameters
@@ -29,7 +29,7 @@ module Crossly
       data
     end
 
-    # Accept, decline, or counter a buyer offer on a Crossly marketplace listing.
+    # Accept, decline, or counter a buyer offer on a Crossly marketplace listing. The response carries floorCents and floorSource (listing | item | break_even | null): your floor for that listing, null for a bundle.
     # @param id [String] Offer UUID.
     # @param create_offer_respond_request [CreateOfferRespondRequest] 
     # @param [Hash] opts the optional parameters
@@ -87,6 +87,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OffersApi#create_offer_respond\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The lowest price an offer may be accepted or countered at for this listing on a platform: grossCents, origin (listing | item | break_even | null), text, and the same as floorCents + floorSource.
+    # @param platform [String] 
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetListingOfferFloorResponse]
+    def get_listing_offer_floor(platform, id, opts = {})
+      data, _status_code, _headers = get_listing_offer_floor_with_http_info(platform, id, opts)
+      data
+    end
+
+    # The lowest price an offer may be accepted or countered at for this listing on a platform: grossCents, origin (listing | item | break_even | null), text, and the same as floorCents + floorSource.
+    # @param platform [String] 
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetListingOfferFloorResponse, Integer, Hash)>] GetListingOfferFloorResponse data, response status code and response headers
+    def get_listing_offer_floor_with_http_info(platform, id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OffersApi.get_listing_offer_floor ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling OffersApi.get_listing_offer_floor"
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OffersApi.get_listing_offer_floor"
+      end
+      # resource path
+      local_var_path = '/v1/listings/{id}/offer-floor'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'platform'] = platform
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetListingOfferFloorResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OffersApi.get_listing_offer_floor",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OffersApi#get_listing_offer_floor\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

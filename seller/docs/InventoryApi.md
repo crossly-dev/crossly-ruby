@@ -15,6 +15,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_inventory_catalog_match_refresh**](InventoryApi.md#create_inventory_catalog_match_refresh) | **POST** /v1/inventory/{id}/catalog-matches/refresh | Run catalog matching for one item now. An identifier (UPC, style code, catalogue number) that resolves to exactly one product links it; otherwise likely products are returned as suggestions to confirm. |
 | [**create_inventory_csv_export**](InventoryApi.md#create_inventory_csv_export) | **POST** /v1/inventory/csv/export | Export inventory as CSV. Round-trips back through csv/import. |
 | [**create_inventory_csv_import**](InventoryApi.md#create_inventory_csv_import) | **POST** /v1/inventory/csv/import | Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview. |
+| [**create_inventory_hold_release**](InventoryApi.md#create_inventory_hold_release) | **POST** /v1/inventory/holds/{holdId}/release | Release an inventory hold. |
 | [**create_inventory_label_rename**](InventoryApi.md#create_inventory_label_rename) | **POST** /v1/inventory/labels/rename | Rename a label across every inventory item. |
 | [**create_inventory_merge**](InventoryApi.md#create_inventory_merge) | **POST** /v1/inventory/merge | Merge inventory items that are the same physical item into one (stock is not summed). |
 | [**create_inventory_unit_identifier**](InventoryApi.md#create_inventory_unit_identifier) | **POST** /v1/inventory/{id}/units/identifiers | Record a serial, IMEI, or licence key against an inventory item. |
@@ -35,7 +36,6 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_spatial_street_request_found**](InventoryApi.md#create_spatial_street_request_found) | **POST** /v1/spatial/streets/requests/{id}/found | Found an approved street, in CBX. |
 | [**delete_inventory**](InventoryApi.md#delete_inventory) | **DELETE** /v1/inventory/{id} | Soft-archive an inventory item. |
 | [**delete_spatial_street_plot**](InventoryApi.md#delete_spatial_street_plot) | **DELETE** /v1/spatial/streets/{slug}/plot | Take your shop off a street. |
-| [**get_analytic_inventory**](InventoryApi.md#get_analytic_inventory) | **GET** /v1/analytics/inventory | Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health. |
 | [**get_game_event_summary**](InventoryApi.md#get_game_event_summary) | **GET** /v1/games/events/{eventId}/summary | The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours. |
 | [**get_game_hunt_build**](InventoryApi.md#get_game_hunt_build) | **GET** /v1/games/hunts/{id}/build | One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World. |
 | [**get_game_leaderboard**](InventoryApi.md#get_game_leaderboard) | **GET** /v1/games/leaderboards | Game leaderboards: for each of Price Guess (wins, then points), scavenger hunts (finished) and speed trades (won), the top ten this week (Monday 00:00 UTC on) under week and of all time under all -- rank, name, named, value and, for Price Guess, score. A name appears only for somebody who chose to be seen by name in Crossly World; everyone else is \&quot;A player\&quot; in their place. |
@@ -82,6 +82,8 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_home_of_the_week**](InventoryApi.md#list_home_of_the_week) | **GET** /v1/homes/of-the-week | Home of the week: open homes by how many different people signed their guestbook in the last 7 days, most first. |
 | [**list_inventory**](InventoryApi.md#list_inventory) | **GET** /v1/inventory | List inventory items. |
 | [**list_inventory_activity**](InventoryApi.md#list_inventory_activity) | **GET** /v1/inventory/{id}/activity | Activity log for an inventory item (created/sold/edited/etc.). |
+| [**list_inventory_hold_issues**](InventoryApi.md#list_inventory_hold_issues) | **GET** /v1/inventory/holds/issues | List the stock problems the holds ledger finds. |
+| [**list_inventory_holds**](InventoryApi.md#list_inventory_holds) | **GET** /v1/inventory/{id}/holds | List the holds on an inventory item. |
 | [**list_inventory_ids**](InventoryApi.md#list_inventory_ids) | **GET** /v1/inventory/ids | Filter inventory → return matching id list. |
 | [**list_inventory_units**](InventoryApi.md#list_inventory_units) | **GET** /v1/inventory/{id}/units | List the individually identified units of an inventory item. |
 | [**list_job_appraisals**](InventoryApi.md#list_job_appraisals) | **GET** /v1/jobs/appraisals | Open price checks appraisers can answer (Collector level 3+ holding 3+ pieces in the category), newest first, optionally one market category. Each has its bounty; meta.payOn says whether bounties are paid yet. |
@@ -100,12 +102,14 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_spatial_scenes**](InventoryApi.md#list_spatial_scenes) | **GET** /v1/spatial/scenes | The rooms this account has. |
 | [**list_spatial_shop_addresses**](InventoryApi.md#list_spatial_shop_addresses) | **GET** /v1/spatial/shop/addresses | Your shop&#39;s addresses. |
 | [**list_spatial_staffing**](InventoryApi.md#list_spatial_staffing) | **GET** /v1/spatial/staffing | Shops you work in. |
-| [**list_spatial_street_mine**](InventoryApi.md#list_spatial_street_mine) | **GET** /v1/spatial/streets/mine | Your streets. |
+| [**list_spatial_street_mine**](InventoryApi.md#list_spatial_street_mine) | **GET** /v1/spatial/streets/mine | Streets your store holds. |
 | [**list_spatial_streets**](InventoryApi.md#list_spatial_streets) | **GET** /v1/spatial/streets | Every street in the world. |
 | [**list_world_blocks**](InventoryApi.md#list_world_blocks) | **GET** /v1/world/blocks | The people you blocked in Crossly World, as you saw them (label, never the account behind a pseudonym), oldest first. Blocks are made in a room, on the person. |
 | [**list_world_item_search**](InventoryApi.md#list_world_item_search) | **GET** /v1/world/items/search | Find an item on a shelf anywhere in Crossly World: what public rooms have for sale now, by title or catalogue name (q, 2+ characters). Each hit names the room (roomSlug) and the item (itemId); /c/&lt;roomSlug&gt;?item&#x3D;&lt;itemId&gt; opens it there. |
 | [**list_world_room_wants**](InventoryApi.md#list_world_room_wants) | **GET** /v1/world/rooms/{sceneId}/wants | Items your room shows but does not sell that visitors said they would buy (\&quot;I&#39;d buy this\&quot;), most wanted first: itemId and how many people. |
 | [**update_inventory**](InventoryApi.md#update_inventory) | **PATCH** /v1/inventory/{id} | Update an inventory item (partial). |
+| [**update_inventory_assignee**](InventoryApi.md#update_inventory_assignee) | **PATCH** /v1/inventory/assignee | Assign many inventory items to a teammate, round robin across several, or unassign them (null). |
+| [**update_inventory_assignee_by_id**](InventoryApi.md#update_inventory_assignee_by_id) | **PATCH** /v1/inventory/{id}/assignee | Assign one inventory item to a teammate, or unassign it (null). |
 | [**update_spatial_employee_config**](InventoryApi.md#update_spatial_employee_config) | **PUT** /v1/spatial/employee/config | Create or replace the shop employee in one of your rooms. |
 | [**update_spatial_shop_staff_wage**](InventoryApi.md#update_spatial_shop_staff_wage) | **PUT** /v1/spatial/shop/staff/{grantId}/wage | Set a staff member&#39;s weekly wage. |
 
@@ -246,7 +250,7 @@ end
 
 ## create_inventory
 
-> <CreateInventoryResponse> create_inventory
+> <CreateInventoryResponse> create_inventory(create_inventory_request)
 
 Create a new inventory item.
 
@@ -262,10 +266,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_inventory_request = Crossly::CreateInventoryRequest.new({default_title: 'default_title_example'}) # CreateInventoryRequest | 
 
 begin
   # Create a new inventory item.
-  result = api_instance.create_inventory
+  result = api_instance.create_inventory(create_inventory_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory: #{e}"
@@ -276,12 +281,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryResponse>, Integer, Hash)> create_inventory_with_http_info
+> <Array(<CreateInventoryResponse>, Integer, Hash)> create_inventory_with_http_info(create_inventory_request)
 
 ```ruby
 begin
   # Create a new inventory item.
-  data, status_code, headers = api_instance.create_inventory_with_http_info
+  data, status_code, headers = api_instance.create_inventory_with_http_info(create_inventory_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryResponse>
@@ -292,7 +297,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_request** | **CreateInventoryRequest** |  |  |
 
 ### Return type
 
@@ -304,13 +311,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_bulk_archive
 
-> <CreateInventoryBulkArchiveResponse> create_inventory_bulk_archive
+> <CreateInventoryBulkArchiveResponse> create_inventory_bulk_archive(create_listing_by_id_request)
 
 Bulk archive inventory items (soft).
 
@@ -326,10 +333,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_listing_by_id_request = Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
 
 begin
   # Bulk archive inventory items (soft).
-  result = api_instance.create_inventory_bulk_archive
+  result = api_instance.create_inventory_bulk_archive(create_listing_by_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_bulk_archive: #{e}"
@@ -340,12 +348,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryBulkArchiveResponse>, Integer, Hash)> create_inventory_bulk_archive_with_http_info
+> <Array(<CreateInventoryBulkArchiveResponse>, Integer, Hash)> create_inventory_bulk_archive_with_http_info(create_listing_by_id_request)
 
 ```ruby
 begin
   # Bulk archive inventory items (soft).
-  data, status_code, headers = api_instance.create_inventory_bulk_archive_with_http_info
+  data, status_code, headers = api_instance.create_inventory_bulk_archive_with_http_info(create_listing_by_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryBulkArchiveResponse>
@@ -356,7 +364,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  |  |
 
 ### Return type
 
@@ -368,13 +378,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_bulk_delete
 
-> <CreateInventoryBulkDeleteResponse> create_inventory_bulk_delete
+> <CreateInventoryBulkDeleteResponse> create_inventory_bulk_delete(create_inventory_bulk_delete_request)
 
 Bulk delete inventory items (delinks listings).
 
@@ -390,10 +400,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_inventory_bulk_delete_request = Crossly::CreateInventoryBulkDeleteRequest.new({ids: ['ids_example']}) # CreateInventoryBulkDeleteRequest | 
 
 begin
   # Bulk delete inventory items (delinks listings).
-  result = api_instance.create_inventory_bulk_delete
+  result = api_instance.create_inventory_bulk_delete(create_inventory_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_bulk_delete: #{e}"
@@ -404,12 +415,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryBulkDeleteResponse>, Integer, Hash)> create_inventory_bulk_delete_with_http_info
+> <Array(<CreateInventoryBulkDeleteResponse>, Integer, Hash)> create_inventory_bulk_delete_with_http_info(create_inventory_bulk_delete_request)
 
 ```ruby
 begin
   # Bulk delete inventory items (delinks listings).
-  data, status_code, headers = api_instance.create_inventory_bulk_delete_with_http_info
+  data, status_code, headers = api_instance.create_inventory_bulk_delete_with_http_info(create_inventory_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryBulkDeleteResponse>
@@ -420,7 +431,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_bulk_delete_request** | **CreateInventoryBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -432,13 +445,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_bulk_label
 
-> <CreateListingBulkUpdateResponse> create_inventory_bulk_label
+> <CreateListingBulkUpdateResponse> create_inventory_bulk_label(create_inventory_bulk_label_request)
 
 Bulk add/remove labels on inventory items.
 
@@ -454,10 +467,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_inventory_bulk_label_request = Crossly::CreateInventoryBulkLabelRequest.new({ids: ['ids_example']}) # CreateInventoryBulkLabelRequest | 
 
 begin
   # Bulk add/remove labels on inventory items.
-  result = api_instance.create_inventory_bulk_label
+  result = api_instance.create_inventory_bulk_label(create_inventory_bulk_label_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_bulk_label: #{e}"
@@ -468,12 +482,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingBulkUpdateResponse>, Integer, Hash)> create_inventory_bulk_label_with_http_info
+> <Array(<CreateListingBulkUpdateResponse>, Integer, Hash)> create_inventory_bulk_label_with_http_info(create_inventory_bulk_label_request)
 
 ```ruby
 begin
   # Bulk add/remove labels on inventory items.
-  data, status_code, headers = api_instance.create_inventory_bulk_label_with_http_info
+  data, status_code, headers = api_instance.create_inventory_bulk_label_with_http_info(create_inventory_bulk_label_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingBulkUpdateResponse>
@@ -484,7 +498,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_bulk_label_request** | **CreateInventoryBulkLabelRequest** |  |  |
 
 ### Return type
 
@@ -496,7 +512,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -568,7 +584,7 @@ This endpoint does not need any parameter.
 
 ## create_inventory_bulk_restore
 
-> <CreateInventoryBulkRestoreResponse> create_inventory_bulk_restore
+> <CreateInventoryBulkRestoreResponse> create_inventory_bulk_restore(create_listing_by_id_request)
 
 Restore archived inventory items (status returns to active, or sold_out when no stock).
 
@@ -584,10 +600,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_listing_by_id_request = Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
 
 begin
   # Restore archived inventory items (status returns to active, or sold_out when no stock).
-  result = api_instance.create_inventory_bulk_restore
+  result = api_instance.create_inventory_bulk_restore(create_listing_by_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_bulk_restore: #{e}"
@@ -598,12 +615,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryBulkRestoreResponse>, Integer, Hash)> create_inventory_bulk_restore_with_http_info
+> <Array(<CreateInventoryBulkRestoreResponse>, Integer, Hash)> create_inventory_bulk_restore_with_http_info(create_listing_by_id_request)
 
 ```ruby
 begin
   # Restore archived inventory items (status returns to active, or sold_out when no stock).
-  data, status_code, headers = api_instance.create_inventory_bulk_restore_with_http_info
+  data, status_code, headers = api_instance.create_inventory_bulk_restore_with_http_info(create_listing_by_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryBulkRestoreResponse>
@@ -614,7 +631,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  |  |
 
 ### Return type
 
@@ -626,7 +645,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -699,7 +718,7 @@ end
 
 ## create_inventory_csv_export
 
-> String create_inventory_csv_export
+> String create_inventory_csv_export(opts)
 
 Export inventory as CSV. Round-trips back through csv/import.
 
@@ -715,10 +734,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+opts = {
+  create_inventory_csv_export_request: Crossly::CreateInventoryCsvExportRequest.new # CreateInventoryCsvExportRequest | 
+}
 
 begin
   # Export inventory as CSV. Round-trips back through csv/import.
-  result = api_instance.create_inventory_csv_export
+  result = api_instance.create_inventory_csv_export(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_csv_export: #{e}"
@@ -729,12 +751,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(String, Integer, Hash)> create_inventory_csv_export_with_http_info
+> <Array(String, Integer, Hash)> create_inventory_csv_export_with_http_info(opts)
 
 ```ruby
 begin
   # Export inventory as CSV. Round-trips back through csv/import.
-  data, status_code, headers = api_instance.create_inventory_csv_export_with_http_info
+  data, status_code, headers = api_instance.create_inventory_csv_export_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => String
@@ -745,7 +767,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_csv_export_request** | **CreateInventoryCsvExportRequest** |  | [optional] |
 
 ### Return type
 
@@ -757,13 +781,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_csv_import
 
-> <CreateInventoryCsvImportResponse> create_inventory_csv_import
+> <CreateInventoryCsvImportResponse> create_inventory_csv_import(create_inventory_csv_import_request)
 
 Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview.
 
@@ -779,10 +803,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_inventory_csv_import_request = Crossly::CreateInventoryCsvImportRequest.new({csv: 'csv_example'}) # CreateInventoryCsvImportRequest | 
 
 begin
   # Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview.
-  result = api_instance.create_inventory_csv_import
+  result = api_instance.create_inventory_csv_import(create_inventory_csv_import_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_csv_import: #{e}"
@@ -793,12 +818,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryCsvImportResponse>, Integer, Hash)> create_inventory_csv_import_with_http_info
+> <Array(<CreateInventoryCsvImportResponse>, Integer, Hash)> create_inventory_csv_import_with_http_info(create_inventory_csv_import_request)
 
 ```ruby
 begin
   # Import a CSV. Rows whose sku matches an existing item update it; others are added. Pass dryRun to preview.
-  data, status_code, headers = api_instance.create_inventory_csv_import_with_http_info
+  data, status_code, headers = api_instance.create_inventory_csv_import_with_http_info(create_inventory_csv_import_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryCsvImportResponse>
@@ -809,7 +834,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_csv_import_request** | **CreateInventoryCsvImportRequest** |  |  |
 
 ### Return type
 
@@ -821,13 +848,86 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_inventory_hold_release
+
+> <CreateInventoryHoldReleaseResponse> create_inventory_hold_release(hold_id, opts)
+
+Release an inventory hold.
+
+Ends a hold now and puts its units back on sale. 404 for a hold that is not yours; 409 `hold_already_released` for one that already ended (released, converted to an order or expired).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::InventoryApi.new
+hold_id = 'hold_id_example' # String | 
+opts = {
+  create_inventory_hold_release_request: Crossly::CreateInventoryHoldReleaseRequest.new # CreateInventoryHoldReleaseRequest | 
+}
+
+begin
+  # Release an inventory hold.
+  result = api_instance.create_inventory_hold_release(hold_id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->create_inventory_hold_release: #{e}"
+end
+```
+
+#### Using the create_inventory_hold_release_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateInventoryHoldReleaseResponse>, Integer, Hash)> create_inventory_hold_release_with_http_info(hold_id, opts)
+
+```ruby
+begin
+  # Release an inventory hold.
+  data, status_code, headers = api_instance.create_inventory_hold_release_with_http_info(hold_id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateInventoryHoldReleaseResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->create_inventory_hold_release_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **hold_id** | **String** |  |  |
+| **create_inventory_hold_release_request** | **CreateInventoryHoldReleaseRequest** |  | [optional] |
+
+### Return type
+
+**CreateInventoryHoldReleaseResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_label_rename
 
-> <UpdatedResponse> create_inventory_label_rename
+> <UpdatedResponse> create_inventory_label_rename(create_listing_tag_rename_request)
 
 Rename a label across every inventory item.
 
@@ -843,10 +943,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_listing_tag_rename_request = Crossly::CreateListingTagRenameRequest.new({from: 'from_example', to: 'to_example'}) # CreateListingTagRenameRequest | 
 
 begin
   # Rename a label across every inventory item.
-  result = api_instance.create_inventory_label_rename
+  result = api_instance.create_inventory_label_rename(create_listing_tag_rename_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_label_rename: #{e}"
@@ -857,12 +958,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdatedResponse>, Integer, Hash)> create_inventory_label_rename_with_http_info
+> <Array(<UpdatedResponse>, Integer, Hash)> create_inventory_label_rename_with_http_info(create_listing_tag_rename_request)
 
 ```ruby
 begin
   # Rename a label across every inventory item.
-  data, status_code, headers = api_instance.create_inventory_label_rename_with_http_info
+  data, status_code, headers = api_instance.create_inventory_label_rename_with_http_info(create_listing_tag_rename_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdatedResponse>
@@ -873,7 +974,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_tag_rename_request** | **CreateListingTagRenameRequest** |  |  |
 
 ### Return type
 
@@ -885,13 +988,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_merge
 
-> <CreateInventoryMergeResponse> create_inventory_merge
+> <CreateInventoryMergeResponse> create_inventory_merge(create_inventory_merge_request)
 
 Merge inventory items that are the same physical item into one (stock is not summed).
 
@@ -907,10 +1010,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_inventory_merge_request = Crossly::CreateInventoryMergeRequest.new({keep_item_id: 'keep_item_id_example', merge_item_ids: ['merge_item_ids_example']}) # CreateInventoryMergeRequest | 
 
 begin
   # Merge inventory items that are the same physical item into one (stock is not summed).
-  result = api_instance.create_inventory_merge
+  result = api_instance.create_inventory_merge(create_inventory_merge_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_merge: #{e}"
@@ -921,12 +1025,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryMergeResponse>, Integer, Hash)> create_inventory_merge_with_http_info
+> <Array(<CreateInventoryMergeResponse>, Integer, Hash)> create_inventory_merge_with_http_info(create_inventory_merge_request)
 
 ```ruby
 begin
   # Merge inventory items that are the same physical item into one (stock is not summed).
-  data, status_code, headers = api_instance.create_inventory_merge_with_http_info
+  data, status_code, headers = api_instance.create_inventory_merge_with_http_info(create_inventory_merge_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryMergeResponse>
@@ -937,7 +1041,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_merge_request** | **CreateInventoryMergeRequest** |  |  |
 
 ### Return type
 
@@ -949,13 +1055,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_unit_identifier
 
-> <CreateInventoryUnitIdentifierResponse> create_inventory_unit_identifier(id)
+> <CreateInventoryUnitIdentifierResponse> create_inventory_unit_identifier(id, create_inventory_unit_identifier_request)
 
 Record a serial, IMEI, or licence key against an inventory item.
 
@@ -974,10 +1080,11 @@ end
 
 api_instance = Crossly::InventoryApi.new
 id = 'id_example' # String | 
+create_inventory_unit_identifier_request = Crossly::CreateInventoryUnitIdentifierRequest.new({value: 'value_example'}) # CreateInventoryUnitIdentifierRequest | 
 
 begin
   # Record a serial, IMEI, or licence key against an inventory item.
-  result = api_instance.create_inventory_unit_identifier(id)
+  result = api_instance.create_inventory_unit_identifier(id, create_inventory_unit_identifier_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_unit_identifier: #{e}"
@@ -988,12 +1095,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryUnitIdentifierResponse>, Integer, Hash)> create_inventory_unit_identifier_with_http_info(id)
+> <Array(<CreateInventoryUnitIdentifierResponse>, Integer, Hash)> create_inventory_unit_identifier_with_http_info(id, create_inventory_unit_identifier_request)
 
 ```ruby
 begin
   # Record a serial, IMEI, or licence key against an inventory item.
-  data, status_code, headers = api_instance.create_inventory_unit_identifier_with_http_info(id)
+  data, status_code, headers = api_instance.create_inventory_unit_identifier_with_http_info(id, create_inventory_unit_identifier_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryUnitIdentifierResponse>
@@ -1007,6 +1114,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_inventory_unit_identifier_request** | **CreateInventoryUnitIdentifierRequest** |  |  |
 
 ### Return type
 
@@ -1018,13 +1126,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inventory_unit_lookup
 
-> <CreateInventoryUnitLookupResponse> create_inventory_unit_lookup
+> <CreateInventoryUnitLookupResponse> create_inventory_unit_lookup(create_inventory_unit_lookup_request)
 
 Find a unit by identifier.
 
@@ -1042,10 +1150,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+create_inventory_unit_lookup_request = Crossly::CreateInventoryUnitLookupRequest.new({value: 'value_example'}) # CreateInventoryUnitLookupRequest | 
 
 begin
   # Find a unit by identifier.
-  result = api_instance.create_inventory_unit_lookup
+  result = api_instance.create_inventory_unit_lookup(create_inventory_unit_lookup_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->create_inventory_unit_lookup: #{e}"
@@ -1056,12 +1165,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryUnitLookupResponse>, Integer, Hash)> create_inventory_unit_lookup_with_http_info
+> <Array(<CreateInventoryUnitLookupResponse>, Integer, Hash)> create_inventory_unit_lookup_with_http_info(create_inventory_unit_lookup_request)
 
 ```ruby
 begin
   # Find a unit by identifier.
-  data, status_code, headers = api_instance.create_inventory_unit_lookup_with_http_info
+  data, status_code, headers = api_instance.create_inventory_unit_lookup_with_http_info(create_inventory_unit_lookup_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryUnitLookupResponse>
@@ -1072,7 +1181,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inventory_unit_lookup_request** | **CreateInventoryUnitLookupRequest** |  |  |
 
 ### Return type
 
@@ -1084,7 +1195,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2189,97 +2300,6 @@ end
 - **Accept**: application/json
 
 
-## get_analytic_inventory
-
-> <GetAnalyticInventoryResponse> get_analytic_inventory(opts)
-
-Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
-
-### Examples
-
-```ruby
-require 'time'
-require 'crossly'
-# setup authorization
-Crossly.configure do |config|
-  # Configure Bearer authorization: PersonalAccessToken
-  config.access_token = 'YOUR_BEARER_TOKEN'
-end
-
-api_instance = Crossly::InventoryApi.new
-opts = {
-  range: '7d', # String | Reporting window. Default 30d. custom needs from and to.
-  from: 'from_example', # String | YYYY-MM-DD, inclusive, in tz. Only with range=custom.
-  to: 'to_example', # String | YYYY-MM-DD, inclusive, in tz. Only with range=custom.
-  compare: 'prev', # String | Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo).
-  cmp_from: 'cmp_from_example', # String | YYYY-MM-DD. Only with compare=custom.
-  cmp_to: 'cmp_to_example', # String | YYYY-MM-DD. Only with compare=custom.
-  labels: 'labels_example', # String | Comma-separated inventory labels (any of them).
-  platforms: 'platforms_example', # String | Comma-separated platform ids.
-  category: 'category_example', # String | Canonical main-category key.
-  brand: 'brand_example', # String | Brand name.
-  tz: 'tz_example', # String | IANA time zone for day boundaries. Default UTC. An invalid name is a 400.
-  maturity: 30 # Integer | Days an item has to sell within to count as sold in the cohort. Default 30.
-}
-
-begin
-  # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
-  result = api_instance.get_analytic_inventory(opts)
-  p result
-rescue Crossly::ApiError => e
-  puts "Error when calling InventoryApi->get_analytic_inventory: #{e}"
-end
-```
-
-#### Using the get_analytic_inventory_with_http_info variant
-
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<GetAnalyticInventoryResponse>, Integer, Hash)> get_analytic_inventory_with_http_info(opts)
-
-```ruby
-begin
-  # Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
-  data, status_code, headers = api_instance.get_analytic_inventory_with_http_info(opts)
-  p status_code # => 2xx
-  p headers # => { ... }
-  p data # => <GetAnalyticInventoryResponse>
-rescue Crossly::ApiError => e
-  puts "Error when calling InventoryApi->get_analytic_inventory_with_http_info: #{e}"
-end
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **range** | **String** | Reporting window. Default 30d. custom needs from and to. | [optional] |
-| **from** | **String** | YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. | [optional] |
-| **to** | **String** | YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. | [optional] |
-| **compare** | **String** | Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). | [optional] |
-| **cmp_from** | **String** | YYYY-MM-DD. Only with compare&#x3D;custom. | [optional] |
-| **cmp_to** | **String** | YYYY-MM-DD. Only with compare&#x3D;custom. | [optional] |
-| **labels** | **String** | Comma-separated inventory labels (any of them). | [optional] |
-| **platforms** | **String** | Comma-separated platform ids. | [optional] |
-| **category** | **String** | Canonical main-category key. | [optional] |
-| **brand** | **String** | Brand name. | [optional] |
-| **tz** | **String** | IANA time zone for day boundaries. Default UTC. An invalid name is a 400. | [optional] |
-| **maturity** | **Integer** | Days an item has to sell within to count as sold in the cohort. Default 30. | [optional] |
-
-### Return type
-
-**GetAnalyticInventoryResponse**
-
-### Authorization
-
-[PersonalAccessToken](../README.md#PersonalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## get_game_event_summary
 
 > <GetGameEventSummaryResponse> get_game_event_summary(event_id)
@@ -3001,7 +3021,7 @@ This endpoint does not need any parameter.
 
 ## get_inventory_sell_through
 
-> <GetInventorySellThroughResponse> get_inventory_sell_through
+> <GetInventorySellThroughResponse> get_inventory_sell_through(opts)
 
 Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
 
@@ -3017,10 +3037,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+opts = {
+  start: 'start_example', # String | 
+  _end: '_end_example' # String | 
+}
 
 begin
   # Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
-  result = api_instance.get_inventory_sell_through
+  result = api_instance.get_inventory_sell_through(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->get_inventory_sell_through: #{e}"
@@ -3031,12 +3055,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetInventorySellThroughResponse>, Integer, Hash)> get_inventory_sell_through_with_http_info
+> <Array(<GetInventorySellThroughResponse>, Integer, Hash)> get_inventory_sell_through_with_http_info(opts)
 
 ```ruby
 begin
   # Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
-  data, status_code, headers = api_instance.get_inventory_sell_through_with_http_info
+  data, status_code, headers = api_instance.get_inventory_sell_through_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetInventorySellThroughResponse>
@@ -3047,7 +3071,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **start** | **String** |  | [optional] |
+| **_end** | **String** |  | [optional] |
 
 ### Return type
 
@@ -3132,7 +3159,7 @@ end
 
 ## get_inventory_value_history
 
-> <GetInventoryValueHistoryResponse> get_inventory_value_history
+> <GetInventoryValueHistoryResponse> get_inventory_value_history(opts)
 
 Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
 
@@ -3148,10 +3175,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+opts = {
+  days: 8.14 # Float | 
+}
 
 begin
   # Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
-  result = api_instance.get_inventory_value_history
+  result = api_instance.get_inventory_value_history(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->get_inventory_value_history: #{e}"
@@ -3162,12 +3192,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetInventoryValueHistoryResponse>, Integer, Hash)> get_inventory_value_history_with_http_info
+> <Array(<GetInventoryValueHistoryResponse>, Integer, Hash)> get_inventory_value_history_with_http_info(opts)
 
 ```ruby
 begin
   # Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
-  data, status_code, headers = api_instance.get_inventory_value_history_with_http_info
+  data, status_code, headers = api_instance.get_inventory_value_history_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetInventoryValueHistoryResponse>
@@ -3178,7 +3208,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -5223,6 +5255,7 @@ opts = {
   kind: 'physical', # String | Physical goods or Web3 assets (NFTs). Omit for both.
   platforms: 'platforms_example', # String | Comma-separated marketplaces, e.g. \"ebay,vinted\". Items live (an active listing) on any of them.
   platform_mode: 'listed', # String | \"not_listed\" inverts `platforms`: items live on none of them. Default \"listed\".
+  assignee: 'assignee_example', # String | Work assignment: 'me' (your own seat), 'none' (unassigned), 'any' (assigned to someone) or a team member id.
   sku: 'sku_example', # String | Exact SKU match: look up the row a supplier product maps to.
   updated_since: Time.parse('2013-10-20T19:20:30+01:00') # Time | Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw.
 }
@@ -5265,6 +5298,7 @@ end
 | **kind** | **String** | Physical goods or Web3 assets (NFTs). Omit for both. | [optional] |
 | **platforms** | **String** | Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them. | [optional] |
 | **platform_mode** | **String** | \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;. | [optional] |
+| **assignee** | **String** | Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id. | [optional] |
 | **sku** | **String** | Exact SKU match: look up the row a supplier product maps to. | [optional] |
 | **updated_since** | **Time** | Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw. | [optional] |
 
@@ -5342,6 +5376,145 @@ end
 ### Return type
 
 **ListInventoryActivityResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_inventory_hold_issues
+
+> <ListInventoryHoldIssuesResponse> list_inventory_hold_issues
+
+List the stock problems the holds ledger finds.
+
+`held_but_listed`: every unit of an item is held for a program while a marketplace listing is still live. `expired_hold_unreleased`: a hold ran past its expiry and still keeps its units off sale.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::InventoryApi.new
+
+begin
+  # List the stock problems the holds ledger finds.
+  result = api_instance.list_inventory_hold_issues
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->list_inventory_hold_issues: #{e}"
+end
+```
+
+#### Using the list_inventory_hold_issues_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListInventoryHoldIssuesResponse>, Integer, Hash)> list_inventory_hold_issues_with_http_info
+
+```ruby
+begin
+  # List the stock problems the holds ledger finds.
+  data, status_code, headers = api_instance.list_inventory_hold_issues_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListInventoryHoldIssuesResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->list_inventory_hold_issues_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListInventoryHoldIssuesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_inventory_holds
+
+> <ListInventoryHoldsResponse> list_inventory_holds(id, opts)
+
+List the holds on an inventory item.
+
+Each hold names the program that set units aside (`sourceKind`: wholesale_quote, rental_booking, live_lineup, cart, vault_submission, consignment, manual), its record (`sourceId`), how many units and until when. `state` is `active`, `lapsed` (past its expiry, not released yet) or `released`. Holds in force by default; `history=true` adds released ones.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::InventoryApi.new
+id = 'id_example' # String | 
+opts = {
+  history: 'true' # String | 
+}
+
+begin
+  # List the holds on an inventory item.
+  result = api_instance.list_inventory_holds(id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->list_inventory_holds: #{e}"
+end
+```
+
+#### Using the list_inventory_holds_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListInventoryHoldsResponse>, Integer, Hash)> list_inventory_holds_with_http_info(id, opts)
+
+```ruby
+begin
+  # List the holds on an inventory item.
+  data, status_code, headers = api_instance.list_inventory_holds_with_http_info(id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListInventoryHoldsResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->list_inventory_holds_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **history** | **String** |  | [optional] |
+
+### Return type
+
+**ListInventoryHoldsResponse**
 
 ### Authorization
 
@@ -6588,9 +6761,9 @@ This endpoint does not need any parameter.
 
 > <ListSpatialStreetMineResponse> list_spatial_street_mine
 
-Your streets.
+Streets your store holds.
 
-Streets you hold or asked to found, newest first: `status` (pending review, approved, founding, active, dormant, rejected, released), `upkeep` (active, grace, delinquent -- a delinquent owner collects no stall rent; three weeks late the street is foreclosed and closed), `paidThrough`, `admission`, `occupied` of `plotCount`, `pendingApplications`, and Crossly's `reviewNote`.
+Streets the store (`X-Storefront-Id`, else your default store) holds or asked to found, newest first: `status` (pending review, approved, founding, active, dormant, rejected, released), `upkeep` (active, grace, delinquent -- a delinquent owner collects no stall rent; three weeks late the street is foreclosed and closed), `paidThrough`, `admission`, `occupied` of `plotCount`, `pendingApplications`, and Crossly's `reviewNote`.
 
 ### Examples
 
@@ -6606,7 +6779,7 @@ end
 api_instance = Crossly::InventoryApi.new
 
 begin
-  # Your streets.
+  # Streets your store holds.
   result = api_instance.list_spatial_street_mine
   p result
 rescue Crossly::ApiError => e
@@ -6622,7 +6795,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Your streets.
+  # Streets your store holds.
   data, status_code, headers = api_instance.list_spatial_street_mine_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -6918,7 +7091,7 @@ end
 
 ## update_inventory
 
-> <CreateInventoryResponse> update_inventory(id)
+> <CreateInventoryResponse> update_inventory(id, update_inventory_request)
 
 Update an inventory item (partial).
 
@@ -6935,10 +7108,11 @@ end
 
 api_instance = Crossly::InventoryApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_inventory_request = Crossly::UpdateInventoryRequest.new # UpdateInventoryRequest | 
 
 begin
   # Update an inventory item (partial).
-  result = api_instance.update_inventory(id)
+  result = api_instance.update_inventory(id, update_inventory_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->update_inventory: #{e}"
@@ -6949,12 +7123,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInventoryResponse>, Integer, Hash)> update_inventory_with_http_info(id)
+> <Array(<CreateInventoryResponse>, Integer, Hash)> update_inventory_with_http_info(id, update_inventory_request)
 
 ```ruby
 begin
   # Update an inventory item (partial).
-  data, status_code, headers = api_instance.update_inventory_with_http_info(id)
+  data, status_code, headers = api_instance.update_inventory_with_http_info(id, update_inventory_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInventoryResponse>
@@ -6968,10 +7142,142 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_inventory_request** | **UpdateInventoryRequest** |  |  |
 
 ### Return type
 
 **CreateInventoryResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## update_inventory_assignee
+
+> <UpdateOrderAssigneeResponse> update_inventory_assignee
+
+Assign many inventory items to a teammate, round robin across several, or unassign them (null).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::InventoryApi.new
+
+begin
+  # Assign many inventory items to a teammate, round robin across several, or unassign them (null).
+  result = api_instance.update_inventory_assignee
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->update_inventory_assignee: #{e}"
+end
+```
+
+#### Using the update_inventory_assignee_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateOrderAssigneeResponse>, Integer, Hash)> update_inventory_assignee_with_http_info
+
+```ruby
+begin
+  # Assign many inventory items to a teammate, round robin across several, or unassign them (null).
+  data, status_code, headers = api_instance.update_inventory_assignee_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateOrderAssigneeResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->update_inventory_assignee_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**UpdateOrderAssigneeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_inventory_assignee_by_id
+
+> <UpdateOrderAssigneeByIdResponse> update_inventory_assignee_by_id(id)
+
+Assign one inventory item to a teammate, or unassign it (null).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::InventoryApi.new
+id = 'id_example' # String | 
+
+begin
+  # Assign one inventory item to a teammate, or unassign it (null).
+  result = api_instance.update_inventory_assignee_by_id(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->update_inventory_assignee_by_id: #{e}"
+end
+```
+
+#### Using the update_inventory_assignee_by_id_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateOrderAssigneeByIdResponse>, Integer, Hash)> update_inventory_assignee_by_id_with_http_info(id)
+
+```ruby
+begin
+  # Assign one inventory item to a teammate, or unassign it (null).
+  data, status_code, headers = api_instance.update_inventory_assignee_by_id_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateOrderAssigneeByIdResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling InventoryApi->update_inventory_assignee_by_id_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**UpdateOrderAssigneeByIdResponse**
 
 ### Authorization
 
@@ -6985,7 +7291,7 @@ end
 
 ## update_spatial_employee_config
 
-> <UpdateSpatialEmployeeConfigResponse> update_spatial_employee_config
+> <UpdateSpatialEmployeeConfigResponse> update_spatial_employee_config(opts)
 
 Create or replace the shop employee in one of your rooms.
 
@@ -7003,10 +7309,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InventoryApi.new
+opts = {
+  update_spatial_employee_config_request: Crossly::UpdateSpatialEmployeeConfigRequest.new({scene_id: 'scene_id_example', enabled: false, display_name: 'display_name_example', brain_kind: 'rules'}) # UpdateSpatialEmployeeConfigRequest | 
+}
 
 begin
   # Create or replace the shop employee in one of your rooms.
-  result = api_instance.update_spatial_employee_config
+  result = api_instance.update_spatial_employee_config(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InventoryApi->update_spatial_employee_config: #{e}"
@@ -7017,12 +7326,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateSpatialEmployeeConfigResponse>, Integer, Hash)> update_spatial_employee_config_with_http_info
+> <Array(<UpdateSpatialEmployeeConfigResponse>, Integer, Hash)> update_spatial_employee_config_with_http_info(opts)
 
 ```ruby
 begin
   # Create or replace the shop employee in one of your rooms.
-  data, status_code, headers = api_instance.update_spatial_employee_config_with_http_info
+  data, status_code, headers = api_instance.update_spatial_employee_config_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateSpatialEmployeeConfigResponse>
@@ -7033,7 +7342,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_spatial_employee_config_request** | **UpdateSpatialEmployeeConfigRequest** |  | [optional] |
 
 ### Return type
 
@@ -7045,7 +7356,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

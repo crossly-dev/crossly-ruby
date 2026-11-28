@@ -69,7 +69,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'range' => :'FromTo2',
+        :'range' => :'CreateListingTagRenameRequest',
         :'name' => :'String',
         :'agg' => :'String',
         :'interval' => :'String',

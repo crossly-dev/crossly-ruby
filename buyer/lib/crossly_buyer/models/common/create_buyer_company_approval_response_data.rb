@@ -23,19 +23,19 @@ module CrosslyBuyer
 
     attr_accessor :status
 
+    attr_accessor :note
+
     attr_accessor :amount_cents
-
-    attr_accessor :decided_at
-
-    attr_accessor :used_at
 
     attr_accessor :seller_user_id
 
     attr_accessor :po_reference
 
-    attr_accessor :note
+    attr_accessor :decided_at
 
     attr_accessor :decision_note
+
+    attr_accessor :used_at
 
     attr_accessor :requester_user_id
 
@@ -50,13 +50,13 @@ module CrosslyBuyer
         :'created_at' => :'createdAt',
         :'expires_at' => :'expiresAt',
         :'status' => :'status',
+        :'note' => :'note',
         :'amount_cents' => :'amountCents',
-        :'decided_at' => :'decidedAt',
-        :'used_at' => :'usedAt',
         :'seller_user_id' => :'sellerUserId',
         :'po_reference' => :'poReference',
-        :'note' => :'note',
+        :'decided_at' => :'decidedAt',
         :'decision_note' => :'decisionNote',
+        :'used_at' => :'usedAt',
         :'requester_user_id' => :'requesterUserId',
         :'company_id' => :'companyId',
         :'decided_by_user_id' => :'decidedByUserId'
@@ -75,13 +75,13 @@ module CrosslyBuyer
         :'created_at' => :'Time',
         :'expires_at' => :'Time',
         :'status' => :'String',
+        :'note' => :'String',
         :'amount_cents' => :'Float',
-        :'decided_at' => :'Time',
-        :'used_at' => :'Time',
         :'seller_user_id' => :'String',
         :'po_reference' => :'String',
-        :'note' => :'String',
+        :'decided_at' => :'Time',
         :'decision_note' => :'String',
+        :'used_at' => :'Time',
         :'requester_user_id' => :'String',
         :'company_id' => :'String',
         :'decided_by_user_id' => :'String'
@@ -92,11 +92,11 @@ module CrosslyBuyer
     def self.openapi_nullable
       Set.new([
         :'expires_at',
-        :'decided_at',
-        :'used_at',
-        :'po_reference',
         :'note',
+        :'po_reference',
+        :'decided_at',
         :'decision_note',
+        :'used_at',
         :'decided_by_user_id'
       ])
     end
@@ -132,16 +132,12 @@ module CrosslyBuyer
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
+
       if attributes.key?(:'amount_cents')
         self.amount_cents = attributes[:'amount_cents']
-      end
-
-      if attributes.key?(:'decided_at')
-        self.decided_at = attributes[:'decided_at']
-      end
-
-      if attributes.key?(:'used_at')
-        self.used_at = attributes[:'used_at']
       end
 
       if attributes.key?(:'seller_user_id')
@@ -152,12 +148,16 @@ module CrosslyBuyer
         self.po_reference = attributes[:'po_reference']
       end
 
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
+      if attributes.key?(:'decided_at')
+        self.decided_at = attributes[:'decided_at']
       end
 
       if attributes.key?(:'decision_note')
         self.decision_note = attributes[:'decision_note']
+      end
+
+      if attributes.key?(:'used_at')
+        self.used_at = attributes[:'used_at']
       end
 
       if attributes.key?(:'requester_user_id')
@@ -230,13 +230,13 @@ module CrosslyBuyer
           created_at == o.created_at &&
           expires_at == o.expires_at &&
           status == o.status &&
+          note == o.note &&
           amount_cents == o.amount_cents &&
-          decided_at == o.decided_at &&
-          used_at == o.used_at &&
           seller_user_id == o.seller_user_id &&
           po_reference == o.po_reference &&
-          note == o.note &&
+          decided_at == o.decided_at &&
           decision_note == o.decision_note &&
+          used_at == o.used_at &&
           requester_user_id == o.requester_user_id &&
           company_id == o.company_id &&
           decided_by_user_id == o.decided_by_user_id
@@ -251,7 +251,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, expires_at, status, amount_cents, decided_at, used_at, seller_user_id, po_reference, note, decision_note, requester_user_id, company_id, decided_by_user_id].hash
+      [id, created_at, expires_at, status, note, amount_cents, seller_user_id, po_reference, decided_at, decision_note, used_at, requester_user_id, company_id, decided_by_user_id].hash
     end
 
     # Builds the object from hash

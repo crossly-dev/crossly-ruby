@@ -31,13 +31,13 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :title
-
     attr_accessor :storefront_id
 
-    attr_accessor :ends_at
-
     attr_accessor :role
+
+    attr_accessor :title
+
+    attr_accessor :ends_at
 
     attr_accessor :target
 
@@ -49,11 +49,11 @@ module Crossly
 
     attr_accessor :recurrence
 
+    attr_accessor :check_in
+
     attr_accessor :breaks
 
     attr_accessor :pay
-
-    attr_accessor :check_in
 
     attr_accessor :no_show
 
@@ -96,18 +96,18 @@ module Crossly
         :'created_at' => :'createdAt',
         :'description' => :'description',
         :'status' => :'status',
-        :'title' => :'title',
         :'storefront_id' => :'storefrontId',
-        :'ends_at' => :'endsAt',
         :'role' => :'role',
+        :'title' => :'title',
+        :'ends_at' => :'endsAt',
         :'target' => :'target',
         :'starts_at' => :'startsAt',
         :'timezone' => :'timezone',
         :'visibility' => :'visibility',
         :'recurrence' => :'recurrence',
+        :'check_in' => :'checkIn',
         :'breaks' => :'breaks',
         :'pay' => :'pay',
-        :'check_in' => :'checkIn',
         :'no_show' => :'noShow',
         :'min_worker_rep' => :'minWorkerRep',
         :'required_badges' => :'requiredBadges',
@@ -131,18 +131,18 @@ module Crossly
         :'created_at' => :'String',
         :'description' => :'String',
         :'status' => :'String',
-        :'title' => :'String',
         :'storefront_id' => :'String',
-        :'ends_at' => :'String',
         :'role' => :'String',
+        :'title' => :'String',
+        :'ends_at' => :'String',
         :'target' => :'WorldStaffPostingResponseDataTarget',
         :'starts_at' => :'String',
         :'timezone' => :'String',
         :'visibility' => :'String',
         :'recurrence' => :'WorldStaffPostingResponseDataRecurrence',
+        :'check_in' => :'WorldStaffPostingResponseDataCheckIn',
         :'breaks' => :'WorldStaffPostingResponseDataBreaks',
         :'pay' => :'WorldStaffPostingResponseDataPay',
-        :'check_in' => :'WorldStaffPostingResponseDataCheckIn',
         :'no_show' => :'PenaltyRepStrikesToBlock',
         :'min_worker_rep' => :'Float',
         :'required_badges' => :'Array<String>',
@@ -209,20 +209,20 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'storefront_id')
         self.storefront_id = attributes[:'storefront_id']
       end
 
-      if attributes.key?(:'ends_at')
-        self.ends_at = attributes[:'ends_at']
-      end
-
       if attributes.key?(:'role')
         self.role = attributes[:'role']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
+      end
+
+      if attributes.key?(:'ends_at')
+        self.ends_at = attributes[:'ends_at']
       end
 
       if attributes.key?(:'target')
@@ -245,16 +245,16 @@ module Crossly
         self.recurrence = attributes[:'recurrence']
       end
 
+      if attributes.key?(:'check_in')
+        self.check_in = attributes[:'check_in']
+      end
+
       if attributes.key?(:'breaks')
         self.breaks = attributes[:'breaks']
       end
 
       if attributes.key?(:'pay')
         self.pay = attributes[:'pay']
-      end
-
-      if attributes.key?(:'check_in')
-        self.check_in = attributes[:'check_in']
       end
 
       if attributes.key?(:'no_show')
@@ -300,16 +300,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if @role.nil?
+        invalid_properties.push('invalid value for "role", role cannot be nil.')
+      end
+
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
 
       if @ends_at.nil?
         invalid_properties.push('invalid value for "ends_at", ends_at cannot be nil.')
-      end
-
-      if @role.nil?
-        invalid_properties.push('invalid value for "role", role cannot be nil.')
       end
 
       if @target.nil?
@@ -332,12 +332,12 @@ module Crossly
         invalid_properties.push('invalid value for "recurrence", recurrence cannot be nil.')
       end
 
-      if @pay.nil?
-        invalid_properties.push('invalid value for "pay", pay cannot be nil.')
-      end
-
       if @check_in.nil?
         invalid_properties.push('invalid value for "check_in", check_in cannot be nil.')
+      end
+
+      if @pay.nil?
+        invalid_properties.push('invalid value for "pay", pay cannot be nil.')
       end
 
       if @no_show.nil?
@@ -365,9 +365,9 @@ module Crossly
       return false if @status.nil?
       status_validator = EnumAttributeValidator.new('String', ["paused", "open", "closed"])
       return false unless status_validator.valid?(@status)
+      return false if @role.nil?
       return false if @title.nil?
       return false if @ends_at.nil?
-      return false if @role.nil?
       return false if @target.nil?
       return false if @starts_at.nil?
       return false if @timezone.nil?
@@ -375,8 +375,8 @@ module Crossly
       visibility_validator = EnumAttributeValidator.new('String', ["public", "private"])
       return false unless visibility_validator.valid?(@visibility)
       return false if @recurrence.nil?
-      return false if @pay.nil?
       return false if @check_in.nil?
+      return false if @pay.nil?
       return false if @no_show.nil?
       return false if @required_badges.nil?
       return false if @max_staff.nil?
@@ -416,18 +416,18 @@ module Crossly
           created_at == o.created_at &&
           description == o.description &&
           status == o.status &&
-          title == o.title &&
           storefront_id == o.storefront_id &&
-          ends_at == o.ends_at &&
           role == o.role &&
+          title == o.title &&
+          ends_at == o.ends_at &&
           target == o.target &&
           starts_at == o.starts_at &&
           timezone == o.timezone &&
           visibility == o.visibility &&
           recurrence == o.recurrence &&
+          check_in == o.check_in &&
           breaks == o.breaks &&
           pay == o.pay &&
-          check_in == o.check_in &&
           no_show == o.no_show &&
           min_worker_rep == o.min_worker_rep &&
           required_badges == o.required_badges &&
@@ -443,7 +443,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [employer, next_shift, open_seats, my_application, id, created_at, description, status, title, storefront_id, ends_at, role, target, starts_at, timezone, visibility, recurrence, breaks, pay, check_in, no_show, min_worker_rep, required_badges, max_staff].hash
+      [employer, next_shift, open_seats, my_application, id, created_at, description, status, storefront_id, role, title, ends_at, target, starts_at, timezone, visibility, recurrence, check_in, breaks, pay, no_show, min_worker_rep, required_badges, max_staff].hash
     end
 
     # Builds the object from hash

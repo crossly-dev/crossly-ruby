@@ -144,12 +144,12 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      id_validator = EnumAttributeValidator.new('String', ["worlds", "continue", "featured", "friends", "classic", "sponsored", "recommended", "top-playing", "trending", "new-rising", "top-rated", "shop-the-world", "card-games", "genre:shopping", "genre:other", "genre:strategy", "genre:social", "genre:hangout", "genre:simulation", "genre:obby", "genre:adventure", "genre:roleplay", "genre:sports", "genre:arcade", "genre:card_games"])
+      id_validator = EnumAttributeValidator.new('String', ["worlds", "continue", "featured", "friends", "classic", "sponsored", "recommended", "top-playing", "trending", "new-rising", "top-rated", "shop-the-world", "card-games", "genre:shopping", "genre:other", "genre:social", "genre:strategy", "genre:hangout", "genre:simulation", "genre:obby", "genre:adventure", "genre:roleplay", "genre:sports", "genre:arcade", "genre:card_games"])
       return false unless id_validator.valid?(@id)
       return false if @title.nil?
       chart_validator = EnumAttributeValidator.new('String', ["friends", "top-playing", "trending", "new-rising", "top-rated", "most-favorited"])
       return false unless chart_validator.valid?(@chart)
-      genre_validator = EnumAttributeValidator.new('String', ["shopping", "other", "strategy", "social", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
+      genre_validator = EnumAttributeValidator.new('String', ["shopping", "other", "social", "strategy", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
       return false unless genre_validator.valid?(@genre)
       return false if @tiles.nil?
       true
@@ -158,7 +158,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] id Object to be assigned
     def id=(id)
-      validator = EnumAttributeValidator.new('String', ["worlds", "continue", "featured", "friends", "classic", "sponsored", "recommended", "top-playing", "trending", "new-rising", "top-rated", "shop-the-world", "card-games", "genre:shopping", "genre:other", "genre:strategy", "genre:social", "genre:hangout", "genre:simulation", "genre:obby", "genre:adventure", "genre:roleplay", "genre:sports", "genre:arcade", "genre:card_games"])
+      validator = EnumAttributeValidator.new('String', ["worlds", "continue", "featured", "friends", "classic", "sponsored", "recommended", "top-playing", "trending", "new-rising", "top-rated", "shop-the-world", "card-games", "genre:shopping", "genre:other", "genre:social", "genre:strategy", "genre:hangout", "genre:simulation", "genre:obby", "genre:adventure", "genre:roleplay", "genre:sports", "genre:arcade", "genre:card_games"])
       unless validator.valid?(id)
         fail ArgumentError, "invalid value for \"id\", must be one of #{validator.allowable_values}."
       end
@@ -178,7 +178,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] genre Object to be assigned
     def genre=(genre)
-      validator = EnumAttributeValidator.new('String', ["shopping", "other", "strategy", "social", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
+      validator = EnumAttributeValidator.new('String', ["shopping", "other", "social", "strategy", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
       unless validator.valid?(genre)
         fail ArgumentError, "invalid value for \"genre\", must be one of #{validator.allowable_values}."
       end

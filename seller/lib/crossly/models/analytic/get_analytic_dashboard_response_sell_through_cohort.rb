@@ -53,7 +53,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'window' => :'FromTo2',
+        :'window' => :'CreateListingTagRenameRequest',
         :'maturity_days' => :'Float',
         :'rate' => :'Float',
         :'sold' => :'Float',

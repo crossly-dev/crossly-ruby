@@ -73,7 +73,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_cbx_accrual
 
-> <CreateCbxAccrualResponse> create_cbx_accrual
+> <CreateCbxAccrualResponse> create_cbx_accrual(create_cbx_accrual_request)
 
 Record cashback a user earned, in cents.
 
@@ -91,10 +91,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_accrual_request = Crossly::CreateCbxAccrualRequest.new({subject_id: 'subject_id_example', cents: 3.56}) # CreateCbxAccrualRequest | 
 
 begin
   # Record cashback a user earned, in cents.
-  result = api_instance.create_cbx_accrual
+  result = api_instance.create_cbx_accrual(create_cbx_accrual_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_accrual: #{e}"
@@ -105,12 +106,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxAccrualResponse>, Integer, Hash)> create_cbx_accrual_with_http_info
+> <Array(<CreateCbxAccrualResponse>, Integer, Hash)> create_cbx_accrual_with_http_info(create_cbx_accrual_request)
 
 ```ruby
 begin
   # Record cashback a user earned, in cents.
-  data, status_code, headers = api_instance.create_cbx_accrual_with_http_info
+  data, status_code, headers = api_instance.create_cbx_accrual_with_http_info(create_cbx_accrual_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxAccrualResponse>
@@ -121,7 +122,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_accrual_request** | **CreateCbxAccrualRequest** |  |  |
 
 ### Return type
 
@@ -133,13 +136,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_accrual_purchase
 
-> <CreateCbxAccrualPurchaseResponse> create_cbx_accrual_purchase
+> <CreateCbxAccrualPurchaseResponse> create_cbx_accrual_purchase(create_cbx_accrual_purchase_request)
 
 Accrue cashback for an order at the resolved rate.
 
@@ -157,10 +160,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_accrual_purchase_request = Crossly::CreateCbxAccrualPurchaseRequest.new({subject_id: 'subject_id_example', paid_cents: 3.56, external_id: 'external_id_example'}) # CreateCbxAccrualPurchaseRequest | 
 
 begin
   # Accrue cashback for an order at the resolved rate.
-  result = api_instance.create_cbx_accrual_purchase
+  result = api_instance.create_cbx_accrual_purchase(create_cbx_accrual_purchase_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_accrual_purchase: #{e}"
@@ -171,12 +175,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxAccrualPurchaseResponse>, Integer, Hash)> create_cbx_accrual_purchase_with_http_info
+> <Array(<CreateCbxAccrualPurchaseResponse>, Integer, Hash)> create_cbx_accrual_purchase_with_http_info(create_cbx_accrual_purchase_request)
 
 ```ruby
 begin
   # Accrue cashback for an order at the resolved rate.
-  data, status_code, headers = api_instance.create_cbx_accrual_purchase_with_http_info
+  data, status_code, headers = api_instance.create_cbx_accrual_purchase_with_http_info(create_cbx_accrual_purchase_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxAccrualPurchaseResponse>
@@ -187,7 +191,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_accrual_purchase_request** | **CreateCbxAccrualPurchaseRequest** |  |  |
 
 ### Return type
 
@@ -199,13 +205,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_accrual_reverse
 
-> <CreateCbxSpendReverseResponse> create_cbx_accrual_reverse(accrual_id)
+> <CreateCbxSpendReverseResponse> create_cbx_accrual_reverse(accrual_id, reason_request)
 
 Claw back a pending accrual — a refund, a cancellation, fraud.
 
@@ -224,10 +230,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 accrual_id = 'accrual_id_example' # String | 
+reason_request = Crossly::ReasonRequest.new({reason: 'reason_example'}) # ReasonRequest | 
 
 begin
   # Claw back a pending accrual — a refund, a cancellation, fraud.
-  result = api_instance.create_cbx_accrual_reverse(accrual_id)
+  result = api_instance.create_cbx_accrual_reverse(accrual_id, reason_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_accrual_reverse: #{e}"
@@ -238,12 +245,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSpendReverseResponse>, Integer, Hash)> create_cbx_accrual_reverse_with_http_info(accrual_id)
+> <Array(<CreateCbxSpendReverseResponse>, Integer, Hash)> create_cbx_accrual_reverse_with_http_info(accrual_id, reason_request)
 
 ```ruby
 begin
   # Claw back a pending accrual — a refund, a cancellation, fraud.
-  data, status_code, headers = api_instance.create_cbx_accrual_reverse_with_http_info(accrual_id)
+  data, status_code, headers = api_instance.create_cbx_accrual_reverse_with_http_info(accrual_id, reason_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSpendReverseResponse>
@@ -257,6 +264,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **accrual_id** | **String** |  |  |
+| **reason_request** | **ReasonRequest** |  |  |
 
 ### Return type
 
@@ -268,13 +276,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_ad_credit_purchase
 
-> <CreateCbxAdCreditPurchaseResponse> create_cbx_ad_credit_purchase
+> <CreateCbxAdCreditPurchaseResponse> create_cbx_ad_credit_purchase(create_cbx_ad_credit_purchase_request)
 
 Claim ad credit against a CBX transfer you sent.
 
@@ -292,10 +300,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_ad_credit_purchase_request = Crossly::CreateCbxAdCreditPurchaseRequest.new({tx_sig: 'tx_sig_example'}) # CreateCbxAdCreditPurchaseRequest | 
 
 begin
   # Claim ad credit against a CBX transfer you sent.
-  result = api_instance.create_cbx_ad_credit_purchase
+  result = api_instance.create_cbx_ad_credit_purchase(create_cbx_ad_credit_purchase_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_ad_credit_purchase: #{e}"
@@ -306,12 +315,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxAdCreditPurchaseResponse>, Integer, Hash)> create_cbx_ad_credit_purchase_with_http_info
+> <Array(<CreateCbxAdCreditPurchaseResponse>, Integer, Hash)> create_cbx_ad_credit_purchase_with_http_info(create_cbx_ad_credit_purchase_request)
 
 ```ruby
 begin
   # Claim ad credit against a CBX transfer you sent.
-  data, status_code, headers = api_instance.create_cbx_ad_credit_purchase_with_http_info
+  data, status_code, headers = api_instance.create_cbx_ad_credit_purchase_with_http_info(create_cbx_ad_credit_purchase_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxAdCreditPurchaseResponse>
@@ -322,7 +331,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_ad_credit_purchase_request** | **CreateCbxAdCreditPurchaseRequest** |  |  |
 
 ### Return type
 
@@ -334,13 +345,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_ad_credit_quote
 
-> <CreateCbxAdCreditQuoteResponse> create_cbx_ad_credit_quote
+> <CreateCbxAdCreditQuoteResponse> create_cbx_ad_credit_quote(create_cbx_subject_stake_request)
 
 What a given number of tokens buys in ad credit.
 
@@ -358,10 +369,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_subject_stake_request = Crossly::CreateCbxSubjectStakeRequest.new({base_units: 3.56}) # CreateCbxSubjectStakeRequest | 
 
 begin
   # What a given number of tokens buys in ad credit.
-  result = api_instance.create_cbx_ad_credit_quote
+  result = api_instance.create_cbx_ad_credit_quote(create_cbx_subject_stake_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_ad_credit_quote: #{e}"
@@ -372,12 +384,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxAdCreditQuoteResponse>, Integer, Hash)> create_cbx_ad_credit_quote_with_http_info
+> <Array(<CreateCbxAdCreditQuoteResponse>, Integer, Hash)> create_cbx_ad_credit_quote_with_http_info(create_cbx_subject_stake_request)
 
 ```ruby
 begin
   # What a given number of tokens buys in ad credit.
-  data, status_code, headers = api_instance.create_cbx_ad_credit_quote_with_http_info
+  data, status_code, headers = api_instance.create_cbx_ad_credit_quote_with_http_info(create_cbx_subject_stake_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxAdCreditQuoteResponse>
@@ -388,7 +400,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_subject_stake_request** | **CreateCbxSubjectStakeRequest** |  |  |
 
 ### Return type
 
@@ -400,13 +414,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_ad_credit_spend
 
-> <CreateCbxAdCreditSpendResponse> create_cbx_ad_credit_spend
+> <CreateCbxAdCreditSpendResponse> create_cbx_ad_credit_spend(create_cbx_ad_credit_spend_request)
 
 Consume credit for a billing period.
 
@@ -424,10 +438,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_ad_credit_spend_request = Crossly::CreateCbxAdCreditSpendRequest.new({cents: 3.56, external_id: 'external_id_example'}) # CreateCbxAdCreditSpendRequest | 
 
 begin
   # Consume credit for a billing period.
-  result = api_instance.create_cbx_ad_credit_spend
+  result = api_instance.create_cbx_ad_credit_spend(create_cbx_ad_credit_spend_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_ad_credit_spend: #{e}"
@@ -438,12 +453,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxAdCreditSpendResponse>, Integer, Hash)> create_cbx_ad_credit_spend_with_http_info
+> <Array(<CreateCbxAdCreditSpendResponse>, Integer, Hash)> create_cbx_ad_credit_spend_with_http_info(create_cbx_ad_credit_spend_request)
 
 ```ruby
 begin
   # Consume credit for a billing period.
-  data, status_code, headers = api_instance.create_cbx_ad_credit_spend_with_http_info
+  data, status_code, headers = api_instance.create_cbx_ad_credit_spend_with_http_info(create_cbx_ad_credit_spend_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxAdCreditSpendResponse>
@@ -454,7 +469,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_ad_credit_spend_request** | **CreateCbxAdCreditSpendRequest** |  |  |
 
 ### Return type
 
@@ -466,13 +483,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_boost
 
-> <CreateCbxBoostResponse> create_cbx_boost
+> <CreateCbxBoostResponse> create_cbx_boost(create_cbx_boost_request)
 
 Fund elevated cashback on matching items.
 
@@ -490,10 +507,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_boost_request = Crossly::CreateCbxBoostRequest.new({name: 'name_example', boosted_rate_bps: 3.56, budget_cents: 3.56, starts_at: 'starts_at_example', ends_at: 'ends_at_example'}) # CreateCbxBoostRequest | 
 
 begin
   # Fund elevated cashback on matching items.
-  result = api_instance.create_cbx_boost
+  result = api_instance.create_cbx_boost(create_cbx_boost_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_boost: #{e}"
@@ -504,12 +522,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxBoostResponse>, Integer, Hash)> create_cbx_boost_with_http_info
+> <Array(<CreateCbxBoostResponse>, Integer, Hash)> create_cbx_boost_with_http_info(create_cbx_boost_request)
 
 ```ruby
 begin
   # Fund elevated cashback on matching items.
-  data, status_code, headers = api_instance.create_cbx_boost_with_http_info
+  data, status_code, headers = api_instance.create_cbx_boost_with_http_info(create_cbx_boost_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxBoostResponse>
@@ -520,7 +538,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_boost_request** | **CreateCbxBoostRequest** |  |  |
 
 ### Return type
 
@@ -532,7 +552,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -607,7 +627,7 @@ end
 
 ## create_cbx_campaign
 
-> <CreateCbxCampaignResponse> create_cbx_campaign
+> <CreateCbxCampaignResponse> create_cbx_campaign(create_cbx_campaign_request)
 
 Create a campaign in draft.
 
@@ -625,10 +645,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_campaign_request = Crossly::CreateCbxCampaignRequest.new({name: 'name_example', budget_base_units: 3.56, window_start: 'window_start_example', window_end: 'window_end_example', weighting: Crossly::CreateCbxCampaignRequestWeighting.new({metric: 'accruals_count'})}) # CreateCbxCampaignRequest | 
 
 begin
   # Create a campaign in draft.
-  result = api_instance.create_cbx_campaign
+  result = api_instance.create_cbx_campaign(create_cbx_campaign_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_campaign: #{e}"
@@ -639,12 +660,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxCampaignResponse>, Integer, Hash)> create_cbx_campaign_with_http_info
+> <Array(<CreateCbxCampaignResponse>, Integer, Hash)> create_cbx_campaign_with_http_info(create_cbx_campaign_request)
 
 ```ruby
 begin
   # Create a campaign in draft.
-  data, status_code, headers = api_instance.create_cbx_campaign_with_http_info
+  data, status_code, headers = api_instance.create_cbx_campaign_with_http_info(create_cbx_campaign_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxCampaignResponse>
@@ -655,7 +676,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_campaign_request** | **CreateCbxCampaignRequest** |  |  |
 
 ### Return type
 
@@ -667,7 +690,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -740,7 +763,7 @@ end
 
 ## create_cbx_campaign_execute_by_campaign_id
 
-> <CreateCbxCampaignExecuteByCampaignIdResponse> create_cbx_campaign_execute_by_campaign_id(campaign_id)
+> <CreateCbxCampaignExecuteByCampaignIdResponse> create_cbx_campaign_execute_by_campaign_id(campaign_id, create_cbx_campaign_execute_by_campaign_id_request)
 
 Pay an approved campaign.
 
@@ -759,10 +782,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 campaign_id = 'campaign_id_example' # String | 
+create_cbx_campaign_execute_by_campaign_id_request = Crossly::CreateCbxCampaignExecuteByCampaignIdRequest.new({execution_key: 'execution_key_example'}) # CreateCbxCampaignExecuteByCampaignIdRequest | 
 
 begin
   # Pay an approved campaign.
-  result = api_instance.create_cbx_campaign_execute_by_campaign_id(campaign_id)
+  result = api_instance.create_cbx_campaign_execute_by_campaign_id(campaign_id, create_cbx_campaign_execute_by_campaign_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_campaign_execute_by_campaign_id: #{e}"
@@ -773,12 +797,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxCampaignExecuteByCampaignIdResponse>, Integer, Hash)> create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id)
+> <Array(<CreateCbxCampaignExecuteByCampaignIdResponse>, Integer, Hash)> create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id, create_cbx_campaign_execute_by_campaign_id_request)
 
 ```ruby
 begin
   # Pay an approved campaign.
-  data, status_code, headers = api_instance.create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id)
+  data, status_code, headers = api_instance.create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id, create_cbx_campaign_execute_by_campaign_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxCampaignExecuteByCampaignIdResponse>
@@ -792,6 +816,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **campaign_id** | **String** |  |  |
+| **create_cbx_campaign_execute_by_campaign_id_request** | **CreateCbxCampaignExecuteByCampaignIdRequest** |  |  |
 
 ### Return type
 
@@ -803,7 +828,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -878,7 +903,7 @@ end
 
 ## create_cbx_claim
 
-> <CreateCbxClaimResponse> create_cbx_claim
+> <CreateCbxClaimResponse> create_cbx_claim(create_cbx_claim_request)
 
 Reserve a claim. Debits the balance and queues the transfer.
 
@@ -896,10 +921,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_claim_request = Crossly::CreateCbxClaimRequest.new({subject_id: 'subject_id_example', base_units: 3.56, cents_per_token: 3.56, idempotency_key: 'idempotency_key_example'}) # CreateCbxClaimRequest | 
 
 begin
   # Reserve a claim. Debits the balance and queues the transfer.
-  result = api_instance.create_cbx_claim
+  result = api_instance.create_cbx_claim(create_cbx_claim_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_claim: #{e}"
@@ -910,12 +936,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxClaimResponse>, Integer, Hash)> create_cbx_claim_with_http_info
+> <Array(<CreateCbxClaimResponse>, Integer, Hash)> create_cbx_claim_with_http_info(create_cbx_claim_request)
 
 ```ruby
 begin
   # Reserve a claim. Debits the balance and queues the transfer.
-  data, status_code, headers = api_instance.create_cbx_claim_with_http_info
+  data, status_code, headers = api_instance.create_cbx_claim_with_http_info(create_cbx_claim_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxClaimResponse>
@@ -926,7 +952,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_claim_request** | **CreateCbxClaimRequest** |  |  |
 
 ### Return type
 
@@ -938,13 +966,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_claim_quote
 
-> <CreateCbxClaimQuoteResponse> create_cbx_claim_quote
+> <CreateCbxClaimQuoteResponse> create_cbx_claim_quote(create_cbx_claim_quote_request)
 
 What a claim would cost, without committing to it.
 
@@ -962,10 +990,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_claim_quote_request = Crossly::CreateCbxClaimQuoteRequest.new({subject_id: 'subject_id_example', base_units: 3.56, cents_per_token: 3.56}) # CreateCbxClaimQuoteRequest | 
 
 begin
   # What a claim would cost, without committing to it.
-  result = api_instance.create_cbx_claim_quote
+  result = api_instance.create_cbx_claim_quote(create_cbx_claim_quote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_claim_quote: #{e}"
@@ -976,12 +1005,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxClaimQuoteResponse>, Integer, Hash)> create_cbx_claim_quote_with_http_info
+> <Array(<CreateCbxClaimQuoteResponse>, Integer, Hash)> create_cbx_claim_quote_with_http_info(create_cbx_claim_quote_request)
 
 ```ruby
 begin
   # What a claim would cost, without committing to it.
-  data, status_code, headers = api_instance.create_cbx_claim_quote_with_http_info
+  data, status_code, headers = api_instance.create_cbx_claim_quote_with_http_info(create_cbx_claim_quote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxClaimQuoteResponse>
@@ -992,7 +1021,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_claim_quote_request** | **CreateCbxClaimQuoteRequest** |  |  |
 
 ### Return type
 
@@ -1004,7 +1035,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1079,7 +1110,7 @@ end
 
 ## create_cbx_credit_draw
 
-> <CreateCbxCreditDrawResponse> create_cbx_credit_draw
+> <CreateCbxCreditDrawResponse> create_cbx_credit_draw(create_cbx_credit_draw_request)
 
 Draw against a line, receiving grant credit.
 
@@ -1097,10 +1128,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_credit_draw_request = Crossly::CreateCbxCreditDrawRequest.new({seller_user_id: 'seller_user_id_example', cents: 3.56, channel: 'supplier_order', external_id: 'external_id_example'}) # CreateCbxCreditDrawRequest | 
 
 begin
   # Draw against a line, receiving grant credit.
-  result = api_instance.create_cbx_credit_draw
+  result = api_instance.create_cbx_credit_draw(create_cbx_credit_draw_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_credit_draw: #{e}"
@@ -1111,12 +1143,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxCreditDrawResponse>, Integer, Hash)> create_cbx_credit_draw_with_http_info
+> <Array(<CreateCbxCreditDrawResponse>, Integer, Hash)> create_cbx_credit_draw_with_http_info(create_cbx_credit_draw_request)
 
 ```ruby
 begin
   # Draw against a line, receiving grant credit.
-  data, status_code, headers = api_instance.create_cbx_credit_draw_with_http_info
+  data, status_code, headers = api_instance.create_cbx_credit_draw_with_http_info(create_cbx_credit_draw_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxCreditDrawResponse>
@@ -1127,7 +1159,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_credit_draw_request** | **CreateCbxCreditDrawRequest** |  |  |
 
 ### Return type
 
@@ -1139,13 +1173,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_credit_freeze
 
-> <CreateCbxCreditFreezeResponse> create_cbx_credit_freeze
+> <CreateCbxCreditFreezeResponse> create_cbx_credit_freeze(create_cbx_credit_freeze_request)
 
 Stop new draws. Leaves the drawn balance on its terms.
 
@@ -1163,10 +1197,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_credit_freeze_request = Crossly::CreateCbxCreditFreezeRequest.new({seller_user_id: 'seller_user_id_example', reason: 'reason_example'}) # CreateCbxCreditFreezeRequest | 
 
 begin
   # Stop new draws. Leaves the drawn balance on its terms.
-  result = api_instance.create_cbx_credit_freeze
+  result = api_instance.create_cbx_credit_freeze(create_cbx_credit_freeze_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_credit_freeze: #{e}"
@@ -1177,12 +1212,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxCreditFreezeResponse>, Integer, Hash)> create_cbx_credit_freeze_with_http_info
+> <Array(<CreateCbxCreditFreezeResponse>, Integer, Hash)> create_cbx_credit_freeze_with_http_info(create_cbx_credit_freeze_request)
 
 ```ruby
 begin
   # Stop new draws. Leaves the drawn balance on its terms.
-  data, status_code, headers = api_instance.create_cbx_credit_freeze_with_http_info
+  data, status_code, headers = api_instance.create_cbx_credit_freeze_with_http_info(create_cbx_credit_freeze_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxCreditFreezeResponse>
@@ -1193,7 +1228,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_credit_freeze_request** | **CreateCbxCreditFreezeRequest** |  |  |
 
 ### Return type
 
@@ -1205,7 +1242,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1277,7 +1314,7 @@ This endpoint does not need any parameter.
 
 ## create_cbx_credit_repay
 
-> <CreateCbxCreditRepayResponse> create_cbx_credit_repay
+> <CreateCbxCreditRepayResponse> create_cbx_credit_repay(create_cbx_credit_repay_request)
 
 Apply a repayment to a line.
 
@@ -1295,10 +1332,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_credit_repay_request = Crossly::CreateCbxCreditRepayRequest.new({seller_user_id: 'seller_user_id_example', cents: 3.56, kind: 'repay_payout', external_id: 'external_id_example'}) # CreateCbxCreditRepayRequest | 
 
 begin
   # Apply a repayment to a line.
-  result = api_instance.create_cbx_credit_repay
+  result = api_instance.create_cbx_credit_repay(create_cbx_credit_repay_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_credit_repay: #{e}"
@@ -1309,12 +1347,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxCreditRepayResponse>, Integer, Hash)> create_cbx_credit_repay_with_http_info
+> <Array(<CreateCbxCreditRepayResponse>, Integer, Hash)> create_cbx_credit_repay_with_http_info(create_cbx_credit_repay_request)
 
 ```ruby
 begin
   # Apply a repayment to a line.
-  data, status_code, headers = api_instance.create_cbx_credit_repay_with_http_info
+  data, status_code, headers = api_instance.create_cbx_credit_repay_with_http_info(create_cbx_credit_repay_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxCreditRepayResponse>
@@ -1325,7 +1363,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_credit_repay_request** | **CreateCbxCreditRepayRequest** |  |  |
 
 ### Return type
 
@@ -1337,13 +1377,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_disbursement_rule
 
-> <CreateCbxDisbursementRuleResponse> create_cbx_disbursement_rule
+> <CreateCbxDisbursementRuleResponse> create_cbx_disbursement_rule(create_cbx_disbursement_rule_request)
 
 Fire a distribution when the events pool crosses a threshold.
 
@@ -1361,10 +1401,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_disbursement_rule_request = Crossly::CreateCbxDisbursementRuleRequest.new({name: 'name_example', threshold_base_units: 3.56}) # CreateCbxDisbursementRuleRequest | 
 
 begin
   # Fire a distribution when the events pool crosses a threshold.
-  result = api_instance.create_cbx_disbursement_rule
+  result = api_instance.create_cbx_disbursement_rule(create_cbx_disbursement_rule_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_disbursement_rule: #{e}"
@@ -1375,12 +1416,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxDisbursementRuleResponse>, Integer, Hash)> create_cbx_disbursement_rule_with_http_info
+> <Array(<CreateCbxDisbursementRuleResponse>, Integer, Hash)> create_cbx_disbursement_rule_with_http_info(create_cbx_disbursement_rule_request)
 
 ```ruby
 begin
   # Fire a distribution when the events pool crosses a threshold.
-  data, status_code, headers = api_instance.create_cbx_disbursement_rule_with_http_info
+  data, status_code, headers = api_instance.create_cbx_disbursement_rule_with_http_info(create_cbx_disbursement_rule_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxDisbursementRuleResponse>
@@ -1391,7 +1432,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_disbursement_rule_request** | **CreateCbxDisbursementRuleRequest** |  |  |
 
 ### Return type
 
@@ -1403,7 +1446,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1545,7 +1588,7 @@ end
 
 ## create_cbx_earn_tier
 
-> <CreateCbxEarnTierResponse> create_cbx_earn_tier
+> <CreateCbxEarnTierResponse> create_cbx_earn_tier(create_cbx_earn_tier_request)
 
 Define an earn term.
 
@@ -1563,10 +1606,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_earn_tier_request = Crossly::CreateCbxEarnTierRequest.new({slug: 'slug_example', label: 'label_example', maturation_days: 3.56, earn_rate_bps: 3.56}) # CreateCbxEarnTierRequest | 
 
 begin
   # Define an earn term.
-  result = api_instance.create_cbx_earn_tier
+  result = api_instance.create_cbx_earn_tier(create_cbx_earn_tier_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_earn_tier: #{e}"
@@ -1577,12 +1621,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxEarnTierResponse>, Integer, Hash)> create_cbx_earn_tier_with_http_info
+> <Array(<CreateCbxEarnTierResponse>, Integer, Hash)> create_cbx_earn_tier_with_http_info(create_cbx_earn_tier_request)
 
 ```ruby
 begin
   # Define an earn term.
-  data, status_code, headers = api_instance.create_cbx_earn_tier_with_http_info
+  data, status_code, headers = api_instance.create_cbx_earn_tier_with_http_info(create_cbx_earn_tier_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxEarnTierResponse>
@@ -1593,7 +1637,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_earn_tier_request** | **CreateCbxEarnTierRequest** |  |  |
 
 ### Return type
 
@@ -1605,13 +1651,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_rate_quote
 
-> <CreateCbxRateQuoteResponse> create_cbx_rate_quote
+> <CreateCbxRateQuoteResponse> create_cbx_rate_quote(create_cbx_rate_quote_request)
 
 What would this order earn, and why.
 
@@ -1629,10 +1675,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_rate_quote_request = Crossly::CreateCbxRateQuoteRequest.new({subject_id: 'subject_id_example', paid_cents: 3.56}) # CreateCbxRateQuoteRequest | 
 
 begin
   # What would this order earn, and why.
-  result = api_instance.create_cbx_rate_quote
+  result = api_instance.create_cbx_rate_quote(create_cbx_rate_quote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_rate_quote: #{e}"
@@ -1643,12 +1690,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxRateQuoteResponse>, Integer, Hash)> create_cbx_rate_quote_with_http_info
+> <Array(<CreateCbxRateQuoteResponse>, Integer, Hash)> create_cbx_rate_quote_with_http_info(create_cbx_rate_quote_request)
 
 ```ruby
 begin
   # What would this order earn, and why.
-  data, status_code, headers = api_instance.create_cbx_rate_quote_with_http_info
+  data, status_code, headers = api_instance.create_cbx_rate_quote_with_http_info(create_cbx_rate_quote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxRateQuoteResponse>
@@ -1659,7 +1706,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_rate_quote_request** | **CreateCbxRateQuoteRequest** |  |  |
 
 ### Return type
 
@@ -1671,13 +1720,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_redemption
 
-> <CreateCbxRedemptionResponse> create_cbx_redemption
+> <CreateCbxRedemptionResponse> create_cbx_redemption(create_cbx_redemption_request)
 
 Pay for a service in CBX.
 
@@ -1695,10 +1744,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_redemption_request = Crossly::CreateCbxRedemptionRequest.new({service_kind: 'service_kind_example', list_price_cents: 3.56, subject_id: 'subject_id_example', external_id: 'external_id_example'}) # CreateCbxRedemptionRequest | 
 
 begin
   # Pay for a service in CBX.
-  result = api_instance.create_cbx_redemption
+  result = api_instance.create_cbx_redemption(create_cbx_redemption_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_redemption: #{e}"
@@ -1709,12 +1759,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxRedemptionResponse>, Integer, Hash)> create_cbx_redemption_with_http_info
+> <Array(<CreateCbxRedemptionResponse>, Integer, Hash)> create_cbx_redemption_with_http_info(create_cbx_redemption_request)
 
 ```ruby
 begin
   # Pay for a service in CBX.
-  data, status_code, headers = api_instance.create_cbx_redemption_with_http_info
+  data, status_code, headers = api_instance.create_cbx_redemption_with_http_info(create_cbx_redemption_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxRedemptionResponse>
@@ -1725,7 +1775,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_redemption_request** | **CreateCbxRedemptionRequest** |  |  |
 
 ### Return type
 
@@ -1737,13 +1789,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_redemption_quote
 
-> <CreateCbxRedemptionQuoteResponse> create_cbx_redemption_quote
+> <CreateCbxRedemptionQuoteResponse> create_cbx_redemption_quote(create_cbx_redemption_quote_request)
 
 What a service costs in tokens right now.
 
@@ -1761,10 +1813,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_redemption_quote_request = Crossly::CreateCbxRedemptionQuoteRequest.new({service_kind: 'service_kind_example', list_price_cents: 3.56}) # CreateCbxRedemptionQuoteRequest | 
 
 begin
   # What a service costs in tokens right now.
-  result = api_instance.create_cbx_redemption_quote
+  result = api_instance.create_cbx_redemption_quote(create_cbx_redemption_quote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_redemption_quote: #{e}"
@@ -1775,12 +1828,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxRedemptionQuoteResponse>, Integer, Hash)> create_cbx_redemption_quote_with_http_info
+> <Array(<CreateCbxRedemptionQuoteResponse>, Integer, Hash)> create_cbx_redemption_quote_with_http_info(create_cbx_redemption_quote_request)
 
 ```ruby
 begin
   # What a service costs in tokens right now.
-  data, status_code, headers = api_instance.create_cbx_redemption_quote_with_http_info
+  data, status_code, headers = api_instance.create_cbx_redemption_quote_with_http_info(create_cbx_redemption_quote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxRedemptionQuoteResponse>
@@ -1791,7 +1844,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_redemption_quote_request** | **CreateCbxRedemptionQuoteRequest** |  |  |
 
 ### Return type
 
@@ -1803,13 +1858,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_reserve
 
-> <CreateCbxReserveResponse> create_cbx_reserve
+> <CreateCbxReserveResponse> create_cbx_reserve(create_cbx_reserve_request)
 
 Register your reserve after granting the payout allowance. Verified on chain: mint, delegate and allowance are read from the token account.
 
@@ -1825,10 +1880,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_reserve_request = Crossly::CreateCbxReserveRequest.new({reserve_token_account: 'reserve_token_account_example'}) # CreateCbxReserveRequest | 
 
 begin
   # Register your reserve after granting the payout allowance. Verified on chain: mint, delegate and allowance are read from the token account.
-  result = api_instance.create_cbx_reserve
+  result = api_instance.create_cbx_reserve(create_cbx_reserve_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_reserve: #{e}"
@@ -1839,12 +1895,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxReserveResponse>, Integer, Hash)> create_cbx_reserve_with_http_info
+> <Array(<CreateCbxReserveResponse>, Integer, Hash)> create_cbx_reserve_with_http_info(create_cbx_reserve_request)
 
 ```ruby
 begin
   # Register your reserve after granting the payout allowance. Verified on chain: mint, delegate and allowance are read from the token account.
-  data, status_code, headers = api_instance.create_cbx_reserve_with_http_info
+  data, status_code, headers = api_instance.create_cbx_reserve_with_http_info(create_cbx_reserve_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxReserveResponse>
@@ -1855,7 +1911,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_reserve_request** | **CreateCbxReserveRequest** |  |  |
 
 ### Return type
 
@@ -1867,13 +1925,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_revenue_sweep
 
-> <CreateCbxRevenueSweepResponse> create_cbx_revenue_sweep
+> <CreateCbxRevenueSweepResponse> create_cbx_revenue_sweep(opts)
 
 Move accrued revenue from the reserve to your revenue wallet.
 
@@ -1891,10 +1949,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+opts = {
+  create_cbx_revenue_sweep_request: Crossly::CreateCbxRevenueSweepRequest.new # CreateCbxRevenueSweepRequest | 
+}
 
 begin
   # Move accrued revenue from the reserve to your revenue wallet.
-  result = api_instance.create_cbx_revenue_sweep
+  result = api_instance.create_cbx_revenue_sweep(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_revenue_sweep: #{e}"
@@ -1905,12 +1966,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxRevenueSweepResponse>, Integer, Hash)> create_cbx_revenue_sweep_with_http_info
+> <Array(<CreateCbxRevenueSweepResponse>, Integer, Hash)> create_cbx_revenue_sweep_with_http_info(opts)
 
 ```ruby
 begin
   # Move accrued revenue from the reserve to your revenue wallet.
-  data, status_code, headers = api_instance.create_cbx_revenue_sweep_with_http_info
+  data, status_code, headers = api_instance.create_cbx_revenue_sweep_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxRevenueSweepResponse>
@@ -1921,7 +1982,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_revenue_sweep_request** | **CreateCbxRevenueSweepRequest** |  | [optional] |
 
 ### Return type
 
@@ -1933,13 +1996,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_spend
 
-> <CreateCbxSpendResponse> create_cbx_spend
+> <CreateCbxSpendResponse> create_cbx_spend(create_cbx_spend_request)
 
 Redeem a user's CBX against an order.
 
@@ -1957,10 +2020,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_spend_request = Crossly::CreateCbxSpendRequest.new({subject_id: 'subject_id_example', base_units: 3.56, crossly_fee_cents_on_order: 3.56, external_id: 'external_id_example'}) # CreateCbxSpendRequest | 
 
 begin
   # Redeem a user's CBX against an order.
-  result = api_instance.create_cbx_spend
+  result = api_instance.create_cbx_spend(create_cbx_spend_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_spend: #{e}"
@@ -1971,12 +2035,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSpendResponse>, Integer, Hash)> create_cbx_spend_with_http_info
+> <Array(<CreateCbxSpendResponse>, Integer, Hash)> create_cbx_spend_with_http_info(create_cbx_spend_request)
 
 ```ruby
 begin
   # Redeem a user's CBX against an order.
-  data, status_code, headers = api_instance.create_cbx_spend_with_http_info
+  data, status_code, headers = api_instance.create_cbx_spend_with_http_info(create_cbx_spend_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSpendResponse>
@@ -1987,7 +2051,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_spend_request** | **CreateCbxSpendRequest** |  |  |
 
 ### Return type
 
@@ -1999,13 +2065,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_spend_reverse
 
-> <CreateCbxSpendReverseResponse> create_cbx_spend_reverse(external_id)
+> <CreateCbxSpendReverseResponse> create_cbx_spend_reverse(external_id, reason_request)
 
 Refund a spend — give the tokens back and claw the skim back.
 
@@ -2024,10 +2090,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 external_id = 'external_id_example' # String | 
+reason_request = Crossly::ReasonRequest.new({reason: 'reason_example'}) # ReasonRequest | 
 
 begin
   # Refund a spend — give the tokens back and claw the skim back.
-  result = api_instance.create_cbx_spend_reverse(external_id)
+  result = api_instance.create_cbx_spend_reverse(external_id, reason_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_spend_reverse: #{e}"
@@ -2038,12 +2105,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSpendReverseResponse>, Integer, Hash)> create_cbx_spend_reverse_with_http_info(external_id)
+> <Array(<CreateCbxSpendReverseResponse>, Integer, Hash)> create_cbx_spend_reverse_with_http_info(external_id, reason_request)
 
 ```ruby
 begin
   # Refund a spend — give the tokens back and claw the skim back.
-  data, status_code, headers = api_instance.create_cbx_spend_reverse_with_http_info(external_id)
+  data, status_code, headers = api_instance.create_cbx_spend_reverse_with_http_info(external_id, reason_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSpendReverseResponse>
@@ -2057,6 +2124,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **external_id** | **String** |  |  |
+| **reason_request** | **ReasonRequest** |  |  |
 
 ### Return type
 
@@ -2068,13 +2136,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_stake_tier
 
-> <CreateCbxStakeTierResponse> create_cbx_stake_tier
+> <CreateCbxStakeTierResponse> create_cbx_stake_tier(create_cbx_stake_tier_request)
 
 Define a staking tier.
 
@@ -2092,10 +2160,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_stake_tier_request = Crossly::CreateCbxStakeTierRequest.new({slug: 'slug_example', label: 'label_example', min_base_units: 3.56}) # CreateCbxStakeTierRequest | 
 
 begin
   # Define a staking tier.
-  result = api_instance.create_cbx_stake_tier
+  result = api_instance.create_cbx_stake_tier(create_cbx_stake_tier_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_stake_tier: #{e}"
@@ -2106,12 +2175,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxStakeTierResponse>, Integer, Hash)> create_cbx_stake_tier_with_http_info
+> <Array(<CreateCbxStakeTierResponse>, Integer, Hash)> create_cbx_stake_tier_with_http_info(create_cbx_stake_tier_request)
 
 ```ruby
 begin
   # Define a staking tier.
-  data, status_code, headers = api_instance.create_cbx_stake_tier_with_http_info
+  data, status_code, headers = api_instance.create_cbx_stake_tier_with_http_info(create_cbx_stake_tier_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxStakeTierResponse>
@@ -2122,7 +2191,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_stake_tier_request** | **CreateCbxStakeTierRequest** |  |  |
 
 ### Return type
 
@@ -2134,13 +2205,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_subject
 
-> <CreateCbxSubjectResponse> create_cbx_subject
+> <CreateCbxSubjectResponse> create_cbx_subject(create_cbx_subject_request)
 
 Map one of your user ids to a CBX subject.
 
@@ -2158,10 +2229,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_subject_request = Crossly::CreateCbxSubjectRequest.new({external_user_id: 'external_user_id_example'}) # CreateCbxSubjectRequest | 
 
 begin
   # Map one of your user ids to a CBX subject.
-  result = api_instance.create_cbx_subject
+  result = api_instance.create_cbx_subject(create_cbx_subject_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_subject: #{e}"
@@ -2172,12 +2244,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSubjectResponse>, Integer, Hash)> create_cbx_subject_with_http_info
+> <Array(<CreateCbxSubjectResponse>, Integer, Hash)> create_cbx_subject_with_http_info(create_cbx_subject_request)
 
 ```ruby
 begin
   # Map one of your user ids to a CBX subject.
-  data, status_code, headers = api_instance.create_cbx_subject_with_http_info
+  data, status_code, headers = api_instance.create_cbx_subject_with_http_info(create_cbx_subject_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSubjectResponse>
@@ -2188,7 +2260,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_subject_request** | **CreateCbxSubjectRequest** |  |  |
 
 ### Return type
 
@@ -2200,13 +2274,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_subject_grant
 
-> <CreateCbxSubjectGrantResponse> create_cbx_subject_grant(subject_id)
+> <CreateCbxSubjectGrantResponse> create_cbx_subject_grant(subject_id, create_cbx_subject_grant_request)
 
 Issue grant credit — in-platform, non-withdrawable.
 
@@ -2225,10 +2299,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 subject_id = 'subject_id_example' # String | 
+create_cbx_subject_grant_request = Crossly::CreateCbxSubjectGrantRequest.new({base_units: 3.56, kind: 'grant_ad_credit'}) # CreateCbxSubjectGrantRequest | 
 
 begin
   # Issue grant credit — in-platform, non-withdrawable.
-  result = api_instance.create_cbx_subject_grant(subject_id)
+  result = api_instance.create_cbx_subject_grant(subject_id, create_cbx_subject_grant_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_subject_grant: #{e}"
@@ -2239,12 +2314,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSubjectGrantResponse>, Integer, Hash)> create_cbx_subject_grant_with_http_info(subject_id)
+> <Array(<CreateCbxSubjectGrantResponse>, Integer, Hash)> create_cbx_subject_grant_with_http_info(subject_id, create_cbx_subject_grant_request)
 
 ```ruby
 begin
   # Issue grant credit — in-platform, non-withdrawable.
-  data, status_code, headers = api_instance.create_cbx_subject_grant_with_http_info(subject_id)
+  data, status_code, headers = api_instance.create_cbx_subject_grant_with_http_info(subject_id, create_cbx_subject_grant_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSubjectGrantResponse>
@@ -2258,6 +2333,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **subject_id** | **String** |  |  |
+| **create_cbx_subject_grant_request** | **CreateCbxSubjectGrantRequest** |  |  |
 
 ### Return type
 
@@ -2269,13 +2345,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_subject_spend_plan
 
-> <CreateCbxSubjectSpendPlanResponse> create_cbx_subject_spend_plan(subject_id)
+> <CreateCbxSubjectSpendPlanResponse> create_cbx_subject_spend_plan(subject_id, create_cbx_subject_spend_plan_request)
 
 Which balances would pay for a spend, and in what order.
 
@@ -2294,10 +2370,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 subject_id = 'subject_id_example' # String | 
+create_cbx_subject_spend_plan_request = Crossly::CreateCbxSubjectSpendPlanRequest.new({base_units: 3.56}) # CreateCbxSubjectSpendPlanRequest | 
 
 begin
   # Which balances would pay for a spend, and in what order.
-  result = api_instance.create_cbx_subject_spend_plan(subject_id)
+  result = api_instance.create_cbx_subject_spend_plan(subject_id, create_cbx_subject_spend_plan_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_subject_spend_plan: #{e}"
@@ -2308,12 +2385,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSubjectSpendPlanResponse>, Integer, Hash)> create_cbx_subject_spend_plan_with_http_info(subject_id)
+> <Array(<CreateCbxSubjectSpendPlanResponse>, Integer, Hash)> create_cbx_subject_spend_plan_with_http_info(subject_id, create_cbx_subject_spend_plan_request)
 
 ```ruby
 begin
   # Which balances would pay for a spend, and in what order.
-  data, status_code, headers = api_instance.create_cbx_subject_spend_plan_with_http_info(subject_id)
+  data, status_code, headers = api_instance.create_cbx_subject_spend_plan_with_http_info(subject_id, create_cbx_subject_spend_plan_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSubjectSpendPlanResponse>
@@ -2327,6 +2404,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **subject_id** | **String** |  |  |
+| **create_cbx_subject_spend_plan_request** | **CreateCbxSubjectSpendPlanRequest** |  |  |
 
 ### Return type
 
@@ -2338,13 +2416,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_subject_stake
 
-> <CreateCbxSubjectStakeResponse> create_cbx_subject_stake(subject_id)
+> <CreateCbxSubjectStakeResponse> create_cbx_subject_stake(subject_id, create_cbx_subject_stake_request)
 
 Lock a subject's tokens for a tier.
 
@@ -2363,10 +2441,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 subject_id = 'subject_id_example' # String | 
+create_cbx_subject_stake_request = Crossly::CreateCbxSubjectStakeRequest.new({base_units: 3.56}) # CreateCbxSubjectStakeRequest | 
 
 begin
   # Lock a subject's tokens for a tier.
-  result = api_instance.create_cbx_subject_stake(subject_id)
+  result = api_instance.create_cbx_subject_stake(subject_id, create_cbx_subject_stake_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_subject_stake: #{e}"
@@ -2377,12 +2456,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxSubjectStakeResponse>, Integer, Hash)> create_cbx_subject_stake_with_http_info(subject_id)
+> <Array(<CreateCbxSubjectStakeResponse>, Integer, Hash)> create_cbx_subject_stake_with_http_info(subject_id, create_cbx_subject_stake_request)
 
 ```ruby
 begin
   # Lock a subject's tokens for a tier.
-  data, status_code, headers = api_instance.create_cbx_subject_stake_with_http_info(subject_id)
+  data, status_code, headers = api_instance.create_cbx_subject_stake_with_http_info(subject_id, create_cbx_subject_stake_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxSubjectStakeResponse>
@@ -2396,6 +2475,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **subject_id** | **String** |  |  |
+| **create_cbx_subject_stake_request** | **CreateCbxSubjectStakeRequest** |  |  |
 
 ### Return type
 
@@ -2407,7 +2487,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2482,7 +2562,7 @@ end
 
 ## create_cbx_wallet_challenge
 
-> <CreateCbxWalletChallengeResponse> create_cbx_wallet_challenge
+> <CreateCbxWalletChallengeResponse> create_cbx_wallet_challenge(create_cbx_wallet_challenge_request)
 
 Start wallet verification. Returns a message for the user to sign.
 
@@ -2500,10 +2580,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_wallet_challenge_request = Crossly::CreateCbxWalletChallengeRequest.new({subject_id: 'subject_id_example', address: 'address_example'}) # CreateCbxWalletChallengeRequest | 
 
 begin
   # Start wallet verification. Returns a message for the user to sign.
-  result = api_instance.create_cbx_wallet_challenge
+  result = api_instance.create_cbx_wallet_challenge(create_cbx_wallet_challenge_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_wallet_challenge: #{e}"
@@ -2514,12 +2595,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxWalletChallengeResponse>, Integer, Hash)> create_cbx_wallet_challenge_with_http_info
+> <Array(<CreateCbxWalletChallengeResponse>, Integer, Hash)> create_cbx_wallet_challenge_with_http_info(create_cbx_wallet_challenge_request)
 
 ```ruby
 begin
   # Start wallet verification. Returns a message for the user to sign.
-  data, status_code, headers = api_instance.create_cbx_wallet_challenge_with_http_info
+  data, status_code, headers = api_instance.create_cbx_wallet_challenge_with_http_info(create_cbx_wallet_challenge_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxWalletChallengeResponse>
@@ -2530,7 +2611,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_wallet_challenge_request** | **CreateCbxWalletChallengeRequest** |  |  |
 
 ### Return type
 
@@ -2542,13 +2625,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_wallet_payment_confirm
 
-> <CreateCbxWalletPaymentConfirmResponse> create_cbx_wallet_payment_confirm
+> <CreateCbxWalletPaymentConfirmResponse> create_cbx_wallet_payment_confirm(create_cbx_wallet_payment_confirm_request)
 
 Present the signature. Returns a ship / do-not-ship decision.
 
@@ -2566,10 +2649,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_wallet_payment_confirm_request = Crossly::CreateCbxWalletPaymentConfirmRequest.new({external_id: 'external_id_example', tx_sig: 'tx_sig_example'}) # CreateCbxWalletPaymentConfirmRequest | 
 
 begin
   # Present the signature. Returns a ship / do-not-ship decision.
-  result = api_instance.create_cbx_wallet_payment_confirm
+  result = api_instance.create_cbx_wallet_payment_confirm(create_cbx_wallet_payment_confirm_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_wallet_payment_confirm: #{e}"
@@ -2580,12 +2664,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxWalletPaymentConfirmResponse>, Integer, Hash)> create_cbx_wallet_payment_confirm_with_http_info
+> <Array(<CreateCbxWalletPaymentConfirmResponse>, Integer, Hash)> create_cbx_wallet_payment_confirm_with_http_info(create_cbx_wallet_payment_confirm_request)
 
 ```ruby
 begin
   # Present the signature. Returns a ship / do-not-ship decision.
-  data, status_code, headers = api_instance.create_cbx_wallet_payment_confirm_with_http_info
+  data, status_code, headers = api_instance.create_cbx_wallet_payment_confirm_with_http_info(create_cbx_wallet_payment_confirm_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxWalletPaymentConfirmResponse>
@@ -2596,7 +2680,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_wallet_payment_confirm_request** | **CreateCbxWalletPaymentConfirmRequest** |  |  |
 
 ### Return type
 
@@ -2608,13 +2694,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_wallet_payment_quote
 
-> <CreateCbxWalletPaymentQuoteResponse> create_cbx_wallet_payment_quote
+> <CreateCbxWalletPaymentQuoteResponse> create_cbx_wallet_payment_quote(create_cbx_wallet_payment_quote_request)
 
 Build a transfer for the buyer to sign themselves.
 
@@ -2632,10 +2718,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_wallet_payment_quote_request = Crossly::CreateCbxWalletPaymentQuoteRequest.new({payer_address: 'payer_address_example', value_cents: 3.56}) # CreateCbxWalletPaymentQuoteRequest | 
 
 begin
   # Build a transfer for the buyer to sign themselves.
-  result = api_instance.create_cbx_wallet_payment_quote
+  result = api_instance.create_cbx_wallet_payment_quote(create_cbx_wallet_payment_quote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_wallet_payment_quote: #{e}"
@@ -2646,12 +2733,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxWalletPaymentQuoteResponse>, Integer, Hash)> create_cbx_wallet_payment_quote_with_http_info
+> <Array(<CreateCbxWalletPaymentQuoteResponse>, Integer, Hash)> create_cbx_wallet_payment_quote_with_http_info(create_cbx_wallet_payment_quote_request)
 
 ```ruby
 begin
   # Build a transfer for the buyer to sign themselves.
-  data, status_code, headers = api_instance.create_cbx_wallet_payment_quote_with_http_info
+  data, status_code, headers = api_instance.create_cbx_wallet_payment_quote_with_http_info(create_cbx_wallet_payment_quote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxWalletPaymentQuoteResponse>
@@ -2662,7 +2749,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_wallet_payment_quote_request** | **CreateCbxWalletPaymentQuoteRequest** |  |  |
 
 ### Return type
 
@@ -2674,13 +2763,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_wallet_payment_resolve
 
-> <CreateCbxWalletPaymentResolveResponse> create_cbx_wallet_payment_resolve(payment_id)
+> <CreateCbxWalletPaymentResolveResponse> create_cbx_wallet_payment_resolve(payment_id, create_cbx_wallet_payment_resolve_request)
 
 A human decides on a held payment.
 
@@ -2699,10 +2788,11 @@ end
 
 api_instance = Crossly::CBXApi.new
 payment_id = 'payment_id_example' # String | 
+create_cbx_wallet_payment_resolve_request = Crossly::CreateCbxWalletPaymentResolveRequest.new({decision: 'release', note: 'note_example', reviewed_by: 'reviewed_by_example'}) # CreateCbxWalletPaymentResolveRequest | 
 
 begin
   # A human decides on a held payment.
-  result = api_instance.create_cbx_wallet_payment_resolve(payment_id)
+  result = api_instance.create_cbx_wallet_payment_resolve(payment_id, create_cbx_wallet_payment_resolve_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_wallet_payment_resolve: #{e}"
@@ -2713,12 +2803,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxWalletPaymentResolveResponse>, Integer, Hash)> create_cbx_wallet_payment_resolve_with_http_info(payment_id)
+> <Array(<CreateCbxWalletPaymentResolveResponse>, Integer, Hash)> create_cbx_wallet_payment_resolve_with_http_info(payment_id, create_cbx_wallet_payment_resolve_request)
 
 ```ruby
 begin
   # A human decides on a held payment.
-  data, status_code, headers = api_instance.create_cbx_wallet_payment_resolve_with_http_info(payment_id)
+  data, status_code, headers = api_instance.create_cbx_wallet_payment_resolve_with_http_info(payment_id, create_cbx_wallet_payment_resolve_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxWalletPaymentResolveResponse>
@@ -2732,6 +2822,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **payment_id** | **String** |  |  |
+| **create_cbx_wallet_payment_resolve_request** | **CreateCbxWalletPaymentResolveRequest** |  |  |
 
 ### Return type
 
@@ -2743,13 +2834,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_cbx_wallet_verify
 
-> <CreateCbxWalletVerifyResponse> create_cbx_wallet_verify
+> <CreateCbxWalletVerifyResponse> create_cbx_wallet_verify(create_cbx_wallet_verify_request)
 
 Complete wallet verification with the user's signature.
 
@@ -2767,10 +2858,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CBXApi.new
+create_cbx_wallet_verify_request = Crossly::CreateCbxWalletVerifyRequest.new({subject_id: 'subject_id_example', wallet_id: 'wallet_id_example', signature: 'signature_example'}) # CreateCbxWalletVerifyRequest | 
 
 begin
   # Complete wallet verification with the user's signature.
-  result = api_instance.create_cbx_wallet_verify
+  result = api_instance.create_cbx_wallet_verify(create_cbx_wallet_verify_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CBXApi->create_cbx_wallet_verify: #{e}"
@@ -2781,12 +2873,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCbxWalletVerifyResponse>, Integer, Hash)> create_cbx_wallet_verify_with_http_info
+> <Array(<CreateCbxWalletVerifyResponse>, Integer, Hash)> create_cbx_wallet_verify_with_http_info(create_cbx_wallet_verify_request)
 
 ```ruby
 begin
   # Complete wallet verification with the user's signature.
-  data, status_code, headers = api_instance.create_cbx_wallet_verify_with_http_info
+  data, status_code, headers = api_instance.create_cbx_wallet_verify_with_http_info(create_cbx_wallet_verify_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCbxWalletVerifyResponse>
@@ -2797,7 +2889,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_cbx_wallet_verify_request** | **CreateCbxWalletVerifyRequest** |  |  |
 
 ### Return type
 
@@ -2809,7 +2903,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

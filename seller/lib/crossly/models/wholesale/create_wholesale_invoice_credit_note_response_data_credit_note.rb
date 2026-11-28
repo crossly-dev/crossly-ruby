@@ -21,21 +21,21 @@ module Crossly
 
     attr_accessor :created_at
 
+    attr_accessor :kind
+
     attr_accessor :invoice_id
+
+    attr_accessor :note
+
+    attr_accessor :created_by_user_id
 
     attr_accessor :buyer_user_id
 
     attr_accessor :reason
 
-    attr_accessor :kind
-
     attr_accessor :amount_cents
 
     attr_accessor :seller_user_id
-
-    attr_accessor :note
-
-    attr_accessor :created_by_user_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -43,14 +43,14 @@ module Crossly
         :'number' => :'number',
         :'id' => :'id',
         :'created_at' => :'createdAt',
+        :'kind' => :'kind',
         :'invoice_id' => :'invoiceId',
+        :'note' => :'note',
+        :'created_by_user_id' => :'createdByUserId',
         :'buyer_user_id' => :'buyerUserId',
         :'reason' => :'reason',
-        :'kind' => :'kind',
         :'amount_cents' => :'amountCents',
-        :'seller_user_id' => :'sellerUserId',
-        :'note' => :'note',
-        :'created_by_user_id' => :'createdByUserId'
+        :'seller_user_id' => :'sellerUserId'
       }
     end
 
@@ -65,14 +65,14 @@ module Crossly
         :'number' => :'String',
         :'id' => :'String',
         :'created_at' => :'Time',
+        :'kind' => :'String',
         :'invoice_id' => :'String',
+        :'note' => :'String',
+        :'created_by_user_id' => :'String',
         :'buyer_user_id' => :'String',
         :'reason' => :'String',
-        :'kind' => :'String',
         :'amount_cents' => :'Float',
-        :'seller_user_id' => :'String',
-        :'note' => :'String',
-        :'created_by_user_id' => :'String'
+        :'seller_user_id' => :'String'
       }
     end
 
@@ -80,9 +80,9 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'number',
-        :'reason',
         :'note',
-        :'created_by_user_id'
+        :'created_by_user_id',
+        :'reason',
       ])
     end
 
@@ -113,8 +113,20 @@ module Crossly
         self.created_at = attributes[:'created_at']
       end
 
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
       if attributes.key?(:'invoice_id')
         self.invoice_id = attributes[:'invoice_id']
+      end
+
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
+
+      if attributes.key?(:'created_by_user_id')
+        self.created_by_user_id = attributes[:'created_by_user_id']
       end
 
       if attributes.key?(:'buyer_user_id')
@@ -125,24 +137,12 @@ module Crossly
         self.reason = attributes[:'reason']
       end
 
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
-      end
-
       if attributes.key?(:'amount_cents')
         self.amount_cents = attributes[:'amount_cents']
       end
 
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
-      end
-
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
-      end
-
-      if attributes.key?(:'created_by_user_id')
-        self.created_by_user_id = attributes[:'created_by_user_id']
       end
     end
 
@@ -158,16 +158,16 @@ module Crossly
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
       if @invoice_id.nil?
         invalid_properties.push('invalid value for "invoice_id", invoice_id cannot be nil.')
       end
 
       if @buyer_user_id.nil?
         invalid_properties.push('invalid value for "buyer_user_id", buyer_user_id cannot be nil.')
-      end
-
-      if @kind.nil?
-        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
       if @amount_cents.nil?
@@ -186,9 +186,9 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @created_at.nil?
+      return false if @kind.nil?
       return false if @invoice_id.nil?
       return false if @buyer_user_id.nil?
-      return false if @kind.nil?
       return false if @amount_cents.nil?
       return false if @seller_user_id.nil?
       true
@@ -202,14 +202,14 @@ module Crossly
           number == o.number &&
           id == o.id &&
           created_at == o.created_at &&
+          kind == o.kind &&
           invoice_id == o.invoice_id &&
+          note == o.note &&
+          created_by_user_id == o.created_by_user_id &&
           buyer_user_id == o.buyer_user_id &&
           reason == o.reason &&
-          kind == o.kind &&
           amount_cents == o.amount_cents &&
-          seller_user_id == o.seller_user_id &&
-          note == o.note &&
-          created_by_user_id == o.created_by_user_id
+          seller_user_id == o.seller_user_id
     end
 
     # @see the `==` method
@@ -221,7 +221,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [number, id, created_at, invoice_id, buyer_user_id, reason, kind, amount_cents, seller_user_id, note, created_by_user_id].hash
+      [number, id, created_at, kind, invoice_id, note, created_by_user_id, buyer_user_id, reason, amount_cents, seller_user_id].hash
     end
 
     # Builds the object from hash

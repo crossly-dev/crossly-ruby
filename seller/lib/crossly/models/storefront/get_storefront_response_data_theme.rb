@@ -149,11 +149,11 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      font_validator = EnumAttributeValidator.new('String', ["system", "display", "mono", "serif", "rounded"])
+      font_validator = EnumAttributeValidator.new('String', ["system", "rounded", "display", "mono", "serif"])
       return false unless font_validator.valid?(@font)
       density_validator = EnumAttributeValidator.new('String', ["compact", "comfortable", "spacious"])
       return false unless density_validator.valid?(@density)
-      button_style_validator = EnumAttributeValidator.new('String', ["square", "rounded", "pill"])
+      button_style_validator = EnumAttributeValidator.new('String', ["square", "pill", "rounded"])
       return false unless button_style_validator.valid?(@button_style)
       true
     end
@@ -161,7 +161,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] font Object to be assigned
     def font=(font)
-      validator = EnumAttributeValidator.new('String', ["system", "display", "mono", "serif", "rounded"])
+      validator = EnumAttributeValidator.new('String', ["system", "rounded", "display", "mono", "serif"])
       unless validator.valid?(font)
         fail ArgumentError, "invalid value for \"font\", must be one of #{validator.allowable_values}."
       end
@@ -181,7 +181,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] button_style Object to be assigned
     def button_style=(button_style)
-      validator = EnumAttributeValidator.new('String', ["square", "rounded", "pill"])
+      validator = EnumAttributeValidator.new('String', ["square", "pill", "rounded"])
       unless validator.valid?(button_style)
         fail ArgumentError, "invalid value for \"button_style\", must be one of #{validator.allowable_values}."
       end

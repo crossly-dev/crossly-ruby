@@ -67,7 +67,7 @@ module Crossly
         :'updated_at' => :'String',
         :'check' => :'CreatorCardSetResponseDataCheck',
         :'published_at' => :'String',
-        :'submitted' => :'CreateCreatorCardSetPublishResponseDataSubmitted',
+        :'submitted' => :'CreateCreatorCardGamePublishResponseDataSubmitted',
         :'game_id' => :'String',
         :'set_code' => :'String',
         :'published_version' => :'Float',

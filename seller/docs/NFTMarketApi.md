@@ -13,7 +13,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_nft_market_external_resale
 
-> <CreateNftMarketExternalResaleResponse> create_nft_market_external_resale
+> <CreateNftMarketExternalResaleResponse> create_nft_market_external_resale(create_nft_market_external_resale_request)
 
 Ops: record a Crossly NFT resold on ANY marketplace — maps mint → design and funds the pot. Admin PAT only.
 
@@ -29,10 +29,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::NFTMarketApi.new
+create_nft_market_external_resale_request = Crossly::CreateNftMarketExternalResaleRequest.new({mint_address: 'mint_address_example', gross_sale_cents: 3.56, tx_sig: 'tx_sig_example'}) # CreateNftMarketExternalResaleRequest | 
 
 begin
   # Ops: record a Crossly NFT resold on ANY marketplace — maps mint → design and funds the pot. Admin PAT only.
-  result = api_instance.create_nft_market_external_resale
+  result = api_instance.create_nft_market_external_resale(create_nft_market_external_resale_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling NFTMarketApi->create_nft_market_external_resale: #{e}"
@@ -43,12 +44,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateNftMarketExternalResaleResponse>, Integer, Hash)> create_nft_market_external_resale_with_http_info
+> <Array(<CreateNftMarketExternalResaleResponse>, Integer, Hash)> create_nft_market_external_resale_with_http_info(create_nft_market_external_resale_request)
 
 ```ruby
 begin
   # Ops: record a Crossly NFT resold on ANY marketplace — maps mint → design and funds the pot. Admin PAT only.
-  data, status_code, headers = api_instance.create_nft_market_external_resale_with_http_info
+  data, status_code, headers = api_instance.create_nft_market_external_resale_with_http_info(create_nft_market_external_resale_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateNftMarketExternalResaleResponse>
@@ -59,7 +60,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_nft_market_external_resale_request** | **CreateNftMarketExternalResaleRequest** |  |  |
 
 ### Return type
 
@@ -71,13 +74,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_nft_market_listing
 
-> <CreateNftMarketListingResponse> create_nft_market_listing
+> <CreateNftMarketListingResponse> create_nft_market_listing(create_nft_market_listing_request)
 
 List an NFT you own for resale on the Crossly marketplace.
 
@@ -93,10 +96,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::NFTMarketApi.new
+create_nft_market_listing_request = Crossly::CreateNftMarketListingRequest.new({ownership_id: 'ownership_id_example', price_cents: 3.56}) # CreateNftMarketListingRequest | 
 
 begin
   # List an NFT you own for resale on the Crossly marketplace.
-  result = api_instance.create_nft_market_listing
+  result = api_instance.create_nft_market_listing(create_nft_market_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling NFTMarketApi->create_nft_market_listing: #{e}"
@@ -107,12 +111,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateNftMarketListingResponse>, Integer, Hash)> create_nft_market_listing_with_http_info
+> <Array(<CreateNftMarketListingResponse>, Integer, Hash)> create_nft_market_listing_with_http_info(create_nft_market_listing_request)
 
 ```ruby
 begin
   # List an NFT you own for resale on the Crossly marketplace.
-  data, status_code, headers = api_instance.create_nft_market_listing_with_http_info
+  data, status_code, headers = api_instance.create_nft_market_listing_with_http_info(create_nft_market_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateNftMarketListingResponse>
@@ -123,7 +127,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_nft_market_listing_request** | **CreateNftMarketListingRequest** |  |  |
 
 ### Return type
 
@@ -135,7 +141,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -208,7 +214,7 @@ end
 
 ## create_nft_market_listing_confirm_sale
 
-> <OkResponse> create_nft_market_listing_confirm_sale(id)
+> <OkResponse> create_nft_market_listing_confirm_sale(id, create_nft_market_listing_confirm_sale_request)
 
 Ops: record a finalized on-Crossly NFT sale (verifies the royalty landed, funds the pot). Admin PAT only.
 
@@ -225,10 +231,11 @@ end
 
 api_instance = Crossly::NFTMarketApi.new
 id = 'id_example' # String | 
+create_nft_market_listing_confirm_sale_request = Crossly::CreateNftMarketListingConfirmSaleRequest.new({buyer_user_id: 'buyer_user_id_example', tx_sig: 'tx_sig_example'}) # CreateNftMarketListingConfirmSaleRequest | 
 
 begin
   # Ops: record a finalized on-Crossly NFT sale (verifies the royalty landed, funds the pot). Admin PAT only.
-  result = api_instance.create_nft_market_listing_confirm_sale(id)
+  result = api_instance.create_nft_market_listing_confirm_sale(id, create_nft_market_listing_confirm_sale_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling NFTMarketApi->create_nft_market_listing_confirm_sale: #{e}"
@@ -239,12 +246,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> create_nft_market_listing_confirm_sale_with_http_info(id)
+> <Array(<OkResponse>, Integer, Hash)> create_nft_market_listing_confirm_sale_with_http_info(id, create_nft_market_listing_confirm_sale_request)
 
 ```ruby
 begin
   # Ops: record a finalized on-Crossly NFT sale (verifies the royalty landed, funds the pot). Admin PAT only.
-  data, status_code, headers = api_instance.create_nft_market_listing_confirm_sale_with_http_info(id)
+  data, status_code, headers = api_instance.create_nft_market_listing_confirm_sale_with_http_info(id, create_nft_market_listing_confirm_sale_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -258,6 +265,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_nft_market_listing_confirm_sale_request** | **CreateNftMarketListingConfirmSaleRequest** |  |  |
 
 ### Return type
 
@@ -269,7 +277,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

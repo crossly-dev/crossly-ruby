@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a per-channel field rule.
+    # @param create_field_rule_request [CreateFieldRuleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListFieldRulesItem]
-    def create_field_rule(opts = {})
-      data, _status_code, _headers = create_field_rule_with_http_info(opts)
+    def create_field_rule(create_field_rule_request, opts = {})
+      data, _status_code, _headers = create_field_rule_with_http_info(create_field_rule_request, opts)
       data
     end
 
     # Create a per-channel field rule.
+    # @param create_field_rule_request [CreateFieldRuleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListFieldRulesItem, Integer, Hash)>] ListFieldRulesItem data, response status code and response headers
-    def create_field_rule_with_http_info(opts = {})
+    def create_field_rule_with_http_info(create_field_rule_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FieldRulesApi.create_field_rule ...'
+      end
+      # verify the required parameter 'create_field_rule_request' is set
+      if @api_client.config.client_side_validation && create_field_rule_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_field_rule_request' when calling FieldRulesApi.create_field_rule"
       end
       # resource path
       local_var_path = '/v1/field-rules'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_field_rule_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListFieldRulesItem'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Preview field-rule output for a listing on one channel.
+    # @param create_field_rule_preview_request [CreateFieldRulePreviewRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFieldRulePreviewResponse]
-    def create_field_rule_preview(opts = {})
-      data, _status_code, _headers = create_field_rule_preview_with_http_info(opts)
+    def create_field_rule_preview(create_field_rule_preview_request, opts = {})
+      data, _status_code, _headers = create_field_rule_preview_with_http_info(create_field_rule_preview_request, opts)
       data
     end
 
     # Preview field-rule output for a listing on one channel.
+    # @param create_field_rule_preview_request [CreateFieldRulePreviewRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFieldRulePreviewResponse, Integer, Hash)>] CreateFieldRulePreviewResponse data, response status code and response headers
-    def create_field_rule_preview_with_http_info(opts = {})
+    def create_field_rule_preview_with_http_info(create_field_rule_preview_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FieldRulesApi.create_field_rule_preview ...'
+      end
+      # verify the required parameter 'create_field_rule_preview_request' is set
+      if @api_client.config.client_side_validation && create_field_rule_preview_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_field_rule_preview_request' when calling FieldRulesApi.create_field_rule_preview"
       end
       # resource path
       local_var_path = '/v1/field-rules/preview'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_field_rule_preview_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFieldRulePreviewResponse'
@@ -130,19 +152,25 @@ module Crossly
     end
 
     # Set the run order of several field rules.
+    # @param create_field_rule_reorder_request [CreateFieldRuleReorderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
-    def create_field_rule_reorder(opts = {})
-      data, _status_code, _headers = create_field_rule_reorder_with_http_info(opts)
+    def create_field_rule_reorder(create_field_rule_reorder_request, opts = {})
+      data, _status_code, _headers = create_field_rule_reorder_with_http_info(create_field_rule_reorder_request, opts)
       data
     end
 
     # Set the run order of several field rules.
+    # @param create_field_rule_reorder_request [CreateFieldRuleReorderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def create_field_rule_reorder_with_http_info(opts = {})
+    def create_field_rule_reorder_with_http_info(create_field_rule_reorder_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FieldRulesApi.create_field_rule_reorder ...'
+      end
+      # verify the required parameter 'create_field_rule_reorder_request' is set
+      if @api_client.config.client_side_validation && create_field_rule_reorder_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_field_rule_reorder_request' when calling FieldRulesApi.create_field_rule_reorder"
       end
       # resource path
       local_var_path = '/v1/field-rules/reorder'
@@ -154,12 +182,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_field_rule_reorder_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'
@@ -366,24 +399,30 @@ module Crossly
 
     # Update a field rule.
     # @param id [String] 
+    # @param update_field_rule_request [UpdateFieldRuleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListFieldRulesItem]
-    def update_field_rule(id, opts = {})
-      data, _status_code, _headers = update_field_rule_with_http_info(id, opts)
+    def update_field_rule(id, update_field_rule_request, opts = {})
+      data, _status_code, _headers = update_field_rule_with_http_info(id, update_field_rule_request, opts)
       data
     end
 
     # Update a field rule.
     # @param id [String] 
+    # @param update_field_rule_request [UpdateFieldRuleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListFieldRulesItem, Integer, Hash)>] ListFieldRulesItem data, response status code and response headers
-    def update_field_rule_with_http_info(id, opts = {})
+    def update_field_rule_with_http_info(id, update_field_rule_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FieldRulesApi.update_field_rule ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling FieldRulesApi.update_field_rule"
+      end
+      # verify the required parameter 'update_field_rule_request' is set
+      if @api_client.config.client_side_validation && update_field_rule_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_field_rule_request' when calling FieldRulesApi.update_field_rule"
       end
       # resource path
       local_var_path = '/v1/field-rules/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -395,12 +434,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_field_rule_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListFieldRulesItem'

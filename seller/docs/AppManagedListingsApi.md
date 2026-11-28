@@ -92,7 +92,7 @@ end
 
 ## create_listing_command_complete
 
-> <ListListingCommandsItem> create_listing_command_complete(id)
+> <ListListingCommandsItem> create_listing_command_complete(id, opts)
 
 Report a command done on the marketplace. relist: newExternalId when a new id was issued; refund_order: platformRefundId + amount (required); submit_tracking: trackingNumber/carrier as the marketplace holds them; message_buyer: platformMessageId.
 
@@ -109,10 +109,13 @@ end
 
 api_instance = Crossly::AppManagedListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_listing_command_complete_request: Crossly::CreateListingCommandCompleteRequest.new # CreateListingCommandCompleteRequest | 
+}
 
 begin
   # Report a command done on the marketplace. relist: newExternalId when a new id was issued; refund_order: platformRefundId + amount (required); submit_tracking: trackingNumber/carrier as the marketplace holds them; message_buyer: platformMessageId.
-  result = api_instance.create_listing_command_complete(id)
+  result = api_instance.create_listing_command_complete(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_command_complete: #{e}"
@@ -123,12 +126,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListListingCommandsItem>, Integer, Hash)> create_listing_command_complete_with_http_info(id)
+> <Array(<ListListingCommandsItem>, Integer, Hash)> create_listing_command_complete_with_http_info(id, opts)
 
 ```ruby
 begin
   # Report a command done on the marketplace. relist: newExternalId when a new id was issued; refund_order: platformRefundId + amount (required); submit_tracking: trackingNumber/carrier as the marketplace holds them; message_buyer: platformMessageId.
-  data, status_code, headers = api_instance.create_listing_command_complete_with_http_info(id)
+  data, status_code, headers = api_instance.create_listing_command_complete_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListListingCommandsItem>
@@ -142,6 +145,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_listing_command_complete_request** | **CreateListingCommandCompleteRequest** |  | [optional] |
 
 ### Return type
 
@@ -153,13 +157,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_command_fail
 
-> <ListListingCommandsItem> create_listing_command_fail(id)
+> <ListListingCommandsItem> create_listing_command_fail(id, create_listing_command_fail_request)
 
 Report a command failed, with a reason the seller will see.
 
@@ -176,10 +180,11 @@ end
 
 api_instance = Crossly::AppManagedListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_listing_command_fail_request = Crossly::CreateListingCommandFailRequest.new({reason: 'reason_example'}) # CreateListingCommandFailRequest | 
 
 begin
   # Report a command failed, with a reason the seller will see.
-  result = api_instance.create_listing_command_fail(id)
+  result = api_instance.create_listing_command_fail(id, create_listing_command_fail_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_command_fail: #{e}"
@@ -190,12 +195,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListListingCommandsItem>, Integer, Hash)> create_listing_command_fail_with_http_info(id)
+> <Array(<ListListingCommandsItem>, Integer, Hash)> create_listing_command_fail_with_http_info(id, create_listing_command_fail_request)
 
 ```ruby
 begin
   # Report a command failed, with a reason the seller will see.
-  data, status_code, headers = api_instance.create_listing_command_fail_with_http_info(id)
+  data, status_code, headers = api_instance.create_listing_command_fail_with_http_info(id, create_listing_command_fail_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListListingCommandsItem>
@@ -209,6 +214,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_listing_command_fail_request** | **CreateListingCommandFailRequest** |  |  |
 
 ### Return type
 
@@ -220,13 +226,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_event
 
-> <CreateListingEventResponse> create_listing_event(id)
+> <CreateListingEventResponse> create_listing_event(id, create_listing_event_request)
 
 Report a marketplace event (item.updated / ended / sold / relisted) for a listing your app manages.
 
@@ -245,10 +251,11 @@ end
 
 api_instance = Crossly::AppManagedListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_listing_event_request = Crossly::CreateListingEventRequest.new({type: 'type_example', event_id: 'event_id_example', sequence: 3.56}) # CreateListingEventRequest | 
 
 begin
   # Report a marketplace event (item.updated / ended / sold / relisted) for a listing your app manages.
-  result = api_instance.create_listing_event(id)
+  result = api_instance.create_listing_event(id, create_listing_event_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_event: #{e}"
@@ -259,12 +266,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingEventResponse>, Integer, Hash)> create_listing_event_with_http_info(id)
+> <Array(<CreateListingEventResponse>, Integer, Hash)> create_listing_event_with_http_info(id, create_listing_event_request)
 
 ```ruby
 begin
   # Report a marketplace event (item.updated / ended / sold / relisted) for a listing your app manages.
-  data, status_code, headers = api_instance.create_listing_event_with_http_info(id)
+  data, status_code, headers = api_instance.create_listing_event_with_http_info(id, create_listing_event_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingEventResponse>
@@ -278,6 +285,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_listing_event_request** | **CreateListingEventRequest** |  |  |
 
 ### Return type
 
@@ -289,13 +297,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_event2
 
-> <CreateListingEvent2Response> create_listing_event2
+> <CreateListingEvent2Response> create_listing_event2(create_listing_event2_request)
 
 Report up to 100 marketplace events keyed by platform + externalId. One bad event never fails the rest.
 
@@ -311,10 +319,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AppManagedListingsApi.new
+create_listing_event2_request = Crossly::CreateListingEvent2Request.new({events: [3.56]}) # CreateListingEvent2Request | 
 
 begin
   # Report up to 100 marketplace events keyed by platform + externalId. One bad event never fails the rest.
-  result = api_instance.create_listing_event2
+  result = api_instance.create_listing_event2(create_listing_event2_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_event2: #{e}"
@@ -325,12 +334,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingEvent2Response>, Integer, Hash)> create_listing_event2_with_http_info
+> <Array(<CreateListingEvent2Response>, Integer, Hash)> create_listing_event2_with_http_info(create_listing_event2_request)
 
 ```ruby
 begin
   # Report up to 100 marketplace events keyed by platform + externalId. One bad event never fails the rest.
-  data, status_code, headers = api_instance.create_listing_event2_with_http_info
+  data, status_code, headers = api_instance.create_listing_event2_with_http_info(create_listing_event2_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingEvent2Response>
@@ -341,7 +350,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_event2_request** | **CreateListingEvent2Request** |  |  |
 
 ### Return type
 
@@ -353,13 +364,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_link
 
-> <CreateListingLinkResponse> create_listing_link
+> <CreateListingLinkResponse> create_listing_link(create_listing_link_request)
 
 Link a live marketplace listing your app already manages into Crossly (no re-listing). Idempotent.
 
@@ -377,10 +388,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AppManagedListingsApi.new
+create_listing_link_request = Crossly::CreateListingLinkRequest.new({platform: 'platform_example', external_id: 'external_id_example'}) # CreateListingLinkRequest | 
 
 begin
   # Link a live marketplace listing your app already manages into Crossly (no re-listing). Idempotent.
-  result = api_instance.create_listing_link
+  result = api_instance.create_listing_link(create_listing_link_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_link: #{e}"
@@ -391,12 +403,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingLinkResponse>, Integer, Hash)> create_listing_link_with_http_info
+> <Array(<CreateListingLinkResponse>, Integer, Hash)> create_listing_link_with_http_info(create_listing_link_request)
 
 ```ruby
 begin
   # Link a live marketplace listing your app already manages into Crossly (no re-listing). Idempotent.
-  data, status_code, headers = api_instance.create_listing_link_with_http_info
+  data, status_code, headers = api_instance.create_listing_link_with_http_info(create_listing_link_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingLinkResponse>
@@ -407,7 +419,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_link_request** | **CreateListingLinkRequest** |  |  |
 
 ### Return type
 
@@ -419,13 +433,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_link_bulk
 
-> <CreateListingLinkBulkResponse> create_listing_link_bulk
+> <CreateListingLinkBulkResponse> create_listing_link_bulk(create_listing_link_bulk_request)
 
 Link up to 100 live marketplace listings. Each item succeeds or fails on its own; re-sending is safe.
 
@@ -441,10 +455,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AppManagedListingsApi.new
+create_listing_link_bulk_request = Crossly::CreateListingLinkBulkRequest.new({items: [Crossly::CreateListingLinkRequest.new({platform: 'platform_example', external_id: 'external_id_example'})]}) # CreateListingLinkBulkRequest | 
 
 begin
   # Link up to 100 live marketplace listings. Each item succeeds or fails on its own; re-sending is safe.
-  result = api_instance.create_listing_link_bulk
+  result = api_instance.create_listing_link_bulk(create_listing_link_bulk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_link_bulk: #{e}"
@@ -455,12 +470,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingLinkBulkResponse>, Integer, Hash)> create_listing_link_bulk_with_http_info
+> <Array(<CreateListingLinkBulkResponse>, Integer, Hash)> create_listing_link_bulk_with_http_info(create_listing_link_bulk_request)
 
 ```ruby
 begin
   # Link up to 100 live marketplace listings. Each item succeeds or fails on its own; re-sending is safe.
-  data, status_code, headers = api_instance.create_listing_link_bulk_with_http_info
+  data, status_code, headers = api_instance.create_listing_link_bulk_with_http_info(create_listing_link_bulk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingLinkBulkResponse>
@@ -471,7 +486,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_link_bulk_request** | **CreateListingLinkBulkRequest** |  |  |
 
 ### Return type
 
@@ -483,13 +500,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_platform_reclone
 
-> <CreateListingPlatformRecloneResponse> create_listing_platform_reclone(id, platform)
+> <CreateListingPlatformRecloneResponse> create_listing_platform_reclone(id, platform, opts)
 
 End this marketplace item and relist it under Crossly. Requires consent: true.
 
@@ -509,10 +526,13 @@ end
 api_instance = Crossly::AppManagedListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 platform = 'platform_example' # String | 
+opts = {
+  create_listing_platform_reclone_request: Crossly::CreateListingPlatformRecloneRequest.new({consent: false}) # CreateListingPlatformRecloneRequest | 
+}
 
 begin
   # End this marketplace item and relist it under Crossly. Requires consent: true.
-  result = api_instance.create_listing_platform_reclone(id, platform)
+  result = api_instance.create_listing_platform_reclone(id, platform, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_platform_reclone: #{e}"
@@ -523,12 +543,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingPlatformRecloneResponse>, Integer, Hash)> create_listing_platform_reclone_with_http_info(id, platform)
+> <Array(<CreateListingPlatformRecloneResponse>, Integer, Hash)> create_listing_platform_reclone_with_http_info(id, platform, opts)
 
 ```ruby
 begin
   # End this marketplace item and relist it under Crossly. Requires consent: true.
-  data, status_code, headers = api_instance.create_listing_platform_reclone_with_http_info(id, platform)
+  data, status_code, headers = api_instance.create_listing_platform_reclone_with_http_info(id, platform, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingPlatformRecloneResponse>
@@ -543,6 +563,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **platform** | **String** |  |  |
+| **create_listing_platform_reclone_request** | **CreateListingPlatformRecloneRequest** |  | [optional] |
 
 ### Return type
 
@@ -554,7 +575,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -698,7 +719,7 @@ end
 
 ## create_listing_platform_take_over
 
-> <CreateListingPlatformTakeOverResponse> create_listing_platform_take_over(id, platform)
+> <CreateListingPlatformTakeOverResponse> create_listing_platform_take_over(id, platform, opts)
 
 Take over an app-managed item: Crossly acts on the marketplace itself (needs your own connection).
 
@@ -718,10 +739,13 @@ end
 api_instance = Crossly::AppManagedListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 platform = 'platform_example' # String | 
+opts = {
+  create_order_take_over_request: Crossly::CreateOrderTakeOverRequest.new # CreateOrderTakeOverRequest | 
+}
 
 begin
   # Take over an app-managed item: Crossly acts on the marketplace itself (needs your own connection).
-  result = api_instance.create_listing_platform_take_over(id, platform)
+  result = api_instance.create_listing_platform_take_over(id, platform, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_listing_platform_take_over: #{e}"
@@ -732,12 +756,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingPlatformTakeOverResponse>, Integer, Hash)> create_listing_platform_take_over_with_http_info(id, platform)
+> <Array(<CreateListingPlatformTakeOverResponse>, Integer, Hash)> create_listing_platform_take_over_with_http_info(id, platform, opts)
 
 ```ruby
 begin
   # Take over an app-managed item: Crossly acts on the marketplace itself (needs your own connection).
-  data, status_code, headers = api_instance.create_listing_platform_take_over_with_http_info(id, platform)
+  data, status_code, headers = api_instance.create_listing_platform_take_over_with_http_info(id, platform, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingPlatformTakeOverResponse>
@@ -752,6 +776,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **platform** | **String** |  |  |
+| **create_order_take_over_request** | **CreateOrderTakeOverRequest** |  | [optional] |
 
 ### Return type
 
@@ -763,7 +788,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -836,7 +861,7 @@ end
 
 ## create_order_event
 
-> <CreateOrderEventResponse> create_order_event
+> <CreateOrderEventResponse> create_order_event(create_order_event_request)
 
 Report up to 100 order events (shipped, cancelled, refunded, delivered) keyed by platform + platformOrderId. Each completes the matching open order command. One bad event never fails the rest.
 
@@ -852,10 +877,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AppManagedListingsApi.new
+create_order_event_request = Crossly::CreateOrderEventRequest.new({events: [Crossly::CreateOrderEventRequestEvents.new({type: 'order.shipped', event_id: 'event_id_example', platform: 'platform_example', platform_order_id: 'platform_order_id_example'})]}) # CreateOrderEventRequest | 
 
 begin
   # Report up to 100 order events (shipped, cancelled, refunded, delivered) keyed by platform + platformOrderId. Each completes the matching open order command. One bad event never fails the rest.
-  result = api_instance.create_order_event
+  result = api_instance.create_order_event(create_order_event_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_order_event: #{e}"
@@ -866,12 +892,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderEventResponse>, Integer, Hash)> create_order_event_with_http_info
+> <Array(<CreateOrderEventResponse>, Integer, Hash)> create_order_event_with_http_info(create_order_event_request)
 
 ```ruby
 begin
   # Report up to 100 order events (shipped, cancelled, refunded, delivered) keyed by platform + platformOrderId. Each completes the matching open order command. One bad event never fails the rest.
-  data, status_code, headers = api_instance.create_order_event_with_http_info
+  data, status_code, headers = api_instance.create_order_event_with_http_info(create_order_event_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderEventResponse>
@@ -882,7 +908,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_event_request** | **CreateOrderEventRequest** |  |  |
 
 ### Return type
 
@@ -894,13 +922,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_take_over
 
-> <CreateOrderTakeOverResponse> create_order_take_over(id)
+> <CreateOrderTakeOverResponse> create_order_take_over(id, opts)
 
 Take over the app-managed item behind an order; its actions then go through your own connection.
 
@@ -917,10 +945,13 @@ end
 
 api_instance = Crossly::AppManagedListingsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_take_over_request: Crossly::CreateOrderTakeOverRequest.new # CreateOrderTakeOverRequest | 
+}
 
 begin
   # Take over the app-managed item behind an order; its actions then go through your own connection.
-  result = api_instance.create_order_take_over(id)
+  result = api_instance.create_order_take_over(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AppManagedListingsApi->create_order_take_over: #{e}"
@@ -931,12 +962,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderTakeOverResponse>, Integer, Hash)> create_order_take_over_with_http_info(id)
+> <Array(<CreateOrderTakeOverResponse>, Integer, Hash)> create_order_take_over_with_http_info(id, opts)
 
 ```ruby
 begin
   # Take over the app-managed item behind an order; its actions then go through your own connection.
-  data, status_code, headers = api_instance.create_order_take_over_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_take_over_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderTakeOverResponse>
@@ -950,6 +981,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_take_over_request** | **CreateOrderTakeOverRequest** |  | [optional] |
 
 ### Return type
 
@@ -961,7 +993,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

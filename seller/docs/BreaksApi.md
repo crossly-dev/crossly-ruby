@@ -15,7 +15,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_break
 
-> <CreateBreakResponse> create_break
+> <CreateBreakResponse> create_break(create_break_request)
 
 Start a break on one of your listings: pick (buyers choose a spot) or random (drawn). The seed is committed now and revealed at the draw.
 
@@ -31,10 +31,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::BreaksApi.new
+create_break_request = Crossly::CreateBreakRequest.new({listing_slug: 'listing_slug_example', title: 'title_example', format: 'pick', spots: 3.56}) # CreateBreakRequest | 
 
 begin
   # Start a break on one of your listings: pick (buyers choose a spot) or random (drawn). The seed is committed now and revealed at the draw.
-  result = api_instance.create_break
+  result = api_instance.create_break(create_break_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BreaksApi->create_break: #{e}"
@@ -45,12 +46,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBreakResponse>, Integer, Hash)> create_break_with_http_info
+> <Array(<CreateBreakResponse>, Integer, Hash)> create_break_with_http_info(create_break_request)
 
 ```ruby
 begin
   # Start a break on one of your listings: pick (buyers choose a spot) or random (drawn). The seed is committed now and revealed at the draw.
-  data, status_code, headers = api_instance.create_break_with_http_info
+  data, status_code, headers = api_instance.create_break_with_http_info(create_break_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBreakResponse>
@@ -61,7 +62,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_break_request** | **CreateBreakRequest** |  |  |
 
 ### Return type
 
@@ -73,7 +76,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -280,7 +283,7 @@ end
 
 ## create_break_spot_hit
 
-> <UpdateGroupBuyResponse> create_break_spot_hit(id, spot_id)
+> <UpdateGroupBuyResponse> create_break_spot_hit(id, spot_id, create_break_spot_hit_request)
 
 Record what a spot pulled.
 
@@ -298,10 +301,11 @@ end
 api_instance = Crossly::BreaksApi.new
 id = 'id_example' # String | 
 spot_id = 'spot_id_example' # String | 
+create_break_spot_hit_request = Crossly::CreateBreakSpotHitRequest.new({hits: 'hits_example'}) # CreateBreakSpotHitRequest | 
 
 begin
   # Record what a spot pulled.
-  result = api_instance.create_break_spot_hit(id, spot_id)
+  result = api_instance.create_break_spot_hit(id, spot_id, create_break_spot_hit_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling BreaksApi->create_break_spot_hit: #{e}"
@@ -312,12 +316,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_break_spot_hit_with_http_info(id, spot_id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_break_spot_hit_with_http_info(id, spot_id, create_break_spot_hit_request)
 
 ```ruby
 begin
   # Record what a spot pulled.
-  data, status_code, headers = api_instance.create_break_spot_hit_with_http_info(id, spot_id)
+  data, status_code, headers = api_instance.create_break_spot_hit_with_http_info(id, spot_id, create_break_spot_hit_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateGroupBuyResponse>
@@ -332,6 +336,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **spot_id** | **String** |  |  |
+| **create_break_spot_hit_request** | **CreateBreakSpotHitRequest** |  |  |
 
 ### Return type
 
@@ -343,7 +348,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

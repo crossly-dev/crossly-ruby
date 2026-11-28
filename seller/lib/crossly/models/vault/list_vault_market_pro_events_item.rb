@@ -19,11 +19,11 @@ module Crossly
 
     attr_accessor :user_id
 
+    attr_accessor :kind
+
     attr_accessor :quantity
 
     attr_accessor :order_id
-
-    attr_accessor :kind
 
     attr_accessor :price_cents
 
@@ -38,9 +38,9 @@ module Crossly
       {
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
+        :'kind' => :'kind',
         :'quantity' => :'quantity',
         :'order_id' => :'orderId',
-        :'kind' => :'kind',
         :'price_cents' => :'priceCents',
         :'trade_id' => :'tradeId',
         :'detail' => :'detail',
@@ -58,9 +58,9 @@ module Crossly
       {
         :'created_at' => :'Time',
         :'user_id' => :'String',
+        :'kind' => :'String',
         :'quantity' => :'Float',
         :'order_id' => :'String',
-        :'kind' => :'String',
         :'price_cents' => :'Float',
         :'trade_id' => :'String',
         :'detail' => :'Hash<String, Object>',
@@ -101,16 +101,16 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'order_id')
         self.order_id = attributes[:'order_id']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'price_cents')
@@ -144,12 +144,12 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @order_id.nil?
-        invalid_properties.push('invalid value for "order_id", order_id cannot be nil.')
-      end
-
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @order_id.nil?
+        invalid_properties.push('invalid value for "order_id", order_id cannot be nil.')
       end
 
       if @seq.nil?
@@ -164,8 +164,8 @@ module Crossly
     def valid?
       return false if @created_at.nil?
       return false if @user_id.nil?
-      return false if @order_id.nil?
       return false if @kind.nil?
+      return false if @order_id.nil?
       return false if @seq.nil?
       true
     end
@@ -177,9 +177,9 @@ module Crossly
       self.class == o.class &&
           created_at == o.created_at &&
           user_id == o.user_id &&
+          kind == o.kind &&
           quantity == o.quantity &&
           order_id == o.order_id &&
-          kind == o.kind &&
           price_cents == o.price_cents &&
           trade_id == o.trade_id &&
           detail == o.detail &&
@@ -195,7 +195,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [created_at, user_id, quantity, order_id, kind, price_cents, trade_id, detail, seq].hash
+      [created_at, user_id, kind, quantity, order_id, price_cents, trade_id, detail, seq].hash
     end
 
     # Builds the object from hash

@@ -76,7 +76,7 @@ This endpoint does not need any parameter.
 
 ## create_mobile_push_token
 
-> <OkResponse> create_mobile_push_token
+> <OkResponse> create_mobile_push_token(create_mobile_push_token_request)
 
 Register an Expo push token for this user.
 
@@ -92,10 +92,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::MobileApi.new
+create_mobile_push_token_request = Crossly::CreateMobilePushTokenRequest.new({token: 'token_example', platform: 'web'}) # CreateMobilePushTokenRequest | 
 
 begin
   # Register an Expo push token for this user.
-  result = api_instance.create_mobile_push_token
+  result = api_instance.create_mobile_push_token(create_mobile_push_token_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling MobileApi->create_mobile_push_token: #{e}"
@@ -106,12 +107,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> create_mobile_push_token_with_http_info
+> <Array(<OkResponse>, Integer, Hash)> create_mobile_push_token_with_http_info(create_mobile_push_token_request)
 
 ```ruby
 begin
   # Register an Expo push token for this user.
-  data, status_code, headers = api_instance.create_mobile_push_token_with_http_info
+  data, status_code, headers = api_instance.create_mobile_push_token_with_http_info(create_mobile_push_token_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -122,7 +123,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_mobile_push_token_request** | **CreateMobilePushTokenRequest** |  |  |
 
 ### Return type
 
@@ -134,7 +137,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

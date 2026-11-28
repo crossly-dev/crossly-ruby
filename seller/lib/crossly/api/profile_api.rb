@@ -19,23 +19,227 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Update the authenticated user's profile (display name, etc).
+    # Celebrate an earned milestone with a storefront code: percentOff (default 10) off, ending hours (default 48) from now, with a storefront banner (bannerText, default like \"We just hit 1,000 sales\"). One code per milestone: a second call returns the same code (200, existing: true). A milestone you have not earned is a 404.
+    # @param key [String] 
+    # @param create_profile_milestone_celebrate_request [CreateProfileMilestoneCelebrateRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [OkResponse]
-    def update_me(opts = {})
-      data, _status_code, _headers = update_me_with_http_info(opts)
+    # @return [CreateProfileMilestoneCelebrateResponse]
+    def create_profile_milestone_celebrate(key, create_profile_milestone_celebrate_request, opts = {})
+      data, _status_code, _headers = create_profile_milestone_celebrate_with_http_info(key, create_profile_milestone_celebrate_request, opts)
       data
     end
 
-    # Update the authenticated user&#39;s profile (display name, etc).
+    # Celebrate an earned milestone with a storefront code: percentOff (default 10) off, ending hours (default 48) from now, with a storefront banner (bannerText, default like \&quot;We just hit 1,000 sales\&quot;). One code per milestone: a second call returns the same code (200, existing: true). A milestone you have not earned is a 404.
+    # @param key [String] 
+    # @param create_profile_milestone_celebrate_request [CreateProfileMilestoneCelebrateRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def update_me_with_http_info(opts = {})
+    # @return [Array<(CreateProfileMilestoneCelebrateResponse, Integer, Hash)>] CreateProfileMilestoneCelebrateResponse data, response status code and response headers
+    def create_profile_milestone_celebrate_with_http_info(key, create_profile_milestone_celebrate_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ProfileApi.update_me ...'
+        @api_client.config.logger.debug 'Calling API: ProfileApi.create_profile_milestone_celebrate ...'
+      end
+      # verify the required parameter 'key' is set
+      if @api_client.config.client_side_validation && key.nil?
+        fail ArgumentError, "Missing the required parameter 'key' when calling ProfileApi.create_profile_milestone_celebrate"
+      end
+      # verify the required parameter 'create_profile_milestone_celebrate_request' is set
+      if @api_client.config.client_side_validation && create_profile_milestone_celebrate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_profile_milestone_celebrate_request' when calling ProfileApi.create_profile_milestone_celebrate"
       end
       # resource path
-      local_var_path = '/v1/me'
+      local_var_path = '/v1/profile/milestones/{key}/celebrate'.sub('{' + 'key' + '}', CGI.escape(key.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_profile_milestone_celebrate_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateProfileMilestoneCelebrateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.create_profile_milestone_celebrate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#create_profile_milestone_celebrate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Publish the draft: crossly.net/seller/<handle>, its share cards and link previews switch to it, and a version is kept (label optional, up to 80 characters).
+    # @param create_profile_publish_request [CreateProfilePublishRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateProfilePublishResponse]
+    def create_profile_publish(create_profile_publish_request, opts = {})
+      data, _status_code, _headers = create_profile_publish_with_http_info(create_profile_publish_request, opts)
+      data
+    end
+
+    # Publish the draft: crossly.net/seller/&lt;handle&gt;, its share cards and link previews switch to it, and a version is kept (label optional, up to 80 characters).
+    # @param create_profile_publish_request [CreateProfilePublishRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateProfilePublishResponse, Integer, Hash)>] CreateProfilePublishResponse data, response status code and response headers
+    def create_profile_publish_with_http_info(create_profile_publish_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.create_profile_publish ...'
+      end
+      # verify the required parameter 'create_profile_publish_request' is set
+      if @api_client.config.client_side_validation && create_profile_publish_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_profile_publish_request' when calling ProfileApi.create_profile_publish"
+      end
+      # resource path
+      local_var_path = '/v1/profile/publish'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_profile_publish_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateProfilePublishResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.create_profile_publish",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#create_profile_publish\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Make a share card for your profile, one stat (ref.key + ref.timeframe) or one earned milestone (ref.key). Returns pageUrl (the link to post: Discord, X and iMessage unfurl it with the card), imageUrl (the 1200x630 PNG) and discordText (a ready line ending in the link). A stat you do not show, or a milestone you have not earned, is a 404. settings overrides the card design (template, background, accent…).
+    # @param create_profile_share_card_request [CreateProfileShareCardRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateProfileShareCardResponse]
+    def create_profile_share_card(create_profile_share_card_request, opts = {})
+      data, _status_code, _headers = create_profile_share_card_with_http_info(create_profile_share_card_request, opts)
+      data
+    end
+
+    # Make a share card for your profile, one stat (ref.key + ref.timeframe) or one earned milestone (ref.key). Returns pageUrl (the link to post: Discord, X and iMessage unfurl it with the card), imageUrl (the 1200x630 PNG) and discordText (a ready line ending in the link). A stat you do not show, or a milestone you have not earned, is a 404. settings overrides the card design (template, background, accent…).
+    # @param create_profile_share_card_request [CreateProfileShareCardRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateProfileShareCardResponse, Integer, Hash)>] CreateProfileShareCardResponse data, response status code and response headers
+    def create_profile_share_card_with_http_info(create_profile_share_card_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.create_profile_share_card ...'
+      end
+      # verify the required parameter 'create_profile_share_card_request' is set
+      if @api_client.config.client_side_validation && create_profile_share_card_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_profile_share_card_request' when calling ProfileApi.create_profile_share_card"
+      end
+      # resource path
+      local_var_path = '/v1/profile/share-cards'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_profile_share_card_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateProfileShareCardResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.create_profile_share_card",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#create_profile_share_card\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your seller profile: the @handle, the PUBLISHED document (what crossly.net/seller/<handle> shows), the DRAFT the editor is working on, when it was last published and whether the draft has unpublished changes. A profile never edited reads as the default profile built from your account.
+    # @param [Hash] opts the optional parameters
+    # @return [GetProfileResponse]
+    def get_profile(opts = {})
+      data, _status_code, _headers = get_profile_with_http_info(opts)
+      data
+    end
+
+    # Your seller profile: the @handle, the PUBLISHED document (what crossly.net/seller/&lt;handle&gt; shows), the DRAFT the editor is working on, when it was last published and whether the draft has unpublished changes. A profile never edited reads as the default profile built from your account.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetProfileResponse, Integer, Hash)>] GetProfileResponse data, response status code and response headers
+    def get_profile_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.get_profile ...'
+      end
+      # resource path
+      local_var_path = '/v1/profile'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -50,6 +254,322 @@ module Crossly
 
       # http body (model)
       post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetProfileResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.get_profile",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#get_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Any seller's public profile: the person, the published document, resolved stats (a rounded or tier stat never carries its exact value), shown marketplaces, stores, milestones and the share card URLs. 404 when the handle does not exist or the profile is private.
+    # @param handle [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetSellerProfileResponse]
+    def get_seller_profile(handle, opts = {})
+      data, _status_code, _headers = get_seller_profile_with_http_info(handle, opts)
+      data
+    end
+
+    # Any seller&#39;s public profile: the person, the published document, resolved stats (a rounded or tier stat never carries its exact value), shown marketplaces, stores, milestones and the share card URLs. 404 when the handle does not exist or the profile is private.
+    # @param handle [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetSellerProfileResponse, Integer, Hash)>] GetSellerProfileResponse data, response status code and response headers
+    def get_seller_profile_with_http_info(handle, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.get_seller_profile ...'
+      end
+      # verify the required parameter 'handle' is set
+      if @api_client.config.client_side_validation && handle.nil?
+        fail ArgumentError, "Missing the required parameter 'handle' when calling ProfileApi.get_seller_profile"
+      end
+      # resource path
+      local_var_path = '/v1/sellers/{handle}/profile'.sub('{' + 'handle' + '}', CGI.escape(handle.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetSellerProfileResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.get_seller_profile",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#get_seller_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Milestones you earned (first sale, $100k verified sales, 1-year streak, 10 countries…) with when, and whether each is verified. Earned only from verified data; each has its own share page and card.
+    # @param [Hash] opts the optional parameters
+    # @return [ListProfileMilestonesResponse]
+    def list_profile_milestones(opts = {})
+      data, _status_code, _headers = list_profile_milestones_with_http_info(opts)
+      data
+    end
+
+    # Milestones you earned (first sale, $100k verified sales, 1-year streak, 10 countries…) with when, and whether each is verified. Earned only from verified data; each has its own share page and card.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListProfileMilestonesResponse, Integer, Hash)>] ListProfileMilestonesResponse data, response status code and response headers
+    def list_profile_milestones_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.list_profile_milestones ...'
+      end
+      # resource path
+      local_var_path = '/v1/profile/milestones'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListProfileMilestonesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.list_profile_milestones",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#list_profile_milestones\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The accounts, stores and marketplace connections your profile may show: your own account, plus every team you belong to whose owner granted you profile:showcase. Toggle them in document.sources.
+    # @param [Hash] opts the optional parameters
+    # @return [ListProfileSourcesResponse]
+    def list_profile_sources(opts = {})
+      data, _status_code, _headers = list_profile_sources_with_http_info(opts)
+      data
+    end
+
+    # The accounts, stores and marketplace connections your profile may show: your own account, plus every team you belong to whose owner granted you profile:showcase. Toggle them in document.sources.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListProfileSourcesResponse, Integer, Hash)>] ListProfileSourcesResponse data, response status code and response headers
+    def list_profile_sources_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.list_profile_sources ...'
+      end
+      # resource path
+      local_var_path = '/v1/profile/sources'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListProfileSourcesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.list_profile_sources",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#list_profile_sources\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Profile stats in the OWNER view: exact values and coverage, whatever display mode the public page uses. keys is a comma list (gmv, items_sold, orders, avg_sale_price, best_sale, sell_through_rate, median_days_to_sale, rating, vault_value, …); timeframe is a rolling token (7d 30d 90d 6mo 12mo ytd all) or a custom range cYYYYMMDD-YYYYMMDD in your time zone. Money is USD cents, rates bps, durations days. verified is true only for numbers backed by marketplace-reported or Crossly-checkout sales.
+    # @param keys [String] Comma-separated stat keys, at most 30.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :timeframe  (default to 'all')
+    # @option opts [String] :display 
+    # @option opts [String] :basis 
+    # @return [ListProfileStatsResponse]
+    def list_profile_stats(keys, opts = {})
+      data, _status_code, _headers = list_profile_stats_with_http_info(keys, opts)
+      data
+    end
+
+    # Profile stats in the OWNER view: exact values and coverage, whatever display mode the public page uses. keys is a comma list (gmv, items_sold, orders, avg_sale_price, best_sale, sell_through_rate, median_days_to_sale, rating, vault_value, …); timeframe is a rolling token (7d 30d 90d 6mo 12mo ytd all) or a custom range cYYYYMMDD-YYYYMMDD in your time zone. Money is USD cents, rates bps, durations days. verified is true only for numbers backed by marketplace-reported or Crossly-checkout sales.
+    # @param keys [String] Comma-separated stat keys, at most 30.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :timeframe 
+    # @option opts [String] :display 
+    # @option opts [String] :basis 
+    # @return [Array<(ListProfileStatsResponse, Integer, Hash)>] ListProfileStatsResponse data, response status code and response headers
+    def list_profile_stats_with_http_info(keys, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.list_profile_stats ...'
+      end
+      # verify the required parameter 'keys' is set
+      if @api_client.config.client_side_validation && keys.nil?
+        fail ArgumentError, "Missing the required parameter 'keys' when calling ProfileApi.list_profile_stats"
+      end
+      allowable_values = ["exact", "rounded", "tier"]
+      if @api_client.config.client_side_validation && opts[:'display'] && !allowable_values.include?(opts[:'display'])
+        fail ArgumentError, "invalid value for \"display\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["verified", "all"]
+      if @api_client.config.client_side_validation && opts[:'basis'] && !allowable_values.include?(opts[:'basis'])
+        fail ArgumentError, "invalid value for \"basis\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/profile/stats'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'keys'] = keys
+      query_params[:'timeframe'] = opts[:'timeframe'] if !opts[:'timeframe'].nil?
+      query_params[:'display'] = opts[:'display'] if !opts[:'display'].nil?
+      query_params[:'basis'] = opts[:'basis'] if !opts[:'basis'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListProfileStatsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.list_profile_stats",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#list_profile_stats\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Update the authenticated user's profile (display name, etc).
+    # @param update_me_request [UpdateMeRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def update_me(update_me_request, opts = {})
+      data, _status_code, _headers = update_me_with_http_info(update_me_request, opts)
+      data
+    end
+
+    # Update the authenticated user&#39;s profile (display name, etc).
+    # @param update_me_request [UpdateMeRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def update_me_with_http_info(update_me_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.update_me ...'
+      end
+      # verify the required parameter 'update_me_request' is set
+      if @api_client.config.client_side_validation && update_me_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_me_request' when calling ProfileApi.update_me"
+      end
+      # resource path
+      local_var_path = '/v1/me'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_me_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'
@@ -70,6 +590,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ProfileApi#update_me\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Replace your profile DRAFT with a whole ProfileDocument (theme, hero, ordered sections, socials, sources, share card, privacy). Nothing public changes until you publish. Read the current draft from GET /v1/profile, change it, and send it back. A 400 lists every invalid field.
+    # @param update_profile_document_request [UpdateProfileDocumentRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateProfileDocumentResponse]
+    def update_profile_document(update_profile_document_request, opts = {})
+      data, _status_code, _headers = update_profile_document_with_http_info(update_profile_document_request, opts)
+      data
+    end
+
+    # Replace your profile DRAFT with a whole ProfileDocument (theme, hero, ordered sections, socials, sources, share card, privacy). Nothing public changes until you publish. Read the current draft from GET /v1/profile, change it, and send it back. A 400 lists every invalid field.
+    # @param update_profile_document_request [UpdateProfileDocumentRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateProfileDocumentResponse, Integer, Hash)>] UpdateProfileDocumentResponse data, response status code and response headers
+    def update_profile_document_with_http_info(update_profile_document_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProfileApi.update_profile_document ...'
+      end
+      # verify the required parameter 'update_profile_document_request' is set
+      if @api_client.config.client_side_validation && update_profile_document_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_profile_document_request' when calling ProfileApi.update_profile_document"
+      end
+      # resource path
+      local_var_path = '/v1/profile/document'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_profile_document_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateProfileDocumentResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProfileApi.update_profile_document",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProfileApi#update_profile_document\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

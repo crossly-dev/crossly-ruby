@@ -25,19 +25,19 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :quantity
-
-    attr_accessor :inventory_item_id
-
     attr_accessor :currency
-
-    attr_accessor :bundle
-
-    attr_accessor :last_checked_at
 
     attr_accessor :storefront_id
 
     attr_accessor :kind
+
+    attr_accessor :quantity
+
+    attr_accessor :inventory_item_id
+
+    attr_accessor :bundle
+
+    attr_accessor :last_checked_at
 
     attr_accessor :marketplace
 
@@ -113,13 +113,13 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
         :'status' => :'status',
-        :'quantity' => :'quantity',
-        :'inventory_item_id' => :'inventoryItemId',
         :'currency' => :'currency',
-        :'bundle' => :'bundle',
-        :'last_checked_at' => :'lastCheckedAt',
         :'storefront_id' => :'storefrontId',
         :'kind' => :'kind',
+        :'quantity' => :'quantity',
+        :'inventory_item_id' => :'inventoryItemId',
+        :'bundle' => :'bundle',
+        :'last_checked_at' => :'lastCheckedAt',
         :'marketplace' => :'marketplace',
         :'token_id' => :'tokenId',
         :'external_url' => :'externalUrl',
@@ -158,13 +158,13 @@ module Crossly
         :'updated_at' => :'Time',
         :'user_id' => :'String',
         :'status' => :'String',
-        :'quantity' => :'Float',
-        :'inventory_item_id' => :'String',
         :'currency' => :'String',
-        :'bundle' => :'Array<CreateWeb3OrderResponseOrderBundle>',
-        :'last_checked_at' => :'Time',
         :'storefront_id' => :'String',
         :'kind' => :'String',
+        :'quantity' => :'Float',
+        :'inventory_item_id' => :'String',
+        :'bundle' => :'Array<CreateWeb3OrderResponseOrderBundle>',
+        :'last_checked_at' => :'Time',
         :'marketplace' => :'String',
         :'token_id' => :'String',
         :'external_url' => :'String',
@@ -194,10 +194,10 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'user_id',
+        :'storefront_id',
         :'inventory_item_id',
         :'bundle',
         :'last_checked_at',
-        :'storefront_id',
         :'token_id',
         :'external_url',
         :'wallet_id',
@@ -249,16 +249,24 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
       if attributes.key?(:'quantity')
         self.quantity = attributes[:'quantity']
       end
 
       if attributes.key?(:'inventory_item_id')
         self.inventory_item_id = attributes[:'inventory_item_id']
-      end
-
-      if attributes.key?(:'currency')
-        self.currency = attributes[:'currency']
       end
 
       if attributes.key?(:'bundle')
@@ -269,14 +277,6 @@ module Crossly
 
       if attributes.key?(:'last_checked_at')
         self.last_checked_at = attributes[:'last_checked_at']
-      end
-
-      if attributes.key?(:'storefront_id')
-        self.storefront_id = attributes[:'storefront_id']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'marketplace')
@@ -388,16 +388,16 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @quantity.nil?
-        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
-      end
-
       if @currency.nil?
         invalid_properties.push('invalid value for "currency", currency cannot be nil.')
       end
 
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @quantity.nil?
+        invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
 
       if @marketplace.nil?
@@ -446,13 +446,13 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["cancelled", "open", "expired", "filled", "invalid"])
+      status_validator = EnumAttributeValidator.new('String', ["expired", "cancelled", "open", "filled", "invalid"])
       return false unless status_validator.valid?(@status)
-      return false if @quantity.nil?
       return false if @currency.nil?
       return false if @kind.nil?
-      kind_validator = EnumAttributeValidator.new('String', ["bundle", "offer", "listing", "private_listing", "collection_offer", "trait_offer"])
+      kind_validator = EnumAttributeValidator.new('String', ["listing", "bundle", "offer", "private_listing", "collection_offer", "trait_offer"])
       return false unless kind_validator.valid?(@kind)
+      return false if @quantity.nil?
       return false if @marketplace.nil?
       return false if @chain.nil?
       return false if @contract.nil?
@@ -468,7 +468,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["cancelled", "open", "expired", "filled", "invalid"])
+      validator = EnumAttributeValidator.new('String', ["expired", "cancelled", "open", "filled", "invalid"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -478,7 +478,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
-      validator = EnumAttributeValidator.new('String', ["bundle", "offer", "listing", "private_listing", "collection_offer", "trait_offer"])
+      validator = EnumAttributeValidator.new('String', ["listing", "bundle", "offer", "private_listing", "collection_offer", "trait_offer"])
       unless validator.valid?(kind)
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
@@ -495,13 +495,13 @@ module Crossly
           updated_at == o.updated_at &&
           user_id == o.user_id &&
           status == o.status &&
-          quantity == o.quantity &&
-          inventory_item_id == o.inventory_item_id &&
           currency == o.currency &&
-          bundle == o.bundle &&
-          last_checked_at == o.last_checked_at &&
           storefront_id == o.storefront_id &&
           kind == o.kind &&
+          quantity == o.quantity &&
+          inventory_item_id == o.inventory_item_id &&
+          bundle == o.bundle &&
+          last_checked_at == o.last_checked_at &&
           marketplace == o.marketplace &&
           token_id == o.token_id &&
           external_url == o.external_url &&
@@ -535,7 +535,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, user_id, status, quantity, inventory_item_id, currency, bundle, last_checked_at, storefront_id, kind, marketplace, token_id, external_url, chain, contract, order_hash, wallet_id, maker, price_wei, end_price_wei, start_time, end_time, signature, status_reason, item_name, item_image, collection_name, taker, filled_tx, filled_at, criteria, reserved_for].hash
+      [id, created_at, updated_at, user_id, status, currency, storefront_id, kind, quantity, inventory_item_id, bundle, last_checked_at, marketplace, token_id, external_url, chain, contract, order_hash, wallet_id, maker, price_wei, end_price_wei, start_time, end_time, signature, status_reason, item_name, item_image, collection_name, taker, filled_tx, filled_at, criteria, reserved_for].hash
     end
 
     # Builds the object from hash

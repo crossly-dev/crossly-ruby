@@ -15,6 +15,8 @@ require 'time'
 
 module Crossly
   class CreateConnectionEmailImapResponse
+    attr_accessor :data
+
     attr_accessor :success
 
     attr_accessor :id
@@ -22,6 +24,7 @@ module Crossly
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'data' => :'data',
         :'success' => :'success',
         :'id' => :'id'
       }
@@ -35,6 +38,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'data' => :'ListConnectionEmailItem',
         :'success' => :'Boolean',
         :'id' => :'String'
       }
@@ -61,6 +65,10 @@ module Crossly
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'data')
+        self.data = attributes[:'data']
+      end
+
       if attributes.key?(:'success')
         self.success = attributes[:'success']
       end
@@ -74,6 +82,10 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @data.nil?
+        invalid_properties.push('invalid value for "data", data cannot be nil.')
+      end
+
       if @success.nil?
         invalid_properties.push('invalid value for "success", success cannot be nil.')
       end
@@ -88,6 +100,7 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @data.nil?
       return false if @success.nil?
       return false if @id.nil?
       true
@@ -98,6 +111,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          data == o.data &&
           success == o.success &&
           id == o.id
     end
@@ -111,7 +125,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [success, id].hash
+      [data, success, id].hash
     end
 
     # Builds the object from hash

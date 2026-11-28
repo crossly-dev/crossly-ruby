@@ -11,4 +11,4 @@ script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
   - gem build crossly_buyer.gemspec
-  - gem install ./crossly_buyer-0.2.0.gem
+  - gem install ./crossly_buyer-0.3.0.gem

@@ -23,6 +23,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_funding_control**](FundingApi.md#get_funding_control) | **GET** /v1/funding/controls | Your funding spend controls: approved uses, supplier allow/block lists, the approval threshold, the two-person rule and each team member’s funding limit. |
 | [**get_funding_draw**](FundingApi.md#get_funding_draw) | **GET** /v1/funding/draws/{id} | One draw: amount, use, supplier, stage and its timeline (requested → approved → disbursed → spent → repaid). |
 | [**get_funding_draw_invoice**](FundingApi.md#get_funding_draw_invoice) | **GET** /v1/funding/draws/{id}/invoice | A 15-minute signed link to a draw&#39;s uploaded supplier invoice, with the file&#39;s name, type and size. 404 when the draw has no uploaded file. |
+| [**get_funding_invoice_advance_eligibility**](FundingApi.md#get_funding_invoice_advance_eligibility) | **GET** /v1/funding/invoice-advance-eligibility | What your Crossly Funding line could advance against your open wholesale invoices: per invoice its balance due, the advance at the rate (80%), what the line can cover now within its headroom (earliest due first), and why not (overdue, no line, line unavailable, over headroom). Eligibility only: an advance cannot be drawn against an invoice yet. X-Storefront-Id narrows to one store. |
 | [**get_funding_line**](FundingApi.md#get_funding_line) | **GET** /v1/funding/line | Your line: limit, available, outstanding (principal + interest), APR, interest accrued since the last posting, the payoff figure, next due date, anything overdue, the per-draw schedule and your auto-repay share. |
 | [**get_funding_offer**](FundingApi.md#get_funding_offer) | **GET** /v1/funding/offer | Your pre-qualified Crossly Funding limit and the eligibility checklist: each rule, whether you pass it, and what to do if not. Works with or without a line. |
 | [**get_funding_pool**](FundingApi.md#get_funding_pool) | **GET** /v1/funding/pool | The Crossly Funding pool: live or not and why (no token yet, no pool, no price, no capacity), capacity, utilisation, the reserve, and the uses and suppliers it allows. |
@@ -40,7 +41,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_funding_apply
 
-> <CreateFundingApplyResponse> create_funding_apply
+> <CreateFundingApplyResponse> create_funding_apply(create_funding_apply_request)
 
 Apply for Crossly Funding. Decided at once on the checklist rules: approved opens your line (limit = 25% of 90 days of settled Crossly payouts), declined lists why, needs_review goes to a person.
 
@@ -56,10 +57,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_apply_request = Crossly::CreateFundingApplyRequest.new({requested_cents: 3.56}) # CreateFundingApplyRequest | 
 
 begin
   # Apply for Crossly Funding. Decided at once on the checklist rules: approved opens your line (limit = 25% of 90 days of settled Crossly payouts), declined lists why, needs_review goes to a person.
-  result = api_instance.create_funding_apply
+  result = api_instance.create_funding_apply(create_funding_apply_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_apply: #{e}"
@@ -70,12 +72,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingApplyResponse>, Integer, Hash)> create_funding_apply_with_http_info
+> <Array(<CreateFundingApplyResponse>, Integer, Hash)> create_funding_apply_with_http_info(create_funding_apply_request)
 
 ```ruby
 begin
   # Apply for Crossly Funding. Decided at once on the checklist rules: approved opens your line (limit = 25% of 90 days of settled Crossly payouts), declined lists why, needs_review goes to a person.
-  data, status_code, headers = api_instance.create_funding_apply_with_http_info
+  data, status_code, headers = api_instance.create_funding_apply_with_http_info(create_funding_apply_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingApplyResponse>
@@ -86,7 +88,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_apply_request** | **CreateFundingApplyRequest** |  |  |
 
 ### Return type
 
@@ -98,13 +102,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_draw
 
-> <CreateFundingDrawResponse> create_funding_draw
+> <CreateFundingDrawResponse> create_funding_draw(create_funding_draw_request)
 
 Draw on your line for a supplier order. Send the supplier, the invoice (an uploaded invoiceFileId from POST /v1/funding/invoice-files, a reference, or a URL) and the APR from the quote you accepted (acceptedAprBps); refused if your rate changed. The advance is held as in-platform Crossly balance, never cash. Idempotent on idempotencyKey.
 
@@ -120,10 +124,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_draw_request = Crossly::CreateFundingDrawRequest.new({amount_cents: 3.56, supplier_name: 'supplier_name_example', accepted_apr_bps: 3.56, idempotency_key: 'idempotency_key_example'}) # CreateFundingDrawRequest | 
 
 begin
   # Draw on your line for a supplier order. Send the supplier, the invoice (an uploaded invoiceFileId from POST /v1/funding/invoice-files, a reference, or a URL) and the APR from the quote you accepted (acceptedAprBps); refused if your rate changed. The advance is held as in-platform Crossly balance, never cash. Idempotent on idempotencyKey.
-  result = api_instance.create_funding_draw
+  result = api_instance.create_funding_draw(create_funding_draw_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_draw: #{e}"
@@ -134,12 +139,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingDrawResponse>, Integer, Hash)> create_funding_draw_with_http_info
+> <Array(<CreateFundingDrawResponse>, Integer, Hash)> create_funding_draw_with_http_info(create_funding_draw_request)
 
 ```ruby
 begin
   # Draw on your line for a supplier order. Send the supplier, the invoice (an uploaded invoiceFileId from POST /v1/funding/invoice-files, a reference, or a URL) and the APR from the quote you accepted (acceptedAprBps); refused if your rate changed. The advance is held as in-platform Crossly balance, never cash. Idempotent on idempotencyKey.
-  data, status_code, headers = api_instance.create_funding_draw_with_http_info
+  data, status_code, headers = api_instance.create_funding_draw_with_http_info(create_funding_draw_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingDrawResponse>
@@ -150,7 +155,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_draw_request** | **CreateFundingDrawRequest** |  |  |
 
 ### Return type
 
@@ -162,13 +169,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_draw_approve
 
-> <CreateFundingDrawRejectResponse> create_funding_draw_approve(id)
+> <CreateFundingDrawRejectResponse> create_funding_draw_approve(id, opts)
 
 Approve a held draw. The two-person rule needs two distinct approvers; the requester never approves their own.
 
@@ -185,10 +192,13 @@ end
 
 api_instance = Crossly::FundingApi.new
 id = 'id_example' # String | 
+opts = {
+  note_request: Crossly::NoteRequest.new # NoteRequest | 
+}
 
 begin
   # Approve a held draw. The two-person rule needs two distinct approvers; the requester never approves their own.
-  result = api_instance.create_funding_draw_approve(id)
+  result = api_instance.create_funding_draw_approve(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_draw_approve: #{e}"
@@ -199,12 +209,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingDrawRejectResponse>, Integer, Hash)> create_funding_draw_approve_with_http_info(id)
+> <Array(<CreateFundingDrawRejectResponse>, Integer, Hash)> create_funding_draw_approve_with_http_info(id, opts)
 
 ```ruby
 begin
   # Approve a held draw. The two-person rule needs two distinct approvers; the requester never approves their own.
-  data, status_code, headers = api_instance.create_funding_draw_approve_with_http_info(id)
+  data, status_code, headers = api_instance.create_funding_draw_approve_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingDrawRejectResponse>
@@ -218,6 +228,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **note_request** | **NoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -229,13 +240,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_draw_quote
 
-> <CreateFundingDrawQuoteResponse> create_funding_draw_quote
+> <CreateFundingDrawQuoteResponse> create_funding_draw_quote(create_funding_draw_quote_request)
 
 The disclosure for a draw of amountCents: APR, the simple-interest fee for the full term, the total and the due date, plus your available headroom. Nothing is drawn.
 
@@ -251,10 +262,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_draw_quote_request = Crossly::CreateFundingDrawQuoteRequest.new({amount_cents: 3.56}) # CreateFundingDrawQuoteRequest | 
 
 begin
   # The disclosure for a draw of amountCents: APR, the simple-interest fee for the full term, the total and the due date, plus your available headroom. Nothing is drawn.
-  result = api_instance.create_funding_draw_quote
+  result = api_instance.create_funding_draw_quote(create_funding_draw_quote_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_draw_quote: #{e}"
@@ -265,12 +277,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingDrawQuoteResponse>, Integer, Hash)> create_funding_draw_quote_with_http_info
+> <Array(<CreateFundingDrawQuoteResponse>, Integer, Hash)> create_funding_draw_quote_with_http_info(create_funding_draw_quote_request)
 
 ```ruby
 begin
   # The disclosure for a draw of amountCents: APR, the simple-interest fee for the full term, the total and the due date, plus your available headroom. Nothing is drawn.
-  data, status_code, headers = api_instance.create_funding_draw_quote_with_http_info
+  data, status_code, headers = api_instance.create_funding_draw_quote_with_http_info(create_funding_draw_quote_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingDrawQuoteResponse>
@@ -281,7 +293,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_draw_quote_request** | **CreateFundingDrawQuoteRequest** |  |  |
 
 ### Return type
 
@@ -293,13 +307,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_draw_reject
 
-> <CreateFundingDrawRejectResponse> create_funding_draw_reject(id)
+> <CreateFundingDrawRejectResponse> create_funding_draw_reject(id, opts)
 
 Reject a held draw. Nothing was drawn, so nothing is owed.
 
@@ -316,10 +330,13 @@ end
 
 api_instance = Crossly::FundingApi.new
 id = 'id_example' # String | 
+opts = {
+  note_request: Crossly::NoteRequest.new # NoteRequest | 
+}
 
 begin
   # Reject a held draw. Nothing was drawn, so nothing is owed.
-  result = api_instance.create_funding_draw_reject(id)
+  result = api_instance.create_funding_draw_reject(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_draw_reject: #{e}"
@@ -330,12 +347,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingDrawRejectResponse>, Integer, Hash)> create_funding_draw_reject_with_http_info(id)
+> <Array(<CreateFundingDrawRejectResponse>, Integer, Hash)> create_funding_draw_reject_with_http_info(id, opts)
 
 ```ruby
 begin
   # Reject a held draw. Nothing was drawn, so nothing is owed.
-  data, status_code, headers = api_instance.create_funding_draw_reject_with_http_info(id)
+  data, status_code, headers = api_instance.create_funding_draw_reject_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingDrawRejectResponse>
@@ -349,6 +366,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **note_request** | **NoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -360,13 +378,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_draw_use
 
-> <CreateFundingDrawUseResponse> create_funding_draw_use
+> <CreateFundingDrawUseResponse> create_funding_draw_use(create_funding_draw_use_request)
 
 Request a draw for an approved use. Refused by the spend controls, held for approval (stage requested — no debt until disbursed), or disbursed at once as restricted funding CBX. A DEBT with interest: show the disclosure first.
 
@@ -382,10 +400,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_draw_use_request = Crossly::CreateFundingDrawUseRequest.new({cents: 3.56, use: 'ads', accepted_apr_bps: 3.56, idempotency_key: 'idempotency_key_example'}) # CreateFundingDrawUseRequest | 
 
 begin
   # Request a draw for an approved use. Refused by the spend controls, held for approval (stage requested — no debt until disbursed), or disbursed at once as restricted funding CBX. A DEBT with interest: show the disclosure first.
-  result = api_instance.create_funding_draw_use
+  result = api_instance.create_funding_draw_use(create_funding_draw_use_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_draw_use: #{e}"
@@ -396,12 +415,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingDrawUseResponse>, Integer, Hash)> create_funding_draw_use_with_http_info
+> <Array(<CreateFundingDrawUseResponse>, Integer, Hash)> create_funding_draw_use_with_http_info(create_funding_draw_use_request)
 
 ```ruby
 begin
   # Request a draw for an approved use. Refused by the spend controls, held for approval (stage requested — no debt until disbursed), or disbursed at once as restricted funding CBX. A DEBT with interest: show the disclosure first.
-  data, status_code, headers = api_instance.create_funding_draw_use_with_http_info
+  data, status_code, headers = api_instance.create_funding_draw_use_with_http_info(create_funding_draw_use_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingDrawUseResponse>
@@ -412,7 +431,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_draw_use_request** | **CreateFundingDrawUseRequest** |  |  |
 
 ### Return type
 
@@ -424,13 +445,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_invoice_file
 
-> <CreateFundingInvoiceFileResponse> create_funding_invoice_file
+> <CreateFundingInvoiceFileResponse> create_funding_invoice_file(create_funding_invoice_file_request)
 
 Sign an upload for a supplier invoice: a PDF or image (application/pdf, image/jpeg, image/png, image/webp, image/heic) of at most 15 MB. PUT the bytes to uploadUrl with the same Content-Type and exactly contentLength bytes, then draw with invoiceFileId = file.id. Stored privately; one draw per file.
 
@@ -446,10 +467,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_invoice_file_request = Crossly::CreateFundingInvoiceFileRequest.new({file_name: 'file_name_example', content_type: 'content_type_example', content_length: 3.56}) # CreateFundingInvoiceFileRequest | 
 
 begin
   # Sign an upload for a supplier invoice: a PDF or image (application/pdf, image/jpeg, image/png, image/webp, image/heic) of at most 15 MB. PUT the bytes to uploadUrl with the same Content-Type and exactly contentLength bytes, then draw with invoiceFileId = file.id. Stored privately; one draw per file.
-  result = api_instance.create_funding_invoice_file
+  result = api_instance.create_funding_invoice_file(create_funding_invoice_file_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_invoice_file: #{e}"
@@ -460,12 +482,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingInvoiceFileResponse>, Integer, Hash)> create_funding_invoice_file_with_http_info
+> <Array(<CreateFundingInvoiceFileResponse>, Integer, Hash)> create_funding_invoice_file_with_http_info(create_funding_invoice_file_request)
 
 ```ruby
 begin
   # Sign an upload for a supplier invoice: a PDF or image (application/pdf, image/jpeg, image/png, image/webp, image/heic) of at most 15 MB. PUT the bytes to uploadUrl with the same Content-Type and exactly contentLength bytes, then draw with invoiceFileId = file.id. Stored privately; one draw per file.
-  data, status_code, headers = api_instance.create_funding_invoice_file_with_http_info
+  data, status_code, headers = api_instance.create_funding_invoice_file_with_http_info(create_funding_invoice_file_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingInvoiceFileResponse>
@@ -476,7 +498,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_invoice_file_request** | **CreateFundingInvoiceFileRequest** |  |  |
 
 ### Return type
 
@@ -488,13 +512,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_pay_crossly_fee
 
-> <CreateFundingPayCrosslyFeeResponse> create_funding_pay_crossly_fee
+> <CreateFundingPayCrosslyFeeResponse> create_funding_pay_crossly_fee(create_funding_pay_crossly_fee_request)
 
 Pay an open invoice of your Crossly plan with restricted funding CBX (no card is charged; the invoice is marked paid). Idempotent per invoice.
 
@@ -510,10 +534,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_pay_crossly_fee_request = Crossly::CreateFundingPayCrosslyFeeRequest.new({invoice_id: 'invoice_id_example'}) # CreateFundingPayCrosslyFeeRequest | 
 
 begin
   # Pay an open invoice of your Crossly plan with restricted funding CBX (no card is charged; the invoice is marked paid). Idempotent per invoice.
-  result = api_instance.create_funding_pay_crossly_fee
+  result = api_instance.create_funding_pay_crossly_fee(create_funding_pay_crossly_fee_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_pay_crossly_fee: #{e}"
@@ -524,12 +549,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingPayCrosslyFeeResponse>, Integer, Hash)> create_funding_pay_crossly_fee_with_http_info
+> <Array(<CreateFundingPayCrosslyFeeResponse>, Integer, Hash)> create_funding_pay_crossly_fee_with_http_info(create_funding_pay_crossly_fee_request)
 
 ```ruby
 begin
   # Pay an open invoice of your Crossly plan with restricted funding CBX (no card is charged; the invoice is marked paid). Idempotent per invoice.
-  data, status_code, headers = api_instance.create_funding_pay_crossly_fee_with_http_info
+  data, status_code, headers = api_instance.create_funding_pay_crossly_fee_with_http_info(create_funding_pay_crossly_fee_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingPayCrosslyFeeResponse>
@@ -540,7 +565,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_pay_crossly_fee_request** | **CreateFundingPayCrosslyFeeRequest** |  |  |
 
 ### Return type
 
@@ -552,13 +579,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_pay_shipping_label
 
-> <CreateFundingPayShippingLabelResponse> create_funding_pay_shipping_label
+> <CreateFundingPayShippingLabelResponse> create_funding_pay_shipping_label(create_funding_pay_shipping_label_request)
 
 Top up your shipping wallet with restricted funding CBX; labels you buy are then debited from it. Idempotent on idempotencyKey. Refused when the spend controls forbid shipping labels or it is over your approval threshold with no approved draw.
 
@@ -574,10 +601,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_pay_shipping_label_request = Crossly::CreateFundingPayShippingLabelRequest.new({amount_cents: 3.56, idempotency_key: 'idempotency_key_example'}) # CreateFundingPayShippingLabelRequest | 
 
 begin
   # Top up your shipping wallet with restricted funding CBX; labels you buy are then debited from it. Idempotent on idempotencyKey. Refused when the spend controls forbid shipping labels or it is over your approval threshold with no approved draw.
-  result = api_instance.create_funding_pay_shipping_label
+  result = api_instance.create_funding_pay_shipping_label(create_funding_pay_shipping_label_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_pay_shipping_label: #{e}"
@@ -588,12 +616,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingPayShippingLabelResponse>, Integer, Hash)> create_funding_pay_shipping_label_with_http_info
+> <Array(<CreateFundingPayShippingLabelResponse>, Integer, Hash)> create_funding_pay_shipping_label_with_http_info(create_funding_pay_shipping_label_request)
 
 ```ruby
 begin
   # Top up your shipping wallet with restricted funding CBX; labels you buy are then debited from it. Idempotent on idempotencyKey. Refused when the spend controls forbid shipping labels or it is over your approval threshold with no approved draw.
-  data, status_code, headers = api_instance.create_funding_pay_shipping_label_with_http_info
+  data, status_code, headers = api_instance.create_funding_pay_shipping_label_with_http_info(create_funding_pay_shipping_label_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingPayShippingLabelResponse>
@@ -604,7 +632,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_pay_shipping_label_request** | **CreateFundingPayShippingLabelRequest** |  |  |
 
 ### Return type
 
@@ -616,13 +646,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_pay_vault_fee
 
-> <CreateFundingPayVaultFeeResponse> create_funding_pay_vault_fee
+> <CreateFundingPayVaultFeeResponse> create_funding_pay_vault_fee(create_funding_pay_vault_fee_request)
 
 Ship a stored Vault unit home and pay its fee (shipping, storage owed, early withdrawal) with restricted funding CBX instead of your card.
 
@@ -638,10 +668,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_pay_vault_fee_request = Crossly::CreateFundingPayVaultFeeRequest.new({vault_item_id: 'vault_item_id_example'}) # CreateFundingPayVaultFeeRequest | 
 
 begin
   # Ship a stored Vault unit home and pay its fee (shipping, storage owed, early withdrawal) with restricted funding CBX instead of your card.
-  result = api_instance.create_funding_pay_vault_fee
+  result = api_instance.create_funding_pay_vault_fee(create_funding_pay_vault_fee_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_pay_vault_fee: #{e}"
@@ -652,12 +683,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingPayVaultFeeResponse>, Integer, Hash)> create_funding_pay_vault_fee_with_http_info
+> <Array(<CreateFundingPayVaultFeeResponse>, Integer, Hash)> create_funding_pay_vault_fee_with_http_info(create_funding_pay_vault_fee_request)
 
 ```ruby
 begin
   # Ship a stored Vault unit home and pay its fee (shipping, storage owed, early withdrawal) with restricted funding CBX instead of your card.
-  data, status_code, headers = api_instance.create_funding_pay_vault_fee_with_http_info
+  data, status_code, headers = api_instance.create_funding_pay_vault_fee_with_http_info(create_funding_pay_vault_fee_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingPayVaultFeeResponse>
@@ -668,7 +699,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_pay_vault_fee_request** | **CreateFundingPayVaultFeeRequest** |  |  |
 
 ### Return type
 
@@ -680,13 +713,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_pool_stake
 
-> <CreateFundingPoolStakeResponse> create_funding_pool_stake
+> <CreateFundingPoolStakeResponse> create_funding_pool_stake(create_funding_pool_stake_request)
 
 Stake earned CBX into the funding pool. Refused, with the reason, until the pool is live and staking is open.
 
@@ -702,10 +735,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_pool_stake_request = Crossly::CreateFundingPoolStakeRequest.new({base_units: 'base_units_example', accepted_disclosure: false, idempotency_key: 'idempotency_key_example'}) # CreateFundingPoolStakeRequest | 
 
 begin
   # Stake earned CBX into the funding pool. Refused, with the reason, until the pool is live and staking is open.
-  result = api_instance.create_funding_pool_stake
+  result = api_instance.create_funding_pool_stake(create_funding_pool_stake_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_pool_stake: #{e}"
@@ -716,12 +750,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingPoolStakeResponse>, Integer, Hash)> create_funding_pool_stake_with_http_info
+> <Array(<CreateFundingPoolStakeResponse>, Integer, Hash)> create_funding_pool_stake_with_http_info(create_funding_pool_stake_request)
 
 ```ruby
 begin
   # Stake earned CBX into the funding pool. Refused, with the reason, until the pool is live and staking is open.
-  data, status_code, headers = api_instance.create_funding_pool_stake_with_http_info
+  data, status_code, headers = api_instance.create_funding_pool_stake_with_http_info(create_funding_pool_stake_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingPoolStakeResponse>
@@ -732,7 +766,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_pool_stake_request** | **CreateFundingPoolStakeRequest** |  |  |
 
 ### Return type
 
@@ -744,13 +780,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_funding_pool_unstake
 
-> <FundingPoolResponse> create_funding_pool_unstake
+> <FundingPoolResponse> create_funding_pool_unstake(create_funding_pool_unstake_request)
 
 Queue an unstake. Paid first-in first-out once your lockup has passed.
 
@@ -766,10 +802,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_pool_unstake_request = Crossly::CreateFundingPoolUnstakeRequest.new({shares: 'shares_example', idempotency_key: 'idempotency_key_example'}) # CreateFundingPoolUnstakeRequest | 
 
 begin
   # Queue an unstake. Paid first-in first-out once your lockup has passed.
-  result = api_instance.create_funding_pool_unstake
+  result = api_instance.create_funding_pool_unstake(create_funding_pool_unstake_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_pool_unstake: #{e}"
@@ -780,12 +817,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<FundingPoolResponse>, Integer, Hash)> create_funding_pool_unstake_with_http_info
+> <Array(<FundingPoolResponse>, Integer, Hash)> create_funding_pool_unstake_with_http_info(create_funding_pool_unstake_request)
 
 ```ruby
 begin
   # Queue an unstake. Paid first-in first-out once your lockup has passed.
-  data, status_code, headers = api_instance.create_funding_pool_unstake_with_http_info
+  data, status_code, headers = api_instance.create_funding_pool_unstake_with_http_info(create_funding_pool_unstake_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <FundingPoolResponse>
@@ -796,7 +833,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_pool_unstake_request** | **CreateFundingPoolUnstakeRequest** |  |  |
 
 ### Return type
 
@@ -808,7 +847,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -945,7 +984,7 @@ This endpoint does not need any parameter.
 
 ## create_funding_repay
 
-> <CreateFundingRepayResponse> create_funding_repay
+> <CreateFundingRepayResponse> create_funding_repay(create_funding_repay_request)
 
 Repay. source \"balance\" (default) takes it from your available Stripe payout balance and applies it at once. source \"card\" returns a PaymentIntent client secret to confirm with Stripe; source \"checkout\" returns checkoutUrl, a hosted Stripe Checkout page the seller pays on (no Stripe SDK needed). source \"cbx\" pays early from your EARNED CBX at the obligation rate (granted and funding CBX never repay a line) and applies at once. Card and checkout apply when the payment succeeds. Never more than you owe; idempotent on idempotencyKey.
 
@@ -961,10 +1000,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+create_funding_repay_request = Crossly::CreateFundingRepayRequest.new({amount_cents: 3.56, idempotency_key: 'idempotency_key_example'}) # CreateFundingRepayRequest | 
 
 begin
   # Repay. source \"balance\" (default) takes it from your available Stripe payout balance and applies it at once. source \"card\" returns a PaymentIntent client secret to confirm with Stripe; source \"checkout\" returns checkoutUrl, a hosted Stripe Checkout page the seller pays on (no Stripe SDK needed). source \"cbx\" pays early from your EARNED CBX at the obligation rate (granted and funding CBX never repay a line) and applies at once. Card and checkout apply when the payment succeeds. Never more than you owe; idempotent on idempotencyKey.
-  result = api_instance.create_funding_repay
+  result = api_instance.create_funding_repay(create_funding_repay_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->create_funding_repay: #{e}"
@@ -975,12 +1015,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateFundingRepayResponse>, Integer, Hash)> create_funding_repay_with_http_info
+> <Array(<CreateFundingRepayResponse>, Integer, Hash)> create_funding_repay_with_http_info(create_funding_repay_request)
 
 ```ruby
 begin
   # Repay. source \"balance\" (default) takes it from your available Stripe payout balance and applies it at once. source \"card\" returns a PaymentIntent client secret to confirm with Stripe; source \"checkout\" returns checkoutUrl, a hosted Stripe Checkout page the seller pays on (no Stripe SDK needed). source \"cbx\" pays early from your EARNED CBX at the obligation rate (granted and funding CBX never repay a line) and applies at once. Card and checkout apply when the payment succeeds. Never more than you owe; idempotent on idempotencyKey.
-  data, status_code, headers = api_instance.create_funding_repay_with_http_info
+  data, status_code, headers = api_instance.create_funding_repay_with_http_info(create_funding_repay_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateFundingRepayResponse>
@@ -991,7 +1031,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_repay_request** | **CreateFundingRepayRequest** |  |  |
 
 ### Return type
 
@@ -1003,7 +1045,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1261,6 +1303,70 @@ end
 ### Return type
 
 **GetFundingDrawInvoiceResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_funding_invoice_advance_eligibility
+
+> <GetFundingInvoiceAdvanceEligibilityResponse> get_funding_invoice_advance_eligibility
+
+What your Crossly Funding line could advance against your open wholesale invoices: per invoice its balance due, the advance at the rate (80%), what the line can cover now within its headroom (earliest due first), and why not (overdue, no line, line unavailable, over headroom). Eligibility only: an advance cannot be drawn against an invoice yet. X-Storefront-Id narrows to one store.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::FundingApi.new
+
+begin
+  # What your Crossly Funding line could advance against your open wholesale invoices: per invoice its balance due, the advance at the rate (80%), what the line can cover now within its headroom (earliest due first), and why not (overdue, no line, line unavailable, over headroom). Eligibility only: an advance cannot be drawn against an invoice yet. X-Storefront-Id narrows to one store.
+  result = api_instance.get_funding_invoice_advance_eligibility
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling FundingApi->get_funding_invoice_advance_eligibility: #{e}"
+end
+```
+
+#### Using the get_funding_invoice_advance_eligibility_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetFundingInvoiceAdvanceEligibilityResponse>, Integer, Hash)> get_funding_invoice_advance_eligibility_with_http_info
+
+```ruby
+begin
+  # What your Crossly Funding line could advance against your open wholesale invoices: per invoice its balance due, the advance at the rate (80%), what the line can cover now within its headroom (earliest due first), and why not (overdue, no line, line unavailable, over headroom). Eligibility only: an advance cannot be drawn against an invoice yet. X-Storefront-Id narrows to one store.
+  data, status_code, headers = api_instance.get_funding_invoice_advance_eligibility_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetFundingInvoiceAdvanceEligibilityResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling FundingApi->get_funding_invoice_advance_eligibility_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetFundingInvoiceAdvanceEligibilityResponse**
 
 ### Authorization
 
@@ -1786,7 +1892,7 @@ This endpoint does not need any parameter.
 
 ## list_funding_receipts
 
-> <ListFundingReceiptsResponse> list_funding_receipts
+> <ListFundingReceiptsResponse> list_funding_receipts(opts)
 
 Your funding payments to Crossly, newest first: the use, what it paid for, cents, status (pending, paid, failed) and the draw it was stamped against.
 
@@ -1802,10 +1908,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+opts = {
+  limit: 8.14 # Float | 
+}
 
 begin
   # Your funding payments to Crossly, newest first: the use, what it paid for, cents, status (pending, paid, failed) and the draw it was stamped against.
-  result = api_instance.list_funding_receipts
+  result = api_instance.list_funding_receipts(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->list_funding_receipts: #{e}"
@@ -1816,12 +1925,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListFundingReceiptsResponse>, Integer, Hash)> list_funding_receipts_with_http_info
+> <Array(<ListFundingReceiptsResponse>, Integer, Hash)> list_funding_receipts_with_http_info(opts)
 
 ```ruby
 begin
   # Your funding payments to Crossly, newest first: the use, what it paid for, cents, status (pending, paid, failed) and the draw it was stamped against.
-  data, status_code, headers = api_instance.list_funding_receipts_with_http_info
+  data, status_code, headers = api_instance.list_funding_receipts_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListFundingReceiptsResponse>
@@ -1832,7 +1941,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1914,7 +2025,7 @@ This endpoint does not need any parameter.
 
 ## update_funding_autorepay
 
-> <UpdateFundingAutorepayResponse> update_funding_autorepay
+> <UpdateFundingAutorepayResponse> update_funding_autorepay(update_funding_autorepay_request)
 
 Set the share of each Crossly payout applied to what you owe: a whole percent from 10 to 100 (default 20). Never more than you owe is taken.
 
@@ -1930,10 +2041,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+update_funding_autorepay_request = Crossly::UpdateFundingAutorepayRequest.new({pct: 3.56}) # UpdateFundingAutorepayRequest | 
 
 begin
   # Set the share of each Crossly payout applied to what you owe: a whole percent from 10 to 100 (default 20). Never more than you owe is taken.
-  result = api_instance.update_funding_autorepay
+  result = api_instance.update_funding_autorepay(update_funding_autorepay_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->update_funding_autorepay: #{e}"
@@ -1944,12 +2056,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateFundingAutorepayResponse>, Integer, Hash)> update_funding_autorepay_with_http_info
+> <Array(<UpdateFundingAutorepayResponse>, Integer, Hash)> update_funding_autorepay_with_http_info(update_funding_autorepay_request)
 
 ```ruby
 begin
   # Set the share of each Crossly payout applied to what you owe: a whole percent from 10 to 100 (default 20). Never more than you owe is taken.
-  data, status_code, headers = api_instance.update_funding_autorepay_with_http_info
+  data, status_code, headers = api_instance.update_funding_autorepay_with_http_info(update_funding_autorepay_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateFundingAutorepayResponse>
@@ -1960,7 +2072,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_funding_autorepay_request** | **UpdateFundingAutorepayRequest** |  |  |
 
 ### Return type
 
@@ -1972,13 +2086,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_funding_control
 
-> <UpdateFundingControlResponse> update_funding_control
+> <UpdateFundingControlResponse> update_funding_control(update_funding_control_request)
 
 Change your funding spend controls. Enforced at every spend: wholesale checkout, labels, ads, Crossly and Vault fees.
 
@@ -1994,10 +2108,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::FundingApi.new
+update_funding_control_request = Crossly::UpdateFundingControlRequest.new # UpdateFundingControlRequest | 
 
 begin
   # Change your funding spend controls. Enforced at every spend: wholesale checkout, labels, ads, Crossly and Vault fees.
-  result = api_instance.update_funding_control
+  result = api_instance.update_funding_control(update_funding_control_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->update_funding_control: #{e}"
@@ -2008,12 +2123,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateFundingControlResponse>, Integer, Hash)> update_funding_control_with_http_info
+> <Array(<UpdateFundingControlResponse>, Integer, Hash)> update_funding_control_with_http_info(update_funding_control_request)
 
 ```ruby
 begin
   # Change your funding spend controls. Enforced at every spend: wholesale checkout, labels, ads, Crossly and Vault fees.
-  data, status_code, headers = api_instance.update_funding_control_with_http_info
+  data, status_code, headers = api_instance.update_funding_control_with_http_info(update_funding_control_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateFundingControlResponse>
@@ -2024,7 +2139,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_funding_control_request** | **UpdateFundingControlRequest** |  |  |
 
 ### Return type
 
@@ -2036,13 +2153,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_funding_member
 
-> <UpdateFundingMemberResponse> update_funding_member(member_user_id)
+> <UpdateFundingMemberResponse> update_funding_member(member_user_id, update_funding_member_request)
 
 Set a team member’s funding limit (per draw or per month).
 
@@ -2059,10 +2176,11 @@ end
 
 api_instance = Crossly::FundingApi.new
 member_user_id = 'member_user_id_example' # String | 
+update_funding_member_request = Crossly::UpdateFundingMemberRequest.new({limit_cents: 3.56}) # UpdateFundingMemberRequest | 
 
 begin
   # Set a team member’s funding limit (per draw or per month).
-  result = api_instance.update_funding_member(member_user_id)
+  result = api_instance.update_funding_member(member_user_id, update_funding_member_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling FundingApi->update_funding_member: #{e}"
@@ -2073,12 +2191,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateFundingMemberResponse>, Integer, Hash)> update_funding_member_with_http_info(member_user_id)
+> <Array(<UpdateFundingMemberResponse>, Integer, Hash)> update_funding_member_with_http_info(member_user_id, update_funding_member_request)
 
 ```ruby
 begin
   # Set a team member’s funding limit (per draw or per month).
-  data, status_code, headers = api_instance.update_funding_member_with_http_info(member_user_id)
+  data, status_code, headers = api_instance.update_funding_member_with_http_info(member_user_id, update_funding_member_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateFundingMemberResponse>
@@ -2092,6 +2210,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **member_user_id** | **String** |  |  |
+| **update_funding_member_request** | **UpdateFundingMemberRequest** |  |  |
 
 ### Return type
 
@@ -2103,6 +2222,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

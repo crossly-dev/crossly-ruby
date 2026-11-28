@@ -90,7 +90,7 @@ module Crossly
         :'id' => :'String',
         :'name' => :'String',
         :'kind' => :'String',
-        :'tiers' => :'Array<ListAutomaticDiscountsItemTiers>',
+        :'tiers' => :'Array<MinQtyPercentBps>',
         :'applies_to' => :'ListAutomaticDiscountsItemAppliesTo',
         :'exclusions' => :'ListAutomaticDiscountsItemExclusions',
         :'channels' => :'Array<ListAutomaticDiscountsItemChannelsItem>',

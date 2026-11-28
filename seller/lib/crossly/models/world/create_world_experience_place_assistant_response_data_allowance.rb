@@ -176,7 +176,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @ok.nil?
-      reason_validator = EnumAttributeValidator.new('String', ["monthly", "daily", "plan"])
+      reason_validator = EnumAttributeValidator.new('String', ["monthly", "plan", "daily"])
       return false unless reason_validator.valid?(@reason)
       return false if @requests_per_day.nil?
       return false if @remaining_today.nil?
@@ -188,7 +188,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] reason Object to be assigned
     def reason=(reason)
-      validator = EnumAttributeValidator.new('String', ["monthly", "daily", "plan"])
+      validator = EnumAttributeValidator.new('String', ["monthly", "plan", "daily"])
       unless validator.valid?(reason)
         fail ArgumentError, "invalid value for \"reason\", must be one of #{validator.allowable_values}."
       end

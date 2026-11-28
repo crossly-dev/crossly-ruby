@@ -15,33 +15,86 @@ require 'time'
 
 module Crossly
   class ListAuthSessionsItem
-    attr_accessor :is_current
-
-    attr_accessor :id
-
     attr_accessor :user_agent
-
-    attr_accessor :ip_address
 
     attr_accessor :ip_country
 
-    attr_accessor :created_at
-
+    # = lastActiveAt (the v1 name since before Atlas).
     attr_accessor :last_used_at
 
+    # 'atlas', or 'legacy' for an old Crossly session the bridge could still revive (v1 only, until 2027-01-15).
+    attr_accessor :source
+
+    attr_accessor :status
+
+    attr_accessor :device_type
+
+    attr_accessor :id
+
+    # \"Chrome on macOS\".
+    attr_accessor :device
+
+    attr_accessor :ip_address
+
+    # \"New Brunswick, US\".
+    attr_accessor :location
+
+    attr_accessor :created_at
+
+    attr_accessor :last_active_at
+
     attr_accessor :expires_at
+
+    # The session making the call (cookie or bearer: Atlas marks exactly one).
+    attr_accessor :is_current
+
+    # How it signed in: \"Google\", \"Password\", \"Passkey\"…; null for a session from before Atlas recorded it.
+    attr_accessor :signed_in_with
+
+    # A second step was proven at sign-in (or by a later step-up).
+    attr_accessor :two_step
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'is_current' => :'isCurrent',
-        :'id' => :'id',
         :'user_agent' => :'userAgent',
-        :'ip_address' => :'ipAddress',
         :'ip_country' => :'ipCountry',
-        :'created_at' => :'createdAt',
         :'last_used_at' => :'lastUsedAt',
-        :'expires_at' => :'expiresAt'
+        :'source' => :'source',
+        :'status' => :'status',
+        :'device_type' => :'deviceType',
+        :'id' => :'id',
+        :'device' => :'device',
+        :'ip_address' => :'ipAddress',
+        :'location' => :'location',
+        :'created_at' => :'createdAt',
+        :'last_active_at' => :'lastActiveAt',
+        :'expires_at' => :'expiresAt',
+        :'is_current' => :'isCurrent',
+        :'signed_in_with' => :'signedInWith',
+        :'two_step' => :'twoStep'
       }
     end
 
@@ -53,14 +106,22 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'is_current' => :'Boolean',
-        :'id' => :'String',
         :'user_agent' => :'String',
-        :'ip_address' => :'String',
         :'ip_country' => :'String',
-        :'created_at' => :'String',
         :'last_used_at' => :'String',
-        :'expires_at' => :'String'
+        :'source' => :'String',
+        :'status' => :'String',
+        :'device_type' => :'String',
+        :'id' => :'String',
+        :'device' => :'String',
+        :'ip_address' => :'String',
+        :'location' => :'String',
+        :'created_at' => :'String',
+        :'last_active_at' => :'String',
+        :'expires_at' => :'String',
+        :'is_current' => :'Boolean',
+        :'signed_in_with' => :'String',
+        :'two_step' => :'Boolean'
       }
     end
 
@@ -68,11 +129,14 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'user_agent',
-        :'ip_address',
         :'ip_country',
-        :'created_at',
         :'last_used_at',
-        :'expires_at'
+        :'ip_address',
+        :'location',
+        :'created_at',
+        :'last_active_at',
+        :'expires_at',
+        :'signed_in_with',
       ])
     end
 
@@ -91,36 +155,68 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'is_current')
-        self.is_current = attributes[:'is_current']
-      end
-
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      end
-
       if attributes.key?(:'user_agent')
         self.user_agent = attributes[:'user_agent']
-      end
-
-      if attributes.key?(:'ip_address')
-        self.ip_address = attributes[:'ip_address']
       end
 
       if attributes.key?(:'ip_country')
         self.ip_country = attributes[:'ip_country']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
-      end
-
       if attributes.key?(:'last_used_at')
         self.last_used_at = attributes[:'last_used_at']
       end
 
+      if attributes.key?(:'source')
+        self.source = attributes[:'source']
+      end
+
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'device_type')
+        self.device_type = attributes[:'device_type']
+      end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'device')
+        self.device = attributes[:'device']
+      end
+
+      if attributes.key?(:'ip_address')
+        self.ip_address = attributes[:'ip_address']
+      end
+
+      if attributes.key?(:'location')
+        self.location = attributes[:'location']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'last_active_at')
+        self.last_active_at = attributes[:'last_active_at']
+      end
+
       if attributes.key?(:'expires_at')
         self.expires_at = attributes[:'expires_at']
+      end
+
+      if attributes.key?(:'is_current')
+        self.is_current = attributes[:'is_current']
+      end
+
+      if attributes.key?(:'signed_in_with')
+        self.signed_in_with = attributes[:'signed_in_with']
+      end
+
+      if attributes.key?(:'two_step')
+        self.two_step = attributes[:'two_step']
       end
     end
 
@@ -128,12 +224,32 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @is_current.nil?
-        invalid_properties.push('invalid value for "is_current", is_current cannot be nil.')
+      if @source.nil?
+        invalid_properties.push('invalid value for "source", source cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @device_type.nil?
+        invalid_properties.push('invalid value for "device_type", device_type cannot be nil.')
       end
 
       if @id.nil?
         invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @device.nil?
+        invalid_properties.push('invalid value for "device", device cannot be nil.')
+      end
+
+      if @is_current.nil?
+        invalid_properties.push('invalid value for "is_current", is_current cannot be nil.')
+      end
+
+      if @two_step.nil?
+        invalid_properties.push('invalid value for "two_step", two_step cannot be nil.')
       end
 
       invalid_properties
@@ -142,9 +258,50 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @is_current.nil?
+      return false if @source.nil?
+      source_validator = EnumAttributeValidator.new('String', ["atlas", "legacy"])
+      return false unless source_validator.valid?(@source)
+      return false if @status.nil?
+      status_validator = EnumAttributeValidator.new('String', ["active", "expired"])
+      return false unless status_validator.valid?(@status)
+      return false if @device_type.nil?
+      device_type_validator = EnumAttributeValidator.new('String', ["desktop", "mobile", "tablet", "app", "unknown"])
+      return false unless device_type_validator.valid?(@device_type)
       return false if @id.nil?
+      return false if @device.nil?
+      return false if @is_current.nil?
+      return false if @two_step.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] source Object to be assigned
+    def source=(source)
+      validator = EnumAttributeValidator.new('String', ["atlas", "legacy"])
+      unless validator.valid?(source)
+        fail ArgumentError, "invalid value for \"source\", must be one of #{validator.allowable_values}."
+      end
+      @source = source
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      validator = EnumAttributeValidator.new('String', ["active", "expired"])
+      unless validator.valid?(status)
+        fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
+      end
+      @status = status
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] device_type Object to be assigned
+    def device_type=(device_type)
+      validator = EnumAttributeValidator.new('String', ["desktop", "mobile", "tablet", "app", "unknown"])
+      unless validator.valid?(device_type)
+        fail ArgumentError, "invalid value for \"device_type\", must be one of #{validator.allowable_values}."
+      end
+      @device_type = device_type
     end
 
     # Checks equality by comparing each attribute.
@@ -152,14 +309,22 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          is_current == o.is_current &&
-          id == o.id &&
           user_agent == o.user_agent &&
-          ip_address == o.ip_address &&
           ip_country == o.ip_country &&
-          created_at == o.created_at &&
           last_used_at == o.last_used_at &&
-          expires_at == o.expires_at
+          source == o.source &&
+          status == o.status &&
+          device_type == o.device_type &&
+          id == o.id &&
+          device == o.device &&
+          ip_address == o.ip_address &&
+          location == o.location &&
+          created_at == o.created_at &&
+          last_active_at == o.last_active_at &&
+          expires_at == o.expires_at &&
+          is_current == o.is_current &&
+          signed_in_with == o.signed_in_with &&
+          two_step == o.two_step
     end
 
     # @see the `==` method
@@ -171,7 +336,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [is_current, id, user_agent, ip_address, ip_country, created_at, last_used_at, expires_at].hash
+      [user_agent, ip_country, last_used_at, source, status, device_type, id, device, ip_address, location, created_at, last_active_at, expires_at, is_current, signed_in_with, two_step].hash
     end
 
     # Builds the object from hash

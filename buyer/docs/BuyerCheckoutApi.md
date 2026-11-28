@@ -11,7 +11,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_buyer_checkout
 
-> <CreateBuyerCheckoutResponse> create_buyer_checkout
+> <CreateBuyerCheckoutResponse> create_buyer_checkout(create_buyer_checkout_request)
 
 Buy a listing without being present.
 
@@ -29,10 +29,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCheckoutApi.new
+create_buyer_checkout_request = CrosslyBuyer::CreateBuyerCheckoutRequest.new({listing_slug: 'listing_slug_example', payment_method_id: 'payment_method_id_example'}) # CreateBuyerCheckoutRequest | 
 
 begin
   # Buy a listing without being present.
-  result = api_instance.create_buyer_checkout
+  result = api_instance.create_buyer_checkout(create_buyer_checkout_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCheckoutApi->create_buyer_checkout: #{e}"
@@ -43,12 +44,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerCheckoutResponse>, Integer, Hash)> create_buyer_checkout_with_http_info
+> <Array(<CreateBuyerCheckoutResponse>, Integer, Hash)> create_buyer_checkout_with_http_info(create_buyer_checkout_request)
 
 ```ruby
 begin
   # Buy a listing without being present.
-  data, status_code, headers = api_instance.create_buyer_checkout_with_http_info
+  data, status_code, headers = api_instance.create_buyer_checkout_with_http_info(create_buyer_checkout_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerCheckoutResponse>
@@ -59,7 +60,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_checkout_request** | **CreateBuyerCheckoutRequest** |  |  |
 
 ### Return type
 
@@ -71,7 +74,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -143,7 +146,7 @@ This endpoint does not need any parameter.
 
 ## update_buyer_checkout_control
 
-> <GetBuyerCheckoutControlResponse> update_buyer_checkout_control
+> <GetBuyerCheckoutControlResponse> update_buyer_checkout_control(update_buyer_checkout_control_request)
 
 Switch this key on for spending, and set its limits.
 
@@ -161,10 +164,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerCheckoutApi.new
+update_buyer_checkout_control_request = CrosslyBuyer::UpdateBuyerCheckoutControlRequest.new({enabled: false, daily_limit_cents: 3.56, per_order_limit_cents: 3.56, max_units_per_listing_per_day: 3.56}) # UpdateBuyerCheckoutControlRequest | 
 
 begin
   # Switch this key on for spending, and set its limits.
-  result = api_instance.update_buyer_checkout_control
+  result = api_instance.update_buyer_checkout_control(update_buyer_checkout_control_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerCheckoutApi->update_buyer_checkout_control: #{e}"
@@ -175,12 +179,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetBuyerCheckoutControlResponse>, Integer, Hash)> update_buyer_checkout_control_with_http_info
+> <Array(<GetBuyerCheckoutControlResponse>, Integer, Hash)> update_buyer_checkout_control_with_http_info(update_buyer_checkout_control_request)
 
 ```ruby
 begin
   # Switch this key on for spending, and set its limits.
-  data, status_code, headers = api_instance.update_buyer_checkout_control_with_http_info
+  data, status_code, headers = api_instance.update_buyer_checkout_control_with_http_info(update_buyer_checkout_control_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetBuyerCheckoutControlResponse>
@@ -191,7 +195,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_buyer_checkout_control_request** | **UpdateBuyerCheckoutControlRequest** |  |  |
 
 ### Return type
 
@@ -203,6 +209,6 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

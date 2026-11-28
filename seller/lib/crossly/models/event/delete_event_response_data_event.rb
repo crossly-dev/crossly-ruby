@@ -149,7 +149,7 @@ module Crossly
         :'capacity' => :'Float',
         :'listing_ids' => :'Array<String>',
         :'live_stream_id' => :'String',
-        :'drop_ref' => :'ListEventsItemDropRef',
+        :'drop_ref' => :'TypeId2',
         :'discount_code_id' => :'String',
         :'feature_on_storefront' => :'Boolean',
         :'notify_followers' => :'Boolean',

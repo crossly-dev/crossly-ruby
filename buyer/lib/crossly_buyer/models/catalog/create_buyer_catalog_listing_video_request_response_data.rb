@@ -25,11 +25,11 @@ module CrosslyBuyer
 
     attr_accessor :platform_listing_id
 
+    attr_accessor :note
+
     attr_accessor :buyer_user_id
 
     attr_accessor :seller_user_id
-
-    attr_accessor :note
 
     attr_accessor :answered_at
 
@@ -43,9 +43,9 @@ module CrosslyBuyer
         :'status' => :'status',
         :'video_url' => :'videoUrl',
         :'platform_listing_id' => :'platformListingId',
+        :'note' => :'note',
         :'buyer_user_id' => :'buyerUserId',
         :'seller_user_id' => :'sellerUserId',
-        :'note' => :'note',
         :'answered_at' => :'answeredAt',
         :'seller_note' => :'sellerNote'
       }
@@ -64,9 +64,9 @@ module CrosslyBuyer
         :'status' => :'String',
         :'video_url' => :'String',
         :'platform_listing_id' => :'String',
+        :'note' => :'String',
         :'buyer_user_id' => :'String',
         :'seller_user_id' => :'String',
-        :'note' => :'String',
         :'answered_at' => :'Time',
         :'seller_note' => :'String'
       }
@@ -117,16 +117,16 @@ module CrosslyBuyer
         self.platform_listing_id = attributes[:'platform_listing_id']
       end
 
+      if attributes.key?(:'note')
+        self.note = attributes[:'note']
+      end
+
       if attributes.key?(:'buyer_user_id')
         self.buyer_user_id = attributes[:'buyer_user_id']
       end
 
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
-      end
-
-      if attributes.key?(:'note')
-        self.note = attributes[:'note']
       end
 
       if attributes.key?(:'answered_at')
@@ -191,9 +191,9 @@ module CrosslyBuyer
           status == o.status &&
           video_url == o.video_url &&
           platform_listing_id == o.platform_listing_id &&
+          note == o.note &&
           buyer_user_id == o.buyer_user_id &&
           seller_user_id == o.seller_user_id &&
-          note == o.note &&
           answered_at == o.answered_at &&
           seller_note == o.seller_note
     end
@@ -207,7 +207,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, video_url, platform_listing_id, buyer_user_id, seller_user_id, note, answered_at, seller_note].hash
+      [id, created_at, status, video_url, platform_listing_id, note, buyer_user_id, seller_user_id, answered_at, seller_note].hash
     end
 
     # Builds the object from hash

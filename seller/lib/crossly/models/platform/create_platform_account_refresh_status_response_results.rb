@@ -21,6 +21,7 @@ module Crossly
 
     attr_accessor :status
 
+    # A probe ran and the platform answered (false: no healthcheck action, archived, or the call never got through).
     attr_accessor :checked
 
     # Attribute mapping from ruby-style variable name to JSON key.

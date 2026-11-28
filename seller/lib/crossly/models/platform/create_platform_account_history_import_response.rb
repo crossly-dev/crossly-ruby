@@ -17,9 +17,14 @@ module Crossly
   class CreatePlatformAccountHistoryImportResponse
     attr_accessor :pending_accounts
 
+    # The account rows the window was saved on (user_platform_accounts / platform_connections ids).
+    attr_accessor :account_ids
+
     attr_accessor :ledger_fired
 
     attr_accessor :listings_fired
+
+    attr_accessor :messages_fired
 
     attr_accessor :ok
 
@@ -27,8 +32,10 @@ module Crossly
     def self.attribute_map
       {
         :'pending_accounts' => :'pendingAccounts',
+        :'account_ids' => :'accountIds',
         :'ledger_fired' => :'ledgerFired',
         :'listings_fired' => :'listingsFired',
+        :'messages_fired' => :'messagesFired',
         :'ok' => :'ok'
       }
     end
@@ -42,8 +49,10 @@ module Crossly
     def self.openapi_types
       {
         :'pending_accounts' => :'Float',
+        :'account_ids' => :'Array<String>',
         :'ledger_fired' => :'Boolean',
         :'listings_fired' => :'Boolean',
+        :'messages_fired' => :'Boolean',
         :'ok' => :'Boolean'
       }
     end
@@ -51,6 +60,8 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'account_ids',
+        :'messages_fired',
       ])
     end
 
@@ -73,12 +84,22 @@ module Crossly
         self.pending_accounts = attributes[:'pending_accounts']
       end
 
+      if attributes.key?(:'account_ids')
+        if (value = attributes[:'account_ids']).is_a?(Array)
+          self.account_ids = value
+        end
+      end
+
       if attributes.key?(:'ledger_fired')
         self.ledger_fired = attributes[:'ledger_fired']
       end
 
       if attributes.key?(:'listings_fired')
         self.listings_fired = attributes[:'listings_fired']
+      end
+
+      if attributes.key?(:'messages_fired')
+        self.messages_fired = attributes[:'messages_fired']
       end
 
       if attributes.key?(:'ok')
@@ -125,8 +146,10 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           pending_accounts == o.pending_accounts &&
+          account_ids == o.account_ids &&
           ledger_fired == o.ledger_fired &&
           listings_fired == o.listings_fired &&
+          messages_fired == o.messages_fired &&
           ok == o.ok
     end
 
@@ -139,7 +162,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [pending_accounts, ledger_fired, listings_fired, ok].hash
+      [pending_accounts, account_ids, ledger_fired, listings_fired, messages_fired, ok].hash
     end
 
     # Builds the object from hash

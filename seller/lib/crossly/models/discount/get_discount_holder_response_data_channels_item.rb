@@ -15,9 +15,9 @@ require 'time'
 
 module Crossly
   class GetDiscountHolderResponseDataChannelsItem
+    STOREFRONT = "storefront".freeze
     LIVE = "live".freeze
     MARKETPLACE = "marketplace".freeze
-    STOREFRONT = "storefront".freeze
     RENTALS = "rentals".freeze
     WORLD = "world".freeze
     WEBSITE = "website".freeze

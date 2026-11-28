@@ -425,7 +425,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @genre.nil?
-      genre_validator = EnumAttributeValidator.new('String', ["shopping", "other", "strategy", "social", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
+      genre_validator = EnumAttributeValidator.new('String', ["shopping", "other", "social", "strategy", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
       return false unless genre_validator.valid?(@genre)
       return false if @devices.nil?
       return false if @up.nil?
@@ -458,7 +458,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] genre Object to be assigned
     def genre=(genre)
-      validator = EnumAttributeValidator.new('String', ["shopping", "other", "strategy", "social", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
+      validator = EnumAttributeValidator.new('String', ["shopping", "other", "social", "strategy", "hangout", "simulation", "obby", "adventure", "roleplay", "sports", "arcade", "card_games"])
       unless validator.valid?(genre)
         fail ArgumentError, "invalid value for \"genre\", must be one of #{validator.allowable_values}."
       end

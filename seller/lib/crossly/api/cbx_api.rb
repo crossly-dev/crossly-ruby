@@ -21,20 +21,26 @@ module Crossly
     end
     # Record cashback a user earned, in cents.
     # The accrual is PENDING until its maturation window closes, then converts to CBX at that moment's market price. It is denominated in cents the whole time it is pending, deliberately: quoting a token quantity up front and buying later would leave the reserve short for the length of the window. Send sourceExternalId and a retry is a no-op rather than a double credit.
+    # @param create_cbx_accrual_request [CreateCbxAccrualRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxAccrualResponse]
-    def create_cbx_accrual(opts = {})
-      data, _status_code, _headers = create_cbx_accrual_with_http_info(opts)
+    def create_cbx_accrual(create_cbx_accrual_request, opts = {})
+      data, _status_code, _headers = create_cbx_accrual_with_http_info(create_cbx_accrual_request, opts)
       data
     end
 
     # Record cashback a user earned, in cents.
     # The accrual is PENDING until its maturation window closes, then converts to CBX at that moment&#39;s market price. It is denominated in cents the whole time it is pending, deliberately: quoting a token quantity up front and buying later would leave the reserve short for the length of the window. Send sourceExternalId and a retry is a no-op rather than a double credit.
+    # @param create_cbx_accrual_request [CreateCbxAccrualRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxAccrualResponse, Integer, Hash)>] CreateCbxAccrualResponse data, response status code and response headers
-    def create_cbx_accrual_with_http_info(opts = {})
+    def create_cbx_accrual_with_http_info(create_cbx_accrual_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_accrual ...'
+      end
+      # verify the required parameter 'create_cbx_accrual_request' is set
+      if @api_client.config.client_side_validation && create_cbx_accrual_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_accrual_request' when calling CBXApi.create_cbx_accrual"
       end
       # resource path
       local_var_path = '/v1/cbx/accruals'
@@ -46,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_accrual_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxAccrualResponse'
@@ -78,20 +89,26 @@ module Crossly
 
     # Accrue cashback for an order at the resolved rate.
     # Prefer this over POST /accruals when you want us to do the rate maths — it resolves the tier, the boost and the stake boost, charges your boost budget in the same transaction, and records what rate was actually granted. If a matching boost cannot fund the order, the accrual falls back to your un-boosted rate and `boostBudgetExhausted` is true. Idempotent on externalId: a retried webhook neither accrues twice nor charges your budget twice.
+    # @param create_cbx_accrual_purchase_request [CreateCbxAccrualPurchaseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxAccrualPurchaseResponse]
-    def create_cbx_accrual_purchase(opts = {})
-      data, _status_code, _headers = create_cbx_accrual_purchase_with_http_info(opts)
+    def create_cbx_accrual_purchase(create_cbx_accrual_purchase_request, opts = {})
+      data, _status_code, _headers = create_cbx_accrual_purchase_with_http_info(create_cbx_accrual_purchase_request, opts)
       data
     end
 
     # Accrue cashback for an order at the resolved rate.
     # Prefer this over POST /accruals when you want us to do the rate maths — it resolves the tier, the boost and the stake boost, charges your boost budget in the same transaction, and records what rate was actually granted. If a matching boost cannot fund the order, the accrual falls back to your un-boosted rate and &#x60;boostBudgetExhausted&#x60; is true. Idempotent on externalId: a retried webhook neither accrues twice nor charges your budget twice.
+    # @param create_cbx_accrual_purchase_request [CreateCbxAccrualPurchaseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxAccrualPurchaseResponse, Integer, Hash)>] CreateCbxAccrualPurchaseResponse data, response status code and response headers
-    def create_cbx_accrual_purchase_with_http_info(opts = {})
+    def create_cbx_accrual_purchase_with_http_info(create_cbx_accrual_purchase_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_accrual_purchase ...'
+      end
+      # verify the required parameter 'create_cbx_accrual_purchase_request' is set
+      if @api_client.config.client_side_validation && create_cbx_accrual_purchase_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_accrual_purchase_request' when calling CBXApi.create_cbx_accrual_purchase"
       end
       # resource path
       local_var_path = '/v1/cbx/accruals/purchase'
@@ -103,12 +120,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_accrual_purchase_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxAccrualPurchaseResponse'
@@ -136,25 +158,31 @@ module Crossly
     # Claw back a pending accrual — a refund, a cancellation, fraud.
     # Only works while the accrual is still pending. Once it has converted, the value is tokens in somebody's balance and this is the wrong operation: reversing then is a debit against that balance, which is a different act with different consequences and is not something an integration key can do. This is why the maturation window has to be at least as long as your refund window.
     # @param accrual_id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSpendReverseResponse]
-    def create_cbx_accrual_reverse(accrual_id, opts = {})
-      data, _status_code, _headers = create_cbx_accrual_reverse_with_http_info(accrual_id, opts)
+    def create_cbx_accrual_reverse(accrual_id, reason_request, opts = {})
+      data, _status_code, _headers = create_cbx_accrual_reverse_with_http_info(accrual_id, reason_request, opts)
       data
     end
 
     # Claw back a pending accrual — a refund, a cancellation, fraud.
     # Only works while the accrual is still pending. Once it has converted, the value is tokens in somebody&#39;s balance and this is the wrong operation: reversing then is a debit against that balance, which is a different act with different consequences and is not something an integration key can do. This is why the maturation window has to be at least as long as your refund window.
     # @param accrual_id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSpendReverseResponse, Integer, Hash)>] CreateCbxSpendReverseResponse data, response status code and response headers
-    def create_cbx_accrual_reverse_with_http_info(accrual_id, opts = {})
+    def create_cbx_accrual_reverse_with_http_info(accrual_id, reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_accrual_reverse ...'
       end
       # verify the required parameter 'accrual_id' is set
       if @api_client.config.client_side_validation && accrual_id.nil?
         fail ArgumentError, "Missing the required parameter 'accrual_id' when calling CBXApi.create_cbx_accrual_reverse"
+      end
+      # verify the required parameter 'reason_request' is set
+      if @api_client.config.client_side_validation && reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'reason_request' when calling CBXApi.create_cbx_accrual_reverse"
       end
       # resource path
       local_var_path = '/v1/cbx/accruals/{accrualId}/reverse'.sub('{' + 'accrualId' + '}', CGI.escape(accrual_id.to_s))
@@ -166,12 +194,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSpendReverseResponse'
@@ -198,20 +231,26 @@ module Crossly
 
     # Claim ad credit against a CBX transfer you sent.
     # Send CBX to our revenue wallet yourself, then present the signature. We read the actual balance delta at FINALIZED commitment — a confirmed transaction can still be dropped by a fork, and this grants real credit. One signature can be claimed exactly once. Priced at the spot when the claim is processed, not when you signed: pricing at send time would let somebody hold signed transfers and claim only the ones that moved in their favour. A 409 means the transaction has not finalized yet and you should retry; a 400 means it will never be claimable (failed, wrong mint, wrong destination).
+    # @param create_cbx_ad_credit_purchase_request [CreateCbxAdCreditPurchaseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxAdCreditPurchaseResponse]
-    def create_cbx_ad_credit_purchase(opts = {})
-      data, _status_code, _headers = create_cbx_ad_credit_purchase_with_http_info(opts)
+    def create_cbx_ad_credit_purchase(create_cbx_ad_credit_purchase_request, opts = {})
+      data, _status_code, _headers = create_cbx_ad_credit_purchase_with_http_info(create_cbx_ad_credit_purchase_request, opts)
       data
     end
 
     # Claim ad credit against a CBX transfer you sent.
     # Send CBX to our revenue wallet yourself, then present the signature. We read the actual balance delta at FINALIZED commitment — a confirmed transaction can still be dropped by a fork, and this grants real credit. One signature can be claimed exactly once. Priced at the spot when the claim is processed, not when you signed: pricing at send time would let somebody hold signed transfers and claim only the ones that moved in their favour. A 409 means the transaction has not finalized yet and you should retry; a 400 means it will never be claimable (failed, wrong mint, wrong destination).
+    # @param create_cbx_ad_credit_purchase_request [CreateCbxAdCreditPurchaseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxAdCreditPurchaseResponse, Integer, Hash)>] CreateCbxAdCreditPurchaseResponse data, response status code and response headers
-    def create_cbx_ad_credit_purchase_with_http_info(opts = {})
+    def create_cbx_ad_credit_purchase_with_http_info(create_cbx_ad_credit_purchase_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_ad_credit_purchase ...'
+      end
+      # verify the required parameter 'create_cbx_ad_credit_purchase_request' is set
+      if @api_client.config.client_side_validation && create_cbx_ad_credit_purchase_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_ad_credit_purchase_request' when calling CBXApi.create_cbx_ad_credit_purchase"
       end
       # resource path
       local_var_path = '/v1/cbx/ad-credit/purchase'
@@ -223,12 +262,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_ad_credit_purchase_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxAdCreditPurchaseResponse'
@@ -255,20 +299,26 @@ module Crossly
 
     # What a given number of tokens buys in ad credit.
     # Credit is 1:1 with the market value of the tokens at confirmation. Refuses with 409 when there is no fresh price — pricing an entire prepaid budget off a guess is not something to do quietly.
+    # @param create_cbx_subject_stake_request [CreateCbxSubjectStakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxAdCreditQuoteResponse]
-    def create_cbx_ad_credit_quote(opts = {})
-      data, _status_code, _headers = create_cbx_ad_credit_quote_with_http_info(opts)
+    def create_cbx_ad_credit_quote(create_cbx_subject_stake_request, opts = {})
+      data, _status_code, _headers = create_cbx_ad_credit_quote_with_http_info(create_cbx_subject_stake_request, opts)
       data
     end
 
     # What a given number of tokens buys in ad credit.
     # Credit is 1:1 with the market value of the tokens at confirmation. Refuses with 409 when there is no fresh price — pricing an entire prepaid budget off a guess is not something to do quietly.
+    # @param create_cbx_subject_stake_request [CreateCbxSubjectStakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxAdCreditQuoteResponse, Integer, Hash)>] CreateCbxAdCreditQuoteResponse data, response status code and response headers
-    def create_cbx_ad_credit_quote_with_http_info(opts = {})
+    def create_cbx_ad_credit_quote_with_http_info(create_cbx_subject_stake_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_ad_credit_quote ...'
+      end
+      # verify the required parameter 'create_cbx_subject_stake_request' is set
+      if @api_client.config.client_side_validation && create_cbx_subject_stake_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_subject_stake_request' when calling CBXApi.create_cbx_ad_credit_quote"
       end
       # resource path
       local_var_path = '/v1/cbx/ad-credit/quote'
@@ -280,12 +330,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_subject_stake_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxAdCreditQuoteResponse'
@@ -312,20 +367,26 @@ module Crossly
 
     # Consume credit for a billing period.
     # Spends what the balance covers and reports the rest as `shortfallCents` — the campaign should stop there rather than running on credit that does not exist. 20% of what is spent moves to the community events pool and 80% is operator revenue; the split happens on SPEND rather than at purchase, because the pool's share is earned when the advertising is actually delivered. Idempotent on externalId: pass your billing-period id so a retried run does not consume the same credit twice.
+    # @param create_cbx_ad_credit_spend_request [CreateCbxAdCreditSpendRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxAdCreditSpendResponse]
-    def create_cbx_ad_credit_spend(opts = {})
-      data, _status_code, _headers = create_cbx_ad_credit_spend_with_http_info(opts)
+    def create_cbx_ad_credit_spend(create_cbx_ad_credit_spend_request, opts = {})
+      data, _status_code, _headers = create_cbx_ad_credit_spend_with_http_info(create_cbx_ad_credit_spend_request, opts)
       data
     end
 
     # Consume credit for a billing period.
     # Spends what the balance covers and reports the rest as &#x60;shortfallCents&#x60; — the campaign should stop there rather than running on credit that does not exist. 20% of what is spent moves to the community events pool and 80% is operator revenue; the split happens on SPEND rather than at purchase, because the pool&#39;s share is earned when the advertising is actually delivered. Idempotent on externalId: pass your billing-period id so a retried run does not consume the same credit twice.
+    # @param create_cbx_ad_credit_spend_request [CreateCbxAdCreditSpendRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxAdCreditSpendResponse, Integer, Hash)>] CreateCbxAdCreditSpendResponse data, response status code and response headers
-    def create_cbx_ad_credit_spend_with_http_info(opts = {})
+    def create_cbx_ad_credit_spend_with_http_info(create_cbx_ad_credit_spend_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_ad_credit_spend ...'
+      end
+      # verify the required parameter 'create_cbx_ad_credit_spend_request' is set
+      if @api_client.config.client_side_validation && create_cbx_ad_credit_spend_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_ad_credit_spend_request' when calling CBXApi.create_cbx_ad_credit_spend"
       end
       # resource path
       local_var_path = '/v1/cbx/ad-credit/spend'
@@ -337,12 +398,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_ad_credit_spend_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxAdCreditSpendResponse'
@@ -369,20 +435,26 @@ module Crossly
 
     # Fund elevated cashback on matching items.
     # Performance marketing priced in CBX: the spend lands as a durable balance the buyer returns to use, rather than a one-time price cut they pocket. A boost REPLACES the base or tier rate rather than adding to it — you are stating the total you will pay, and it is priced against your margin. Targeting is matched by equality on one facet; most specific wins (sku > collection > category > all). Kinds: all, category, sku, collection.
+    # @param create_cbx_boost_request [CreateCbxBoostRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxBoostResponse]
-    def create_cbx_boost(opts = {})
-      data, _status_code, _headers = create_cbx_boost_with_http_info(opts)
+    def create_cbx_boost(create_cbx_boost_request, opts = {})
+      data, _status_code, _headers = create_cbx_boost_with_http_info(create_cbx_boost_request, opts)
       data
     end
 
     # Fund elevated cashback on matching items.
     # Performance marketing priced in CBX: the spend lands as a durable balance the buyer returns to use, rather than a one-time price cut they pocket. A boost REPLACES the base or tier rate rather than adding to it — you are stating the total you will pay, and it is priced against your margin. Targeting is matched by equality on one facet; most specific wins (sku &gt; collection &gt; category &gt; all). Kinds: all, category, sku, collection.
+    # @param create_cbx_boost_request [CreateCbxBoostRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxBoostResponse, Integer, Hash)>] CreateCbxBoostResponse data, response status code and response headers
-    def create_cbx_boost_with_http_info(opts = {})
+    def create_cbx_boost_with_http_info(create_cbx_boost_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_boost ...'
+      end
+      # verify the required parameter 'create_cbx_boost_request' is set
+      if @api_client.config.client_side_validation && create_cbx_boost_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_boost_request' when calling CBXApi.create_cbx_boost"
       end
       # resource path
       local_var_path = '/v1/cbx/boosts'
@@ -394,12 +466,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_boost_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxBoostResponse'
@@ -489,20 +566,26 @@ module Crossly
 
     # Create a campaign in draft.
     # Nothing is paid until it is previewed, approved and executed. Available metrics: accruals_count, accrued_cents, spend_count, spend_base_units — all of them measure activity inside the window. `capPerSubject` is worth setting on a proportional campaign: without it one large participant can take almost the whole pool, which makes the event pointless for everybody else.
+    # @param create_cbx_campaign_request [CreateCbxCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxCampaignResponse]
-    def create_cbx_campaign(opts = {})
-      data, _status_code, _headers = create_cbx_campaign_with_http_info(opts)
+    def create_cbx_campaign(create_cbx_campaign_request, opts = {})
+      data, _status_code, _headers = create_cbx_campaign_with_http_info(create_cbx_campaign_request, opts)
       data
     end
 
     # Create a campaign in draft.
     # Nothing is paid until it is previewed, approved and executed. Available metrics: accruals_count, accrued_cents, spend_count, spend_base_units — all of them measure activity inside the window. &#x60;capPerSubject&#x60; is worth setting on a proportional campaign: without it one large participant can take almost the whole pool, which makes the event pointless for everybody else.
+    # @param create_cbx_campaign_request [CreateCbxCampaignRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxCampaignResponse, Integer, Hash)>] CreateCbxCampaignResponse data, response status code and response headers
-    def create_cbx_campaign_with_http_info(opts = {})
+    def create_cbx_campaign_with_http_info(create_cbx_campaign_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_campaign ...'
+      end
+      # verify the required parameter 'create_cbx_campaign_request' is set
+      if @api_client.config.client_side_validation && create_cbx_campaign_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_campaign_request' when calling CBXApi.create_cbx_campaign"
       end
       # resource path
       local_var_path = '/v1/cbx/campaigns'
@@ -514,12 +597,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_campaign_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxCampaignResponse'
@@ -608,25 +696,31 @@ module Crossly
     # Pay an approved campaign.
     # Recomputes the list and refuses if the hash no longer matches the approved one. Payouts credit balances directly rather than transferring on chain, so a distribution to ten thousand recipients costs one internal move and is reversible if it was computed wrong.
     # @param campaign_id [String] 
+    # @param create_cbx_campaign_execute_by_campaign_id_request [CreateCbxCampaignExecuteByCampaignIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxCampaignExecuteByCampaignIdResponse]
-    def create_cbx_campaign_execute_by_campaign_id(campaign_id, opts = {})
-      data, _status_code, _headers = create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id, opts)
+    def create_cbx_campaign_execute_by_campaign_id(campaign_id, create_cbx_campaign_execute_by_campaign_id_request, opts = {})
+      data, _status_code, _headers = create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id, create_cbx_campaign_execute_by_campaign_id_request, opts)
       data
     end
 
     # Pay an approved campaign.
     # Recomputes the list and refuses if the hash no longer matches the approved one. Payouts credit balances directly rather than transferring on chain, so a distribution to ten thousand recipients costs one internal move and is reversible if it was computed wrong.
     # @param campaign_id [String] 
+    # @param create_cbx_campaign_execute_by_campaign_id_request [CreateCbxCampaignExecuteByCampaignIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxCampaignExecuteByCampaignIdResponse, Integer, Hash)>] CreateCbxCampaignExecuteByCampaignIdResponse data, response status code and response headers
-    def create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id, opts = {})
+    def create_cbx_campaign_execute_by_campaign_id_with_http_info(campaign_id, create_cbx_campaign_execute_by_campaign_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_campaign_execute_by_campaign_id ...'
       end
       # verify the required parameter 'campaign_id' is set
       if @api_client.config.client_side_validation && campaign_id.nil?
         fail ArgumentError, "Missing the required parameter 'campaign_id' when calling CBXApi.create_cbx_campaign_execute_by_campaign_id"
+      end
+      # verify the required parameter 'create_cbx_campaign_execute_by_campaign_id_request' is set
+      if @api_client.config.client_side_validation && create_cbx_campaign_execute_by_campaign_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_campaign_execute_by_campaign_id_request' when calling CBXApi.create_cbx_campaign_execute_by_campaign_id"
       end
       # resource path
       local_var_path = '/v1/cbx/campaigns/{campaignId}/execute'.sub('{' + 'campaignId' + '}', CGI.escape(campaign_id.to_s))
@@ -638,12 +732,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_campaign_execute_by_campaign_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxCampaignExecuteByCampaignIdResponse'
@@ -733,20 +832,26 @@ module Crossly
 
     # Reserve a claim. Debits the balance and queues the transfer.
     # The balance is debited here, before anything is sent, which is the only safe order: sending first and debiting after means a crash between the two pays somebody and never charges them, and that is unrecoverable. A crash after this leaves a reserved balance and a pending claim, which is recoverable by looking at the chain. Send the same idempotencyKey to retry safely.
+    # @param create_cbx_claim_request [CreateCbxClaimRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxClaimResponse]
-    def create_cbx_claim(opts = {})
-      data, _status_code, _headers = create_cbx_claim_with_http_info(opts)
+    def create_cbx_claim(create_cbx_claim_request, opts = {})
+      data, _status_code, _headers = create_cbx_claim_with_http_info(create_cbx_claim_request, opts)
       data
     end
 
     # Reserve a claim. Debits the balance and queues the transfer.
     # The balance is debited here, before anything is sent, which is the only safe order: sending first and debiting after means a crash between the two pays somebody and never charges them, and that is unrecoverable. A crash after this leaves a reserved balance and a pending claim, which is recoverable by looking at the chain. Send the same idempotencyKey to retry safely.
+    # @param create_cbx_claim_request [CreateCbxClaimRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxClaimResponse, Integer, Hash)>] CreateCbxClaimResponse data, response status code and response headers
-    def create_cbx_claim_with_http_info(opts = {})
+    def create_cbx_claim_with_http_info(create_cbx_claim_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_claim ...'
+      end
+      # verify the required parameter 'create_cbx_claim_request' is set
+      if @api_client.config.client_side_validation && create_cbx_claim_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_claim_request' when calling CBXApi.create_cbx_claim"
       end
       # resource path
       local_var_path = '/v1/cbx/claims'
@@ -758,12 +863,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_claim_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxClaimResponse'
@@ -790,20 +900,26 @@ module Crossly
 
     # What a claim would cost, without committing to it.
     # Every fee at cost, so a confirm screen can show the breakdown before the user agrees. The network fee is passed through at actual cost and includes the one-time account rent when the recipient has no token account yet — that rent is a recoverable deposit on an account the USER owns, not a fee we keep.
+    # @param create_cbx_claim_quote_request [CreateCbxClaimQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxClaimQuoteResponse]
-    def create_cbx_claim_quote(opts = {})
-      data, _status_code, _headers = create_cbx_claim_quote_with_http_info(opts)
+    def create_cbx_claim_quote(create_cbx_claim_quote_request, opts = {})
+      data, _status_code, _headers = create_cbx_claim_quote_with_http_info(create_cbx_claim_quote_request, opts)
       data
     end
 
     # What a claim would cost, without committing to it.
     # Every fee at cost, so a confirm screen can show the breakdown before the user agrees. The network fee is passed through at actual cost and includes the one-time account rent when the recipient has no token account yet — that rent is a recoverable deposit on an account the USER owns, not a fee we keep.
+    # @param create_cbx_claim_quote_request [CreateCbxClaimQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxClaimQuoteResponse, Integer, Hash)>] CreateCbxClaimQuoteResponse data, response status code and response headers
-    def create_cbx_claim_quote_with_http_info(opts = {})
+    def create_cbx_claim_quote_with_http_info(create_cbx_claim_quote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_claim_quote ...'
+      end
+      # verify the required parameter 'create_cbx_claim_quote_request' is set
+      if @api_client.config.client_side_validation && create_cbx_claim_quote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_claim_quote_request' when calling CBXApi.create_cbx_claim_quote"
       end
       # resource path
       local_var_path = '/v1/cbx/claims/quote'
@@ -815,12 +931,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_claim_quote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxClaimQuoteResponse'
@@ -910,20 +1031,26 @@ module Crossly
 
     # Draw against a line, receiving grant credit.
     # The advance lands as GRANT balance: in-platform only, so it cannot be withdrawn, cannot be turned into cash and absconded with, and adds nothing to the float that could hit an order book. Restricted to wholesale channels — the limit was sized on the theory that the advance buys goods that get sold and generate the payout stream repaying it, and credit spent on a subscription does not create that stream. Refuses if the reserve has no unallocated tokens: credit is real value and cannot be advanced against tokens that do not exist. Idempotent on externalId.
+    # @param create_cbx_credit_draw_request [CreateCbxCreditDrawRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxCreditDrawResponse]
-    def create_cbx_credit_draw(opts = {})
-      data, _status_code, _headers = create_cbx_credit_draw_with_http_info(opts)
+    def create_cbx_credit_draw(create_cbx_credit_draw_request, opts = {})
+      data, _status_code, _headers = create_cbx_credit_draw_with_http_info(create_cbx_credit_draw_request, opts)
       data
     end
 
     # Draw against a line, receiving grant credit.
     # The advance lands as GRANT balance: in-platform only, so it cannot be withdrawn, cannot be turned into cash and absconded with, and adds nothing to the float that could hit an order book. Restricted to wholesale channels — the limit was sized on the theory that the advance buys goods that get sold and generate the payout stream repaying it, and credit spent on a subscription does not create that stream. Refuses if the reserve has no unallocated tokens: credit is real value and cannot be advanced against tokens that do not exist. Idempotent on externalId.
+    # @param create_cbx_credit_draw_request [CreateCbxCreditDrawRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxCreditDrawResponse, Integer, Hash)>] CreateCbxCreditDrawResponse data, response status code and response headers
-    def create_cbx_credit_draw_with_http_info(opts = {})
+    def create_cbx_credit_draw_with_http_info(create_cbx_credit_draw_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_credit_draw ...'
+      end
+      # verify the required parameter 'create_cbx_credit_draw_request' is set
+      if @api_client.config.client_side_validation && create_cbx_credit_draw_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_credit_draw_request' when calling CBXApi.create_cbx_credit_draw"
       end
       # resource path
       local_var_path = '/v1/cbx/credit/draw'
@@ -935,12 +1062,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_credit_draw_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxCreditDrawResponse'
@@ -967,20 +1099,26 @@ module Crossly
 
     # Stop new draws. Leaves the drawn balance on its terms.
     # The only lever over a line, and deliberately the only one. A seller who took inventory on Tuesday keeps Tuesday's terms whatever the token does on Wednesday — the only way a credit product sits next to a volatile asset without transmitting its volatility.
+    # @param create_cbx_credit_freeze_request [CreateCbxCreditFreezeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxCreditFreezeResponse]
-    def create_cbx_credit_freeze(opts = {})
-      data, _status_code, _headers = create_cbx_credit_freeze_with_http_info(opts)
+    def create_cbx_credit_freeze(create_cbx_credit_freeze_request, opts = {})
+      data, _status_code, _headers = create_cbx_credit_freeze_with_http_info(create_cbx_credit_freeze_request, opts)
       data
     end
 
     # Stop new draws. Leaves the drawn balance on its terms.
     # The only lever over a line, and deliberately the only one. A seller who took inventory on Tuesday keeps Tuesday&#39;s terms whatever the token does on Wednesday — the only way a credit product sits next to a volatile asset without transmitting its volatility.
+    # @param create_cbx_credit_freeze_request [CreateCbxCreditFreezeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxCreditFreezeResponse, Integer, Hash)>] CreateCbxCreditFreezeResponse data, response status code and response headers
-    def create_cbx_credit_freeze_with_http_info(opts = {})
+    def create_cbx_credit_freeze_with_http_info(create_cbx_credit_freeze_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_credit_freeze ...'
+      end
+      # verify the required parameter 'create_cbx_credit_freeze_request' is set
+      if @api_client.config.client_side_validation && create_cbx_credit_freeze_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_credit_freeze_request' when calling CBXApi.create_cbx_credit_freeze"
       end
       # resource path
       local_var_path = '/v1/cbx/credit/freeze'
@@ -992,12 +1130,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_credit_freeze_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxCreditFreezeResponse'
@@ -1081,20 +1224,26 @@ module Crossly
 
     # Apply a repayment to a line.
     # `treasury` scope, which looks backwards next to a draw needing only `spend` and is deliberate: a forged repayment writes off real money owed to us, while a forged draw hands out credit spendable only in our own marketplace. The scope follows the loss. Clamped to what is outstanding — a payout larger than the debt would otherwise push the balance negative and read as credit nobody underwrote.
+    # @param create_cbx_credit_repay_request [CreateCbxCreditRepayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxCreditRepayResponse]
-    def create_cbx_credit_repay(opts = {})
-      data, _status_code, _headers = create_cbx_credit_repay_with_http_info(opts)
+    def create_cbx_credit_repay(create_cbx_credit_repay_request, opts = {})
+      data, _status_code, _headers = create_cbx_credit_repay_with_http_info(create_cbx_credit_repay_request, opts)
       data
     end
 
     # Apply a repayment to a line.
     # &#x60;treasury&#x60; scope, which looks backwards next to a draw needing only &#x60;spend&#x60; and is deliberate: a forged repayment writes off real money owed to us, while a forged draw hands out credit spendable only in our own marketplace. The scope follows the loss. Clamped to what is outstanding — a payout larger than the debt would otherwise push the balance negative and read as credit nobody underwrote.
+    # @param create_cbx_credit_repay_request [CreateCbxCreditRepayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxCreditRepayResponse, Integer, Hash)>] CreateCbxCreditRepayResponse data, response status code and response headers
-    def create_cbx_credit_repay_with_http_info(opts = {})
+    def create_cbx_credit_repay_with_http_info(create_cbx_credit_repay_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_credit_repay ...'
+      end
+      # verify the required parameter 'create_cbx_credit_repay_request' is set
+      if @api_client.config.client_side_validation && create_cbx_credit_repay_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_credit_repay_request' when calling CBXApi.create_cbx_credit_repay"
       end
       # resource path
       local_var_path = '/v1/cbx/credit/repay'
@@ -1106,12 +1255,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_credit_repay_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxCreditRepayResponse'
@@ -1138,20 +1292,26 @@ module Crossly
 
     # Fire a distribution when the events pool crosses a threshold.
     # Applies to the EVENTS POOL only — never free reserve surplus. Reserve surplus is the recirculation buffer that funds the next accrual without touching the market, so distributing it would force us to buy the same tokens back at spread plus MEV. `checkCadenceHours` bounds how often the rule may fire even when the pool is over the line: a pure threshold fires at an unpredictable moment, and the pool jumps most after a lapse sweep — precisely when engagement was worst. `distributeBps` is capped under 100% because draining the pool removes the standing balance that makes the next event credible. The rule decides WHEN only: firing opens a campaign that still needs preview, approval and execution. Metrics: accruals_count, accrued_cents, spend_count, spend_base_units.
+    # @param create_cbx_disbursement_rule_request [CreateCbxDisbursementRuleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxDisbursementRuleResponse]
-    def create_cbx_disbursement_rule(opts = {})
-      data, _status_code, _headers = create_cbx_disbursement_rule_with_http_info(opts)
+    def create_cbx_disbursement_rule(create_cbx_disbursement_rule_request, opts = {})
+      data, _status_code, _headers = create_cbx_disbursement_rule_with_http_info(create_cbx_disbursement_rule_request, opts)
       data
     end
 
     # Fire a distribution when the events pool crosses a threshold.
     # Applies to the EVENTS POOL only — never free reserve surplus. Reserve surplus is the recirculation buffer that funds the next accrual without touching the market, so distributing it would force us to buy the same tokens back at spread plus MEV. &#x60;checkCadenceHours&#x60; bounds how often the rule may fire even when the pool is over the line: a pure threshold fires at an unpredictable moment, and the pool jumps most after a lapse sweep — precisely when engagement was worst. &#x60;distributeBps&#x60; is capped under 100% because draining the pool removes the standing balance that makes the next event credible. The rule decides WHEN only: firing opens a campaign that still needs preview, approval and execution. Metrics: accruals_count, accrued_cents, spend_count, spend_base_units.
+    # @param create_cbx_disbursement_rule_request [CreateCbxDisbursementRuleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxDisbursementRuleResponse, Integer, Hash)>] CreateCbxDisbursementRuleResponse data, response status code and response headers
-    def create_cbx_disbursement_rule_with_http_info(opts = {})
+    def create_cbx_disbursement_rule_with_http_info(create_cbx_disbursement_rule_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_disbursement_rule ...'
+      end
+      # verify the required parameter 'create_cbx_disbursement_rule_request' is set
+      if @api_client.config.client_side_validation && create_cbx_disbursement_rule_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_disbursement_rule_request' when calling CBXApi.create_cbx_disbursement_rule"
       end
       # resource path
       local_var_path = '/v1/cbx/disbursement-rules'
@@ -1163,12 +1323,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_disbursement_rule_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxDisbursementRuleResponse'
@@ -1319,20 +1484,26 @@ module Crossly
 
     # Define an earn term.
     # Setting `isDefault` moves the default off whatever held it — exactly one active default per merchant is enforced by a unique index, because two would make \"what rate did this user get\" depend on row order.
+    # @param create_cbx_earn_tier_request [CreateCbxEarnTierRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxEarnTierResponse]
-    def create_cbx_earn_tier(opts = {})
-      data, _status_code, _headers = create_cbx_earn_tier_with_http_info(opts)
+    def create_cbx_earn_tier(create_cbx_earn_tier_request, opts = {})
+      data, _status_code, _headers = create_cbx_earn_tier_with_http_info(create_cbx_earn_tier_request, opts)
       data
     end
 
     # Define an earn term.
     # Setting &#x60;isDefault&#x60; moves the default off whatever held it — exactly one active default per merchant is enforced by a unique index, because two would make \&quot;what rate did this user get\&quot; depend on row order.
+    # @param create_cbx_earn_tier_request [CreateCbxEarnTierRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxEarnTierResponse, Integer, Hash)>] CreateCbxEarnTierResponse data, response status code and response headers
-    def create_cbx_earn_tier_with_http_info(opts = {})
+    def create_cbx_earn_tier_with_http_info(create_cbx_earn_tier_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_earn_tier ...'
+      end
+      # verify the required parameter 'create_cbx_earn_tier_request' is set
+      if @api_client.config.client_side_validation && create_cbx_earn_tier_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_earn_tier_request' when calling CBXApi.create_cbx_earn_tier"
       end
       # resource path
       local_var_path = '/v1/cbx/earn-tiers'
@@ -1344,12 +1515,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_earn_tier_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxEarnTierResponse'
@@ -1376,20 +1552,26 @@ module Crossly
 
     # What would this order earn, and why.
     # Resolve the rate without accruing anything, so a checkout can show the real number and its reason. `source` tells you whether it came from your base rate, a tier, or a boost; `stakeBoostBps` is the part the user's own stake contributed. Quoting does NOT reserve boost budget — a quote and the subsequent accrual can differ if the budget runs out in between, which is why the accrual response repeats the rate it actually granted.
+    # @param create_cbx_rate_quote_request [CreateCbxRateQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxRateQuoteResponse]
-    def create_cbx_rate_quote(opts = {})
-      data, _status_code, _headers = create_cbx_rate_quote_with_http_info(opts)
+    def create_cbx_rate_quote(create_cbx_rate_quote_request, opts = {})
+      data, _status_code, _headers = create_cbx_rate_quote_with_http_info(create_cbx_rate_quote_request, opts)
       data
     end
 
     # What would this order earn, and why.
     # Resolve the rate without accruing anything, so a checkout can show the real number and its reason. &#x60;source&#x60; tells you whether it came from your base rate, a tier, or a boost; &#x60;stakeBoostBps&#x60; is the part the user&#39;s own stake contributed. Quoting does NOT reserve boost budget — a quote and the subsequent accrual can differ if the budget runs out in between, which is why the accrual response repeats the rate it actually granted.
+    # @param create_cbx_rate_quote_request [CreateCbxRateQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxRateQuoteResponse, Integer, Hash)>] CreateCbxRateQuoteResponse data, response status code and response headers
-    def create_cbx_rate_quote_with_http_info(opts = {})
+    def create_cbx_rate_quote_with_http_info(create_cbx_rate_quote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_rate_quote ...'
+      end
+      # verify the required parameter 'create_cbx_rate_quote_request' is set
+      if @api_client.config.client_side_validation && create_cbx_rate_quote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_rate_quote_request' when calling CBXApi.create_cbx_rate_quote"
       end
       # resource path
       local_var_path = '/v1/cbx/rates/quote'
@@ -1401,12 +1583,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_rate_quote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxRateQuoteResponse'
@@ -1433,20 +1620,26 @@ module Crossly
 
     # Pay for a service in CBX.
     # Idempotent on (serviceKind, externalId) rather than externalId alone: a grading submission and a listing boost can legitimately share an id because they refer to the same item, and without the service in the key, boosting a listing you had already graded would return the grading receipt and never charge for the boost. Staked tokens cannot pay — the debit checks spendable balance, not total.
+    # @param create_cbx_redemption_request [CreateCbxRedemptionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxRedemptionResponse]
-    def create_cbx_redemption(opts = {})
-      data, _status_code, _headers = create_cbx_redemption_with_http_info(opts)
+    def create_cbx_redemption(create_cbx_redemption_request, opts = {})
+      data, _status_code, _headers = create_cbx_redemption_with_http_info(create_cbx_redemption_request, opts)
       data
     end
 
     # Pay for a service in CBX.
     # Idempotent on (serviceKind, externalId) rather than externalId alone: a grading submission and a listing boost can legitimately share an id because they refer to the same item, and without the service in the key, boosting a listing you had already graded would return the grading receipt and never charge for the boost. Staked tokens cannot pay — the debit checks spendable balance, not total.
+    # @param create_cbx_redemption_request [CreateCbxRedemptionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxRedemptionResponse, Integer, Hash)>] CreateCbxRedemptionResponse data, response status code and response headers
-    def create_cbx_redemption_with_http_info(opts = {})
+    def create_cbx_redemption_with_http_info(create_cbx_redemption_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_redemption ...'
+      end
+      # verify the required parameter 'create_cbx_redemption_request' is set
+      if @api_client.config.client_side_validation && create_cbx_redemption_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_redemption_request' when calling CBXApi.create_cbx_redemption"
       end
       # resource path
       local_var_path = '/v1/cbx/redemptions'
@@ -1458,12 +1651,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_redemption_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxRedemptionResponse'
@@ -1490,20 +1688,26 @@ module Crossly
 
     # What a service costs in tokens right now.
     # Refuses with 409 when there is no fresh price. A dollar-priced service has no honest token quantity without a spot, and there is no safe direction to guess in — a guess either overcharges the user or undercharges us.
+    # @param create_cbx_redemption_quote_request [CreateCbxRedemptionQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxRedemptionQuoteResponse]
-    def create_cbx_redemption_quote(opts = {})
-      data, _status_code, _headers = create_cbx_redemption_quote_with_http_info(opts)
+    def create_cbx_redemption_quote(create_cbx_redemption_quote_request, opts = {})
+      data, _status_code, _headers = create_cbx_redemption_quote_with_http_info(create_cbx_redemption_quote_request, opts)
       data
     end
 
     # What a service costs in tokens right now.
     # Refuses with 409 when there is no fresh price. A dollar-priced service has no honest token quantity without a spot, and there is no safe direction to guess in — a guess either overcharges the user or undercharges us.
+    # @param create_cbx_redemption_quote_request [CreateCbxRedemptionQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxRedemptionQuoteResponse, Integer, Hash)>] CreateCbxRedemptionQuoteResponse data, response status code and response headers
-    def create_cbx_redemption_quote_with_http_info(opts = {})
+    def create_cbx_redemption_quote_with_http_info(create_cbx_redemption_quote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_redemption_quote ...'
+      end
+      # verify the required parameter 'create_cbx_redemption_quote_request' is set
+      if @api_client.config.client_side_validation && create_cbx_redemption_quote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_redemption_quote_request' when calling CBXApi.create_cbx_redemption_quote"
       end
       # resource path
       local_var_path = '/v1/cbx/redemptions/quote'
@@ -1515,12 +1719,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_redemption_quote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxRedemptionQuoteResponse'
@@ -1546,19 +1755,25 @@ module Crossly
     end
 
     # Register your reserve after granting the payout allowance. Verified on chain: mint, delegate and allowance are read from the token account.
+    # @param create_cbx_reserve_request [CreateCbxReserveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxReserveResponse]
-    def create_cbx_reserve(opts = {})
-      data, _status_code, _headers = create_cbx_reserve_with_http_info(opts)
+    def create_cbx_reserve(create_cbx_reserve_request, opts = {})
+      data, _status_code, _headers = create_cbx_reserve_with_http_info(create_cbx_reserve_request, opts)
       data
     end
 
     # Register your reserve after granting the payout allowance. Verified on chain: mint, delegate and allowance are read from the token account.
+    # @param create_cbx_reserve_request [CreateCbxReserveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxReserveResponse, Integer, Hash)>] CreateCbxReserveResponse data, response status code and response headers
-    def create_cbx_reserve_with_http_info(opts = {})
+    def create_cbx_reserve_with_http_info(create_cbx_reserve_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_reserve ...'
+      end
+      # verify the required parameter 'create_cbx_reserve_request' is set
+      if @api_client.config.client_side_validation && create_cbx_reserve_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_reserve_request' when calling CBXApi.create_cbx_reserve"
       end
       # resource path
       local_var_path = '/v1/cbx/reserve'
@@ -1570,12 +1785,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_reserve_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxReserveResponse'
@@ -1603,6 +1823,7 @@ module Crossly
     # Move accrued revenue from the reserve to your revenue wallet.
     # Computes what is genuinely free — reserve minus outstanding balances, minus claims in flight, minus the pool, minus unswept revenue — and moves at most that. If the reserve is short it moves NOTHING, whatever the ledger says: an under-covered reserve is not a reason to stop paying users, it is a reason to stop paying yourself. Send dryRun to see the arithmetic without moving tokens.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCbxRevenueSweepRequest] :create_cbx_revenue_sweep_request 
     # @return [CreateCbxRevenueSweepResponse]
     def create_cbx_revenue_sweep(opts = {})
       data, _status_code, _headers = create_cbx_revenue_sweep_with_http_info(opts)
@@ -1612,6 +1833,7 @@ module Crossly
     # Move accrued revenue from the reserve to your revenue wallet.
     # Computes what is genuinely free — reserve minus outstanding balances, minus claims in flight, minus the pool, minus unswept revenue — and moves at most that. If the reserve is short it moves NOTHING, whatever the ledger says: an under-covered reserve is not a reason to stop paying users, it is a reason to stop paying yourself. Send dryRun to see the arithmetic without moving tokens.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCbxRevenueSweepRequest] :create_cbx_revenue_sweep_request 
     # @return [Array<(CreateCbxRevenueSweepResponse, Integer, Hash)>] CreateCbxRevenueSweepResponse data, response status code and response headers
     def create_cbx_revenue_sweep_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1627,12 +1849,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_cbx_revenue_sweep_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxRevenueSweepResponse'
@@ -1659,20 +1886,26 @@ module Crossly
 
     # Redeem a user's CBX against an order.
     # Debits the user exactly what they spent — the skim is never added on top, because making CBX worth less when used than when sold would invert the whole reason to spend rather than liquidate. The skim comes out of YOUR fee on the order and is capped against it, so an order paid entirely in saved-up CBX does not have its whole margin eaten. Idempotent on externalId: a retried checkout returns the original spend rather than debiting twice. Spending is always free and has no minimum — that asymmetry against the withdrawal fee is what steers toward spending without ever telling anyone they cannot have their money.
+    # @param create_cbx_spend_request [CreateCbxSpendRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSpendResponse]
-    def create_cbx_spend(opts = {})
-      data, _status_code, _headers = create_cbx_spend_with_http_info(opts)
+    def create_cbx_spend(create_cbx_spend_request, opts = {})
+      data, _status_code, _headers = create_cbx_spend_with_http_info(create_cbx_spend_request, opts)
       data
     end
 
     # Redeem a user&#39;s CBX against an order.
     # Debits the user exactly what they spent — the skim is never added on top, because making CBX worth less when used than when sold would invert the whole reason to spend rather than liquidate. The skim comes out of YOUR fee on the order and is capped against it, so an order paid entirely in saved-up CBX does not have its whole margin eaten. Idempotent on externalId: a retried checkout returns the original spend rather than debiting twice. Spending is always free and has no minimum — that asymmetry against the withdrawal fee is what steers toward spending without ever telling anyone they cannot have their money.
+    # @param create_cbx_spend_request [CreateCbxSpendRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSpendResponse, Integer, Hash)>] CreateCbxSpendResponse data, response status code and response headers
-    def create_cbx_spend_with_http_info(opts = {})
+    def create_cbx_spend_with_http_info(create_cbx_spend_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_spend ...'
+      end
+      # verify the required parameter 'create_cbx_spend_request' is set
+      if @api_client.config.client_side_validation && create_cbx_spend_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_spend_request' when calling CBXApi.create_cbx_spend"
       end
       # resource path
       local_var_path = '/v1/cbx/spends'
@@ -1684,12 +1917,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_spend_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSpendResponse'
@@ -1717,25 +1955,31 @@ module Crossly
     # Refund a spend — give the tokens back and claw the skim back.
     # Returns the user's tokens AND reverses the skim out of both the community pool and operator revenue. All three move together: returning the tokens while the pool and operator kept their shares would count the same tokens twice against one reserve. The spend also stops counting as activity for campaign weighting, so buy-then-refund cannot farm distributions.
     # @param external_id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSpendReverseResponse]
-    def create_cbx_spend_reverse(external_id, opts = {})
-      data, _status_code, _headers = create_cbx_spend_reverse_with_http_info(external_id, opts)
+    def create_cbx_spend_reverse(external_id, reason_request, opts = {})
+      data, _status_code, _headers = create_cbx_spend_reverse_with_http_info(external_id, reason_request, opts)
       data
     end
 
     # Refund a spend — give the tokens back and claw the skim back.
     # Returns the user&#39;s tokens AND reverses the skim out of both the community pool and operator revenue. All three move together: returning the tokens while the pool and operator kept their shares would count the same tokens twice against one reserve. The spend also stops counting as activity for campaign weighting, so buy-then-refund cannot farm distributions.
     # @param external_id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSpendReverseResponse, Integer, Hash)>] CreateCbxSpendReverseResponse data, response status code and response headers
-    def create_cbx_spend_reverse_with_http_info(external_id, opts = {})
+    def create_cbx_spend_reverse_with_http_info(external_id, reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_spend_reverse ...'
       end
       # verify the required parameter 'external_id' is set
       if @api_client.config.client_side_validation && external_id.nil?
         fail ArgumentError, "Missing the required parameter 'external_id' when calling CBXApi.create_cbx_spend_reverse"
+      end
+      # verify the required parameter 'reason_request' is set
+      if @api_client.config.client_side_validation && reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'reason_request' when calling CBXApi.create_cbx_spend_reverse"
       end
       # resource path
       local_var_path = '/v1/cbx/spends/{externalId}/reverse'.sub('{' + 'externalId' + '}', CGI.escape(external_id.to_s))
@@ -1747,12 +1991,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSpendReverseResponse'
@@ -1779,20 +2028,26 @@ module Crossly
 
     # Define a staking tier.
     # A user gets the highest tier their amount clears. `cooldownDays` is what makes the discount real: without a wait, a user stakes for the discount and unstakes the moment they want to withdraw, so the commitment it was priced against never existed.
+    # @param create_cbx_stake_tier_request [CreateCbxStakeTierRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxStakeTierResponse]
-    def create_cbx_stake_tier(opts = {})
-      data, _status_code, _headers = create_cbx_stake_tier_with_http_info(opts)
+    def create_cbx_stake_tier(create_cbx_stake_tier_request, opts = {})
+      data, _status_code, _headers = create_cbx_stake_tier_with_http_info(create_cbx_stake_tier_request, opts)
       data
     end
 
     # Define a staking tier.
     # A user gets the highest tier their amount clears. &#x60;cooldownDays&#x60; is what makes the discount real: without a wait, a user stakes for the discount and unstakes the moment they want to withdraw, so the commitment it was priced against never existed.
+    # @param create_cbx_stake_tier_request [CreateCbxStakeTierRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxStakeTierResponse, Integer, Hash)>] CreateCbxStakeTierResponse data, response status code and response headers
-    def create_cbx_stake_tier_with_http_info(opts = {})
+    def create_cbx_stake_tier_with_http_info(create_cbx_stake_tier_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_stake_tier ...'
+      end
+      # verify the required parameter 'create_cbx_stake_tier_request' is set
+      if @api_client.config.client_side_validation && create_cbx_stake_tier_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_stake_tier_request' when calling CBXApi.create_cbx_stake_tier"
       end
       # resource path
       local_var_path = '/v1/cbx/stake-tiers'
@@ -1804,12 +2059,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_stake_tier_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxStakeTierResponse'
@@ -1836,20 +2096,26 @@ module Crossly
 
     # Map one of your user ids to a CBX subject.
     # Idempotent. Call it whenever you need a subject id; repeated calls with the same externalUserId return the same subject. Your user ids are opaque to us and unique only within your merchant, so two marketplaces can both have a user \"1\" without collision.
+    # @param create_cbx_subject_request [CreateCbxSubjectRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSubjectResponse]
-    def create_cbx_subject(opts = {})
-      data, _status_code, _headers = create_cbx_subject_with_http_info(opts)
+    def create_cbx_subject(create_cbx_subject_request, opts = {})
+      data, _status_code, _headers = create_cbx_subject_with_http_info(create_cbx_subject_request, opts)
       data
     end
 
     # Map one of your user ids to a CBX subject.
     # Idempotent. Call it whenever you need a subject id; repeated calls with the same externalUserId return the same subject. Your user ids are opaque to us and unique only within your merchant, so two marketplaces can both have a user \&quot;1\&quot; without collision.
+    # @param create_cbx_subject_request [CreateCbxSubjectRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSubjectResponse, Integer, Hash)>] CreateCbxSubjectResponse data, response status code and response headers
-    def create_cbx_subject_with_http_info(opts = {})
+    def create_cbx_subject_with_http_info(create_cbx_subject_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_subject ...'
+      end
+      # verify the required parameter 'create_cbx_subject_request' is set
+      if @api_client.config.client_side_validation && create_cbx_subject_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_subject_request' when calling CBXApi.create_cbx_subject"
       end
       # resource path
       local_var_path = '/v1/cbx/subjects'
@@ -1861,12 +2127,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_subject_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSubjectResponse'
@@ -1894,25 +2165,31 @@ module Crossly
     # Issue grant credit — in-platform, non-withdrawable.
     # Requires a funding `batchId` for every kind except `grant_makegood`. Grant credit is spendable at merchants who receive real value, so the tokens have to exist — the same rule earned balance obeys. A makegood is exempt because compensating somebody for our failure must not be blocked on treasury state. There is no path that converts a grant to earned balance or pays it to an address, and the database enforces that rather than a comment.
     # @param subject_id [String] 
+    # @param create_cbx_subject_grant_request [CreateCbxSubjectGrantRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSubjectGrantResponse]
-    def create_cbx_subject_grant(subject_id, opts = {})
-      data, _status_code, _headers = create_cbx_subject_grant_with_http_info(subject_id, opts)
+    def create_cbx_subject_grant(subject_id, create_cbx_subject_grant_request, opts = {})
+      data, _status_code, _headers = create_cbx_subject_grant_with_http_info(subject_id, create_cbx_subject_grant_request, opts)
       data
     end
 
     # Issue grant credit — in-platform, non-withdrawable.
     # Requires a funding &#x60;batchId&#x60; for every kind except &#x60;grant_makegood&#x60;. Grant credit is spendable at merchants who receive real value, so the tokens have to exist — the same rule earned balance obeys. A makegood is exempt because compensating somebody for our failure must not be blocked on treasury state. There is no path that converts a grant to earned balance or pays it to an address, and the database enforces that rather than a comment.
     # @param subject_id [String] 
+    # @param create_cbx_subject_grant_request [CreateCbxSubjectGrantRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSubjectGrantResponse, Integer, Hash)>] CreateCbxSubjectGrantResponse data, response status code and response headers
-    def create_cbx_subject_grant_with_http_info(subject_id, opts = {})
+    def create_cbx_subject_grant_with_http_info(subject_id, create_cbx_subject_grant_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_subject_grant ...'
       end
       # verify the required parameter 'subject_id' is set
       if @api_client.config.client_side_validation && subject_id.nil?
         fail ArgumentError, "Missing the required parameter 'subject_id' when calling CBXApi.create_cbx_subject_grant"
+      end
+      # verify the required parameter 'create_cbx_subject_grant_request' is set
+      if @api_client.config.client_side_validation && create_cbx_subject_grant_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_subject_grant_request' when calling CBXApi.create_cbx_subject_grant"
       end
       # resource path
       local_var_path = '/v1/cbx/subjects/{subjectId}/grants'.sub('{' + 'subjectId' + '}', CGI.escape(subject_id.to_s))
@@ -1924,12 +2201,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_subject_grant_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSubjectGrantResponse'
@@ -1957,25 +2239,31 @@ module Crossly
     # Which balances would pay for a spend, and in what order.
     # The order is granted → earned → connected and you do not get to choose it. Granted first is a security property, not a preference: if earned spent first, a subject holding both would spend their withdrawable balance down while their non-withdrawable grant sat untouched — converting a grant into a withdrawable balance one purchase at a time. Returns a `shortfallBaseUnits` rather than failing, so a checkout can charge the remainder to a card. Send excludeConnected on a flow that cannot wait for an on-chain transfer.
     # @param subject_id [String] 
+    # @param create_cbx_subject_spend_plan_request [CreateCbxSubjectSpendPlanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSubjectSpendPlanResponse]
-    def create_cbx_subject_spend_plan(subject_id, opts = {})
-      data, _status_code, _headers = create_cbx_subject_spend_plan_with_http_info(subject_id, opts)
+    def create_cbx_subject_spend_plan(subject_id, create_cbx_subject_spend_plan_request, opts = {})
+      data, _status_code, _headers = create_cbx_subject_spend_plan_with_http_info(subject_id, create_cbx_subject_spend_plan_request, opts)
       data
     end
 
     # Which balances would pay for a spend, and in what order.
     # The order is granted → earned → connected and you do not get to choose it. Granted first is a security property, not a preference: if earned spent first, a subject holding both would spend their withdrawable balance down while their non-withdrawable grant sat untouched — converting a grant into a withdrawable balance one purchase at a time. Returns a &#x60;shortfallBaseUnits&#x60; rather than failing, so a checkout can charge the remainder to a card. Send excludeConnected on a flow that cannot wait for an on-chain transfer.
     # @param subject_id [String] 
+    # @param create_cbx_subject_spend_plan_request [CreateCbxSubjectSpendPlanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSubjectSpendPlanResponse, Integer, Hash)>] CreateCbxSubjectSpendPlanResponse data, response status code and response headers
-    def create_cbx_subject_spend_plan_with_http_info(subject_id, opts = {})
+    def create_cbx_subject_spend_plan_with_http_info(subject_id, create_cbx_subject_spend_plan_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_subject_spend_plan ...'
       end
       # verify the required parameter 'subject_id' is set
       if @api_client.config.client_side_validation && subject_id.nil?
         fail ArgumentError, "Missing the required parameter 'subject_id' when calling CBXApi.create_cbx_subject_spend_plan"
+      end
+      # verify the required parameter 'create_cbx_subject_spend_plan_request' is set
+      if @api_client.config.client_side_validation && create_cbx_subject_spend_plan_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_subject_spend_plan_request' when calling CBXApi.create_cbx_subject_spend_plan"
       end
       # resource path
       local_var_path = '/v1/cbx/subjects/{subjectId}/spend-plan'.sub('{' + 'subjectId' + '}', CGI.escape(subject_id.to_s))
@@ -1987,12 +2275,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_subject_spend_plan_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSubjectSpendPlanResponse'
@@ -2020,25 +2313,31 @@ module Crossly
     # Lock a subject's tokens for a tier.
     # Refuses an amount that clears no tier — locking tokens for no benefit is never what somebody meant to do. One stake per subject: to change the amount, unstake and wait out the cooldown first.
     # @param subject_id [String] 
+    # @param create_cbx_subject_stake_request [CreateCbxSubjectStakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxSubjectStakeResponse]
-    def create_cbx_subject_stake(subject_id, opts = {})
-      data, _status_code, _headers = create_cbx_subject_stake_with_http_info(subject_id, opts)
+    def create_cbx_subject_stake(subject_id, create_cbx_subject_stake_request, opts = {})
+      data, _status_code, _headers = create_cbx_subject_stake_with_http_info(subject_id, create_cbx_subject_stake_request, opts)
       data
     end
 
     # Lock a subject&#39;s tokens for a tier.
     # Refuses an amount that clears no tier — locking tokens for no benefit is never what somebody meant to do. One stake per subject: to change the amount, unstake and wait out the cooldown first.
     # @param subject_id [String] 
+    # @param create_cbx_subject_stake_request [CreateCbxSubjectStakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxSubjectStakeResponse, Integer, Hash)>] CreateCbxSubjectStakeResponse data, response status code and response headers
-    def create_cbx_subject_stake_with_http_info(subject_id, opts = {})
+    def create_cbx_subject_stake_with_http_info(subject_id, create_cbx_subject_stake_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_subject_stake ...'
       end
       # verify the required parameter 'subject_id' is set
       if @api_client.config.client_side_validation && subject_id.nil?
         fail ArgumentError, "Missing the required parameter 'subject_id' when calling CBXApi.create_cbx_subject_stake"
+      end
+      # verify the required parameter 'create_cbx_subject_stake_request' is set
+      if @api_client.config.client_side_validation && create_cbx_subject_stake_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_subject_stake_request' when calling CBXApi.create_cbx_subject_stake"
       end
       # resource path
       local_var_path = '/v1/cbx/subjects/{subjectId}/stake'.sub('{' + 'subjectId' + '}', CGI.escape(subject_id.to_s))
@@ -2050,12 +2349,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_subject_stake_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxSubjectStakeResponse'
@@ -2145,20 +2449,26 @@ module Crossly
 
     # Start wallet verification. Returns a message for the user to sign.
     # Present the returned `message` verbatim to the user's wallet for signing. It binds your merchant, their subject, the address and a single-use nonce, so the resulting signature is not transferable to another address or account. A signature is required because there is no custody here: a send cannot be undone, so a typo or a swapped address is permanent.
+    # @param create_cbx_wallet_challenge_request [CreateCbxWalletChallengeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxWalletChallengeResponse]
-    def create_cbx_wallet_challenge(opts = {})
-      data, _status_code, _headers = create_cbx_wallet_challenge_with_http_info(opts)
+    def create_cbx_wallet_challenge(create_cbx_wallet_challenge_request, opts = {})
+      data, _status_code, _headers = create_cbx_wallet_challenge_with_http_info(create_cbx_wallet_challenge_request, opts)
       data
     end
 
     # Start wallet verification. Returns a message for the user to sign.
     # Present the returned &#x60;message&#x60; verbatim to the user&#39;s wallet for signing. It binds your merchant, their subject, the address and a single-use nonce, so the resulting signature is not transferable to another address or account. A signature is required because there is no custody here: a send cannot be undone, so a typo or a swapped address is permanent.
+    # @param create_cbx_wallet_challenge_request [CreateCbxWalletChallengeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxWalletChallengeResponse, Integer, Hash)>] CreateCbxWalletChallengeResponse data, response status code and response headers
-    def create_cbx_wallet_challenge_with_http_info(opts = {})
+    def create_cbx_wallet_challenge_with_http_info(create_cbx_wallet_challenge_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_wallet_challenge ...'
+      end
+      # verify the required parameter 'create_cbx_wallet_challenge_request' is set
+      if @api_client.config.client_side_validation && create_cbx_wallet_challenge_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_wallet_challenge_request' when calling CBXApi.create_cbx_wallet_challenge"
       end
       # resource path
       local_var_path = '/v1/cbx/wallets/challenge'
@@ -2170,12 +2480,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_wallet_challenge_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxWalletChallengeResponse'
@@ -2202,20 +2517,26 @@ module Crossly
 
     # Present the signature. Returns a ship / do-not-ship decision.
     # Everything is read from the CHAIN at finalized commitment — the amount, the payer, the destination. Nothing you assert about the payment is trusted, because a client that can state its own payment amount can state a larger one. The response `releaseDecision` is about the ORDER, not the payment: by the time we see a signature the tokens have moved and cannot be un-moved, so the only decision left is whether to hand over goods. `release` means ship. `review` means hold — a person needs to look, and that includes the case where no screening provider is configured. `refuse` means do not ship; the payment is still recorded, because we received the tokens and that fact does not go away. Idempotent twice over: on txSig globally, so one payment cannot pay two orders, and on (merchant, externalId), so one order is not paid twice. A 409 means the transaction has not finalized yet and you should retry; a 400 means it never will be claimable.
+    # @param create_cbx_wallet_payment_confirm_request [CreateCbxWalletPaymentConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxWalletPaymentConfirmResponse]
-    def create_cbx_wallet_payment_confirm(opts = {})
-      data, _status_code, _headers = create_cbx_wallet_payment_confirm_with_http_info(opts)
+    def create_cbx_wallet_payment_confirm(create_cbx_wallet_payment_confirm_request, opts = {})
+      data, _status_code, _headers = create_cbx_wallet_payment_confirm_with_http_info(create_cbx_wallet_payment_confirm_request, opts)
       data
     end
 
     # Present the signature. Returns a ship / do-not-ship decision.
     # Everything is read from the CHAIN at finalized commitment — the amount, the payer, the destination. Nothing you assert about the payment is trusted, because a client that can state its own payment amount can state a larger one. The response &#x60;releaseDecision&#x60; is about the ORDER, not the payment: by the time we see a signature the tokens have moved and cannot be un-moved, so the only decision left is whether to hand over goods. &#x60;release&#x60; means ship. &#x60;review&#x60; means hold — a person needs to look, and that includes the case where no screening provider is configured. &#x60;refuse&#x60; means do not ship; the payment is still recorded, because we received the tokens and that fact does not go away. Idempotent twice over: on txSig globally, so one payment cannot pay two orders, and on (merchant, externalId), so one order is not paid twice. A 409 means the transaction has not finalized yet and you should retry; a 400 means it never will be claimable.
+    # @param create_cbx_wallet_payment_confirm_request [CreateCbxWalletPaymentConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxWalletPaymentConfirmResponse, Integer, Hash)>] CreateCbxWalletPaymentConfirmResponse data, response status code and response headers
-    def create_cbx_wallet_payment_confirm_with_http_info(opts = {})
+    def create_cbx_wallet_payment_confirm_with_http_info(create_cbx_wallet_payment_confirm_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_wallet_payment_confirm ...'
+      end
+      # verify the required parameter 'create_cbx_wallet_payment_confirm_request' is set
+      if @api_client.config.client_side_validation && create_cbx_wallet_payment_confirm_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_wallet_payment_confirm_request' when calling CBXApi.create_cbx_wallet_payment_confirm"
       end
       # resource path
       local_var_path = '/v1/cbx/wallet-payments/confirm'
@@ -2227,12 +2548,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_wallet_payment_confirm_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxWalletPaymentConfirmResponse'
@@ -2259,20 +2585,26 @@ module Crossly
 
     # Build a transfer for the buyer to sign themselves.
     # Returns an unsigned, base64 transaction. The buyer's wallet signs and submits it; we never hold a key or a delegation and never submit anything, so the platform has no authority over their tokens at any point. RESERVES NOTHING — no row, no hold, no balance change. The buyer may never sign it. The SIGNATURE is the event, so treat this as a convenience and not a commitment. `lastValidBlockHeight` is when it expires: a wallet prompt left open for a couple of minutes produces a transaction the chain will reject, and you should re-quote rather than retry. `payerCanCover` is a courtesy read of their balance so you can warn before a prompt rather than after a failure; null means we could not read it, which is not the same as \"no\". The buyer needs no prior wallet registration: a payment proves control of the tokens, which is what a connect-and-verify step would have been proving.
+    # @param create_cbx_wallet_payment_quote_request [CreateCbxWalletPaymentQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxWalletPaymentQuoteResponse]
-    def create_cbx_wallet_payment_quote(opts = {})
-      data, _status_code, _headers = create_cbx_wallet_payment_quote_with_http_info(opts)
+    def create_cbx_wallet_payment_quote(create_cbx_wallet_payment_quote_request, opts = {})
+      data, _status_code, _headers = create_cbx_wallet_payment_quote_with_http_info(create_cbx_wallet_payment_quote_request, opts)
       data
     end
 
     # Build a transfer for the buyer to sign themselves.
     # Returns an unsigned, base64 transaction. The buyer&#39;s wallet signs and submits it; we never hold a key or a delegation and never submit anything, so the platform has no authority over their tokens at any point. RESERVES NOTHING — no row, no hold, no balance change. The buyer may never sign it. The SIGNATURE is the event, so treat this as a convenience and not a commitment. &#x60;lastValidBlockHeight&#x60; is when it expires: a wallet prompt left open for a couple of minutes produces a transaction the chain will reject, and you should re-quote rather than retry. &#x60;payerCanCover&#x60; is a courtesy read of their balance so you can warn before a prompt rather than after a failure; null means we could not read it, which is not the same as \&quot;no\&quot;. The buyer needs no prior wallet registration: a payment proves control of the tokens, which is what a connect-and-verify step would have been proving.
+    # @param create_cbx_wallet_payment_quote_request [CreateCbxWalletPaymentQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxWalletPaymentQuoteResponse, Integer, Hash)>] CreateCbxWalletPaymentQuoteResponse data, response status code and response headers
-    def create_cbx_wallet_payment_quote_with_http_info(opts = {})
+    def create_cbx_wallet_payment_quote_with_http_info(create_cbx_wallet_payment_quote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_wallet_payment_quote ...'
+      end
+      # verify the required parameter 'create_cbx_wallet_payment_quote_request' is set
+      if @api_client.config.client_side_validation && create_cbx_wallet_payment_quote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_wallet_payment_quote_request' when calling CBXApi.create_cbx_wallet_payment_quote"
       end
       # resource path
       local_var_path = '/v1/cbx/wallet-payments/quote'
@@ -2284,12 +2616,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_wallet_payment_quote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxWalletPaymentQuoteResponse'
@@ -2317,25 +2654,31 @@ module Crossly
     # A human decides on a held payment.
     # Only moves a payment OUT of `review`, never between the other two. A refusal that could later be flipped to a release is an approval control with no teeth, and a release re-decided as a refusal after the goods shipped is a record that no longer describes what happened. The reviewer and their note are stored on the row, because this is the decision somebody will be asked to justify.
     # @param payment_id [String] 
+    # @param create_cbx_wallet_payment_resolve_request [CreateCbxWalletPaymentResolveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxWalletPaymentResolveResponse]
-    def create_cbx_wallet_payment_resolve(payment_id, opts = {})
-      data, _status_code, _headers = create_cbx_wallet_payment_resolve_with_http_info(payment_id, opts)
+    def create_cbx_wallet_payment_resolve(payment_id, create_cbx_wallet_payment_resolve_request, opts = {})
+      data, _status_code, _headers = create_cbx_wallet_payment_resolve_with_http_info(payment_id, create_cbx_wallet_payment_resolve_request, opts)
       data
     end
 
     # A human decides on a held payment.
     # Only moves a payment OUT of &#x60;review&#x60;, never between the other two. A refusal that could later be flipped to a release is an approval control with no teeth, and a release re-decided as a refusal after the goods shipped is a record that no longer describes what happened. The reviewer and their note are stored on the row, because this is the decision somebody will be asked to justify.
     # @param payment_id [String] 
+    # @param create_cbx_wallet_payment_resolve_request [CreateCbxWalletPaymentResolveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxWalletPaymentResolveResponse, Integer, Hash)>] CreateCbxWalletPaymentResolveResponse data, response status code and response headers
-    def create_cbx_wallet_payment_resolve_with_http_info(payment_id, opts = {})
+    def create_cbx_wallet_payment_resolve_with_http_info(payment_id, create_cbx_wallet_payment_resolve_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_wallet_payment_resolve ...'
       end
       # verify the required parameter 'payment_id' is set
       if @api_client.config.client_side_validation && payment_id.nil?
         fail ArgumentError, "Missing the required parameter 'payment_id' when calling CBXApi.create_cbx_wallet_payment_resolve"
+      end
+      # verify the required parameter 'create_cbx_wallet_payment_resolve_request' is set
+      if @api_client.config.client_side_validation && create_cbx_wallet_payment_resolve_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_wallet_payment_resolve_request' when calling CBXApi.create_cbx_wallet_payment_resolve"
       end
       # resource path
       local_var_path = '/v1/cbx/wallet-payments/{paymentId}/resolve'.sub('{' + 'paymentId' + '}', CGI.escape(payment_id.to_s))
@@ -2347,12 +2690,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_wallet_payment_resolve_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxWalletPaymentResolveResponse'
@@ -2379,20 +2727,26 @@ module Crossly
 
     # Complete wallet verification with the user's signature.
     # The signature is checked against the message WE issued and stored, never one supplied here. The nonce is single-use, so the same signature cannot re-verify an address later.
+    # @param create_cbx_wallet_verify_request [CreateCbxWalletVerifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCbxWalletVerifyResponse]
-    def create_cbx_wallet_verify(opts = {})
-      data, _status_code, _headers = create_cbx_wallet_verify_with_http_info(opts)
+    def create_cbx_wallet_verify(create_cbx_wallet_verify_request, opts = {})
+      data, _status_code, _headers = create_cbx_wallet_verify_with_http_info(create_cbx_wallet_verify_request, opts)
       data
     end
 
     # Complete wallet verification with the user&#39;s signature.
     # The signature is checked against the message WE issued and stored, never one supplied here. The nonce is single-use, so the same signature cannot re-verify an address later.
+    # @param create_cbx_wallet_verify_request [CreateCbxWalletVerifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCbxWalletVerifyResponse, Integer, Hash)>] CreateCbxWalletVerifyResponse data, response status code and response headers
-    def create_cbx_wallet_verify_with_http_info(opts = {})
+    def create_cbx_wallet_verify_with_http_info(create_cbx_wallet_verify_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CBXApi.create_cbx_wallet_verify ...'
+      end
+      # verify the required parameter 'create_cbx_wallet_verify_request' is set
+      if @api_client.config.client_side_validation && create_cbx_wallet_verify_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cbx_wallet_verify_request' when calling CBXApi.create_cbx_wallet_verify"
       end
       # resource path
       local_var_path = '/v1/cbx/wallets/verify'
@@ -2404,12 +2758,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cbx_wallet_verify_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCbxWalletVerifyResponse'

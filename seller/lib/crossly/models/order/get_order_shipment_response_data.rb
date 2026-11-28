@@ -23,6 +23,8 @@ module Crossly
 
     attr_accessor :source
 
+    attr_accessor :weight_oz
+
     attr_accessor :carrier
 
     attr_accessor :service
@@ -31,17 +33,29 @@ module Crossly
 
     attr_accessor :order_id
 
-    attr_accessor :label_cost_cents
+    attr_accessor :length_in
+
+    attr_accessor :width_in
+
+    attr_accessor :height_in
 
     attr_accessor :label_url
 
     attr_accessor :label_qr_url
+
+    attr_accessor :label_cost_cents
 
     attr_accessor :shippo_shipment_id
 
     attr_accessor :tracking_registered_at
 
     attr_accessor :voided_at
+
+    attr_accessor :preset_id
+
+    attr_accessor :label_printed_at
+
+    attr_accessor :label_print_job_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -50,16 +64,23 @@ module Crossly
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
         :'source' => :'source',
+        :'weight_oz' => :'weightOz',
         :'carrier' => :'carrier',
         :'service' => :'service',
         :'tracking_number' => :'trackingNumber',
         :'order_id' => :'orderId',
-        :'label_cost_cents' => :'labelCostCents',
+        :'length_in' => :'lengthIn',
+        :'width_in' => :'widthIn',
+        :'height_in' => :'heightIn',
         :'label_url' => :'labelUrl',
         :'label_qr_url' => :'labelQrUrl',
+        :'label_cost_cents' => :'labelCostCents',
         :'shippo_shipment_id' => :'shippoShipmentId',
         :'tracking_registered_at' => :'trackingRegisteredAt',
-        :'voided_at' => :'voidedAt'
+        :'voided_at' => :'voidedAt',
+        :'preset_id' => :'presetId',
+        :'label_printed_at' => :'labelPrintedAt',
+        :'label_print_job_id' => :'labelPrintJobId'
       }
     end
 
@@ -75,31 +96,45 @@ module Crossly
         :'created_at' => :'Time',
         :'user_id' => :'String',
         :'source' => :'String',
+        :'weight_oz' => :'String',
         :'carrier' => :'String',
         :'service' => :'String',
         :'tracking_number' => :'String',
         :'order_id' => :'String',
-        :'label_cost_cents' => :'Float',
+        :'length_in' => :'String',
+        :'width_in' => :'String',
+        :'height_in' => :'String',
         :'label_url' => :'String',
         :'label_qr_url' => :'String',
+        :'label_cost_cents' => :'Float',
         :'shippo_shipment_id' => :'String',
         :'tracking_registered_at' => :'Time',
-        :'voided_at' => :'Time'
+        :'voided_at' => :'Time',
+        :'preset_id' => :'String',
+        :'label_printed_at' => :'Time',
+        :'label_print_job_id' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'weight_oz',
         :'carrier',
         :'service',
         :'tracking_number',
-        :'label_cost_cents',
+        :'length_in',
+        :'width_in',
+        :'height_in',
         :'label_url',
         :'label_qr_url',
+        :'label_cost_cents',
         :'shippo_shipment_id',
         :'tracking_registered_at',
-        :'voided_at'
+        :'voided_at',
+        :'preset_id',
+        :'label_printed_at',
+        :'label_print_job_id'
       ])
     end
 
@@ -134,6 +169,10 @@ module Crossly
         self.source = attributes[:'source']
       end
 
+      if attributes.key?(:'weight_oz')
+        self.weight_oz = attributes[:'weight_oz']
+      end
+
       if attributes.key?(:'carrier')
         self.carrier = attributes[:'carrier']
       end
@@ -150,8 +189,16 @@ module Crossly
         self.order_id = attributes[:'order_id']
       end
 
-      if attributes.key?(:'label_cost_cents')
-        self.label_cost_cents = attributes[:'label_cost_cents']
+      if attributes.key?(:'length_in')
+        self.length_in = attributes[:'length_in']
+      end
+
+      if attributes.key?(:'width_in')
+        self.width_in = attributes[:'width_in']
+      end
+
+      if attributes.key?(:'height_in')
+        self.height_in = attributes[:'height_in']
       end
 
       if attributes.key?(:'label_url')
@@ -160,6 +207,10 @@ module Crossly
 
       if attributes.key?(:'label_qr_url')
         self.label_qr_url = attributes[:'label_qr_url']
+      end
+
+      if attributes.key?(:'label_cost_cents')
+        self.label_cost_cents = attributes[:'label_cost_cents']
       end
 
       if attributes.key?(:'shippo_shipment_id')
@@ -172,6 +223,18 @@ module Crossly
 
       if attributes.key?(:'voided_at')
         self.voided_at = attributes[:'voided_at']
+      end
+
+      if attributes.key?(:'preset_id')
+        self.preset_id = attributes[:'preset_id']
+      end
+
+      if attributes.key?(:'label_printed_at')
+        self.label_printed_at = attributes[:'label_printed_at']
+      end
+
+      if attributes.key?(:'label_print_job_id')
+        self.label_print_job_id = attributes[:'label_print_job_id']
       end
     end
 
@@ -222,16 +285,23 @@ module Crossly
           created_at == o.created_at &&
           user_id == o.user_id &&
           source == o.source &&
+          weight_oz == o.weight_oz &&
           carrier == o.carrier &&
           service == o.service &&
           tracking_number == o.tracking_number &&
           order_id == o.order_id &&
-          label_cost_cents == o.label_cost_cents &&
+          length_in == o.length_in &&
+          width_in == o.width_in &&
+          height_in == o.height_in &&
           label_url == o.label_url &&
           label_qr_url == o.label_qr_url &&
+          label_cost_cents == o.label_cost_cents &&
           shippo_shipment_id == o.shippo_shipment_id &&
           tracking_registered_at == o.tracking_registered_at &&
-          voided_at == o.voided_at
+          voided_at == o.voided_at &&
+          preset_id == o.preset_id &&
+          label_printed_at == o.label_printed_at &&
+          label_print_job_id == o.label_print_job_id
     end
 
     # @see the `==` method
@@ -243,7 +313,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, source, carrier, service, tracking_number, order_id, label_cost_cents, label_url, label_qr_url, shippo_shipment_id, tracking_registered_at, voided_at].hash
+      [id, created_at, user_id, source, weight_oz, carrier, service, tracking_number, order_id, length_in, width_in, height_in, label_url, label_qr_url, label_cost_cents, shippo_shipment_id, tracking_registered_at, voided_at, preset_id, label_printed_at, label_print_job_id].hash
     end
 
     # Builds the object from hash

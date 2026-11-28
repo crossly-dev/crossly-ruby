@@ -45,6 +45,10 @@ module CrosslyBuyer
 
     attr_accessor :return_policy
 
+    attr_accessor :policy
+
+    attr_accessor :claim_window_days
+
     attr_accessor :cancellation
 
     attr_accessor :claim_window_ends_at
@@ -189,6 +193,8 @@ module CrosslyBuyer
         :'inspection' => :'inspection',
         :'checklist' => :'checklist',
         :'return_policy' => :'returnPolicy',
+        :'policy' => :'policy',
+        :'claim_window_days' => :'claimWindowDays',
         :'cancellation' => :'cancellation',
         :'claim_window_ends_at' => :'claimWindowEndsAt',
         :'days_left' => :'daysLeft',
@@ -267,6 +273,8 @@ module CrosslyBuyer
         :'inspection' => :'Array<BuyerRentalResponseDataInspection>',
         :'checklist' => :'Array<String>',
         :'return_policy' => :'String',
+        :'policy' => :'Hash<String, Object>',
+        :'claim_window_days' => :'Float',
         :'cancellation' => :'CreateBuyerCatalogListingRentalQuoteResponseDataCancellation',
         :'claim_window_ends_at' => :'String',
         :'days_left' => :'Float',
@@ -329,6 +337,7 @@ module CrosslyBuyer
         :'thread_id',
         :'renter_name',
         :'return_policy',
+        :'policy',
         :'claim_window_ends_at',
         :'days_left',
         :'shipped_at',
@@ -438,6 +447,16 @@ module CrosslyBuyer
 
       if attributes.key?(:'return_policy')
         self.return_policy = attributes[:'return_policy']
+      end
+
+      if attributes.key?(:'policy')
+        if (value = attributes[:'policy']).is_a?(Hash)
+          self.policy = value
+        end
+      end
+
+      if attributes.key?(:'claim_window_days')
+        self.claim_window_days = attributes[:'claim_window_days']
       end
 
       if attributes.key?(:'cancellation')
@@ -711,6 +730,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "checklist", checklist cannot be nil.')
       end
 
+      if @claim_window_days.nil?
+        invalid_properties.push('invalid value for "claim_window_days", claim_window_days cannot be nil.')
+      end
+
       if @cancellation.nil?
         invalid_properties.push('invalid value for "cancellation", cancellation cannot be nil.')
       end
@@ -846,6 +869,7 @@ module CrosslyBuyer
       return false if @buyout.nil?
       return false if @inspection.nil?
       return false if @checklist.nil?
+      return false if @claim_window_days.nil?
       return false if @cancellation.nil?
       return false if @actions.nil?
       return false if @payments.nil?
@@ -908,6 +932,8 @@ module CrosslyBuyer
           inspection == o.inspection &&
           checklist == o.checklist &&
           return_policy == o.return_policy &&
+          policy == o.policy &&
+          claim_window_days == o.claim_window_days &&
           cancellation == o.cancellation &&
           claim_window_ends_at == o.claim_window_ends_at &&
           days_left == o.days_left &&
@@ -971,7 +997,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [listing_id, thread_id, shipping, deposit_status, status_label, overdue, renter_name, timeline, events, extensions, extension, buyout, inspection, checklist, return_policy, cancellation, claim_window_ends_at, days_left, actions, payments, shipped_at, returned_at, closed_at, created_at, ship_to, platform_listing_id, payout_timing, payout_released_at, order_id, crossly_fee_cents, id, status, slug, title, image_url, start_date, end_date, days, rent_cents, shipping_cents, deposit_cents, outbound_tracking, return_tracking, label_url, claim_cents, claim_note, claim_photos, claim_disputed, condition_photos_out, condition_photos_in, approval_due_at, deposit_refunded_cents, unit, fulfilment, cleaning_fee_cents, damage_waiver, damage_waiver_cents, late_fee_cents, rent_refunded_cents, buyout_cents, charges, condition_photos_return, approved_at, delivered_at, return_shipped_at, inspected_at, bought_out_at].hash
+      [listing_id, thread_id, shipping, deposit_status, status_label, overdue, renter_name, timeline, events, extensions, extension, buyout, inspection, checklist, return_policy, policy, claim_window_days, cancellation, claim_window_ends_at, days_left, actions, payments, shipped_at, returned_at, closed_at, created_at, ship_to, platform_listing_id, payout_timing, payout_released_at, order_id, crossly_fee_cents, id, status, slug, title, image_url, start_date, end_date, days, rent_cents, shipping_cents, deposit_cents, outbound_tracking, return_tracking, label_url, claim_cents, claim_note, claim_photos, claim_disputed, condition_photos_out, condition_photos_in, approval_due_at, deposit_refunded_cents, unit, fulfilment, cleaning_fee_cents, damage_waiver, damage_waiver_cents, late_fee_cents, rent_refunded_cents, buyout_cents, charges, condition_photos_return, approved_at, delivered_at, return_shipped_at, inspected_at, bought_out_at].hash
     end
 
     # Builds the object from hash

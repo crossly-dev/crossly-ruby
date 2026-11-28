@@ -45,7 +45,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_ad_offsite_campaign
 
-> <CreateAdOffsiteCampaignResponse> create_ad_offsite_campaign
+> <CreateAdOffsiteCampaignResponse> create_ad_offsite_campaign(create_ad_offsite_campaign_request)
 
 Launch an offsite campaign for an item.
 
@@ -63,10 +63,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+create_ad_offsite_campaign_request = Crossly::CreateAdOffsiteCampaignRequest.new({network: 'google', category: 'category_example', title: 'title_example', price_cents: 3.56, landing_url: 'landing_url_example', daily_budget_cents: 3.56}) # CreateAdOffsiteCampaignRequest | 
 
 begin
   # Launch an offsite campaign for an item.
-  result = api_instance.create_ad_offsite_campaign
+  result = api_instance.create_ad_offsite_campaign(create_ad_offsite_campaign_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_ad_offsite_campaign: #{e}"
@@ -77,12 +78,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateAdOffsiteCampaignResponse>, Integer, Hash)> create_ad_offsite_campaign_with_http_info
+> <Array(<CreateAdOffsiteCampaignResponse>, Integer, Hash)> create_ad_offsite_campaign_with_http_info(create_ad_offsite_campaign_request)
 
 ```ruby
 begin
   # Launch an offsite campaign for an item.
-  data, status_code, headers = api_instance.create_ad_offsite_campaign_with_http_info
+  data, status_code, headers = api_instance.create_ad_offsite_campaign_with_http_info(create_ad_offsite_campaign_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateAdOffsiteCampaignResponse>
@@ -93,7 +94,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_ad_offsite_campaign_request** | **CreateAdOffsiteCampaignRequest** |  |  |
 
 ### Return type
 
@@ -105,7 +108,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -177,7 +180,7 @@ This endpoint does not need any parameter.
 
 ## create_listing_ad_bulk_add
 
-> <CreateListingAdBulkAddResponse> create_listing_ad_bulk_add
+> <CreateListingAdBulkAddResponse> create_listing_ad_bulk_add(create_listing_ad_bulk_add_request)
 
 Add listings to a campaign by master listing id: each listing's live row on `platform` joins campaignId (a Crossly campaign uuid, or the marketplace's campaign id). A listing not live there is its own failed result.
 
@@ -193,10 +196,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+create_listing_ad_bulk_add_request = Crossly::CreateListingAdBulkAddRequest.new({platform: 'platform_example', campaign_id: 'campaign_id_example', listing_ids: ['listing_ids_example']}) # CreateListingAdBulkAddRequest | 
 
 begin
   # Add listings to a campaign by master listing id: each listing's live row on `platform` joins campaignId (a Crossly campaign uuid, or the marketplace's campaign id). A listing not live there is its own failed result.
-  result = api_instance.create_listing_ad_bulk_add
+  result = api_instance.create_listing_ad_bulk_add(create_listing_ad_bulk_add_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_listing_ad_bulk_add: #{e}"
@@ -207,12 +211,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingAdBulkAddResponse>, Integer, Hash)> create_listing_ad_bulk_add_with_http_info
+> <Array(<CreateListingAdBulkAddResponse>, Integer, Hash)> create_listing_ad_bulk_add_with_http_info(create_listing_ad_bulk_add_request)
 
 ```ruby
 begin
   # Add listings to a campaign by master listing id: each listing's live row on `platform` joins campaignId (a Crossly campaign uuid, or the marketplace's campaign id). A listing not live there is its own failed result.
-  data, status_code, headers = api_instance.create_listing_ad_bulk_add_with_http_info
+  data, status_code, headers = api_instance.create_listing_ad_bulk_add_with_http_info(create_listing_ad_bulk_add_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingAdBulkAddResponse>
@@ -223,7 +227,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_ad_bulk_add_request** | **CreateListingAdBulkAddRequest** |  |  |
 
 ### Return type
 
@@ -235,13 +241,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_ad_campaign
 
-> <CreateListingAdCampaignResponse> create_listing_ad_campaign(platform)
+> <CreateListingAdCampaignResponse> create_listing_ad_campaign(platform, create_listing_ad_campaign_request)
 
 Create a campaign on the marketplace: program (promoted_listing_rate = eBay General, a % of the sale; cpc_campaign = eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
 
@@ -258,10 +264,11 @@ end
 
 api_instance = Crossly::AdsApi.new
 platform = 'platform_example' # String | 
+create_listing_ad_campaign_request = Crossly::CreateListingAdCampaignRequest.new({program: 'promoted_listing_rate', name: 'name_example'}) # CreateListingAdCampaignRequest | 
 
 begin
   # Create a campaign on the marketplace: program (promoted_listing_rate = eBay General, a % of the sale; cpc_campaign = eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
-  result = api_instance.create_listing_ad_campaign(platform)
+  result = api_instance.create_listing_ad_campaign(platform, create_listing_ad_campaign_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_listing_ad_campaign: #{e}"
@@ -272,12 +279,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingAdCampaignResponse>, Integer, Hash)> create_listing_ad_campaign_with_http_info(platform)
+> <Array(<CreateListingAdCampaignResponse>, Integer, Hash)> create_listing_ad_campaign_with_http_info(platform, create_listing_ad_campaign_request)
 
 ```ruby
 begin
   # Create a campaign on the marketplace: program (promoted_listing_rate = eBay General, a % of the sale; cpc_campaign = eBay Priority, a daily budget), name, ratePct or dailyBudgetCents, startsAt/endsAt, and the program fields. Idempotency-Key supported.
-  data, status_code, headers = api_instance.create_listing_ad_campaign_with_http_info(platform)
+  data, status_code, headers = api_instance.create_listing_ad_campaign_with_http_info(platform, create_listing_ad_campaign_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingAdCampaignResponse>
@@ -291,6 +298,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
+| **create_listing_ad_campaign_request** | **CreateListingAdCampaignRequest** |  |  |
 
 ### Return type
 
@@ -302,13 +310,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_ad_campaign_listing
 
-> <CreateListingAdCampaignListingResponse> create_listing_ad_campaign_listing(platform, campaign_id)
+> <CreateListingAdCampaignListingResponse> create_listing_ad_campaign_listing(platform, campaign_id, create_listing_ad_campaign_listing_request)
 
 Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
 
@@ -326,10 +334,11 @@ end
 api_instance = Crossly::AdsApi.new
 platform = 'platform_example' # String | 
 campaign_id = 'campaign_id_example' # String | 
+create_listing_ad_campaign_listing_request = Crossly::CreateListingAdCampaignListingRequest.new({platform_listing_ids: ['platform_listing_ids_example']}) # CreateListingAdCampaignListingRequest | 
 
 begin
   # Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
-  result = api_instance.create_listing_ad_campaign_listing(platform, campaign_id)
+  result = api_instance.create_listing_ad_campaign_listing(platform, campaign_id, create_listing_ad_campaign_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_listing_ad_campaign_listing: #{e}"
@@ -340,12 +349,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingAdCampaignListingResponse>, Integer, Hash)> create_listing_ad_campaign_listing_with_http_info(platform, campaign_id)
+> <Array(<CreateListingAdCampaignListingResponse>, Integer, Hash)> create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, create_listing_ad_campaign_listing_request)
 
 ```ruby
 begin
   # Promote listings in a marketplace campaign. platformListingIds are Crossly platform-listing ids on that marketplace; ratePct sets the ad rate (eBay General). One result per listing.
-  data, status_code, headers = api_instance.create_listing_ad_campaign_listing_with_http_info(platform, campaign_id)
+  data, status_code, headers = api_instance.create_listing_ad_campaign_listing_with_http_info(platform, campaign_id, create_listing_ad_campaign_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingAdCampaignListingResponse>
@@ -360,6 +369,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
 | **campaign_id** | **String** |  |  |
+| **create_listing_ad_campaign_listing_request** | **CreateListingAdCampaignListingRequest** |  |  |
 
 ### Return type
 
@@ -371,13 +381,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_listing_ad_campaign_listing_remove
 
-> <CreateListingAdCampaignListingResponse> create_listing_ad_campaign_listing_remove(platform, campaign_id)
+> <CreateListingAdCampaignListingResponse> create_listing_ad_campaign_listing_remove(platform, campaign_id, update_live_stream_lineup_request)
 
 Stop promoting listings in a marketplace campaign. One result per listing.
 
@@ -395,10 +405,11 @@ end
 api_instance = Crossly::AdsApi.new
 platform = 'platform_example' # String | 
 campaign_id = 'campaign_id_example' # String | 
+update_live_stream_lineup_request = Crossly::UpdateLiveStreamLineupRequest.new({platform_listing_ids: ['platform_listing_ids_example']}) # UpdateLiveStreamLineupRequest | 
 
 begin
   # Stop promoting listings in a marketplace campaign. One result per listing.
-  result = api_instance.create_listing_ad_campaign_listing_remove(platform, campaign_id)
+  result = api_instance.create_listing_ad_campaign_listing_remove(platform, campaign_id, update_live_stream_lineup_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_listing_ad_campaign_listing_remove: #{e}"
@@ -409,12 +420,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingAdCampaignListingResponse>, Integer, Hash)> create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id)
+> <Array(<CreateListingAdCampaignListingResponse>, Integer, Hash)> create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, update_live_stream_lineup_request)
 
 ```ruby
 begin
   # Stop promoting listings in a marketplace campaign. One result per listing.
-  data, status_code, headers = api_instance.create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id)
+  data, status_code, headers = api_instance.create_listing_ad_campaign_listing_remove_with_http_info(platform, campaign_id, update_live_stream_lineup_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingAdCampaignListingResponse>
@@ -429,6 +440,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
 | **campaign_id** | **String** |  |  |
+| **update_live_stream_lineup_request** | **UpdateLiveStreamLineupRequest** |  |  |
 
 ### Return type
 
@@ -440,13 +452,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sponsored_ad_billing_topup_link
 
-> <CreateSponsoredAdBillingTopupLinkResponse> create_sponsored_ad_billing_topup_link
+> <CreateSponsoredAdBillingTopupLinkResponse> create_sponsored_ad_billing_topup_link(create_sponsored_ad_billing_topup_link_request)
 
 A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
 
@@ -462,10 +474,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+create_sponsored_ad_billing_topup_link_request = Crossly::CreateSponsoredAdBillingTopupLinkRequest.new({amount_cents: 3.56}) # CreateSponsoredAdBillingTopupLinkRequest | 
 
 begin
   # A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
-  result = api_instance.create_sponsored_ad_billing_topup_link
+  result = api_instance.create_sponsored_ad_billing_topup_link(create_sponsored_ad_billing_topup_link_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_sponsored_ad_billing_topup_link: #{e}"
@@ -476,12 +489,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSponsoredAdBillingTopupLinkResponse>, Integer, Hash)> create_sponsored_ad_billing_topup_link_with_http_info
+> <Array(<CreateSponsoredAdBillingTopupLinkResponse>, Integer, Hash)> create_sponsored_ad_billing_topup_link_with_http_info(create_sponsored_ad_billing_topup_link_request)
 
 ```ruby
 begin
   # A Stripe Checkout link that adds amountCents ($5–$10,000) to the ad balance when the seller pays it. Nothing is charged until they do. Use an Idempotency-Key to get the same link back on a retry.
-  data, status_code, headers = api_instance.create_sponsored_ad_billing_topup_link_with_http_info
+  data, status_code, headers = api_instance.create_sponsored_ad_billing_topup_link_with_http_info(create_sponsored_ad_billing_topup_link_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSponsoredAdBillingTopupLinkResponse>
@@ -492,7 +505,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sponsored_ad_billing_topup_link_request** | **CreateSponsoredAdBillingTopupLinkRequest** |  |  |
 
 ### Return type
 
@@ -504,13 +519,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_sponsored_ad_boost_remove
 
-> <CreateSponsoredAdBoostRemoveResponse> create_sponsored_ad_boost_remove
+> <CreateSponsoredAdBoostRemoveResponse> create_sponsored_ad_boost_remove(update_live_stream_lineup_request)
 
 Stop boosting listings in bulk.
 
@@ -526,10 +541,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+update_live_stream_lineup_request = Crossly::UpdateLiveStreamLineupRequest.new({platform_listing_ids: ['platform_listing_ids_example']}) # UpdateLiveStreamLineupRequest | 
 
 begin
   # Stop boosting listings in bulk.
-  result = api_instance.create_sponsored_ad_boost_remove
+  result = api_instance.create_sponsored_ad_boost_remove(update_live_stream_lineup_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->create_sponsored_ad_boost_remove: #{e}"
@@ -540,12 +556,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSponsoredAdBoostRemoveResponse>, Integer, Hash)> create_sponsored_ad_boost_remove_with_http_info
+> <Array(<CreateSponsoredAdBoostRemoveResponse>, Integer, Hash)> create_sponsored_ad_boost_remove_with_http_info(update_live_stream_lineup_request)
 
 ```ruby
 begin
   # Stop boosting listings in bulk.
-  data, status_code, headers = api_instance.create_sponsored_ad_boost_remove_with_http_info
+  data, status_code, headers = api_instance.create_sponsored_ad_boost_remove_with_http_info(update_live_stream_lineup_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSponsoredAdBoostRemoveResponse>
@@ -556,7 +572,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_live_stream_lineup_request** | **UpdateLiveStreamLineupRequest** |  |  |
 
 ### Return type
 
@@ -568,7 +586,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -838,7 +856,7 @@ This endpoint does not need any parameter.
 
 ## get_ad_offsite_eligibility
 
-> <GetAdOffsiteEligibilityResponse> get_ad_offsite_eligibility
+> <GetAdOffsiteEligibilityResponse> get_ad_offsite_eligibility(network, category)
 
 Whether an item can run offsite, and why not.
 
@@ -856,10 +874,12 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+network = 'google' # String | 
+category = 'category_example' # String | 
 
 begin
   # Whether an item can run offsite, and why not.
-  result = api_instance.get_ad_offsite_eligibility
+  result = api_instance.get_ad_offsite_eligibility(network, category)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->get_ad_offsite_eligibility: #{e}"
@@ -870,12 +890,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetAdOffsiteEligibilityResponse>, Integer, Hash)> get_ad_offsite_eligibility_with_http_info
+> <Array(<GetAdOffsiteEligibilityResponse>, Integer, Hash)> get_ad_offsite_eligibility_with_http_info(network, category)
 
 ```ruby
 begin
   # Whether an item can run offsite, and why not.
-  data, status_code, headers = api_instance.get_ad_offsite_eligibility_with_http_info
+  data, status_code, headers = api_instance.get_ad_offsite_eligibility_with_http_info(network, category)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetAdOffsiteEligibilityResponse>
@@ -886,7 +906,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **network** | **String** |  |  |
+| **category** | **String** |  |  |
 
 ### Return type
 
@@ -1037,7 +1060,7 @@ end
 
 ## get_sponsored_ad_billing
 
-> <GetSponsoredAdBillingResponse> get_sponsored_ad_billing
+> <GetSponsoredAdBillingResponse> get_sponsored_ad_billing(opts)
 
 What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh=true re-reads the balance.
 
@@ -1053,10 +1076,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+opts = {
+  refresh: 'true' # String | 
+}
 
 begin
   # What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh=true re-reads the balance.
-  result = api_instance.get_sponsored_ad_billing
+  result = api_instance.get_sponsored_ad_billing(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->get_sponsored_ad_billing: #{e}"
@@ -1067,12 +1093,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetSponsoredAdBillingResponse>, Integer, Hash)> get_sponsored_ad_billing_with_http_info
+> <Array(<GetSponsoredAdBillingResponse>, Integer, Hash)> get_sponsored_ad_billing_with_http_info(opts)
 
 ```ruby
 begin
   # What pays for your ads: headroom across the billing rails (ad balance and/or CBX), unbilled click spend, settlement charges, daily spend, Boost fees and CBX ad-credit grants; funds is the full funds summary (same as /v1/sponsored-ads/funds). refresh=true re-reads the balance.
-  data, status_code, headers = api_instance.get_sponsored_ad_billing_with_http_info
+  data, status_code, headers = api_instance.get_sponsored_ad_billing_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetSponsoredAdBillingResponse>
@@ -1083,7 +1109,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **refresh** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1302,7 +1330,7 @@ end
 
 ## get_sponsored_ad_campaign
 
-> <SponsoredAdCampaignResponse> get_sponsored_ad_campaign(id)
+> <SponsoredAdCampaignResponse> get_sponsored_ad_campaign(id, opts)
 
 One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has `catalogs`: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
 
@@ -1319,10 +1347,14 @@ end
 
 api_instance = Crossly::AdsApi.new
 id = 'id_example' # String | 
+opts = {
+  from: 'from_example', # String | 
+  to: 'to_example' # String | 
+}
 
 begin
   # One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has `catalogs`: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
-  result = api_instance.get_sponsored_ad_campaign(id)
+  result = api_instance.get_sponsored_ad_campaign(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->get_sponsored_ad_campaign: #{e}"
@@ -1333,12 +1365,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SponsoredAdCampaignResponse>, Integer, Hash)> get_sponsored_ad_campaign_with_http_info(id)
+> <Array(<SponsoredAdCampaignResponse>, Integer, Hash)> get_sponsored_ad_campaign_with_http_info(id, opts)
 
 ```ruby
 begin
   # One campaign: settings, its listings (bid, suggested bid, live, per-listing stats) and keywords. A catalog boost (targetType wholesale_catalog) has `catalogs`: per boosted catalog impressions, clicks, spend, attributed trade orders and revenue, CTR and ROAS.
-  data, status_code, headers = api_instance.get_sponsored_ad_campaign_with_http_info(id)
+  data, status_code, headers = api_instance.get_sponsored_ad_campaign_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SponsoredAdCampaignResponse>
@@ -1352,6 +1384,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1369,7 +1403,7 @@ end
 
 ## get_sponsored_ad_fund
 
-> <GetSponsoredAdFundResponse> get_sponsored_ad_fund
+> <GetSponsoredAdFundResponse> get_sponsored_ad_fund(opts)
 
 What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh=true re-reads CBX.
 
@@ -1385,10 +1419,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+opts = {
+  refresh: 'true' # String | 
+}
 
 begin
   # What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh=true re-reads CBX.
-  result = api_instance.get_sponsored_ad_fund
+  result = api_instance.get_sponsored_ad_fund(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->get_sponsored_ad_fund: #{e}"
@@ -1399,12 +1436,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetSponsoredAdFundResponse>, Integer, Hash)> get_sponsored_ad_fund_with_http_info
+> <Array(<GetSponsoredAdFundResponse>, Integer, Hash)> get_sponsored_ad_fund_with_http_info(opts)
 
 ```ruby
 begin
   # What can pay for clicks now: the billing rails in effect (ad balance and/or CBX), the ad balance and ad credit, CBX headroom, unbilled clicks, available cents, auto top-up, the saved payment method and the refundable balance. refresh=true re-reads CBX.
-  data, status_code, headers = api_instance.get_sponsored_ad_fund_with_http_info
+  data, status_code, headers = api_instance.get_sponsored_ad_fund_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetSponsoredAdFundResponse>
@@ -1415,7 +1452,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **refresh** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1433,7 +1472,7 @@ This endpoint does not need any parameter.
 
 ## get_sponsored_ad_report
 
-> <GetSponsoredAdReportResponse> get_sponsored_ad_report
+> <GetSponsoredAdReportResponse> get_sponsored_ad_report(opts)
 
 Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and `catalogs`, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
 
@@ -1449,10 +1488,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+opts = {
+  from: 'from_example', # String | 
+  to: 'to_example' # String | 
+}
 
 begin
   # Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and `catalogs`, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
-  result = api_instance.get_sponsored_ad_report
+  result = api_instance.get_sponsored_ad_report(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->get_sponsored_ad_report: #{e}"
@@ -1463,12 +1506,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetSponsoredAdReportResponse>, Integer, Hash)> get_sponsored_ad_report_with_http_info
+> <Array(<GetSponsoredAdReportResponse>, Integer, Hash)> get_sponsored_ad_report_with_http_info(opts)
 
 ```ruby
 begin
   # Sponsored report for a range: totals (spend, impressions, clicks, CTR, average CPC, attributed orders and revenue, ROAS), a zero-filled daily series, per-campaign rows (targetType listings | wholesale_catalog) and `catalogs`, one row per boosted catalog. Listing orders are Crossly purchases of the advertised listing within 7 days of a click by the same buyer; catalog orders are trade orders with that seller within 7 days of a catalog click by the same buyer. Catalog impressions count once per viewer per day.
-  data, status_code, headers = api_instance.get_sponsored_ad_report_with_http_info
+  data, status_code, headers = api_instance.get_sponsored_ad_report_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetSponsoredAdReportResponse>
@@ -1479,7 +1522,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1561,7 +1607,7 @@ This endpoint does not need any parameter.
 
 ## list_listing_ad_campaigns
 
-> <ListListingAdCampaignsResponse> list_listing_ad_campaigns(platform)
+> <ListListingAdCampaignsResponse> list_listing_ad_campaigns(platform, opts)
 
 Your ad campaigns on one marketplace (cached up to 15 minutes; refresh=true asks the marketplace now).
 
@@ -1578,10 +1624,13 @@ end
 
 api_instance = Crossly::AdsApi.new
 platform = 'platform_example' # String | 
+opts = {
+  refresh: '0' # String | 
+}
 
 begin
   # Your ad campaigns on one marketplace (cached up to 15 minutes; refresh=true asks the marketplace now).
-  result = api_instance.list_listing_ad_campaigns(platform)
+  result = api_instance.list_listing_ad_campaigns(platform, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->list_listing_ad_campaigns: #{e}"
@@ -1592,12 +1641,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListListingAdCampaignsResponse>, Integer, Hash)> list_listing_ad_campaigns_with_http_info(platform)
+> <Array(<ListListingAdCampaignsResponse>, Integer, Hash)> list_listing_ad_campaigns_with_http_info(platform, opts)
 
 ```ruby
 begin
   # Your ad campaigns on one marketplace (cached up to 15 minutes; refresh=true asks the marketplace now).
-  data, status_code, headers = api_instance.list_listing_ad_campaigns_with_http_info(platform)
+  data, status_code, headers = api_instance.list_listing_ad_campaigns_with_http_info(platform, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListListingAdCampaignsResponse>
@@ -1611,6 +1660,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
+| **refresh** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1692,7 +1742,7 @@ This endpoint does not need any parameter.
 
 ## list_sponsored_ad_billing_history
 
-> <ListSponsoredAdBillingHistoryResponse> list_sponsored_ad_billing_history
+> <ListSponsoredAdBillingHistoryResponse> list_sponsored_ad_billing_history(opts)
 
 Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
 
@@ -1708,10 +1758,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+opts = {
+  kind: 'topup', # String | 
+  before: 'before_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
-  result = api_instance.list_sponsored_ad_billing_history
+  result = api_instance.list_sponsored_ad_billing_history(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->list_sponsored_ad_billing_history: #{e}"
@@ -1722,12 +1777,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSponsoredAdBillingHistoryResponse>, Integer, Hash)> list_sponsored_ad_billing_history_with_http_info
+> <Array(<ListSponsoredAdBillingHistoryResponse>, Integer, Hash)> list_sponsored_ad_billing_history_with_http_info(opts)
 
 ```ruby
 begin
   # Billing history newest first: top-ups (status, receipt number), click charges (how each was paid: ad balance, credit, CBX, written off), credits, refunds and Boost fees. kind filters; before (ISO time) pages; limit ≤ 100.
-  data, status_code, headers = api_instance.list_sponsored_ad_billing_history_with_http_info
+  data, status_code, headers = api_instance.list_sponsored_ad_billing_history_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSponsoredAdBillingHistoryResponse>
@@ -1738,7 +1793,11 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **kind** | **String** |  | [optional] |
+| **before** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1884,7 +1943,7 @@ This endpoint does not need any parameter.
 
 ## list_sponsored_ad_campaigns
 
-> <ListSponsoredAdCampaignsResponse> list_sponsored_ad_campaigns
+> <ListSponsoredAdCampaignsResponse> list_sponsored_ad_campaigns(opts)
 
 Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
 
@@ -1900,10 +1959,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+opts = {
+  from: 'from_example', # String | 
+  to: 'to_example' # String | 
+}
 
 begin
   # Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
-  result = api_instance.list_sponsored_ad_campaigns
+  result = api_instance.list_sponsored_ad_campaigns(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->list_sponsored_ad_campaigns: #{e}"
@@ -1914,12 +1977,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSponsoredAdCampaignsResponse>, Integer, Hash)> list_sponsored_ad_campaigns_with_http_info
+> <Array(<ListSponsoredAdCampaignsResponse>, Integer, Hash)> list_sponsored_ad_campaigns_with_http_info(opts)
 
 ```ruby
 begin
   # Your Sponsored Listings campaigns with status, pacing (spent today, daily cap reached), budgets, bids, placements and stats for the range (from/to, YYYY-MM-DD; default last 30 days).
-  data, status_code, headers = api_instance.list_sponsored_ad_campaigns_with_http_info
+  data, status_code, headers = api_instance.list_sponsored_ad_campaigns_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSponsoredAdCampaignsResponse>
@@ -1930,7 +1993,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1948,7 +2014,7 @@ This endpoint does not need any parameter.
 
 ## list_sponsored_ad_listings
 
-> <ListSponsoredAdListingsResponse> list_sponsored_ad_listings
+> <ListSponsoredAdListingsResponse> list_sponsored_ad_listings(opts)
 
 Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
 
@@ -1964,10 +2030,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+opts = {
+  from: 'from_example', # String | 
+  to: 'to_example' # String | 
+}
 
 begin
   # Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
-  result = api_instance.list_sponsored_ad_listings
+  result = api_instance.list_sponsored_ad_listings(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->list_sponsored_ad_listings: #{e}"
@@ -1978,12 +2048,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSponsoredAdListingsResponse>, Integer, Hash)> list_sponsored_ad_listings_with_http_info
+> <Array(<ListSponsoredAdListingsResponse>, Integer, Hash)> list_sponsored_ad_listings_with_http_info(opts)
 
 ```ruby
 begin
   # Per-listing ad performance across campaigns for a range, plus suggestions: live listings with views but few sales that are not sponsored yet, with a suggested bid.
-  data, status_code, headers = api_instance.list_sponsored_ad_listings_with_http_info
+  data, status_code, headers = api_instance.list_sponsored_ad_listings_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSponsoredAdListingsResponse>
@@ -1994,7 +2064,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
 
 ### Return type
 
@@ -2012,7 +2085,7 @@ This endpoint does not need any parameter.
 
 ## update_ad_offsite
 
-> <UpdateAdOffsiteResponse> update_ad_offsite
+> <UpdateAdOffsiteResponse> update_ad_offsite(update_ad_offsite_request)
 
 Turn offsite ads on or off. Yours alone to set.
 
@@ -2030,10 +2103,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+update_ad_offsite_request = Crossly::UpdateAdOffsiteRequest.new({enabled: false}) # UpdateAdOffsiteRequest | 
 
 begin
   # Turn offsite ads on or off. Yours alone to set.
-  result = api_instance.update_ad_offsite
+  result = api_instance.update_ad_offsite(update_ad_offsite_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->update_ad_offsite: #{e}"
@@ -2044,12 +2118,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateAdOffsiteResponse>, Integer, Hash)> update_ad_offsite_with_http_info
+> <Array(<UpdateAdOffsiteResponse>, Integer, Hash)> update_ad_offsite_with_http_info(update_ad_offsite_request)
 
 ```ruby
 begin
   # Turn offsite ads on or off. Yours alone to set.
-  data, status_code, headers = api_instance.update_ad_offsite_with_http_info
+  data, status_code, headers = api_instance.update_ad_offsite_with_http_info(update_ad_offsite_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateAdOffsiteResponse>
@@ -2060,7 +2134,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_ad_offsite_request** | **UpdateAdOffsiteRequest** |  |  |
 
 ### Return type
 
@@ -2072,13 +2148,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_listing_ad_campaign
 
-> <CreateListingAdCampaignResponse> update_listing_ad_campaign(platform, campaign_id)
+> <CreateListingAdCampaignResponse> update_listing_ad_campaign(platform, campaign_id, update_listing_ad_campaign_request)
 
 Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
 
@@ -2096,10 +2172,11 @@ end
 api_instance = Crossly::AdsApi.new
 platform = 'platform_example' # String | 
 campaign_id = 'campaign_id_example' # String | 
+update_listing_ad_campaign_request = Crossly::UpdateListingAdCampaignRequest.new # UpdateListingAdCampaignRequest | 
 
 begin
   # Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
-  result = api_instance.update_listing_ad_campaign(platform, campaign_id)
+  result = api_instance.update_listing_ad_campaign(platform, campaign_id, update_listing_ad_campaign_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->update_listing_ad_campaign: #{e}"
@@ -2110,12 +2187,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateListingAdCampaignResponse>, Integer, Hash)> update_listing_ad_campaign_with_http_info(platform, campaign_id)
+> <Array(<CreateListingAdCampaignResponse>, Integer, Hash)> update_listing_ad_campaign_with_http_info(platform, campaign_id, update_listing_ad_campaign_request)
 
 ```ruby
 begin
   # Change a marketplace campaign: name, dailyBudgetCents, endsAt (null clears), status paused | running | ended.
-  data, status_code, headers = api_instance.update_listing_ad_campaign_with_http_info(platform, campaign_id)
+  data, status_code, headers = api_instance.update_listing_ad_campaign_with_http_info(platform, campaign_id, update_listing_ad_campaign_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateListingAdCampaignResponse>
@@ -2130,6 +2207,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
 | **campaign_id** | **String** |  |  |
+| **update_listing_ad_campaign_request** | **UpdateListingAdCampaignRequest** |  |  |
 
 ### Return type
 
@@ -2141,13 +2219,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_listing_ad_listing_rate
 
-> <UpdateListingAdListingRateResponse> update_listing_ad_listing_rate(platform, platform_listing_id)
+> <UpdateListingAdListingRateResponse> update_listing_ad_listing_rate(platform, platform_listing_id, update_listing_ad_listing_rate_request)
 
 Change one promoted listing's ad rate (percent of the sale) in the campaign it is in.
 
@@ -2165,10 +2243,11 @@ end
 api_instance = Crossly::AdsApi.new
 platform = 'platform_example' # String | 
 platform_listing_id = 'platform_listing_id_example' # String | 
+update_listing_ad_listing_rate_request = Crossly::UpdateListingAdListingRateRequest.new({rate_pct: 3.56}) # UpdateListingAdListingRateRequest | 
 
 begin
   # Change one promoted listing's ad rate (percent of the sale) in the campaign it is in.
-  result = api_instance.update_listing_ad_listing_rate(platform, platform_listing_id)
+  result = api_instance.update_listing_ad_listing_rate(platform, platform_listing_id, update_listing_ad_listing_rate_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->update_listing_ad_listing_rate: #{e}"
@@ -2179,12 +2258,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateListingAdListingRateResponse>, Integer, Hash)> update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id)
+> <Array(<UpdateListingAdListingRateResponse>, Integer, Hash)> update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, update_listing_ad_listing_rate_request)
 
 ```ruby
 begin
   # Change one promoted listing's ad rate (percent of the sale) in the campaign it is in.
-  data, status_code, headers = api_instance.update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id)
+  data, status_code, headers = api_instance.update_listing_ad_listing_rate_with_http_info(platform, platform_listing_id, update_listing_ad_listing_rate_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateListingAdListingRateResponse>
@@ -2199,6 +2278,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **platform** | **String** |  |  |
 | **platform_listing_id** | **String** |  |  |
+| **update_listing_ad_listing_rate_request** | **UpdateListingAdListingRateRequest** |  |  |
 
 ### Return type
 
@@ -2210,13 +2290,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_sponsored_ad_billing_auto_topup
 
-> <SponsoredAdResponse> update_sponsored_ad_billing_auto_topup
+> <SponsoredAdResponse> update_sponsored_ad_billing_auto_topup(update_sponsored_ad_billing_auto_topup_request)
 
 Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
 
@@ -2232,10 +2312,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+update_sponsored_ad_billing_auto_topup_request = Crossly::UpdateSponsoredAdBillingAutoTopupRequest.new({enabled: false}) # UpdateSponsoredAdBillingAutoTopupRequest | 
 
 begin
   # Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
-  result = api_instance.update_sponsored_ad_billing_auto_topup
+  result = api_instance.update_sponsored_ad_billing_auto_topup(update_sponsored_ad_billing_auto_topup_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->update_sponsored_ad_billing_auto_topup: #{e}"
@@ -2246,12 +2327,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SponsoredAdResponse>, Integer, Hash)> update_sponsored_ad_billing_auto_topup_with_http_info
+> <Array(<SponsoredAdResponse>, Integer, Hash)> update_sponsored_ad_billing_auto_topup_with_http_info(update_sponsored_ad_billing_auto_topup_request)
 
 ```ruby
 begin
   # Auto top-up: enabled, thresholdCents (top up when the ad balance drops below it), amountCents (how much). Needs a saved payment method (the first top-up saves it).
-  data, status_code, headers = api_instance.update_sponsored_ad_billing_auto_topup_with_http_info
+  data, status_code, headers = api_instance.update_sponsored_ad_billing_auto_topup_with_http_info(update_sponsored_ad_billing_auto_topup_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SponsoredAdResponse>
@@ -2262,7 +2343,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_sponsored_ad_billing_auto_topup_request** | **UpdateSponsoredAdBillingAutoTopupRequest** |  |  |
 
 ### Return type
 
@@ -2274,13 +2357,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_sponsored_ad_boost
 
-> <UpdateSponsoredAdBoostResponse> update_sponsored_ad_boost
+> <UpdateSponsoredAdBoostResponse> update_sponsored_ad_boost(update_sponsored_ad_boost_request)
 
 Boost listings in bulk (platformListingIds, upliftBps 100–2000 = 1–20%), or change their rate. Your own live Crossly listings only.
 
@@ -2296,10 +2379,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::AdsApi.new
+update_sponsored_ad_boost_request = Crossly::UpdateSponsoredAdBoostRequest.new({platform_listing_ids: ['platform_listing_ids_example'], uplift_bps: 3.56}) # UpdateSponsoredAdBoostRequest | 
 
 begin
   # Boost listings in bulk (platformListingIds, upliftBps 100–2000 = 1–20%), or change their rate. Your own live Crossly listings only.
-  result = api_instance.update_sponsored_ad_boost
+  result = api_instance.update_sponsored_ad_boost(update_sponsored_ad_boost_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling AdsApi->update_sponsored_ad_boost: #{e}"
@@ -2310,12 +2394,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateSponsoredAdBoostResponse>, Integer, Hash)> update_sponsored_ad_boost_with_http_info
+> <Array(<UpdateSponsoredAdBoostResponse>, Integer, Hash)> update_sponsored_ad_boost_with_http_info(update_sponsored_ad_boost_request)
 
 ```ruby
 begin
   # Boost listings in bulk (platformListingIds, upliftBps 100–2000 = 1–20%), or change their rate. Your own live Crossly listings only.
-  data, status_code, headers = api_instance.update_sponsored_ad_boost_with_http_info
+  data, status_code, headers = api_instance.update_sponsored_ad_boost_with_http_info(update_sponsored_ad_boost_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateSponsoredAdBoostResponse>
@@ -2326,7 +2410,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_sponsored_ad_boost_request** | **UpdateSponsoredAdBoostRequest** |  |  |
 
 ### Return type
 
@@ -2338,7 +2424,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

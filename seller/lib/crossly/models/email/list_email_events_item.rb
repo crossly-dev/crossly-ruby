@@ -33,6 +33,9 @@ module Crossly
     # The seller's listings it could be about. One = obvious; several = the seller picks.
     attr_accessor :candidates
 
+    # The detected event the email was reported as (email_events.detected_event_id): the card's \"Open in History\".
+    attr_accessor :detected_event_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -43,7 +46,8 @@ module Crossly
         :'price' => :'price',
         :'detail' => :'detail',
         :'created_at' => :'createdAt',
-        :'candidates' => :'candidates'
+        :'candidates' => :'candidates',
+        :'detected_event_id' => :'detectedEventId'
       }
     end
 
@@ -59,10 +63,11 @@ module Crossly
         :'platform' => :'String',
         :'event' => :'String',
         :'title' => :'String',
-        :'price' => :'ListEmailEventsItemPrice',
+        :'price' => :'AmountCurrency',
         :'detail' => :'String',
         :'created_at' => :'String',
-        :'candidates' => :'Array<ListEmailEventsItemCandidates>'
+        :'candidates' => :'Array<ListEmailEventsItemCandidates>',
+        :'detected_event_id' => :'String'
       }
     end
 
@@ -74,6 +79,7 @@ module Crossly
         :'title',
         :'price',
         :'detail',
+        :'detected_event_id'
       ])
     end
 
@@ -125,6 +131,10 @@ module Crossly
           self.candidates = value
         end
       end
+
+      if attributes.key?(:'detected_event_id')
+        self.detected_event_id = attributes[:'detected_event_id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -167,7 +177,8 @@ module Crossly
           price == o.price &&
           detail == o.detail &&
           created_at == o.created_at &&
-          candidates == o.candidates
+          candidates == o.candidates &&
+          detected_event_id == o.detected_event_id
     end
 
     # @see the `==` method
@@ -179,7 +190,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, platform, event, title, price, detail, created_at, candidates].hash
+      [id, platform, event, title, price, detail, created_at, candidates, detected_event_id].hash
     end
 
     # Builds the object from hash

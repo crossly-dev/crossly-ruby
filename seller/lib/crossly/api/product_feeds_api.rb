@@ -19,20 +19,26 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Create a hosted product feed for a channel. Returns its secret URL.
+    # Create a hosted product feed in the store for a channel. Returns its secret URL.
+    # @param create_product_feed_request [CreateProductFeedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListProductFeedsItem]
-    def create_product_feed(opts = {})
-      data, _status_code, _headers = create_product_feed_with_http_info(opts)
+    def create_product_feed(create_product_feed_request, opts = {})
+      data, _status_code, _headers = create_product_feed_with_http_info(create_product_feed_request, opts)
       data
     end
 
-    # Create a hosted product feed for a channel. Returns its secret URL.
+    # Create a hosted product feed in the store for a channel. Returns its secret URL.
+    # @param create_product_feed_request [CreateProductFeedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListProductFeedsItem, Integer, Hash)>] ListProductFeedsItem data, response status code and response headers
-    def create_product_feed_with_http_info(opts = {})
+    def create_product_feed_with_http_info(create_product_feed_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductFeedsApi.create_product_feed ...'
+      end
+      # verify the required parameter 'create_product_feed_request' is set
+      if @api_client.config.client_side_validation && create_product_feed_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_product_feed_request' when calling ProductFeedsApi.create_product_feed"
       end
       # resource path
       local_var_path = '/v1/product-feeds'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_product_feed_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListProductFeedsItem'
@@ -74,18 +85,214 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Rotate the feed token. The old URL stops answering immediately; paste the new one into the channel.
+    # Copy the feed’s settings to other stores as new feeds, each with its own URL.
+    # @param id [String] 
+    # @param create_product_feed_copy_request [CreateProductFeedCopyRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateProductFeedCopyResponse]
+    def create_product_feed_copy(id, create_product_feed_copy_request, opts = {})
+      data, _status_code, _headers = create_product_feed_copy_with_http_info(id, create_product_feed_copy_request, opts)
+      data
+    end
+
+    # Copy the feed’s settings to other stores as new feeds, each with its own URL.
+    # @param id [String] 
+    # @param create_product_feed_copy_request [CreateProductFeedCopyRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateProductFeedCopyResponse, Integer, Hash)>] CreateProductFeedCopyResponse data, response status code and response headers
+    def create_product_feed_copy_with_http_info(id, create_product_feed_copy_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.create_product_feed_copy ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.create_product_feed_copy"
+      end
+      # verify the required parameter 'create_product_feed_copy_request' is set
+      if @api_client.config.client_side_validation && create_product_feed_copy_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_product_feed_copy_request' when calling ProductFeedsApi.create_product_feed_copy"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/copy'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_product_feed_copy_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateProductFeedCopyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.create_product_feed_copy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#create_product_feed_copy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Drop a scheduled feed’s stored copy so the next fetch builds it fresh.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @return [ListProductFeedsItem]
+    def create_product_feed_refresh(id, opts = {})
+      data, _status_code, _headers = create_product_feed_refresh_with_http_info(id, opts)
+      data
+    end
+
+    # Drop a scheduled feed’s stored copy so the next fetch builds it fresh.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListProductFeedsItem, Integer, Hash)>] ListProductFeedsItem data, response status code and response headers
+    def create_product_feed_refresh_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.create_product_feed_refresh ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.create_product_feed_refresh"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/refresh'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListProductFeedsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.create_product_feed_refresh",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#create_product_feed_refresh\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # End a rotation’s grace window now: the previous URL stops answering.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListProductFeedsItem]
+    def create_product_feed_revoke_previous(id, opts = {})
+      data, _status_code, _headers = create_product_feed_revoke_previous_with_http_info(id, opts)
+      data
+    end
+
+    # End a rotation’s grace window now: the previous URL stops answering.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListProductFeedsItem, Integer, Hash)>] ListProductFeedsItem data, response status code and response headers
+    def create_product_feed_revoke_previous_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.create_product_feed_revoke_previous ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.create_product_feed_revoke_previous"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/revoke-previous'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListProductFeedsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.create_product_feed_revoke_previous",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#create_product_feed_revoke_previous\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Give the feed a new secret URL. The old URL keeps answering for graceHours (default: the feed’s setting; 0 = stops at once).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateProductFeedRotateRequest] :create_product_feed_rotate_request 
     # @return [ListProductFeedsItem]
     def create_product_feed_rotate(id, opts = {})
       data, _status_code, _headers = create_product_feed_rotate_with_http_info(id, opts)
       data
     end
 
-    # Rotate the feed token. The old URL stops answering immediately; paste the new one into the channel.
+    # Give the feed a new secret URL. The old URL keeps answering for graceHours (default: the feed’s setting; 0 &#x3D; stops at once).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateProductFeedRotateRequest] :create_product_feed_rotate_request 
     # @return [Array<(ListProductFeedsItem, Integer, Hash)>] ListProductFeedsItem data, response status code and response headers
     def create_product_feed_rotate_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -105,12 +312,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_product_feed_rotate_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListProductFeedsItem'
@@ -196,7 +408,438 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Validate a feed: per-item errors (held back) and warnings (sent, limited reach), plus sample rendered items.
+    # Remove one listing’s override from this feed.
+    # @param id [String] 
+    # @param listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def delete_product_feed_item(id, listing_id, opts = {})
+      data, _status_code, _headers = delete_product_feed_item_with_http_info(id, listing_id, opts)
+      data
+    end
+
+    # Remove one listing’s override from this feed.
+    # @param id [String] 
+    # @param listing_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def delete_product_feed_item_with_http_info(id, listing_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.delete_product_feed_item ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.delete_product_feed_item"
+      end
+      # verify the required parameter 'listing_id' is set
+      if @api_client.config.client_side_validation && listing_id.nil?
+        fail ArgumentError, "Missing the required parameter 'listing_id' when calling ProductFeedsApi.delete_product_feed_item"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/items/{listingId}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'listingId' + '}', CGI.escape(listing_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'OkResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.delete_product_feed_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#delete_product_feed_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One feed: its settings, URLs, store and domain, and when it was last fetched and by whom.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetProductFeedResponse]
+    def get_product_feed(id, opts = {})
+      data, _status_code, _headers = get_product_feed_with_http_info(id, opts)
+      data
+    end
+
+    # One feed: its settings, URLs, store and domain, and when it was last fetched and by whom.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetProductFeedResponse, Integer, Hash)>] GetProductFeedResponse data, response status code and response headers
+    def get_product_feed_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.get_product_feed ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.get_product_feed"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetProductFeedResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.get_product_feed",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#get_product_feed\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Who fetched the feed and when (90 days): the channel, status, served from copy or live, item count, size.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Time] :before 
+    # @option opts [Integer] :limit 
+    # @return [GetProductFeedFetchResponse]
+    def get_product_feed_fetch(id, opts = {})
+      data, _status_code, _headers = get_product_feed_fetch_with_http_info(id, opts)
+      data
+    end
+
+    # Who fetched the feed and when (90 days): the channel, status, served from copy or live, item count, size.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Time] :before 
+    # @option opts [Integer] :limit 
+    # @return [Array<(GetProductFeedFetchResponse, Integer, Hash)>] GetProductFeedFetchResponse data, response status code and response headers
+    def get_product_feed_fetch_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.get_product_feed_fetch ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.get_product_feed_fetch"
+      end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ProductFeedsApi.get_product_feed_fetch, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ProductFeedsApi.get_product_feed_fetch, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/fetches'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'before'] = opts[:'before'] if !opts[:'before'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetProductFeedFetchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.get_product_feed_fetch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#get_product_feed_fetch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The feed’s flagged items one page at a time, by issue code and severity. Pass nextCursor back as after.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :code 
+    # @option opts [String] :severity 
+    # @option opts [String] :after 
+    # @option opts [Integer] :limit 
+    # @return [GetProductFeedIssueResponse]
+    def get_product_feed_issue(id, opts = {})
+      data, _status_code, _headers = get_product_feed_issue_with_http_info(id, opts)
+      data
+    end
+
+    # The feed’s flagged items one page at a time, by issue code and severity. Pass nextCursor back as after.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :code 
+    # @option opts [String] :severity 
+    # @option opts [String] :after 
+    # @option opts [Integer] :limit 
+    # @return [Array<(GetProductFeedIssueResponse, Integer, Hash)>] GetProductFeedIssueResponse data, response status code and response headers
+    def get_product_feed_issue_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.get_product_feed_issue ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.get_product_feed_issue"
+      end
+      allowable_values = ["error", "warning"]
+      if @api_client.config.client_side_validation && opts[:'severity'] && !allowable_values.include?(opts[:'severity'])
+        fail ArgumentError, "invalid value for \"severity\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ProductFeedsApi.get_product_feed_issue, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ProductFeedsApi.get_product_feed_issue, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/issues'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'code'] = opts[:'code'] if !opts[:'code'].nil?
+      query_params[:'severity'] = opts[:'severity'] if !opts[:'severity'].nil?
+      query_params[:'after'] = opts[:'after'] if !opts[:'after'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetProductFeedIssueResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.get_product_feed_issue",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#get_product_feed_issue\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The feed’s per-item overrides (title, GTIN, category, custom labels… for this feed only).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetProductFeedItemResponse]
+    def get_product_feed_item(id, opts = {})
+      data, _status_code, _headers = get_product_feed_item_with_http_info(id, opts)
+      data
+    end
+
+    # The feed’s per-item overrides (title, GTIN, category, custom labels… for this feed only).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetProductFeedItemResponse, Integer, Hash)>] GetProductFeedItemResponse data, response status code and response headers
+    def get_product_feed_item_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.get_product_feed_item ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.get_product_feed_item"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/items'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetProductFeedItemResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.get_product_feed_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#get_product_feed_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A page of the feed exactly as the channel reads it: every column per item, and the raw document text.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :format 
+    # @option opts [String] :after 
+    # @option opts [Integer] :limit 
+    # @return [GetProductFeedPreviewResponse]
+    def get_product_feed_preview(id, opts = {})
+      data, _status_code, _headers = get_product_feed_preview_with_http_info(id, opts)
+      data
+    end
+
+    # A page of the feed exactly as the channel reads it: every column per item, and the raw document text.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :format 
+    # @option opts [String] :after 
+    # @option opts [Integer] :limit 
+    # @return [Array<(GetProductFeedPreviewResponse, Integer, Hash)>] GetProductFeedPreviewResponse data, response status code and response headers
+    def get_product_feed_preview_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.get_product_feed_preview ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.get_product_feed_preview"
+      end
+      allowable_values = ["xml", "tsv", "csv", "atom", "json"]
+      if @api_client.config.client_side_validation && opts[:'format'] && !allowable_values.include?(opts[:'format'])
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 50
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ProductFeedsApi.get_product_feed_preview, must be smaller than or equal to 50.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling ProductFeedsApi.get_product_feed_preview, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/preview'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'format'] = opts[:'format'] if !opts[:'format'].nil?
+      query_params[:'after'] = opts[:'after'] if !opts[:'after'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetProductFeedPreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.get_product_feed_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#get_product_feed_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Validate a feed: counts per issue, items with errors (held back) and warnings (sent, limited reach), sample items, store domain and currency.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetProductFeedReportResponse]
@@ -205,7 +848,7 @@ module Crossly
       data
     end
 
-    # Validate a feed: per-item errors (held back) and warnings (sent, limited reach), plus sample rendered items.
+    # Validate a feed: counts per issue, items with errors (held back) and warnings (sent, limited reach), sample items, store domain and currency.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetProductFeedReportResponse, Integer, Hash)>] GetProductFeedReportResponse data, response status code and response headers
@@ -257,7 +900,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List your hosted product feeds (Google Merchant Center, Meta catalogue, TikTok catalog) with their URLs and last-fetch stats.
+    # List the store’s hosted product feeds (Google, Meta, TikTok, Pinterest, Bing, Snapchat, RSS/Atom, JSON, CSV) with their URLs and last-fetch stats.
     # @param [Hash] opts the optional parameters
     # @return [ListProductFeedsResponse]
     def list_product_feeds(opts = {})
@@ -265,7 +908,7 @@ module Crossly
       data
     end
 
-    # List your hosted product feeds (Google Merchant Center, Meta catalogue, TikTok catalog) with their URLs and last-fetch stats.
+    # List the store’s hosted product feeds (Google, Meta, TikTok, Pinterest, Bing, Snapchat, RSS/Atom, JSON, CSV) with their URLs and last-fetch stats.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListProductFeedsResponse, Integer, Hash)>] ListProductFeedsResponse data, response status code and response headers
     def list_product_feeds_with_http_info(opts = {})
@@ -312,26 +955,32 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Edit a feed: name, default format, enabled, listing filters, output settings.
+    # Edit a feed: name, format, on/paused, which listings (filters), field mapping, currency and region, images, UTM, refresh schedule.
     # @param id [String] 
+    # @param update_product_feed_request [UpdateProductFeedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListProductFeedsItem]
-    def update_product_feed(id, opts = {})
-      data, _status_code, _headers = update_product_feed_with_http_info(id, opts)
+    def update_product_feed(id, update_product_feed_request, opts = {})
+      data, _status_code, _headers = update_product_feed_with_http_info(id, update_product_feed_request, opts)
       data
     end
 
-    # Edit a feed: name, default format, enabled, listing filters, output settings.
+    # Edit a feed: name, format, on/paused, which listings (filters), field mapping, currency and region, images, UTM, refresh schedule.
     # @param id [String] 
+    # @param update_product_feed_request [UpdateProductFeedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListProductFeedsItem, Integer, Hash)>] ListProductFeedsItem data, response status code and response headers
-    def update_product_feed_with_http_info(id, opts = {})
+    def update_product_feed_with_http_info(id, update_product_feed_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductFeedsApi.update_product_feed ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.update_product_feed"
+      end
+      # verify the required parameter 'update_product_feed_request' is set
+      if @api_client.config.client_side_validation && update_product_feed_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_product_feed_request' when calling ProductFeedsApi.update_product_feed"
       end
       # resource path
       local_var_path = '/v1/product-feeds/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -343,12 +992,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_product_feed_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListProductFeedsItem'
@@ -369,6 +1023,84 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ProductFeedsApi#update_product_feed\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set one listing’s override in this feed (the listing itself is unchanged). All fields empty removes it.
+    # @param id [String] 
+    # @param listing_id [String] 
+    # @param update_product_feed_item_request [UpdateProductFeedItemRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateProductFeedItemResponse]
+    def update_product_feed_item(id, listing_id, update_product_feed_item_request, opts = {})
+      data, _status_code, _headers = update_product_feed_item_with_http_info(id, listing_id, update_product_feed_item_request, opts)
+      data
+    end
+
+    # Set one listing’s override in this feed (the listing itself is unchanged). All fields empty removes it.
+    # @param id [String] 
+    # @param listing_id [String] 
+    # @param update_product_feed_item_request [UpdateProductFeedItemRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateProductFeedItemResponse, Integer, Hash)>] UpdateProductFeedItemResponse data, response status code and response headers
+    def update_product_feed_item_with_http_info(id, listing_id, update_product_feed_item_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ProductFeedsApi.update_product_feed_item ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ProductFeedsApi.update_product_feed_item"
+      end
+      # verify the required parameter 'listing_id' is set
+      if @api_client.config.client_side_validation && listing_id.nil?
+        fail ArgumentError, "Missing the required parameter 'listing_id' when calling ProductFeedsApi.update_product_feed_item"
+      end
+      # verify the required parameter 'update_product_feed_item_request' is set
+      if @api_client.config.client_side_validation && update_product_feed_item_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_product_feed_item_request' when calling ProductFeedsApi.update_product_feed_item"
+      end
+      # resource path
+      local_var_path = '/v1/product-feeds/{id}/items/{listingId}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'listingId' + '}', CGI.escape(listing_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_product_feed_item_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateProductFeedItemResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ProductFeedsApi.update_product_feed_item",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ProductFeedsApi#update_product_feed_item\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

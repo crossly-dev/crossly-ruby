@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a product set (filters, explicit picks, or both).
+    # @param create_product_set_request [CreateProductSetRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListProductSetsItem]
-    def create_product_set(opts = {})
-      data, _status_code, _headers = create_product_set_with_http_info(opts)
+    def create_product_set(create_product_set_request, opts = {})
+      data, _status_code, _headers = create_product_set_with_http_info(create_product_set_request, opts)
       data
     end
 
     # Create a product set (filters, explicit picks, or both).
+    # @param create_product_set_request [CreateProductSetRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListProductSetsItem, Integer, Hash)>] ListProductSetsItem data, response status code and response headers
-    def create_product_set_with_http_info(opts = {})
+    def create_product_set_with_http_info(create_product_set_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductSetsApi.create_product_set ...'
+      end
+      # verify the required parameter 'create_product_set_request' is set
+      if @api_client.config.client_side_validation && create_product_set_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_product_set_request' when calling ProductSetsApi.create_product_set"
       end
       # resource path
       local_var_path = '/v1/product-sets'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_product_set_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListProductSetsItem'
@@ -76,24 +87,30 @@ module Crossly
 
     # Run a bulk action (delist / relist / check-status) against the set's current members.
     # @param id [String] 
+    # @param create_product_set_bulk_request [CreateProductSetBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateProductSetBulkResponse]
-    def create_product_set_bulk(id, opts = {})
-      data, _status_code, _headers = create_product_set_bulk_with_http_info(id, opts)
+    def create_product_set_bulk(id, create_product_set_bulk_request, opts = {})
+      data, _status_code, _headers = create_product_set_bulk_with_http_info(id, create_product_set_bulk_request, opts)
       data
     end
 
     # Run a bulk action (delist / relist / check-status) against the set&#39;s current members.
     # @param id [String] 
+    # @param create_product_set_bulk_request [CreateProductSetBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateProductSetBulkResponse, Integer, Hash)>] CreateProductSetBulkResponse data, response status code and response headers
-    def create_product_set_bulk_with_http_info(id, opts = {})
+    def create_product_set_bulk_with_http_info(id, create_product_set_bulk_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductSetsApi.create_product_set_bulk ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling ProductSetsApi.create_product_set_bulk"
+      end
+      # verify the required parameter 'create_product_set_bulk_request' is set
+      if @api_client.config.client_side_validation && create_product_set_bulk_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_product_set_bulk_request' when calling ProductSetsApi.create_product_set_bulk"
       end
       # resource path
       local_var_path = '/v1/product-sets/{id}/bulk'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -105,12 +122,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_product_set_bulk_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateProductSetBulkResponse'
@@ -137,24 +159,30 @@ module Crossly
 
     # Add / exclude / remove explicit picks for a set.
     # @param id [String] 
+    # @param create_product_set_member_request [CreateProductSetMemberRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListProductSetsItem]
-    def create_product_set_member(id, opts = {})
-      data, _status_code, _headers = create_product_set_member_with_http_info(id, opts)
+    def create_product_set_member(id, create_product_set_member_request, opts = {})
+      data, _status_code, _headers = create_product_set_member_with_http_info(id, create_product_set_member_request, opts)
       data
     end
 
     # Add / exclude / remove explicit picks for a set.
     # @param id [String] 
+    # @param create_product_set_member_request [CreateProductSetMemberRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListProductSetsItem, Integer, Hash)>] ListProductSetsItem data, response status code and response headers
-    def create_product_set_member_with_http_info(id, opts = {})
+    def create_product_set_member_with_http_info(id, create_product_set_member_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductSetsApi.create_product_set_member ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling ProductSetsApi.create_product_set_member"
+      end
+      # verify the required parameter 'create_product_set_member_request' is set
+      if @api_client.config.client_side_validation && create_product_set_member_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_product_set_member_request' when calling ProductSetsApi.create_product_set_member"
       end
       # resource path
       local_var_path = '/v1/product-sets/{id}/members'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -166,12 +194,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_product_set_member_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListProductSetsItem'
@@ -454,24 +487,30 @@ module Crossly
 
     # Update a set: rename, description, or replace its filters.
     # @param id [String] 
+    # @param update_product_set_request [UpdateProductSetRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListProductSetsItem]
-    def update_product_set(id, opts = {})
-      data, _status_code, _headers = update_product_set_with_http_info(id, opts)
+    def update_product_set(id, update_product_set_request, opts = {})
+      data, _status_code, _headers = update_product_set_with_http_info(id, update_product_set_request, opts)
       data
     end
 
     # Update a set: rename, description, or replace its filters.
     # @param id [String] 
+    # @param update_product_set_request [UpdateProductSetRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListProductSetsItem, Integer, Hash)>] ListProductSetsItem data, response status code and response headers
-    def update_product_set_with_http_info(id, opts = {})
+    def update_product_set_with_http_info(id, update_product_set_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProductSetsApi.update_product_set ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling ProductSetsApi.update_product_set"
+      end
+      # verify the required parameter 'update_product_set_request' is set
+      if @api_client.config.client_side_validation && update_product_set_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_product_set_request' when calling ProductSetsApi.update_product_set"
       end
       # resource path
       local_var_path = '/v1/product-sets/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -483,12 +522,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_product_set_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListProductSetsItem'

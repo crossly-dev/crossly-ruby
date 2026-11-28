@@ -371,7 +371,7 @@ module CrosslyBuyer
       cycle_validator = EnumAttributeValidator.new('String', ["monthly", "weekly"])
       return false unless cycle_validator.valid?(@cycle)
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["open", "expired", "delisted", "settled", "frozen"])
+      status_validator = EnumAttributeValidator.new('String', ["expired", "open", "delisted", "settled", "frozen"])
       return false unless status_validator.valid?(@status)
       return false if @open_interest_milli.nil?
       return false if @series_id.nil?
@@ -407,7 +407,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["open", "expired", "delisted", "settled", "frozen"])
+      validator = EnumAttributeValidator.new('String', ["expired", "open", "delisted", "settled", "frozen"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

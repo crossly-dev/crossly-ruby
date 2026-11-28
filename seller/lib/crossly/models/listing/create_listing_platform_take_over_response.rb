@@ -220,7 +220,7 @@ module Crossly
       return false if @cancelled_commands.nil?
       return false if @in_flight_commands.nil?
       return false if @reissued.nil?
-      ebay_model_validator = EnumAttributeValidator.new('String', ["trading", "unknown", "inventory_own", "inventory_foreign"])
+      ebay_model_validator = EnumAttributeValidator.new('String', ["unknown", "trading", "inventory_own", "inventory_foreign"])
       return false unless ebay_model_validator.valid?(@ebay_model)
       return false if @orders_switched.nil?
       true
@@ -239,7 +239,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] ebay_model Object to be assigned
     def ebay_model=(ebay_model)
-      validator = EnumAttributeValidator.new('String', ["trading", "unknown", "inventory_own", "inventory_foreign"])
+      validator = EnumAttributeValidator.new('String', ["unknown", "trading", "inventory_own", "inventory_foreign"])
       unless validator.valid?(ebay_model)
         fail ArgumentError, "invalid value for \"ebay_model\", must be one of #{validator.allowable_values}."
       end

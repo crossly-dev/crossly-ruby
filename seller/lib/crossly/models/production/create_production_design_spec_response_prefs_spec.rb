@@ -154,7 +154,7 @@ module Crossly
       complexity_validator = EnumAttributeValidator.new('String', ["simple", "moderate", "complex"])
       return false unless complexity_validator.valid?(@complexity)
       return false if @packaging.nil?
-      packaging_validator = EnumAttributeValidator.new('String', ["poly", "box", "premium_box"])
+      packaging_validator = EnumAttributeValidator.new('String', ["box", "poly", "premium_box"])
       return false unless packaging_validator.valid?(@packaging)
       true
     end
@@ -192,7 +192,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] packaging Object to be assigned
     def packaging=(packaging)
-      validator = EnumAttributeValidator.new('String', ["poly", "box", "premium_box"])
+      validator = EnumAttributeValidator.new('String', ["box", "poly", "premium_box"])
       unless validator.valid?(packaging)
         fail ArgumentError, "invalid value for \"packaging\", must be one of #{validator.allowable_values}."
       end

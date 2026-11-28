@@ -124,7 +124,7 @@ module Crossly
     def valid?
       return false if @semver.nil?
       return false if @state.nil?
-      state_validator = EnumAttributeValidator.new('String', ["pending", "draft", "cancelled", "rejected", "approved", "withdrawn"])
+      state_validator = EnumAttributeValidator.new('String', ["draft", "pending", "cancelled", "rejected", "approved", "withdrawn"])
       return false unless state_validator.valid?(@state)
       return false if @design_version.nil?
       true
@@ -133,7 +133,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] state Object to be assigned
     def state=(state)
-      validator = EnumAttributeValidator.new('String', ["pending", "draft", "cancelled", "rejected", "approved", "withdrawn"])
+      validator = EnumAttributeValidator.new('String', ["draft", "pending", "cancelled", "rejected", "approved", "withdrawn"])
       unless validator.valid?(state)
         fail ArgumentError, "invalid value for \"state\", must be one of #{validator.allowable_values}."
       end

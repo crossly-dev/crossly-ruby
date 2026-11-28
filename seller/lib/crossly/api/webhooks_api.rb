@@ -19,20 +19,26 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Register a webhook endpoint (returns the signing secret once).
+    # Register a webhook of any type (kind: json|slack|discord|teams|telegram|google_chat|mattermost|zapier; default json). eventDelivery false = automation only (notify.* steps). Returns the signing secret once (json).
+    # @param create_webhook_request [CreateWebhookRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWebhookResponse]
-    def create_webhook(opts = {})
-      data, _status_code, _headers = create_webhook_with_http_info(opts)
+    def create_webhook(create_webhook_request, opts = {})
+      data, _status_code, _headers = create_webhook_with_http_info(create_webhook_request, opts)
       data
     end
 
-    # Register a webhook endpoint (returns the signing secret once).
+    # Register a webhook of any type (kind: json|slack|discord|teams|telegram|google_chat|mattermost|zapier; default json). eventDelivery false &#x3D; automation only (notify.* steps). Returns the signing secret once (json).
+    # @param create_webhook_request [CreateWebhookRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWebhookResponse, Integer, Hash)>] CreateWebhookResponse data, response status code and response headers
-    def create_webhook_with_http_info(opts = {})
+    def create_webhook_with_http_info(create_webhook_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: WebhooksApi.create_webhook ...'
+      end
+      # verify the required parameter 'create_webhook_request' is set
+      if @api_client.config.client_side_validation && create_webhook_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_webhook_request' when calling WebhooksApi.create_webhook"
       end
       # resource path
       local_var_path = '/v1/webhooks'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_webhook_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWebhookResponse'
@@ -141,18 +152,83 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
+    # Rotate the signing secret of a webhook, keeping its id, events and delivery history.
+    # Returns the new `secret` once. Every delivery from this moment on, retries of earlier deliveries included, is signed with it: update the receiver as soon as you have it. Only signed (json) webhooks have a secret; other types answer 400.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @return [CreateWebhookRotateSecretResponse]
+    def create_webhook_rotate_secret(id, opts = {})
+      data, _status_code, _headers = create_webhook_rotate_secret_with_http_info(id, opts)
+      data
+    end
+
+    # Rotate the signing secret of a webhook, keeping its id, events and delivery history.
+    # Returns the new &#x60;secret&#x60; once. Every delivery from this moment on, retries of earlier deliveries included, is signed with it: update the receiver as soon as you have it. Only signed (json) webhooks have a secret; other types answer 400.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateWebhookRotateSecretResponse, Integer, Hash)>] CreateWebhookRotateSecretResponse data, response status code and response headers
+    def create_webhook_rotate_secret_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.create_webhook_rotate_secret ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WebhooksApi.create_webhook_rotate_secret"
+      end
+      # resource path
+      local_var_path = '/v1/webhooks/{id}/rotate-secret'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateWebhookRotateSecretResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.create_webhook_rotate_secret",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#create_webhook_rotate_secret\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Fire a test to one webhook: test.ping (json/zapier) or a test message (chat types), or a sample of any event (body {\"event\":\"order.created\"}, payload marked test: true).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateWebhookTestRequest] :create_webhook_test_request 
     # @return [CreateWebhookTestResponse]
     def create_webhook_test(id, opts = {})
       data, _status_code, _headers = create_webhook_test_with_http_info(id, opts)
       data
     end
 
-    # Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
+    # Fire a test to one webhook: test.ping (json/zapier) or a test message (chat types), or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWebhookTestRequest] :create_webhook_test_request 
     # @return [Array<(CreateWebhookTestResponse, Integer, Hash)>] CreateWebhookTestResponse data, response status code and response headers
     def create_webhook_test_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -172,12 +248,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_webhook_test_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWebhookTestResponse'
@@ -399,7 +480,117 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List your registered webhook endpoints.
+    # List every webhook event you can subscribe to: id, group (family), label, description, and whether a workflow can start on it.
+    # @param [Hash] opts the optional parameters
+    # @return [ListWebhookEventsResponse]
+    def list_webhook_events(opts = {})
+      data, _status_code, _headers = list_webhook_events_with_http_info(opts)
+      data
+    end
+
+    # List every webhook event you can subscribe to: id, group (family), label, description, and whether a workflow can start on it.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWebhookEventsResponse, Integer, Hash)>] ListWebhookEventsResponse data, response status code and response headers
+    def list_webhook_events_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.list_webhook_events ...'
+      end
+      # resource path
+      local_var_path = '/v1/webhooks/events'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWebhookEventsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.list_webhook_events",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#list_webhook_events\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List webhook types (json, slack, discord, teams, telegram, google_chat, mattermost, zapier) with their fields and hosts.
+    # @param [Hash] opts the optional parameters
+    # @return [ListWebhookTypesResponse]
+    def list_webhook_types(opts = {})
+      data, _status_code, _headers = list_webhook_types_with_http_info(opts)
+      data
+    end
+
+    # List webhook types (json, slack, discord, teams, telegram, google_chat, mattermost, zapier) with their fields and hosts.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListWebhookTypesResponse, Integer, Hash)>] ListWebhookTypesResponse data, response status code and response headers
+    def list_webhook_types_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.list_webhook_types ...'
+      end
+      # resource path
+      local_var_path = '/v1/webhooks/types'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListWebhookTypesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.list_webhook_types",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#list_webhook_types\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List your webhooks of every type. Optional: q (url, name, label or app), status (healthy|failing|disabled), event, kind, failing=true, page, pageSize.
     # @param [Hash] opts the optional parameters
     # @return [ListWebhooksResponse]
     def list_webhooks(opts = {})
@@ -407,7 +598,7 @@ module Crossly
       data
     end
 
-    # List your registered webhook endpoints.
+    # List your webhooks of every type. Optional: q (url, name, label or app), status (healthy|failing|disabled), event, kind, failing&#x3D;true, page, pageSize.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListWebhooksResponse, Integer, Hash)>] ListWebhooksResponse data, response status code and response headers
     def list_webhooks_with_http_info(opts = {})
@@ -450,6 +641,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: WebhooksApi#list_webhooks\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit a webhook: name, description, events, enabled, eventDelivery, and its destination fields (url, botToken, chatId, channel, headers). The type never changes.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWebhookRequest] :update_webhook_request 
+    # @return [UpdateWebhookResponse]
+    def update_webhook(id, opts = {})
+      data, _status_code, _headers = update_webhook_with_http_info(id, opts)
+      data
+    end
+
+    # Edit a webhook: name, description, events, enabled, eventDelivery, and its destination fields (url, botToken, chatId, channel, headers). The type never changes.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWebhookRequest] :update_webhook_request 
+    # @return [Array<(UpdateWebhookResponse, Integer, Hash)>] UpdateWebhookResponse data, response status code and response headers
+    def update_webhook_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: WebhooksApi.update_webhook ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling WebhooksApi.update_webhook"
+      end
+      # resource path
+      local_var_path = '/v1/webhooks/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_webhook_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateWebhookResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"WebhooksApi.update_webhook",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: WebhooksApi#update_webhook\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

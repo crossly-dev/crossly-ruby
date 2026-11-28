@@ -23,6 +23,8 @@ module Crossly
 
     attr_accessor :name
 
+    attr_accessor :store
+
     attr_accessor :admission
 
     attr_accessor :theme
@@ -70,6 +72,7 @@ module Crossly
         :'id' => :'id',
         :'slug' => :'slug',
         :'name' => :'name',
+        :'store' => :'store',
         :'admission' => :'admission',
         :'theme' => :'theme',
         :'themes' => :'themes',
@@ -94,6 +97,7 @@ module Crossly
         :'id' => :'String',
         :'slug' => :'String',
         :'name' => :'String',
+        :'store' => :'IdName2',
         :'admission' => :'String',
         :'theme' => :'String',
         :'themes' => :'Array<GetWorldStreetOwnedResponseDataThemes>',
@@ -109,6 +113,7 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'store',
         :'theme',
         :'listing'
       ])
@@ -143,6 +148,10 @@ module Crossly
 
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'store')
+        self.store = attributes[:'store']
       end
 
       if attributes.key?(:'admission')
@@ -277,6 +286,7 @@ module Crossly
           id == o.id &&
           slug == o.slug &&
           name == o.name &&
+          store == o.store &&
           admission == o.admission &&
           theme == o.theme &&
           themes == o.themes &&
@@ -297,7 +307,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [street, id, slug, name, admission, theme, themes, tenants, applications, upkeep, look, fund, listing].hash
+      [street, id, slug, name, store, admission, theme, themes, tenants, applications, upkeep, look, fund, listing].hash
     end
 
     # Builds the object from hash

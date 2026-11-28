@@ -215,7 +215,7 @@ module Crossly
       return false unless declarer_validator.valid?(@declarer)
       return false if @declared_by.nil?
       return false if @review_state.nil?
-      review_state_validator = EnumAttributeValidator.new('String', ["pending", "live", "rejected"])
+      review_state_validator = EnumAttributeValidator.new('String', ["live", "pending", "rejected"])
       return false unless review_state_validator.valid?(@review_state)
       return false if @declaration.nil?
       return false if @created_at.nil?
@@ -236,7 +236,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] review_state Object to be assigned
     def review_state=(review_state)
-      validator = EnumAttributeValidator.new('String', ["pending", "live", "rejected"])
+      validator = EnumAttributeValidator.new('String', ["live", "pending", "rejected"])
       unless validator.valid?(review_state)
         fail ArgumentError, "invalid value for \"review_state\", must be one of #{validator.allowable_values}."
       end

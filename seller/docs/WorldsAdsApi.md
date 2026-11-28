@@ -12,7 +12,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## get_world_experience_ad
 
-> <GetWorldExperienceAdResponse> get_world_experience_ad(experience_id)
+> <GetWorldExperienceAdResponse> get_world_experience_ad(experience_id, opts)
 
 The ads for a game's in-world ad surfaces (parts tagged CrosslyAdSurface), for the token's owner: Sponsored Listings labelled \"Ad\", served only to signed-in adults where the game's creator turned ads on, never to its team. A click is POST /api/public/shop/ads/click { token }.
 
@@ -29,10 +29,13 @@ end
 
 api_instance = Crossly::WorldsAdsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  slots: 8.14 # Float | 
+}
 
 begin
   # The ads for a game's in-world ad surfaces (parts tagged CrosslyAdSurface), for the token's owner: Sponsored Listings labelled \"Ad\", served only to signed-in adults where the game's creator turned ads on, never to its team. A click is POST /api/public/shop/ads/click { token }.
-  result = api_instance.get_world_experience_ad(experience_id)
+  result = api_instance.get_world_experience_ad(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsAdsApi->get_world_experience_ad: #{e}"
@@ -43,12 +46,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperienceAdResponse>, Integer, Hash)> get_world_experience_ad_with_http_info(experience_id)
+> <Array(<GetWorldExperienceAdResponse>, Integer, Hash)> get_world_experience_ad_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # The ads for a game's in-world ad surfaces (parts tagged CrosslyAdSurface), for the token's owner: Sponsored Listings labelled \"Ad\", served only to signed-in adults where the game's creator turned ads on, never to its team. A click is POST /api/public/shop/ads/click { token }.
-  data, status_code, headers = api_instance.get_world_experience_ad_with_http_info(experience_id)
+  data, status_code, headers = api_instance.get_world_experience_ad_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperienceAdResponse>
@@ -62,6 +65,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **slots** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -79,7 +83,7 @@ end
 
 ## get_world_experience_ad_report
 
-> <GetWorldExperienceAdReportResponse> get_world_experience_ad_report(experience_id)
+> <GetWorldExperienceAdReportResponse> get_world_experience_ad_report(experience_id, opts)
 
 In-game ads over the last N days (default 30, max 90): impressions, clicks, charged clicks, advertiser spend and your earned share, per day.
 
@@ -96,10 +100,13 @@ end
 
 api_instance = Crossly::WorldsAdsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  days: 8.14 # Float | 
+}
 
 begin
   # In-game ads over the last N days (default 30, max 90): impressions, clicks, charged clicks, advertiser spend and your earned share, per day.
-  result = api_instance.get_world_experience_ad_report(experience_id)
+  result = api_instance.get_world_experience_ad_report(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsAdsApi->get_world_experience_ad_report: #{e}"
@@ -110,12 +117,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperienceAdReportResponse>, Integer, Hash)> get_world_experience_ad_report_with_http_info(experience_id)
+> <Array(<GetWorldExperienceAdReportResponse>, Integer, Hash)> get_world_experience_ad_report_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # In-game ads over the last N days (default 30, max 90): impressions, clicks, charged clicks, advertiser spend and your earned share, per day.
-  data, status_code, headers = api_instance.get_world_experience_ad_report_with_http_info(experience_id)
+  data, status_code, headers = api_instance.get_world_experience_ad_report_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperienceAdReportResponse>
@@ -129,6 +136,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -213,7 +221,7 @@ end
 
 ## update_world_experience_ad_setting
 
-> <GetWorldExperienceAdSettingResponse> update_world_experience_ad_setting(experience_id)
+> <GetWorldExperienceAdSettingResponse> update_world_experience_ad_setting(experience_id, opts)
 
 Turn in-game ads on or off for this game. Ads fill the game's ad surfaces (parts tagged CrosslyAdSurface); nothing shows until it has one.
 
@@ -230,10 +238,13 @@ end
 
 api_instance = Crossly::WorldsAdsApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  enabled_request: Crossly::EnabledRequest.new({enabled: false}) # EnabledRequest | 
+}
 
 begin
   # Turn in-game ads on or off for this game. Ads fill the game's ad surfaces (parts tagged CrosslyAdSurface); nothing shows until it has one.
-  result = api_instance.update_world_experience_ad_setting(experience_id)
+  result = api_instance.update_world_experience_ad_setting(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsAdsApi->update_world_experience_ad_setting: #{e}"
@@ -244,12 +255,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperienceAdSettingResponse>, Integer, Hash)> update_world_experience_ad_setting_with_http_info(experience_id)
+> <Array(<GetWorldExperienceAdSettingResponse>, Integer, Hash)> update_world_experience_ad_setting_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Turn in-game ads on or off for this game. Ads fill the game's ad surfaces (parts tagged CrosslyAdSurface); nothing shows until it has one.
-  data, status_code, headers = api_instance.update_world_experience_ad_setting_with_http_info(experience_id)
+  data, status_code, headers = api_instance.update_world_experience_ad_setting_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperienceAdSettingResponse>
@@ -263,6 +274,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **enabled_request** | **EnabledRequest** |  | [optional] |
 
 ### Return type
 
@@ -274,6 +286,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

@@ -19,7 +19,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_me_template
 
-> <ListMeTemplatesItem> create_me_template
+> <ListMeTemplatesItem> create_me_template(create_me_template_request)
 
 Create a template.
 
@@ -35,10 +35,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::TemplatesApi.new
+create_me_template_request = Crossly::CreateMeTemplateRequest.new # CreateMeTemplateRequest | 
 
 begin
   # Create a template.
-  result = api_instance.create_me_template
+  result = api_instance.create_me_template(create_me_template_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TemplatesApi->create_me_template: #{e}"
@@ -49,12 +50,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListMeTemplatesItem>, Integer, Hash)> create_me_template_with_http_info
+> <Array(<ListMeTemplatesItem>, Integer, Hash)> create_me_template_with_http_info(create_me_template_request)
 
 ```ruby
 begin
   # Create a template.
-  data, status_code, headers = api_instance.create_me_template_with_http_info
+  data, status_code, headers = api_instance.create_me_template_with_http_info(create_me_template_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListMeTemplatesItem>
@@ -65,7 +66,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_me_template_request** | **CreateMeTemplateRequest** |  |  |
 
 ### Return type
 
@@ -77,7 +80,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -149,7 +152,7 @@ This endpoint does not need any parameter.
 
 ## create_me_template_render
 
-> <CreateMeTemplateRenderResponse> create_me_template_render(id)
+> <CreateMeTemplateRenderResponse> create_me_template_render(id, opts)
 
 Render a template's title + description against a context.
 
@@ -166,10 +169,13 @@ end
 
 api_instance = Crossly::TemplatesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_me_template_render_request: Crossly::CreateMeTemplateRenderRequest.new # CreateMeTemplateRenderRequest | 
+}
 
 begin
   # Render a template's title + description against a context.
-  result = api_instance.create_me_template_render(id)
+  result = api_instance.create_me_template_render(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TemplatesApi->create_me_template_render: #{e}"
@@ -180,12 +186,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMeTemplateRenderResponse>, Integer, Hash)> create_me_template_render_with_http_info(id)
+> <Array(<CreateMeTemplateRenderResponse>, Integer, Hash)> create_me_template_render_with_http_info(id, opts)
 
 ```ruby
 begin
   # Render a template's title + description against a context.
-  data, status_code, headers = api_instance.create_me_template_render_with_http_info(id)
+  data, status_code, headers = api_instance.create_me_template_render_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateMeTemplateRenderResponse>
@@ -199,6 +205,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_me_template_render_request** | **CreateMeTemplateRenderRequest** |  | [optional] |
 
 ### Return type
 
@@ -210,13 +217,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_me_template_share
 
-> <CreateMeTemplateShareResponse> create_me_template_share(id)
+> <TokenObject> create_me_template_share(id)
 
 Mint or return an existing share token for a template.
 
@@ -247,7 +254,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMeTemplateShareResponse>, Integer, Hash)> create_me_template_share_with_http_info(id)
+> <Array(<TokenObject>, Integer, Hash)> create_me_template_share_with_http_info(id)
 
 ```ruby
 begin
@@ -255,7 +262,7 @@ begin
   data, status_code, headers = api_instance.create_me_template_share_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <CreateMeTemplateShareResponse>
+  p data # => <TokenObject>
 rescue Crossly::ApiError => e
   puts "Error when calling TemplatesApi->create_me_template_share_with_http_info: #{e}"
 end
@@ -269,7 +276,7 @@ end
 
 ### Return type
 
-**CreateMeTemplateShareResponse**
+**TokenObject**
 
 ### Authorization
 
@@ -614,7 +621,7 @@ No authorization required
 
 ## list_me_templates
 
-> <ListMeTemplatesResponse> list_me_templates
+> <ListMeTemplatesResponse> list_me_templates(opts)
 
 List the seller's templates.
 
@@ -630,10 +637,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::TemplatesApi.new
+opts = {
+  scope: 'description', # String | 
+  category: 'category_example' # String | 
+}
 
 begin
   # List the seller's templates.
-  result = api_instance.list_me_templates
+  result = api_instance.list_me_templates(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TemplatesApi->list_me_templates: #{e}"
@@ -644,12 +655,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListMeTemplatesResponse>, Integer, Hash)> list_me_templates_with_http_info
+> <Array(<ListMeTemplatesResponse>, Integer, Hash)> list_me_templates_with_http_info(opts)
 
 ```ruby
 begin
   # List the seller's templates.
-  data, status_code, headers = api_instance.list_me_templates_with_http_info
+  data, status_code, headers = api_instance.list_me_templates_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListMeTemplatesResponse>
@@ -660,7 +671,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **scope** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
 
 ### Return type
 
@@ -678,7 +692,7 @@ This endpoint does not need any parameter.
 
 ## update_me_template
 
-> <ListMeTemplatesItem> update_me_template(id)
+> <ListMeTemplatesItem> update_me_template(id, create_me_template_request)
 
 Patch a template.
 
@@ -695,10 +709,11 @@ end
 
 api_instance = Crossly::TemplatesApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_me_template_request = Crossly::CreateMeTemplateRequest.new # CreateMeTemplateRequest | 
 
 begin
   # Patch a template.
-  result = api_instance.update_me_template(id)
+  result = api_instance.update_me_template(id, create_me_template_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TemplatesApi->update_me_template: #{e}"
@@ -709,12 +724,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListMeTemplatesItem>, Integer, Hash)> update_me_template_with_http_info(id)
+> <Array(<ListMeTemplatesItem>, Integer, Hash)> update_me_template_with_http_info(id, create_me_template_request)
 
 ```ruby
 begin
   # Patch a template.
-  data, status_code, headers = api_instance.update_me_template_with_http_info(id)
+  data, status_code, headers = api_instance.update_me_template_with_http_info(id, create_me_template_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListMeTemplatesItem>
@@ -728,6 +743,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_me_template_request** | **CreateMeTemplateRequest** |  |  |
 
 ### Return type
 
@@ -739,6 +755,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

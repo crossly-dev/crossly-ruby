@@ -76,24 +76,30 @@ module CrosslyBuyer
 
     # Act on an option: save, cart, alert, registry, price (real-sales check), offer (prepare / confirm), or buy (quote — complete with POST /api/v1/buyer/checkout). Needs the action’s own scope too.
     # @param id [String] 
+    # @param create_buyer_agent_session_act_request [CreateBuyerAgentSessionActRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerAgentSessionActResponse]
-    def create_buyer_agent_session_act(id, opts = {})
-      data, _status_code, _headers = create_buyer_agent_session_act_with_http_info(id, opts)
+    def create_buyer_agent_session_act(id, create_buyer_agent_session_act_request, opts = {})
+      data, _status_code, _headers = create_buyer_agent_session_act_with_http_info(id, create_buyer_agent_session_act_request, opts)
       data
     end
 
     # Act on an option: save, cart, alert, registry, price (real-sales check), offer (prepare / confirm), or buy (quote — complete with POST /api/v1/buyer/checkout). Needs the action’s own scope too.
     # @param id [String] 
+    # @param create_buyer_agent_session_act_request [CreateBuyerAgentSessionActRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerAgentSessionActResponse, Integer, Hash)>] CreateBuyerAgentSessionActResponse data, response status code and response headers
-    def create_buyer_agent_session_act_with_http_info(id, opts = {})
+    def create_buyer_agent_session_act_with_http_info(id, create_buyer_agent_session_act_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerAgentApi.create_buyer_agent_session_act ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerAgentApi.create_buyer_agent_session_act"
+      end
+      # verify the required parameter 'create_buyer_agent_session_act_request' is set
+      if @api_client.config.client_side_validation && create_buyer_agent_session_act_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_agent_session_act_request' when calling BuyerAgentApi.create_buyer_agent_session_act"
       end
       # resource path
       local_var_path = '/v1/buyer/agent/sessions/{id}/act'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -105,12 +111,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_agent_session_act_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerAgentSessionActResponse'
@@ -137,24 +148,30 @@ module CrosslyBuyer
 
     # Like or dislike an option; the next search leans toward likes and drops dislikes.
     # @param id [String] 
+    # @param create_buyer_agent_session_react_request [CreateBuyerAgentSessionReactRequest] 
     # @param [Hash] opts the optional parameters
     # @return [DeleteBuyerAgentSessionResponse]
-    def create_buyer_agent_session_react(id, opts = {})
-      data, _status_code, _headers = create_buyer_agent_session_react_with_http_info(id, opts)
+    def create_buyer_agent_session_react(id, create_buyer_agent_session_react_request, opts = {})
+      data, _status_code, _headers = create_buyer_agent_session_react_with_http_info(id, create_buyer_agent_session_react_request, opts)
       data
     end
 
     # Like or dislike an option; the next search leans toward likes and drops dislikes.
     # @param id [String] 
+    # @param create_buyer_agent_session_react_request [CreateBuyerAgentSessionReactRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DeleteBuyerAgentSessionResponse, Integer, Hash)>] DeleteBuyerAgentSessionResponse data, response status code and response headers
-    def create_buyer_agent_session_react_with_http_info(id, opts = {})
+    def create_buyer_agent_session_react_with_http_info(id, create_buyer_agent_session_react_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerAgentApi.create_buyer_agent_session_react ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerAgentApi.create_buyer_agent_session_react"
+      end
+      # verify the required parameter 'create_buyer_agent_session_react_request' is set
+      if @api_client.config.client_side_validation && create_buyer_agent_session_react_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_agent_session_react_request' when calling BuyerAgentApi.create_buyer_agent_session_react"
       end
       # resource path
       local_var_path = '/v1/buyer/agent/sessions/{id}/react'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -166,12 +183,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_agent_session_react_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'DeleteBuyerAgentSessionResponse'
@@ -198,24 +220,30 @@ module CrosslyBuyer
 
     # Say something to the agent: what you want, a critique of the options (\"cheaper\", \"more like #2\"), or send a photo (imageBase64) to find things like it. Returns its reply and the new numbered options.
     # @param id [String] 
+    # @param create_buyer_agent_session_turn_request [CreateBuyerAgentSessionTurnRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerAgentSessionTurnResponse]
-    def create_buyer_agent_session_turn(id, opts = {})
-      data, _status_code, _headers = create_buyer_agent_session_turn_with_http_info(id, opts)
+    def create_buyer_agent_session_turn(id, create_buyer_agent_session_turn_request, opts = {})
+      data, _status_code, _headers = create_buyer_agent_session_turn_with_http_info(id, create_buyer_agent_session_turn_request, opts)
       data
     end
 
     # Say something to the agent: what you want, a critique of the options (\&quot;cheaper\&quot;, \&quot;more like #2\&quot;), or send a photo (imageBase64) to find things like it. Returns its reply and the new numbered options.
     # @param id [String] 
+    # @param create_buyer_agent_session_turn_request [CreateBuyerAgentSessionTurnRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerAgentSessionTurnResponse, Integer, Hash)>] CreateBuyerAgentSessionTurnResponse data, response status code and response headers
-    def create_buyer_agent_session_turn_with_http_info(id, opts = {})
+    def create_buyer_agent_session_turn_with_http_info(id, create_buyer_agent_session_turn_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerAgentApi.create_buyer_agent_session_turn ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerAgentApi.create_buyer_agent_session_turn"
+      end
+      # verify the required parameter 'create_buyer_agent_session_turn_request' is set
+      if @api_client.config.client_side_validation && create_buyer_agent_session_turn_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_agent_session_turn_request' when calling BuyerAgentApi.create_buyer_agent_session_turn"
       end
       # resource path
       local_var_path = '/v1/buyer/agent/sessions/{id}/turns'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -227,12 +255,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_agent_session_turn_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerAgentSessionTurnResponse'

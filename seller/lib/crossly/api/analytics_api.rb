@@ -259,6 +259,7 @@ module Crossly
 
     # Monthly P&L + per-platform breakdown for a calendar year.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :year 
     # @return [GetAnalyticBookkeepingResponse]
     def get_analytic_bookkeeping(opts = {})
       data, _status_code, _headers = get_analytic_bookkeeping_with_http_info(opts)
@@ -267,6 +268,7 @@ module Crossly
 
     # Monthly P&amp;L + per-platform breakdown for a calendar year.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :year 
     # @return [Array<(GetAnalyticBookkeepingResponse, Integer, Hash)>] GetAnalyticBookkeepingResponse data, response status code and response headers
     def get_analytic_bookkeeping_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -277,6 +279,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'year'] = opts[:'year'] if !opts[:'year'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -454,6 +457,11 @@ module Crossly
 
     # Composite dashboard: KPIs + breakdowns + recent activity.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :range 
+    # @option opts [String] :start_date 
+    # @option opts [String] :end_date 
+    # @option opts [String] :labels 
+    # @option opts [String] :tz 
     # @return [GetAnalyticDashboardResponse]
     def get_analytic_dashboard(opts = {})
       data, _status_code, _headers = get_analytic_dashboard_with_http_info(opts)
@@ -462,16 +470,30 @@ module Crossly
 
     # Composite dashboard: KPIs + breakdowns + recent activity.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :range 
+    # @option opts [String] :start_date 
+    # @option opts [String] :end_date 
+    # @option opts [String] :labels 
+    # @option opts [String] :tz 
     # @return [Array<(GetAnalyticDashboardResponse, Integer, Hash)>] GetAnalyticDashboardResponse data, response status code and response headers
     def get_analytic_dashboard_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_dashboard ...'
+      end
+      allowable_values = ["custom", "7d", "30d", "90d", "1y"]
+      if @api_client.config.client_side_validation && opts[:'range'] && !allowable_values.include?(opts[:'range'])
+        fail ArgumentError, "invalid value for \"range\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/analytics/dashboard'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'range'] = opts[:'range'] if !opts[:'range'].nil?
+      query_params[:'startDate'] = opts[:'start_date'] if !opts[:'start_date'].nil?
+      query_params[:'endDate'] = opts[:'end_date'] if !opts[:'end_date'].nil?
+      query_params[:'labels'] = opts[:'labels'] if !opts[:'labels'].nil?
+      query_params[:'tz'] = opts[:'tz'] if !opts[:'tz'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -753,6 +775,10 @@ module Crossly
 
     # Per-item P&L for sold inventory.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :page 
+    # @option opts [Float] :limit 
+    # @option opts [String] :sort_by 
+    # @option opts [String] :sort_order 
     # @return [GetAnalyticItemResponse]
     def get_analytic_item(opts = {})
       data, _status_code, _headers = get_analytic_item_with_http_info(opts)
@@ -761,16 +787,32 @@ module Crossly
 
     # Per-item P&amp;L for sold inventory.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :page 
+    # @option opts [Float] :limit 
+    # @option opts [String] :sort_by 
+    # @option opts [String] :sort_order 
     # @return [Array<(GetAnalyticItemResponse, Integer, Hash)>] GetAnalyticItemResponse data, response status code and response headers
     def get_analytic_item_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AnalyticsApi.get_analytic_item ...'
+      end
+      allowable_values = ["platform", "netProfit", "costOfGoods", "salePrice", "detectedAt", "itemTitle", "daysToSell", "margin"]
+      if @api_client.config.client_side_validation && opts[:'sort_by'] && !allowable_values.include?(opts[:'sort_by'])
+        fail ArgumentError, "invalid value for \"sort_by\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["asc", "desc"]
+      if @api_client.config.client_side_validation && opts[:'sort_order'] && !allowable_values.include?(opts[:'sort_order'])
+        fail ArgumentError, "invalid value for \"sort_order\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/analytics/items'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'sortBy'] = opts[:'sort_by'] if !opts[:'sort_by'].nil?
+      query_params[:'sortOrder'] = opts[:'sort_order'] if !opts[:'sort_order'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

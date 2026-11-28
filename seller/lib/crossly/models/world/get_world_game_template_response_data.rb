@@ -36,7 +36,7 @@ module Crossly
     def self.openapi_types
       {
         :'kind' => :'String',
-        :'files' => :'Array<GetWorldGameTemplateResponseDataFiles>'
+        :'files' => :'Array<PathBase64>'
       }
     end
 

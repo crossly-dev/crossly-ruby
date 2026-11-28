@@ -131,7 +131,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @op.nil?
-      op_validator = EnumAttributeValidator.new('String', ["move", "remove", "sort", "fill", "place", "clear", "add_fixture", "update_fixture", "remove_fixture", "set_room", "set_settings"])
+      op_validator = EnumAttributeValidator.new('String', ["sort", "fill", "move", "remove", "place", "clear", "add_fixture", "update_fixture", "remove_fixture", "set_room", "set_settings"])
       return false unless op_validator.valid?(@op)
       return false if @changed.nil?
       true
@@ -140,7 +140,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] op Object to be assigned
     def op=(op)
-      validator = EnumAttributeValidator.new('String', ["move", "remove", "sort", "fill", "place", "clear", "add_fixture", "update_fixture", "remove_fixture", "set_room", "set_settings"])
+      validator = EnumAttributeValidator.new('String', ["sort", "fill", "move", "remove", "place", "clear", "add_fixture", "update_fixture", "remove_fixture", "set_room", "set_settings"])
       unless validator.valid?(op)
         fail ArgumentError, "invalid value for \"op\", must be one of #{validator.allowable_values}."
       end

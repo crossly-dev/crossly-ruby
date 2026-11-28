@@ -19,6 +19,8 @@ module Crossly
 
     attr_accessor :interval
 
+    attr_accessor :separate
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -45,7 +47,8 @@ module Crossly
     def self.attribute_map
       {
         :'tier' => :'tier',
-        :'interval' => :'interval'
+        :'interval' => :'interval',
+        :'separate' => :'separate'
       }
     end
 
@@ -58,7 +61,8 @@ module Crossly
     def self.openapi_types
       {
         :'tier' => :'String',
-        :'interval' => :'String'
+        :'interval' => :'String',
+        :'separate' => :'Boolean'
       }
     end
 
@@ -91,6 +95,12 @@ module Crossly
         self.interval = attributes[:'interval']
       else
         self.interval = 'monthly'
+      end
+
+      if attributes.key?(:'separate')
+        self.separate = attributes[:'separate']
+      else
+        self.separate = false
       end
     end
 
@@ -142,7 +152,8 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           tier == o.tier &&
-          interval == o.interval
+          interval == o.interval &&
+          separate == o.separate
     end
 
     # @see the `==` method
@@ -154,7 +165,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [tier, interval].hash
+      [tier, interval, separate].hash
     end
 
     # Builds the object from hash

@@ -192,7 +192,7 @@ module Crossly
       return false if @platform_listing_id.nil?
       return false if @program.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["pending", "live", "paused", "failed", "ended", "rejected", "removed", "not_promoted", "needs_capture"])
+      status_validator = EnumAttributeValidator.new('String', ["live", "paused", "pending", "failed", "ended", "rejected", "removed", "not_promoted", "needs_capture"])
       return false unless status_validator.valid?(@status)
       true
     end
@@ -200,7 +200,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["pending", "live", "paused", "failed", "ended", "rejected", "removed", "not_promoted", "needs_capture"])
+      validator = EnumAttributeValidator.new('String', ["live", "paused", "pending", "failed", "ended", "rejected", "removed", "not_promoted", "needs_capture"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

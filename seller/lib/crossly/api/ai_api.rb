@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Taxonomy guess from a single image URL.
+    # @param create_ai_categorize_request [CreateAiCategorizeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiCategorizeResponse]
-    def create_ai_categorize(opts = {})
-      data, _status_code, _headers = create_ai_categorize_with_http_info(opts)
+    def create_ai_categorize(create_ai_categorize_request, opts = {})
+      data, _status_code, _headers = create_ai_categorize_with_http_info(create_ai_categorize_request, opts)
       data
     end
 
     # Taxonomy guess from a single image URL.
+    # @param create_ai_categorize_request [CreateAiCategorizeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiCategorizeResponse, Integer, Hash)>] CreateAiCategorizeResponse data, response status code and response headers
-    def create_ai_categorize_with_http_info(opts = {})
+    def create_ai_categorize_with_http_info(create_ai_categorize_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_categorize ...'
+      end
+      # verify the required parameter 'create_ai_categorize_request' is set
+      if @api_client.config.client_side_validation && create_ai_categorize_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_categorize_request' when calling AIApi.create_ai_categorize"
       end
       # resource path
       local_var_path = '/v1/ai/categorize'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_categorize_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiCategorizeResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Taxonomy guess from a single base64 image.
+    # @param create_ai_extract_receipt_request [CreateAiExtractReceiptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiCategorizeResponse]
-    def create_ai_categorize_from_image(opts = {})
-      data, _status_code, _headers = create_ai_categorize_from_image_with_http_info(opts)
+    def create_ai_categorize_from_image(create_ai_extract_receipt_request, opts = {})
+      data, _status_code, _headers = create_ai_categorize_from_image_with_http_info(create_ai_extract_receipt_request, opts)
       data
     end
 
     # Taxonomy guess from a single base64 image.
+    # @param create_ai_extract_receipt_request [CreateAiExtractReceiptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiCategorizeResponse, Integer, Hash)>] CreateAiCategorizeResponse data, response status code and response headers
-    def create_ai_categorize_from_image_with_http_info(opts = {})
+    def create_ai_categorize_from_image_with_http_info(create_ai_extract_receipt_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_categorize_from_image ...'
+      end
+      # verify the required parameter 'create_ai_extract_receipt_request' is set
+      if @api_client.config.client_side_validation && create_ai_extract_receipt_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_extract_receipt_request' when calling AIApi.create_ai_categorize_from_image"
       end
       # resource path
       local_var_path = '/v1/ai/categorize-from-image'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_extract_receipt_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiCategorizeResponse'
@@ -129,20 +151,88 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Draft store copy (ads, branding, policy wording, lookbook copy) from the facts you give, on your AI key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateAiCopyRequest] :create_ai_copy_request 
+    # @return [CreateAiCopyResponse]
+    def create_ai_copy(opts = {})
+      data, _status_code, _headers = create_ai_copy_with_http_info(opts)
+      data
+    end
+
+    # Draft store copy (ads, branding, policy wording, lookbook copy) from the facts you give, on your AI key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateAiCopyRequest] :create_ai_copy_request 
+    # @return [Array<(CreateAiCopyResponse, Integer, Hash)>] CreateAiCopyResponse data, response status code and response headers
+    def create_ai_copy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.create_ai_copy ...'
+      end
+      # resource path
+      local_var_path = '/v1/ai/copy'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_ai_copy_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAiCopyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.create_ai_copy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#create_ai_copy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # SEO-rewrite a listing description.
+    # @param create_ai_enhance_description_request [CreateAiEnhanceDescriptionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiEnhanceDescriptionResponse]
-    def create_ai_enhance_description(opts = {})
-      data, _status_code, _headers = create_ai_enhance_description_with_http_info(opts)
+    def create_ai_enhance_description(create_ai_enhance_description_request, opts = {})
+      data, _status_code, _headers = create_ai_enhance_description_with_http_info(create_ai_enhance_description_request, opts)
       data
     end
 
     # SEO-rewrite a listing description.
+    # @param create_ai_enhance_description_request [CreateAiEnhanceDescriptionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiEnhanceDescriptionResponse, Integer, Hash)>] CreateAiEnhanceDescriptionResponse data, response status code and response headers
-    def create_ai_enhance_description_with_http_info(opts = {})
+    def create_ai_enhance_description_with_http_info(create_ai_enhance_description_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_enhance_description ...'
+      end
+      # verify the required parameter 'create_ai_enhance_description_request' is set
+      if @api_client.config.client_side_validation && create_ai_enhance_description_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_enhance_description_request' when calling AIApi.create_ai_enhance_description"
       end
       # resource path
       local_var_path = '/v1/ai/enhance-description'
@@ -154,12 +244,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_enhance_description_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiEnhanceDescriptionResponse'
@@ -185,19 +280,25 @@ module Crossly
     end
 
     # Rewrite title + description + tags in one call.
+    # @param create_ai_enhance_listing_request [CreateAiEnhanceListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiEnhanceListingResponse]
-    def create_ai_enhance_listing(opts = {})
-      data, _status_code, _headers = create_ai_enhance_listing_with_http_info(opts)
+    def create_ai_enhance_listing(create_ai_enhance_listing_request, opts = {})
+      data, _status_code, _headers = create_ai_enhance_listing_with_http_info(create_ai_enhance_listing_request, opts)
       data
     end
 
     # Rewrite title + description + tags in one call.
+    # @param create_ai_enhance_listing_request [CreateAiEnhanceListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiEnhanceListingResponse, Integer, Hash)>] CreateAiEnhanceListingResponse data, response status code and response headers
-    def create_ai_enhance_listing_with_http_info(opts = {})
+    def create_ai_enhance_listing_with_http_info(create_ai_enhance_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_enhance_listing ...'
+      end
+      # verify the required parameter 'create_ai_enhance_listing_request' is set
+      if @api_client.config.client_side_validation && create_ai_enhance_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_enhance_listing_request' when calling AIApi.create_ai_enhance_listing"
       end
       # resource path
       local_var_path = '/v1/ai/enhance-listing'
@@ -209,12 +310,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_enhance_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiEnhanceListingResponse'
@@ -240,19 +346,25 @@ module Crossly
     end
 
     # SEO-rewrite a listing title.
+    # @param create_ai_enhance_title_request [CreateAiEnhanceTitleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiEnhanceTitleResponse]
-    def create_ai_enhance_title(opts = {})
-      data, _status_code, _headers = create_ai_enhance_title_with_http_info(opts)
+    def create_ai_enhance_title(create_ai_enhance_title_request, opts = {})
+      data, _status_code, _headers = create_ai_enhance_title_with_http_info(create_ai_enhance_title_request, opts)
       data
     end
 
     # SEO-rewrite a listing title.
+    # @param create_ai_enhance_title_request [CreateAiEnhanceTitleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiEnhanceTitleResponse, Integer, Hash)>] CreateAiEnhanceTitleResponse data, response status code and response headers
-    def create_ai_enhance_title_with_http_info(opts = {})
+    def create_ai_enhance_title_with_http_info(create_ai_enhance_title_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_enhance_title ...'
+      end
+      # verify the required parameter 'create_ai_enhance_title_request' is set
+      if @api_client.config.client_side_validation && create_ai_enhance_title_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_enhance_title_request' when calling AIApi.create_ai_enhance_title"
       end
       # resource path
       local_var_path = '/v1/ai/enhance-title'
@@ -264,12 +376,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_enhance_title_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiEnhanceTitleResponse'
@@ -295,19 +412,25 @@ module Crossly
     end
 
     # Structured data extraction from a receipt photo.
+    # @param create_ai_extract_receipt_request [CreateAiExtractReceiptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiExtractReceiptResponse]
-    def create_ai_extract_receipt(opts = {})
-      data, _status_code, _headers = create_ai_extract_receipt_with_http_info(opts)
+    def create_ai_extract_receipt(create_ai_extract_receipt_request, opts = {})
+      data, _status_code, _headers = create_ai_extract_receipt_with_http_info(create_ai_extract_receipt_request, opts)
       data
     end
 
     # Structured data extraction from a receipt photo.
+    # @param create_ai_extract_receipt_request [CreateAiExtractReceiptRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiExtractReceiptResponse, Integer, Hash)>] CreateAiExtractReceiptResponse data, response status code and response headers
-    def create_ai_extract_receipt_with_http_info(opts = {})
+    def create_ai_extract_receipt_with_http_info(create_ai_extract_receipt_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_extract_receipt ...'
+      end
+      # verify the required parameter 'create_ai_extract_receipt_request' is set
+      if @api_client.config.client_side_validation && create_ai_extract_receipt_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_extract_receipt_request' when calling AIApi.create_ai_extract_receipt"
       end
       # resource path
       local_var_path = '/v1/ai/extract-receipt'
@@ -319,12 +442,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_extract_receipt_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiExtractReceiptResponse'
@@ -350,19 +478,25 @@ module Crossly
     end
 
     # Generate full listing fields from up to 4 image URLs.
+    # @param create_ai_generate_listing_request [CreateAiGenerateListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiMagicListingResponse]
-    def create_ai_generate_listing(opts = {})
-      data, _status_code, _headers = create_ai_generate_listing_with_http_info(opts)
+    def create_ai_generate_listing(create_ai_generate_listing_request, opts = {})
+      data, _status_code, _headers = create_ai_generate_listing_with_http_info(create_ai_generate_listing_request, opts)
       data
     end
 
     # Generate full listing fields from up to 4 image URLs.
+    # @param create_ai_generate_listing_request [CreateAiGenerateListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiMagicListingResponse, Integer, Hash)>] CreateAiMagicListingResponse data, response status code and response headers
-    def create_ai_generate_listing_with_http_info(opts = {})
+    def create_ai_generate_listing_with_http_info(create_ai_generate_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_generate_listing ...'
+      end
+      # verify the required parameter 'create_ai_generate_listing_request' is set
+      if @api_client.config.client_side_validation && create_ai_generate_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_generate_listing_request' when calling AIApi.create_ai_generate_listing"
       end
       # resource path
       local_var_path = '/v1/ai/generate-listing'
@@ -374,12 +508,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_generate_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiMagicListingResponse'
@@ -405,19 +544,25 @@ module Crossly
     end
 
     # In-app help Q&A grounded in supplied docs.
+    # @param create_ai_help_request [CreateAiHelpRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiHelpResponse]
-    def create_ai_help(opts = {})
-      data, _status_code, _headers = create_ai_help_with_http_info(opts)
+    def create_ai_help(create_ai_help_request, opts = {})
+      data, _status_code, _headers = create_ai_help_with_http_info(create_ai_help_request, opts)
       data
     end
 
     # In-app help Q&amp;A grounded in supplied docs.
+    # @param create_ai_help_request [CreateAiHelpRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiHelpResponse, Integer, Hash)>] CreateAiHelpResponse data, response status code and response headers
-    def create_ai_help_with_http_info(opts = {})
+    def create_ai_help_with_http_info(create_ai_help_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_help ...'
+      end
+      # verify the required parameter 'create_ai_help_request' is set
+      if @api_client.config.client_side_validation && create_ai_help_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_help_request' when calling AIApi.create_ai_help"
       end
       # resource path
       local_var_path = '/v1/ai/help'
@@ -429,12 +574,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_help_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiHelpResponse'
@@ -459,23 +609,153 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Generate full listing fields from base64 photos.
+    # Connect an AI provider key to the store, with scopes and priority.
     # @param [Hash] opts the optional parameters
-    # @return [CreateAiMagicListingResponse]
-    def create_ai_magic_listing(opts = {})
-      data, _status_code, _headers = create_ai_magic_listing_with_http_info(opts)
+    # @option opts [CreateAiKeyRequest] :create_ai_key_request 
+    # @return [CreateAiKeyResponse]
+    def create_ai_key(opts = {})
+      data, _status_code, _headers = create_ai_key_with_http_info(opts)
       data
     end
 
-    # Generate full listing fields from base64 photos.
+    # Connect an AI provider key to the store, with scopes and priority.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateAiMagicListingResponse, Integer, Hash)>] CreateAiMagicListingResponse data, response status code and response headers
-    def create_ai_magic_listing_with_http_info(opts = {})
+    # @option opts [CreateAiKeyRequest] :create_ai_key_request 
+    # @return [Array<(CreateAiKeyResponse, Integer, Hash)>] CreateAiKeyResponse data, response status code and response headers
+    def create_ai_key_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: AIApi.create_ai_magic_listing ...'
+        @api_client.config.logger.debug 'Calling API: AIApi.create_ai_key ...'
       end
       # resource path
-      local_var_path = '/v1/ai/magic-listing'
+      local_var_path = '/v1/ai/keys'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_ai_key_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAiKeyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.create_ai_key",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#create_ai_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Test an AI provider key before saving it.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateAiKeyTestRequest] :create_ai_key_test_request 
+    # @return [CreateAiKeyTestResponse]
+    def create_ai_key_test(opts = {})
+      data, _status_code, _headers = create_ai_key_test_with_http_info(opts)
+      data
+    end
+
+    # Test an AI provider key before saving it.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateAiKeyTestRequest] :create_ai_key_test_request 
+    # @return [Array<(CreateAiKeyTestResponse, Integer, Hash)>] CreateAiKeyTestResponse data, response status code and response headers
+    def create_ai_key_test_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.create_ai_key_test ...'
+      end
+      # resource path
+      local_var_path = '/v1/ai/keys/test'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_ai_key_test_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAiKeyTestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.create_ai_key_test",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#create_ai_key_test\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Re-test a saved AI key.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateAiKeyTestResponse]
+    def create_ai_key_test_by_id(id, opts = {})
+      data, _status_code, _headers = create_ai_key_test_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Re-test a saved AI key.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateAiKeyTestResponse, Integer, Hash)>] CreateAiKeyTestResponse data, response status code and response headers
+    def create_ai_key_test_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.create_ai_key_test_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AIApi.create_ai_key_test_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/ai/keys/{id}/test'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -490,6 +770,72 @@ module Crossly
 
       # http body (model)
       post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAiKeyTestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.create_ai_key_test_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#create_ai_key_test_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Generate full listing fields from base64 photos.
+    # @param create_ai_magic_listing_request [CreateAiMagicListingRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateAiMagicListingResponse]
+    def create_ai_magic_listing(create_ai_magic_listing_request, opts = {})
+      data, _status_code, _headers = create_ai_magic_listing_with_http_info(create_ai_magic_listing_request, opts)
+      data
+    end
+
+    # Generate full listing fields from base64 photos.
+    # @param create_ai_magic_listing_request [CreateAiMagicListingRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateAiMagicListingResponse, Integer, Hash)>] CreateAiMagicListingResponse data, response status code and response headers
+    def create_ai_magic_listing_with_http_info(create_ai_magic_listing_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.create_ai_magic_listing ...'
+      end
+      # verify the required parameter 'create_ai_magic_listing_request' is set
+      if @api_client.config.client_side_validation && create_ai_magic_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_ai_magic_listing_request' when calling AIApi.create_ai_magic_listing"
+      end
+      # resource path
+      local_var_path = '/v1/ai/magic-listing'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_ai_magic_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiMagicListingResponse'
@@ -515,19 +861,25 @@ module Crossly
     end
 
     # Live-ping a candidate BYO-key.
+    # @param update_ai_key_request [UpdateAiKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAiTestKeyResponse]
-    def create_ai_test_key(opts = {})
-      data, _status_code, _headers = create_ai_test_key_with_http_info(opts)
+    def create_ai_test_key(update_ai_key_request, opts = {})
+      data, _status_code, _headers = create_ai_test_key_with_http_info(update_ai_key_request, opts)
       data
     end
 
     # Live-ping a candidate BYO-key.
+    # @param update_ai_key_request [UpdateAiKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAiTestKeyResponse, Integer, Hash)>] CreateAiTestKeyResponse data, response status code and response headers
-    def create_ai_test_key_with_http_info(opts = {})
+    def create_ai_test_key_with_http_info(update_ai_key_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.create_ai_test_key ...'
+      end
+      # verify the required parameter 'update_ai_key_request' is set
+      if @api_client.config.client_side_validation && update_ai_key_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_ai_key_request' when calling AIApi.create_ai_test_key"
       end
       # resource path
       local_var_path = '/v1/ai/test-key'
@@ -539,12 +891,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_ai_key_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAiTestKeyResponse'
@@ -571,6 +928,7 @@ module Crossly
 
     # Generate a listing photo with the caller's own image-provider key; the result is marked AI-generated.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingAiImageRequest] :create_listing_ai_image_request 
     # @return [CreateListingAiImageResponse]
     def create_listing_ai_image(opts = {})
       data, _status_code, _headers = create_listing_ai_image_with_http_info(opts)
@@ -579,6 +937,7 @@ module Crossly
 
     # Generate a listing photo with the caller&#39;s own image-provider key; the result is marked AI-generated.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingAiImageRequest] :create_listing_ai_image_request 
     # @return [Array<(CreateListingAiImageResponse, Integer, Hash)>] CreateListingAiImageResponse data, response status code and response headers
     def create_listing_ai_image_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -594,12 +953,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_ai_image_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAiImageResponse'
@@ -626,6 +990,7 @@ module Crossly
 
     # Build the AI product-photo prompt for a listing (no image is generated).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingAiImagePromptRequest] :create_listing_ai_image_prompt_request 
     # @return [CreateListingAiImagePromptResponse]
     def create_listing_ai_image_prompt(opts = {})
       data, _status_code, _headers = create_listing_ai_image_prompt_with_http_info(opts)
@@ -634,6 +999,7 @@ module Crossly
 
     # Build the AI product-photo prompt for a listing (no image is generated).
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingAiImagePromptRequest] :create_listing_ai_image_prompt_request 
     # @return [Array<(CreateListingAiImagePromptResponse, Integer, Hash)>] CreateListingAiImagePromptResponse data, response status code and response headers
     def create_listing_ai_image_prompt_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -649,12 +1015,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_ai_image_prompt_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingAiImagePromptResponse'
@@ -679,26 +1050,33 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Remove the BYO-key for a provider.
+    # Remove the store's BYO-key for a provider.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :provider 
     # @return [SuccessResponse]
     def delete_ai_key(opts = {})
       data, _status_code, _headers = delete_ai_key_with_http_info(opts)
       data
     end
 
-    # Remove the BYO-key for a provider.
+    # Remove the store&#39;s BYO-key for a provider.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :provider 
     # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
     def delete_ai_key_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.delete_ai_key ...'
+      end
+      allowable_values = ["custom", "openai", "anthropic", "google", "groq", "openrouter", "xai", "together"]
+      if @api_client.config.client_side_validation && opts[:'provider'] && !allowable_values.include?(opts[:'provider'])
+        fail ArgumentError, "invalid value for \"provider\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/ai/key'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'provider'] = opts[:'provider'] if !opts[:'provider'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -730,6 +1108,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AIApi#delete_ai_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Disconnect an AI provider key.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [SuccessResponse]
+    def delete_ai_key_by_id(id, opts = {})
+      data, _status_code, _headers = delete_ai_key_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Disconnect an AI provider key.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
+    def delete_ai_key_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.delete_ai_key_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AIApi.delete_ai_key_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/ai/keys/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SuccessResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.delete_ai_key_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#delete_ai_key_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The store's AI provider keys with their scopes and priority (never the key).
+    # @param [Hash] opts the optional parameters
+    # @return [GetAiKeyResponse]
+    def get_ai_key(opts = {})
+      data, _status_code, _headers = get_ai_key_with_http_info(opts)
+      data
+    end
+
+    # The store&#39;s AI provider keys with their scopes and priority (never the key).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAiKeyResponse, Integer, Hash)>] GetAiKeyResponse data, response status code and response headers
+    def get_ai_key_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.get_ai_key ...'
+      end
+      # resource path
+      local_var_path = '/v1/ai/keys'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAiKeyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.get_ai_key",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#get_ai_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -785,6 +1279,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AIApi#get_ai_provider\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Which AI provider serves each feature of the store, in order, and whether it is on.
+    # @param [Hash] opts the optional parameters
+    # @return [GetAiRoutingResponse]
+    def get_ai_routing(opts = {})
+      data, _status_code, _headers = get_ai_routing_with_http_info(opts)
+      data
+    end
+
+    # Which AI provider serves each feature of the store, in order, and whether it is on.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAiRoutingResponse, Integer, Hash)>] GetAiRoutingResponse data, response status code and response headers
+    def get_ai_routing_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.get_ai_routing ...'
+      end
+      # resource path
+      local_var_path = '/v1/ai/routing'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAiRoutingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.get_ai_routing",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#get_ai_routing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -846,6 +1395,7 @@ module Crossly
 
     # Choose the AI image provider/model, independently of the text provider.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateAiImageConfigRequest] :update_ai_image_config_request 
     # @return [UpdateAiImageConfigResponse]
     def update_ai_image_config(opts = {})
       data, _status_code, _headers = update_ai_image_config_with_http_info(opts)
@@ -854,6 +1404,7 @@ module Crossly
 
     # Choose the AI image provider/model, independently of the text provider.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateAiImageConfigRequest] :update_ai_image_config_request 
     # @return [Array<(UpdateAiImageConfigResponse, Integer, Hash)>] UpdateAiImageConfigResponse data, response status code and response headers
     def update_ai_image_config_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -869,12 +1420,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_ai_image_config_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateAiImageConfigResponse'
@@ -899,20 +1455,26 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Save an encrypted BYO-key for an AI provider.
+    # Save a BYO-key for an AI provider on the store and make it the store's default.
+    # @param update_ai_key_request [UpdateAiKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [SuccessResponse]
-    def update_ai_key(opts = {})
-      data, _status_code, _headers = update_ai_key_with_http_info(opts)
+    def update_ai_key(update_ai_key_request, opts = {})
+      data, _status_code, _headers = update_ai_key_with_http_info(update_ai_key_request, opts)
       data
     end
 
-    # Save an encrypted BYO-key for an AI provider.
+    # Save a BYO-key for an AI provider on the store and make it the store&#39;s default.
+    # @param update_ai_key_request [UpdateAiKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
-    def update_ai_key_with_http_info(opts = {})
+    def update_ai_key_with_http_info(update_ai_key_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AIApi.update_ai_key ...'
+      end
+      # verify the required parameter 'update_ai_key_request' is set
+      if @api_client.config.client_side_validation && update_ai_key_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_ai_key_request' when calling AIApi.update_ai_key"
       end
       # resource path
       local_var_path = '/v1/ai/key'
@@ -924,12 +1486,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_ai_key_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'SuccessResponse'
@@ -950,6 +1517,142 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AIApi#update_ai_key\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit an AI key: replace it, rename it, or change its scopes, priority and models.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateAiKeyByIdRequest] :update_ai_key_by_id_request 
+    # @return [CreateAiKeyResponse]
+    def update_ai_key_by_id(id, opts = {})
+      data, _status_code, _headers = update_ai_key_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Edit an AI key: replace it, rename it, or change its scopes, priority and models.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateAiKeyByIdRequest] :update_ai_key_by_id_request 
+    # @return [Array<(CreateAiKeyResponse, Integer, Hash)>] CreateAiKeyResponse data, response status code and response headers
+    def update_ai_key_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.update_ai_key_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AIApi.update_ai_key_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/ai/keys/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_ai_key_by_id_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateAiKeyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.update_ai_key_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#update_ai_key_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set one AI feature's provider chain, model or on/off.
+    # @param scope [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateAiRoutingRequest] :update_ai_routing_request 
+    # @return [UpdateAiRoutingResponse]
+    def update_ai_routing(scope, opts = {})
+      data, _status_code, _headers = update_ai_routing_with_http_info(scope, opts)
+      data
+    end
+
+    # Set one AI feature&#39;s provider chain, model or on/off.
+    # @param scope [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateAiRoutingRequest] :update_ai_routing_request 
+    # @return [Array<(UpdateAiRoutingResponse, Integer, Hash)>] UpdateAiRoutingResponse data, response status code and response headers
+    def update_ai_routing_with_http_info(scope, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AIApi.update_ai_routing ...'
+      end
+      # verify the required parameter 'scope' is set
+      if @api_client.config.client_side_validation && scope.nil?
+        fail ArgumentError, "Missing the required parameter 'scope' when calling AIApi.update_ai_routing"
+      end
+      # resource path
+      local_var_path = '/v1/ai/routing/{scope}'.sub('{' + 'scope' + '}', CGI.escape(scope.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_ai_routing_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateAiRoutingResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AIApi.update_ai_routing",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AIApi#update_ai_routing\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

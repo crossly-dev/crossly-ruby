@@ -295,7 +295,7 @@ end
 
 ## get_stall_street_aerial
 
-> <GetStallStreetAerialResponse> get_stall_street_aerial(slug)
+> <GetStallStreetAerialResponse> get_stall_street_aerial(slug, opts)
 
 A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
 
@@ -312,10 +312,14 @@ end
 
 api_instance = Crossly::StallsApi.new
 slug = 'slug_example' # String | 
+opts = {
+  from: 'from_example', # String | 
+  days: 8.14 # Float | 
+}
 
 begin
   # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
-  result = api_instance.get_stall_street_aerial(slug)
+  result = api_instance.get_stall_street_aerial(slug, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StallsApi->get_stall_street_aerial: #{e}"
@@ -326,12 +330,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetStallStreetAerialResponse>, Integer, Hash)> get_stall_street_aerial_with_http_info(slug)
+> <Array(<GetStallStreetAerialResponse>, Integer, Hash)> get_stall_street_aerial_with_http_info(slug, opts)
 
 ```ruby
 begin
   # A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
-  data, status_code, headers = api_instance.get_stall_street_aerial_with_http_info(slug)
+  data, status_code, headers = api_instance.get_stall_street_aerial_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetStallStreetAerialResponse>
@@ -345,6 +349,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **from** | **String** |  | [optional] |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -624,7 +630,7 @@ end
 
 ## update_stall_booking
 
-> <CreateStallBookResponse> update_stall_booking(id)
+> <CreateStallBookResponse> update_stall_booking(id, opts)
 
 Change a booked stall before or while it is up: listingIds (up to 6 of your live listings), awning { colour, pattern }, booth { canopy, pattern, lights, counter, piece } (premium values need holding), sign, attendant.
 
@@ -641,10 +647,13 @@ end
 
 api_instance = Crossly::StallsApi.new
 id = 'id_example' # String | 
+opts = {
+  update_stall_booking_request: Crossly::UpdateStallBookingRequest.new # UpdateStallBookingRequest | 
+}
 
 begin
   # Change a booked stall before or while it is up: listingIds (up to 6 of your live listings), awning { colour, pattern }, booth { canopy, pattern, lights, counter, piece } (premium values need holding), sign, attendant.
-  result = api_instance.update_stall_booking(id)
+  result = api_instance.update_stall_booking(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StallsApi->update_stall_booking: #{e}"
@@ -655,12 +664,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateStallBookResponse>, Integer, Hash)> update_stall_booking_with_http_info(id)
+> <Array(<CreateStallBookResponse>, Integer, Hash)> update_stall_booking_with_http_info(id, opts)
 
 ```ruby
 begin
   # Change a booked stall before or while it is up: listingIds (up to 6 of your live listings), awning { colour, pattern }, booth { canopy, pattern, lights, counter, piece } (premium values need holding), sign, attendant.
-  data, status_code, headers = api_instance.update_stall_booking_with_http_info(id)
+  data, status_code, headers = api_instance.update_stall_booking_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateStallBookResponse>
@@ -674,6 +683,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_stall_booking_request** | **UpdateStallBookingRequest** |  | [optional] |
 
 ### Return type
 
@@ -685,6 +695,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

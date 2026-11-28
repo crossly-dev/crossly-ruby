@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create an automatic discount.
+    # @param create_automatic_discount_request [CreateAutomaticDiscountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAutomaticDiscountResponse]
-    def create_automatic_discount(opts = {})
-      data, _status_code, _headers = create_automatic_discount_with_http_info(opts)
+    def create_automatic_discount(create_automatic_discount_request, opts = {})
+      data, _status_code, _headers = create_automatic_discount_with_http_info(create_automatic_discount_request, opts)
       data
     end
 
     # Create an automatic discount.
+    # @param create_automatic_discount_request [CreateAutomaticDiscountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAutomaticDiscountResponse, Integer, Hash)>] CreateAutomaticDiscountResponse data, response status code and response headers
-    def create_automatic_discount_with_http_info(opts = {})
+    def create_automatic_discount_with_http_info(create_automatic_discount_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.create_automatic_discount ...'
+      end
+      # verify the required parameter 'create_automatic_discount_request' is set
+      if @api_client.config.client_side_validation && create_automatic_discount_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_automatic_discount_request' when calling DiscountsApi.create_automatic_discount"
       end
       # resource path
       local_var_path = '/v1/automatic-discounts'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_automatic_discount_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAutomaticDiscountResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Preview a hypothetical cart of your listings against your automatic discounts (or an unsaved draft): what each line gets.
+    # @param create_automatic_discount_preview_request [CreateAutomaticDiscountPreviewRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAutomaticDiscountPreviewResponse]
-    def create_automatic_discount_preview(opts = {})
-      data, _status_code, _headers = create_automatic_discount_preview_with_http_info(opts)
+    def create_automatic_discount_preview(create_automatic_discount_preview_request, opts = {})
+      data, _status_code, _headers = create_automatic_discount_preview_with_http_info(create_automatic_discount_preview_request, opts)
       data
     end
 
     # Preview a hypothetical cart of your listings against your automatic discounts (or an unsaved draft): what each line gets.
+    # @param create_automatic_discount_preview_request [CreateAutomaticDiscountPreviewRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAutomaticDiscountPreviewResponse, Integer, Hash)>] CreateAutomaticDiscountPreviewResponse data, response status code and response headers
-    def create_automatic_discount_preview_with_http_info(opts = {})
+    def create_automatic_discount_preview_with_http_info(create_automatic_discount_preview_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.create_automatic_discount_preview ...'
+      end
+      # verify the required parameter 'create_automatic_discount_preview_request' is set
+      if @api_client.config.client_side_validation && create_automatic_discount_preview_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_automatic_discount_preview_request' when calling DiscountsApi.create_automatic_discount_preview"
       end
       # resource path
       local_var_path = '/v1/automatic-discounts/preview'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_automatic_discount_preview_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAutomaticDiscountPreviewResponse'
@@ -130,19 +152,25 @@ module Crossly
     end
 
     # Create a discount code: percent, fixed, free shipping, buy X get Y, spend tiers or a set price, with requirements, item scope, limits (total, per buyer, per day, budget, regions), schedule and stacking.
+    # @param create_discount_code_request [CreateDiscountCodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [DiscountCodeResponse]
-    def create_discount_code(opts = {})
-      data, _status_code, _headers = create_discount_code_with_http_info(opts)
+    def create_discount_code(create_discount_code_request, opts = {})
+      data, _status_code, _headers = create_discount_code_with_http_info(create_discount_code_request, opts)
       data
     end
 
     # Create a discount code: percent, fixed, free shipping, buy X get Y, spend tiers or a set price, with requirements, item scope, limits (total, per buyer, per day, budget, regions), schedule and stacking.
+    # @param create_discount_code_request [CreateDiscountCodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DiscountCodeResponse, Integer, Hash)>] DiscountCodeResponse data, response status code and response headers
-    def create_discount_code_with_http_info(opts = {})
+    def create_discount_code_with_http_info(create_discount_code_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.create_discount_code ...'
+      end
+      # verify the required parameter 'create_discount_code_request' is set
+      if @api_client.config.client_side_validation && create_discount_code_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_discount_code_request' when calling DiscountsApi.create_discount_code"
       end
       # resource path
       local_var_path = '/v1/discount-codes'
@@ -154,12 +182,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_discount_code_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'DiscountCodeResponse'
@@ -186,24 +219,30 @@ module Crossly
 
     # Generate up to 5,000 unique single-use codes with this code’s rules (their uses count toward its limits).
     # @param id [String] 
+    # @param create_discount_code_generate_request [CreateDiscountCodeGenerateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateDiscountCodeGenerateResponse]
-    def create_discount_code_generate(id, opts = {})
-      data, _status_code, _headers = create_discount_code_generate_with_http_info(id, opts)
+    def create_discount_code_generate(id, create_discount_code_generate_request, opts = {})
+      data, _status_code, _headers = create_discount_code_generate_with_http_info(id, create_discount_code_generate_request, opts)
       data
     end
 
     # Generate up to 5,000 unique single-use codes with this code’s rules (their uses count toward its limits).
     # @param id [String] 
+    # @param create_discount_code_generate_request [CreateDiscountCodeGenerateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateDiscountCodeGenerateResponse, Integer, Hash)>] CreateDiscountCodeGenerateResponse data, response status code and response headers
-    def create_discount_code_generate_with_http_info(id, opts = {})
+    def create_discount_code_generate_with_http_info(id, create_discount_code_generate_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.create_discount_code_generate ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DiscountsApi.create_discount_code_generate"
+      end
+      # verify the required parameter 'create_discount_code_generate_request' is set
+      if @api_client.config.client_side_validation && create_discount_code_generate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_discount_code_generate_request' when calling DiscountsApi.create_discount_code_generate"
       end
       # resource path
       local_var_path = '/v1/discount-codes/{id}/generate'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -215,12 +254,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_discount_code_generate_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateDiscountCodeGenerateResponse'
@@ -245,26 +289,98 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Pause every active discount code of the store at once (paused: true), or resume every paused one (paused: false). Archived codes are left alone; returns how many changed.
+    # @param create_discount_code_pause_all_request [CreateDiscountCodePauseAllRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateDiscountCodePauseAllResponse]
+    def create_discount_code_pause_all(create_discount_code_pause_all_request, opts = {})
+      data, _status_code, _headers = create_discount_code_pause_all_with_http_info(create_discount_code_pause_all_request, opts)
+      data
+    end
+
+    # Pause every active discount code of the store at once (paused: true), or resume every paused one (paused: false). Archived codes are left alone; returns how many changed.
+    # @param create_discount_code_pause_all_request [CreateDiscountCodePauseAllRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateDiscountCodePauseAllResponse, Integer, Hash)>] CreateDiscountCodePauseAllResponse data, response status code and response headers
+    def create_discount_code_pause_all_with_http_info(create_discount_code_pause_all_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DiscountsApi.create_discount_code_pause_all ...'
+      end
+      # verify the required parameter 'create_discount_code_pause_all_request' is set
+      if @api_client.config.client_side_validation && create_discount_code_pause_all_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_discount_code_pause_all_request' when calling DiscountsApi.create_discount_code_pause_all"
+      end
+      # resource path
+      local_var_path = '/v1/discount-codes/pause-all'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_discount_code_pause_all_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateDiscountCodePauseAllResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DiscountsApi.create_discount_code_pause_all",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DiscountsApi#create_discount_code_pause_all\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Pause, resume (active) or archive a discount code.
     # @param id [String] 
+    # @param create_discount_code_status_request [CreateDiscountCodeStatusRequest] 
     # @param [Hash] opts the optional parameters
     # @return [DiscountCodeResponse]
-    def create_discount_code_status(id, opts = {})
-      data, _status_code, _headers = create_discount_code_status_with_http_info(id, opts)
+    def create_discount_code_status(id, create_discount_code_status_request, opts = {})
+      data, _status_code, _headers = create_discount_code_status_with_http_info(id, create_discount_code_status_request, opts)
       data
     end
 
     # Pause, resume (active) or archive a discount code.
     # @param id [String] 
+    # @param create_discount_code_status_request [CreateDiscountCodeStatusRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DiscountCodeResponse, Integer, Hash)>] DiscountCodeResponse data, response status code and response headers
-    def create_discount_code_status_with_http_info(id, opts = {})
+    def create_discount_code_status_with_http_info(id, create_discount_code_status_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.create_discount_code_status ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DiscountsApi.create_discount_code_status"
+      end
+      # verify the required parameter 'create_discount_code_status_request' is set
+      if @api_client.config.client_side_validation && create_discount_code_status_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_discount_code_status_request' when calling DiscountsApi.create_discount_code_status"
       end
       # resource path
       local_var_path = '/v1/discount-codes/{id}/status'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -276,12 +392,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_discount_code_status_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'DiscountCodeResponse'
@@ -724,6 +845,8 @@ module Crossly
     # A code’s usage history: orders, masked buyers, region, channel and the amount given, newest first.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [ListDiscountCodeRedemptionsResponse]
     def list_discount_code_redemptions(id, opts = {})
       data, _status_code, _headers = list_discount_code_redemptions_with_http_info(id, opts)
@@ -733,6 +856,8 @@ module Crossly
     # A code’s usage history: orders, masked buyers, region, channel and the amount given, newest first.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [Array<(ListDiscountCodeRedemptionsResponse, Integer, Hash)>] ListDiscountCodeRedemptionsResponse data, response status code and response headers
     def list_discount_code_redemptions_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -747,6 +872,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -784,6 +911,7 @@ module Crossly
 
     # Your discount codes: kind, status (active, scheduled, paused, expired, exhausted, archived), every rule, and usage.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :archived 
     # @return [ListDiscountCodesResponse]
     def list_discount_codes(opts = {})
       data, _status_code, _headers = list_discount_codes_with_http_info(opts)
@@ -792,16 +920,22 @@ module Crossly
 
     # Your discount codes: kind, status (active, scheduled, paused, expired, exhausted, archived), every rule, and usage.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :archived 
     # @return [Array<(ListDiscountCodesResponse, Integer, Hash)>] ListDiscountCodesResponse data, response status code and response headers
     def list_discount_codes_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.list_discount_codes ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'archived'] && !allowable_values.include?(opts[:'archived'])
+        fail ArgumentError, "invalid value for \"archived\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/discount-codes'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'archived'] = opts[:'archived'] if !opts[:'archived'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -894,24 +1028,30 @@ module Crossly
 
     # Replace an automatic discount.
     # @param id [String] 
+    # @param create_automatic_discount_request [CreateAutomaticDiscountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAutomaticDiscountResponse]
-    def update_automatic_discount(id, opts = {})
-      data, _status_code, _headers = update_automatic_discount_with_http_info(id, opts)
+    def update_automatic_discount(id, create_automatic_discount_request, opts = {})
+      data, _status_code, _headers = update_automatic_discount_with_http_info(id, create_automatic_discount_request, opts)
       data
     end
 
     # Replace an automatic discount.
     # @param id [String] 
+    # @param create_automatic_discount_request [CreateAutomaticDiscountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAutomaticDiscountResponse, Integer, Hash)>] CreateAutomaticDiscountResponse data, response status code and response headers
-    def update_automatic_discount_with_http_info(id, opts = {})
+    def update_automatic_discount_with_http_info(id, create_automatic_discount_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.update_automatic_discount ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DiscountsApi.update_automatic_discount"
+      end
+      # verify the required parameter 'create_automatic_discount_request' is set
+      if @api_client.config.client_side_validation && create_automatic_discount_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_automatic_discount_request' when calling DiscountsApi.update_automatic_discount"
       end
       # resource path
       local_var_path = '/v1/automatic-discounts/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -923,12 +1063,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_automatic_discount_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAutomaticDiscountResponse'
@@ -955,24 +1100,30 @@ module Crossly
 
     # Update a discount code. The code itself can be renamed only until it is first used.
     # @param id [String] 
+    # @param update_discount_code_request [UpdateDiscountCodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [DiscountCodeResponse]
-    def update_discount_code(id, opts = {})
-      data, _status_code, _headers = update_discount_code_with_http_info(id, opts)
+    def update_discount_code(id, update_discount_code_request, opts = {})
+      data, _status_code, _headers = update_discount_code_with_http_info(id, update_discount_code_request, opts)
       data
     end
 
     # Update a discount code. The code itself can be renamed only until it is first used.
     # @param id [String] 
+    # @param update_discount_code_request [UpdateDiscountCodeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(DiscountCodeResponse, Integer, Hash)>] DiscountCodeResponse data, response status code and response headers
-    def update_discount_code_with_http_info(id, opts = {})
+    def update_discount_code_with_http_info(id, update_discount_code_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DiscountsApi.update_discount_code ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling DiscountsApi.update_discount_code"
+      end
+      # verify the required parameter 'update_discount_code_request' is set
+      if @api_client.config.client_side_validation && update_discount_code_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_discount_code_request' when calling DiscountsApi.update_discount_code"
       end
       # resource path
       local_var_path = '/v1/discount-codes/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -984,12 +1135,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_discount_code_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'DiscountCodeResponse'

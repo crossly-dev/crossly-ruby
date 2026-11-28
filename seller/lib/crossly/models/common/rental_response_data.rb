@@ -21,11 +21,11 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :storefront_id
+
     attr_accessor :days
 
     attr_accessor :platform_listing_id
-
-    attr_accessor :storefront_id
 
     attr_accessor :shipped_at
 
@@ -37,9 +37,9 @@ module Crossly
 
     attr_accessor :inspected_at
 
-    attr_accessor :stripe_payment_intent_id
-
     attr_accessor :seller_user_id
+
+    attr_accessor :stripe_payment_intent_id
 
     attr_accessor :payout_account_id
 
@@ -133,16 +133,16 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'status' => :'status',
+        :'storefront_id' => :'storefrontId',
         :'days' => :'days',
         :'platform_listing_id' => :'platformListingId',
-        :'storefront_id' => :'storefrontId',
         :'shipped_at' => :'shippedAt',
         :'delivered_at' => :'deliveredAt',
         :'cancelled_at' => :'cancelledAt',
         :'order_id' => :'orderId',
         :'inspected_at' => :'inspectedAt',
-        :'stripe_payment_intent_id' => :'stripePaymentIntentId',
         :'seller_user_id' => :'sellerUserId',
+        :'stripe_payment_intent_id' => :'stripePaymentIntentId',
         :'payout_account_id' => :'payoutAccountId',
         :'crossly_fee_cents' => :'crosslyFeeCents',
         :'shipping_cents' => :'shippingCents',
@@ -200,16 +200,16 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'status' => :'String',
+        :'storefront_id' => :'String',
         :'days' => :'Float',
         :'platform_listing_id' => :'String',
-        :'storefront_id' => :'String',
         :'shipped_at' => :'Time',
         :'delivered_at' => :'Time',
         :'cancelled_at' => :'Time',
         :'order_id' => :'String',
         :'inspected_at' => :'Time',
-        :'stripe_payment_intent_id' => :'String',
         :'seller_user_id' => :'String',
+        :'stripe_payment_intent_id' => :'String',
         :'payout_account_id' => :'String',
         :'crossly_fee_cents' => :'Float',
         :'shipping_cents' => :'Float',
@@ -249,7 +249,7 @@ module Crossly
         :'payout_released_at' => :'Time',
         :'return_shipped_at' => :'Time',
         :'condition_photos_return' => :'Array<String>',
-        :'inspection' => :'Array<RentalResponseDataInspection>',
+        :'inspection' => :'Array<ItemOk>',
         :'bought_out_at' => :'Time',
         :'buyout_cents' => :'Float',
         :'not_returned_at' => :'Time'
@@ -313,16 +313,16 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'days')
         self.days = attributes[:'days']
       end
 
       if attributes.key?(:'platform_listing_id')
         self.platform_listing_id = attributes[:'platform_listing_id']
-      end
-
-      if attributes.key?(:'storefront_id')
-        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'shipped_at')
@@ -345,12 +345,12 @@ module Crossly
         self.inspected_at = attributes[:'inspected_at']
       end
 
-      if attributes.key?(:'stripe_payment_intent_id')
-        self.stripe_payment_intent_id = attributes[:'stripe_payment_intent_id']
-      end
-
       if attributes.key?(:'seller_user_id')
         self.seller_user_id = attributes[:'seller_user_id']
+      end
+
+      if attributes.key?(:'stripe_payment_intent_id')
+        self.stripe_payment_intent_id = attributes[:'stripe_payment_intent_id']
       end
 
       if attributes.key?(:'payout_account_id')
@@ -725,16 +725,16 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           status == o.status &&
+          storefront_id == o.storefront_id &&
           days == o.days &&
           platform_listing_id == o.platform_listing_id &&
-          storefront_id == o.storefront_id &&
           shipped_at == o.shipped_at &&
           delivered_at == o.delivered_at &&
           cancelled_at == o.cancelled_at &&
           order_id == o.order_id &&
           inspected_at == o.inspected_at &&
-          stripe_payment_intent_id == o.stripe_payment_intent_id &&
           seller_user_id == o.seller_user_id &&
+          stripe_payment_intent_id == o.stripe_payment_intent_id &&
           payout_account_id == o.payout_account_id &&
           crossly_fee_cents == o.crossly_fee_cents &&
           shipping_cents == o.shipping_cents &&
@@ -789,7 +789,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, status, days, platform_listing_id, storefront_id, shipped_at, delivered_at, cancelled_at, order_id, inspected_at, stripe_payment_intent_id, seller_user_id, payout_account_id, crossly_fee_cents, shipping_cents, return_label_url, closed_at, approved_at, terms, deposit_cents, outbound_label_url, claimed_at, fulfilment, ship_to, renter_user_id, start_date, end_date, rent_cents, ship_from, outbound_tracking, return_tracking, returned_at, claim_cents, claim_note, claim_photos, claim_disputed, deposit_refunded_cents, approval_due_at, condition_photos_out, condition_photos_in, unit_index, charges, damage_waiver, cleaning_fee_cents, damage_waiver_cents, late_fee_cents, rent_refunded_cents, payout_timing, payout_released_at, return_shipped_at, condition_photos_return, inspection, bought_out_at, buyout_cents, not_returned_at].hash
+      [id, created_at, status, storefront_id, days, platform_listing_id, shipped_at, delivered_at, cancelled_at, order_id, inspected_at, seller_user_id, stripe_payment_intent_id, payout_account_id, crossly_fee_cents, shipping_cents, return_label_url, closed_at, approved_at, terms, deposit_cents, outbound_label_url, claimed_at, fulfilment, ship_to, renter_user_id, start_date, end_date, rent_cents, ship_from, outbound_tracking, return_tracking, returned_at, claim_cents, claim_note, claim_photos, claim_disputed, deposit_refunded_cents, approval_due_at, condition_photos_out, condition_photos_in, unit_index, charges, damage_waiver, cleaning_fee_cents, damage_waiver_cents, late_fee_cents, rent_refunded_cents, payout_timing, payout_released_at, return_shipped_at, condition_photos_return, inspection, bought_out_at, buyout_cents, not_returned_at].hash
     end
 
     # Builds the object from hash

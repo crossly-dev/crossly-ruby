@@ -147,7 +147,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @key.nil?
-      key_validator = EnumAttributeValidator.new('String', ["account", "price", "fill", "auction", "prediction", "option_expiry", "margin_call", "adl", "p2p_loan", "market_open", "receipt_token", "set_goal", "follow", "share_offering", "share_vote", "option_settlement", "prediction_odds"])
+      key_validator = EnumAttributeValidator.new('String', ["fill", "account", "price", "auction", "follow", "prediction", "option_expiry", "margin_call", "adl", "p2p_loan", "market_open", "receipt_token", "set_goal", "share_offering", "share_vote", "option_settlement", "prediction_odds"])
       return false unless key_validator.valid?(@key)
       return false if @label.nil?
       return false if @hint.nil?
@@ -159,7 +159,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] key Object to be assigned
     def key=(key)
-      validator = EnumAttributeValidator.new('String', ["account", "price", "fill", "auction", "prediction", "option_expiry", "margin_call", "adl", "p2p_loan", "market_open", "receipt_token", "set_goal", "follow", "share_offering", "share_vote", "option_settlement", "prediction_odds"])
+      validator = EnumAttributeValidator.new('String', ["fill", "account", "price", "auction", "follow", "prediction", "option_expiry", "margin_call", "adl", "p2p_loan", "market_open", "receipt_token", "set_goal", "share_offering", "share_vote", "option_settlement", "prediction_odds"])
       unless validator.valid?(key)
         fail ArgumentError, "invalid value for \"key\", must be one of #{validator.allowable_values}."
       end

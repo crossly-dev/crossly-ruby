@@ -21,20 +21,26 @@ module CrosslyBuyer
     end
     # Identify a held object and return a HUD-ready answer.
     # The gesture endpoint for Live Shop. Runs a cost ladder: a decoded BARCODE resolves in ~50ms for nothing; failing that, self-hosted CLIP matches the catalogue; failing that, a vision model names it (the only rung that costs anything, capped per buyer per day). `hud` is pre-formatted for a 600×600 lens — one headline, one subline, up to three fact chips and exactly ONE action, because a pinch cannot choose between buttons. A vision label is WORDS, never an identity: it names the thing so the buyer can search, and never drives a price comparison.
+    # @param create_buyer_identify_request [CreateBuyerIdentifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerIdentifyResponse]
-    def create_buyer_identify(opts = {})
-      data, _status_code, _headers = create_buyer_identify_with_http_info(opts)
+    def create_buyer_identify(create_buyer_identify_request, opts = {})
+      data, _status_code, _headers = create_buyer_identify_with_http_info(create_buyer_identify_request, opts)
       data
     end
 
     # Identify a held object and return a HUD-ready answer.
     # The gesture endpoint for Live Shop. Runs a cost ladder: a decoded BARCODE resolves in ~50ms for nothing; failing that, self-hosted CLIP matches the catalogue; failing that, a vision model names it (the only rung that costs anything, capped per buyer per day). &#x60;hud&#x60; is pre-formatted for a 600×600 lens — one headline, one subline, up to three fact chips and exactly ONE action, because a pinch cannot choose between buttons. A vision label is WORDS, never an identity: it names the thing so the buyer can search, and never drives a price comparison.
+    # @param create_buyer_identify_request [CreateBuyerIdentifyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerIdentifyResponse, Integer, Hash)>] CreateBuyerIdentifyResponse data, response status code and response headers
-    def create_buyer_identify_with_http_info(opts = {})
+    def create_buyer_identify_with_http_info(create_buyer_identify_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCatalogApi.create_buyer_identify ...'
+      end
+      # verify the required parameter 'create_buyer_identify_request' is set
+      if @api_client.config.client_side_validation && create_buyer_identify_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_identify_request' when calling BuyerCatalogApi.create_buyer_identify"
       end
       # resource path
       local_var_path = '/v1/buyer/identify'
@@ -46,12 +52,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_identify_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerIdentifyResponse'
@@ -78,20 +89,26 @@ module CrosslyBuyer
 
     # Lock on to an object the buyer is holding.
     # Open this when on-device tracking acquires an object, then post observations to it as the buyer turns the thing over. The answer improves as evidence arrives — the style code inside a shoe settles what the front of it could not.
+    # @param create_buyer_lockon_request [CreateBuyerLockonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerLockonResponse]
-    def create_buyer_lockon(opts = {})
-      data, _status_code, _headers = create_buyer_lockon_with_http_info(opts)
+    def create_buyer_lockon(create_buyer_lockon_request, opts = {})
+      data, _status_code, _headers = create_buyer_lockon_with_http_info(create_buyer_lockon_request, opts)
       data
     end
 
     # Lock on to an object the buyer is holding.
     # Open this when on-device tracking acquires an object, then post observations to it as the buyer turns the thing over. The answer improves as evidence arrives — the style code inside a shoe settles what the front of it could not.
+    # @param create_buyer_lockon_request [CreateBuyerLockonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerLockonResponse, Integer, Hash)>] CreateBuyerLockonResponse data, response status code and response headers
-    def create_buyer_lockon_with_http_info(opts = {})
+    def create_buyer_lockon_with_http_info(create_buyer_lockon_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCatalogApi.create_buyer_lockon ...'
+      end
+      # verify the required parameter 'create_buyer_lockon_request' is set
+      if @api_client.config.client_side_validation && create_buyer_lockon_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_lockon_request' when calling BuyerCatalogApi.create_buyer_lockon"
       end
       # resource path
       local_var_path = '/v1/buyer/lockons'
@@ -103,12 +120,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_lockon_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerLockonResponse'
@@ -136,25 +158,31 @@ module CrosslyBuyer
     # The buyer picked one of the candidates.
     # Promotes a text match to a CONFIRMED identity — the strongest evidence in the system, because a person holding the object said yes. Validated against the candidates we actually offered, so it cannot be claimed about an arbitrary product.
     # @param id [String] 
+    # @param create_buyer_lockon_confirm_request [CreateBuyerLockonConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerLockonConfirmResponse]
-    def create_buyer_lockon_confirm(id, opts = {})
-      data, _status_code, _headers = create_buyer_lockon_confirm_with_http_info(id, opts)
+    def create_buyer_lockon_confirm(id, create_buyer_lockon_confirm_request, opts = {})
+      data, _status_code, _headers = create_buyer_lockon_confirm_with_http_info(id, create_buyer_lockon_confirm_request, opts)
       data
     end
 
     # The buyer picked one of the candidates.
     # Promotes a text match to a CONFIRMED identity — the strongest evidence in the system, because a person holding the object said yes. Validated against the candidates we actually offered, so it cannot be claimed about an arbitrary product.
     # @param id [String] 
+    # @param create_buyer_lockon_confirm_request [CreateBuyerLockonConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerLockonConfirmResponse, Integer, Hash)>] CreateBuyerLockonConfirmResponse data, response status code and response headers
-    def create_buyer_lockon_confirm_with_http_info(id, opts = {})
+    def create_buyer_lockon_confirm_with_http_info(id, create_buyer_lockon_confirm_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCatalogApi.create_buyer_lockon_confirm ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BuyerCatalogApi.create_buyer_lockon_confirm"
+      end
+      # verify the required parameter 'create_buyer_lockon_confirm_request' is set
+      if @api_client.config.client_side_validation && create_buyer_lockon_confirm_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_lockon_confirm_request' when calling BuyerCatalogApi.create_buyer_lockon_confirm"
       end
       # resource path
       local_var_path = '/v1/buyer/lockons/{id}/confirm'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -166,12 +194,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_lockon_confirm_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerLockonConfirmResponse'
@@ -200,6 +233,7 @@ module CrosslyBuyer
     # Send only what you LEARNED: a decoded barcode, newly-read OCR text, or a frame when neither settled it. Do not post every frame — tracking and decoding happen on-device for free, and this endpoint is for evidence, not video. Evidence is RANKED (confirmed > barcode > ocr > visual), so a late weak reading can never overwrite a strong early one. When text evidence finds several products, `candidates` comes back for the buyer to pick from — a vision label is words, and only a human confirmation turns it into an identity we will price against.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerLockonObserveRequest] :create_buyer_lockon_observe_request 
     # @return [CreateBuyerLockonConfirmResponse]
     def create_buyer_lockon_observe(id, opts = {})
       data, _status_code, _headers = create_buyer_lockon_observe_with_http_info(id, opts)
@@ -210,6 +244,7 @@ module CrosslyBuyer
     # Send only what you LEARNED: a decoded barcode, newly-read OCR text, or a frame when neither settled it. Do not post every frame — tracking and decoding happen on-device for free, and this endpoint is for evidence, not video. Evidence is RANKED (confirmed &gt; barcode &gt; ocr &gt; visual), so a late weak reading can never overwrite a strong early one. When text evidence finds several products, &#x60;candidates&#x60; comes back for the buyer to pick from — a vision label is words, and only a human confirmation turns it into an identity we will price against.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerLockonObserveRequest] :create_buyer_lockon_observe_request 
     # @return [Array<(CreateBuyerLockonConfirmResponse, Integer, Hash)>] CreateBuyerLockonConfirmResponse data, response status code and response headers
     def create_buyer_lockon_observe_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -229,12 +264,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_lockon_observe_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerLockonConfirmResponse'
@@ -261,20 +301,26 @@ module CrosslyBuyer
 
     # Identify a physical item and find the cheapest place to buy it.
     # Send a barcode identifier OR a photo. A BARCODE establishes identity, so the response carries a full price verdict across Crossly and other retailers. A PHOTO establishes resemblance only: you get visual matches from the Crossly catalogue, and a price verdict ONLY if the matched listing carries a real identifier. When it does not, `comparable` is false and there is no verdict — a price comparison built on a visual guess is a claim about a different product. Most second-hand items have no identifier by nature, so this is expected rather than a failure.
+    # @param create_buyer_scan_request [CreateBuyerScanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerScanResponse]
-    def create_buyer_scan(opts = {})
-      data, _status_code, _headers = create_buyer_scan_with_http_info(opts)
+    def create_buyer_scan(create_buyer_scan_request, opts = {})
+      data, _status_code, _headers = create_buyer_scan_with_http_info(create_buyer_scan_request, opts)
       data
     end
 
     # Identify a physical item and find the cheapest place to buy it.
     # Send a barcode identifier OR a photo. A BARCODE establishes identity, so the response carries a full price verdict across Crossly and other retailers. A PHOTO establishes resemblance only: you get visual matches from the Crossly catalogue, and a price verdict ONLY if the matched listing carries a real identifier. When it does not, &#x60;comparable&#x60; is false and there is no verdict — a price comparison built on a visual guess is a claim about a different product. Most second-hand items have no identifier by nature, so this is expected rather than a failure.
+    # @param create_buyer_scan_request [CreateBuyerScanRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerScanResponse, Integer, Hash)>] CreateBuyerScanResponse data, response status code and response headers
-    def create_buyer_scan_with_http_info(opts = {})
+    def create_buyer_scan_with_http_info(create_buyer_scan_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCatalogApi.create_buyer_scan ...'
+      end
+      # verify the required parameter 'create_buyer_scan_request' is set
+      if @api_client.config.client_side_validation && create_buyer_scan_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_scan_request' when calling BuyerCatalogApi.create_buyer_scan"
       end
       # resource path
       local_var_path = '/v1/buyer/scan'
@@ -286,12 +332,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_scan_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerScanResponse'
@@ -319,6 +370,7 @@ module CrosslyBuyer
     # Open a Live Shop session.
     # Call this when the glasses connect, then pass the returned id as `sessionId` on each scan. Opening a session CLOSES any other live one — a person is in one shop at a time, and two live sessions split a trip across both.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerScanSessionRequest] :create_buyer_scan_session_request 
     # @return [CreateBuyerScanSessionResponse]
     def create_buyer_scan_session(opts = {})
       data, _status_code, _headers = create_buyer_scan_session_with_http_info(opts)
@@ -328,6 +380,7 @@ module CrosslyBuyer
     # Open a Live Shop session.
     # Call this when the glasses connect, then pass the returned id as &#x60;sessionId&#x60; on each scan. Opening a session CLOSES any other live one — a person is in one shop at a time, and two live sessions split a trip across both.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBuyerScanSessionRequest] :create_buyer_scan_session_request 
     # @return [Array<(CreateBuyerScanSessionResponse, Integer, Hash)>] CreateBuyerScanSessionResponse data, response status code and response headers
     def create_buyer_scan_session_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -343,12 +396,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_buyer_scan_session_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerScanSessionResponse'
@@ -436,26 +494,51 @@ module CrosslyBuyer
 
     # Cheapest source for an item — Crossly first, then other retailers.
     # Answers with a VERDICT, not a list: crossly_best, offsite_cheaper, offsite_only or no_match. Offsite offers come from licensed affiliate product feeds, are ranked CHEAPEST-FIRST — commission only ever breaks a sub-$1 tie — and only appear when they beat the price you passed in. `shippingUnknown: true` means a compared price omitted postage, so present the result as \"before postage\" rather than as a delivered total. Crossly wins ties within $1; beyond that the honest answer wins.
+    # @param ns [String] An identifier the item actually carries. No free-text fallback, ever — see docs/IDENTIFIER-FIRST.md. A title-matched \&quot;cheaper elsewhere\&quot; is a claim about a different product.  The ALLOW-LIST, not a free string. &#x60;compare.ts&#x60; explains why: the namespace goes straight into a query, and an open passthrough lets a caller enumerate every namespace we hold — a map of the catalogue&#39;s provenance. Reusing the same list here keeps the two from drifting.
+    # @param value [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :page_price_cents What the buyer is looking at, so \&quot;cheaper\&quot; means cheaper than THAT.
+    # @option opts [String] :currency 
     # @return [GetBuyerAnywhereResponse]
-    def get_buyer_anywhere(opts = {})
-      data, _status_code, _headers = get_buyer_anywhere_with_http_info(opts)
+    def get_buyer_anywhere(ns, value, opts = {})
+      data, _status_code, _headers = get_buyer_anywhere_with_http_info(ns, value, opts)
       data
     end
 
     # Cheapest source for an item — Crossly first, then other retailers.
     # Answers with a VERDICT, not a list: crossly_best, offsite_cheaper, offsite_only or no_match. Offsite offers come from licensed affiliate product feeds, are ranked CHEAPEST-FIRST — commission only ever breaks a sub-$1 tie — and only appear when they beat the price you passed in. &#x60;shippingUnknown: true&#x60; means a compared price omitted postage, so present the result as \&quot;before postage\&quot; rather than as a delivered total. Crossly wins ties within $1; beyond that the honest answer wins.
+    # @param ns [String] An identifier the item actually carries. No free-text fallback, ever — see docs/IDENTIFIER-FIRST.md. A title-matched \&quot;cheaper elsewhere\&quot; is a claim about a different product.  The ALLOW-LIST, not a free string. &#x60;compare.ts&#x60; explains why: the namespace goes straight into a query, and an open passthrough lets a caller enumerate every namespace we hold — a map of the catalogue&#39;s provenance. Reusing the same list here keeps the two from drifting.
+    # @param value [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :page_price_cents What the buyer is looking at, so \&quot;cheaper\&quot; means cheaper than THAT.
+    # @option opts [String] :currency 
     # @return [Array<(GetBuyerAnywhereResponse, Integer, Hash)>] GetBuyerAnywhereResponse data, response status code and response headers
-    def get_buyer_anywhere_with_http_info(opts = {})
+    def get_buyer_anywhere_with_http_info(ns, value, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCatalogApi.get_buyer_anywhere ...'
+      end
+      # verify the required parameter 'ns' is set
+      if @api_client.config.client_side_validation && ns.nil?
+        fail ArgumentError, "Missing the required parameter 'ns' when calling BuyerCatalogApi.get_buyer_anywhere"
+      end
+      # verify enum value
+      allowable_values = ["discogs", "tcgplayer", "gtin", "style_code", "lego_set", "asin"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(ns)
+        fail ArgumentError, "invalid value for \"ns\", must be one of #{allowable_values}"
+      end
+      # verify the required parameter 'value' is set
+      if @api_client.config.client_side_validation && value.nil?
+        fail ArgumentError, "Missing the required parameter 'value' when calling BuyerCatalogApi.get_buyer_anywhere"
       end
       # resource path
       local_var_path = '/v1/buyer/anywhere'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'ns'] = ns
+      query_params[:'value'] = value
+      query_params[:'pagePriceCents'] = opts[:'page_price_cents'] if !opts[:'page_price_cents'].nil?
+      query_params[:'currency'] = opts[:'currency'] if !opts[:'currency'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -998,6 +1081,15 @@ module CrosslyBuyer
     # @option opts [Integer] :max_price_cents Highest price, in cents.
     # @option opts [Integer] :page 1-indexed page. (default to 1)
     # @option opts [Integer] :limit Rows per page. (default to 24)
+    # @option opts [String] :brand 
+    # @option opts [String] :condition 
+    # @option opts [String] :category 
+    # @option opts [String] :subcategory 
+    # @option opts [String] :free_shipping 
+    # @option opts [String] :local_pickup 
+    # @option opts [String] :deals 
+    # @option opts [String] :state 
+    # @option opts [String] :zip 
     # @return [ListBuyerCatalogBrowseResponse]
     def list_buyer_catalog_browse(opts = {})
       data, _status_code, _headers = list_buyer_catalog_browse_with_http_info(opts)
@@ -1019,6 +1111,15 @@ module CrosslyBuyer
     # @option opts [Integer] :max_price_cents Highest price, in cents.
     # @option opts [Integer] :page 1-indexed page.
     # @option opts [Integer] :limit Rows per page.
+    # @option opts [String] :brand 
+    # @option opts [String] :condition 
+    # @option opts [String] :category 
+    # @option opts [String] :subcategory 
+    # @option opts [String] :free_shipping 
+    # @option opts [String] :local_pickup 
+    # @option opts [String] :deals 
+    # @option opts [String] :state 
+    # @option opts [String] :zip 
     # @return [Array<(ListBuyerCatalogBrowseResponse, Integer, Hash)>] ListBuyerCatalogBrowseResponse data, response status code and response headers
     def list_buyer_catalog_browse_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1064,6 +1165,18 @@ module CrosslyBuyer
         fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling BuyerCatalogApi.list_buyer_catalog_browse, must be greater than or equal to 1.'
       end
 
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'free_shipping'] && !allowable_values.include?(opts[:'free_shipping'])
+        fail ArgumentError, "invalid value for \"free_shipping\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'local_pickup'] && !allowable_values.include?(opts[:'local_pickup'])
+        fail ArgumentError, "invalid value for \"local_pickup\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'deals'] && !allowable_values.include?(opts[:'deals'])
+        fail ArgumentError, "invalid value for \"deals\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/buyer/catalog/browse'
 
@@ -1081,6 +1194,15 @@ module CrosslyBuyer
       query_params[:'maxPriceCents'] = opts[:'max_price_cents'] if !opts[:'max_price_cents'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'condition'] = opts[:'condition'] if !opts[:'condition'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'subcategory'] = opts[:'subcategory'] if !opts[:'subcategory'].nil?
+      query_params[:'freeShipping'] = opts[:'free_shipping'] if !opts[:'free_shipping'].nil?
+      query_params[:'localPickup'] = opts[:'local_pickup'] if !opts[:'local_pickup'].nil?
+      query_params[:'deals'] = opts[:'deals'] if !opts[:'deals'].nil?
+      query_params[:'state'] = opts[:'state'] if !opts[:'state'].nil?
+      query_params[:'zip'] = opts[:'zip'] if !opts[:'zip'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1182,6 +1304,18 @@ module CrosslyBuyer
     # Search the Crossly catalogue.
     # Keyset-paginated. Pass the `nextCursor` you were given back as `cursor`; page 500 costs the same as page 1. Cursors are opaque — do not parse them. Responses carry an ETag: send it back as If-None-Match and an unchanged page answers 304, which is free. `sort=popular` is deliberately unavailable, because a cursor into a continuously-reordering list silently skips rows.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :brand 
+    # @option opts [String] :category 
+    # @option opts [String] :condition 
+    # @option opts [String] :seller 
+    # @option opts [Float] :min_price_cents 
+    # @option opts [Float] :max_price_cents 
+    # @option opts [String] :listed_after 
+    # @option opts [String] :in_stock_only 
+    # @option opts [String] :sort 
+    # @option opts [Float] :limit 
+    # @option opts [String] :cursor 
     # @return [ListBuyerCatalogSearchResponse]
     def list_buyer_catalog_search(opts = {})
       data, _status_code, _headers = list_buyer_catalog_search_with_http_info(opts)
@@ -1191,16 +1325,48 @@ module CrosslyBuyer
     # Search the Crossly catalogue.
     # Keyset-paginated. Pass the &#x60;nextCursor&#x60; you were given back as &#x60;cursor&#x60;; page 500 costs the same as page 1. Cursors are opaque — do not parse them. Responses carry an ETag: send it back as If-None-Match and an unchanged page answers 304, which is free. &#x60;sort&#x3D;popular&#x60; is deliberately unavailable, because a cursor into a continuously-reordering list silently skips rows.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :brand 
+    # @option opts [String] :category 
+    # @option opts [String] :condition 
+    # @option opts [String] :seller 
+    # @option opts [Float] :min_price_cents 
+    # @option opts [Float] :max_price_cents 
+    # @option opts [String] :listed_after 
+    # @option opts [String] :in_stock_only 
+    # @option opts [String] :sort 
+    # @option opts [Float] :limit 
+    # @option opts [String] :cursor 
     # @return [Array<(ListBuyerCatalogSearchResponse, Integer, Hash)>] ListBuyerCatalogSearchResponse data, response status code and response headers
     def list_buyer_catalog_search_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCatalogApi.list_buyer_catalog_search ...'
+      end
+      allowable_values = ["true", "false"]
+      if @api_client.config.client_side_validation && opts[:'in_stock_only'] && !allowable_values.include?(opts[:'in_stock_only'])
+        fail ArgumentError, "invalid value for \"in_stock_only\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["newest", "price_low", "price_high"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/buyer/catalog/search'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'brand'] = opts[:'brand'] if !opts[:'brand'].nil?
+      query_params[:'category'] = opts[:'category'] if !opts[:'category'].nil?
+      query_params[:'condition'] = opts[:'condition'] if !opts[:'condition'].nil?
+      query_params[:'seller'] = opts[:'seller'] if !opts[:'seller'].nil?
+      query_params[:'minPriceCents'] = opts[:'min_price_cents'] if !opts[:'min_price_cents'].nil?
+      query_params[:'maxPriceCents'] = opts[:'max_price_cents'] if !opts[:'max_price_cents'].nil?
+      query_params[:'listedAfter'] = opts[:'listed_after'] if !opts[:'listed_after'].nil?
+      query_params[:'inStockOnly'] = opts[:'in_stock_only'] if !opts[:'in_stock_only'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

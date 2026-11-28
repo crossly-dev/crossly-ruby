@@ -21,20 +21,26 @@ module CrosslyBuyer
     end
     # Buy a listing without being present.
     # An Idempotency-Key header is REQUIRED — this endpoint refuses without one, because a retried request would otherwise buy the item twice and a retry is the most likely thing an automated buyer does. Derive the key from what you are buying and reuse it across retries; a fresh random value per attempt satisfies the check and keeps the bug. The item is QUOTED first and the delivered total is checked against both your maxTotalCents and this key's limits before anything is charged. Pass shippingServiceId to choose the shipping speed (default: the cheapest). On a listing with options (catalog detail `variants`), pass listingVariantId: without one the quote is refused and `details.options` names them. A card that demands 3-D Secure cannot be charged unattended; that answers 402 with `authentication_required` and the purchase must be finished on Crossly. Optional payInCurrency (e.g. \"eur\") charges the card in that currency at the rate quoted in this request, including a 3% conversion charge; the response then carries chargeCurrency + chargeAmountMinor. Limits and maxTotalCents stay in USD cents. Pre-orders cannot be paid in another currency (422 currency_unavailable).
+    # @param create_buyer_checkout_request [CreateBuyerCheckoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBuyerCheckoutResponse]
-    def create_buyer_checkout(opts = {})
-      data, _status_code, _headers = create_buyer_checkout_with_http_info(opts)
+    def create_buyer_checkout(create_buyer_checkout_request, opts = {})
+      data, _status_code, _headers = create_buyer_checkout_with_http_info(create_buyer_checkout_request, opts)
       data
     end
 
     # Buy a listing without being present.
     # An Idempotency-Key header is REQUIRED — this endpoint refuses without one, because a retried request would otherwise buy the item twice and a retry is the most likely thing an automated buyer does. Derive the key from what you are buying and reuse it across retries; a fresh random value per attempt satisfies the check and keeps the bug. The item is QUOTED first and the delivered total is checked against both your maxTotalCents and this key&#39;s limits before anything is charged. Pass shippingServiceId to choose the shipping speed (default: the cheapest). On a listing with options (catalog detail &#x60;variants&#x60;), pass listingVariantId: without one the quote is refused and &#x60;details.options&#x60; names them. A card that demands 3-D Secure cannot be charged unattended; that answers 402 with &#x60;authentication_required&#x60; and the purchase must be finished on Crossly. Optional payInCurrency (e.g. \&quot;eur\&quot;) charges the card in that currency at the rate quoted in this request, including a 3% conversion charge; the response then carries chargeCurrency + chargeAmountMinor. Limits and maxTotalCents stay in USD cents. Pre-orders cannot be paid in another currency (422 currency_unavailable).
+    # @param create_buyer_checkout_request [CreateBuyerCheckoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBuyerCheckoutResponse, Integer, Hash)>] CreateBuyerCheckoutResponse data, response status code and response headers
-    def create_buyer_checkout_with_http_info(opts = {})
+    def create_buyer_checkout_with_http_info(create_buyer_checkout_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCheckoutApi.create_buyer_checkout ...'
+      end
+      # verify the required parameter 'create_buyer_checkout_request' is set
+      if @api_client.config.client_side_validation && create_buyer_checkout_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_buyer_checkout_request' when calling BuyerCheckoutApi.create_buyer_checkout"
       end
       # resource path
       local_var_path = '/v1/buyer/checkout'
@@ -46,12 +52,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_buyer_checkout_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBuyerCheckoutResponse'
@@ -135,20 +146,26 @@ module CrosslyBuyer
 
     # Switch this key on for spending, and set its limits.
     # A key can only ever raise or lower ITS OWN limits, and only if the token already carries buyer:checkout:write. Turning it off takes effect immediately.
+    # @param update_buyer_checkout_control_request [UpdateBuyerCheckoutControlRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetBuyerCheckoutControlResponse]
-    def update_buyer_checkout_control(opts = {})
-      data, _status_code, _headers = update_buyer_checkout_control_with_http_info(opts)
+    def update_buyer_checkout_control(update_buyer_checkout_control_request, opts = {})
+      data, _status_code, _headers = update_buyer_checkout_control_with_http_info(update_buyer_checkout_control_request, opts)
       data
     end
 
     # Switch this key on for spending, and set its limits.
     # A key can only ever raise or lower ITS OWN limits, and only if the token already carries buyer:checkout:write. Turning it off takes effect immediately.
+    # @param update_buyer_checkout_control_request [UpdateBuyerCheckoutControlRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetBuyerCheckoutControlResponse, Integer, Hash)>] GetBuyerCheckoutControlResponse data, response status code and response headers
-    def update_buyer_checkout_control_with_http_info(opts = {})
+    def update_buyer_checkout_control_with_http_info(update_buyer_checkout_control_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerCheckoutApi.update_buyer_checkout_control ...'
+      end
+      # verify the required parameter 'update_buyer_checkout_control_request' is set
+      if @api_client.config.client_side_validation && update_buyer_checkout_control_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_buyer_checkout_control_request' when calling BuyerCheckoutApi.update_buyer_checkout_control"
       end
       # resource path
       local_var_path = '/v1/buyer/checkout/controls'
@@ -160,12 +177,17 @@ module CrosslyBuyer
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_buyer_checkout_control_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetBuyerCheckoutControlResponse'

@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Ops: record a Crossly NFT resold on ANY marketplace — maps mint → design and funds the pot. Admin PAT only.
+    # @param create_nft_market_external_resale_request [CreateNftMarketExternalResaleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateNftMarketExternalResaleResponse]
-    def create_nft_market_external_resale(opts = {})
-      data, _status_code, _headers = create_nft_market_external_resale_with_http_info(opts)
+    def create_nft_market_external_resale(create_nft_market_external_resale_request, opts = {})
+      data, _status_code, _headers = create_nft_market_external_resale_with_http_info(create_nft_market_external_resale_request, opts)
       data
     end
 
     # Ops: record a Crossly NFT resold on ANY marketplace — maps mint → design and funds the pot. Admin PAT only.
+    # @param create_nft_market_external_resale_request [CreateNftMarketExternalResaleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateNftMarketExternalResaleResponse, Integer, Hash)>] CreateNftMarketExternalResaleResponse data, response status code and response headers
-    def create_nft_market_external_resale_with_http_info(opts = {})
+    def create_nft_market_external_resale_with_http_info(create_nft_market_external_resale_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: NFTMarketApi.create_nft_market_external_resale ...'
+      end
+      # verify the required parameter 'create_nft_market_external_resale_request' is set
+      if @api_client.config.client_side_validation && create_nft_market_external_resale_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_nft_market_external_resale_request' when calling NFTMarketApi.create_nft_market_external_resale"
       end
       # resource path
       local_var_path = '/v1/nft-market/external-resale'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_nft_market_external_resale_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateNftMarketExternalResaleResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # List an NFT you own for resale on the Crossly marketplace.
+    # @param create_nft_market_listing_request [CreateNftMarketListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateNftMarketListingResponse]
-    def create_nft_market_listing(opts = {})
-      data, _status_code, _headers = create_nft_market_listing_with_http_info(opts)
+    def create_nft_market_listing(create_nft_market_listing_request, opts = {})
+      data, _status_code, _headers = create_nft_market_listing_with_http_info(create_nft_market_listing_request, opts)
       data
     end
 
     # List an NFT you own for resale on the Crossly marketplace.
+    # @param create_nft_market_listing_request [CreateNftMarketListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateNftMarketListingResponse, Integer, Hash)>] CreateNftMarketListingResponse data, response status code and response headers
-    def create_nft_market_listing_with_http_info(opts = {})
+    def create_nft_market_listing_with_http_info(create_nft_market_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: NFTMarketApi.create_nft_market_listing ...'
+      end
+      # verify the required parameter 'create_nft_market_listing_request' is set
+      if @api_client.config.client_side_validation && create_nft_market_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_nft_market_listing_request' when calling NFTMarketApi.create_nft_market_listing"
       end
       # resource path
       local_var_path = '/v1/nft-market/listings'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_nft_market_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateNftMarketListingResponse'
@@ -192,24 +214,30 @@ module Crossly
 
     # Ops: record a finalized on-Crossly NFT sale (verifies the royalty landed, funds the pot). Admin PAT only.
     # @param id [String] 
+    # @param create_nft_market_listing_confirm_sale_request [CreateNftMarketListingConfirmSaleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
-    def create_nft_market_listing_confirm_sale(id, opts = {})
-      data, _status_code, _headers = create_nft_market_listing_confirm_sale_with_http_info(id, opts)
+    def create_nft_market_listing_confirm_sale(id, create_nft_market_listing_confirm_sale_request, opts = {})
+      data, _status_code, _headers = create_nft_market_listing_confirm_sale_with_http_info(id, create_nft_market_listing_confirm_sale_request, opts)
       data
     end
 
     # Ops: record a finalized on-Crossly NFT sale (verifies the royalty landed, funds the pot). Admin PAT only.
     # @param id [String] 
+    # @param create_nft_market_listing_confirm_sale_request [CreateNftMarketListingConfirmSaleRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def create_nft_market_listing_confirm_sale_with_http_info(id, opts = {})
+    def create_nft_market_listing_confirm_sale_with_http_info(id, create_nft_market_listing_confirm_sale_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: NFTMarketApi.create_nft_market_listing_confirm_sale ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling NFTMarketApi.create_nft_market_listing_confirm_sale"
+      end
+      # verify the required parameter 'create_nft_market_listing_confirm_sale_request' is set
+      if @api_client.config.client_side_validation && create_nft_market_listing_confirm_sale_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_nft_market_listing_confirm_sale_request' when calling NFTMarketApi.create_nft_market_listing_confirm_sale"
       end
       # resource path
       local_var_path = '/v1/nft-market/listings/{id}/confirm-sale'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -221,12 +249,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_nft_market_listing_confirm_sale_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'

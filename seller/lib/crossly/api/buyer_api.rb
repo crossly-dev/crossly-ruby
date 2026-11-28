@@ -22,25 +22,31 @@ module Crossly
     # Bid on the lot currently up in a room.
     # Bids on whatever the auctioneer has up RIGHT NOW. Pass `lotId` to say which lot you believe that is: it is checked against the rostrum rather than used in its place, and a mismatch answers 409 with the lot that is actually up, so a stale catalogue cannot buy you something you never looked at. `amountCents` is CENTS and must be at least the room state's `minimumNextBidCents` — do not compute that yourself, because the opening bid on a lot is floored at the START price rather than start + step. Below it you get 400 `bid_too_low` carrying `details.minimumNextBidCents`, which is the figure the transaction itself used; raise to that and retry. THIS AUCTION HOUSE SELLS DIGITAL GOODS ONLY. A physical lot is refused 403 `forbidden` with `details.reason: \"physical_lot\"`, checked against the listing on every single bid rather than once when the room was set up. Bids by one person on one lot are throttled to a few per second — 429 `bidding_too_fast` carries `retryInSeconds`. A hammered or skipped lot answers 409 `lot_closed`. A room you may not enter answers 404, the same as one that does not exist. Success is the bid RECORDED, not the lot won: the reply names the topic the price moves on, and somebody may outbid you on the next frame.
     # @param scene_id [String] 
+    # @param create_spatial_auction_room_bid_request [CreateSpatialAuctionRoomBidRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateSpatialAuctionRoomBidResponse]
-    def create_spatial_auction_room_bid(scene_id, opts = {})
-      data, _status_code, _headers = create_spatial_auction_room_bid_with_http_info(scene_id, opts)
+    def create_spatial_auction_room_bid(scene_id, create_spatial_auction_room_bid_request, opts = {})
+      data, _status_code, _headers = create_spatial_auction_room_bid_with_http_info(scene_id, create_spatial_auction_room_bid_request, opts)
       data
     end
 
     # Bid on the lot currently up in a room.
     # Bids on whatever the auctioneer has up RIGHT NOW. Pass &#x60;lotId&#x60; to say which lot you believe that is: it is checked against the rostrum rather than used in its place, and a mismatch answers 409 with the lot that is actually up, so a stale catalogue cannot buy you something you never looked at. &#x60;amountCents&#x60; is CENTS and must be at least the room state&#39;s &#x60;minimumNextBidCents&#x60; — do not compute that yourself, because the opening bid on a lot is floored at the START price rather than start + step. Below it you get 400 &#x60;bid_too_low&#x60; carrying &#x60;details.minimumNextBidCents&#x60;, which is the figure the transaction itself used; raise to that and retry. THIS AUCTION HOUSE SELLS DIGITAL GOODS ONLY. A physical lot is refused 403 &#x60;forbidden&#x60; with &#x60;details.reason: \&quot;physical_lot\&quot;&#x60;, checked against the listing on every single bid rather than once when the room was set up. Bids by one person on one lot are throttled to a few per second — 429 &#x60;bidding_too_fast&#x60; carries &#x60;retryInSeconds&#x60;. A hammered or skipped lot answers 409 &#x60;lot_closed&#x60;. A room you may not enter answers 404, the same as one that does not exist. Success is the bid RECORDED, not the lot won: the reply names the topic the price moves on, and somebody may outbid you on the next frame.
     # @param scene_id [String] 
+    # @param create_spatial_auction_room_bid_request [CreateSpatialAuctionRoomBidRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateSpatialAuctionRoomBidResponse, Integer, Hash)>] CreateSpatialAuctionRoomBidResponse data, response status code and response headers
-    def create_spatial_auction_room_bid_with_http_info(scene_id, opts = {})
+    def create_spatial_auction_room_bid_with_http_info(scene_id, create_spatial_auction_room_bid_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BuyerApi.create_spatial_auction_room_bid ...'
       end
       # verify the required parameter 'scene_id' is set
       if @api_client.config.client_side_validation && scene_id.nil?
         fail ArgumentError, "Missing the required parameter 'scene_id' when calling BuyerApi.create_spatial_auction_room_bid"
+      end
+      # verify the required parameter 'create_spatial_auction_room_bid_request' is set
+      if @api_client.config.client_side_validation && create_spatial_auction_room_bid_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_spatial_auction_room_bid_request' when calling BuyerApi.create_spatial_auction_room_bid"
       end
       # resource path
       local_var_path = '/v1/spatial/auction/rooms/{sceneId}/bid'.sub('{' + 'sceneId' + '}', CGI.escape(scene_id.to_s))
@@ -52,12 +58,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_spatial_auction_room_bid_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateSpatialAuctionRoomBidResponse'

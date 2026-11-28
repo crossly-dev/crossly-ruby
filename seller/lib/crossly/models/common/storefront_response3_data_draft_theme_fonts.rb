@@ -123,10 +123,10 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @heading.nil?
-      heading_validator = EnumAttributeValidator.new('String', ["inter", "playfair", "cormorant", "space-grotesk", "archivo-black", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "fraunces", "libre-baskerville", "bebas-neue", "jetbrains-mono"])
+      heading_validator = EnumAttributeValidator.new('String', ["inter", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "space-grotesk", "playfair", "cormorant", "fraunces", "libre-baskerville", "bebas-neue", "archivo-black", "jetbrains-mono"])
       return false unless heading_validator.valid?(@heading)
       return false if @body.nil?
-      body_validator = EnumAttributeValidator.new('String', ["inter", "playfair", "cormorant", "space-grotesk", "archivo-black", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "fraunces", "libre-baskerville", "bebas-neue", "jetbrains-mono"])
+      body_validator = EnumAttributeValidator.new('String', ["inter", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "space-grotesk", "playfair", "cormorant", "fraunces", "libre-baskerville", "bebas-neue", "archivo-black", "jetbrains-mono"])
       return false unless body_validator.valid?(@body)
       return false if @heading_uppercase.nil?
       true
@@ -135,7 +135,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] heading Object to be assigned
     def heading=(heading)
-      validator = EnumAttributeValidator.new('String', ["inter", "playfair", "cormorant", "space-grotesk", "archivo-black", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "fraunces", "libre-baskerville", "bebas-neue", "jetbrains-mono"])
+      validator = EnumAttributeValidator.new('String', ["inter", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "space-grotesk", "playfair", "cormorant", "fraunces", "libre-baskerville", "bebas-neue", "archivo-black", "jetbrains-mono"])
       unless validator.valid?(heading)
         fail ArgumentError, "invalid value for \"heading\", must be one of #{validator.allowable_values}."
       end
@@ -145,7 +145,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] body Object to be assigned
     def body=(body)
-      validator = EnumAttributeValidator.new('String', ["inter", "playfair", "cormorant", "space-grotesk", "archivo-black", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "fraunces", "libre-baskerville", "bebas-neue", "jetbrains-mono"])
+      validator = EnumAttributeValidator.new('String', ["inter", "dm-sans", "manrope", "poppins", "montserrat", "work-sans", "space-grotesk", "playfair", "cormorant", "fraunces", "libre-baskerville", "bebas-neue", "archivo-black", "jetbrains-mono"])
       unless validator.valid?(body)
         fail ArgumentError, "invalid value for \"body\", must be one of #{validator.allowable_values}."
       end

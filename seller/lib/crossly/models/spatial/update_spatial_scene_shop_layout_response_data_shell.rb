@@ -111,7 +111,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @size.nil?
-      size_validator = EnumAttributeValidator.new('String', ["auto", "standard", "large", "compact", "flagship"])
+      size_validator = EnumAttributeValidator.new('String', ["auto", "compact", "standard", "large", "flagship"])
       return false unless size_validator.valid?(@size)
       return false if @ceiling.nil?
       true
@@ -120,7 +120,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] size Object to be assigned
     def size=(size)
-      validator = EnumAttributeValidator.new('String', ["auto", "standard", "large", "compact", "flagship"])
+      validator = EnumAttributeValidator.new('String', ["auto", "compact", "standard", "large", "flagship"])
       unless validator.valid?(size)
         fail ArgumentError, "invalid value for \"size\", must be one of #{validator.allowable_values}."
       end

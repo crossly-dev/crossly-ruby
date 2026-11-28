@@ -21,6 +21,7 @@ module Crossly
     end
     # Publish an asset (place nodes). Scanned (lint, text, credits, uploads) then reviewed. Free by default; paid needs Pro and a verified identity.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateToolboxAssetRequest] :create_toolbox_asset_request 
     # @return [ToolboxAssetResponse]
     def create_toolbox_asset(opts = {})
       data, _status_code, _headers = create_toolbox_asset_with_http_info(opts)
@@ -29,6 +30,7 @@ module Crossly
 
     # Publish an asset (place nodes). Scanned (lint, text, credits, uploads) then reviewed. Free by default; paid needs Pro and a verified identity.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateToolboxAssetRequest] :create_toolbox_asset_request 
     # @return [Array<(ToolboxAssetResponse, Integer, Hash)>] ToolboxAssetResponse data, response status code and response headers
     def create_toolbox_asset_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -44,12 +46,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_toolbox_asset_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ToolboxAssetResponse'
@@ -199,6 +206,7 @@ module Crossly
     # Get the asset's nodes stamped with its id for a place you can edit; insert:true also inserts them into the place's live session. Paid assets need the experience owner's licence.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateToolboxAssetUseRequest] :create_toolbox_asset_use_request 
     # @return [CreateToolboxAssetUseResponse]
     def create_toolbox_asset_use(asset_id, opts = {})
       data, _status_code, _headers = create_toolbox_asset_use_with_http_info(asset_id, opts)
@@ -208,6 +216,7 @@ module Crossly
     # Get the asset&#39;s nodes stamped with its id for a place you can edit; insert:true also inserts them into the place&#39;s live session. Paid assets need the experience owner&#39;s licence.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateToolboxAssetUseRequest] :create_toolbox_asset_use_request 
     # @return [Array<(CreateToolboxAssetUseResponse, Integer, Hash)>] CreateToolboxAssetUseResponse data, response status code and response headers
     def create_toolbox_asset_use_with_http_info(asset_id, opts = {})
       if @api_client.config.debugging
@@ -227,12 +236,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_toolbox_asset_use_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateToolboxAssetUseResponse'
@@ -260,6 +274,7 @@ module Crossly
     # A new version (reviewed); the live one keeps serving until it is approved.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateToolboxAssetVersionRequest] :create_toolbox_asset_version_request 
     # @return [ToolboxAssetResponse]
     def create_toolbox_asset_version(asset_id, opts = {})
       data, _status_code, _headers = create_toolbox_asset_version_with_http_info(asset_id, opts)
@@ -269,6 +284,7 @@ module Crossly
     # A new version (reviewed); the live one keeps serving until it is approved.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateToolboxAssetVersionRequest] :create_toolbox_asset_version_request 
     # @return [Array<(ToolboxAssetResponse, Integer, Hash)>] ToolboxAssetResponse data, response status code and response headers
     def create_toolbox_asset_version_with_http_info(asset_id, opts = {})
       if @api_client.config.debugging
@@ -288,12 +304,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_toolbox_asset_version_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ToolboxAssetResponse'
@@ -321,6 +342,7 @@ module Crossly
     # Refund a licence within 14 days while no published version of yours uses the asset. Ends the licence; the author's share is reversed.
     # @param purchase_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest2] :reason_request2 
     # @return [CreateWorldMeReceiptRefundResponse]
     def create_toolbox_purchase_refund(purchase_id, opts = {})
       data, _status_code, _headers = create_toolbox_purchase_refund_with_http_info(purchase_id, opts)
@@ -330,6 +352,7 @@ module Crossly
     # Refund a licence within 14 days while no published version of yours uses the asset. Ends the licence; the author&#39;s share is reversed.
     # @param purchase_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest2] :reason_request2 
     # @return [Array<(CreateWorldMeReceiptRefundResponse, Integer, Hash)>] CreateWorldMeReceiptRefundResponse data, response status code and response headers
     def create_toolbox_purchase_refund_with_http_info(purchase_id, opts = {})
       if @api_client.config.debugging
@@ -349,12 +372,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'reason_request2'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldMeReceiptRefundResponse'
@@ -625,6 +653,13 @@ module Crossly
 
     # Search the Toolbox: models, scripts, sounds, images, packages. Free and paid; `owned` says whether you may insert it now.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :kind 
+    # @option opts [String] :price 
+    # @option opts [String] :sort 
+    # @option opts [Float] :min_rating 
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [ListToolboxAssetsResponse]
     def list_toolbox_assets(opts = {})
       data, _status_code, _headers = list_toolbox_assets_with_http_info(opts)
@@ -633,16 +668,42 @@ module Crossly
 
     # Search the Toolbox: models, scripts, sounds, images, packages. Free and paid; &#x60;owned&#x60; says whether you may insert it now.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :kind 
+    # @option opts [String] :price 
+    # @option opts [String] :sort 
+    # @option opts [Float] :min_rating 
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [Array<(ListToolboxAssetsResponse, Integer, Hash)>] ListToolboxAssetsResponse data, response status code and response headers
     def list_toolbox_assets_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ToolboxApi.list_toolbox_assets ...'
+      end
+      allowable_values = ["package", "image", "model", "script", "sound", "animation", "plugin"]
+      if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["free", "all", "paid"]
+      if @api_client.config.client_side_validation && opts[:'price'] && !allowable_values.include?(opts[:'price'])
+        fail ArgumentError, "invalid value for \"price\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["price", "new", "top_rated", "popular"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/toolbox/assets'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
+      query_params[:'price'] = opts[:'price'] if !opts[:'price'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'minRating'] = opts[:'min_rating'] if !opts[:'min_rating'].nil?
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -790,6 +851,8 @@ module Crossly
 
     # Your Toolbox sales: gross, net, your 80% share after refunds. Never who bought.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [ListToolboxSalesResponse]
     def list_toolbox_sales(opts = {})
       data, _status_code, _headers = list_toolbox_sales_with_http_info(opts)
@@ -798,6 +861,8 @@ module Crossly
 
     # Your Toolbox sales: gross, net, your 80% share after refunds. Never who bought.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [Array<(ListToolboxSalesResponse, Integer, Hash)>] ListToolboxSalesResponse data, response status code and response headers
     def list_toolbox_sales_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -808,6 +873,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -846,6 +913,7 @@ module Crossly
     # Edit name, description, tags, thumbnail or price.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateToolboxAssetRequest] :update_toolbox_asset_request 
     # @return [ToolboxAssetResponse]
     def update_toolbox_asset(asset_id, opts = {})
       data, _status_code, _headers = update_toolbox_asset_with_http_info(asset_id, opts)
@@ -855,6 +923,7 @@ module Crossly
     # Edit name, description, tags, thumbnail or price.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateToolboxAssetRequest] :update_toolbox_asset_request 
     # @return [Array<(ToolboxAssetResponse, Integer, Hash)>] ToolboxAssetResponse data, response status code and response headers
     def update_toolbox_asset_with_http_info(asset_id, opts = {})
       if @api_client.config.debugging
@@ -874,12 +943,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_toolbox_asset_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ToolboxAssetResponse'
@@ -907,6 +981,7 @@ module Crossly
     # Rate an asset you bought or installed: 1–5 stars and an optional review (1000 characters). Not your own.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateToolboxAssetRatingMineRequest] :update_toolbox_asset_rating_mine_request 
     # @return [UpdateToolboxAssetRatingMineResponse]
     def update_toolbox_asset_rating_mine(asset_id, opts = {})
       data, _status_code, _headers = update_toolbox_asset_rating_mine_with_http_info(asset_id, opts)
@@ -916,6 +991,7 @@ module Crossly
     # Rate an asset you bought or installed: 1–5 stars and an optional review (1000 characters). Not your own.
     # @param asset_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateToolboxAssetRatingMineRequest] :update_toolbox_asset_rating_mine_request 
     # @return [Array<(UpdateToolboxAssetRatingMineResponse, Integer, Hash)>] UpdateToolboxAssetRatingMineResponse data, response status code and response headers
     def update_toolbox_asset_rating_mine_with_http_info(asset_id, opts = {})
       if @api_client.config.debugging
@@ -935,12 +1011,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_toolbox_asset_rating_mine_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateToolboxAssetRatingMineResponse'

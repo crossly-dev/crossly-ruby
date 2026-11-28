@@ -16,11 +16,11 @@ require 'time'
 module Crossly
   class ListBrandingDropsItemConfigAccessModesItem
     PUBLIC = "public".freeze
-    LOYALTY_TIER = "loyalty_tier".freeze
     FOLLOWERS = "followers".freeze
+    LOYALTY_TIER = "loyalty_tier".freeze
+    WHOLESALE_BUYERS = "wholesale_buyers".freeze
     TOKEN_HOLDERS = "token_holders".freeze
     INVITE = "invite".freeze
-    WHOLESALE_BUYERS = "wholesale_buyers".freeze
     VERIFIED_BUYERS = "verified_buyers".freeze
 
     # Builds the enum from string

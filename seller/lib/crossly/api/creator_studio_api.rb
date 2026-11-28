@@ -19,8 +19,186 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Compose a card game from your card sets: a game id, its own set code, a name and the set ids; optionally the deck size (8-40), copies per card (1-4), the win condition (most points, or first to N) and the cover (a card with art, or a colour). Paid seller plans only.
+    # @param [Hash] opts the optional parameters
+    # @return [CreatorCardGameResponse]
+    def create_creator_card_game(opts = {})
+      data, _status_code, _headers = create_creator_card_game_with_http_info(opts)
+      data
+    end
+
+    # Compose a card game from your card sets: a game id, its own set code, a name and the set ids; optionally the deck size (8-40), copies per card (1-4), the win condition (most points, or first to N) and the cover (a card with art, or a colour). Paid seller plans only.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatorCardGameResponse, Integer, Hash)>] CreatorCardGameResponse data, response status code and response headers
+    def create_creator_card_game_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.create_creator_card_game ...'
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatorCardGameResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.create_creator_card_game",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#create_creator_card_game\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The full check publish runs: issues, tcgStaticConformance and bot-vs-bot games of the composed rules.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatorCardGameResponse]
+    def create_creator_card_game_check(id, opts = {})
+      data, _status_code, _headers = create_creator_card_game_check_with_http_info(id, opts)
+      data
+    end
+
+    # The full check publish runs: issues, tcgStaticConformance and bot-vs-bot games of the composed rules.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatorCardGameResponse, Integer, Hash)>] CreatorCardGameResponse data, response status code and response headers
+    def create_creator_card_game_check_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.create_creator_card_game_check ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CreatorStudioApi.create_creator_card_game_check"
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games/{id}/check'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatorCardGameResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.create_creator_card_game_check",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#create_creator_card_game_check\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Publish: the composition must pass its check; its cards, the composed rules, art and cover are packaged and submitted as a new immutable version for review, through the same intake as every card game.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateCreatorCardGamePublishResponse]
+    def create_creator_card_game_publish(id, opts = {})
+      data, _status_code, _headers = create_creator_card_game_publish_with_http_info(id, opts)
+      data
+    end
+
+    # Publish: the composition must pass its check; its cards, the composed rules, art and cover are packaged and submitted as a new immutable version for review, through the same intake as every card game.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateCreatorCardGamePublishResponse, Integer, Hash)>] CreateCreatorCardGamePublishResponse data, response status code and response headers
+    def create_creator_card_game_publish_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.create_creator_card_game_publish ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CreatorStudioApi.create_creator_card_game_publish"
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games/{id}/publish'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateCreatorCardGamePublishResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.create_creator_card_game_publish",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#create_creator_card_game_publish\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCardSetRequest] :create_creator_card_set_request 
     # @return [CreatorCardSetResponse]
     def create_creator_card_set(opts = {})
       data, _status_code, _headers = create_creator_card_set_with_http_info(opts)
@@ -29,6 +207,7 @@ module Crossly
 
     # Start a card set: a game id (3-24 of a-z, 0-9, -), a set code (MG1) and a name. Answers a starter draft that already passes conformance. Paid seller plans only.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCardSetRequest] :create_creator_card_set_request 
     # @return [Array<(CreatorCardSetResponse, Integer, Hash)>] CreatorCardSetResponse data, response status code and response headers
     def create_creator_card_set_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -44,12 +223,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_card_set_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorCardSetResponse'
@@ -78,6 +262,7 @@ module Crossly
     # @param id [String] 
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCardSetArtRequest] :create_creator_card_set_art_request 
     # @return [CreatorCardSetResponse]
     def create_creator_card_set_art(id, slug, opts = {})
       data, _status_code, _headers = create_creator_card_set_art_with_http_info(id, slug, opts)
@@ -88,6 +273,7 @@ module Crossly
     # @param id [String] 
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCardSetArtRequest] :create_creator_card_set_art_request 
     # @return [Array<(CreatorCardSetResponse, Integer, Hash)>] CreatorCardSetResponse data, response status code and response headers
     def create_creator_card_set_art_with_http_info(id, slug, opts = {})
       if @api_client.config.debugging
@@ -111,12 +297,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_card_set_art_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorCardSetResponse'
@@ -267,6 +458,7 @@ module Crossly
     # @param format [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCreationSubmitRequest] :create_creator_creation_submit_request 
     # @return [CreateCreatorCreationSubmitResponse]
     def create_creator_creation_submit(format, id, opts = {})
       data, _status_code, _headers = create_creator_creation_submit_with_http_info(format, id, opts)
@@ -277,6 +469,7 @@ module Crossly
     # @param format [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCreationSubmitRequest] :create_creator_creation_submit_request 
     # @return [Array<(CreateCreatorCreationSubmitResponse, Integer, Hash)>] CreateCreatorCreationSubmitResponse data, response status code and response headers
     def create_creator_creation_submit_with_http_info(format, id, opts = {})
       if @api_client.config.debugging
@@ -300,12 +493,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_creation_submit_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCreatorCreationSubmitResponse'
@@ -332,6 +530,7 @@ module Crossly
 
     # Validate a filled-in template (manifest text, CSV text, every path in the upload): issues with file, line and column, and a preview. Creates nothing.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorImportRequest] :create_creator_import_request 
     # @return [GetCreatorImportResponse]
     def create_creator_import(opts = {})
       data, _status_code, _headers = create_creator_import_with_http_info(opts)
@@ -340,6 +539,7 @@ module Crossly
 
     # Validate a filled-in template (manifest text, CSV text, every path in the upload): issues with file, line and column, and a preview. Creates nothing.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorImportRequest] :create_creator_import_request 
     # @return [Array<(GetCreatorImportResponse, Integer, Hash)>] GetCreatorImportResponse data, response status code and response headers
     def create_creator_import_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -355,12 +555,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_import_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetCreatorImportResponse'
@@ -448,6 +653,7 @@ module Crossly
 
     # Upload a .glb (base64, 4 MB): validated, measured and stored (quarantined until approved). An over-budget model is refused with every failing number.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemModelRequest] :create_creator_item_model_request 
     # @return [CreatorItemModelResponse]
     def create_creator_item_model(opts = {})
       data, _status_code, _headers = create_creator_item_model_with_http_info(opts)
@@ -456,6 +662,7 @@ module Crossly
 
     # Upload a .glb (base64, 4 MB): validated, measured and stored (quarantined until approved). An over-budget model is refused with every failing number.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemModelRequest] :create_creator_item_model_request 
     # @return [Array<(CreatorItemModelResponse, Integer, Hash)>] CreatorItemModelResponse data, response status code and response headers
     def create_creator_item_model_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -471,12 +678,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_item_model_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorItemModelResponse'
@@ -503,6 +715,7 @@ module Crossly
 
     # The budget report for a .glb (base64), storing nothing: every limit (triangles, draw calls, texture edge per phone/desktop; size, nodes, meshes, images, animations; bones for wearables) with pass/fail, problems and LOD suggestions.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemModelCheckRequest] :create_creator_item_model_check_request 
     # @return [CreateCreatorItemModelCheckResponse]
     def create_creator_item_model_check(opts = {})
       data, _status_code, _headers = create_creator_item_model_check_with_http_info(opts)
@@ -511,6 +724,7 @@ module Crossly
 
     # The budget report for a .glb (base64), storing nothing: every limit (triangles, draw calls, texture edge per phone/desktop; size, nodes, meshes, images, animations; bones for wearables) with pass/fail, problems and LOD suggestions.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemModelCheckRequest] :create_creator_item_model_check_request 
     # @return [Array<(CreateCreatorItemModelCheckResponse, Integer, Hash)>] CreateCreatorItemModelCheckResponse data, response status code and response headers
     def create_creator_item_model_check_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -526,12 +740,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_item_model_check_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCreatorItemModelCheckResponse'
@@ -619,6 +838,7 @@ module Crossly
 
     # Upload a preview PNG (base64, at most 1 MB and 2048 px): parsed, scanned and stored on the Crossly CDN; answers its https URL.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCardSetArtRequest] :create_creator_card_set_art_request 
     # @return [CreateCreatorItemPreviewResponse]
     def create_creator_item_preview(opts = {})
       data, _status_code, _headers = create_creator_item_preview_with_http_info(opts)
@@ -627,6 +847,7 @@ module Crossly
 
     # Upload a preview PNG (base64, at most 1 MB and 2048 px): parsed, scanned and stored on the Crossly CDN; answers its https URL.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorCardSetArtRequest] :create_creator_card_set_art_request 
     # @return [Array<(CreateCreatorItemPreviewResponse, Integer, Hash)>] CreateCreatorItemPreviewResponse data, response status code and response headers
     def create_creator_item_preview_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -642,12 +863,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_card_set_art_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCreatorItemPreviewResponse'
@@ -674,6 +900,7 @@ module Crossly
 
     # Start a wearable from a template: slug, name, colourways (panel -> #rrggbb), a COSM price and optional edition size. Text is filtered; answers the automated checks. Paid seller plans only.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemWearableRequest] :create_creator_item_wearable_request 
     # @return [CreatorItemWearableResponse]
     def create_creator_item_wearable(opts = {})
       data, _status_code, _headers = create_creator_item_wearable_with_http_info(opts)
@@ -682,6 +909,7 @@ module Crossly
 
     # Start a wearable from a template: slug, name, colourways (panel -&gt; #rrggbb), a COSM price and optional edition size. Text is filtered; answers the automated checks. Paid seller plans only.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemWearableRequest] :create_creator_item_wearable_request 
     # @return [Array<(CreatorItemWearableResponse, Integer, Hash)>] CreatorItemWearableResponse data, response status code and response headers
     def create_creator_item_wearable_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -697,12 +925,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_item_wearable_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorItemWearableResponse'
@@ -730,6 +963,7 @@ module Crossly
     # Submit a wearable whose checks pass: each colourway becomes a COSM design (inactive) filed for review. Needs an https preview image (POST /v1/creator/items/previews).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemWearableSubmitRequest] :create_creator_item_wearable_submit_request 
     # @return [CreatorItemWearableResponse]
     def create_creator_item_wearable_submit(id, opts = {})
       data, _status_code, _headers = create_creator_item_wearable_submit_with_http_info(id, opts)
@@ -739,6 +973,7 @@ module Crossly
     # Submit a wearable whose checks pass: each colourway becomes a COSM design (inactive) filed for review. Needs an https preview image (POST /v1/creator/items/previews).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorItemWearableSubmitRequest] :create_creator_item_wearable_submit_request 
     # @return [Array<(CreatorItemWearableResponse, Integer, Hash)>] CreatorItemWearableResponse data, response status code and response headers
     def create_creator_item_wearable_submit_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -758,12 +993,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_item_wearable_submit_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorItemWearableResponse'
@@ -791,6 +1031,7 @@ module Crossly
     # Hide a buyer review from your public page (it is kept, and its rating still counts).
     # @param review_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest2] :reason_request2 
     # @return [CreatorReviewResponse]
     def create_creator_review_hide(review_id, opts = {})
       data, _status_code, _headers = create_creator_review_hide_with_http_info(review_id, opts)
@@ -800,6 +1041,7 @@ module Crossly
     # Hide a buyer review from your public page (it is kept, and its rating still counts).
     # @param review_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest2] :reason_request2 
     # @return [Array<(CreatorReviewResponse, Integer, Hash)>] CreatorReviewResponse data, response status code and response headers
     def create_creator_review_hide_with_http_info(review_id, opts = {})
       if @api_client.config.debugging
@@ -819,12 +1061,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'reason_request2'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorReviewResponse'
@@ -852,6 +1099,7 @@ module Crossly
     # Reply to a buyer review of your creation (or change your reply).
     # @param review_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorReviewReplyRequest] :create_creator_review_reply_request 
     # @return [CreatorReviewResponse]
     def create_creator_review_reply(review_id, opts = {})
       data, _status_code, _headers = create_creator_review_reply_with_http_info(review_id, opts)
@@ -861,6 +1109,7 @@ module Crossly
     # Reply to a buyer review of your creation (or change your reply).
     # @param review_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateCreatorReviewReplyRequest] :create_creator_review_reply_request 
     # @return [Array<(CreatorReviewResponse, Integer, Hash)>] CreatorReviewResponse data, response status code and response headers
     def create_creator_review_reply_with_http_info(review_id, opts = {})
       if @api_client.config.debugging
@@ -880,12 +1129,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_creator_review_reply_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorReviewResponse'
@@ -913,6 +1167,7 @@ module Crossly
     # Report a buyer review to Crossly (abuse, spam, not a real buyer).
     # @param review_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest] :reason_request 
     # @return [CreatorReviewResponse]
     def create_creator_review_report(review_id, opts = {})
       data, _status_code, _headers = create_creator_review_report_with_http_info(review_id, opts)
@@ -922,6 +1177,7 @@ module Crossly
     # Report a buyer review to Crossly (abuse, spam, not a real buyer).
     # @param review_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [ReasonRequest] :reason_request 
     # @return [Array<(CreatorReviewResponse, Integer, Hash)>] CreatorReviewResponse data, response status code and response headers
     def create_creator_review_report_with_http_info(review_id, opts = {})
       if @api_client.config.debugging
@@ -941,12 +1197,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'reason_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorReviewResponse'
@@ -1028,6 +1289,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: CreatorStudioApi#create_creator_review_unhide\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a composed card game that was never published.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_creator_card_game(id, opts = {})
+      delete_creator_card_game_with_http_info(id, opts)
+      nil
+    end
+
+    # Delete a composed card game that was never published.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
+    def delete_creator_card_game_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.delete_creator_card_game ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CreatorStudioApi.delete_creator_card_game"
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type]
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.delete_creator_card_game",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#delete_creator_card_game\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1211,6 +1533,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: CreatorStudioApi#delete_creator_item_wearable\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One composed card game with its check: issues by field and conformance problems.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatorCardGameResponse]
+    def get_creator_card_game(id, opts = {})
+      data, _status_code, _headers = get_creator_card_game_with_http_info(id, opts)
+      data
+    end
+
+    # One composed card game with its check: issues by field and conformance problems.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatorCardGameResponse, Integer, Hash)>] CreatorCardGameResponse data, response status code and response headers
+    def get_creator_card_game_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.get_creator_card_game ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CreatorStudioApi.get_creator_card_game"
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatorCardGameResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.get_creator_card_game",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#get_creator_card_game\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2217,6 +2600,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your card games composed from several card sets: the sets, deck size, copies per card, win condition and cover, each with its check.
+    # @param [Hash] opts the optional parameters
+    # @return [ListCreatorCardGamesResponse]
+    def list_creator_card_games(opts = {})
+      data, _status_code, _headers = list_creator_card_games_with_http_info(opts)
+      data
+    end
+
+    # Your card games composed from several card sets: the sets, deck size, copies per card, win condition and cover, each with its check.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListCreatorCardGamesResponse, Integer, Hash)>] ListCreatorCardGamesResponse data, response status code and response headers
+    def list_creator_card_games_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.list_creator_card_games ...'
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListCreatorCardGamesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.list_creator_card_games",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#list_creator_card_games\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your card set drafts, each with its road from COSM to print: live on COSM, the mint threshold (collectors, packs opened, resales) and the print-run cost against what NFT sales have banked.
     # @param [Hash] opts the optional parameters
     # @return [ListCreatorCardSetsResponse]
@@ -2276,6 +2714,8 @@ module Crossly
     # @param format [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [ListCreatorCreationReviewsResponse]
     def list_creator_creation_reviews(format, id, opts = {})
       data, _status_code, _headers = list_creator_creation_reviews_with_http_info(format, id, opts)
@@ -2286,6 +2726,8 @@ module Crossly
     # @param format [String] 
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :cursor 
+    # @option opts [Float] :limit 
     # @return [Array<(ListCreatorCreationReviewsResponse, Integer, Hash)>] ListCreatorCreationReviewsResponse data, response status code and response headers
     def list_creator_creation_reviews_with_http_info(format, id, opts = {})
       if @api_client.config.debugging
@@ -2304,6 +2746,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2341,6 +2785,11 @@ module Crossly
 
     # Every creation of your shop in one list: wearables, 3D objects, decor, interactive objects, each card of your card sets, Classic games and card games, with status, collection, rating, earnings and mint status.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [String] :format 
+    # @option opts [String] :status 
+    # @option opts [String] :collection 
+    # @option opts [String] :q 
     # @return [ListCreatorCreationsResponse]
     def list_creator_creations(opts = {})
       data, _status_code, _headers = list_creator_creations_with_http_info(opts)
@@ -2349,16 +2798,38 @@ module Crossly
 
     # Every creation of your shop in one list: wearables, 3D objects, decor, interactive objects, each card of your card sets, Classic games and card games, with status, collection, rating, earnings and mint status.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :kind 
+    # @option opts [String] :format 
+    # @option opts [String] :status 
+    # @option opts [String] :collection 
+    # @option opts [String] :q 
     # @return [Array<(ListCreatorCreationsResponse, Integer, Hash)>] ListCreatorCreationsResponse data, response status code and response headers
     def list_creator_creations_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CreatorStudioApi.list_creator_creations ...'
+      end
+      allowable_values = ["item", "decor", "interactive", "card", "game"]
+      if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["wearable", "model", "decor", "interactive", "card", "classic_game", "card_game"]
+      if @api_client.config.client_side_validation && opts[:'format'] && !allowable_values.include?(opts[:'format'])
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["draft", "live", "paused", "in_review", "changes_requested", "rejected", "retired"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/creator/creations'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'kind'] = opts[:'kind'] if !opts[:'kind'].nil?
+      query_params[:'format'] = opts[:'format'] if !opts[:'format'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'collection'] = opts[:'collection'] if !opts[:'collection'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -2851,6 +3322,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Save the whole composition: name, description, setTitle, the set ids, deck size, copies per card, win condition and cover. Every word goes through the text filter. Answers the check.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatorCardGameResponse]
+    def update_creator_card_game(id, opts = {})
+      data, _status_code, _headers = update_creator_card_game_with_http_info(id, opts)
+      data
+    end
+
+    # Save the whole composition: name, description, setTitle, the set ids, deck size, copies per card, win condition and cover. Every word goes through the text filter. Answers the check.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatorCardGameResponse, Integer, Hash)>] CreatorCardGameResponse data, response status code and response headers
+    def update_creator_card_game_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CreatorStudioApi.update_creator_card_game ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling CreatorStudioApi.update_creator_card_game"
+      end
+      # resource path
+      local_var_path = '/v1/creator/cards/games/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatorCardGameResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"CreatorStudioApi.update_creator_card_game",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CreatorStudioApi#update_creator_card_game\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Save the whole draft: cards (name, type, rarity, rules text, flavour, power/draw/guard), COSM prices and supply, frame colours, print plan. Every word goes through the text filter. Art is merged: a card without `art` (or with art as read) keeps its stored art, `art: null` clears it; only the art upload sets art. Answers the check.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -2976,6 +3508,7 @@ module Crossly
     # Edit a draft wearable (name, description, colourways, price, edition). Submitted wearables are frozen.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateCreatorItemWearableRequest] :update_creator_item_wearable_request 
     # @return [CreatorItemWearableResponse]
     def update_creator_item_wearable(id, opts = {})
       data, _status_code, _headers = update_creator_item_wearable_with_http_info(id, opts)
@@ -2985,6 +3518,7 @@ module Crossly
     # Edit a draft wearable (name, description, colourways, price, edition). Submitted wearables are frozen.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateCreatorItemWearableRequest] :update_creator_item_wearable_request 
     # @return [Array<(CreatorItemWearableResponse, Integer, Hash)>] CreatorItemWearableResponse data, response status code and response headers
     def update_creator_item_wearable_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -3004,12 +3538,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_creator_item_wearable_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatorItemWearableResponse'

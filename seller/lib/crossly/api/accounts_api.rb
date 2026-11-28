@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Connect a new platform account (kicks off OAuth or extension handshake).
+    # @param create_account_request [CreateAccountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateAccountResponse]
-    def create_account(opts = {})
-      data, _status_code, _headers = create_account_with_http_info(opts)
+    def create_account(create_account_request, opts = {})
+      data, _status_code, _headers = create_account_with_http_info(create_account_request, opts)
       data
     end
 
     # Connect a new platform account (kicks off OAuth or extension handshake).
+    # @param create_account_request [CreateAccountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateAccountResponse, Integer, Hash)>] CreateAccountResponse data, response status code and response headers
-    def create_account_with_http_info(opts = {})
+    def create_account_with_http_info(create_account_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.create_account ...'
+      end
+      # verify the required parameter 'create_account_request' is set
+      if @api_client.config.client_side_validation && create_account_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_account_request' when calling AccountsApi.create_account"
       end
       # resource path
       local_var_path = '/v1/accounts'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_account_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateAccountResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Connect CardNexus with a personal API key (validated live before it is stored).
+    # @param update_web3_marketplace_key_request [UpdateWeb3MarketplaceKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateConnectionCardnexusApiKeyResponse]
-    def create_connection_cardnexus_api_key(opts = {})
-      data, _status_code, _headers = create_connection_cardnexus_api_key_with_http_info(opts)
+    def create_connection_cardnexus_api_key(update_web3_marketplace_key_request, opts = {})
+      data, _status_code, _headers = create_connection_cardnexus_api_key_with_http_info(update_web3_marketplace_key_request, opts)
       data
     end
 
     # Connect CardNexus with a personal API key (validated live before it is stored).
+    # @param update_web3_marketplace_key_request [UpdateWeb3MarketplaceKeyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateConnectionCardnexusApiKeyResponse, Integer, Hash)>] CreateConnectionCardnexusApiKeyResponse data, response status code and response headers
-    def create_connection_cardnexus_api_key_with_http_info(opts = {})
+    def create_connection_cardnexus_api_key_with_http_info(update_web3_marketplace_key_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_cardnexus_api_key ...'
+      end
+      # verify the required parameter 'update_web3_marketplace_key_request' is set
+      if @api_client.config.client_side_validation && update_web3_marketplace_key_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_web3_marketplace_key_request' when calling AccountsApi.create_connection_cardnexus_api_key"
       end
       # resource path
       local_var_path = '/v1/connections/cardnexus/api-key'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_web3_marketplace_key_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateConnectionCardnexusApiKeyResponse'
@@ -129,23 +151,29 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Add an IMAP mailbox connection.
+    # Check an email connection now: sign in to it live (IMAP login, or a working Gmail / Outlook token) and, when that works and it is not paused, scan it straight away. data.ok false carries a plain reason.
+    # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateConnectionEmailImapResponse]
-    def create_connection_email_imap(opts = {})
-      data, _status_code, _headers = create_connection_email_imap_with_http_info(opts)
+    # @return [CreateConnectionEmailCheckResponse]
+    def create_connection_email_check(id, opts = {})
+      data, _status_code, _headers = create_connection_email_check_with_http_info(id, opts)
       data
     end
 
-    # Add an IMAP mailbox connection.
+    # Check an email connection now: sign in to it live (IMAP login, or a working Gmail / Outlook token) and, when that works and it is not paused, scan it straight away. data.ok false carries a plain reason.
+    # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateConnectionEmailImapResponse, Integer, Hash)>] CreateConnectionEmailImapResponse data, response status code and response headers
-    def create_connection_email_imap_with_http_info(opts = {})
+    # @return [Array<(CreateConnectionEmailCheckResponse, Integer, Hash)>] CreateConnectionEmailCheckResponse data, response status code and response headers
+    def create_connection_email_check_with_http_info(id, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_email_imap ...'
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_email_check ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.create_connection_email_check"
       end
       # resource path
-      local_var_path = '/v1/connections/email/imap'
+      local_var_path = '/v1/connections/email/{id}/check'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -160,6 +188,72 @@ module Crossly
 
       # http body (model)
       post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateConnectionEmailCheckResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.create_connection_email_check",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#create_connection_email_check\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Add an IMAP mailbox. The sign-in is verified before it is saved; most providers need an app password. watchedPlatforms picks the marketplaces it is read for (null = all).
+    # @param create_connection_email_imap_request [CreateConnectionEmailImapRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateConnectionEmailImapResponse]
+    def create_connection_email_imap(create_connection_email_imap_request, opts = {})
+      data, _status_code, _headers = create_connection_email_imap_with_http_info(create_connection_email_imap_request, opts)
+      data
+    end
+
+    # Add an IMAP mailbox. The sign-in is verified before it is saved; most providers need an app password. watchedPlatforms picks the marketplaces it is read for (null &#x3D; all).
+    # @param create_connection_email_imap_request [CreateConnectionEmailImapRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateConnectionEmailImapResponse, Integer, Hash)>] CreateConnectionEmailImapResponse data, response status code and response headers
+    def create_connection_email_imap_with_http_info(create_connection_email_imap_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_email_imap ...'
+      end
+      # verify the required parameter 'create_connection_email_imap_request' is set
+      if @api_client.config.client_side_validation && create_connection_email_imap_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_connection_email_imap_request' when calling AccountsApi.create_connection_email_imap"
+      end
+      # resource path
+      local_var_path = '/v1/connections/email/imap'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_connection_email_imap_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateConnectionEmailImapResponse'
@@ -184,20 +278,26 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Validate IMAP credentials without persisting.
+    # Check IMAP credentials without saving them. A failure is a 400 with a plain reason.
+    # @param create_connection_email_imap_test_request [CreateConnectionEmailImapTestRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateConnectionEmailImapTestResponse]
-    def create_connection_email_imap_test(opts = {})
-      data, _status_code, _headers = create_connection_email_imap_test_with_http_info(opts)
+    def create_connection_email_imap_test(create_connection_email_imap_test_request, opts = {})
+      data, _status_code, _headers = create_connection_email_imap_test_with_http_info(create_connection_email_imap_test_request, opts)
       data
     end
 
-    # Validate IMAP credentials without persisting.
+    # Check IMAP credentials without saving them. A failure is a 400 with a plain reason.
+    # @param create_connection_email_imap_test_request [CreateConnectionEmailImapTestRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateConnectionEmailImapTestResponse, Integer, Hash)>] CreateConnectionEmailImapTestResponse data, response status code and response headers
-    def create_connection_email_imap_test_with_http_info(opts = {})
+    def create_connection_email_imap_test_with_http_info(create_connection_email_imap_test_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_email_imap_test ...'
+      end
+      # verify the required parameter 'create_connection_email_imap_test_request' is set
+      if @api_client.config.client_side_validation && create_connection_email_imap_test_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_connection_email_imap_test_request' when calling AccountsApi.create_connection_email_imap_test"
       end
       # resource path
       local_var_path = '/v1/connections/email/imap/test'
@@ -209,12 +309,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_connection_email_imap_test_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateConnectionEmailImapTestResponse'
@@ -305,29 +410,25 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Express interest in a request_only platform.
-    # @param platform [String] 
+    # Let this store (X-Storefront-Id) use one of your marketplace accounts.
     # @param [Hash] opts the optional parameters
-    # @return [OkResponse]
-    def create_connection_request(platform, opts = {})
-      data, _status_code, _headers = create_connection_request_with_http_info(platform, opts)
+    # @option opts [CreateConnectionStoreAttachRequest] :create_connection_store_attach_request 
+    # @return [CreateConnectionStoreAttachResponse]
+    def create_connection_store_attach(opts = {})
+      data, _status_code, _headers = create_connection_store_attach_with_http_info(opts)
       data
     end
 
-    # Express interest in a request_only platform.
-    # @param platform [String] 
+    # Let this store (X-Storefront-Id) use one of your marketplace accounts.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def create_connection_request_with_http_info(platform, opts = {})
+    # @option opts [CreateConnectionStoreAttachRequest] :create_connection_store_attach_request 
+    # @return [Array<(CreateConnectionStoreAttachResponse, Integer, Hash)>] CreateConnectionStoreAttachResponse data, response status code and response headers
+    def create_connection_store_attach_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_request ...'
-      end
-      # verify the required parameter 'platform' is set
-      if @api_client.config.client_side_validation && platform.nil?
-        fail ArgumentError, "Missing the required parameter 'platform' when calling AccountsApi.create_connection_request"
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_store_attach ...'
       end
       # resource path
-      local_var_path = '/v1/connections/{platform}/request'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
+      local_var_path = '/v1/connections/stores/attach'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -336,21 +437,26 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_connection_store_attach_request'])
 
       # return_type
-      return_type = opts[:debug_return_type] || 'OkResponse'
+      return_type = opts[:debug_return_type] || 'CreateConnectionStoreAttachResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
 
       new_options = opts.merge(
-        :operation => :"AccountsApi.create_connection_request",
+        :operation => :"AccountsApi.create_connection_store_attach",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -361,7 +467,131 @@ module Crossly
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: AccountsApi#create_connection_request\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: AccountsApi#create_connection_store_attach\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Let several of your stores use a marketplace account at once.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateConnectionStoreCopyRequest] :create_connection_store_copy_request 
+    # @return [CreateConnectionStoreCopyResponse]
+    def create_connection_store_copy(opts = {})
+      data, _status_code, _headers = create_connection_store_copy_with_http_info(opts)
+      data
+    end
+
+    # Let several of your stores use a marketplace account at once.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateConnectionStoreCopyRequest] :create_connection_store_copy_request 
+    # @return [Array<(CreateConnectionStoreCopyResponse, Integer, Hash)>] CreateConnectionStoreCopyResponse data, response status code and response headers
+    def create_connection_store_copy_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_store_copy ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/stores/copy'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_connection_store_copy_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateConnectionStoreCopyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.create_connection_store_copy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#create_connection_store_copy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Stop this store using a marketplace account. The account stays connected for your other stores.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateConnectionStoreAttachRequest] :create_connection_store_attach_request 
+    # @return [CreateConnectionStoreDetachResponse]
+    def create_connection_store_detach(opts = {})
+      data, _status_code, _headers = create_connection_store_detach_with_http_info(opts)
+      data
+    end
+
+    # Stop this store using a marketplace account. The account stays connected for your other stores.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateConnectionStoreAttachRequest] :create_connection_store_attach_request 
+    # @return [Array<(CreateConnectionStoreDetachResponse, Integer, Hash)>] CreateConnectionStoreDetachResponse data, response status code and response headers
+    def create_connection_store_detach_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.create_connection_store_detach ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/stores/detach'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_connection_store_attach_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateConnectionStoreDetachResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.create_connection_store_detach",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#create_connection_store_detach\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -369,6 +599,7 @@ module Crossly
     # Revive or initiate connection for a cookie platform.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreatePlatformAccountConnectRequest] :create_platform_account_connect_request 
     # @return [CreatePlatformAccountConnectResponse]
     def create_platform_account_connect(platform, opts = {})
       data, _status_code, _headers = create_platform_account_connect_with_http_info(platform, opts)
@@ -378,6 +609,7 @@ module Crossly
     # Revive or initiate connection for a cookie platform.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreatePlatformAccountConnectRequest] :create_platform_account_connect_request 
     # @return [Array<(CreatePlatformAccountConnectResponse, Integer, Hash)>] CreatePlatformAccountConnectResponse data, response status code and response headers
     def create_platform_account_connect_with_http_info(platform, opts = {})
       if @api_client.config.debugging
@@ -397,12 +629,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_platform_account_connect_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreatePlatformAccountConnectResponse'
@@ -488,7 +725,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Set how far back to backfill order history + active listings for a platform, and run it now.
+    # Set how far back to backfill order history + active listings for a platform account (or every pending account of the platform), and run it now.
     # @param platform [String] 
     # @param create_platform_account_history_import_request [CreatePlatformAccountHistoryImportRequest] 
     # @param [Hash] opts the optional parameters
@@ -498,7 +735,7 @@ module Crossly
       data
     end
 
-    # Set how far back to backfill order history + active listings for a platform, and run it now.
+    # Set how far back to backfill order history + active listings for a platform account (or every pending account of the platform), and run it now.
     # @param platform [String] 
     # @param create_platform_account_history_import_request [CreatePlatformAccountHistoryImportRequest] 
     # @param [Hash] opts the optional parameters
@@ -737,19 +974,80 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Remove an IMAP mailbox connection.
+    # Disconnect an email connection.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [SuccessResponse]
+    # @return [DeleteConnectionEmailResponse]
+    def delete_connection_email(id, opts = {})
+      data, _status_code, _headers = delete_connection_email_with_http_info(id, opts)
+      data
+    end
+
+    # Disconnect an email connection.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteConnectionEmailResponse, Integer, Hash)>] DeleteConnectionEmailResponse data, response status code and response headers
+    def delete_connection_email_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.delete_connection_email ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.delete_connection_email"
+      end
+      # resource path
+      local_var_path = '/v1/connections/email/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteConnectionEmailResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.delete_connection_email",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#delete_connection_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Disconnect an email connection.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [DeleteConnectionEmailResponse]
     def delete_connection_email_imap(id, opts = {})
       data, _status_code, _headers = delete_connection_email_imap_with_http_info(id, opts)
       data
     end
 
-    # Remove an IMAP mailbox connection.
+    # Disconnect an email connection.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
+    # @return [Array<(DeleteConnectionEmailResponse, Integer, Hash)>] DeleteConnectionEmailResponse data, response status code and response headers
     def delete_connection_email_imap_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.delete_connection_email_imap ...'
@@ -776,7 +1074,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'SuccessResponse'
+      return_type = opts[:debug_return_type] || 'DeleteConnectionEmailResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -798,23 +1096,151 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List IMAP and email-OAuth connections.
+    # Remove your own developer app for a marketplace; the connections it authorized are switched off.
+    # @param platform [String] 
     # @param [Hash] opts the optional parameters
-    # @return [GetConnectionEmailResponse]
-    def get_connection_email(opts = {})
-      data, _status_code, _headers = get_connection_email_with_http_info(opts)
+    # @return [DeleteConnectionOwnAppResponse]
+    def delete_connection_own_app(platform, opts = {})
+      data, _status_code, _headers = delete_connection_own_app_with_http_info(platform, opts)
       data
     end
 
-    # List IMAP and email-OAuth connections.
+    # Remove your own developer app for a marketplace; the connections it authorized are switched off.
+    # @param platform [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DeleteConnectionOwnAppResponse, Integer, Hash)>] DeleteConnectionOwnAppResponse data, response status code and response headers
+    def delete_connection_own_app_with_http_info(platform, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.delete_connection_own_app ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AccountsApi.delete_connection_own_app"
+      end
+      # resource path
+      local_var_path = '/v1/connections/own-apps/{platform}'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DeleteConnectionOwnAppResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.delete_connection_own_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#delete_connection_own_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get one platform account's order-history import window (how far back its past sales and active listings import): days null = All time, 0 = None, N = the last N days; chosen=false = never chosen.
+    # @param account_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetChannelAccountHistoryImportResponse]
+    def get_channel_account_history_import(account_id, opts = {})
+      data, _status_code, _headers = get_channel_account_history_import_with_http_info(account_id, opts)
+      data
+    end
+
+    # Get one platform account&#39;s order-history import window (how far back its past sales and active listings import): days null &#x3D; All time, 0 &#x3D; None, N &#x3D; the last N days; chosen&#x3D;false &#x3D; never chosen.
+    # @param account_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetChannelAccountHistoryImportResponse, Integer, Hash)>] GetChannelAccountHistoryImportResponse data, response status code and response headers
+    def get_channel_account_history_import_with_http_info(account_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.get_channel_account_history_import ...'
+      end
+      # verify the required parameter 'account_id' is set
+      if @api_client.config.client_side_validation && account_id.nil?
+        fail ArgumentError, "Missing the required parameter 'account_id' when calling AccountsApi.get_channel_account_history_import"
+      end
+      # resource path
+      local_var_path = '/v1/channel-accounts/{accountId}/history-import'.sub('{' + 'accountId' + '}', CGI.escape(account_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetChannelAccountHistoryImportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.get_channel_account_history_import",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#get_channel_account_history_import\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One email connection: health, last scan, the marketplaces it watches and its 7-day counts.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetConnectionEmailResponse]
+    def get_connection_email(id, opts = {})
+      data, _status_code, _headers = get_connection_email_with_http_info(id, opts)
+      data
+    end
+
+    # One email connection: health, last scan, the marketplaces it watches and its 7-day counts.
+    # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetConnectionEmailResponse, Integer, Hash)>] GetConnectionEmailResponse data, response status code and response headers
-    def get_connection_email_with_http_info(opts = {})
+    def get_connection_email_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.get_connection_email ...'
       end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.get_connection_email"
+      end
       # resource path
-      local_var_path = '/v1/connections/email'
+      local_var_path = '/v1/connections/email/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -977,8 +1403,63 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your stores and which marketplace accounts each may use (its default per platform, and the store each account was connected from).
+    # @param [Hash] opts the optional parameters
+    # @return [GetConnectionStoreResponse]
+    def get_connection_store(opts = {})
+      data, _status_code, _headers = get_connection_store_with_http_info(opts)
+      data
+    end
+
+    # Your stores and which marketplace accounts each may use (its default per platform, and the store each account was connected from).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetConnectionStoreResponse, Integer, Hash)>] GetConnectionStoreResponse data, response status code and response headers
+    def get_connection_store_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.get_connection_store ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/stores'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetConnectionStoreResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.get_connection_store",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#get_connection_store\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Return the OAuth authorize URL for an API-track platform.
-    # Most platforms return `{ url }` (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart returns `{ status: \"request_only\", requestUrl, message }` instead of a URL because per-seller OAuth needs Solution Provider approval.
+    # Most platforms return `{ url }` (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds `{ oneShot: true }`. WooCommerce requires `?siteUrl=...`. Walmart (and CardNexus before its approval link) returns `{ status: \"own_credentials\", connectWith, docsUrl, message }`: connect with your own keys. An own_app marketplace (GET /api/v1/platforms) needs your app saved first (PUT /api/v1/connections/own-apps/:platform), else 400 own_app_required.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :shop 
@@ -991,7 +1472,7 @@ module Crossly
     end
 
     # Return the OAuth authorize URL for an API-track platform.
-    # Most platforms return &#x60;{ url }&#x60; (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
+    # Most platforms return &#x60;{ url }&#x60; (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart (and CardNexus before its approval link) returns &#x60;{ status: \&quot;own_credentials\&quot;, connectWith, docsUrl, message }&#x60;: connect with your own keys. An own_app marketplace (GET /api/v1/platforms) needs your app saved first (PUT /api/v1/connections/own-apps/:platform), else 400 own_app_required.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :shop 
@@ -1159,6 +1640,217 @@ module Crossly
       return data, status_code, headers
     end
 
+    # List email connections (mailboxes Crossly reads marketplace email from).
+    # @param [Hash] opts the optional parameters
+    # @return [ListConnectionEmailResponse]
+    def list_connection_email(opts = {})
+      data, _status_code, _headers = list_connection_email_with_http_info(opts)
+      data
+    end
+
+    # List email connections (mailboxes Crossly reads marketplace email from).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListConnectionEmailResponse, Integer, Hash)>] ListConnectionEmailResponse data, response status code and response headers
+    def list_connection_email_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.list_connection_email ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/email'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListConnectionEmailResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.list_connection_email",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#list_connection_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # An email connection's inbox: the marketplace emails Crossly picked up from it and what it did with each, newest first. Filter by platform, type, matched/unmatched and date; page with next_cursor.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :platform 
+    # @option opts [String] :type 
+    # @option opts [String] :match 
+    # @option opts [Date] :from 
+    # @option opts [Date] :to 
+    # @option opts [String] :cursor 
+    # @option opts [Integer] :limit  (default to 25)
+    # @return [ListConnectionEmailEmailsResponse]
+    def list_connection_email_emails(id, opts = {})
+      data, _status_code, _headers = list_connection_email_emails_with_http_info(id, opts)
+      data
+    end
+
+    # An email connection&#39;s inbox: the marketplace emails Crossly picked up from it and what it did with each, newest first. Filter by platform, type, matched/unmatched and date; page with next_cursor.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @option opts [String] :platform 
+    # @option opts [String] :type 
+    # @option opts [String] :match 
+    # @option opts [Date] :from 
+    # @option opts [Date] :to 
+    # @option opts [String] :cursor 
+    # @option opts [Integer] :limit 
+    # @return [Array<(ListConnectionEmailEmailsResponse, Integer, Hash)>] ListConnectionEmailEmailsResponse data, response status code and response headers
+    def list_connection_email_emails_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.list_connection_email_emails ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.list_connection_email_emails"
+      end
+      allowable_values = ["sale", "offer", "shipped", "delist", "label", "message", "cancel", "payout", "notice"]
+      if @api_client.config.client_side_validation && opts[:'type'] && !allowable_values.include?(opts[:'type'])
+        fail ArgumentError, "invalid value for \"type\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["matched", "unmatched"]
+      if @api_client.config.client_side_validation && opts[:'match'] && !allowable_values.include?(opts[:'match'])
+        fail ArgumentError, "invalid value for \"match\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling AccountsApi.list_connection_email_emails, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling AccountsApi.list_connection_email_emails, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/connections/email/{id}/emails'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'platform'] = opts[:'platform'] if !opts[:'platform'].nil?
+      query_params[:'type'] = opts[:'type'] if !opts[:'type'].nil?
+      query_params[:'match'] = opts[:'match'] if !opts[:'match'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListConnectionEmailEmailsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.list_connection_email_emails",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#list_connection_email_emails\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the marketplaces you can connect with your own developer app, and what you've saved.
+    # @param [Hash] opts the optional parameters
+    # @return [ListConnectionOwnAppsResponse]
+    def list_connection_own_apps(opts = {})
+      data, _status_code, _headers = list_connection_own_apps_with_http_info(opts)
+      data
+    end
+
+    # List the marketplaces you can connect with your own developer app, and what you&#39;ve saved.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListConnectionOwnAppsResponse, Integer, Hash)>] ListConnectionOwnAppsResponse data, response status code and response headers
+    def list_connection_own_apps_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.list_connection_own_apps ...'
+      end
+      # resource path
+      local_var_path = '/v1/connections/own-apps'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListConnectionOwnAppsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.list_connection_own_apps",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#list_connection_own_apps\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # List eBay and Etsy accounts with whether Crossly manages their policies.
     # One row per connected eBay or Etsy account: `eligible` (eBay only on EBAY_US), `managed` (Crossly keeps its policies / shipping profiles in step with your default presets) and sync `notes`.
     # @param [Hash] opts the optional parameters
@@ -1216,7 +1908,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List OAuth-connected API platforms.
+    # List OAuth-connected API platforms, each flagged with whether this store (X-Storefront-Id) uses it.
     # @param [Hash] opts the optional parameters
     # @return [ListConnectionsResponse]
     def list_connections(opts = {})
@@ -1224,7 +1916,7 @@ module Crossly
       data
     end
 
-    # List OAuth-connected API platforms.
+    # List OAuth-connected API platforms, each flagged with whether this store (X-Storefront-Id) uses it.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListConnectionsResponse, Integer, Hash)>] ListConnectionsResponse data, response status code and response headers
     def list_connections_with_http_info(opts = {})
@@ -1271,29 +1963,23 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Edit an IMAP mailbox connection.
-    # @param id [String] 
+    # List marketplaces with their availability (connect, own_app, coming_soon) and capability chips.
     # @param [Hash] opts the optional parameters
-    # @return [SuccessResponse]
-    def update_connection_email_imap(id, opts = {})
-      data, _status_code, _headers = update_connection_email_imap_with_http_info(id, opts)
+    # @return [ListPlatformsResponse]
+    def list_platforms(opts = {})
+      data, _status_code, _headers = list_platforms_with_http_info(opts)
       data
     end
 
-    # Edit an IMAP mailbox connection.
-    # @param id [String] 
+    # List marketplaces with their availability (connect, own_app, coming_soon) and capability chips.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(SuccessResponse, Integer, Hash)>] SuccessResponse data, response status code and response headers
-    def update_connection_email_imap_with_http_info(id, opts = {})
+    # @return [Array<(ListPlatformsResponse, Integer, Hash)>] ListPlatformsResponse data, response status code and response headers
+    def list_platforms_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: AccountsApi.update_connection_email_imap ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.update_connection_email_imap"
+        @api_client.config.logger.debug 'Calling API: AccountsApi.list_platforms ...'
       end
       # resource path
-      local_var_path = '/v1/connections/email/imap/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+      local_var_path = '/v1/platforms'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -1310,7 +1996,223 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'SuccessResponse'
+      return_type = opts[:debug_return_type] || 'ListPlatformsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.list_platforms",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#list_platforms\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set one platform account's order-history import window (how far back its past sales and active listings import). Runs the one-time backfill now when the account has not had it yet.
+    # @param account_id [String] 
+    # @param update_channel_account_history_import_request [UpdateChannelAccountHistoryImportRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateChannelAccountHistoryImportResponse]
+    def update_channel_account_history_import(account_id, update_channel_account_history_import_request, opts = {})
+      data, _status_code, _headers = update_channel_account_history_import_with_http_info(account_id, update_channel_account_history_import_request, opts)
+      data
+    end
+
+    # Set one platform account&#39;s order-history import window (how far back its past sales and active listings import). Runs the one-time backfill now when the account has not had it yet.
+    # @param account_id [String] 
+    # @param update_channel_account_history_import_request [UpdateChannelAccountHistoryImportRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateChannelAccountHistoryImportResponse, Integer, Hash)>] UpdateChannelAccountHistoryImportResponse data, response status code and response headers
+    def update_channel_account_history_import_with_http_info(account_id, update_channel_account_history_import_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.update_channel_account_history_import ...'
+      end
+      # verify the required parameter 'account_id' is set
+      if @api_client.config.client_side_validation && account_id.nil?
+        fail ArgumentError, "Missing the required parameter 'account_id' when calling AccountsApi.update_channel_account_history_import"
+      end
+      # verify the required parameter 'update_channel_account_history_import_request' is set
+      if @api_client.config.client_side_validation && update_channel_account_history_import_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_channel_account_history_import_request' when calling AccountsApi.update_channel_account_history_import"
+      end
+      # resource path
+      local_var_path = '/v1/channel-accounts/{accountId}/history-import'.sub('{' + 'accountId' + '}', CGI.escape(account_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_channel_account_history_import_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateChannelAccountHistoryImportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.update_channel_account_history_import",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#update_channel_account_history_import\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change an email connection: label, watchedPlatforms (null = every marketplace), isActive (false pauses it), or an IMAP server / username / password (the sign-in is verified first).
+    # @param id [String] 
+    # @param update_connection_email_imap_request [UpdateConnectionEmailImapRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateConnectionEmailResponse]
+    def update_connection_email(id, update_connection_email_imap_request, opts = {})
+      data, _status_code, _headers = update_connection_email_with_http_info(id, update_connection_email_imap_request, opts)
+      data
+    end
+
+    # Change an email connection: label, watchedPlatforms (null &#x3D; every marketplace), isActive (false pauses it), or an IMAP server / username / password (the sign-in is verified first).
+    # @param id [String] 
+    # @param update_connection_email_imap_request [UpdateConnectionEmailImapRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateConnectionEmailResponse, Integer, Hash)>] UpdateConnectionEmailResponse data, response status code and response headers
+    def update_connection_email_with_http_info(id, update_connection_email_imap_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.update_connection_email ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.update_connection_email"
+      end
+      # verify the required parameter 'update_connection_email_imap_request' is set
+      if @api_client.config.client_side_validation && update_connection_email_imap_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_connection_email_imap_request' when calling AccountsApi.update_connection_email"
+      end
+      # resource path
+      local_var_path = '/v1/connections/email/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_connection_email_imap_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateConnectionEmailResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.update_connection_email",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#update_connection_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change an email connection: label, watchedPlatforms (null = every marketplace), isActive (false pauses it), or an IMAP server / username / password (the sign-in is verified first).
+    # @param id [String] 
+    # @param update_connection_email_imap_request [UpdateConnectionEmailImapRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateConnectionEmailResponse]
+    def update_connection_email_imap(id, update_connection_email_imap_request, opts = {})
+      data, _status_code, _headers = update_connection_email_imap_with_http_info(id, update_connection_email_imap_request, opts)
+      data
+    end
+
+    # Change an email connection: label, watchedPlatforms (null &#x3D; every marketplace), isActive (false pauses it), or an IMAP server / username / password (the sign-in is verified first).
+    # @param id [String] 
+    # @param update_connection_email_imap_request [UpdateConnectionEmailImapRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateConnectionEmailResponse, Integer, Hash)>] UpdateConnectionEmailResponse data, response status code and response headers
+    def update_connection_email_imap_with_http_info(id, update_connection_email_imap_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.update_connection_email_imap ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling AccountsApi.update_connection_email_imap"
+      end
+      # verify the required parameter 'update_connection_email_imap_request' is set
+      if @api_client.config.client_side_validation && update_connection_email_imap_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_connection_email_imap_request' when calling AccountsApi.update_connection_email_imap"
+      end
+      # resource path
+      local_var_path = '/v1/connections/email/imap/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_connection_email_imap_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateConnectionEmailResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -1332,28 +2234,106 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Save your own developer app for a marketplace (client id, secret and any required parameters).
+    # @param platform [String] 
+    # @param update_connection_own_app_request [UpdateConnectionOwnAppRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateConnectionOwnAppResponse]
+    def update_connection_own_app(platform, update_connection_own_app_request, opts = {})
+      data, _status_code, _headers = update_connection_own_app_with_http_info(platform, update_connection_own_app_request, opts)
+      data
+    end
+
+    # Save your own developer app for a marketplace (client id, secret and any required parameters).
+    # @param platform [String] 
+    # @param update_connection_own_app_request [UpdateConnectionOwnAppRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateConnectionOwnAppResponse, Integer, Hash)>] UpdateConnectionOwnAppResponse data, response status code and response headers
+    def update_connection_own_app_with_http_info(platform, update_connection_own_app_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AccountsApi.update_connection_own_app ...'
+      end
+      # verify the required parameter 'platform' is set
+      if @api_client.config.client_side_validation && platform.nil?
+        fail ArgumentError, "Missing the required parameter 'platform' when calling AccountsApi.update_connection_own_app"
+      end
+      # verify the required parameter 'update_connection_own_app_request' is set
+      if @api_client.config.client_side_validation && update_connection_own_app_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_connection_own_app_request' when calling AccountsApi.update_connection_own_app"
+      end
+      # resource path
+      local_var_path = '/v1/connections/own-apps/{platform}'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_connection_own_app_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateConnectionOwnAppResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"AccountsApi.update_connection_own_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AccountsApi#update_connection_own_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Turn Crossly policy management on or off for one eBay or Etsy account.
     # Body `{ managed: boolean }`. On: Crossly may overwrite that account's own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
     # @param connection_id [String] 
+    # @param update_connection_policy_management_request [UpdateConnectionPolicyManagementRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListConnectionPolicyManagementItem]
-    def update_connection_policy_management(connection_id, opts = {})
-      data, _status_code, _headers = update_connection_policy_management_with_http_info(connection_id, opts)
+    def update_connection_policy_management(connection_id, update_connection_policy_management_request, opts = {})
+      data, _status_code, _headers = update_connection_policy_management_with_http_info(connection_id, update_connection_policy_management_request, opts)
       data
     end
 
     # Turn Crossly policy management on or off for one eBay or Etsy account.
     # Body &#x60;{ managed: boolean }&#x60;. On: Crossly may overwrite that account&#39;s own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
     # @param connection_id [String] 
+    # @param update_connection_policy_management_request [UpdateConnectionPolicyManagementRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListConnectionPolicyManagementItem, Integer, Hash)>] ListConnectionPolicyManagementItem data, response status code and response headers
-    def update_connection_policy_management_with_http_info(connection_id, opts = {})
+    def update_connection_policy_management_with_http_info(connection_id, update_connection_policy_management_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.update_connection_policy_management ...'
       end
       # verify the required parameter 'connection_id' is set
       if @api_client.config.client_side_validation && connection_id.nil?
         fail ArgumentError, "Missing the required parameter 'connection_id' when calling AccountsApi.update_connection_policy_management"
+      end
+      # verify the required parameter 'update_connection_policy_management_request' is set
+      if @api_client.config.client_side_validation && update_connection_policy_management_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_connection_policy_management_request' when calling AccountsApi.update_connection_policy_management"
       end
       # resource path
       local_var_path = '/v1/connections/policy-management/{connectionId}'.sub('{' + 'connectionId' + '}', CGI.escape(connection_id.to_s))
@@ -1365,12 +2345,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_connection_policy_management_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListConnectionPolicyManagementItem'
@@ -1397,26 +2382,32 @@ module Crossly
 
     # Update per-platform connection preferences.
     # @param platform [String] 
+    # @param update_platform_preference_request [UpdatePlatformPreferenceRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :connection_id 
     # @return [UpdatePlatformPreferenceResponse]
-    def update_platform_preference(platform, opts = {})
-      data, _status_code, _headers = update_platform_preference_with_http_info(platform, opts)
+    def update_platform_preference(platform, update_platform_preference_request, opts = {})
+      data, _status_code, _headers = update_platform_preference_with_http_info(platform, update_platform_preference_request, opts)
       data
     end
 
     # Update per-platform connection preferences.
     # @param platform [String] 
+    # @param update_platform_preference_request [UpdatePlatformPreferenceRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :connection_id 
     # @return [Array<(UpdatePlatformPreferenceResponse, Integer, Hash)>] UpdatePlatformPreferenceResponse data, response status code and response headers
-    def update_platform_preference_with_http_info(platform, opts = {})
+    def update_platform_preference_with_http_info(platform, update_platform_preference_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AccountsApi.update_platform_preference ...'
       end
       # verify the required parameter 'platform' is set
       if @api_client.config.client_side_validation && platform.nil?
         fail ArgumentError, "Missing the required parameter 'platform' when calling AccountsApi.update_platform_preference"
+      end
+      # verify the required parameter 'update_platform_preference_request' is set
+      if @api_client.config.client_side_validation && update_platform_preference_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_platform_preference_request' when calling AccountsApi.update_platform_preference"
       end
       # resource path
       local_var_path = '/v1/platforms/{platform}/preferences'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s))
@@ -1429,12 +2420,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_platform_preference_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdatePlatformPreferenceResponse'

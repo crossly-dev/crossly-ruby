@@ -19,21 +19,82 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Reset a channel's inventory controls to the default (no cap, no buffer, sync on, end on sell-out).
+    # Reset a platform account's settings in the store to the defaults (no cap, no buffer, sync on, end on sell-out, republish automatically).
+    # @param account_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListChannelAccountsItem]
+    def delete_channel_account_setting(account_id, opts = {})
+      data, _status_code, _headers = delete_channel_account_setting_with_http_info(account_id, opts)
+      data
+    end
+
+    # Reset a platform account&#39;s settings in the store to the defaults (no cap, no buffer, sync on, end on sell-out, republish automatically).
+    # @param account_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListChannelAccountsItem, Integer, Hash)>] ListChannelAccountsItem data, response status code and response headers
+    def delete_channel_account_setting_with_http_info(account_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.delete_channel_account_setting ...'
+      end
+      # verify the required parameter 'account_id' is set
+      if @api_client.config.client_side_validation && account_id.nil?
+        fail ArgumentError, "Missing the required parameter 'account_id' when calling ChannelInventoryApi.delete_channel_account_setting"
+      end
+      # resource path
+      local_var_path = '/v1/channel-accounts/{accountId}/settings'.sub('{' + 'accountId' + '}', CGI.escape(account_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ChannelInventoryApi.delete_channel_account_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ChannelInventoryApi#delete_channel_account_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias of DELETE /api/v1/channel-accounts/:accountId/settings (removed next release).
     # @param platform [String] 
     # @param slot [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [ListChannelInventoryItem]
+    # @return [ListChannelAccountsItem]
     def delete_channel_inventory(platform, slot, opts = {})
       data, _status_code, _headers = delete_channel_inventory_with_http_info(platform, slot, opts)
       data
     end
 
-    # Reset a channel&#39;s inventory controls to the default (no cap, no buffer, sync on, end on sell-out).
+    # Deprecated alias of DELETE /api/v1/channel-accounts/:accountId/settings (removed next release).
     # @param platform [String] 
     # @param slot [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListChannelInventoryItem, Integer, Hash)>] ListChannelInventoryItem data, response status code and response headers
+    # @return [Array<(ListChannelAccountsItem, Integer, Hash)>] ListChannelAccountsItem data, response status code and response headers
     def delete_channel_inventory_with_http_info(platform, slot, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.delete_channel_inventory ...'
@@ -68,7 +129,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListChannelInventoryItem'
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsItem'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -90,21 +151,82 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Get one channel's inventory controls.
+    # Get one platform account's inventory and restock settings in the store.
+    # @param account_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListChannelAccountsItem]
+    def get_channel_account_setting(account_id, opts = {})
+      data, _status_code, _headers = get_channel_account_setting_with_http_info(account_id, opts)
+      data
+    end
+
+    # Get one platform account&#39;s inventory and restock settings in the store.
+    # @param account_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListChannelAccountsItem, Integer, Hash)>] ListChannelAccountsItem data, response status code and response headers
+    def get_channel_account_setting_with_http_info(account_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.get_channel_account_setting ...'
+      end
+      # verify the required parameter 'account_id' is set
+      if @api_client.config.client_side_validation && account_id.nil?
+        fail ArgumentError, "Missing the required parameter 'account_id' when calling ChannelInventoryApi.get_channel_account_setting"
+      end
+      # resource path
+      local_var_path = '/v1/channel-accounts/{accountId}/settings'.sub('{' + 'accountId' + '}', CGI.escape(account_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ChannelInventoryApi.get_channel_account_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ChannelInventoryApi#get_channel_account_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias of GET /api/v1/channel-accounts/:accountId/settings (removed next release).
     # @param platform [String] 
     # @param slot [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [ListChannelInventoryItem]
+    # @return [ListChannelAccountsItem]
     def get_channel_inventory(platform, slot, opts = {})
       data, _status_code, _headers = get_channel_inventory_with_http_info(platform, slot, opts)
       data
     end
 
-    # Get one channel&#39;s inventory controls.
+    # Deprecated alias of GET /api/v1/channel-accounts/:accountId/settings (removed next release).
     # @param platform [String] 
     # @param slot [Integer] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListChannelInventoryItem, Integer, Hash)>] ListChannelInventoryItem data, response status code and response headers
+    # @return [Array<(ListChannelAccountsItem, Integer, Hash)>] ListChannelAccountsItem data, response status code and response headers
     def get_channel_inventory_with_http_info(platform, slot, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.get_channel_inventory ...'
@@ -139,7 +261,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListChannelInventoryItem'
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsItem'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -161,17 +283,72 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List every sales channel with its inventory controls (cap, buffer, sync, out-of-stock action, exclusions).
+    # List every platform account of the store with its inventory and restock settings.
     # @param [Hash] opts the optional parameters
-    # @return [ListChannelInventoryResponse]
+    # @return [ListChannelAccountsResponse]
+    def list_channel_accounts(opts = {})
+      data, _status_code, _headers = list_channel_accounts_with_http_info(opts)
+      data
+    end
+
+    # List every platform account of the store with its inventory and restock settings.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListChannelAccountsResponse, Integer, Hash)>] ListChannelAccountsResponse data, response status code and response headers
+    def list_channel_accounts_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.list_channel_accounts ...'
+      end
+      # resource path
+      local_var_path = '/v1/channel-accounts'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ChannelInventoryApi.list_channel_accounts",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ChannelInventoryApi#list_channel_accounts\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias of GET /api/v1/channel-accounts (removed next release).
+    # @param [Hash] opts the optional parameters
+    # @return [ListChannelAccountsResponse]
     def list_channel_inventory(opts = {})
       data, _status_code, _headers = list_channel_inventory_with_http_info(opts)
       data
     end
 
-    # List every sales channel with its inventory controls (cap, buffer, sync, out-of-stock action, exclusions).
+    # Deprecated alias of GET /api/v1/channel-accounts (removed next release).
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListChannelInventoryResponse, Integer, Hash)>] ListChannelInventoryResponse data, response status code and response headers
+    # @return [Array<(ListChannelAccountsResponse, Integer, Hash)>] ListChannelAccountsResponse data, response status code and response headers
     def list_channel_inventory_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.list_channel_inventory ...'
@@ -194,7 +371,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListChannelInventoryResponse'
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -216,22 +393,96 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Set a channel's quantity cap, buffer, sync toggle, out-of-stock action and exclusion lists (merge write).
-    # @param platform [String] 
-    # @param slot [Integer] 
+    # Set a platform account's quantity cap, buffer, sync toggle, out-of-stock action, exclusions and restock auto-republish in the store (merge write).
+    # @param account_id [String] 
+    # @param update_channel_inventory_request [UpdateChannelInventoryRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [ListChannelInventoryItem]
-    def update_channel_inventory(platform, slot, opts = {})
-      data, _status_code, _headers = update_channel_inventory_with_http_info(platform, slot, opts)
+    # @return [ListChannelAccountsItem]
+    def update_channel_account_setting(account_id, update_channel_inventory_request, opts = {})
+      data, _status_code, _headers = update_channel_account_setting_with_http_info(account_id, update_channel_inventory_request, opts)
       data
     end
 
-    # Set a channel&#39;s quantity cap, buffer, sync toggle, out-of-stock action and exclusion lists (merge write).
+    # Set a platform account&#39;s quantity cap, buffer, sync toggle, out-of-stock action, exclusions and restock auto-republish in the store (merge write).
+    # @param account_id [String] 
+    # @param update_channel_inventory_request [UpdateChannelInventoryRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListChannelAccountsItem, Integer, Hash)>] ListChannelAccountsItem data, response status code and response headers
+    def update_channel_account_setting_with_http_info(account_id, update_channel_inventory_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.update_channel_account_setting ...'
+      end
+      # verify the required parameter 'account_id' is set
+      if @api_client.config.client_side_validation && account_id.nil?
+        fail ArgumentError, "Missing the required parameter 'account_id' when calling ChannelInventoryApi.update_channel_account_setting"
+      end
+      # verify the required parameter 'update_channel_inventory_request' is set
+      if @api_client.config.client_side_validation && update_channel_inventory_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_channel_inventory_request' when calling ChannelInventoryApi.update_channel_account_setting"
+      end
+      # resource path
+      local_var_path = '/v1/channel-accounts/{accountId}/settings'.sub('{' + 'accountId' + '}', CGI.escape(account_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_channel_inventory_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsItem'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ChannelInventoryApi.update_channel_account_setting",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ChannelInventoryApi#update_channel_account_setting\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias of PUT /api/v1/channel-accounts/:accountId/settings (removed next release).
     # @param platform [String] 
     # @param slot [Integer] 
+    # @param update_channel_inventory_request [UpdateChannelInventoryRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(ListChannelInventoryItem, Integer, Hash)>] ListChannelInventoryItem data, response status code and response headers
-    def update_channel_inventory_with_http_info(platform, slot, opts = {})
+    # @return [ListChannelAccountsItem]
+    def update_channel_inventory(platform, slot, update_channel_inventory_request, opts = {})
+      data, _status_code, _headers = update_channel_inventory_with_http_info(platform, slot, update_channel_inventory_request, opts)
+      data
+    end
+
+    # Deprecated alias of PUT /api/v1/channel-accounts/:accountId/settings (removed next release).
+    # @param platform [String] 
+    # @param slot [Integer] 
+    # @param update_channel_inventory_request [UpdateChannelInventoryRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListChannelAccountsItem, Integer, Hash)>] ListChannelAccountsItem data, response status code and response headers
+    def update_channel_inventory_with_http_info(platform, slot, update_channel_inventory_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChannelInventoryApi.update_channel_inventory ...'
       end
@@ -247,6 +498,10 @@ module Crossly
         fail ArgumentError, 'invalid value for "slot" when calling ChannelInventoryApi.update_channel_inventory, must be greater than or equal to 1.'
       end
 
+      # verify the required parameter 'update_channel_inventory_request' is set
+      if @api_client.config.client_side_validation && update_channel_inventory_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_channel_inventory_request' when calling ChannelInventoryApi.update_channel_inventory"
+      end
       # resource path
       local_var_path = '/v1/channel-inventory/{platform}/{slot}'.sub('{' + 'platform' + '}', CGI.escape(platform.to_s)).sub('{' + 'slot' + '}', CGI.escape(slot.to_s))
 
@@ -257,15 +512,20 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_channel_inventory_request)
 
       # return_type
-      return_type = opts[:debug_return_type] || 'ListChannelInventoryItem'
+      return_type = opts[:debug_return_type] || 'ListChannelAccountsItem'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']

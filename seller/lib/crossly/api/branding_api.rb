@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a drop as a draft. `config` is the full drop config (what, where: shop|world|live|storefront|featured, format, access, limits, pricing, schedule, promotion, fulfilment). Returns rule problems to fix before publishing.
+    # @param create_branding_drop_request [CreateBrandingDropRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBrandingDropResponse]
-    def create_branding_drop(opts = {})
-      data, _status_code, _headers = create_branding_drop_with_http_info(opts)
+    def create_branding_drop(create_branding_drop_request, opts = {})
+      data, _status_code, _headers = create_branding_drop_with_http_info(create_branding_drop_request, opts)
       data
     end
 
     # Create a drop as a draft. &#x60;config&#x60; is the full drop config (what, where: shop|world|live|storefront|featured, format, access, limits, pricing, schedule, promotion, fulfilment). Returns rule problems to fix before publishing.
+    # @param create_branding_drop_request [CreateBrandingDropRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBrandingDropResponse, Integer, Hash)>] CreateBrandingDropResponse data, response status code and response headers
-    def create_branding_drop_with_http_info(opts = {})
+    def create_branding_drop_with_http_info(create_branding_drop_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.create_branding_drop ...'
+      end
+      # verify the required parameter 'create_branding_drop_request' is set
+      if @api_client.config.client_side_validation && create_branding_drop_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_branding_drop_request' when calling BrandingApi.create_branding_drop"
       end
       # resource path
       local_var_path = '/v1/branding/drops'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_branding_drop_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBrandingDropResponse'
@@ -78,6 +89,7 @@ module Crossly
     # @param id [String] 
     # @param control [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBrandingDropControlRequest] :create_branding_drop_control_request 
     # @return [GetBrandingDropResponse]
     def create_branding_drop_control(id, control, opts = {})
       data, _status_code, _headers = create_branding_drop_control_with_http_info(id, control, opts)
@@ -88,6 +100,7 @@ module Crossly
     # @param id [String] 
     # @param control [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBrandingDropControlRequest] :create_branding_drop_control_request 
     # @return [Array<(GetBrandingDropResponse, Integer, Hash)>] GetBrandingDropResponse data, response status code and response headers
     def create_branding_drop_control_with_http_info(id, control, opts = {})
       if @api_client.config.debugging
@@ -111,12 +124,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_branding_drop_control_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetBrandingDropResponse'
@@ -202,26 +220,100 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Cancel a published event with the reason attendees see.
+    # Restock run for a sold-out or ended drop: a link-only group buy on one of its restocked listings ({ platformListingId?, tiers, goalQty?, minQtyToProceed?, perBuyerMax?, days?, paymentMode?, priorityHours?, title?, description?, shareCopy? }). Waitlisted, raffle-losing and notify entrants of the drop are told and join first for priorityHours. One run per drop (409 after).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBrandingDropRestockRunRequest] :create_branding_drop_restock_run_request 
+    # @return [CreateBrandingDropRestockRunResponse]
+    def create_branding_drop_restock_run(id, opts = {})
+      data, _status_code, _headers = create_branding_drop_restock_run_with_http_info(id, opts)
+      data
+    end
+
+    # Restock run for a sold-out or ended drop: a link-only group buy on one of its restocked listings ({ platformListingId?, tiers, goalQty?, minQtyToProceed?, perBuyerMax?, days?, paymentMode?, priorityHours?, title?, description?, shareCopy? }). Waitlisted, raffle-losing and notify entrants of the drop are told and join first for priorityHours. One run per drop (409 after).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateBrandingDropRestockRunRequest] :create_branding_drop_restock_run_request 
+    # @return [Array<(CreateBrandingDropRestockRunResponse, Integer, Hash)>] CreateBrandingDropRestockRunResponse data, response status code and response headers
+    def create_branding_drop_restock_run_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BrandingApi.create_branding_drop_restock_run ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.create_branding_drop_restock_run"
+      end
+      # resource path
+      local_var_path = '/v1/branding/drops/{id}/restock-run'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_branding_drop_restock_run_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateBrandingDropRestockRunResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BrandingApi.create_branding_drop_restock_run",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BrandingApi#create_branding_drop_restock_run\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Cancel a published event with the reason attendees see.
+    # @param id [String] 
+    # @param reason_request [ReasonRequest] 
+    # @param [Hash] opts the optional parameters
     # @return [CreateBrandingEventCancelResponse]
-    def create_branding_event_cancel(id, opts = {})
-      data, _status_code, _headers = create_branding_event_cancel_with_http_info(id, opts)
+    def create_branding_event_cancel(id, reason_request, opts = {})
+      data, _status_code, _headers = create_branding_event_cancel_with_http_info(id, reason_request, opts)
       data
     end
 
     # Cancel a published event with the reason attendees see.
     # @param id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBrandingEventCancelResponse, Integer, Hash)>] CreateBrandingEventCancelResponse data, response status code and response headers
-    def create_branding_event_cancel_with_http_info(id, opts = {})
+    def create_branding_event_cancel_with_http_info(id, reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.create_branding_event_cancel ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.create_branding_event_cancel"
+      end
+      # verify the required parameter 'reason_request' is set
+      if @api_client.config.client_side_validation && reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'reason_request' when calling BrandingApi.create_branding_event_cancel"
       end
       # resource path
       local_var_path = '/v1/branding/events/{id}/cancel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -233,12 +325,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBrandingEventCancelResponse'
@@ -265,24 +362,30 @@ module Crossly
 
     # Check a ticket in at the door by its QR token.
     # @param id [String] 
+    # @param create_branding_event_check_in_request [CreateBrandingEventCheckInRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBrandingEventCheckInResponse]
-    def create_branding_event_check_in(id, opts = {})
-      data, _status_code, _headers = create_branding_event_check_in_with_http_info(id, opts)
+    def create_branding_event_check_in(id, create_branding_event_check_in_request, opts = {})
+      data, _status_code, _headers = create_branding_event_check_in_with_http_info(id, create_branding_event_check_in_request, opts)
       data
     end
 
     # Check a ticket in at the door by its QR token.
     # @param id [String] 
+    # @param create_branding_event_check_in_request [CreateBrandingEventCheckInRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBrandingEventCheckInResponse, Integer, Hash)>] CreateBrandingEventCheckInResponse data, response status code and response headers
-    def create_branding_event_check_in_with_http_info(id, opts = {})
+    def create_branding_event_check_in_with_http_info(id, create_branding_event_check_in_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.create_branding_event_check_in ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.create_branding_event_check_in"
+      end
+      # verify the required parameter 'create_branding_event_check_in_request' is set
+      if @api_client.config.client_side_validation && create_branding_event_check_in_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_branding_event_check_in_request' when calling BrandingApi.create_branding_event_check_in"
       end
       # resource path
       local_var_path = '/v1/branding/events/{id}/check-in'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -294,12 +397,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_branding_event_check_in_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBrandingEventCheckInResponse'
@@ -326,24 +434,30 @@ module Crossly
 
     # Message the event's attendees: all, going, or ticketed.
     # @param id [String] 
+    # @param create_branding_event_message_request [CreateBrandingEventMessageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBrandingEventMessageResponse]
-    def create_branding_event_message(id, opts = {})
-      data, _status_code, _headers = create_branding_event_message_with_http_info(id, opts)
+    def create_branding_event_message(id, create_branding_event_message_request, opts = {})
+      data, _status_code, _headers = create_branding_event_message_with_http_info(id, create_branding_event_message_request, opts)
       data
     end
 
     # Message the event&#39;s attendees: all, going, or ticketed.
     # @param id [String] 
+    # @param create_branding_event_message_request [CreateBrandingEventMessageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBrandingEventMessageResponse, Integer, Hash)>] CreateBrandingEventMessageResponse data, response status code and response headers
-    def create_branding_event_message_with_http_info(id, opts = {})
+    def create_branding_event_message_with_http_info(id, create_branding_event_message_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.create_branding_event_message ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.create_branding_event_message"
+      end
+      # verify the required parameter 'create_branding_event_message_request' is set
+      if @api_client.config.client_side_validation && create_branding_event_message_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_branding_event_message_request' when calling BrandingApi.create_branding_event_message"
       end
       # resource path
       local_var_path = '/v1/branding/events/{id}/messages'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -355,12 +469,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_branding_event_message_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBrandingEventMessageResponse'
@@ -501,6 +620,61 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your partner terms (fee, drops per month, units per drop, self-publish, pre-bids, promotion tier), this month's drop usage and the terms history.
+    # @param [Hash] opts the optional parameters
+    # @return [GetBrandingBrandTermResponse]
+    def get_branding_brand_term(opts = {})
+      data, _status_code, _headers = get_branding_brand_term_with_http_info(opts)
+      data
+    end
+
+    # Your partner terms (fee, drops per month, units per drop, self-publish, pre-bids, promotion tier), this month&#39;s drop usage and the terms history.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetBrandingBrandTermResponse, Integer, Hash)>] GetBrandingBrandTermResponse data, response status code and response headers
+    def get_branding_brand_term_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BrandingApi.get_branding_brand_term ...'
+      end
+      # resource path
+      local_var_path = '/v1/branding/brand/terms'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetBrandingBrandTermResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BrandingApi.get_branding_brand_term",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BrandingApi#get_branding_brand_term\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Whether your Stripe account is a verified business (company, EIN/tax id verified, payouts on), with reasons and the page to fix it.
     # @param [Hash] opts the optional parameters
     # @return [GetBrandingBusinessVerificationResponse]
@@ -619,6 +793,7 @@ module Crossly
 
     # Your events: upcoming grouped by date (today, this_week, later), or past.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :scope 
     # @return [GetBrandingEventResponse]
     def get_branding_event(opts = {})
       data, _status_code, _headers = get_branding_event_with_http_info(opts)
@@ -627,16 +802,22 @@ module Crossly
 
     # Your events: upcoming grouped by date (today, this_week, later), or past.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :scope 
     # @return [Array<(GetBrandingEventResponse, Integer, Hash)>] GetBrandingEventResponse data, response status code and response headers
     def get_branding_event_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.get_branding_event ...'
+      end
+      allowable_values = ["upcoming", "past"]
+      if @api_client.config.client_side_validation && opts[:'scope'] && !allowable_values.include?(opts[:'scope'])
+        fail ArgumentError, "invalid value for \"scope\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/branding/events'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'scope'] = opts[:'scope'] if !opts[:'scope'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -727,8 +908,185 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Find a store to authorise by its name or slug (?q=, at least 2 characters).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @return [ListBrandingBrandSellerSearchResponse]
+    def list_branding_brand_seller_search(opts = {})
+      data, _status_code, _headers = list_branding_brand_seller_search_with_http_info(opts)
+      data
+    end
+
+    # Find a store to authorise by its name or slug (?q&#x3D;, at least 2 characters).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :q 
+    # @return [Array<(ListBrandingBrandSellerSearchResponse, Integer, Hash)>] ListBrandingBrandSellerSearchResponse data, response status code and response headers
+    def list_branding_brand_seller_search_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BrandingApi.list_branding_brand_seller_search ...'
+      end
+      # resource path
+      local_var_path = '/v1/branding/brand/sellers/search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBrandingBrandSellerSearchResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BrandingApi.list_branding_brand_seller_search",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BrandingApi#list_branding_brand_seller_search\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Your authorised sellers (approved brand partners), each with its store name and status.
+    # @param [Hash] opts the optional parameters
+    # @return [ListBrandingBrandSellersResponse]
+    def list_branding_brand_sellers(opts = {})
+      data, _status_code, _headers = list_branding_brand_sellers_with_http_info(opts)
+      data
+    end
+
+    # Your authorised sellers (approved brand partners), each with its store name and status.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBrandingBrandSellersResponse, Integer, Hash)>] ListBrandingBrandSellersResponse data, response status code and response headers
+    def list_branding_brand_sellers_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BrandingApi.list_branding_brand_sellers ...'
+      end
+      # resource path
+      local_var_path = '/v1/branding/brand/sellers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBrandingBrandSellersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BrandingApi.list_branding_brand_sellers",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BrandingApi#list_branding_brand_sellers\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A drop's buyers: public username, units claimed, order id and when, oldest first.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [ListBrandingDropBuyersResponse]
+    def list_branding_drop_buyers(id, opts = {})
+      data, _status_code, _headers = list_branding_drop_buyers_with_http_info(id, opts)
+      data
+    end
+
+    # A drop&#39;s buyers: public username, units claimed, order id and when, oldest first.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListBrandingDropBuyersResponse, Integer, Hash)>] ListBrandingDropBuyersResponse data, response status code and response headers
+    def list_branding_drop_buyers_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BrandingApi.list_branding_drop_buyers ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.list_branding_drop_buyers"
+      end
+      # resource path
+      local_var_path = '/v1/branding/drops/{id}/buyers'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListBrandingDropBuyersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BrandingApi.list_branding_drop_buyers",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BrandingApi#list_branding_drop_buyers\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Your drops, newest first, with config, waves, counts (entries, holding, sold, buyers) and phase. ?scope=upcoming|live|past|drafts|all.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :scope 
+    # @option opts [Float] :limit 
+    # @option opts [String] :cursor 
     # @return [ListBrandingDropsResponse]
     def list_branding_drops(opts = {})
       data, _status_code, _headers = list_branding_drops_with_http_info(opts)
@@ -737,16 +1095,26 @@ module Crossly
 
     # Your drops, newest first, with config, waves, counts (entries, holding, sold, buyers) and phase. ?scope&#x3D;upcoming|live|past|drafts|all.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :scope 
+    # @option opts [Float] :limit 
+    # @option opts [String] :cursor 
     # @return [Array<(ListBrandingDropsResponse, Integer, Hash)>] ListBrandingDropsResponse data, response status code and response headers
     def list_branding_drops_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.list_branding_drops ...'
+      end
+      allowable_values = ["all", "live", "upcoming", "past", "drafts"]
+      if @api_client.config.client_side_validation && opts[:'scope'] && !allowable_values.include?(opts[:'scope'])
+        fail ArgumentError, "invalid value for \"scope\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/branding/drops'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'scope'] = opts[:'scope'] if !opts[:'scope'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -837,26 +1205,98 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Authorise a seller to sell your brand, or revoke them: { sellerUserId, status: active|revoked, note? }.
+    # @param update_branding_brand_seller_request [UpdateBrandingBrandSellerRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateBrandingBrandSellerResponse]
+    def update_branding_brand_seller(update_branding_brand_seller_request, opts = {})
+      data, _status_code, _headers = update_branding_brand_seller_with_http_info(update_branding_brand_seller_request, opts)
+      data
+    end
+
+    # Authorise a seller to sell your brand, or revoke them: { sellerUserId, status: active|revoked, note? }.
+    # @param update_branding_brand_seller_request [UpdateBrandingBrandSellerRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateBrandingBrandSellerResponse, Integer, Hash)>] UpdateBrandingBrandSellerResponse data, response status code and response headers
+    def update_branding_brand_seller_with_http_info(update_branding_brand_seller_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: BrandingApi.update_branding_brand_seller ...'
+      end
+      # verify the required parameter 'update_branding_brand_seller_request' is set
+      if @api_client.config.client_side_validation && update_branding_brand_seller_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_branding_brand_seller_request' when calling BrandingApi.update_branding_brand_seller"
+      end
+      # resource path
+      local_var_path = '/v1/branding/brand/sellers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_branding_brand_seller_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateBrandingBrandSellerResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"BrandingApi.update_branding_brand_seller",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: BrandingApi#update_branding_brand_seller\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Edit a drop that is not live yet. A published drop refuses rule problems (400 drop_config_problems).
     # @param id [String] 
+    # @param update_branding_drop_request [UpdateBrandingDropRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBrandingDropResponse]
-    def update_branding_drop(id, opts = {})
-      data, _status_code, _headers = update_branding_drop_with_http_info(id, opts)
+    def update_branding_drop(id, update_branding_drop_request, opts = {})
+      data, _status_code, _headers = update_branding_drop_with_http_info(id, update_branding_drop_request, opts)
       data
     end
 
     # Edit a drop that is not live yet. A published drop refuses rule problems (400 drop_config_problems).
     # @param id [String] 
+    # @param update_branding_drop_request [UpdateBrandingDropRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBrandingDropResponse, Integer, Hash)>] CreateBrandingDropResponse data, response status code and response headers
-    def update_branding_drop_with_http_info(id, opts = {})
+    def update_branding_drop_with_http_info(id, update_branding_drop_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.update_branding_drop ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.update_branding_drop"
+      end
+      # verify the required parameter 'update_branding_drop_request' is set
+      if @api_client.config.client_side_validation && update_branding_drop_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_branding_drop_request' when calling BrandingApi.update_branding_drop"
       end
       # resource path
       local_var_path = '/v1/branding/drops/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -868,12 +1308,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_branding_drop_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBrandingDropResponse'
@@ -900,24 +1345,30 @@ module Crossly
 
     # Save an event's full settings (where, access, reminders, check-in, recording, linked drops) and ticket tiers.
     # @param id [String] 
+    # @param update_branding_event_setting_request [UpdateBrandingEventSettingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateBrandingEventSettingResponse]
-    def update_branding_event_setting(id, opts = {})
-      data, _status_code, _headers = update_branding_event_setting_with_http_info(id, opts)
+    def update_branding_event_setting(id, update_branding_event_setting_request, opts = {})
+      data, _status_code, _headers = update_branding_event_setting_with_http_info(id, update_branding_event_setting_request, opts)
       data
     end
 
     # Save an event&#39;s full settings (where, access, reminders, check-in, recording, linked drops) and ticket tiers.
     # @param id [String] 
+    # @param update_branding_event_setting_request [UpdateBrandingEventSettingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateBrandingEventSettingResponse, Integer, Hash)>] UpdateBrandingEventSettingResponse data, response status code and response headers
-    def update_branding_event_setting_with_http_info(id, opts = {})
+    def update_branding_event_setting_with_http_info(id, update_branding_event_setting_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandingApi.update_branding_event_setting ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BrandingApi.update_branding_event_setting"
+      end
+      # verify the required parameter 'update_branding_event_setting_request' is set
+      if @api_client.config.client_side_validation && update_branding_event_setting_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_branding_event_setting_request' when calling BrandingApi.update_branding_event_setting"
       end
       # resource path
       local_var_path = '/v1/branding/events/{id}/settings'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -929,12 +1380,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_branding_event_setting_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateBrandingEventSettingResponse'
@@ -961,6 +1417,7 @@ module Crossly
 
     # Change the store’s Branding defaults (any subset of the fields).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBrandingSettingRequest] :update_branding_setting_request 
     # @return [GetBrandingSettingResponse]
     def update_branding_setting(opts = {})
       data, _status_code, _headers = update_branding_setting_with_http_info(opts)
@@ -969,6 +1426,7 @@ module Crossly
 
     # Change the store’s Branding defaults (any subset of the fields).
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBrandingSettingRequest] :update_branding_setting_request 
     # @return [Array<(GetBrandingSettingResponse, Integer, Hash)>] GetBrandingSettingResponse data, response status code and response headers
     def update_branding_setting_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -984,12 +1442,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_branding_setting_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetBrandingSettingResponse'

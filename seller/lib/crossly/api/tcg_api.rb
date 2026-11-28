@@ -22,6 +22,7 @@ module Crossly
     # Open a 1v1 challenge with one of your decks; another player joins it.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [TcgResponse]
     def create_tcg_challenge(game, opts = {})
       data, _status_code, _headers = create_tcg_challenge_with_http_info(game, opts)
@@ -31,6 +32,7 @@ module Crossly
     # Open a 1v1 challenge with one of your decks; another player joins it.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [Array<(TcgResponse, Integer, Hash)>] TcgResponse data, response status code and response headers
     def create_tcg_challenge_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -50,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'deck_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'TcgResponse'
@@ -83,6 +90,7 @@ module Crossly
     # Create (no id) or update a deck: its lead (Crew Boss, Mastermind or Keeper) and 40 cards you own, checked against the deck rules of its game.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgDeckRequest] :create_tcg_deck_request 
     # @return [CreateTcgDeckResponse]
     def create_tcg_deck(game, opts = {})
       data, _status_code, _headers = create_tcg_deck_with_http_info(game, opts)
@@ -92,6 +100,7 @@ module Crossly
     # Create (no id) or update a deck: its lead (Crew Boss, Mastermind or Keeper) and 40 cards you own, checked against the deck rules of its game.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgDeckRequest] :create_tcg_deck_request 
     # @return [Array<(CreateTcgDeckResponse, Integer, Hash)>] CreateTcgDeckResponse data, response status code and response headers
     def create_tcg_deck_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -111,12 +120,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_deck_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgDeckResponse'
@@ -144,6 +158,7 @@ module Crossly
     # Make one move: { action } as listed in the match's legal moves. The engine checks it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgMatchActRequest] :create_tcg_match_act_request 
     # @return [TcgResponse]
     def create_tcg_match_act(id, opts = {})
       data, _status_code, _headers = create_tcg_match_act_with_http_info(id, opts)
@@ -153,6 +168,7 @@ module Crossly
     # Make one move: { action } as listed in the match&#39;s legal moves. The engine checks it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgMatchActRequest] :create_tcg_match_act_request 
     # @return [Array<(TcgResponse, Integer, Hash)>] TcgResponse data, response status code and response headers
     def create_tcg_match_act_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -172,12 +188,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_match_act_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'TcgResponse'
@@ -205,6 +226,7 @@ module Crossly
     # Join an open 1v1 challenge with one of your decks.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [TcgResponse]
     def create_tcg_match_join(id, opts = {})
       data, _status_code, _headers = create_tcg_match_join_with_http_info(id, opts)
@@ -214,6 +236,7 @@ module Crossly
     # Join an open 1v1 challenge with one of your decks.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [Array<(TcgResponse, Integer, Hash)>] TcgResponse data, response status code and response headers
     def create_tcg_match_join_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -233,12 +256,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'deck_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'TcgResponse'
@@ -327,6 +355,7 @@ module Crossly
     # Start a practice match against the house bot with one of your decks.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [TcgResponse]
     def create_tcg_practice(game, opts = {})
       data, _status_code, _headers = create_tcg_practice_with_http_info(game, opts)
@@ -336,6 +365,7 @@ module Crossly
     # Start a practice match against the house bot with one of your decks.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [Array<(TcgResponse, Integer, Hash)>] TcgResponse data, response status code and response headers
     def create_tcg_practice_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -355,12 +385,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'deck_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'TcgResponse'
@@ -388,6 +423,7 @@ module Crossly
     # Join the ranked queue with an owned, legal deck (free). Returns the match at once when an opponent fits.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [CreateTcgQueueResponse]
     def create_tcg_queue(game, opts = {})
       data, _status_code, _headers = create_tcg_queue_with_http_info(game, opts)
@@ -397,6 +433,7 @@ module Crossly
     # Join the ranked queue with an owned, legal deck (free). Returns the match at once when an opponent fits.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [Array<(CreateTcgQueueResponse, Integer, Hash)>] CreateTcgQueueResponse data, response status code and response headers
     def create_tcg_queue_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -416,12 +453,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'deck_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgQueueResponse'
@@ -449,6 +491,7 @@ module Crossly
     # Claim the free starter deck for a game, choosing its faction (once per account; account-bound, untradeable).
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgStarterRequest] :create_tcg_starter_request 
     # @return [CreateTcgStarterResponse]
     def create_tcg_starter(game, opts = {})
       data, _status_code, _headers = create_tcg_starter_with_http_info(game, opts)
@@ -458,6 +501,7 @@ module Crossly
     # Claim the free starter deck for a game, choosing its faction (once per account; account-bound, untradeable).
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgStarterRequest] :create_tcg_starter_request 
     # @return [Array<(CreateTcgStarterResponse, Integer, Hash)>] CreateTcgStarterResponse data, response status code and response headers
     def create_tcg_starter_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -477,12 +521,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_starter_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgStarterResponse'
@@ -510,6 +559,7 @@ module Crossly
     # Sit at a table with your free starter deck (claimed now if you never did: starter names it, else one is picked for you): joins the oldest open 1v1 challenge, or opens one; already waiting, your own seat back.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgTableRequest] :create_tcg_table_request 
     # @return [TcgResponse]
     def create_tcg_table(game, opts = {})
       data, _status_code, _headers = create_tcg_table_with_http_info(game, opts)
@@ -519,6 +569,7 @@ module Crossly
     # Sit at a table with your free starter deck (claimed now if you never did: starter names it, else one is picked for you): joins the oldest open 1v1 challenge, or opens one; already waiting, your own seat back.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgTableRequest] :create_tcg_table_request 
     # @return [Array<(TcgResponse, Integer, Hash)>] TcgResponse data, response status code and response headers
     def create_tcg_table_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -538,12 +589,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_table_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'TcgResponse'
@@ -571,6 +627,7 @@ module Crossly
     # Host a Swiss tournament: name, optional top cut (4 or 8), round length, player cap and start time.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgTournamentRequest] :create_tcg_tournament_request 
     # @return [CreateTcgTournamentResponse]
     def create_tcg_tournament(game, opts = {})
       data, _status_code, _headers = create_tcg_tournament_with_http_info(game, opts)
@@ -580,6 +637,7 @@ module Crossly
     # Host a Swiss tournament: name, optional top cut (4 or 8), round length, player cap and start time.
     # @param game [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgTournamentRequest] :create_tcg_tournament_request 
     # @return [Array<(CreateTcgTournamentResponse, Integer, Hash)>] CreateTcgTournamentResponse data, response status code and response headers
     def create_tcg_tournament_with_http_info(game, opts = {})
       if @api_client.config.debugging
@@ -599,12 +657,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_tournament_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgTournamentResponse'
@@ -693,6 +756,7 @@ module Crossly
     # Enter a tournament with an owned, legal deck before it starts.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [TcgTournamentResponse]
     def create_tcg_tournament_register(id, opts = {})
       data, _status_code, _headers = create_tcg_tournament_register_with_http_info(id, opts)
@@ -702,6 +766,7 @@ module Crossly
     # Enter a tournament with an owned, legal deck before it starts.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [DeckIdRequest] :deck_id_request 
     # @return [Array<(TcgTournamentResponse, Integer, Hash)>] TcgTournamentResponse data, response status code and response headers
     def create_tcg_tournament_register_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -721,12 +786,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'deck_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'TcgTournamentResponse'

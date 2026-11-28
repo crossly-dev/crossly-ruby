@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Accept a team invitation by the raw token from its link.
+    # @param token_object [TokenObject] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTeamAcceptResponse]
-    def create_team_accept(opts = {})
-      data, _status_code, _headers = create_team_accept_with_http_info(opts)
+    def create_team_accept(token_object, opts = {})
+      data, _status_code, _headers = create_team_accept_with_http_info(token_object, opts)
       data
     end
 
     # Accept a team invitation by the raw token from its link.
+    # @param token_object [TokenObject] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTeamAcceptResponse, Integer, Hash)>] CreateTeamAcceptResponse data, response status code and response headers
-    def create_team_accept_with_http_info(opts = {})
+    def create_team_accept_with_http_info(token_object, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TeamApi.create_team_accept ...'
+      end
+      # verify the required parameter 'token_object' is set
+      if @api_client.config.client_side_validation && token_object.nil?
+        fail ArgumentError, "Missing the required parameter 'token_object' when calling TeamApi.create_team_accept"
       end
       # resource path
       local_var_path = '/v1/team/accept'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(token_object)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTeamAcceptResponse'
@@ -74,23 +85,29 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
+    # Invite someone to one or more stores, each with its permissions; returns the one-time accept URL.
+    # @param create_team_invite_request [CreateTeamInviteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTeamInviteResponse]
-    def create_team_invite(opts = {})
-      data, _status_code, _headers = create_team_invite_with_http_info(opts)
+    def create_team_invite(create_team_invite_request, opts = {})
+      data, _status_code, _headers = create_team_invite_with_http_info(create_team_invite_request, opts)
       data
     end
 
-    # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
+    # Invite someone to one or more stores, each with its permissions; returns the one-time accept URL.
+    # @param create_team_invite_request [CreateTeamInviteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTeamInviteResponse, Integer, Hash)>] CreateTeamInviteResponse data, response status code and response headers
-    def create_team_invite_with_http_info(opts = {})
+    def create_team_invite_with_http_info(create_team_invite_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TeamApi.create_team_invite ...'
       end
+      # verify the required parameter 'create_team_invite_request' is set
+      if @api_client.config.client_side_validation && create_team_invite_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_team_invite_request' when calling TeamApi.create_team_invite"
+      end
       # resource path
-      local_var_path = '/v1/team/invite'
+      local_var_path = '/v1/team/invites'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_team_invite_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTeamInviteResponse'
@@ -125,6 +147,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: TeamApi#create_team_invite\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
+    # @param create_team_invite2_request [CreateTeamInvite2Request] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateTeamInvite2Response]
+    def create_team_invite2(create_team_invite2_request, opts = {})
+      data, _status_code, _headers = create_team_invite2_with_http_info(create_team_invite2_request, opts)
+      data
+    end
+
+    # Issue a team invitation; returns the one-time accept URL (nothing is emailed).
+    # @param create_team_invite2_request [CreateTeamInvite2Request] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateTeamInvite2Response, Integer, Hash)>] CreateTeamInvite2Response data, response status code and response headers
+    def create_team_invite2_with_http_info(create_team_invite2_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.create_team_invite2 ...'
+      end
+      # verify the required parameter 'create_team_invite2_request' is set
+      if @api_client.config.client_side_validation && create_team_invite2_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_team_invite2_request' when calling TeamApi.create_team_invite2"
+      end
+      # resource path
+      local_var_path = '/v1/team/invite'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_team_invite2_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateTeamInvite2Response'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.create_team_invite2",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#create_team_invite2\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -184,20 +272,98 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Add a team member to a store with its permissions.
+    # @param id [String] 
+    # @param create_team_member_store_request [CreateTeamMemberStoreRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [TeamMemberStoreResponse]
+    def create_team_member_store(id, create_team_member_store_request, opts = {})
+      data, _status_code, _headers = create_team_member_store_with_http_info(id, create_team_member_store_request, opts)
+      data
+    end
+
+    # Add a team member to a store with its permissions.
+    # @param id [String] 
+    # @param create_team_member_store_request [CreateTeamMemberStoreRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(TeamMemberStoreResponse, Integer, Hash)>] TeamMemberStoreResponse data, response status code and response headers
+    def create_team_member_store_with_http_info(id, create_team_member_store_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.create_team_member_store ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TeamApi.create_team_member_store"
+      end
+      # verify the required parameter 'create_team_member_store_request' is set
+      if @api_client.config.client_side_validation && create_team_member_store_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_team_member_store_request' when calling TeamApi.create_team_member_store"
+      end
+      # resource path
+      local_var_path = '/v1/team/members/{id}/stores'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_team_member_store_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'TeamMemberStoreResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.create_team_member_store",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#create_team_member_store\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Revoke a pending invite OR an active team member.
+    # @param create_team_revoke_request [CreateTeamRevokeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTeamRevokeResponse]
-    def create_team_revoke(opts = {})
-      data, _status_code, _headers = create_team_revoke_with_http_info(opts)
+    def create_team_revoke(create_team_revoke_request, opts = {})
+      data, _status_code, _headers = create_team_revoke_with_http_info(create_team_revoke_request, opts)
       data
     end
 
     # Revoke a pending invite OR an active team member.
+    # @param create_team_revoke_request [CreateTeamRevokeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTeamRevokeResponse, Integer, Hash)>] CreateTeamRevokeResponse data, response status code and response headers
-    def create_team_revoke_with_http_info(opts = {})
+    def create_team_revoke_with_http_info(create_team_revoke_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TeamApi.create_team_revoke ...'
+      end
+      # verify the required parameter 'create_team_revoke_request' is set
+      if @api_client.config.client_side_validation && create_team_revoke_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_team_revoke_request' when calling TeamApi.create_team_revoke"
       end
       # resource path
       local_var_path = '/v1/team/revoke'
@@ -209,12 +375,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_team_revoke_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTeamRevokeResponse'
@@ -235,6 +406,128 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: TeamApi#create_team_revoke\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Remove a team member from one store (their other stores stay).
+    # @param id [String] 
+    # @param store [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_team_member_store(id, store, opts = {})
+      data, _status_code, _headers = delete_team_member_store_with_http_info(id, store, opts)
+      data
+    end
+
+    # Remove a team member from one store (their other stores stay).
+    # @param id [String] 
+    # @param store [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_team_member_store_with_http_info(id, store, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.delete_team_member_store ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TeamApi.delete_team_member_store"
+      end
+      # verify the required parameter 'store' is set
+      if @api_client.config.client_side_validation && store.nil?
+        fail ArgumentError, "Missing the required parameter 'store' when calling TeamApi.delete_team_member_store"
+      end
+      # resource path
+      local_var_path = '/v1/team/members/{id}/stores/{store}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'store' + '}', CGI.escape(store.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.delete_team_member_store",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#delete_team_member_store\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The teammates work can be assigned to (active seats; isMe marks yours).
+    # @param [Hash] opts the optional parameters
+    # @return [GetAssigneeResponse]
+    def get_assignee(opts = {})
+      data, _status_code, _headers = get_assignee_with_http_info(opts)
+      data
+    end
+
+    # The teammates work can be assigned to (active seats; isMe marks yours).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetAssigneeResponse, Integer, Hash)>] GetAssigneeResponse data, response status code and response headers
+    def get_assignee_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.get_assignee ...'
+      end
+      # resource path
+      local_var_path = '/v1/assignees'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetAssigneeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.get_assignee",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#get_assignee\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -294,29 +587,29 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Update a team member's scopes (owner only).
-    # @param member_id [String] 
+    # One team member: added, last active and the stores they staff.
+    # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [OkResponse]
-    def update_team(member_id, opts = {})
-      data, _status_code, _headers = update_team_with_http_info(member_id, opts)
+    # @return [GetTeamMemberResponse]
+    def get_team_member(id, opts = {})
+      data, _status_code, _headers = get_team_member_with_http_info(id, opts)
       data
     end
 
-    # Update a team member&#39;s scopes (owner only).
-    # @param member_id [String] 
+    # One team member: added, last active and the stores they staff.
+    # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def update_team_with_http_info(member_id, opts = {})
+    # @return [Array<(GetTeamMemberResponse, Integer, Hash)>] GetTeamMemberResponse data, response status code and response headers
+    def get_team_member_with_http_info(id, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: TeamApi.update_team ...'
+        @api_client.config.logger.debug 'Calling API: TeamApi.get_team_member ...'
       end
-      # verify the required parameter 'member_id' is set
-      if @api_client.config.client_side_validation && member_id.nil?
-        fail ArgumentError, "Missing the required parameter 'member_id' when calling TeamApi.update_team"
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TeamApi.get_team_member"
       end
       # resource path
-      local_var_path = '/v1/team/{memberId}'.sub('{' + 'memberId' + '}', CGI.escape(member_id.to_s))
+      local_var_path = '/v1/team/members/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -331,6 +624,375 @@ module Crossly
 
       # http body (model)
       post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetTeamMemberResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.get_team_member",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#get_team_member\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A member's permissions and limits in one store (`all` = all current and future stores).
+    # @param id [String] 
+    # @param store [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [TeamMemberStoreResponse]
+    def get_team_member_store(id, store, opts = {})
+      data, _status_code, _headers = get_team_member_store_with_http_info(id, store, opts)
+      data
+    end
+
+    # A member&#39;s permissions and limits in one store (&#x60;all&#x60; &#x3D; all current and future stores).
+    # @param id [String] 
+    # @param store [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(TeamMemberStoreResponse, Integer, Hash)>] TeamMemberStoreResponse data, response status code and response headers
+    def get_team_member_store_with_http_info(id, store, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.get_team_member_store ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TeamApi.get_team_member_store"
+      end
+      # verify the required parameter 'store' is set
+      if @api_client.config.client_side_validation && store.nil?
+        fail ArgumentError, "Missing the required parameter 'store' when calling TeamApi.get_team_member_store"
+      end
+      # resource path
+      local_var_path = '/v1/team/members/{id}/stores/{store}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'store' + '}', CGI.escape(store.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'TeamMemberStoreResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.get_team_member_store",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#get_team_member_store\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List team invitations with the stores each adds the person to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :store 
+    # @option opts [String] :status 
+    # @option opts [String] :sort 
+    # @option opts [String] :q 
+    # @option opts [Float] :page 
+    # @option opts [Float] :page_size 
+    # @return [ListTeamInvitesResponse]
+    def list_team_invites(opts = {})
+      data, _status_code, _headers = list_team_invites_with_http_info(opts)
+      data
+    end
+
+    # List team invitations with the stores each adds the person to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :store 
+    # @option opts [String] :status 
+    # @option opts [String] :sort 
+    # @option opts [String] :q 
+    # @option opts [Float] :page 
+    # @option opts [Float] :page_size 
+    # @return [Array<(ListTeamInvitesResponse, Integer, Hash)>] ListTeamInvitesResponse data, response status code and response headers
+    def list_team_invites_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.list_team_invites ...'
+      end
+      allowable_values = ["all", "expired", "pending", "accepted", "revoked"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["email", "expires", "newest", "oldest"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/team/invites'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'store'] = opts[:'store'] if !opts[:'store'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'pageSize'] = opts[:'page_size'] if !opts[:'page_size'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListTeamInvitesResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.list_team_invites",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#list_team_invites\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List team members with the stores each staffs (search, store, preset, permission, status, last active).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :store A store id, or &#39;all&#39; (members holding the all-stores entry).
+    # @option opts [String] :role A preset id (viewer…admin), &#39;custom&#39;, or the account role &#39;account_admin&#39;.
+    # @option opts [String] :permission 
+    # @option opts [String] :status active &#x3D; reaches at least one store; no_stores &#x3D; a seat with no store yet.
+    # @option opts [String] :last_active 
+    # @option opts [String] :sort 
+    # @option opts [String] :q 
+    # @option opts [Float] :page 
+    # @option opts [Float] :page_size 
+    # @return [ListTeamMembersResponse]
+    def list_team_members(opts = {})
+      data, _status_code, _headers = list_team_members_with_http_info(opts)
+      data
+    end
+
+    # List team members with the stores each staffs (search, store, preset, permission, status, last active).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :store A store id, or &#39;all&#39; (members holding the all-stores entry).
+    # @option opts [String] :role A preset id (viewer…admin), &#39;custom&#39;, or the account role &#39;account_admin&#39;.
+    # @option opts [String] :permission 
+    # @option opts [String] :status active &#x3D; reaches at least one store; no_stores &#x3D; a seat with no store yet.
+    # @option opts [String] :last_active 
+    # @option opts [String] :sort 
+    # @option opts [String] :q 
+    # @option opts [Float] :page 
+    # @option opts [Float] :page_size 
+    # @return [Array<(ListTeamMembersResponse, Integer, Hash)>] ListTeamMembersResponse data, response status code and response headers
+    def list_team_members_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.list_team_members ...'
+      end
+      allowable_values = ["active", "no_stores"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["never", "7d", "30d", "90d", "over_90d"]
+      if @api_client.config.client_side_validation && opts[:'last_active'] && !allowable_values.include?(opts[:'last_active'])
+        fail ArgumentError, "invalid value for \"last_active\", must be one of #{allowable_values}"
+      end
+      allowable_values = ["name", "added", "last_active"]
+      if @api_client.config.client_side_validation && opts[:'sort'] && !allowable_values.include?(opts[:'sort'])
+        fail ArgumentError, "invalid value for \"sort\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/team/members'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'store'] = opts[:'store'] if !opts[:'store'].nil?
+      query_params[:'role'] = opts[:'role'] if !opts[:'role'].nil?
+      query_params[:'permission'] = opts[:'permission'] if !opts[:'permission'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'lastActive'] = opts[:'last_active'] if !opts[:'last_active'].nil?
+      query_params[:'sort'] = opts[:'sort'] if !opts[:'sort'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'pageSize'] = opts[:'page_size'] if !opts[:'page_size'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListTeamMembersResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.list_team_members",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#list_team_members\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The stores whose team you may see, invite to and manage.
+    # @param [Hash] opts the optional parameters
+    # @return [ListTeamStoresResponse]
+    def list_team_stores(opts = {})
+      data, _status_code, _headers = list_team_stores_with_http_info(opts)
+      data
+    end
+
+    # The stores whose team you may see, invite to and manage.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListTeamStoresResponse, Integer, Hash)>] ListTeamStoresResponse data, response status code and response headers
+    def list_team_stores_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.list_team_stores ...'
+      end
+      # resource path
+      local_var_path = '/v1/team/stores'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListTeamStoresResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.list_team_stores",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#list_team_stores\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Update a team member's scopes (owner only).
+    # @param member_id [String] 
+    # @param update_team_request [UpdateTeamRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def update_team(member_id, update_team_request, opts = {})
+      data, _status_code, _headers = update_team_with_http_info(member_id, update_team_request, opts)
+      data
+    end
+
+    # Update a team member&#39;s scopes (owner only).
+    # @param member_id [String] 
+    # @param update_team_request [UpdateTeamRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def update_team_with_http_info(member_id, update_team_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.update_team ...'
+      end
+      # verify the required parameter 'member_id' is set
+      if @api_client.config.client_side_validation && member_id.nil?
+        fail ArgumentError, "Missing the required parameter 'member_id' when calling TeamApi.update_team"
+      end
+      # verify the required parameter 'update_team_request' is set
+      if @api_client.config.client_side_validation && update_team_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_team_request' when calling TeamApi.update_team"
+      end
+      # resource path
+      local_var_path = '/v1/team/{memberId}'.sub('{' + 'memberId' + '}', CGI.escape(member_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_team_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'
@@ -351,6 +1013,84 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: TeamApi#update_team\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set a member's permissions and limits in one store.
+    # @param id [String] 
+    # @param store [String] 
+    # @param update_team_member_store_request [UpdateTeamMemberStoreRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [TeamMemberStoreResponse]
+    def update_team_member_store(id, store, update_team_member_store_request, opts = {})
+      data, _status_code, _headers = update_team_member_store_with_http_info(id, store, update_team_member_store_request, opts)
+      data
+    end
+
+    # Set a member&#39;s permissions and limits in one store.
+    # @param id [String] 
+    # @param store [String] 
+    # @param update_team_member_store_request [UpdateTeamMemberStoreRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(TeamMemberStoreResponse, Integer, Hash)>] TeamMemberStoreResponse data, response status code and response headers
+    def update_team_member_store_with_http_info(id, store, update_team_member_store_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: TeamApi.update_team_member_store ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling TeamApi.update_team_member_store"
+      end
+      # verify the required parameter 'store' is set
+      if @api_client.config.client_side_validation && store.nil?
+        fail ArgumentError, "Missing the required parameter 'store' when calling TeamApi.update_team_member_store"
+      end
+      # verify the required parameter 'update_team_member_store_request' is set
+      if @api_client.config.client_side_validation && update_team_member_store_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_team_member_store_request' when calling TeamApi.update_team_member_store"
+      end
+      # resource path
+      local_var_path = '/v1/team/members/{id}/stores/{store}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'store' + '}', CGI.escape(store.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_team_member_store_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'TeamMemberStoreResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"TeamApi.update_team_member_store",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: TeamApi#update_team_member_store\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

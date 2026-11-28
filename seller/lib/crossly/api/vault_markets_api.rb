@@ -820,19 +820,25 @@ module Crossly
     end
 
     # Place a block buy for an entity: one order booked to the first sub-account in `plan` (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share's cash moves between the entity's own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
+    # @param create_vault_market_block_request [CreateVaultMarketBlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketBlocksItem]
-    def create_vault_market_block(opts = {})
-      data, _status_code, _headers = create_vault_market_block_with_http_info(opts)
+    def create_vault_market_block(create_vault_market_block_request, opts = {})
+      data, _status_code, _headers = create_vault_market_block_with_http_info(create_vault_market_block_request, opts)
       data
     end
 
     # Place a block buy for an entity: one order booked to the first sub-account in &#x60;plan&#x60; (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share&#39;s cash moves between the entity&#39;s own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
+    # @param create_vault_market_block_request [CreateVaultMarketBlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketBlocksItem, Integer, Hash)>] ListVaultMarketBlocksItem data, response status code and response headers
-    def create_vault_market_block_with_http_info(opts = {})
+    def create_vault_market_block_with_http_info(create_vault_market_block_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_block ...'
+      end
+      # verify the required parameter 'create_vault_market_block_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_block_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_block_request' when calling VaultMarketsApi.create_vault_market_block"
       end
       # resource path
       local_var_path = '/v1/vault-markets/blocks'
@@ -844,12 +850,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_block_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketBlocksItem'
@@ -1278,19 +1289,25 @@ module Crossly
     end
 
     # Link a partner exchange account to your account (or to a firm sub-account you manage, `subaccountId`) so Crossly can show its positions: `accountRef` (the account id there) and `code` (the one-time link code it gave you). The partner must confirm the code; the code is never stored. Read-only: Crossly never trades on it.
+    # @param create_vault_market_dcm_link_request [CreateVaultMarketDcmLinkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketDcmLinkResponse]
-    def create_vault_market_dcm_link(opts = {})
-      data, _status_code, _headers = create_vault_market_dcm_link_with_http_info(opts)
+    def create_vault_market_dcm_link(create_vault_market_dcm_link_request, opts = {})
+      data, _status_code, _headers = create_vault_market_dcm_link_with_http_info(create_vault_market_dcm_link_request, opts)
       data
     end
 
     # Link a partner exchange account to your account (or to a firm sub-account you manage, &#x60;subaccountId&#x60;) so Crossly can show its positions: &#x60;accountRef&#x60; (the account id there) and &#x60;code&#x60; (the one-time link code it gave you). The partner must confirm the code; the code is never stored. Read-only: Crossly never trades on it.
+    # @param create_vault_market_dcm_link_request [CreateVaultMarketDcmLinkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketDcmLinkResponse, Integer, Hash)>] CreateVaultMarketDcmLinkResponse data, response status code and response headers
-    def create_vault_market_dcm_link_with_http_info(opts = {})
+    def create_vault_market_dcm_link_with_http_info(create_vault_market_dcm_link_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_dcm_link ...'
+      end
+      # verify the required parameter 'create_vault_market_dcm_link_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_dcm_link_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_dcm_link_request' when calling VaultMarketsApi.create_vault_market_dcm_link"
       end
       # resource path
       local_var_path = '/v1/vault-markets/dcm/link'
@@ -1302,12 +1319,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_dcm_link_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketDcmLinkResponse'
@@ -1334,6 +1356,7 @@ module Crossly
 
     # Unlink the partner exchange account from your account (or the firm sub-account `subaccountId`): Crossly stops reading it and its hedges leave portfolio margin.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketDcmUnlinkRequest] :create_vault_market_dcm_unlink_request 
     # @return [CreateVaultMarketDcmUnlinkResponse]
     def create_vault_market_dcm_unlink(opts = {})
       data, _status_code, _headers = create_vault_market_dcm_unlink_with_http_info(opts)
@@ -1342,6 +1365,7 @@ module Crossly
 
     # Unlink the partner exchange account from your account (or the firm sub-account &#x60;subaccountId&#x60;): Crossly stops reading it and its hedges leave portfolio margin.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketDcmUnlinkRequest] :create_vault_market_dcm_unlink_request 
     # @return [Array<(CreateVaultMarketDcmUnlinkResponse, Integer, Hash)>] CreateVaultMarketDcmUnlinkResponse data, response status code and response headers
     def create_vault_market_dcm_unlink_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1357,12 +1381,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_dcm_unlink_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketDcmUnlinkResponse'
@@ -1779,19 +1808,25 @@ module Crossly
     end
 
     # Open an entity account: you become its admin and the custodian partner starts KYB (its own flow; Crossly keeps only its reference). Needs a verified ID and the custodian (503 names what is missing).
+    # @param create_vault_market_entity_request [CreateVaultMarketEntityRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketEntityResponse]
-    def create_vault_market_entity(opts = {})
-      data, _status_code, _headers = create_vault_market_entity_with_http_info(opts)
+    def create_vault_market_entity(create_vault_market_entity_request, opts = {})
+      data, _status_code, _headers = create_vault_market_entity_with_http_info(create_vault_market_entity_request, opts)
       data
     end
 
     # Open an entity account: you become its admin and the custodian partner starts KYB (its own flow; Crossly keeps only its reference). Needs a verified ID and the custodian (503 names what is missing).
+    # @param create_vault_market_entity_request [CreateVaultMarketEntityRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketEntityResponse, Integer, Hash)>] CreateVaultMarketEntityResponse data, response status code and response headers
-    def create_vault_market_entity_with_http_info(opts = {})
+    def create_vault_market_entity_with_http_info(create_vault_market_entity_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_entity ...'
+      end
+      # verify the required parameter 'create_vault_market_entity_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_entity_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_entity_request' when calling VaultMarketsApi.create_vault_market_entity"
       end
       # resource path
       local_var_path = '/v1/vault-markets/entities'
@@ -1803,12 +1838,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_entity_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketEntityResponse'
@@ -1896,24 +1936,30 @@ module Crossly
 
     # Admin or risk: the firm kill switch. Halts the entity (no `subaccountId`) or one sub-account: open orders on it are cancelled and no new ones are placed until cleared.
     # @param id [String] 
+    # @param create_vault_market_entity_halt_request [CreateVaultMarketEntityHaltRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketEntityHaltResponse]
-    def create_vault_market_entity_halt(id, opts = {})
-      data, _status_code, _headers = create_vault_market_entity_halt_with_http_info(id, opts)
+    def create_vault_market_entity_halt(id, create_vault_market_entity_halt_request, opts = {})
+      data, _status_code, _headers = create_vault_market_entity_halt_with_http_info(id, create_vault_market_entity_halt_request, opts)
       data
     end
 
     # Admin or risk: the firm kill switch. Halts the entity (no &#x60;subaccountId&#x60;) or one sub-account: open orders on it are cancelled and no new ones are placed until cleared.
     # @param id [String] 
+    # @param create_vault_market_entity_halt_request [CreateVaultMarketEntityHaltRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketEntityHaltResponse, Integer, Hash)>] CreateVaultMarketEntityHaltResponse data, response status code and response headers
-    def create_vault_market_entity_halt_with_http_info(id, opts = {})
+    def create_vault_market_entity_halt_with_http_info(id, create_vault_market_entity_halt_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_entity_halt ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_entity_halt"
+      end
+      # verify the required parameter 'create_vault_market_entity_halt_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_entity_halt_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_entity_halt_request' when calling VaultMarketsApi.create_vault_market_entity_halt"
       end
       # resource path
       local_var_path = '/v1/vault-markets/entities/{id}/halts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1925,12 +1971,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_entity_halt_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketEntityHaltResponse'
@@ -2024,24 +2075,30 @@ module Crossly
 
     # Accept or decline an invitation (`accept`). Trading, admin and risk roles need a verified ID to accept.
     # @param id [String] 
+    # @param create_world_space_request_by_user_id_request [CreateWorldSpaceRequestByUserIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketEntityResponse]
-    def create_vault_market_entity_invitation(id, opts = {})
-      data, _status_code, _headers = create_vault_market_entity_invitation_with_http_info(id, opts)
+    def create_vault_market_entity_invitation(id, create_world_space_request_by_user_id_request, opts = {})
+      data, _status_code, _headers = create_vault_market_entity_invitation_with_http_info(id, create_world_space_request_by_user_id_request, opts)
       data
     end
 
     # Accept or decline an invitation (&#x60;accept&#x60;). Trading, admin and risk roles need a verified ID to accept.
     # @param id [String] 
+    # @param create_world_space_request_by_user_id_request [CreateWorldSpaceRequestByUserIdRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketEntityResponse, Integer, Hash)>] GetVaultMarketEntityResponse data, response status code and response headers
-    def create_vault_market_entity_invitation_with_http_info(id, opts = {})
+    def create_vault_market_entity_invitation_with_http_info(id, create_world_space_request_by_user_id_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_entity_invitation ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_entity_invitation"
+      end
+      # verify the required parameter 'create_world_space_request_by_user_id_request' is set
+      if @api_client.config.client_side_validation && create_world_space_request_by_user_id_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_world_space_request_by_user_id_request' when calling VaultMarketsApi.create_vault_market_entity_invitation"
       end
       # resource path
       local_var_path = '/v1/vault-markets/entities/{id}/invitation'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -2053,12 +2110,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_world_space_request_by_user_id_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketEntityResponse'
@@ -2146,24 +2208,30 @@ module Crossly
 
     # Admin: invite a Crossly user by email as admin, trader, risk, ops or viewer (a viewer can never place an order), with optional limits and sub-accounts.
     # @param id [String] 
+    # @param create_vault_market_entity_member_request [CreateVaultMarketEntityMemberRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketEntityByIdResponse]
-    def create_vault_market_entity_member(id, opts = {})
-      data, _status_code, _headers = create_vault_market_entity_member_with_http_info(id, opts)
+    def create_vault_market_entity_member(id, create_vault_market_entity_member_request, opts = {})
+      data, _status_code, _headers = create_vault_market_entity_member_with_http_info(id, create_vault_market_entity_member_request, opts)
       data
     end
 
     # Admin: invite a Crossly user by email as admin, trader, risk, ops or viewer (a viewer can never place an order), with optional limits and sub-accounts.
     # @param id [String] 
+    # @param create_vault_market_entity_member_request [CreateVaultMarketEntityMemberRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketEntityByIdResponse, Integer, Hash)>] GetVaultMarketEntityByIdResponse data, response status code and response headers
-    def create_vault_market_entity_member_with_http_info(id, opts = {})
+    def create_vault_market_entity_member_with_http_info(id, create_vault_market_entity_member_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_entity_member ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_entity_member"
+      end
+      # verify the required parameter 'create_vault_market_entity_member_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_entity_member_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_entity_member_request' when calling VaultMarketsApi.create_vault_market_entity_member"
       end
       # resource path
       local_var_path = '/v1/vault-markets/entities/{id}/members'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -2175,12 +2243,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_entity_member_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketEntityByIdResponse'
@@ -2207,24 +2280,30 @@ module Crossly
 
     # Admin: open a sub-account once the custodian approved the entity; its limits are held to the entity's caps.
     # @param id [String] 
+    # @param create_vault_market_entity_subaccount_request [CreateVaultMarketEntitySubaccountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketEntityByIdResponse]
-    def create_vault_market_entity_subaccount(id, opts = {})
-      data, _status_code, _headers = create_vault_market_entity_subaccount_with_http_info(id, opts)
+    def create_vault_market_entity_subaccount(id, create_vault_market_entity_subaccount_request, opts = {})
+      data, _status_code, _headers = create_vault_market_entity_subaccount_with_http_info(id, create_vault_market_entity_subaccount_request, opts)
       data
     end
 
     # Admin: open a sub-account once the custodian approved the entity; its limits are held to the entity&#39;s caps.
     # @param id [String] 
+    # @param create_vault_market_entity_subaccount_request [CreateVaultMarketEntitySubaccountRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketEntityByIdResponse, Integer, Hash)>] GetVaultMarketEntityByIdResponse data, response status code and response headers
-    def create_vault_market_entity_subaccount_with_http_info(id, opts = {})
+    def create_vault_market_entity_subaccount_with_http_info(id, create_vault_market_entity_subaccount_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_entity_subaccount ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_entity_subaccount"
+      end
+      # verify the required parameter 'create_vault_market_entity_subaccount_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_entity_subaccount_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_entity_subaccount_request' when calling VaultMarketsApi.create_vault_market_entity_subaccount"
       end
       # resource path
       local_var_path = '/v1/vault-markets/entities/{id}/subaccounts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -2236,12 +2315,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_entity_subaccount_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketEntityByIdResponse'
@@ -2628,6 +2712,7 @@ module Crossly
 
     # Start Grade to Vault on one item (`source` inventory or vault_unit). With `runId` the grading slot is booked at once (free; your saved card is charged only if the run locks). Nothing is listed until you confirm a price after the grade.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradeToVaultRequest] :create_vault_market_grade_to_vault_request 
     # @return [ListVaultMarketGradeToVaultItem]
     def create_vault_market_grade_to_vault(opts = {})
       data, _status_code, _headers = create_vault_market_grade_to_vault_with_http_info(opts)
@@ -2636,6 +2721,7 @@ module Crossly
 
     # Start Grade to Vault on one item (&#x60;source&#x60; inventory or vault_unit). With &#x60;runId&#x60; the grading slot is booked at once (free; your saved card is charged only if the run locks). Nothing is listed until you confirm a price after the grade.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradeToVaultRequest] :create_vault_market_grade_to_vault_request 
     # @return [Array<(ListVaultMarketGradeToVaultItem, Integer, Hash)>] ListVaultMarketGradeToVaultItem data, response status code and response headers
     def create_vault_market_grade_to_vault_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -2651,12 +2737,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_grade_to_vault_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketGradeToVaultItem'
@@ -2684,6 +2775,7 @@ module Crossly
     # Book (or re-book) the grading slot of a flow still at \"picked\". Answers 503 naming GRADING_HUB_ADDRESS when runs are not open.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradeToVaultBookRequest] :create_vault_market_grade_to_vault_book_request 
     # @return [ListVaultMarketGradeToVaultItem]
     def create_vault_market_grade_to_vault_book(id, opts = {})
       data, _status_code, _headers = create_vault_market_grade_to_vault_book_with_http_info(id, opts)
@@ -2693,6 +2785,7 @@ module Crossly
     # Book (or re-book) the grading slot of a flow still at \&quot;picked\&quot;. Answers 503 naming GRADING_HUB_ADDRESS when runs are not open.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradeToVaultBookRequest] :create_vault_market_grade_to_vault_book_request 
     # @return [Array<(ListVaultMarketGradeToVaultItem, Integer, Hash)>] ListVaultMarketGradeToVaultItem data, response status code and response headers
     def create_vault_market_grade_to_vault_book_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2712,12 +2805,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_grade_to_vault_book_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketGradeToVaultItem'
@@ -2867,6 +2965,7 @@ module Crossly
     # Confirm the price for the grade the unit came back with (`confirm: true`, `gradeKey` must match the unit). Pre-trade risk, the price band and the ID line apply, then one shelf ask is placed on the Crossly order book.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradeToVaultListRequest] :create_vault_market_grade_to_vault_list_request 
     # @return [ListVaultMarketGradeToVaultItem]
     def create_vault_market_grade_to_vault_list(id, opts = {})
       data, _status_code, _headers = create_vault_market_grade_to_vault_list_with_http_info(id, opts)
@@ -2876,6 +2975,7 @@ module Crossly
     # Confirm the price for the grade the unit came back with (&#x60;confirm: true&#x60;, &#x60;gradeKey&#x60; must match the unit). Pre-trade risk, the price band and the ID line apply, then one shelf ask is placed on the Crossly order book.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketGradeToVaultListRequest] :create_vault_market_grade_to_vault_list_request 
     # @return [Array<(ListVaultMarketGradeToVaultItem, Integer, Hash)>] ListVaultMarketGradeToVaultItem data, response status code and response headers
     def create_vault_market_grade_to_vault_list_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2895,12 +2995,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_grade_to_vault_list_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketGradeToVaultItem'
@@ -2928,6 +3033,7 @@ module Crossly
     # You mailed the card to the grading hub (an inventory card, once its run locked).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingSubmissionShippedRequest] :create_grading_submission_shipped_request 
     # @return [ListVaultMarketGradeToVaultItem]
     def create_vault_market_grade_to_vault_shipped(id, opts = {})
       data, _status_code, _headers = create_vault_market_grade_to_vault_shipped_with_http_info(id, opts)
@@ -2937,6 +3043,7 @@ module Crossly
     # You mailed the card to the grading hub (an inventory card, once its run locked).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGradingSubmissionShippedRequest] :create_grading_submission_shipped_request 
     # @return [Array<(ListVaultMarketGradeToVaultItem, Integer, Hash)>] ListVaultMarketGradeToVaultItem data, response status code and response headers
     def create_vault_market_grade_to_vault_shipped_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2956,12 +3063,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_grading_submission_shipped_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketGradeToVaultItem'
@@ -5367,19 +5479,25 @@ module Crossly
     end
 
     # Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs' own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+    # @param create_vault_market_option_combo_request [CreateVaultMarketOptionComboRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketOptionComboResponse]
-    def create_vault_market_option_combo(opts = {})
-      data, _status_code, _headers = create_vault_market_option_combo_with_http_info(opts)
+    def create_vault_market_option_combo(create_vault_market_option_combo_request, opts = {})
+      data, _status_code, _headers = create_vault_market_option_combo_with_http_info(create_vault_market_option_combo_request, opts)
       data
     end
 
     # Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs&#39; own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+    # @param create_vault_market_option_combo_request [CreateVaultMarketOptionComboRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketOptionComboResponse, Integer, Hash)>] CreateVaultMarketOptionComboResponse data, response status code and response headers
-    def create_vault_market_option_combo_with_http_info(opts = {})
+    def create_vault_market_option_combo_with_http_info(create_vault_market_option_combo_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_combo ...'
+      end
+      # verify the required parameter 'create_vault_market_option_combo_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_option_combo_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_option_combo_request' when calling VaultMarketsApi.create_vault_market_option_combo"
       end
       # resource path
       local_var_path = '/v1/vault-markets/options/combos'
@@ -5391,12 +5509,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_option_combo_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionComboResponse'
@@ -5782,19 +5905,25 @@ module Crossly
     end
 
     # Write a covered call: lock a stored vault unit (`vaultItemId`) as collateral and sell up to one call on its own key (`contractId`, `quantity` <= 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+    # @param create_vault_market_option_covered_call_request [CreateVaultMarketOptionCoveredCallRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketOptionCoveredCallResponse]
-    def create_vault_market_option_covered_call(opts = {})
-      data, _status_code, _headers = create_vault_market_option_covered_call_with_http_info(opts)
+    def create_vault_market_option_covered_call(create_vault_market_option_covered_call_request, opts = {})
+      data, _status_code, _headers = create_vault_market_option_covered_call_with_http_info(create_vault_market_option_covered_call_request, opts)
       data
     end
 
     # Write a covered call: lock a stored vault unit (&#x60;vaultItemId&#x60;) as collateral and sell up to one call on its own key (&#x60;contractId&#x60;, &#x60;quantity&#x60; &lt;&#x3D; 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+    # @param create_vault_market_option_covered_call_request [CreateVaultMarketOptionCoveredCallRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketOptionCoveredCallResponse, Integer, Hash)>] CreateVaultMarketOptionCoveredCallResponse data, response status code and response headers
-    def create_vault_market_option_covered_call_with_http_info(opts = {})
+    def create_vault_market_option_covered_call_with_http_info(create_vault_market_option_covered_call_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_covered_call ...'
+      end
+      # verify the required parameter 'create_vault_market_option_covered_call_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_option_covered_call_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_option_covered_call_request' when calling VaultMarketsApi.create_vault_market_option_covered_call"
       end
       # resource path
       local_var_path = '/v1/vault-markets/options/covered-calls'
@@ -5806,12 +5935,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_option_covered_call_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionCoveredCallResponse'
@@ -6063,19 +6197,25 @@ module Crossly
     end
 
     # Place an options order: `contractId`, `side`, `quantity` in contracts (three decimals), a `priceCents` or an `iv` (`quoteMode`), `tif` gtc / gtd (with `expiresAt`) / ioc, `postOnly`. Idempotent on `clientOrderId`. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its `termsVersion`). `subaccountId` trades for a firm sub-account you may trade.
+    # @param create_vault_market_option_order_request [CreateVaultMarketOptionOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketOptionOrderResponse]
-    def create_vault_market_option_order(opts = {})
-      data, _status_code, _headers = create_vault_market_option_order_with_http_info(opts)
+    def create_vault_market_option_order(create_vault_market_option_order_request, opts = {})
+      data, _status_code, _headers = create_vault_market_option_order_with_http_info(create_vault_market_option_order_request, opts)
       data
     end
 
     # Place an options order: &#x60;contractId&#x60;, &#x60;side&#x60;, &#x60;quantity&#x60; in contracts (three decimals), a &#x60;priceCents&#x60; or an &#x60;iv&#x60; (&#x60;quoteMode&#x60;), &#x60;tif&#x60; gtc / gtd (with &#x60;expiresAt&#x60;) / ioc, &#x60;postOnly&#x60;. Idempotent on &#x60;clientOrderId&#x60;. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its &#x60;termsVersion&#x60;). &#x60;subaccountId&#x60; trades for a firm sub-account you may trade.
+    # @param create_vault_market_option_order_request [CreateVaultMarketOptionOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketOptionOrderResponse, Integer, Hash)>] CreateVaultMarketOptionOrderResponse data, response status code and response headers
-    def create_vault_market_option_order_with_http_info(opts = {})
+    def create_vault_market_option_order_with_http_info(create_vault_market_option_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_order ...'
+      end
+      # verify the required parameter 'create_vault_market_option_order_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_option_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_option_order_request' when calling VaultMarketsApi.create_vault_market_option_order"
       end
       # resource path
       local_var_path = '/v1/vault-markets/options/orders'
@@ -6087,12 +6227,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_option_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionOrderResponse'
@@ -6405,19 +6550,25 @@ module Crossly
     end
 
     # Price a ticket without placing it: give a price per contract or an implied vol (`quoteMode`), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+    # @param create_vault_market_option_quote_request [CreateVaultMarketOptionQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketOptionQuoteResponse]
-    def create_vault_market_option_quote(opts = {})
-      data, _status_code, _headers = create_vault_market_option_quote_with_http_info(opts)
+    def create_vault_market_option_quote(create_vault_market_option_quote_request, opts = {})
+      data, _status_code, _headers = create_vault_market_option_quote_with_http_info(create_vault_market_option_quote_request, opts)
       data
     end
 
     # Price a ticket without placing it: give a price per contract or an implied vol (&#x60;quoteMode&#x60;), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+    # @param create_vault_market_option_quote_request [CreateVaultMarketOptionQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketOptionQuoteResponse, Integer, Hash)>] CreateVaultMarketOptionQuoteResponse data, response status code and response headers
-    def create_vault_market_option_quote_with_http_info(opts = {})
+    def create_vault_market_option_quote_with_http_info(create_vault_market_option_quote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_quote ...'
+      end
+      # verify the required parameter 'create_vault_market_option_quote_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_option_quote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_option_quote_request' when calling VaultMarketsApi.create_vault_market_option_quote"
       end
       # resource path
       local_var_path = '/v1/vault-markets/options/quote'
@@ -6429,12 +6580,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_option_quote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionQuoteResponse'
@@ -6759,19 +6915,25 @@ module Crossly
     end
 
     # Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. `practice` rolls a practice position.
+    # @param create_vault_market_option_roll_request [CreateVaultMarketOptionRollRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketOptionRollResponse]
-    def create_vault_market_option_roll(opts = {})
-      data, _status_code, _headers = create_vault_market_option_roll_with_http_info(opts)
+    def create_vault_market_option_roll(create_vault_market_option_roll_request, opts = {})
+      data, _status_code, _headers = create_vault_market_option_roll_with_http_info(create_vault_market_option_roll_request, opts)
       data
     end
 
     # Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. &#x60;practice&#x60; rolls a practice position.
+    # @param create_vault_market_option_roll_request [CreateVaultMarketOptionRollRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketOptionRollResponse, Integer, Hash)>] CreateVaultMarketOptionRollResponse data, response status code and response headers
-    def create_vault_market_option_roll_with_http_info(opts = {})
+    def create_vault_market_option_roll_with_http_info(create_vault_market_option_roll_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_option_roll ...'
+      end
+      # verify the required parameter 'create_vault_market_option_roll_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_option_roll_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_option_roll_request' when calling VaultMarketsApi.create_vault_market_option_roll"
       end
       # resource path
       local_var_path = '/v1/vault-markets/options/roll'
@@ -6783,12 +6945,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_option_roll_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketOptionRollResponse'
@@ -6993,6 +7160,7 @@ module Crossly
     # Borrower: look for a cheaper lender. A refinancing auction runs for `hours` (1-72, default 24); the rate a new lender gets climbs from `startAprBps` (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketP2pLoanRefiAuctionRequest] :create_vault_market_p2p_loan_refi_auction_request 
     # @return [GetVaultMarketP2pLoanResponse]
     def create_vault_market_p2p_loan_refi_auction(id, opts = {})
       data, _status_code, _headers = create_vault_market_p2p_loan_refi_auction_with_http_info(id, opts)
@@ -7002,6 +7170,7 @@ module Crossly
     # Borrower: look for a cheaper lender. A refinancing auction runs for &#x60;hours&#x60; (1-72, default 24); the rate a new lender gets climbs from &#x60;startAprBps&#x60; (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketP2pLoanRefiAuctionRequest] :create_vault_market_p2p_loan_refi_auction_request 
     # @return [Array<(GetVaultMarketP2pLoanResponse, Integer, Hash)>] GetVaultMarketP2pLoanResponse data, response status code and response headers
     def create_vault_market_p2p_loan_refi_auction_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -7021,12 +7190,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_p2p_loan_refi_auction_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketP2pLoanResponse'
@@ -7115,6 +7289,7 @@ module Crossly
     # Take over a loan in a refinancing auction (a lender call or a borrower search for a cheaper lender): you pay the old lender everything owed now (refused above `maxPayoffCents`), which becomes your loan to the same borrower at the auction rate now. Needs a verified ID, an active account and the current lending terms. Pass `requestId` to make a retry safe.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketP2pLoanRefinanceRequest] :create_vault_market_p2p_loan_refinance_request 
     # @return [GetVaultMarketP2pLoanResponse]
     def create_vault_market_p2p_loan_refinance(id, opts = {})
       data, _status_code, _headers = create_vault_market_p2p_loan_refinance_with_http_info(id, opts)
@@ -7124,6 +7299,7 @@ module Crossly
     # Take over a loan in a refinancing auction (a lender call or a borrower search for a cheaper lender): you pay the old lender everything owed now (refused above &#x60;maxPayoffCents&#x60;), which becomes your loan to the same borrower at the auction rate now. Needs a verified ID, an active account and the current lending terms. Pass &#x60;requestId&#x60; to make a retry safe.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketP2pLoanRefinanceRequest] :create_vault_market_p2p_loan_refinance_request 
     # @return [Array<(GetVaultMarketP2pLoanResponse, Integer, Hash)>] GetVaultMarketP2pLoanResponse data, response status code and response headers
     def create_vault_market_p2p_loan_refinance_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -7143,12 +7319,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_p2p_loan_refinance_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketP2pLoanResponse'
@@ -7176,6 +7357,7 @@ module Crossly
     # Borrower: repay from your custodian account to the lender. Without `amountCents`, in full (principal plus interest to the second; the unit is free once the custodian has it). With `amountCents` below what is owed, a part payment: interest first, then principal, at least the interest owed now and at least $1; the loan stays open on the principal left. Pass `requestId` to make a retry safe.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketP2pLoanRepayRequest] :create_vault_market_p2p_loan_repay_request 
     # @return [GetVaultMarketP2pLoanResponse]
     def create_vault_market_p2p_loan_repay(id, opts = {})
       data, _status_code, _headers = create_vault_market_p2p_loan_repay_with_http_info(id, opts)
@@ -7185,6 +7367,7 @@ module Crossly
     # Borrower: repay from your custodian account to the lender. Without &#x60;amountCents&#x60;, in full (principal plus interest to the second; the unit is free once the custodian has it). With &#x60;amountCents&#x60; below what is owed, a part payment: interest first, then principal, at least the interest owed now and at least $1; the loan stays open on the principal left. Pass &#x60;requestId&#x60; to make a retry safe.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketP2pLoanRepayRequest] :create_vault_market_p2p_loan_repay_request 
     # @return [Array<(GetVaultMarketP2pLoanResponse, Integer, Hash)>] GetVaultMarketP2pLoanResponse data, response status code and response headers
     def create_vault_market_p2p_loan_repay_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -7204,12 +7387,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_p2p_loan_repay_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketP2pLoanResponse'
@@ -7235,19 +7423,25 @@ module Crossly
     end
 
     # Offer to lend: `principalCents` per loan at `aprBps` a year against an item (`bookKey`) or one unit (`vaultItemId`), for up to `maxLoans` loans, lasting `expiresInDays` (default 90). Nothing is held: the custodian pays from your own account when a borrower takes it. Needs a verified ID, an active account and the current lending terms.
+    # @param create_vault_market_p2p_offer_request [CreateVaultMarketP2pOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketP2pOffersItem]
-    def create_vault_market_p2p_offer(opts = {})
-      data, _status_code, _headers = create_vault_market_p2p_offer_with_http_info(opts)
+    def create_vault_market_p2p_offer(create_vault_market_p2p_offer_request, opts = {})
+      data, _status_code, _headers = create_vault_market_p2p_offer_with_http_info(create_vault_market_p2p_offer_request, opts)
       data
     end
 
     # Offer to lend: &#x60;principalCents&#x60; per loan at &#x60;aprBps&#x60; a year against an item (&#x60;bookKey&#x60;) or one unit (&#x60;vaultItemId&#x60;), for up to &#x60;maxLoans&#x60; loans, lasting &#x60;expiresInDays&#x60; (default 90). Nothing is held: the custodian pays from your own account when a borrower takes it. Needs a verified ID, an active account and the current lending terms.
+    # @param create_vault_market_p2p_offer_request [CreateVaultMarketP2pOfferRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketP2pOffersItem, Integer, Hash)>] ListVaultMarketP2pOffersItem data, response status code and response headers
-    def create_vault_market_p2p_offer_with_http_info(opts = {})
+    def create_vault_market_p2p_offer_with_http_info(create_vault_market_p2p_offer_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_p2p_offer ...'
+      end
+      # verify the required parameter 'create_vault_market_p2p_offer_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_p2p_offer_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_p2p_offer_request' when calling VaultMarketsApi.create_vault_market_p2p_offer"
       end
       # resource path
       local_var_path = '/v1/vault-markets/p2p/offers'
@@ -7259,12 +7453,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_p2p_offer_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketP2pOffersItem'
@@ -7352,24 +7551,30 @@ module Crossly
 
     # Borrow: take an offer against one of your stored vault units (`vaultItemId`). The unit is pledged (no listing, lending or withdrawal) and the principal is paid into your custodian account. Interest accrues by the second; repay any time. Pass `requestId` to make a retry safe.
     # @param id [String] 
+    # @param create_vault_market_p2p_offer_take_request [CreateVaultMarketP2pOfferTakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketP2pLoanResponse]
-    def create_vault_market_p2p_offer_take(id, opts = {})
-      data, _status_code, _headers = create_vault_market_p2p_offer_take_with_http_info(id, opts)
+    def create_vault_market_p2p_offer_take(id, create_vault_market_p2p_offer_take_request, opts = {})
+      data, _status_code, _headers = create_vault_market_p2p_offer_take_with_http_info(id, create_vault_market_p2p_offer_take_request, opts)
       data
     end
 
     # Borrow: take an offer against one of your stored vault units (&#x60;vaultItemId&#x60;). The unit is pledged (no listing, lending or withdrawal) and the principal is paid into your custodian account. Interest accrues by the second; repay any time. Pass &#x60;requestId&#x60; to make a retry safe.
     # @param id [String] 
+    # @param create_vault_market_p2p_offer_take_request [CreateVaultMarketP2pOfferTakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketP2pLoanResponse, Integer, Hash)>] GetVaultMarketP2pLoanResponse data, response status code and response headers
-    def create_vault_market_p2p_offer_take_with_http_info(id, opts = {})
+    def create_vault_market_p2p_offer_take_with_http_info(id, create_vault_market_p2p_offer_take_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_p2p_offer_take ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_p2p_offer_take"
+      end
+      # verify the required parameter 'create_vault_market_p2p_offer_take_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_p2p_offer_take_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_p2p_offer_take_request' when calling VaultMarketsApi.create_vault_market_p2p_offer_take"
       end
       # resource path
       local_var_path = '/v1/vault-markets/p2p/offers/{id}/take'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -7381,12 +7586,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_p2p_offer_take_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketP2pLoanResponse'
@@ -7864,19 +8074,25 @@ module Crossly
     end
 
     # Admin: put a firm sub-account under portfolio margin. Needs VAULT_LEVERAGE_VENUE, your ID, an ECP-attested entity that passed KYB, and the minimum equity. Its positions are then margined on the whole account, recalculated every 5 minutes; calls and auctions are unchanged. Audited.
+    # @param create_vault_market_portfolio_margin_leave_request [CreateVaultMarketPortfolioMarginLeaveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketPortfolioMarginEnrollResponse]
-    def create_vault_market_portfolio_margin_enroll(opts = {})
-      data, _status_code, _headers = create_vault_market_portfolio_margin_enroll_with_http_info(opts)
+    def create_vault_market_portfolio_margin_enroll(create_vault_market_portfolio_margin_leave_request, opts = {})
+      data, _status_code, _headers = create_vault_market_portfolio_margin_enroll_with_http_info(create_vault_market_portfolio_margin_leave_request, opts)
       data
     end
 
     # Admin: put a firm sub-account under portfolio margin. Needs VAULT_LEVERAGE_VENUE, your ID, an ECP-attested entity that passed KYB, and the minimum equity. Its positions are then margined on the whole account, recalculated every 5 minutes; calls and auctions are unchanged. Audited.
+    # @param create_vault_market_portfolio_margin_leave_request [CreateVaultMarketPortfolioMarginLeaveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketPortfolioMarginEnrollResponse, Integer, Hash)>] CreateVaultMarketPortfolioMarginEnrollResponse data, response status code and response headers
-    def create_vault_market_portfolio_margin_enroll_with_http_info(opts = {})
+    def create_vault_market_portfolio_margin_enroll_with_http_info(create_vault_market_portfolio_margin_leave_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_portfolio_margin_enroll ...'
+      end
+      # verify the required parameter 'create_vault_market_portfolio_margin_leave_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_portfolio_margin_leave_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_portfolio_margin_leave_request' when calling VaultMarketsApi.create_vault_market_portfolio_margin_enroll"
       end
       # resource path
       local_var_path = '/v1/vault-markets/portfolio-margin/enroll'
@@ -7888,12 +8104,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_portfolio_margin_leave_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketPortfolioMarginEnrollResponse'
@@ -7919,19 +8140,25 @@ module Crossly
     end
 
     # Admin: take a firm sub-account off portfolio margin. Each position is then held to its own tier floors again and may be called at once. Audited.
+    # @param create_vault_market_portfolio_margin_leave_request [CreateVaultMarketPortfolioMarginLeaveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketPortfolioMarginLeaveResponse]
-    def create_vault_market_portfolio_margin_leave(opts = {})
-      data, _status_code, _headers = create_vault_market_portfolio_margin_leave_with_http_info(opts)
+    def create_vault_market_portfolio_margin_leave(create_vault_market_portfolio_margin_leave_request, opts = {})
+      data, _status_code, _headers = create_vault_market_portfolio_margin_leave_with_http_info(create_vault_market_portfolio_margin_leave_request, opts)
       data
     end
 
     # Admin: take a firm sub-account off portfolio margin. Each position is then held to its own tier floors again and may be called at once. Audited.
+    # @param create_vault_market_portfolio_margin_leave_request [CreateVaultMarketPortfolioMarginLeaveRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketPortfolioMarginLeaveResponse, Integer, Hash)>] CreateVaultMarketPortfolioMarginLeaveResponse data, response status code and response headers
-    def create_vault_market_portfolio_margin_leave_with_http_info(opts = {})
+    def create_vault_market_portfolio_margin_leave_with_http_info(create_vault_market_portfolio_margin_leave_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_portfolio_margin_leave ...'
+      end
+      # verify the required parameter 'create_vault_market_portfolio_margin_leave_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_portfolio_margin_leave_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_portfolio_margin_leave_request' when calling VaultMarketsApi.create_vault_market_portfolio_margin_leave"
       end
       # resource path
       local_var_path = '/v1/vault-markets/portfolio-margin/leave'
@@ -7943,12 +8170,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_portfolio_margin_leave_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketPortfolioMarginLeaveResponse'
@@ -10148,19 +10380,25 @@ module Crossly
     end
 
     # Place an order on a vault book: limit, market (protected, IOC), stop or stop-limit; GTC, GTD, IOC or FOK; post-only; an iceberg `displayQuantity`; a TWAP or VWAP algo over a window. Idempotent on `clientOrderId`. `subaccountId` trades for a firm sub-account you may trade (your role, its KYB, its limits, no firm halt; buys pay from its custodian account and land in it).
+    # @param create_vault_market_pro_order_request [CreateVaultMarketProOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketProOrderResponse]
-    def create_vault_market_pro_order(opts = {})
-      data, _status_code, _headers = create_vault_market_pro_order_with_http_info(opts)
+    def create_vault_market_pro_order(create_vault_market_pro_order_request, opts = {})
+      data, _status_code, _headers = create_vault_market_pro_order_with_http_info(create_vault_market_pro_order_request, opts)
       data
     end
 
     # Place an order on a vault book: limit, market (protected, IOC), stop or stop-limit; GTC, GTD, IOC or FOK; post-only; an iceberg &#x60;displayQuantity&#x60;; a TWAP or VWAP algo over a window. Idempotent on &#x60;clientOrderId&#x60;. &#x60;subaccountId&#x60; trades for a firm sub-account you may trade (your role, its KYB, its limits, no firm halt; buys pay from its custodian account and land in it).
+    # @param create_vault_market_pro_order_request [CreateVaultMarketProOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketProOrderResponse, Integer, Hash)>] CreateVaultMarketProOrderResponse data, response status code and response headers
-    def create_vault_market_pro_order_with_http_info(opts = {})
+    def create_vault_market_pro_order_with_http_info(create_vault_market_pro_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_pro_order ...'
+      end
+      # verify the required parameter 'create_vault_market_pro_order_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_pro_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_pro_order_request' when calling VaultMarketsApi.create_vault_market_pro_order"
       end
       # resource path
       local_var_path = '/v1/vault-markets/pro/orders'
@@ -10172,12 +10410,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_pro_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketProOrderResponse'
@@ -10265,6 +10508,7 @@ module Crossly
 
     # Cancel every open order, or every one on a book key. Returns `{ cancelled }`.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketProOrderCancelAllRequest] :create_vault_market_pro_order_cancel_all_request 
     # @return [CreateVaultMarketProOrderCancelAllResponse]
     def create_vault_market_pro_order_cancel_all(opts = {})
       data, _status_code, _headers = create_vault_market_pro_order_cancel_all_with_http_info(opts)
@@ -10273,6 +10517,7 @@ module Crossly
 
     # Cancel every open order, or every one on a book key. Returns &#x60;{ cancelled }&#x60;.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketProOrderCancelAllRequest] :create_vault_market_pro_order_cancel_all_request 
     # @return [Array<(CreateVaultMarketProOrderCancelAllResponse, Integer, Hash)>] CreateVaultMarketProOrderCancelAllResponse data, response status code and response headers
     def create_vault_market_pro_order_cancel_all_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -10288,12 +10533,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_pro_order_cancel_all_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketProOrderCancelAllResponse'
@@ -11137,19 +11387,25 @@ module Crossly
     end
 
     # Start auto-invest: `amountCents` ($5-$10,000) `every` week or month into `seriesIds` (equal weights) or `targets` (seriesId + weightBps summing to 10,000) or a `basketId` (with `rebalance` to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to `maxPremiumBps` over the indicative value. `practice` runs it on paper.
+    # @param create_vault_market_share_auto_invest_request [CreateVaultMarketShareAutoInvestRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareAutoInvestItem]
-    def create_vault_market_share_auto_invest(opts = {})
-      data, _status_code, _headers = create_vault_market_share_auto_invest_with_http_info(opts)
+    def create_vault_market_share_auto_invest(create_vault_market_share_auto_invest_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_auto_invest_with_http_info(create_vault_market_share_auto_invest_request, opts)
       data
     end
 
     # Start auto-invest: &#x60;amountCents&#x60; ($5-$10,000) &#x60;every&#x60; week or month into &#x60;seriesIds&#x60; (equal weights) or &#x60;targets&#x60; (seriesId + weightBps summing to 10,000) or a &#x60;basketId&#x60; (with &#x60;rebalance&#x60; to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to &#x60;maxPremiumBps&#x60; over the indicative value. &#x60;practice&#x60; runs it on paper.
+    # @param create_vault_market_share_auto_invest_request [CreateVaultMarketShareAutoInvestRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketShareAutoInvestItem, Integer, Hash)>] ListVaultMarketShareAutoInvestItem data, response status code and response headers
-    def create_vault_market_share_auto_invest_with_http_info(opts = {})
+    def create_vault_market_share_auto_invest_with_http_info(create_vault_market_share_auto_invest_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_auto_invest ...'
+      end
+      # verify the required parameter 'create_vault_market_share_auto_invest_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_auto_invest_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_auto_invest_request' when calling VaultMarketsApi.create_vault_market_share_auto_invest"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/auto-invest'
@@ -11161,12 +11417,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_auto_invest_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketShareAutoInvestItem'
@@ -11254,24 +11515,30 @@ module Crossly
 
     # Change a plan (amount, cadence, series or weights, cap, rebalance) or set its `status` active, paused or cancelled.
     # @param id [String] 
+    # @param create_vault_market_share_auto_invest_update_request [CreateVaultMarketShareAutoInvestUpdateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareAutoInvestItem]
-    def create_vault_market_share_auto_invest_update(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_auto_invest_update_with_http_info(id, opts)
+    def create_vault_market_share_auto_invest_update(id, create_vault_market_share_auto_invest_update_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_auto_invest_update_with_http_info(id, create_vault_market_share_auto_invest_update_request, opts)
       data
     end
 
     # Change a plan (amount, cadence, series or weights, cap, rebalance) or set its &#x60;status&#x60; active, paused or cancelled.
     # @param id [String] 
+    # @param create_vault_market_share_auto_invest_update_request [CreateVaultMarketShareAutoInvestUpdateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketShareAutoInvestItem, Integer, Hash)>] ListVaultMarketShareAutoInvestItem data, response status code and response headers
-    def create_vault_market_share_auto_invest_update_with_http_info(id, opts = {})
+    def create_vault_market_share_auto_invest_update_with_http_info(id, create_vault_market_share_auto_invest_update_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_auto_invest_update ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_auto_invest_update"
+      end
+      # verify the required parameter 'create_vault_market_share_auto_invest_update_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_auto_invest_update_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_auto_invest_update_request' when calling VaultMarketsApi.create_vault_market_share_auto_invest_update"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/auto-invest/{id}/update'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -11283,12 +11550,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_auto_invest_update_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketShareAutoInvestItem'
@@ -11315,24 +11587,30 @@ module Crossly
 
     # Buy a basket once: `amountCents` split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to `maxPremiumBps`). `practice` buys on paper.
     # @param id [String] 
+    # @param create_vault_market_share_basket_buy_request [CreateVaultMarketShareBasketBuyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketShareBasketBuyResponse]
-    def create_vault_market_share_basket_buy(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_basket_buy_with_http_info(id, opts)
+    def create_vault_market_share_basket_buy(id, create_vault_market_share_basket_buy_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_basket_buy_with_http_info(id, create_vault_market_share_basket_buy_request, opts)
       data
     end
 
     # Buy a basket once: &#x60;amountCents&#x60; split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to &#x60;maxPremiumBps&#x60;). &#x60;practice&#x60; buys on paper.
     # @param id [String] 
+    # @param create_vault_market_share_basket_buy_request [CreateVaultMarketShareBasketBuyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketShareBasketBuyResponse, Integer, Hash)>] CreateVaultMarketShareBasketBuyResponse data, response status code and response headers
-    def create_vault_market_share_basket_buy_with_http_info(id, opts = {})
+    def create_vault_market_share_basket_buy_with_http_info(id, create_vault_market_share_basket_buy_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_basket_buy ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_basket_buy"
+      end
+      # verify the required parameter 'create_vault_market_share_basket_buy_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_basket_buy_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_basket_buy_request' when calling VaultMarketsApi.create_vault_market_share_basket_buy"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/baskets/{id}/buy'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -11344,12 +11622,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_basket_buy_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBasketBuyResponse'
@@ -11437,24 +11720,30 @@ module Crossly
 
     # Vote `yes` or `no` on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
     # @param id [String] 
+    # @param create_vault_market_share_buyout_vote_request [CreateVaultMarketShareBuyoutVoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketShareBuyoutFundResponse]
-    def create_vault_market_share_buyout_vote(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_buyout_vote_with_http_info(id, opts)
+    def create_vault_market_share_buyout_vote(id, create_vault_market_share_buyout_vote_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_buyout_vote_with_http_info(id, create_vault_market_share_buyout_vote_request, opts)
       data
     end
 
     # Vote &#x60;yes&#x60; or &#x60;no&#x60; on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
     # @param id [String] 
+    # @param create_vault_market_share_buyout_vote_request [CreateVaultMarketShareBuyoutVoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketShareBuyoutFundResponse, Integer, Hash)>] CreateVaultMarketShareBuyoutFundResponse data, response status code and response headers
-    def create_vault_market_share_buyout_vote_with_http_info(id, opts = {})
+    def create_vault_market_share_buyout_vote_with_http_info(id, create_vault_market_share_buyout_vote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_buyout_vote ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_buyout_vote"
+      end
+      # verify the required parameter 'create_vault_market_share_buyout_vote_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_buyout_vote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_buyout_vote_request' when calling VaultMarketsApi.create_vault_market_share_buyout_vote"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/buyouts/{id}/vote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -11466,12 +11755,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_buyout_vote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBuyoutFundResponse'
@@ -11796,19 +12090,25 @@ module Crossly
     end
 
     # Open or update your investor account at the venue: accept the current investor terms (`acceptTerms`), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+    # @param create_vault_market_share_investor_request [CreateVaultMarketShareInvestorRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketShareInvestorResponse]
-    def create_vault_market_share_investor(opts = {})
-      data, _status_code, _headers = create_vault_market_share_investor_with_http_info(opts)
+    def create_vault_market_share_investor(create_vault_market_share_investor_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_investor_with_http_info(create_vault_market_share_investor_request, opts)
       data
     end
 
     # Open or update your investor account at the venue: accept the current investor terms (&#x60;acceptTerms&#x60;), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+    # @param create_vault_market_share_investor_request [CreateVaultMarketShareInvestorRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketShareInvestorResponse, Integer, Hash)>] GetVaultMarketShareInvestorResponse data, response status code and response headers
-    def create_vault_market_share_investor_with_http_info(opts = {})
+    def create_vault_market_share_investor_with_http_info(create_vault_market_share_investor_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_investor ...'
+      end
+      # verify the required parameter 'create_vault_market_share_investor_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_investor_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_investor_request' when calling VaultMarketsApi.create_vault_market_share_investor"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/investor'
@@ -11820,12 +12120,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_investor_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketShareInvestorResponse'
@@ -12029,24 +12334,30 @@ module Crossly
 
     # Place a practice order (play money) with the same rules as the real share book.
     # @param id [String] 
+    # @param create_vault_market_share_sery_order_request [CreateVaultMarketShareSeryOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketSharePaperSeryOrderResponse]
-    def create_vault_market_share_paper_sery_order(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_paper_sery_order_with_http_info(id, opts)
+    def create_vault_market_share_paper_sery_order(id, create_vault_market_share_sery_order_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_paper_sery_order_with_http_info(id, create_vault_market_share_sery_order_request, opts)
       data
     end
 
     # Place a practice order (play money) with the same rules as the real share book.
     # @param id [String] 
+    # @param create_vault_market_share_sery_order_request [CreateVaultMarketShareSeryOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketSharePaperSeryOrderResponse, Integer, Hash)>] CreateVaultMarketSharePaperSeryOrderResponse data, response status code and response headers
-    def create_vault_market_share_paper_sery_order_with_http_info(id, opts = {})
+    def create_vault_market_share_paper_sery_order_with_http_info(id, create_vault_market_share_sery_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_paper_sery_order ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_paper_sery_order"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_order_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_order_request' when calling VaultMarketsApi.create_vault_market_share_paper_sery_order"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/paper/series/{id}/orders'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12058,12 +12369,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketSharePaperSeryOrderResponse'
@@ -12090,24 +12406,30 @@ module Crossly
 
     # Subscribe with play money to a practice series’ offering.
     # @param id [String] 
+    # @param create_vault_market_share_paper_sery_subscribe_request [CreateVaultMarketSharePaperSerySubscribeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketSharePaperResponse]
-    def create_vault_market_share_paper_sery_subscribe(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_paper_sery_subscribe_with_http_info(id, opts)
+    def create_vault_market_share_paper_sery_subscribe(id, create_vault_market_share_paper_sery_subscribe_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_paper_sery_subscribe_with_http_info(id, create_vault_market_share_paper_sery_subscribe_request, opts)
       data
     end
 
     # Subscribe with play money to a practice series’ offering.
     # @param id [String] 
+    # @param create_vault_market_share_paper_sery_subscribe_request [CreateVaultMarketSharePaperSerySubscribeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketSharePaperResponse, Integer, Hash)>] GetVaultMarketSharePaperResponse data, response status code and response headers
-    def create_vault_market_share_paper_sery_subscribe_with_http_info(id, opts = {})
+    def create_vault_market_share_paper_sery_subscribe_with_http_info(id, create_vault_market_share_paper_sery_subscribe_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_paper_sery_subscribe ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_paper_sery_subscribe"
+      end
+      # verify the required parameter 'create_vault_market_share_paper_sery_subscribe_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_paper_sery_subscribe_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_paper_sery_subscribe_request' when calling VaultMarketsApi.create_vault_market_share_paper_sery_subscribe"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/paper/series/{id}/subscribe'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12119,12 +12441,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_paper_sery_subscribe_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketSharePaperResponse'
@@ -12151,24 +12478,30 @@ module Crossly
 
     # Take down one of your own holder-room posts (`reason`).
     # @param id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketShareRoomHideResponse]
-    def create_vault_market_share_room_hide(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_room_hide_with_http_info(id, opts)
+    def create_vault_market_share_room_hide(id, reason_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_room_hide_with_http_info(id, reason_request, opts)
       data
     end
 
     # Take down one of your own holder-room posts (&#x60;reason&#x60;).
     # @param id [String] 
+    # @param reason_request [ReasonRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketShareRoomHideResponse, Integer, Hash)>] CreateVaultMarketShareRoomHideResponse data, response status code and response headers
-    def create_vault_market_share_room_hide_with_http_info(id, opts = {})
+    def create_vault_market_share_room_hide_with_http_info(id, reason_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_room_hide ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_room_hide"
+      end
+      # verify the required parameter 'reason_request' is set
+      if @api_client.config.client_side_validation && reason_request.nil?
+        fail ArgumentError, "Missing the required parameter 'reason_request' when calling VaultMarketsApi.create_vault_market_share_room_hide"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/room/{id}/hide'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12180,12 +12513,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(reason_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareRoomHideResponse'
@@ -12211,19 +12549,25 @@ module Crossly
     end
 
     # Propose a Vault Shares series for one of your units (`vaultItemId`), keeping `retainedShares` (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass `requestId` to make a retry safe.
+    # @param create_vault_market_share_sery_request [CreateVaultMarketShareSeryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareSeriesItem]
-    def create_vault_market_share_sery(opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_with_http_info(opts)
+    def create_vault_market_share_sery(create_vault_market_share_sery_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_with_http_info(create_vault_market_share_sery_request, opts)
       data
     end
 
     # Propose a Vault Shares series for one of your units (&#x60;vaultItemId&#x60;), keeping &#x60;retainedShares&#x60; (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass &#x60;requestId&#x60; to make a retry safe.
+    # @param create_vault_market_share_sery_request [CreateVaultMarketShareSeryRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketShareSeriesItem, Integer, Hash)>] ListVaultMarketShareSeriesItem data, response status code and response headers
-    def create_vault_market_share_sery_with_http_info(opts = {})
+    def create_vault_market_share_sery_with_http_info(create_vault_market_share_sery_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery ...'
+      end
+      # verify the required parameter 'create_vault_market_share_sery_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_request' when calling VaultMarketsApi.create_vault_market_share_sery"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series'
@@ -12235,12 +12579,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketShareSeriesItem'
@@ -12267,24 +12616,30 @@ module Crossly
 
     # Bid for the whole item (`offerCents`, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
     # @param id [String] 
+    # @param create_vault_market_share_sery_buyout_request [CreateVaultMarketShareSeryBuyoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketShareBuyoutFundResponse]
-    def create_vault_market_share_sery_buyout(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_buyout_with_http_info(id, opts)
+    def create_vault_market_share_sery_buyout(id, create_vault_market_share_sery_buyout_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_buyout_with_http_info(id, create_vault_market_share_sery_buyout_request, opts)
       data
     end
 
     # Bid for the whole item (&#x60;offerCents&#x60;, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
     # @param id [String] 
+    # @param create_vault_market_share_sery_buyout_request [CreateVaultMarketShareSeryBuyoutRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketShareBuyoutFundResponse, Integer, Hash)>] CreateVaultMarketShareBuyoutFundResponse data, response status code and response headers
-    def create_vault_market_share_sery_buyout_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_buyout_with_http_info(id, create_vault_market_share_sery_buyout_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_buyout ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_buyout"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_buyout_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_buyout_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_buyout_request' when calling VaultMarketsApi.create_vault_market_share_sery_buyout"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/buyouts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12296,12 +12651,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_buyout_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareBuyoutFundResponse'
@@ -12328,24 +12688,30 @@ module Crossly
 
     # Give whole `shares` of a series to someone (`to`: their @handle, email or user id), with an optional `message`. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
     # @param id [String] 
+    # @param create_vault_market_share_sery_gift_request [CreateVaultMarketShareSeryGiftRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareGiftsItem]
-    def create_vault_market_share_sery_gift(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_gift_with_http_info(id, opts)
+    def create_vault_market_share_sery_gift(id, create_vault_market_share_sery_gift_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_gift_with_http_info(id, create_vault_market_share_sery_gift_request, opts)
       data
     end
 
     # Give whole &#x60;shares&#x60; of a series to someone (&#x60;to&#x60;: their @handle, email or user id), with an optional &#x60;message&#x60;. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
     # @param id [String] 
+    # @param create_vault_market_share_sery_gift_request [CreateVaultMarketShareSeryGiftRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketShareGiftsItem, Integer, Hash)>] ListVaultMarketShareGiftsItem data, response status code and response headers
-    def create_vault_market_share_sery_gift_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_gift_with_http_info(id, create_vault_market_share_sery_gift_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_gift ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_gift"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_gift_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_gift_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_gift_request' when calling VaultMarketsApi.create_vault_market_share_sery_gift"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/gifts'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12357,12 +12723,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_gift_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketShareGiftsItem'
@@ -12389,24 +12760,30 @@ module Crossly
 
     # Place an order on a series’ share book: `side`, `type` limit or market (immediate-or-cancel inside a 10% band), `tif` gtc / gtd (`expiresAt`) / ioc, whole `shares` or a buy’s `amountCents` (turned into whole shares at the most it could pay), integer `limitCents` a share, `postOnly`. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass `requestId` to make a retry safe.
     # @param id [String] 
+    # @param create_vault_market_share_sery_order_request [CreateVaultMarketShareSeryOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareOrdersItem]
-    def create_vault_market_share_sery_order(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_order_with_http_info(id, opts)
+    def create_vault_market_share_sery_order(id, create_vault_market_share_sery_order_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_order_with_http_info(id, create_vault_market_share_sery_order_request, opts)
       data
     end
 
     # Place an order on a series’ share book: &#x60;side&#x60;, &#x60;type&#x60; limit or market (immediate-or-cancel inside a 10% band), &#x60;tif&#x60; gtc / gtd (&#x60;expiresAt&#x60;) / ioc, whole &#x60;shares&#x60; or a buy’s &#x60;amountCents&#x60; (turned into whole shares at the most it could pay), integer &#x60;limitCents&#x60; a share, &#x60;postOnly&#x60;. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass &#x60;requestId&#x60; to make a retry safe.
     # @param id [String] 
+    # @param create_vault_market_share_sery_order_request [CreateVaultMarketShareSeryOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketShareOrdersItem, Integer, Hash)>] ListVaultMarketShareOrdersItem data, response status code and response headers
-    def create_vault_market_share_sery_order_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_order_with_http_info(id, create_vault_market_share_sery_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_order ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_order"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_order_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_order_request' when calling VaultMarketsApi.create_vault_market_share_sery_order"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/orders'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12418,12 +12795,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketShareOrdersItem'
@@ -12451,6 +12833,7 @@ module Crossly
     # You hold every share: take the item back whole. With `withdraw`, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketShareSeryRecombineRequest] :create_vault_market_share_sery_recombine_request 
     # @return [CreateVaultMarketShareSeryRecombineResponse]
     def create_vault_market_share_sery_recombine(id, opts = {})
       data, _status_code, _headers = create_vault_market_share_sery_recombine_with_http_info(id, opts)
@@ -12460,6 +12843,7 @@ module Crossly
     # You hold every share: take the item back whole. With &#x60;withdraw&#x60;, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketShareSeryRecombineRequest] :create_vault_market_share_sery_recombine_request 
     # @return [Array<(CreateVaultMarketShareSeryRecombineResponse, Integer, Hash)>] CreateVaultMarketShareSeryRecombineResponse data, response status code and response headers
     def create_vault_market_share_sery_recombine_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -12479,12 +12863,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_share_sery_recombine_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryRecombineResponse'
@@ -12511,24 +12900,30 @@ module Crossly
 
     # Post in the holder room (shareholders only), up to 1,000 characters.
     # @param id [String] 
+    # @param body_request [BodyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketShareSeryRoomResponse]
-    def create_vault_market_share_sery_room(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_room_with_http_info(id, opts)
+    def create_vault_market_share_sery_room(id, body_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_room_with_http_info(id, body_request, opts)
       data
     end
 
     # Post in the holder room (shareholders only), up to 1,000 characters.
     # @param id [String] 
+    # @param body_request [BodyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketShareSeryRoomResponse, Integer, Hash)>] CreateVaultMarketShareSeryRoomResponse data, response status code and response headers
-    def create_vault_market_share_sery_room_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_room_with_http_info(id, body_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_room ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_room"
+      end
+      # verify the required parameter 'body_request' is set
+      if @api_client.config.client_side_validation && body_request.nil?
+        fail ArgumentError, "Missing the required parameter 'body_request' when calling VaultMarketsApi.create_vault_market_share_sery_room"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/room'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12540,12 +12935,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryRoomResponse'
@@ -12572,24 +12972,30 @@ module Crossly
 
     # Subscribe for whole `shares` in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass `jointVaultId`. Pass `requestId` to make a retry safe.
     # @param id [String] 
+    # @param create_vault_market_share_sery_subscribe_request [CreateVaultMarketShareSerySubscribeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketShareSubscriptionsItem]
-    def create_vault_market_share_sery_subscribe(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_subscribe_with_http_info(id, opts)
+    def create_vault_market_share_sery_subscribe(id, create_vault_market_share_sery_subscribe_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_subscribe_with_http_info(id, create_vault_market_share_sery_subscribe_request, opts)
       data
     end
 
     # Subscribe for whole &#x60;shares&#x60; in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass &#x60;jointVaultId&#x60;. Pass &#x60;requestId&#x60; to make a retry safe.
     # @param id [String] 
+    # @param create_vault_market_share_sery_subscribe_request [CreateVaultMarketShareSerySubscribeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketShareSubscriptionsItem, Integer, Hash)>] ListVaultMarketShareSubscriptionsItem data, response status code and response headers
-    def create_vault_market_share_sery_subscribe_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_subscribe_with_http_info(id, create_vault_market_share_sery_subscribe_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_subscribe ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_subscribe"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_subscribe_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_subscribe_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_subscribe_request' when calling VaultMarketsApi.create_vault_market_share_sery_subscribe"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/subscribe'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12601,12 +13007,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_subscribe_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketShareSubscriptionsItem'
@@ -12634,6 +13045,7 @@ module Crossly
     # Stop being told about a drop (`kind` notify) or leave its waitlist (`kind` waitlist).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketShareSeryUnwatchRequest] :create_vault_market_share_sery_unwatch_request 
     # @return [CreateVaultMarketShareSeryWatchResponse]
     def create_vault_market_share_sery_unwatch(id, opts = {})
       data, _status_code, _headers = create_vault_market_share_sery_unwatch_with_http_info(id, opts)
@@ -12643,6 +13055,7 @@ module Crossly
     # Stop being told about a drop (&#x60;kind&#x60; notify) or leave its waitlist (&#x60;kind&#x60; waitlist).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketShareSeryUnwatchRequest] :create_vault_market_share_sery_unwatch_request 
     # @return [Array<(CreateVaultMarketShareSeryWatchResponse, Integer, Hash)>] CreateVaultMarketShareSeryWatchResponse data, response status code and response headers
     def create_vault_market_share_sery_unwatch_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -12662,12 +13075,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_share_sery_unwatch_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryWatchResponse'
@@ -12694,24 +13112,30 @@ module Crossly
 
     # Post an update on your own item’s series (you are its originator): `kind` story, provenance, condition, appraisal, exhibition or event, a `title`, a `body`, an optional https `mediaUrl`, `holdersOnly`. Holders are told.
     # @param id [String] 
+    # @param create_vault_market_share_sery_update_request [CreateVaultMarketShareSeryUpdateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [IdResponse]
-    def create_vault_market_share_sery_update(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_update_with_http_info(id, opts)
+    def create_vault_market_share_sery_update(id, create_vault_market_share_sery_update_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_update_with_http_info(id, create_vault_market_share_sery_update_request, opts)
       data
     end
 
     # Post an update on your own item’s series (you are its originator): &#x60;kind&#x60; story, provenance, condition, appraisal, exhibition or event, a &#x60;title&#x60;, a &#x60;body&#x60;, an optional https &#x60;mediaUrl&#x60;, &#x60;holdersOnly&#x60;. Holders are told.
     # @param id [String] 
+    # @param create_vault_market_share_sery_update_request [CreateVaultMarketShareSeryUpdateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
-    def create_vault_market_share_sery_update_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_update_with_http_info(id, create_vault_market_share_sery_update_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_update ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_update"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_update_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_update_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_update_request' when calling VaultMarketsApi.create_vault_market_share_sery_update"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/updates'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12723,12 +13147,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_update_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'IdResponse'
@@ -12755,24 +13184,30 @@ module Crossly
 
     # Ask to be told about a drop (`kind` notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (`kind` waitlist, with the `shares` you want).
     # @param id [String] 
+    # @param create_vault_market_share_sery_watch_request [CreateVaultMarketShareSeryWatchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketShareSeryWatchResponse]
-    def create_vault_market_share_sery_watch(id, opts = {})
-      data, _status_code, _headers = create_vault_market_share_sery_watch_with_http_info(id, opts)
+    def create_vault_market_share_sery_watch(id, create_vault_market_share_sery_watch_request, opts = {})
+      data, _status_code, _headers = create_vault_market_share_sery_watch_with_http_info(id, create_vault_market_share_sery_watch_request, opts)
       data
     end
 
     # Ask to be told about a drop (&#x60;kind&#x60; notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (&#x60;kind&#x60; waitlist, with the &#x60;shares&#x60; you want).
     # @param id [String] 
+    # @param create_vault_market_share_sery_watch_request [CreateVaultMarketShareSeryWatchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketShareSeryWatchResponse, Integer, Hash)>] CreateVaultMarketShareSeryWatchResponse data, response status code and response headers
-    def create_vault_market_share_sery_watch_with_http_info(id, opts = {})
+    def create_vault_market_share_sery_watch_with_http_info(id, create_vault_market_share_sery_watch_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_share_sery_watch ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_market_share_sery_watch"
+      end
+      # verify the required parameter 'create_vault_market_share_sery_watch_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_share_sery_watch_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_share_sery_watch_request' when calling VaultMarketsApi.create_vault_market_share_sery_watch"
       end
       # resource path
       local_var_path = '/v1/vault-markets/shares/series/{id}/watch'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -12784,12 +13219,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_share_sery_watch_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareSeryWatchResponse'
@@ -12939,6 +13379,7 @@ module Crossly
     # Book a place on a viewing day (shareholders only), with up to the day’s `guests`. Bookings close a day before; booking again changes your guests.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketShareViewingBookRequest] :create_vault_market_share_viewing_book_request 
     # @return [CreateVaultMarketShareViewingBookResponse]
     def create_vault_market_share_viewing_book(id, opts = {})
       data, _status_code, _headers = create_vault_market_share_viewing_book_with_http_info(id, opts)
@@ -12948,6 +13389,7 @@ module Crossly
     # Book a place on a viewing day (shareholders only), with up to the day’s &#x60;guests&#x60;. Bookings close a day before; booking again changes your guests.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketShareViewingBookRequest] :create_vault_market_share_viewing_book_request 
     # @return [Array<(CreateVaultMarketShareViewingBookResponse, Integer, Hash)>] CreateVaultMarketShareViewingBookResponse data, response status code and response headers
     def create_vault_market_share_viewing_book_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -12967,12 +13409,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_share_viewing_book_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketShareViewingBookResponse'
@@ -13116,6 +13563,7 @@ module Crossly
     # Buy a box's prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketSupplyBatchLabelRequest] :create_vault_market_supply_batch_label_request 
     # @return [GetVaultMarketSupplyBatchResponse]
     def create_vault_market_supply_batch_label(id, opts = {})
       data, _status_code, _headers = create_vault_market_supply_batch_label_with_http_info(id, opts)
@@ -13125,6 +13573,7 @@ module Crossly
     # Buy a box&#39;s prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketSupplyBatchLabelRequest] :create_vault_market_supply_batch_label_request 
     # @return [Array<(GetVaultMarketSupplyBatchResponse, Integer, Hash)>] GetVaultMarketSupplyBatchResponse data, response status code and response headers
     def create_vault_market_supply_batch_label_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -13144,12 +13593,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_supply_batch_label_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketSupplyBatchResponse'
@@ -13236,19 +13690,25 @@ module Crossly
     end
 
     # Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
+    # @param create_vault_market_supply_send_request [CreateVaultMarketSupplySendRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketSupplySendResponse]
-    def create_vault_market_supply_send(opts = {})
-      data, _status_code, _headers = create_vault_market_supply_send_with_http_info(opts)
+    def create_vault_market_supply_send(create_vault_market_supply_send_request, opts = {})
+      data, _status_code, _headers = create_vault_market_supply_send_with_http_info(create_vault_market_supply_send_request, opts)
       data
     end
 
     # Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
+    # @param create_vault_market_supply_send_request [CreateVaultMarketSupplySendRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketSupplySendResponse, Integer, Hash)>] CreateVaultMarketSupplySendResponse data, response status code and response headers
-    def create_vault_market_supply_send_with_http_info(opts = {})
+    def create_vault_market_supply_send_with_http_info(create_vault_market_supply_send_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_supply_send ...'
+      end
+      # verify the required parameter 'create_vault_market_supply_send_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_supply_send_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_supply_send_request' when calling VaultMarketsApi.create_vault_market_supply_send"
       end
       # resource path
       local_var_path = '/v1/vault-markets/supply/send'
@@ -13260,12 +13720,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_supply_send_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketSupplySendResponse'
@@ -13291,19 +13756,25 @@ module Crossly
     end
 
     # Send inventory items to the vault: `method: label` (one box on a prepaid label) or `dropoff` at a partner (`partnerId`, from the finder; you get a counter code). Each item can carry its declared value; `insured` insures the box for it.
+    # @param create_vault_market_supply_send_in_request [CreateVaultMarketSupplySendInRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketSupplySendInResponse]
-    def create_vault_market_supply_send_in(opts = {})
-      data, _status_code, _headers = create_vault_market_supply_send_in_with_http_info(opts)
+    def create_vault_market_supply_send_in(create_vault_market_supply_send_in_request, opts = {})
+      data, _status_code, _headers = create_vault_market_supply_send_in_with_http_info(create_vault_market_supply_send_in_request, opts)
       data
     end
 
     # Send inventory items to the vault: &#x60;method: label&#x60; (one box on a prepaid label) or &#x60;dropoff&#x60; at a partner (&#x60;partnerId&#x60;, from the finder; you get a counter code). Each item can carry its declared value; &#x60;insured&#x60; insures the box for it.
+    # @param create_vault_market_supply_send_in_request [CreateVaultMarketSupplySendInRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketSupplySendInResponse, Integer, Hash)>] CreateVaultMarketSupplySendInResponse data, response status code and response headers
-    def create_vault_market_supply_send_in_with_http_info(opts = {})
+    def create_vault_market_supply_send_in_with_http_info(create_vault_market_supply_send_in_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_supply_send_in ...'
+      end
+      # verify the required parameter 'create_vault_market_supply_send_in_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_supply_send_in_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_supply_send_in_request' when calling VaultMarketsApi.create_vault_market_supply_send_in"
       end
       # resource path
       local_var_path = '/v1/vault-markets/supply/send-in'
@@ -13315,12 +13786,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_supply_send_in_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketSupplySendInResponse'
@@ -13877,19 +14353,25 @@ module Crossly
     end
 
     # Issue an insurance or appraisal statement for a day: frozen with the sha256 of its record, sealed in the Crossly audit chain, with a public verify link. preparedFor and policyRef are printed on it and never shown on verify. Moves no money.
+    # @param create_vault_market_valuation_statement_request [CreateVaultMarketValuationStatementRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultMarketValuationStatementResponse]
-    def create_vault_market_valuation_statement(opts = {})
-      data, _status_code, _headers = create_vault_market_valuation_statement_with_http_info(opts)
+    def create_vault_market_valuation_statement(create_vault_market_valuation_statement_request, opts = {})
+      data, _status_code, _headers = create_vault_market_valuation_statement_with_http_info(create_vault_market_valuation_statement_request, opts)
       data
     end
 
     # Issue an insurance or appraisal statement for a day: frozen with the sha256 of its record, sealed in the Crossly audit chain, with a public verify link. preparedFor and policyRef are printed on it and never shown on verify. Moves no money.
+    # @param create_vault_market_valuation_statement_request [CreateVaultMarketValuationStatementRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultMarketValuationStatementResponse, Integer, Hash)>] CreateVaultMarketValuationStatementResponse data, response status code and response headers
-    def create_vault_market_valuation_statement_with_http_info(opts = {})
+    def create_vault_market_valuation_statement_with_http_info(create_vault_market_valuation_statement_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_market_valuation_statement ...'
+      end
+      # verify the required parameter 'create_vault_market_valuation_statement_request' is set
+      if @api_client.config.client_side_validation && create_vault_market_valuation_statement_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_market_valuation_statement_request' when calling VaultMarketsApi.create_vault_market_valuation_statement"
       end
       # resource path
       local_var_path = '/v1/vault-markets/valuation-statements'
@@ -13901,12 +14383,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_market_valuation_statement_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketValuationStatementResponse'
@@ -13988,6 +14475,7 @@ module Crossly
 
     # Mint a widget token for one phone (`deviceName`, `installId`); minting again with the same pair replaces that phone token. The token reads the widget summary and nothing else, and is returned once. At most five phones.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketWidgetTokenRequest] :create_vault_market_widget_token_request 
     # @return [CreateVaultMarketWidgetTokenResponse]
     def create_vault_market_widget_token(opts = {})
       data, _status_code, _headers = create_vault_market_widget_token_with_http_info(opts)
@@ -13996,6 +14484,7 @@ module Crossly
 
     # Mint a widget token for one phone (&#x60;deviceName&#x60;, &#x60;installId&#x60;); minting again with the same pair replaces that phone token. The token reads the widget summary and nothing else, and is returned once. At most five phones.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultMarketWidgetTokenRequest] :create_vault_market_widget_token_request 
     # @return [Array<(CreateVaultMarketWidgetTokenResponse, Integer, Hash)>] CreateVaultMarketWidgetTokenResponse data, response status code and response headers
     def create_vault_market_widget_token_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -14011,12 +14500,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_market_widget_token_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultMarketWidgetTokenResponse'
@@ -14044,6 +14538,7 @@ module Crossly
     # After your wallet sent the export: read the chain and mark the token live once its one token exists. Pass the `signature` your wallet returned to record it (kept only if it landed).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultReceiptTokenConfirmRequest] :create_vault_receipt_token_confirm_request 
     # @return [CreateVaultReceiptTokenConfirmResponse]
     def create_vault_receipt_token_confirm(id, opts = {})
       data, _status_code, _headers = create_vault_receipt_token_confirm_with_http_info(id, opts)
@@ -14053,6 +14548,7 @@ module Crossly
     # After your wallet sent the export: read the chain and mark the token live once its one token exists. Pass the &#x60;signature&#x60; your wallet returned to record it (kept only if it landed).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultReceiptTokenConfirmRequest] :create_vault_receipt_token_confirm_request 
     # @return [Array<(CreateVaultReceiptTokenConfirmResponse, Integer, Hash)>] CreateVaultReceiptTokenConfirmResponse data, response status code and response headers
     def create_vault_receipt_token_confirm_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -14072,12 +14568,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_receipt_token_confirm_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultReceiptTokenConfirmResponse'
@@ -14103,19 +14604,25 @@ module Crossly
     end
 
     # Send one unit (`vaultItemId`) warehouse receipt to one of your verified Solana wallets (`wallet`) as a token, accepting the current terms (`acceptTerms`). Returns a base64 transaction already signed by the new mint and the receipts authority: your wallet pays the rent and must sign and send it within about two minutes, then call confirm. Nothing is minted until it does. Needs a verified ID; the unit must be stored, unpledged, not lent and not for sale.
+    # @param create_vault_receipt_token_export_request [CreateVaultReceiptTokenExportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultReceiptTokenExportResponse]
-    def create_vault_receipt_token_export(opts = {})
-      data, _status_code, _headers = create_vault_receipt_token_export_with_http_info(opts)
+    def create_vault_receipt_token_export(create_vault_receipt_token_export_request, opts = {})
+      data, _status_code, _headers = create_vault_receipt_token_export_with_http_info(create_vault_receipt_token_export_request, opts)
       data
     end
 
     # Send one unit (&#x60;vaultItemId&#x60;) warehouse receipt to one of your verified Solana wallets (&#x60;wallet&#x60;) as a token, accepting the current terms (&#x60;acceptTerms&#x60;). Returns a base64 transaction already signed by the new mint and the receipts authority: your wallet pays the rent and must sign and send it within about two minutes, then call confirm. Nothing is minted until it does. Needs a verified ID; the unit must be stored, unpledged, not lent and not for sale.
+    # @param create_vault_receipt_token_export_request [CreateVaultReceiptTokenExportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultReceiptTokenExportResponse, Integer, Hash)>] CreateVaultReceiptTokenExportResponse data, response status code and response headers
-    def create_vault_receipt_token_export_with_http_info(opts = {})
+    def create_vault_receipt_token_export_with_http_info(create_vault_receipt_token_export_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_receipt_token_export ...'
+      end
+      # verify the required parameter 'create_vault_receipt_token_export_request' is set
+      if @api_client.config.client_side_validation && create_vault_receipt_token_export_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_receipt_token_export_request' when calling VaultMarketsApi.create_vault_receipt_token_export"
       end
       # resource path
       local_var_path = '/v1/vault/receipt-tokens/export'
@@ -14127,12 +14634,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_receipt_token_export_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultReceiptTokenExportResponse'
@@ -14159,24 +14671,30 @@ module Crossly
 
     # Redeem a receipt token held in one of your verified Solana wallets (`wallet`): returns an unsigned base64 burn your wallet signs and sends (it also closes the token account and returns its rent to you). Once it lands, call redeem/confirm and the unit is yours in the vault. Refused while the token is frozen.
     # @param id [String] 
+    # @param create_vault_receipt_token_redeem_request [CreateVaultReceiptTokenRedeemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultReceiptTokenRedeemResponse]
-    def create_vault_receipt_token_redeem(id, opts = {})
-      data, _status_code, _headers = create_vault_receipt_token_redeem_with_http_info(id, opts)
+    def create_vault_receipt_token_redeem(id, create_vault_receipt_token_redeem_request, opts = {})
+      data, _status_code, _headers = create_vault_receipt_token_redeem_with_http_info(id, create_vault_receipt_token_redeem_request, opts)
       data
     end
 
     # Redeem a receipt token held in one of your verified Solana wallets (&#x60;wallet&#x60;): returns an unsigned base64 burn your wallet signs and sends (it also closes the token account and returns its rent to you). Once it lands, call redeem/confirm and the unit is yours in the vault. Refused while the token is frozen.
     # @param id [String] 
+    # @param create_vault_receipt_token_redeem_request [CreateVaultReceiptTokenRedeemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultReceiptTokenRedeemResponse, Integer, Hash)>] CreateVaultReceiptTokenRedeemResponse data, response status code and response headers
-    def create_vault_receipt_token_redeem_with_http_info(id, opts = {})
+    def create_vault_receipt_token_redeem_with_http_info(id, create_vault_receipt_token_redeem_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_receipt_token_redeem ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.create_vault_receipt_token_redeem"
+      end
+      # verify the required parameter 'create_vault_receipt_token_redeem_request' is set
+      if @api_client.config.client_side_validation && create_vault_receipt_token_redeem_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_receipt_token_redeem_request' when calling VaultMarketsApi.create_vault_receipt_token_redeem"
       end
       # resource path
       local_var_path = '/v1/vault/receipt-tokens/{id}/redeem'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -14188,12 +14706,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_receipt_token_redeem_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultReceiptTokenRedeemResponse'
@@ -14221,6 +14744,7 @@ module Crossly
     # After your wallet sent the redeem: read the chain; once the token is burned the unit moves into your vault (if it was not yours already). Pass the `signature` to record it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultReceiptTokenConfirmRequest] :create_vault_receipt_token_confirm_request 
     # @return [CreateVaultReceiptTokenRedeemConfirmResponse]
     def create_vault_receipt_token_redeem_confirm(id, opts = {})
       data, _status_code, _headers = create_vault_receipt_token_redeem_confirm_with_http_info(id, opts)
@@ -14230,6 +14754,7 @@ module Crossly
     # After your wallet sent the redeem: read the chain; once the token is burned the unit moves into your vault (if it was not yours already). Pass the &#x60;signature&#x60; to record it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateVaultReceiptTokenConfirmRequest] :create_vault_receipt_token_confirm_request 
     # @return [Array<(CreateVaultReceiptTokenRedeemConfirmResponse, Integer, Hash)>] CreateVaultReceiptTokenRedeemConfirmResponse data, response status code and response headers
     def create_vault_receipt_token_redeem_confirm_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -14249,12 +14774,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_vault_receipt_token_confirm_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultReceiptTokenRedeemConfirmResponse'
@@ -14280,19 +14810,25 @@ module Crossly
     end
 
     # Put one of your verified Solana wallets (`wallet`) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
+    # @param create_vault_receipt_token_redeem_request [CreateVaultReceiptTokenRedeemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateVaultReceiptTokenWalletAllowResponse]
-    def create_vault_receipt_token_wallet_allow(opts = {})
-      data, _status_code, _headers = create_vault_receipt_token_wallet_allow_with_http_info(opts)
+    def create_vault_receipt_token_wallet_allow(create_vault_receipt_token_redeem_request, opts = {})
+      data, _status_code, _headers = create_vault_receipt_token_wallet_allow_with_http_info(create_vault_receipt_token_redeem_request, opts)
       data
     end
 
     # Put one of your verified Solana wallets (&#x60;wallet&#x60;) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
+    # @param create_vault_receipt_token_redeem_request [CreateVaultReceiptTokenRedeemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateVaultReceiptTokenWalletAllowResponse, Integer, Hash)>] CreateVaultReceiptTokenWalletAllowResponse data, response status code and response headers
-    def create_vault_receipt_token_wallet_allow_with_http_info(opts = {})
+    def create_vault_receipt_token_wallet_allow_with_http_info(create_vault_receipt_token_redeem_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.create_vault_receipt_token_wallet_allow ...'
+      end
+      # verify the required parameter 'create_vault_receipt_token_redeem_request' is set
+      if @api_client.config.client_side_validation && create_vault_receipt_token_redeem_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_vault_receipt_token_redeem_request' when calling VaultMarketsApi.create_vault_receipt_token_wallet_allow"
       end
       # resource path
       local_var_path = '/v1/vault/receipt-tokens/wallets/allow'
@@ -14304,12 +14840,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_vault_receipt_token_redeem_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateVaultReceiptTokenWalletAllowResponse'
@@ -19077,18 +19618,22 @@ module Crossly
 
     # Reference funding for a perpetual-style future on the index: your premium `premiumBps` (TWAP of (impact mid - index)/index) through F = P + clamp(I - P, ±0.05%) per 8 h, |F| capped at 0.5%/day, with the index level it is relative to. The partner DCM computes and settles funding; this is the reference math.
     # @param slug [String] 
+    # @param premium_bps [Float] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :interest_bps 
     # @return [GetVaultMarketIndexFeedFundingResponse]
-    def get_vault_market_index_feed_funding(slug, opts = {})
-      data, _status_code, _headers = get_vault_market_index_feed_funding_with_http_info(slug, opts)
+    def get_vault_market_index_feed_funding(slug, premium_bps, opts = {})
+      data, _status_code, _headers = get_vault_market_index_feed_funding_with_http_info(slug, premium_bps, opts)
       data
     end
 
     # Reference funding for a perpetual-style future on the index: your premium &#x60;premiumBps&#x60; (TWAP of (impact mid - index)/index) through F &#x3D; P + clamp(I - P, ±0.05%) per 8 h, |F| capped at 0.5%/day, with the index level it is relative to. The partner DCM computes and settles funding; this is the reference math.
     # @param slug [String] 
+    # @param premium_bps [Float] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :interest_bps 
     # @return [Array<(GetVaultMarketIndexFeedFundingResponse, Integer, Hash)>] GetVaultMarketIndexFeedFundingResponse data, response status code and response headers
-    def get_vault_market_index_feed_funding_with_http_info(slug, opts = {})
+    def get_vault_market_index_feed_funding_with_http_info(slug, premium_bps, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_index_feed_funding ...'
       end
@@ -19096,11 +19641,17 @@ module Crossly
       if @api_client.config.client_side_validation && slug.nil?
         fail ArgumentError, "Missing the required parameter 'slug' when calling VaultMarketsApi.get_vault_market_index_feed_funding"
       end
+      # verify the required parameter 'premium_bps' is set
+      if @api_client.config.client_side_validation && premium_bps.nil?
+        fail ArgumentError, "Missing the required parameter 'premium_bps' when calling VaultMarketsApi.get_vault_market_index_feed_funding"
+      end
       # resource path
       local_var_path = '/v1/vault-markets/index-feed/{slug}/funding'.sub('{' + 'slug' + '}', CGI.escape(slug.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'premiumBps'] = premium_bps
+      query_params[:'interestBps'] = opts[:'interest_bps'] if !opts[:'interest_bps'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -19139,6 +19690,7 @@ module Crossly
     # The frozen 7-day TWAP settlement series for a licensed index (written once a day, never restated), with the closes behind each value. Signed like the feed.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [GetVaultMarketIndexFeedSettlementResponse]
     def get_vault_market_index_feed_settlement(slug, opts = {})
       data, _status_code, _headers = get_vault_market_index_feed_settlement_with_http_info(slug, opts)
@@ -19148,6 +19700,7 @@ module Crossly
     # The frozen 7-day TWAP settlement series for a licensed index (written once a day, never restated), with the closes behind each value. Signed like the feed.
     # @param slug [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [Array<(GetVaultMarketIndexFeedSettlementResponse, Integer, Hash)>] GetVaultMarketIndexFeedSettlementResponse data, response status code and response headers
     def get_vault_market_index_feed_settlement_with_http_info(slug, opts = {})
       if @api_client.config.debugging
@@ -19162,6 +19715,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -23864,25 +24418,32 @@ module Crossly
     end
 
     # A server-sent event stream for up to 50 markets (`markets`=id,id): `ready`, then `pm_depth`, `pm_trades`, `pm_probability`, `pm_status` and `pm_settlement`, each carrying its marketId.
+    # @param markets [String] 
     # @param [Hash] opts the optional parameters
     # @return [String]
-    def get_vault_market_prediction_stream(opts = {})
-      data, _status_code, _headers = get_vault_market_prediction_stream_with_http_info(opts)
+    def get_vault_market_prediction_stream(markets, opts = {})
+      data, _status_code, _headers = get_vault_market_prediction_stream_with_http_info(markets, opts)
       data
     end
 
     # A server-sent event stream for up to 50 markets (&#x60;markets&#x60;&#x3D;id,id): &#x60;ready&#x60;, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60;, each carrying its marketId.
+    # @param markets [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
-    def get_vault_market_prediction_stream_with_http_info(opts = {})
+    def get_vault_market_prediction_stream_with_http_info(markets, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_prediction_stream ...'
+      end
+      # verify the required parameter 'markets' is set
+      if @api_client.config.client_side_validation && markets.nil?
+        fail ArgumentError, "Missing the required parameter 'markets' when calling VaultMarketsApi.get_vault_market_prediction_stream"
       end
       # resource path
       local_var_path = '/v1/vault-markets/predictions/stream'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'markets'] = markets
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -24371,25 +24932,32 @@ module Crossly
     end
 
     # A long-lived text/event-stream for a book key: `snapshot` first, then `depth`, `trades`, `mark` and `halt` events as they change.
+    # @param book_key [String] 
     # @param [Hash] opts the optional parameters
     # @return [String]
-    def get_vault_market_pro_stream(opts = {})
-      data, _status_code, _headers = get_vault_market_pro_stream_with_http_info(opts)
+    def get_vault_market_pro_stream(book_key, opts = {})
+      data, _status_code, _headers = get_vault_market_pro_stream_with_http_info(book_key, opts)
       data
     end
 
     # A long-lived text/event-stream for a book key: &#x60;snapshot&#x60; first, then &#x60;depth&#x60;, &#x60;trades&#x60;, &#x60;mark&#x60; and &#x60;halt&#x60; events as they change.
+    # @param book_key [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
-    def get_vault_market_pro_stream_with_http_info(opts = {})
+    def get_vault_market_pro_stream_with_http_info(book_key, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.get_vault_market_pro_stream ...'
+      end
+      # verify the required parameter 'book_key' is set
+      if @api_client.config.client_side_validation && book_key.nil?
+        fail ArgumentError, "Missing the required parameter 'book_key' when calling VaultMarketsApi.get_vault_market_pro_stream"
       end
       # resource path
       local_var_path = '/v1/vault-markets/pro/stream'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'bookKey'] = book_key
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -30039,6 +30607,7 @@ module Crossly
 
     # Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. `live=1` for those still going.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :live 
     # @return [ListVaultMarketGradeToVaultResponse]
     def list_vault_market_grade_to_vault(opts = {})
       data, _status_code, _headers = list_vault_market_grade_to_vault_with_http_info(opts)
@@ -30047,16 +30616,22 @@ module Crossly
 
     # Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. &#x60;live&#x3D;1&#x60; for those still going.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :live 
     # @return [Array<(ListVaultMarketGradeToVaultResponse, Integer, Hash)>] ListVaultMarketGradeToVaultResponse data, response status code and response headers
     def list_vault_market_grade_to_vault_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_grade_to_vault ...'
+      end
+      allowable_values = ["0", "1"]
+      if @api_client.config.client_side_validation && opts[:'live'] && !allowable_values.include?(opts[:'live'])
+        fail ArgumentError, "invalid value for \"live\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/vault-markets/grade-to-vault'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'live'] = opts[:'live'] if !opts[:'live'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -32996,6 +33571,8 @@ module Crossly
 
     # Vault drop-off partners near a `postalCode`, optionally offering a `service`: address, hours and services.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :postal_code 
+    # @option opts [String] :service 
     # @return [ListVaultMarketPartnerFinderResponse]
     def list_vault_market_partner_finder(opts = {})
       data, _status_code, _headers = list_vault_market_partner_finder_with_http_info(opts)
@@ -33004,16 +33581,24 @@ module Crossly
 
     # Vault drop-off partners near a &#x60;postalCode&#x60;, optionally offering a &#x60;service&#x60;: address, hours and services.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :postal_code 
+    # @option opts [String] :service 
     # @return [Array<(ListVaultMarketPartnerFinderResponse, Integer, Hash)>] ListVaultMarketPartnerFinderResponse data, response status code and response headers
     def list_vault_market_partner_finder_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.list_vault_market_partner_finder ...'
+      end
+      allowable_values = ["consignment", "photography", "authentication", "walk_in", "grading_prep"]
+      if @api_client.config.client_side_validation && opts[:'service'] && !allowable_values.include?(opts[:'service'])
+        fail ArgumentError, "invalid value for \"service\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/vault-markets/partners/finder'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'postalCode'] = opts[:'postal_code'] if !opts[:'postal_code'].nil?
+      query_params[:'service'] = opts[:'service'] if !opts[:'service'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -35849,6 +36434,7 @@ module Crossly
 
     # What each item's declared value starts at, by your insurance rule (market, cost or price). `inventoryItemIds` comma-separated.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :inventory_item_ids 
     # @return [ListVaultMarketSupplyDeclaredValuesResponse]
     def list_vault_market_supply_declared_values(opts = {})
       data, _status_code, _headers = list_vault_market_supply_declared_values_with_http_info(opts)
@@ -35857,6 +36443,7 @@ module Crossly
 
     # What each item&#39;s declared value starts at, by your insurance rule (market, cost or price). &#x60;inventoryItemIds&#x60; comma-separated.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :inventory_item_ids 
     # @return [Array<(ListVaultMarketSupplyDeclaredValuesResponse, Integer, Hash)>] ListVaultMarketSupplyDeclaredValuesResponse data, response status code and response headers
     def list_vault_market_supply_declared_values_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -35867,6 +36454,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'inventoryItemIds'] = opts[:'inventory_item_ids'] if !opts[:'inventory_item_ids'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -35904,6 +36492,7 @@ module Crossly
 
     # Your units sent to the vault, newest first, each with its state and its key's Instant Exit line (\"Instant Exit now: $X (N% of mark)\" or \"No market yet\"). Filter with `inventoryItemIds` (comma-separated).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :inventory_item_ids 
     # @return [ListVaultMarketSupplyDepositsResponse]
     def list_vault_market_supply_deposits(opts = {})
       data, _status_code, _headers = list_vault_market_supply_deposits_with_http_info(opts)
@@ -35912,6 +36501,7 @@ module Crossly
 
     # Your units sent to the vault, newest first, each with its state and its key&#39;s Instant Exit line (\&quot;Instant Exit now: $X (N% of mark)\&quot; or \&quot;No market yet\&quot;). Filter with &#x60;inventoryItemIds&#x60; (comma-separated).
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :inventory_item_ids 
     # @return [Array<(ListVaultMarketSupplyDepositsResponse, Integer, Hash)>] ListVaultMarketSupplyDepositsResponse data, response status code and response headers
     def list_vault_market_supply_deposits_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -35922,6 +36512,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'inventoryItemIds'] = opts[:'inventory_item_ids'] if !opts[:'inventory_item_ids'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -35959,6 +36550,8 @@ module Crossly
 
     # Can these inventory items (`inventoryItemIds`, comma-separated, or every item linked to `listingId`) be sent to the vault now? Each says why not.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :inventory_item_ids 
+    # @option opts [String] :listing_id 
     # @return [ListVaultMarketSupplyEligibilityResponse]
     def list_vault_market_supply_eligibility(opts = {})
       data, _status_code, _headers = list_vault_market_supply_eligibility_with_http_info(opts)
@@ -35967,6 +36560,8 @@ module Crossly
 
     # Can these inventory items (&#x60;inventoryItemIds&#x60;, comma-separated, or every item linked to &#x60;listingId&#x60;) be sent to the vault now? Each says why not.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :inventory_item_ids 
+    # @option opts [String] :listing_id 
     # @return [Array<(ListVaultMarketSupplyEligibilityResponse, Integer, Hash)>] ListVaultMarketSupplyEligibilityResponse data, response status code and response headers
     def list_vault_market_supply_eligibility_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -35977,6 +36572,8 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'inventoryItemIds'] = opts[:'inventory_item_ids'] if !opts[:'inventory_item_ids'].nil?
+      query_params[:'listingId'] = opts[:'listing_id'] if !opts[:'listing_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -36783,19 +37380,25 @@ module Crossly
     end
 
     # Set up or change Auto-buy with payouts: `shareBps` (1–50%) and the whole want list in order, each with an optional `maxPriceCents` (fee included).
+    # @param update_vault_market_auto_buy_request [UpdateVaultMarketAutoBuyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateVaultMarketAutoBuyResponse]
-    def update_vault_market_auto_buy(opts = {})
-      data, _status_code, _headers = update_vault_market_auto_buy_with_http_info(opts)
+    def update_vault_market_auto_buy(update_vault_market_auto_buy_request, opts = {})
+      data, _status_code, _headers = update_vault_market_auto_buy_with_http_info(update_vault_market_auto_buy_request, opts)
       data
     end
 
     # Set up or change Auto-buy with payouts: &#x60;shareBps&#x60; (1–50%) and the whole want list in order, each with an optional &#x60;maxPriceCents&#x60; (fee included).
+    # @param update_vault_market_auto_buy_request [UpdateVaultMarketAutoBuyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateVaultMarketAutoBuyResponse, Integer, Hash)>] UpdateVaultMarketAutoBuyResponse data, response status code and response headers
-    def update_vault_market_auto_buy_with_http_info(opts = {})
+    def update_vault_market_auto_buy_with_http_info(update_vault_market_auto_buy_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_auto_buy ...'
+      end
+      # verify the required parameter 'update_vault_market_auto_buy_request' is set
+      if @api_client.config.client_side_validation && update_vault_market_auto_buy_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_vault_market_auto_buy_request' when calling VaultMarketsApi.update_vault_market_auto_buy"
       end
       # resource path
       local_var_path = '/v1/vault-markets/auto-buy'
@@ -36807,12 +37410,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_vault_market_auto_buy_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateVaultMarketAutoBuyResponse'
@@ -36839,24 +37447,30 @@ module Crossly
 
     # Post-trade allocation: set or replace the plan for a buy you placed for one of the entity's sub-accounts (that sub-account leads). Refused once any share has moved.
     # @param order_id [String] 
+    # @param update_vault_market_block_allocation_request [UpdateVaultMarketBlockAllocationRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListVaultMarketBlocksItem]
-    def update_vault_market_block_allocation(order_id, opts = {})
-      data, _status_code, _headers = update_vault_market_block_allocation_with_http_info(order_id, opts)
+    def update_vault_market_block_allocation(order_id, update_vault_market_block_allocation_request, opts = {})
+      data, _status_code, _headers = update_vault_market_block_allocation_with_http_info(order_id, update_vault_market_block_allocation_request, opts)
       data
     end
 
     # Post-trade allocation: set or replace the plan for a buy you placed for one of the entity&#39;s sub-accounts (that sub-account leads). Refused once any share has moved.
     # @param order_id [String] 
+    # @param update_vault_market_block_allocation_request [UpdateVaultMarketBlockAllocationRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListVaultMarketBlocksItem, Integer, Hash)>] ListVaultMarketBlocksItem data, response status code and response headers
-    def update_vault_market_block_allocation_with_http_info(order_id, opts = {})
+    def update_vault_market_block_allocation_with_http_info(order_id, update_vault_market_block_allocation_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_block_allocation ...'
       end
       # verify the required parameter 'order_id' is set
       if @api_client.config.client_side_validation && order_id.nil?
         fail ArgumentError, "Missing the required parameter 'order_id' when calling VaultMarketsApi.update_vault_market_block_allocation"
+      end
+      # verify the required parameter 'update_vault_market_block_allocation_request' is set
+      if @api_client.config.client_side_validation && update_vault_market_block_allocation_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_vault_market_block_allocation_request' when calling VaultMarketsApi.update_vault_market_block_allocation"
       end
       # resource path
       local_var_path = '/v1/vault-markets/blocks/{orderId}/allocation'.sub('{' + 'orderId' + '}', CGI.escape(order_id.to_s))
@@ -36868,12 +37482,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_vault_market_block_allocation_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListVaultMarketBlocksItem'
@@ -37073,6 +37692,7 @@ module Crossly
     # @param id [String] 
     # @param member_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateVaultMarketEntityMemberRequest] :update_vault_market_entity_member_request 
     # @return [GetVaultMarketEntityByIdResponse]
     def update_vault_market_entity_member(id, member_id, opts = {})
       data, _status_code, _headers = update_vault_market_entity_member_with_http_info(id, member_id, opts)
@@ -37083,6 +37703,7 @@ module Crossly
     # @param id [String] 
     # @param member_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateVaultMarketEntityMemberRequest] :update_vault_market_entity_member_request 
     # @return [Array<(GetVaultMarketEntityByIdResponse, Integer, Hash)>] GetVaultMarketEntityByIdResponse data, response status code and response headers
     def update_vault_market_entity_member_with_http_info(id, member_id, opts = {})
       if @api_client.config.debugging
@@ -37106,12 +37727,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_vault_market_entity_member_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketEntityByIdResponse'
@@ -37139,19 +37765,21 @@ module Crossly
     # Admin: set a sub-account's limits (per-order notional, units per key, gross, net, leverage), held to the entity's caps. `limits: null` clears them.
     # @param id [String] 
     # @param sub_id [String] 
+    # @param update_vault_market_entity_subaccount_limit_request [UpdateVaultMarketEntitySubaccountLimitRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketEntityByIdResponse]
-    def update_vault_market_entity_subaccount_limit(id, sub_id, opts = {})
-      data, _status_code, _headers = update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id, opts)
+    def update_vault_market_entity_subaccount_limit(id, sub_id, update_vault_market_entity_subaccount_limit_request, opts = {})
+      data, _status_code, _headers = update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id, update_vault_market_entity_subaccount_limit_request, opts)
       data
     end
 
     # Admin: set a sub-account&#39;s limits (per-order notional, units per key, gross, net, leverage), held to the entity&#39;s caps. &#x60;limits: null&#x60; clears them.
     # @param id [String] 
     # @param sub_id [String] 
+    # @param update_vault_market_entity_subaccount_limit_request [UpdateVaultMarketEntitySubaccountLimitRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketEntityByIdResponse, Integer, Hash)>] GetVaultMarketEntityByIdResponse data, response status code and response headers
-    def update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id, opts = {})
+    def update_vault_market_entity_subaccount_limit_with_http_info(id, sub_id, update_vault_market_entity_subaccount_limit_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_entity_subaccount_limit ...'
       end
@@ -37163,6 +37791,10 @@ module Crossly
       if @api_client.config.client_side_validation && sub_id.nil?
         fail ArgumentError, "Missing the required parameter 'sub_id' when calling VaultMarketsApi.update_vault_market_entity_subaccount_limit"
       end
+      # verify the required parameter 'update_vault_market_entity_subaccount_limit_request' is set
+      if @api_client.config.client_side_validation && update_vault_market_entity_subaccount_limit_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_vault_market_entity_subaccount_limit_request' when calling VaultMarketsApi.update_vault_market_entity_subaccount_limit"
+      end
       # resource path
       local_var_path = '/v1/vault-markets/entities/{id}/subaccounts/{subId}/limits'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'subId' + '}', CGI.escape(sub_id.to_s))
 
@@ -37173,12 +37805,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_vault_market_entity_subaccount_limit_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketEntityByIdResponse'
@@ -37205,24 +37842,30 @@ module Crossly
 
     # Admin: elect USD for the entity (`usdOnly`). Its sub-accounts then post collateral in USD only and pay every fee in USD, and any CBX reward paid to one of them is converted to USD by the custodian in that account. Audited; it can be turned off again.
     # @param id [String] 
+    # @param update_vault_market_entity_usd_election_request [UpdateVaultMarketEntityUsdElectionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketEntityByIdResponse]
-    def update_vault_market_entity_usd_election(id, opts = {})
-      data, _status_code, _headers = update_vault_market_entity_usd_election_with_http_info(id, opts)
+    def update_vault_market_entity_usd_election(id, update_vault_market_entity_usd_election_request, opts = {})
+      data, _status_code, _headers = update_vault_market_entity_usd_election_with_http_info(id, update_vault_market_entity_usd_election_request, opts)
       data
     end
 
     # Admin: elect USD for the entity (&#x60;usdOnly&#x60;). Its sub-accounts then post collateral in USD only and pay every fee in USD, and any CBX reward paid to one of them is converted to USD by the custodian in that account. Audited; it can be turned off again.
     # @param id [String] 
+    # @param update_vault_market_entity_usd_election_request [UpdateVaultMarketEntityUsdElectionRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketEntityByIdResponse, Integer, Hash)>] GetVaultMarketEntityByIdResponse data, response status code and response headers
-    def update_vault_market_entity_usd_election_with_http_info(id, opts = {})
+    def update_vault_market_entity_usd_election_with_http_info(id, update_vault_market_entity_usd_election_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_entity_usd_election ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.update_vault_market_entity_usd_election"
+      end
+      # verify the required parameter 'update_vault_market_entity_usd_election_request' is set
+      if @api_client.config.client_side_validation && update_vault_market_entity_usd_election_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_vault_market_entity_usd_election_request' when calling VaultMarketsApi.update_vault_market_entity_usd_election"
       end
       # resource path
       local_var_path = '/v1/vault-markets/entities/{id}/usd-election'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -37234,12 +37877,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_vault_market_entity_usd_election_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketEntityByIdResponse'
@@ -37498,24 +38146,30 @@ module Crossly
 
     # Set which unit a sale of this item ships first: `vault_first`, `warehouse_first` or `cheapest` (to ship); null = your default. Quantities stay the same on every channel: only who ships changes.
     # @param inventory_item_id [String] 
+    # @param update_vault_market_item_sell_from_request [UpdateVaultMarketItemSellFromRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetVaultMarketItemLocationResponse]
-    def update_vault_market_item_sell_from(inventory_item_id, opts = {})
-      data, _status_code, _headers = update_vault_market_item_sell_from_with_http_info(inventory_item_id, opts)
+    def update_vault_market_item_sell_from(inventory_item_id, update_vault_market_item_sell_from_request, opts = {})
+      data, _status_code, _headers = update_vault_market_item_sell_from_with_http_info(inventory_item_id, update_vault_market_item_sell_from_request, opts)
       data
     end
 
     # Set which unit a sale of this item ships first: &#x60;vault_first&#x60;, &#x60;warehouse_first&#x60; or &#x60;cheapest&#x60; (to ship); null &#x3D; your default. Quantities stay the same on every channel: only who ships changes.
     # @param inventory_item_id [String] 
+    # @param update_vault_market_item_sell_from_request [UpdateVaultMarketItemSellFromRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetVaultMarketItemLocationResponse, Integer, Hash)>] GetVaultMarketItemLocationResponse data, response status code and response headers
-    def update_vault_market_item_sell_from_with_http_info(inventory_item_id, opts = {})
+    def update_vault_market_item_sell_from_with_http_info(inventory_item_id, update_vault_market_item_sell_from_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_item_sell_from ...'
       end
       # verify the required parameter 'inventory_item_id' is set
       if @api_client.config.client_side_validation && inventory_item_id.nil?
         fail ArgumentError, "Missing the required parameter 'inventory_item_id' when calling VaultMarketsApi.update_vault_market_item_sell_from"
+      end
+      # verify the required parameter 'update_vault_market_item_sell_from_request' is set
+      if @api_client.config.client_side_validation && update_vault_market_item_sell_from_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_vault_market_item_sell_from_request' when calling VaultMarketsApi.update_vault_market_item_sell_from"
       end
       # resource path
       local_var_path = '/v1/vault-markets/items/{inventoryItemId}/sell-from'.sub('{' + 'inventoryItemId' + '}', CGI.escape(inventory_item_id.to_s))
@@ -37527,12 +38181,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_vault_market_item_sell_from_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketItemLocationResponse'
@@ -37889,6 +38548,7 @@ module Crossly
 
     # Your drop-off partnership's finder profile: postal code, opening hours, services and whether you are listed.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateVaultMarketPartnerMeRequest] :update_vault_market_partner_me_request 
     # @return [UpdateVaultMarketPartnerMeResponse]
     def update_vault_market_partner_me(opts = {})
       data, _status_code, _headers = update_vault_market_partner_me_with_http_info(opts)
@@ -37897,6 +38557,7 @@ module Crossly
 
     # Your drop-off partnership&#39;s finder profile: postal code, opening hours, services and whether you are listed.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateVaultMarketPartnerMeRequest] :update_vault_market_partner_me_request 
     # @return [Array<(UpdateVaultMarketPartnerMeResponse, Integer, Hash)>] UpdateVaultMarketPartnerMeResponse data, response status code and response headers
     def update_vault_market_partner_me_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -37912,12 +38573,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_vault_market_partner_me_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateVaultMarketPartnerMeResponse'
@@ -38414,6 +39080,7 @@ module Crossly
 
     # Change your vault defaults; send only the fields you change.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateVaultMarketSettingRequest] :update_vault_market_setting_request 
     # @return [GetVaultMarketSettingResponse]
     def update_vault_market_setting(opts = {})
       data, _status_code, _headers = update_vault_market_setting_with_http_info(opts)
@@ -38422,6 +39089,7 @@ module Crossly
 
     # Change your vault defaults; send only the fields you change.
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateVaultMarketSettingRequest] :update_vault_market_setting_request 
     # @return [Array<(GetVaultMarketSettingResponse, Integer, Hash)>] GetVaultMarketSettingResponse data, response status code and response headers
     def update_vault_market_setting_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -38437,12 +39105,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_vault_market_setting_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetVaultMarketSettingResponse'
@@ -38530,24 +39203,30 @@ module Crossly
 
     # Change a deposit's toggles: `autoListBps` (list at that share of the mark once stored; null = do not) and `lendWhenIdle`.
     # @param id [String] 
+    # @param update_vault_market_supply_deposit_request [UpdateVaultMarketSupplyDepositRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateVaultMarketSupplyDepositResponse]
-    def update_vault_market_supply_deposit(id, opts = {})
-      data, _status_code, _headers = update_vault_market_supply_deposit_with_http_info(id, opts)
+    def update_vault_market_supply_deposit(id, update_vault_market_supply_deposit_request, opts = {})
+      data, _status_code, _headers = update_vault_market_supply_deposit_with_http_info(id, update_vault_market_supply_deposit_request, opts)
       data
     end
 
     # Change a deposit&#39;s toggles: &#x60;autoListBps&#x60; (list at that share of the mark once stored; null &#x3D; do not) and &#x60;lendWhenIdle&#x60;.
     # @param id [String] 
+    # @param update_vault_market_supply_deposit_request [UpdateVaultMarketSupplyDepositRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateVaultMarketSupplyDepositResponse, Integer, Hash)>] UpdateVaultMarketSupplyDepositResponse data, response status code and response headers
-    def update_vault_market_supply_deposit_with_http_info(id, opts = {})
+    def update_vault_market_supply_deposit_with_http_info(id, update_vault_market_supply_deposit_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: VaultMarketsApi.update_vault_market_supply_deposit ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling VaultMarketsApi.update_vault_market_supply_deposit"
+      end
+      # verify the required parameter 'update_vault_market_supply_deposit_request' is set
+      if @api_client.config.client_side_validation && update_vault_market_supply_deposit_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_vault_market_supply_deposit_request' when calling VaultMarketsApi.update_vault_market_supply_deposit"
       end
       # resource path
       local_var_path = '/v1/vault-markets/supply/deposits/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -38559,12 +39238,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_vault_market_supply_deposit_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateVaultMarketSupplyDepositResponse'

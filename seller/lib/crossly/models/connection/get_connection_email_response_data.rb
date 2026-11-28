@@ -15,30 +15,15 @@ require 'time'
 
 module Crossly
   class GetConnectionEmailResponseData
-    attr_accessor :id
+    attr_accessor :mailbox
 
-    attr_accessor :type
-
-    attr_accessor :is_connected
-
-    attr_accessor :email
-
-    attr_accessor :host
-
-    attr_accessor :port
-
-    attr_accessor :last_synced_at
+    attr_accessor :stats
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'type' => :'type',
-        :'is_connected' => :'isConnected',
-        :'email' => :'email',
-        :'host' => :'host',
-        :'port' => :'port',
-        :'last_synced_at' => :'lastSyncedAt'
+        :'mailbox' => :'mailbox',
+        :'stats' => :'stats'
       }
     end
 
@@ -50,22 +35,14 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'id' => :'String',
-        :'type' => :'String',
-        :'is_connected' => :'Boolean',
-        :'email' => :'String',
-        :'host' => :'String',
-        :'port' => :'Float',
-        :'last_synced_at' => :'Time'
+        :'mailbox' => :'ListConnectionEmailItem',
+        :'stats' => :'GetConnectionEmailResponseDataStats'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'host',
-        :'port',
-        :'last_synced_at'
       ])
     end
 
@@ -84,32 +61,12 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.key?(:'mailbox')
+        self.mailbox = attributes[:'mailbox']
       end
 
-      if attributes.key?(:'type')
-        self.type = attributes[:'type']
-      end
-
-      if attributes.key?(:'is_connected')
-        self.is_connected = attributes[:'is_connected']
-      end
-
-      if attributes.key?(:'email')
-        self.email = attributes[:'email']
-      end
-
-      if attributes.key?(:'host')
-        self.host = attributes[:'host']
-      end
-
-      if attributes.key?(:'port')
-        self.port = attributes[:'port']
-      end
-
-      if attributes.key?(:'last_synced_at')
-        self.last_synced_at = attributes[:'last_synced_at']
+      if attributes.key?(:'stats')
+        self.stats = attributes[:'stats']
       end
     end
 
@@ -117,20 +74,12 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      if @mailbox.nil?
+        invalid_properties.push('invalid value for "mailbox", mailbox cannot be nil.')
       end
 
-      if @type.nil?
-        invalid_properties.push('invalid value for "type", type cannot be nil.')
-      end
-
-      if @is_connected.nil?
-        invalid_properties.push('invalid value for "is_connected", is_connected cannot be nil.')
-      end
-
-      if @email.nil?
-        invalid_properties.push('invalid value for "email", email cannot be nil.')
+      if @stats.nil?
+        invalid_properties.push('invalid value for "stats", stats cannot be nil.')
       end
 
       invalid_properties
@@ -139,10 +88,8 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
-      return false if @type.nil?
-      return false if @is_connected.nil?
-      return false if @email.nil?
+      return false if @mailbox.nil?
+      return false if @stats.nil?
       true
     end
 
@@ -151,13 +98,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          type == o.type &&
-          is_connected == o.is_connected &&
-          email == o.email &&
-          host == o.host &&
-          port == o.port &&
-          last_synced_at == o.last_synced_at
+          mailbox == o.mailbox &&
+          stats == o.stats
     end
 
     # @see the `==` method
@@ -169,7 +111,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, type, is_connected, email, host, port, last_synced_at].hash
+      [mailbox, stats].hash
     end
 
     # Builds the object from hash

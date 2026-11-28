@@ -23,15 +23,15 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :title
-
     attr_accessor :storefront_id
+
+    attr_accessor :kind
+
+    attr_accessor :title
 
     attr_accessor :visible
 
     attr_accessor :position
-
-    attr_accessor :kind
 
     attr_accessor :listing_ids
 
@@ -42,11 +42,11 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'user_id' => :'userId',
-        :'title' => :'title',
         :'storefront_id' => :'storefrontId',
+        :'kind' => :'kind',
+        :'title' => :'title',
         :'visible' => :'visible',
         :'position' => :'position',
-        :'kind' => :'kind',
         :'listing_ids' => :'listingIds'
       }
     end
@@ -63,11 +63,11 @@ module Crossly
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'user_id' => :'String',
-        :'title' => :'String',
         :'storefront_id' => :'String',
+        :'kind' => :'String',
+        :'title' => :'String',
         :'visible' => :'Boolean',
         :'position' => :'Float',
-        :'kind' => :'String',
         :'listing_ids' => :'Array<String>'
       }
     end
@@ -110,12 +110,16 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'storefront_id')
         self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'visible')
@@ -124,10 +128,6 @@ module Crossly
 
       if attributes.key?(:'position')
         self.position = attributes[:'position']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'listing_ids')
@@ -157,6 +157,10 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
       if @title.nil?
         invalid_properties.push('invalid value for "title", title cannot be nil.')
       end
@@ -167,10 +171,6 @@ module Crossly
 
       if @position.nil?
         invalid_properties.push('invalid value for "position", position cannot be nil.')
-      end
-
-      if @kind.nil?
-        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
       if @listing_ids.nil?
@@ -187,10 +187,10 @@ module Crossly
       return false if @created_at.nil?
       return false if @updated_at.nil?
       return false if @user_id.nil?
+      return false if @kind.nil?
       return false if @title.nil?
       return false if @visible.nil?
       return false if @position.nil?
-      return false if @kind.nil?
       return false if @listing_ids.nil?
       true
     end
@@ -204,11 +204,11 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           user_id == o.user_id &&
-          title == o.title &&
           storefront_id == o.storefront_id &&
+          kind == o.kind &&
+          title == o.title &&
           visible == o.visible &&
           position == o.position &&
-          kind == o.kind &&
           listing_ids == o.listing_ids
     end
 
@@ -221,7 +221,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, user_id, title, storefront_id, visible, position, kind, listing_ids].hash
+      [id, created_at, updated_at, user_id, storefront_id, kind, title, visible, position, listing_ids].hash
     end
 
     # Builds the object from hash

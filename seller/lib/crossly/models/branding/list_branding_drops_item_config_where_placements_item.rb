@@ -15,8 +15,8 @@ require 'time'
 
 module Crossly
   class ListBrandingDropsItemConfigWherePlacementsItem
-    LIVE = "live".freeze
     STOREFRONT = "storefront".freeze
+    LIVE = "live".freeze
     WHOLESALE = "wholesale".freeze
     WORLD = "world".freeze
     SHOP = "shop".freeze

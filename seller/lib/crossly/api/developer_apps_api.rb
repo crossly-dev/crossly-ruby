@@ -19,6 +19,61 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Register an OAuth app for one of your stores (storefrontId; default: the store in X-Storefront-Id, else your default store). The store is paid what the app earns. clientSecret is returned ONCE.
+    # @param [Hash] opts the optional parameters
+    # @return [CreateDeveloperAppResponse]
+    def create_developer_app(opts = {})
+      data, _status_code, _headers = create_developer_app_with_http_info(opts)
+      data
+    end
+
+    # Register an OAuth app for one of your stores (storefrontId; default: the store in X-Storefront-Id, else your default store). The store is paid what the app earns. clientSecret is returned ONCE.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateDeveloperAppResponse, Integer, Hash)>] CreateDeveloperAppResponse data, response status code and response headers
+    def create_developer_app_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DeveloperAppsApi.create_developer_app ...'
+      end
+      # resource path
+      local_var_path = '/v1/developer/apps'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateDeveloperAppResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DeveloperAppsApi.create_developer_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DeveloperAppsApi#create_developer_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Send the application to Crossly review. Needs a passing conformance run on this client version and report-menu evidence.
     # @param app_id [String] 
     # @param [Hash] opts the optional parameters
@@ -576,6 +631,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DeveloperAppsApi#create_developer_app_verification_withdraw\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One of your OAuth apps, with the store that owns it.
+    # @param app_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetDeveloperAppResponse]
+    def get_developer_app(app_id, opts = {})
+      data, _status_code, _headers = get_developer_app_with_http_info(app_id, opts)
+      data
+    end
+
+    # One of your OAuth apps, with the store that owns it.
+    # @param app_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDeveloperAppResponse, Integer, Hash)>] GetDeveloperAppResponse data, response status code and response headers
+    def get_developer_app_with_http_info(app_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DeveloperAppsApi.get_developer_app ...'
+      end
+      # verify the required parameter 'app_id' is set
+      if @api_client.config.client_side_validation && app_id.nil?
+        fail ArgumentError, "Missing the required parameter 'app_id' when calling DeveloperAppsApi.get_developer_app"
+      end
+      # resource path
+      local_var_path = '/v1/developer/apps/{appId}'.sub('{' + 'appId' + '}', CGI.escape(app_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDeveloperAppResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DeveloperAppsApi.get_developer_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DeveloperAppsApi#get_developer_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1141,6 +1257,153 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Your stores' OAuth apps (and any of yours still waiting for a store): filter by storefrontId, status or q; page with page + pageSize. meta.stores lists the stores you may register apps for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :storefront_id 
+    # @option opts [String] :q 
+    # @option opts [String] :status 
+    # @option opts [Integer] :page 
+    # @option opts [Integer] :page_size 
+    # @return [ListDeveloperAppsResponse]
+    def list_developer_apps(opts = {})
+      data, _status_code, _headers = list_developer_apps_with_http_info(opts)
+      data
+    end
+
+    # Your stores&#39; OAuth apps (and any of yours still waiting for a store): filter by storefrontId, status or q; page with page + pageSize. meta.stores lists the stores you may register apps for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :storefront_id 
+    # @option opts [String] :q 
+    # @option opts [String] :status 
+    # @option opts [Integer] :page 
+    # @option opts [Integer] :page_size 
+    # @return [Array<(ListDeveloperAppsResponse, Integer, Hash)>] ListDeveloperAppsResponse data, response status code and response headers
+    def list_developer_apps_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DeveloperAppsApi.list_developer_apps ...'
+      end
+      allowable_values = ["live", "in_review", "listed", "needs_store", "revoked", "all"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      if @api_client.config.client_side_validation && !opts[:'page'].nil? && opts[:'page'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page"]" when calling DeveloperAppsApi.list_developer_apps, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'page_size'].nil? && opts[:'page_size'] > 100
+        fail ArgumentError, 'invalid value for "opts[:"page_size"]" when calling DeveloperAppsApi.list_developer_apps, must be smaller than or equal to 100.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'page_size'].nil? && opts[:'page_size'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"page_size"]" when calling DeveloperAppsApi.list_developer_apps, must be greater than or equal to 1.'
+      end
+
+      # resource path
+      local_var_path = '/v1/developer/apps'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'storefrontId'] = opts[:'storefront_id'] if !opts[:'storefront_id'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'pageSize'] = opts[:'page_size'] if !opts[:'page_size'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListDeveloperAppsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DeveloperAppsApi.list_developer_apps",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DeveloperAppsApi#list_developer_apps\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit an app's name, redirect URIs, scopes and revenue share. Existing installs keep the terms they agreed to.
+    # @param app_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateDeveloperAppResponse]
+    def update_developer_app(app_id, opts = {})
+      data, _status_code, _headers = update_developer_app_with_http_info(app_id, opts)
+      data
+    end
+
+    # Edit an app&#39;s name, redirect URIs, scopes and revenue share. Existing installs keep the terms they agreed to.
+    # @param app_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateDeveloperAppResponse, Integer, Hash)>] UpdateDeveloperAppResponse data, response status code and response headers
+    def update_developer_app_with_http_info(app_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DeveloperAppsApi.update_developer_app ...'
+      end
+      # verify the required parameter 'app_id' is set
+      if @api_client.config.client_side_validation && app_id.nil?
+        fail ArgumentError, "Missing the required parameter 'app_id' when calling DeveloperAppsApi.update_developer_app"
+      end
+      # resource path
+      local_var_path = '/v1/developer/apps/{appId}'.sub('{' + 'appId' + '}', CGI.escape(app_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateDeveloperAppResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DeveloperAppsApi.update_developer_app",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DeveloperAppsApi#update_developer_app\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create or edit the application: client name, platform, version, build and source URLs, description and evidence (report menu, chat, Policy UI). Changing the client clears the passing run.
     # @param app_id [String] 
     # @param [Hash] opts the optional parameters
@@ -1205,6 +1468,7 @@ module Crossly
     # Turn \"Listed publicly\" on or off. On: an app Crossly approved whose name, scopes and audience are unchanged is listed at once; anything else goes to review (pending_review). Off: unlisted immediately.
     # @param app_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateDeveloperAppListingRequest] :update_developer_app_listing_request 
     # @return [UpdateDeveloperAppListingResponse]
     def update_developer_app_listing(app_id, opts = {})
       data, _status_code, _headers = update_developer_app_listing_with_http_info(app_id, opts)
@@ -1214,6 +1478,7 @@ module Crossly
     # Turn \&quot;Listed publicly\&quot; on or off. On: an app Crossly approved whose name, scopes and audience are unchanged is listed at once; anything else goes to review (pending_review). Off: unlisted immediately.
     # @param app_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateDeveloperAppListingRequest] :update_developer_app_listing_request 
     # @return [Array<(UpdateDeveloperAppListingResponse, Integer, Hash)>] UpdateDeveloperAppListingResponse data, response status code and response headers
     def update_developer_app_listing_with_http_info(app_id, opts = {})
       if @api_client.config.debugging
@@ -1233,12 +1498,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_developer_app_listing_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateDeveloperAppListingResponse'
@@ -1320,6 +1590,78 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: DeveloperAppsApi#update_developer_app_profile\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Choose (or change) the store that owns an app: a store of the same business. Its unpaid earnings move with it; client id, secret, installs and webhooks don't change.
+    # @param app_id [String] 
+    # @param update_developer_app_store_request [UpdateDeveloperAppStoreRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateDeveloperAppStoreResponse]
+    def update_developer_app_store(app_id, update_developer_app_store_request, opts = {})
+      data, _status_code, _headers = update_developer_app_store_with_http_info(app_id, update_developer_app_store_request, opts)
+      data
+    end
+
+    # Choose (or change) the store that owns an app: a store of the same business. Its unpaid earnings move with it; client id, secret, installs and webhooks don&#39;t change.
+    # @param app_id [String] 
+    # @param update_developer_app_store_request [UpdateDeveloperAppStoreRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateDeveloperAppStoreResponse, Integer, Hash)>] UpdateDeveloperAppStoreResponse data, response status code and response headers
+    def update_developer_app_store_with_http_info(app_id, update_developer_app_store_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: DeveloperAppsApi.update_developer_app_store ...'
+      end
+      # verify the required parameter 'app_id' is set
+      if @api_client.config.client_side_validation && app_id.nil?
+        fail ArgumentError, "Missing the required parameter 'app_id' when calling DeveloperAppsApi.update_developer_app_store"
+      end
+      # verify the required parameter 'update_developer_app_store_request' is set
+      if @api_client.config.client_side_validation && update_developer_app_store_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_developer_app_store_request' when calling DeveloperAppsApi.update_developer_app_store"
+      end
+      # resource path
+      local_var_path = '/v1/developer/apps/{appId}/store'.sub('{' + 'appId' + '}', CGI.escape(app_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_developer_app_store_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateDeveloperAppStoreResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"DeveloperAppsApi.update_developer_app_store",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: DeveloperAppsApi#update_developer_app_store\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

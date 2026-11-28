@@ -4,6 +4,7 @@ All URIs are relative to *https://crossly.net/api*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
+| [**create_developer_app**](DeveloperAppsApi.md#create_developer_app) | **POST** /v1/developer/apps | Register an OAuth app for one of your stores (storefrontId; default: the store in X-Storefront-Id, else your default store). The store is paid what the app earns. clientSecret is returned ONCE. |
 | [**create_developer_app_certification_submit**](DeveloperAppsApi.md#create_developer_app_certification_submit) | **POST** /v1/developer/apps/{appId}/certification/submit | Send the application to Crossly review. Needs a passing conformance run on this client version and report-menu evidence. |
 | [**create_developer_app_certification_withdraw**](DeveloperAppsApi.md#create_developer_app_certification_withdraw) | **POST** /v1/developer/apps/{appId}/certification/withdraw | Take the application out of review to edit it. |
 | [**create_developer_app_client_version**](DeveloperAppsApi.md#create_developer_app_client_version) | **POST** /v1/developer/apps/{appId}/client-versions | Register a new release of your certified client and start its conformance run. A pass on the same major version carries the certification automatically; a new major version goes to Crossly review; a failure keeps your previous certified version. |
@@ -13,6 +14,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_developer_app_verification_check_domain**](DeveloperAppsApi.md#create_developer_app_verification_check_domain) | **POST** /v1/developer/apps/{appId}/verification/check-domain | Look up the DNS TXT record crossly-app-verification&#x3D;&lt;token&gt; on your domain (or _crossly.&lt;domain&gt;) now. |
 | [**create_developer_app_verification_submit**](DeveloperAppsApi.md#create_developer_app_verification_submit) | **POST** /v1/developer/apps/{appId}/verification/submit | Send the verification to Crossly review (each scope is decided separately). |
 | [**create_developer_app_verification_withdraw**](DeveloperAppsApi.md#create_developer_app_verification_withdraw) | **POST** /v1/developer/apps/{appId}/verification/withdraw | Take the verification out of review to edit it. |
+| [**get_developer_app**](DeveloperAppsApi.md#get_developer_app) | **GET** /v1/developer/apps/{appId} | One of your OAuth apps, with the store that owns it. |
 | [**get_developer_app_certification**](DeveloperAppsApi.md#get_developer_app_certification) | **GET** /v1/developer/apps/{appId}/certification | The Crossly Carnival client certification application (null until you create it): status, client, evidence, the passing run and what still blocks submission. |
 | [**get_developer_app_client_version**](DeveloperAppsApi.md#get_developer_app_client_version) | **GET** /v1/developer/apps/{appId}/client-versions/{versionId} | One client release and its re-certification. |
 | [**get_developer_app_conformance_run**](DeveloperAppsApi.md#get_developer_app_conformance_run) | **GET** /v1/developer/apps/{appId}/conformance-runs/{runId} | A run&#39;s step, instruction and every check with its verdict. |
@@ -22,10 +24,77 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_developer_app_verification**](DeveloperAppsApi.md#get_developer_app_verification) | **GET** /v1/developer/apps/{appId}/verification | The app verification for worlds:publish / worlds:monetize (null until created): domain proof, policies, justifications and per-scope decisions. |
 | [**list_developer_app_client_versions**](DeveloperAppsApi.md#list_developer_app_client_versions) | **GET** /v1/developer/apps/{appId}/client-versions | Releases of your certified client, newest first: the re-certification status (awaiting_run, running, carried, ops_review, approved, rejected, failed, superseded), the rule that decided it and its checks. |
 | [**list_developer_app_conformance_runs**](DeveloperAppsApi.md#list_developer_app_conformance_runs) | **GET** /v1/developer/apps/{appId}/conformance-runs | Your app&#39;s conformance runs, newest first. |
+| [**list_developer_apps**](DeveloperAppsApi.md#list_developer_apps) | **GET** /v1/developer/apps | Your stores&#39; OAuth apps (and any of yours still waiting for a store): filter by storefrontId, status or q; page with page + pageSize. meta.stores lists the stores you may register apps for. |
+| [**update_developer_app**](DeveloperAppsApi.md#update_developer_app) | **PATCH** /v1/developer/apps/{appId} | Edit an app&#39;s name, redirect URIs, scopes and revenue share. Existing installs keep the terms they agreed to. |
 | [**update_developer_app_certification**](DeveloperAppsApi.md#update_developer_app_certification) | **PUT** /v1/developer/apps/{appId}/certification | Create or edit the application: client name, platform, version, build and source URLs, description and evidence (report menu, chat, Policy UI). Changing the client clears the passing run. |
 | [**update_developer_app_listing**](DeveloperAppsApi.md#update_developer_app_listing) | **PUT** /v1/developer/apps/{appId}/listing | Turn \&quot;Listed publicly\&quot; on or off. On: an app Crossly approved whose name, scopes and audience are unchanged is listed at once; anything else goes to review (pending_review). Off: unlisted immediately. |
 | [**update_developer_app_profile**](DeveloperAppsApi.md#update_developer_app_profile) | **PATCH** /v1/developer/apps/{appId}/profile | Edit your app&#39;s directory profile: name, slug, tagline, description, longDescription (markdown), category, audience (auto|seller|buyer|both), logoUrl, bannerUrl (4:1, 1600×400), screenshots (≤6), demoVideoUrl, homepageUrl, installUrl, support/privacy/terms links, docsLinks [{label,url}] and pricingNote. Absent keys are kept, null clears. Images not on Crossly&#39;s CDN are copied onto it. Renaming a listed app or changing its audience sends it back to review. |
+| [**update_developer_app_store**](DeveloperAppsApi.md#update_developer_app_store) | **PUT** /v1/developer/apps/{appId}/store | Choose (or change) the store that owns an app: a store of the same business. Its unpaid earnings move with it; client id, secret, installs and webhooks don&#39;t change. |
 | [**update_developer_app_verification**](DeveloperAppsApi.md#update_developer_app_verification) | **PUT** /v1/developer/apps/{appId}/verification | Create or edit the verification: domain, requested scopes with a justification each, privacy policy, terms, support email, demo. |
+
+
+## create_developer_app
+
+> <CreateDeveloperAppResponse> create_developer_app
+
+Register an OAuth app for one of your stores (storefrontId; default: the store in X-Storefront-Id, else your default store). The store is paid what the app earns. clientSecret is returned ONCE.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DeveloperAppsApi.new
+
+begin
+  # Register an OAuth app for one of your stores (storefrontId; default: the store in X-Storefront-Id, else your default store). The store is paid what the app earns. clientSecret is returned ONCE.
+  result = api_instance.create_developer_app
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->create_developer_app: #{e}"
+end
+```
+
+#### Using the create_developer_app_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateDeveloperAppResponse>, Integer, Hash)> create_developer_app_with_http_info
+
+```ruby
+begin
+  # Register an OAuth app for one of your stores (storefrontId; default: the store in X-Storefront-Id, else your default store). The store is paid what the app earns. clientSecret is returned ONCE.
+  data, status_code, headers = api_instance.create_developer_app_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateDeveloperAppResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->create_developer_app_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateDeveloperAppResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
 ## create_developer_app_certification_submit
@@ -624,6 +693,73 @@ end
 ### Return type
 
 **DeveloperAppVerificationResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_developer_app
+
+> <GetDeveloperAppResponse> get_developer_app(app_id)
+
+One of your OAuth apps, with the store that owns it.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DeveloperAppsApi.new
+app_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # One of your OAuth apps, with the store that owns it.
+  result = api_instance.get_developer_app(app_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->get_developer_app: #{e}"
+end
+```
+
+#### Using the get_developer_app_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDeveloperAppResponse>, Integer, Hash)> get_developer_app_with_http_info(app_id)
+
+```ruby
+begin
+  # One of your OAuth apps, with the store that owns it.
+  data, status_code, headers = api_instance.get_developer_app_with_http_info(app_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDeveloperAppResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->get_developer_app_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** |  |  |
+
+### Return type
+
+**GetDeveloperAppResponse**
 
 ### Authorization
 
@@ -1242,6 +1378,150 @@ end
 - **Accept**: application/json
 
 
+## list_developer_apps
+
+> <ListDeveloperAppsResponse> list_developer_apps(opts)
+
+Your stores' OAuth apps (and any of yours still waiting for a store): filter by storefrontId, status or q; page with page + pageSize. meta.stores lists the stores you may register apps for.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DeveloperAppsApi.new
+opts = {
+  storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | 
+  q: 'q_example', # String | 
+  status: 'live', # String | 
+  page: 56, # Integer | 
+  page_size: 56 # Integer | 
+}
+
+begin
+  # Your stores' OAuth apps (and any of yours still waiting for a store): filter by storefrontId, status or q; page with page + pageSize. meta.stores lists the stores you may register apps for.
+  result = api_instance.list_developer_apps(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->list_developer_apps: #{e}"
+end
+```
+
+#### Using the list_developer_apps_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListDeveloperAppsResponse>, Integer, Hash)> list_developer_apps_with_http_info(opts)
+
+```ruby
+begin
+  # Your stores' OAuth apps (and any of yours still waiting for a store): filter by storefrontId, status or q; page with page + pageSize. meta.stores lists the stores you may register apps for.
+  data, status_code, headers = api_instance.list_developer_apps_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListDeveloperAppsResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->list_developer_apps_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **storefront_id** | **String** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **status** | **String** |  | [optional] |
+| **page** | **Integer** |  | [optional] |
+| **page_size** | **Integer** |  | [optional] |
+
+### Return type
+
+**ListDeveloperAppsResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_developer_app
+
+> <UpdateDeveloperAppResponse> update_developer_app(app_id)
+
+Edit an app's name, redirect URIs, scopes and revenue share. Existing installs keep the terms they agreed to.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DeveloperAppsApi.new
+app_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # Edit an app's name, redirect URIs, scopes and revenue share. Existing installs keep the terms they agreed to.
+  result = api_instance.update_developer_app(app_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->update_developer_app: #{e}"
+end
+```
+
+#### Using the update_developer_app_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateDeveloperAppResponse>, Integer, Hash)> update_developer_app_with_http_info(app_id)
+
+```ruby
+begin
+  # Edit an app's name, redirect URIs, scopes and revenue share. Existing installs keep the terms they agreed to.
+  data, status_code, headers = api_instance.update_developer_app_with_http_info(app_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateDeveloperAppResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->update_developer_app_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** |  |  |
+
+### Return type
+
+**UpdateDeveloperAppResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## update_developer_app_certification
 
 > <DeveloperAppCertificationResponse> update_developer_app_certification(app_id)
@@ -1311,7 +1591,7 @@ end
 
 ## update_developer_app_listing
 
-> <UpdateDeveloperAppListingResponse> update_developer_app_listing(app_id)
+> <UpdateDeveloperAppListingResponse> update_developer_app_listing(app_id, opts)
 
 Turn \"Listed publicly\" on or off. On: an app Crossly approved whose name, scopes and audience are unchanged is listed at once; anything else goes to review (pending_review). Off: unlisted immediately.
 
@@ -1328,10 +1608,13 @@ end
 
 api_instance = Crossly::DeveloperAppsApi.new
 app_id = 'app_id_example' # String | 
+opts = {
+  update_developer_app_listing_request: Crossly::UpdateDeveloperAppListingRequest.new({listed: false}) # UpdateDeveloperAppListingRequest | 
+}
 
 begin
   # Turn \"Listed publicly\" on or off. On: an app Crossly approved whose name, scopes and audience are unchanged is listed at once; anything else goes to review (pending_review). Off: unlisted immediately.
-  result = api_instance.update_developer_app_listing(app_id)
+  result = api_instance.update_developer_app_listing(app_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling DeveloperAppsApi->update_developer_app_listing: #{e}"
@@ -1342,12 +1625,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateDeveloperAppListingResponse>, Integer, Hash)> update_developer_app_listing_with_http_info(app_id)
+> <Array(<UpdateDeveloperAppListingResponse>, Integer, Hash)> update_developer_app_listing_with_http_info(app_id, opts)
 
 ```ruby
 begin
   # Turn \"Listed publicly\" on or off. On: an app Crossly approved whose name, scopes and audience are unchanged is listed at once; anything else goes to review (pending_review). Off: unlisted immediately.
-  data, status_code, headers = api_instance.update_developer_app_listing_with_http_info(app_id)
+  data, status_code, headers = api_instance.update_developer_app_listing_with_http_info(app_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateDeveloperAppListingResponse>
@@ -1361,6 +1644,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **app_id** | **String** |  |  |
+| **update_developer_app_listing_request** | **UpdateDeveloperAppListingRequest** |  | [optional] |
 
 ### Return type
 
@@ -1372,7 +1656,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1440,6 +1724,75 @@ end
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_developer_app_store
+
+> <UpdateDeveloperAppStoreResponse> update_developer_app_store(app_id, update_developer_app_store_request)
+
+Choose (or change) the store that owns an app: a store of the same business. Its unpaid earnings move with it; client id, secret, installs and webhooks don't change.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::DeveloperAppsApi.new
+app_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_developer_app_store_request = Crossly::UpdateDeveloperAppStoreRequest.new({storefront_id: 'storefront_id_example'}) # UpdateDeveloperAppStoreRequest | 
+
+begin
+  # Choose (or change) the store that owns an app: a store of the same business. Its unpaid earnings move with it; client id, secret, installs and webhooks don't change.
+  result = api_instance.update_developer_app_store(app_id, update_developer_app_store_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->update_developer_app_store: #{e}"
+end
+```
+
+#### Using the update_developer_app_store_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateDeveloperAppStoreResponse>, Integer, Hash)> update_developer_app_store_with_http_info(app_id, update_developer_app_store_request)
+
+```ruby
+begin
+  # Choose (or change) the store that owns an app: a store of the same business. Its unpaid earnings move with it; client id, secret, installs and webhooks don't change.
+  data, status_code, headers = api_instance.update_developer_app_store_with_http_info(app_id, update_developer_app_store_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateDeveloperAppStoreResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling DeveloperAppsApi->update_developer_app_store_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **app_id** | **String** |  |  |
+| **update_developer_app_store_request** | **UpdateDeveloperAppStoreRequest** |  |  |
+
+### Return type
+
+**UpdateDeveloperAppStoreResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

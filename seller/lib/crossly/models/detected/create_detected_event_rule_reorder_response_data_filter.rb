@@ -27,6 +27,9 @@ module Crossly
 
     attr_accessor :item_ids
 
+    # The stores this rule applies in (storefront ids); unset = every store of the account. \"Copy to other stores…\" writes a copy limited to each target store (api-sale detected-events/copy-rule.ts).
+    attr_accessor :storefronts
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +38,8 @@ module Crossly
         :'accounts' => :'accounts',
         :'apps' => :'apps',
         :'tags' => :'tags',
-        :'item_ids' => :'itemIds'
+        :'item_ids' => :'itemIds',
+        :'storefronts' => :'storefronts'
       }
     end
 
@@ -52,7 +56,8 @@ module Crossly
         :'accounts' => :'Array<String>',
         :'apps' => :'Array<String>',
         :'tags' => :'Array<String>',
-        :'item_ids' => :'Array<String>'
+        :'item_ids' => :'Array<String>',
+        :'storefronts' => :'Array<String>'
       }
     end
 
@@ -63,7 +68,8 @@ module Crossly
         :'accounts',
         :'apps',
         :'tags',
-        :'item_ids'
+        :'item_ids',
+        :'storefronts'
       ])
     end
 
@@ -117,6 +123,12 @@ module Crossly
           self.item_ids = value
         end
       end
+
+      if attributes.key?(:'storefronts')
+        if (value = attributes[:'storefronts']).is_a?(Array)
+          self.storefronts = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -147,7 +159,8 @@ module Crossly
           accounts == o.accounts &&
           apps == o.apps &&
           tags == o.tags &&
-          item_ids == o.item_ids
+          item_ids == o.item_ids &&
+          storefronts == o.storefronts
     end
 
     # @see the `==` method
@@ -159,7 +172,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [kinds, platforms, accounts, apps, tags, item_ids].hash
+      [kinds, platforms, accounts, apps, tags, item_ids, storefronts].hash
     end
 
     # Builds the object from hash

@@ -29,7 +29,11 @@ module Crossly
 
     attr_accessor :notes
 
+    attr_accessor :storefront_id
+
     attr_accessor :source
+
+    attr_accessor :images
 
     attr_accessor :sku
 
@@ -66,8 +70,6 @@ module Crossly
     attr_accessor :color
 
     attr_accessor :default_title
-
-    attr_accessor :images
 
     attr_accessor :video_url
 
@@ -121,7 +123,11 @@ module Crossly
 
     attr_accessor :dimension_hin
 
+    attr_accessor :parcel_source
+
     attr_accessor :allowance_app_id
+
+    attr_accessor :assignee_member_id
 
     attr_accessor :category
 
@@ -157,7 +163,9 @@ module Crossly
         :'user_id' => :'userId',
         :'status' => :'status',
         :'notes' => :'notes',
+        :'storefront_id' => :'storefrontId',
         :'source' => :'source',
+        :'images' => :'images',
         :'sku' => :'sku',
         :'quantity' => :'quantity',
         :'quantity_available' => :'quantityAvailable',
@@ -176,7 +184,6 @@ module Crossly
         :'size_system' => :'sizeSystem',
         :'color' => :'color',
         :'default_title' => :'defaultTitle',
-        :'images' => :'images',
         :'video_url' => :'videoUrl',
         :'provenance_receipt_id' => :'provenanceReceiptId',
         :'tags' => :'tags',
@@ -203,7 +210,9 @@ module Crossly
         :'dimension_lin' => :'dimensionLIn',
         :'dimension_win' => :'dimensionWIn',
         :'dimension_hin' => :'dimensionHIn',
+        :'parcel_source' => :'parcelSource',
         :'allowance_app_id' => :'allowanceAppId',
+        :'assignee_member_id' => :'assigneeMemberId',
         :'category' => :'category'
       }
     end
@@ -223,7 +232,9 @@ module Crossly
         :'user_id' => :'String',
         :'status' => :'String',
         :'notes' => :'String',
+        :'storefront_id' => :'String',
         :'source' => :'String',
+        :'images' => :'Array<String>',
         :'sku' => :'String',
         :'quantity' => :'Float',
         :'quantity_available' => :'Float',
@@ -242,7 +253,6 @@ module Crossly
         :'size_system' => :'String',
         :'color' => :'Array<String>',
         :'default_title' => :'String',
-        :'images' => :'Array<String>',
         :'video_url' => :'String',
         :'provenance_receipt_id' => :'String',
         :'tags' => :'Array<String>',
@@ -269,7 +279,9 @@ module Crossly
         :'dimension_lin' => :'String',
         :'dimension_win' => :'String',
         :'dimension_hin' => :'String',
+        :'parcel_source' => :'String',
         :'allowance_app_id' => :'String',
+        :'assignee_member_id' => :'String',
         :'category' => :'MainSub'
       }
     end
@@ -279,6 +291,7 @@ module Crossly
       Set.new([
         :'brand',
         :'notes',
+        :'storefront_id',
         :'sku',
         :'original_price',
         :'condition',
@@ -312,7 +325,9 @@ module Crossly
         :'dimension_lin',
         :'dimension_win',
         :'dimension_hin',
+        :'parcel_source',
         :'allowance_app_id',
+        :'assignee_member_id',
         :'category'
       ])
     end
@@ -360,8 +375,18 @@ module Crossly
         self.notes = attributes[:'notes']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
       if attributes.key?(:'source')
         self.source = attributes[:'source']
+      end
+
+      if attributes.key?(:'images')
+        if (value = attributes[:'images']).is_a?(Array)
+          self.images = value
+        end
       end
 
       if attributes.key?(:'sku')
@@ -436,12 +461,6 @@ module Crossly
 
       if attributes.key?(:'default_title')
         self.default_title = attributes[:'default_title']
-      end
-
-      if attributes.key?(:'images')
-        if (value = attributes[:'images']).is_a?(Array)
-          self.images = value
-        end
       end
 
       if attributes.key?(:'video_url')
@@ -552,8 +571,16 @@ module Crossly
         self.dimension_hin = attributes[:'dimension_hin']
       end
 
+      if attributes.key?(:'parcel_source')
+        self.parcel_source = attributes[:'parcel_source']
+      end
+
       if attributes.key?(:'allowance_app_id')
         self.allowance_app_id = attributes[:'allowance_app_id']
+      end
+
+      if attributes.key?(:'assignee_member_id')
+        self.assignee_member_id = attributes[:'assignee_member_id']
       end
 
       if attributes.key?(:'category')
@@ -589,6 +616,10 @@ module Crossly
         invalid_properties.push('invalid value for "source", source cannot be nil.')
       end
 
+      if @images.nil?
+        invalid_properties.push('invalid value for "images", images cannot be nil.')
+      end
+
       if @quantity.nil?
         invalid_properties.push('invalid value for "quantity", quantity cannot be nil.')
       end
@@ -615,10 +646,6 @@ module Crossly
 
       if @default_title.nil?
         invalid_properties.push('invalid value for "default_title", default_title cannot be nil.')
-      end
-
-      if @images.nil?
-        invalid_properties.push('invalid value for "images", images cannot be nil.')
       end
 
       if @tags.nil?
@@ -649,6 +676,7 @@ module Crossly
       return false if @user_id.nil?
       return false if @status.nil?
       return false if @source.nil?
+      return false if @images.nil?
       return false if @quantity.nil?
       return false if @quantity_available.nil?
       return false if @quantity_reserved.nil?
@@ -656,7 +684,6 @@ module Crossly
       return false if @quantity_sold.nil?
       return false if @color.nil?
       return false if @default_title.nil?
-      return false if @images.nil?
       return false if @tags.nil?
       return false if @labels.nil?
       vault_sell_from_validator = EnumAttributeValidator.new('String', ["vault_first", "warehouse_first", "cheapest"])
@@ -688,7 +715,9 @@ module Crossly
           user_id == o.user_id &&
           status == o.status &&
           notes == o.notes &&
+          storefront_id == o.storefront_id &&
           source == o.source &&
+          images == o.images &&
           sku == o.sku &&
           quantity == o.quantity &&
           quantity_available == o.quantity_available &&
@@ -707,7 +736,6 @@ module Crossly
           size_system == o.size_system &&
           color == o.color &&
           default_title == o.default_title &&
-          images == o.images &&
           video_url == o.video_url &&
           provenance_receipt_id == o.provenance_receipt_id &&
           tags == o.tags &&
@@ -734,7 +762,9 @@ module Crossly
           dimension_lin == o.dimension_lin &&
           dimension_win == o.dimension_win &&
           dimension_hin == o.dimension_hin &&
+          parcel_source == o.parcel_source &&
           allowance_app_id == o.allowance_app_id &&
+          assignee_member_id == o.assignee_member_id &&
           category == o.category
     end
 
@@ -747,7 +777,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, brand, created_at, updated_at, user_id, status, notes, source, sku, quantity, quantity_available, quantity_reserved, wholesale_reserve, quantity_sold, original_price, condition, size, material, style, pattern, department, gender, item_type, size_system, color, default_title, images, video_url, provenance_receipt_id, tags, labels, custom_label, warehouse_location, storage_bin, storage_note, market_sku_id, market_variant_id, grade_key, vault_sell_from, grading, first_listed_at, include_tax_in_landed, cost_basis_cents, supplier, price_floor_cents, floor_is_net, acquired_at, acquired_source, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, allowance_app_id, category].hash
+      [id, brand, created_at, updated_at, user_id, status, notes, storefront_id, source, images, sku, quantity, quantity_available, quantity_reserved, wholesale_reserve, quantity_sold, original_price, condition, size, material, style, pattern, department, gender, item_type, size_system, color, default_title, video_url, provenance_receipt_id, tags, labels, custom_label, warehouse_location, storage_bin, storage_note, market_sku_id, market_variant_id, grade_key, vault_sell_from, grading, first_listed_at, include_tax_in_landed, cost_basis_cents, supplier, price_floor_cents, floor_is_net, acquired_at, acquired_source, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, parcel_source, allowance_app_id, assignee_member_id, category].hash
     end
 
     # Builds the object from hash

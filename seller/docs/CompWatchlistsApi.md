@@ -13,7 +13,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_comp_watchlist
 
-> <ListCompWatchlistsItem> create_comp_watchlist
+> <ListCompWatchlistsItem> create_comp_watchlist(create_comp_watchlist_request)
 
 Create a sold-comp watchlist.
 
@@ -29,10 +29,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CompWatchlistsApi.new
+create_comp_watchlist_request = Crossly::CreateCompWatchlistRequest.new({name: 'name_example'}) # CreateCompWatchlistRequest | 
 
 begin
   # Create a sold-comp watchlist.
-  result = api_instance.create_comp_watchlist
+  result = api_instance.create_comp_watchlist(create_comp_watchlist_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CompWatchlistsApi->create_comp_watchlist: #{e}"
@@ -43,12 +44,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCompWatchlistsItem>, Integer, Hash)> create_comp_watchlist_with_http_info
+> <Array(<ListCompWatchlistsItem>, Integer, Hash)> create_comp_watchlist_with_http_info(create_comp_watchlist_request)
 
 ```ruby
 begin
   # Create a sold-comp watchlist.
-  data, status_code, headers = api_instance.create_comp_watchlist_with_http_info
+  data, status_code, headers = api_instance.create_comp_watchlist_with_http_info(create_comp_watchlist_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCompWatchlistsItem>
@@ -59,7 +60,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_comp_watchlist_request** | **CreateCompWatchlistRequest** |  |  |
 
 ### Return type
 
@@ -71,7 +74,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

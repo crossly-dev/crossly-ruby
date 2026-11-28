@@ -22,6 +22,7 @@ module Crossly
     # Schedule an Experience Event shown on the game's card: title, description, start/end (5 min–14 days, ≤ 180 days ahead), thumbnail, place. With liveEventId it follows that live-ops event's schedule.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceExperienceEventRequest] :create_world_experience_experience_event_request 
     # @return [WorldExperienceExperienceEventResponse]
     def create_world_experience_experience_event(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_experience_event_with_http_info(experience_id, opts)
@@ -31,6 +32,7 @@ module Crossly
     # Schedule an Experience Event shown on the game&#39;s card: title, description, start/end (5 min–14 days, ≤ 180 days ahead), thumbnail, place. With liveEventId it follows that live-ops event&#39;s schedule.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceExperienceEventRequest] :create_world_experience_experience_event_request 
     # @return [Array<(WorldExperienceExperienceEventResponse, Integer, Hash)>] WorldExperienceExperienceEventResponse data, response status code and response headers
     def create_world_experience_experience_event_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -50,12 +52,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_experience_event_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldExperienceExperienceEventResponse'
@@ -151,6 +158,7 @@ module Crossly
     # @param experience_id [String] 
     # @param event_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceExperienceEventRsvpRequest] :create_world_experience_experience_event_rsvp_request 
     # @return [WorldExperienceExperienceEventResponse]
     def create_world_experience_experience_event_rsvp(experience_id, event_id, opts = {})
       data, _status_code, _headers = create_world_experience_experience_event_rsvp_with_http_info(experience_id, event_id, opts)
@@ -161,6 +169,7 @@ module Crossly
     # @param experience_id [String] 
     # @param event_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceExperienceEventRsvpRequest] :create_world_experience_experience_event_rsvp_request 
     # @return [Array<(WorldExperienceExperienceEventResponse, Integer, Hash)>] WorldExperienceExperienceEventResponse data, response status code and response headers
     def create_world_experience_experience_event_rsvp_with_http_info(experience_id, event_id, opts = {})
       if @api_client.config.debugging
@@ -184,12 +193,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_experience_event_rsvp_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldExperienceExperienceEventResponse'
@@ -217,6 +231,7 @@ module Crossly
     # Send an approved template to one player (sub) or up to 100 (subs). Only players who turned notifications on, 13+, not banned, at most 2 a day per player and outside their quiet hours receive it; every other send is logged as suppressed with its reason.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceNotificationRequest] :create_world_experience_notification_request 
     # @return [CreateWorldExperienceNotificationResponse]
     def create_world_experience_notification(experience_id, opts = {})
       data, _status_code, _headers = create_world_experience_notification_with_http_info(experience_id, opts)
@@ -226,6 +241,7 @@ module Crossly
     # Send an approved template to one player (sub) or up to 100 (subs). Only players who turned notifications on, 13+, not banned, at most 2 a day per player and outside their quiet hours receive it; every other send is logged as suppressed with its reason.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateWorldExperienceNotificationRequest] :create_world_experience_notification_request 
     # @return [Array<(CreateWorldExperienceNotificationResponse, Integer, Hash)>] CreateWorldExperienceNotificationResponse data, response status code and response headers
     def create_world_experience_notification_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -245,12 +261,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_world_experience_notification_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldExperienceNotificationResponse'
@@ -406,6 +427,7 @@ module Crossly
     # Sends over the last N days (default 7, max 90): delivered, suppressed by reason, per template, and how many players turned notifications on.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [GetWorldExperienceNotificationReportResponse]
     def get_world_experience_notification_report(experience_id, opts = {})
       data, _status_code, _headers = get_world_experience_notification_report_with_http_info(experience_id, opts)
@@ -415,6 +437,7 @@ module Crossly
     # Sends over the last N days (default 7, max 90): delivered, suppressed by reason, per template, and how many players turned notifications on.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [Array<(GetWorldExperienceNotificationReportResponse, Integer, Hash)>] GetWorldExperienceNotificationReportResponse data, response status code and response headers
     def get_world_experience_notification_report_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -429,6 +452,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -466,6 +490,7 @@ module Crossly
 
     # Events across public experiences in the next 7 days (and live now), soonest first — the Carnival Plaza's \"Coming up\" board.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
     # @return [ListWorldExperienceEventUpcomingResponse]
     def list_world_experience_event_upcoming(opts = {})
       data, _status_code, _headers = list_world_experience_event_upcoming_with_http_info(opts)
@@ -474,6 +499,7 @@ module Crossly
 
     # Events across public experiences in the next 7 days (and live now), soonest first — the Carnival Plaza&#39;s \&quot;Coming up\&quot; board.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
     # @return [Array<(ListWorldExperienceEventUpcomingResponse, Integer, Hash)>] ListWorldExperienceEventUpcomingResponse data, response status code and response headers
     def list_world_experience_event_upcoming_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -484,6 +510,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -816,6 +843,7 @@ module Crossly
     # @param experience_id [String] 
     # @param event_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceExperienceEventRequest] :update_world_experience_experience_event_request 
     # @return [WorldExperienceExperienceEventResponse]
     def update_world_experience_experience_event(experience_id, event_id, opts = {})
       data, _status_code, _headers = update_world_experience_experience_event_with_http_info(experience_id, event_id, opts)
@@ -826,6 +854,7 @@ module Crossly
     # @param experience_id [String] 
     # @param event_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceExperienceEventRequest] :update_world_experience_experience_event_request 
     # @return [Array<(WorldExperienceExperienceEventResponse, Integer, Hash)>] WorldExperienceExperienceEventResponse data, response status code and response headers
     def update_world_experience_experience_event_with_http_info(experience_id, event_id, opts = {})
       if @api_client.config.debugging
@@ -849,12 +878,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_experience_event_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'WorldExperienceExperienceEventResponse'
@@ -882,6 +916,7 @@ module Crossly
     # Turn this experience's notifications on or off for you. timeZone (IANA) keeps them out of your night.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceNotificationOptInRequest] :update_world_experience_notification_opt_in_request 
     # @return [GetWorldExperienceNotificationOptInResponse]
     def update_world_experience_notification_opt_in(experience_id, opts = {})
       data, _status_code, _headers = update_world_experience_notification_opt_in_with_http_info(experience_id, opts)
@@ -891,6 +926,7 @@ module Crossly
     # Turn this experience&#39;s notifications on or off for you. timeZone (IANA) keeps them out of your night.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateWorldExperienceNotificationOptInRequest] :update_world_experience_notification_opt_in_request 
     # @return [Array<(GetWorldExperienceNotificationOptInResponse, Integer, Hash)>] GetWorldExperienceNotificationOptInResponse data, response status code and response headers
     def update_world_experience_notification_opt_in_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -910,12 +946,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_world_experience_notification_opt_in_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldExperienceNotificationOptInResponse'
@@ -944,6 +985,7 @@ module Crossly
     # @param experience_id [String] 
     # @param key [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGroupBuyMessageRequest] :create_group_buy_message_request 
     # @return [UpdateWorldExperienceNotificationTemplateResponse]
     def update_world_experience_notification_template(experience_id, key, opts = {})
       data, _status_code, _headers = update_world_experience_notification_template_with_http_info(experience_id, key, opts)
@@ -954,6 +996,7 @@ module Crossly
     # @param experience_id [String] 
     # @param key [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGroupBuyMessageRequest] :create_group_buy_message_request 
     # @return [Array<(UpdateWorldExperienceNotificationTemplateResponse, Integer, Hash)>] UpdateWorldExperienceNotificationTemplateResponse data, response status code and response headers
     def update_world_experience_notification_template_with_http_info(experience_id, key, opts = {})
       if @api_client.config.debugging
@@ -977,12 +1020,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_group_buy_message_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateWorldExperienceNotificationTemplateResponse'

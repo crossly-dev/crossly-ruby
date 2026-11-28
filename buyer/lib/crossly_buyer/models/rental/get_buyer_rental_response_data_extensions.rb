@@ -21,6 +21,8 @@ module CrosslyBuyer
 
     attr_accessor :cents
 
+    attr_accessor :free_days
+
     attr_accessor :status
 
     attr_accessor :created_at
@@ -33,6 +35,7 @@ module CrosslyBuyer
         :'id' => :'id',
         :'days' => :'days',
         :'cents' => :'cents',
+        :'free_days' => :'freeDays',
         :'status' => :'status',
         :'created_at' => :'createdAt',
         :'decided_at' => :'decidedAt'
@@ -50,6 +53,7 @@ module CrosslyBuyer
         :'id' => :'String',
         :'days' => :'Float',
         :'cents' => :'Float',
+        :'free_days' => :'Float',
         :'status' => :'String',
         :'created_at' => :'String',
         :'decided_at' => :'String'
@@ -90,6 +94,10 @@ module CrosslyBuyer
         self.cents = attributes[:'cents']
       end
 
+      if attributes.key?(:'free_days')
+        self.free_days = attributes[:'free_days']
+      end
+
       if attributes.key?(:'status')
         self.status = attributes[:'status']
       end
@@ -119,6 +127,10 @@ module CrosslyBuyer
         invalid_properties.push('invalid value for "cents", cents cannot be nil.')
       end
 
+      if @free_days.nil?
+        invalid_properties.push('invalid value for "free_days", free_days cannot be nil.')
+      end
+
       if @status.nil?
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
@@ -136,6 +148,7 @@ module CrosslyBuyer
       return false if @id.nil?
       return false if @days.nil?
       return false if @cents.nil?
+      return false if @free_days.nil?
       return false if @status.nil?
       return false if @created_at.nil?
       true
@@ -149,6 +162,7 @@ module CrosslyBuyer
           id == o.id &&
           days == o.days &&
           cents == o.cents &&
+          free_days == o.free_days &&
           status == o.status &&
           created_at == o.created_at &&
           decided_at == o.decided_at
@@ -163,7 +177,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, days, cents, status, created_at, decided_at].hash
+      [id, days, cents, free_days, status, created_at, decided_at].hash
     end
 
     # Builds the object from hash

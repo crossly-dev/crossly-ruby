@@ -150,12 +150,12 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      id_validator = EnumAttributeValidator.new('String', ["live", "catalog", "returns", "visibility", "payment", "ships_from", "profile"])
+      id_validator = EnumAttributeValidator.new('String', ["live", "catalog", "returns", "profile", "visibility", "payment", "ships_from"])
       return false unless id_validator.valid?(@id)
       return false if @label.nil?
       return false if @done.nil?
       return false if @tab.nil?
-      tab_validator = EnumAttributeValidator.new('String', ["invoices", "buyers", "catalogs", "profile"])
+      tab_validator = EnumAttributeValidator.new('String', ["invoices", "profile", "buyers", "catalogs"])
       return false unless tab_validator.valid?(@tab)
       return false if @href.nil?
       true
@@ -164,7 +164,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] id Object to be assigned
     def id=(id)
-      validator = EnumAttributeValidator.new('String', ["live", "catalog", "returns", "visibility", "payment", "ships_from", "profile"])
+      validator = EnumAttributeValidator.new('String', ["live", "catalog", "returns", "profile", "visibility", "payment", "ships_from"])
       unless validator.valid?(id)
         fail ArgumentError, "invalid value for \"id\", must be one of #{validator.allowable_values}."
       end
@@ -174,7 +174,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tab Object to be assigned
     def tab=(tab)
-      validator = EnumAttributeValidator.new('String', ["invoices", "buyers", "catalogs", "profile"])
+      validator = EnumAttributeValidator.new('String', ["invoices", "profile", "buyers", "catalogs"])
       unless validator.valid?(tab)
         fail ArgumentError, "invalid value for \"tab\", must be one of #{validator.allowable_values}."
       end

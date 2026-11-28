@@ -19,6 +19,8 @@ module Crossly
 
     attr_accessor :trade
 
+    attr_accessor :buyer_company
+
     # DOLLARS (numbers, as order.created sends them). null = not known (no sale row, or details pending).
     attr_accessor :sale_price
 
@@ -54,6 +56,9 @@ module Crossly
     attr_accessor :platform
 
     attr_accessor :platform_order_id
+
+    # 1570: a Crossly sale's readable checkout number (services/order-numbers); null elsewhere. platformOrderId = pi id.
+    attr_accessor :order_number
 
     # 1066 (order relay): the developer app that reported this order through an inbound item.sold (FK oauth_apps.id ON DELETE SET NULL in SQL). Null for every order Crossly detected itself. Read by action authority.
     attr_accessor :reported_by_app_id
@@ -156,6 +161,9 @@ module Crossly
     # Last time this order's platform CHAT thread was pulled. NULL = never. Separate from lastStatusCheckAt because the cadences differ by an order of magnitude — a buyer question needs answering in minutes, a status reconcile can wait an hour. See migration 0158.
     attr_accessor :last_chat_check_at
 
+    # Last time the shipping-tracking poller refreshed this order's tracking. NULL = never. The sweep's cursor (oldest first, NULLS FIRST) so in-transit orders past the batch size can't starve. See migration 1611.
+    attr_accessor :last_tracking_check_at
+
     attr_accessor :is_disputed
 
     attr_accessor :dispute_reason
@@ -208,6 +216,9 @@ module Crossly
     # 1074 — when the platform itself reported this email-found order (same order id). Clears the banner.
     attr_accessor :platform_confirmed_at
 
+    # The teammate this order is assigned to (team_members.id, migration 1613); NULL = unassigned. Written only through the work-assignment service (api-orders services/work-assignment). Hot table: nullable, no default; the partial index is built CONCURRENTLY in 1613.
+    attr_accessor :assignee_member_id
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -220,6 +231,7 @@ module Crossly
       {
         :'app_share' => :'appShare',
         :'trade' => :'trade',
+        :'buyer_company' => :'buyerCompany',
         :'sale_price' => :'salePrice',
         :'platform_fee' => :'platformFee',
         :'tax_collected' => :'taxCollected',
@@ -236,6 +248,7 @@ module Crossly
         :'platform_listing_id' => :'platformListingId',
         :'platform' => :'platform',
         :'platform_order_id' => :'platformOrderId',
+        :'order_number' => :'orderNumber',
         :'reported_by_app_id' => :'reportedByAppId',
         :'storefront_id' => :'storefrontId',
         :'buyer_username' => :'buyerUsername',
@@ -278,6 +291,7 @@ module Crossly
         :'oversold_by' => :'oversoldBy',
         :'last_status_check_at' => :'lastStatusCheckAt',
         :'last_chat_check_at' => :'lastChatCheckAt',
+        :'last_tracking_check_at' => :'lastTrackingCheckAt',
         :'is_disputed' => :'isDisputed',
         :'dispute_reason' => :'disputeReason',
         :'dispute_platform_case_id' => :'disputePlatformCaseId',
@@ -300,6 +314,7 @@ module Crossly
         :'fulfillment_method' => :'fulfillmentMethod',
         :'source' => :'source',
         :'platform_confirmed_at' => :'platformConfirmedAt',
+        :'assignee_member_id' => :'assigneeMemberId',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'deleted_at' => :'deletedAt'
@@ -316,6 +331,7 @@ module Crossly
       {
         :'app_share' => :'GetOrderResponseAppShare',
         :'trade' => :'GetOrderResponseTrade',
+        :'buyer_company' => :'GetOrderResponseBuyerCompany',
         :'sale_price' => :'Float',
         :'platform_fee' => :'Float',
         :'tax_collected' => :'Float',
@@ -332,6 +348,7 @@ module Crossly
         :'platform_listing_id' => :'String',
         :'platform' => :'String',
         :'platform_order_id' => :'String',
+        :'order_number' => :'String',
         :'reported_by_app_id' => :'String',
         :'storefront_id' => :'String',
         :'buyer_username' => :'String',
@@ -374,6 +391,7 @@ module Crossly
         :'oversold_by' => :'Float',
         :'last_status_check_at' => :'Time',
         :'last_chat_check_at' => :'Time',
+        :'last_tracking_check_at' => :'Time',
         :'is_disputed' => :'Boolean',
         :'dispute_reason' => :'String',
         :'dispute_platform_case_id' => :'String',
@@ -396,6 +414,7 @@ module Crossly
         :'fulfillment_method' => :'String',
         :'source' => :'String',
         :'platform_confirmed_at' => :'Time',
+        :'assignee_member_id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time',
         :'deleted_at' => :'Time'
@@ -407,6 +426,7 @@ module Crossly
       Set.new([
         :'app_share',
         :'trade',
+        :'buyer_company',
         :'sale_price',
         :'platform_fee',
         :'tax_collected',
@@ -418,6 +438,7 @@ module Crossly
         :'listing_id',
         :'platform_listing_id',
         :'platform_order_id',
+        :'order_number',
         :'reported_by_app_id',
         :'storefront_id',
         :'buyer_username',
@@ -455,6 +476,7 @@ module Crossly
         :'ship_by_alerted_at',
         :'last_status_check_at',
         :'last_chat_check_at',
+        :'last_tracking_check_at',
         :'dispute_reason',
         :'dispute_platform_case_id',
         :'dispute_resolved_at',
@@ -474,6 +496,7 @@ module Crossly
         :'buyer_email',
         :'source',
         :'platform_confirmed_at',
+        :'assignee_member_id',
         :'deleted_at'
       ])
     end
@@ -499,6 +522,10 @@ module Crossly
 
       if attributes.key?(:'trade')
         self.trade = attributes[:'trade']
+      end
+
+      if attributes.key?(:'buyer_company')
+        self.buyer_company = attributes[:'buyer_company']
       end
 
       if attributes.key?(:'sale_price')
@@ -565,6 +592,10 @@ module Crossly
 
       if attributes.key?(:'platform_order_id')
         self.platform_order_id = attributes[:'platform_order_id']
+      end
+
+      if attributes.key?(:'order_number')
+        self.order_number = attributes[:'order_number']
       end
 
       if attributes.key?(:'reported_by_app_id')
@@ -739,6 +770,10 @@ module Crossly
         self.last_chat_check_at = attributes[:'last_chat_check_at']
       end
 
+      if attributes.key?(:'last_tracking_check_at')
+        self.last_tracking_check_at = attributes[:'last_tracking_check_at']
+      end
+
       if attributes.key?(:'is_disputed')
         self.is_disputed = attributes[:'is_disputed']
       end
@@ -827,6 +862,10 @@ module Crossly
 
       if attributes.key?(:'platform_confirmed_at')
         self.platform_confirmed_at = attributes[:'platform_confirmed_at']
+      end
+
+      if attributes.key?(:'assignee_member_id')
+        self.assignee_member_id = attributes[:'assignee_member_id']
       end
 
       if attributes.key?(:'created_at')
@@ -937,6 +976,7 @@ module Crossly
       self.class == o.class &&
           app_share == o.app_share &&
           trade == o.trade &&
+          buyer_company == o.buyer_company &&
           sale_price == o.sale_price &&
           platform_fee == o.platform_fee &&
           tax_collected == o.tax_collected &&
@@ -953,6 +993,7 @@ module Crossly
           platform_listing_id == o.platform_listing_id &&
           platform == o.platform &&
           platform_order_id == o.platform_order_id &&
+          order_number == o.order_number &&
           reported_by_app_id == o.reported_by_app_id &&
           storefront_id == o.storefront_id &&
           buyer_username == o.buyer_username &&
@@ -995,6 +1036,7 @@ module Crossly
           oversold_by == o.oversold_by &&
           last_status_check_at == o.last_status_check_at &&
           last_chat_check_at == o.last_chat_check_at &&
+          last_tracking_check_at == o.last_tracking_check_at &&
           is_disputed == o.is_disputed &&
           dispute_reason == o.dispute_reason &&
           dispute_platform_case_id == o.dispute_platform_case_id &&
@@ -1017,6 +1059,7 @@ module Crossly
           fulfillment_method == o.fulfillment_method &&
           source == o.source &&
           platform_confirmed_at == o.platform_confirmed_at &&
+          assignee_member_id == o.assignee_member_id &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           deleted_at == o.deleted_at
@@ -1031,7 +1074,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [app_share, trade, sale_price, platform_fee, tax_collected, shipping_charged, fee_source, details_pending, sku, quantity, line_items, id, user_id, inventory_item_id, listing_id, platform_listing_id, platform, platform_order_id, reported_by_app_id, storefront_id, buyer_username, pickup_point, consolidation_id, duties_cents, duties_refunded_at, status, sales_channel, channel_location_id, channel, invoice_id, buyer_company_id, package_preset_id, carrier, service, tracking_number, easypost_shipment_id, easypost_tracker_id, easypost_rate_id, shipping_label_url, label_purchased_at, shipped_at, estimated_delivery, delivered_at, carrier_status, carrier_status_detail, tracking_history, delivery_location, delivery_signature, tracking_submitted_at, tracking_submit_status, label_cost, cost_of_goods, requested_carrier, requested_service, handling_time_days, ship_by_at, ship_by_alerted_at, oversold_by, last_status_check_at, last_chat_check_at, is_disputed, dispute_reason, dispute_platform_case_id, dispute_resolved_at, refund_amount, refund_reason, refund_platform_id, refunded_at, cancelled_at, cancellation_reason, notes, arrival_condition_requested_at, arrival_condition_submitted_at, arrival_condition_declined_at, delivery_photo_url, delivery_photo_source, purchase_order_ref, arrival_condition_photos, buyer_email, fulfillment_method, source, platform_confirmed_at, created_at, updated_at, deleted_at].hash
+      [app_share, trade, buyer_company, sale_price, platform_fee, tax_collected, shipping_charged, fee_source, details_pending, sku, quantity, line_items, id, user_id, inventory_item_id, listing_id, platform_listing_id, platform, platform_order_id, order_number, reported_by_app_id, storefront_id, buyer_username, pickup_point, consolidation_id, duties_cents, duties_refunded_at, status, sales_channel, channel_location_id, channel, invoice_id, buyer_company_id, package_preset_id, carrier, service, tracking_number, easypost_shipment_id, easypost_tracker_id, easypost_rate_id, shipping_label_url, label_purchased_at, shipped_at, estimated_delivery, delivered_at, carrier_status, carrier_status_detail, tracking_history, delivery_location, delivery_signature, tracking_submitted_at, tracking_submit_status, label_cost, cost_of_goods, requested_carrier, requested_service, handling_time_days, ship_by_at, ship_by_alerted_at, oversold_by, last_status_check_at, last_chat_check_at, last_tracking_check_at, is_disputed, dispute_reason, dispute_platform_case_id, dispute_resolved_at, refund_amount, refund_reason, refund_platform_id, refunded_at, cancelled_at, cancellation_reason, notes, arrival_condition_requested_at, arrival_condition_submitted_at, arrival_condition_declined_at, delivery_photo_url, delivery_photo_source, purchase_order_ref, arrival_condition_photos, buyer_email, fulfillment_method, source, platform_confirmed_at, assignee_member_id, created_at, updated_at, deleted_at].hash
     end
 
     # Builds the object from hash

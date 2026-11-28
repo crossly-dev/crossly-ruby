@@ -171,7 +171,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @service_kind.nil?
-      service_kind_validator = EnumAttributeValidator.new('String', ["grading", "subscription", "authentication"])
+      service_kind_validator = EnumAttributeValidator.new('String', ["grading", "authentication", "subscription"])
       return false unless service_kind_validator.valid?(@service_kind)
       return false if @label.nil?
       return false if @list_price_cents.nil?
@@ -185,7 +185,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] service_kind Object to be assigned
     def service_kind=(service_kind)
-      validator = EnumAttributeValidator.new('String', ["grading", "subscription", "authentication"])
+      validator = EnumAttributeValidator.new('String', ["grading", "authentication", "subscription"])
       unless validator.valid?(service_kind)
         fail ArgumentError, "invalid value for \"service_kind\", must be one of #{validator.allowable_values}."
       end

@@ -143,8 +143,8 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'qty_tiers' => :'Array<GetGroupBuyResponseDataTiers>',
-        :'tiers' => :'Array<ListGroupBuysItemTiers>',
+        :'qty_tiers' => :'Array<MinQtyPriceCents>',
+        :'tiers' => :'Array<CreateGroupBuyRequestTiers>',
         :'min_buyers' => :'Float',
         :'max_buyers' => :'Float',
         :'joined' => :'Float',

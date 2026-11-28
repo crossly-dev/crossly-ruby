@@ -37,6 +37,9 @@ module Crossly
     # Monthly period: ISO instant the count resets (the plan's month boundary); null otherwise.
     attr_accessor :resets_at
 
+    # Of `used`, the units in the asked store's plan pool (STORE-SCOPE-PLAN §4.1); null when no store was asked.
+    attr_accessor :store_used
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -71,7 +74,8 @@ module Crossly
         :'platforms' => :'platforms',
         :'limit_mode' => :'limitMode',
         :'limit_period' => :'limitPeriod',
-        :'resets_at' => :'resetsAt'
+        :'resets_at' => :'resetsAt',
+        :'store_used' => :'storeUsed'
       }
     end
 
@@ -92,14 +96,16 @@ module Crossly
         :'platforms' => :'Array<String>',
         :'limit_mode' => :'String',
         :'limit_period' => :'String',
-        :'resets_at' => :'String'
+        :'resets_at' => :'String',
+        :'store_used' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'resets_at'
+        :'resets_at',
+        :'store_used'
       ])
     end
 
@@ -158,6 +164,10 @@ module Crossly
 
       if attributes.key?(:'resets_at')
         self.resets_at = attributes[:'resets_at']
+      end
+
+      if attributes.key?(:'store_used')
+        self.store_used = attributes[:'store_used']
       end
     end
 
@@ -257,7 +267,8 @@ module Crossly
           platforms == o.platforms &&
           limit_mode == o.limit_mode &&
           limit_period == o.limit_period &&
-          resets_at == o.resets_at
+          resets_at == o.resets_at &&
+          store_used == o.store_used
     end
 
     # @see the `==` method
@@ -269,7 +280,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [label, app_id, app_name, limit, used, remaining, platforms, limit_mode, limit_period, resets_at].hash
+      [label, app_id, app_name, limit, used, remaining, platforms, limit_mode, limit_period, resets_at, store_used].hash
     end
 
     # Builds the object from hash

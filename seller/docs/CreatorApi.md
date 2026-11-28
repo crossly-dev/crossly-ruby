@@ -13,7 +13,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_creator_experience_key
 
-> <CreateCreatorExperienceKeyResponse> create_creator_experience_key
+> <CreateCreatorExperienceKeyResponse> create_creator_experience_key(opts)
 
 Issue an experience API key for a back-end or CI: name, creator scopes (worlds:*, items:write — only ones your token holds), an IP allowlist (CIDRs; 0.0.0.0/0 + ::/0 for anywhere), optional experienceIds and expiresInDays. The token is in the response ONCE.
 
@@ -29,10 +29,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorApi.new
+opts = {
+  create_creator_experience_key_request: Crossly::CreateCreatorExperienceKeyRequest.new({name: 'name_example', scopes: ['scopes_example'], ip_allowlist: ['ip_allowlist_example']}) # CreateCreatorExperienceKeyRequest | 
+}
 
 begin
   # Issue an experience API key for a back-end or CI: name, creator scopes (worlds:*, items:write — only ones your token holds), an IP allowlist (CIDRs; 0.0.0.0/0 + ::/0 for anywhere), optional experienceIds and expiresInDays. The token is in the response ONCE.
-  result = api_instance.create_creator_experience_key
+  result = api_instance.create_creator_experience_key(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorApi->create_creator_experience_key: #{e}"
@@ -43,12 +46,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCreatorExperienceKeyResponse>, Integer, Hash)> create_creator_experience_key_with_http_info
+> <Array(<CreateCreatorExperienceKeyResponse>, Integer, Hash)> create_creator_experience_key_with_http_info(opts)
 
 ```ruby
 begin
   # Issue an experience API key for a back-end or CI: name, creator scopes (worlds:*, items:write — only ones your token holds), an IP allowlist (CIDRs; 0.0.0.0/0 + ::/0 for anywhere), optional experienceIds and expiresInDays. The token is in the response ONCE.
-  data, status_code, headers = api_instance.create_creator_experience_key_with_http_info
+  data, status_code, headers = api_instance.create_creator_experience_key_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCreatorExperienceKeyResponse>
@@ -59,7 +62,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_creator_experience_key_request** | **CreateCreatorExperienceKeyRequest** |  | [optional] |
 
 ### Return type
 
@@ -71,13 +76,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_creator_experience_key_rotate
 
-> <CreateCreatorExperienceKeyRotateResponse> create_creator_experience_key_rotate(id)
+> <CreateCreatorExperienceKeyRotateResponse> create_creator_experience_key_rotate(id, opts)
 
 Rotate a key: a replacement with the same settings (its token shown ONCE); the old key keeps working for overlapHours (default 24, 0 = revoke now, max 168).
 
@@ -94,10 +99,13 @@ end
 
 api_instance = Crossly::CreatorApi.new
 id = 'id_example' # String | 
+opts = {
+  create_creator_experience_key_rotate_request: Crossly::CreateCreatorExperienceKeyRotateRequest.new # CreateCreatorExperienceKeyRotateRequest | 
+}
 
 begin
   # Rotate a key: a replacement with the same settings (its token shown ONCE); the old key keeps working for overlapHours (default 24, 0 = revoke now, max 168).
-  result = api_instance.create_creator_experience_key_rotate(id)
+  result = api_instance.create_creator_experience_key_rotate(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorApi->create_creator_experience_key_rotate: #{e}"
@@ -108,12 +116,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCreatorExperienceKeyRotateResponse>, Integer, Hash)> create_creator_experience_key_rotate_with_http_info(id)
+> <Array(<CreateCreatorExperienceKeyRotateResponse>, Integer, Hash)> create_creator_experience_key_rotate_with_http_info(id, opts)
 
 ```ruby
 begin
   # Rotate a key: a replacement with the same settings (its token shown ONCE); the old key keeps working for overlapHours (default 24, 0 = revoke now, max 168).
-  data, status_code, headers = api_instance.create_creator_experience_key_rotate_with_http_info(id)
+  data, status_code, headers = api_instance.create_creator_experience_key_rotate_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCreatorExperienceKeyRotateResponse>
@@ -127,6 +135,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_creator_experience_key_rotate_request** | **CreateCreatorExperienceKeyRotateRequest** |  | [optional] |
 
 ### Return type
 
@@ -138,7 +147,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -275,7 +284,7 @@ This endpoint does not need any parameter.
 
 ## list_creator_experience_keys
 
-> <ListCreatorExperienceKeysResponse> list_creator_experience_keys
+> <ListCreatorExperienceKeysResponse> list_creator_experience_keys(opts)
 
 Your experience API keys, newest first (never the secret). ?includeRevoked=true for the history; ?experienceId= for the keys that reach one game (a game's own keys are narrowed to it alone). Cursor-paged: pass pagination.nextCursor back as ?cursor=.
 
@@ -291,10 +300,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::CreatorApi.new
+opts = {
+  include_revoked: 'true', # String | 
+  experience_id: 'experience_id_example' # String | 
+}
 
 begin
   # Your experience API keys, newest first (never the secret). ?includeRevoked=true for the history; ?experienceId= for the keys that reach one game (a game's own keys are narrowed to it alone). Cursor-paged: pass pagination.nextCursor back as ?cursor=.
-  result = api_instance.list_creator_experience_keys
+  result = api_instance.list_creator_experience_keys(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling CreatorApi->list_creator_experience_keys: #{e}"
@@ -305,12 +318,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListCreatorExperienceKeysResponse>, Integer, Hash)> list_creator_experience_keys_with_http_info
+> <Array(<ListCreatorExperienceKeysResponse>, Integer, Hash)> list_creator_experience_keys_with_http_info(opts)
 
 ```ruby
 begin
   # Your experience API keys, newest first (never the secret). ?includeRevoked=true for the history; ?experienceId= for the keys that reach one game (a game's own keys are narrowed to it alone). Cursor-paged: pass pagination.nextCursor back as ?cursor=.
-  data, status_code, headers = api_instance.list_creator_experience_keys_with_http_info
+  data, status_code, headers = api_instance.list_creator_experience_keys_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListCreatorExperienceKeysResponse>
@@ -321,7 +334,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **include_revoked** | **String** |  | [optional] |
+| **experience_id** | **String** |  | [optional] |
 
 ### Return type
 

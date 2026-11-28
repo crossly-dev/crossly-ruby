@@ -79,7 +79,7 @@ This endpoint does not need any parameter.
 
 ## create_buyer_agent_session_act
 
-> <CreateBuyerAgentSessionActResponse> create_buyer_agent_session_act(id)
+> <CreateBuyerAgentSessionActResponse> create_buyer_agent_session_act(id, create_buyer_agent_session_act_request)
 
 Act on an option: save, cart, alert, registry, price (real-sales check), offer (prepare / confirm), or buy (quote — complete with POST /api/v1/buyer/checkout). Needs the action’s own scope too.
 
@@ -96,10 +96,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerAgentApi.new
 id = 'id_example' # String | 
+create_buyer_agent_session_act_request = CrosslyBuyer::CreateBuyerAgentSessionActRequest.new({type: 'price'}) # CreateBuyerAgentSessionActRequest | 
 
 begin
   # Act on an option: save, cart, alert, registry, price (real-sales check), offer (prepare / confirm), or buy (quote — complete with POST /api/v1/buyer/checkout). Needs the action’s own scope too.
-  result = api_instance.create_buyer_agent_session_act(id)
+  result = api_instance.create_buyer_agent_session_act(id, create_buyer_agent_session_act_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerAgentApi->create_buyer_agent_session_act: #{e}"
@@ -110,12 +111,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerAgentSessionActResponse>, Integer, Hash)> create_buyer_agent_session_act_with_http_info(id)
+> <Array(<CreateBuyerAgentSessionActResponse>, Integer, Hash)> create_buyer_agent_session_act_with_http_info(id, create_buyer_agent_session_act_request)
 
 ```ruby
 begin
   # Act on an option: save, cart, alert, registry, price (real-sales check), offer (prepare / confirm), or buy (quote — complete with POST /api/v1/buyer/checkout). Needs the action’s own scope too.
-  data, status_code, headers = api_instance.create_buyer_agent_session_act_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_agent_session_act_with_http_info(id, create_buyer_agent_session_act_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerAgentSessionActResponse>
@@ -129,6 +130,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_agent_session_act_request** | **CreateBuyerAgentSessionActRequest** |  |  |
 
 ### Return type
 
@@ -140,13 +142,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_agent_session_react
 
-> <DeleteBuyerAgentSessionResponse> create_buyer_agent_session_react(id)
+> <DeleteBuyerAgentSessionResponse> create_buyer_agent_session_react(id, create_buyer_agent_session_react_request)
 
 Like or dislike an option; the next search leans toward likes and drops dislikes.
 
@@ -163,10 +165,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerAgentApi.new
 id = 'id_example' # String | 
+create_buyer_agent_session_react_request = CrosslyBuyer::CreateBuyerAgentSessionReactRequest.new({slug: 'slug_example', reaction: 'like'}) # CreateBuyerAgentSessionReactRequest | 
 
 begin
   # Like or dislike an option; the next search leans toward likes and drops dislikes.
-  result = api_instance.create_buyer_agent_session_react(id)
+  result = api_instance.create_buyer_agent_session_react(id, create_buyer_agent_session_react_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerAgentApi->create_buyer_agent_session_react: #{e}"
@@ -177,12 +180,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteBuyerAgentSessionResponse>, Integer, Hash)> create_buyer_agent_session_react_with_http_info(id)
+> <Array(<DeleteBuyerAgentSessionResponse>, Integer, Hash)> create_buyer_agent_session_react_with_http_info(id, create_buyer_agent_session_react_request)
 
 ```ruby
 begin
   # Like or dislike an option; the next search leans toward likes and drops dislikes.
-  data, status_code, headers = api_instance.create_buyer_agent_session_react_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_agent_session_react_with_http_info(id, create_buyer_agent_session_react_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteBuyerAgentSessionResponse>
@@ -196,6 +199,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_agent_session_react_request** | **CreateBuyerAgentSessionReactRequest** |  |  |
 
 ### Return type
 
@@ -207,13 +211,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_agent_session_turn
 
-> <CreateBuyerAgentSessionTurnResponse> create_buyer_agent_session_turn(id)
+> <CreateBuyerAgentSessionTurnResponse> create_buyer_agent_session_turn(id, create_buyer_agent_session_turn_request)
 
 Say something to the agent: what you want, a critique of the options (\"cheaper\", \"more like #2\"), or send a photo (imageBase64) to find things like it. Returns its reply and the new numbered options.
 
@@ -230,10 +234,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerAgentApi.new
 id = 'id_example' # String | 
+create_buyer_agent_session_turn_request = CrosslyBuyer::CreateBuyerAgentSessionTurnRequest.new # CreateBuyerAgentSessionTurnRequest | 
 
 begin
   # Say something to the agent: what you want, a critique of the options (\"cheaper\", \"more like #2\"), or send a photo (imageBase64) to find things like it. Returns its reply and the new numbered options.
-  result = api_instance.create_buyer_agent_session_turn(id)
+  result = api_instance.create_buyer_agent_session_turn(id, create_buyer_agent_session_turn_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerAgentApi->create_buyer_agent_session_turn: #{e}"
@@ -244,12 +249,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerAgentSessionTurnResponse>, Integer, Hash)> create_buyer_agent_session_turn_with_http_info(id)
+> <Array(<CreateBuyerAgentSessionTurnResponse>, Integer, Hash)> create_buyer_agent_session_turn_with_http_info(id, create_buyer_agent_session_turn_request)
 
 ```ruby
 begin
   # Say something to the agent: what you want, a critique of the options (\"cheaper\", \"more like #2\"), or send a photo (imageBase64) to find things like it. Returns its reply and the new numbered options.
-  data, status_code, headers = api_instance.create_buyer_agent_session_turn_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_agent_session_turn_with_http_info(id, create_buyer_agent_session_turn_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerAgentSessionTurnResponse>
@@ -263,6 +268,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_agent_session_turn_request** | **CreateBuyerAgentSessionTurnRequest** |  |  |
 
 ### Return type
 
@@ -274,7 +280,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

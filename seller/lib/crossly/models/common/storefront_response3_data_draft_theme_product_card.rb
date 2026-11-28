@@ -231,7 +231,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @style.nil?
-      style_validator = EnumAttributeValidator.new('String', ["standard", "overlay", "minimal", "bordered", "polaroid"])
+      style_validator = EnumAttributeValidator.new('String', ["minimal", "standard", "overlay", "bordered", "polaroid"])
       return false unless style_validator.valid?(@style)
       return false if @image_ratio.nil?
       image_ratio_validator = EnumAttributeValidator.new('String', ["1:1", "3:4", "4:5", "4:3", "2:3"])
@@ -258,7 +258,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] style Object to be assigned
     def style=(style)
-      validator = EnumAttributeValidator.new('String', ["standard", "overlay", "minimal", "bordered", "polaroid"])
+      validator = EnumAttributeValidator.new('String', ["minimal", "standard", "overlay", "bordered", "polaroid"])
       unless validator.valid?(style)
         fail ArgumentError, "invalid value for \"style\", must be one of #{validator.allowable_values}."
       end

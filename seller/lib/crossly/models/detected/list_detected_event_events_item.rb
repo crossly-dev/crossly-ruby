@@ -39,6 +39,18 @@ module Crossly
 
     attr_accessor :title
 
+    # A legacy event_policy_decisions row shown in History (read-only, no actions).
+    attr_accessor :legacy
+
+    # Dismiss on an ask (status dismissed).
+    attr_accessor :dismissed_at
+
+    # orders.id the event is about (1460).
+    attr_accessor :order_id
+
+    # listings.id (the master listing, not the platform row) the event is about: the event page links to it.
+    attr_accessor :listing_id
+
     attr_accessor :created_at
 
     class EnumAttributeValidator
@@ -78,6 +90,10 @@ module Crossly
         :'can_undo' => :'canUndo',
         :'candidate_titles' => :'candidateTitles',
         :'title' => :'title',
+        :'legacy' => :'legacy',
+        :'dismissed_at' => :'dismissedAt',
+        :'order_id' => :'orderId',
+        :'listing_id' => :'listingId',
         :'created_at' => :'createdAt'
       }
     end
@@ -102,6 +118,10 @@ module Crossly
         :'can_undo' => :'Boolean',
         :'candidate_titles' => :'Hash<String, Object>',
         :'title' => :'String',
+        :'legacy' => :'Boolean',
+        :'dismissed_at' => :'String',
+        :'order_id' => :'String',
+        :'listing_id' => :'String',
         :'created_at' => :'String'
       }
     end
@@ -113,6 +133,10 @@ module Crossly
         :'rule_name',
         :'candidate_titles',
         :'title',
+        :'legacy',
+        :'dismissed_at',
+        :'order_id',
+        :'listing_id',
       ])
     end
 
@@ -189,6 +213,22 @@ module Crossly
         self.title = attributes[:'title']
       end
 
+      if attributes.key?(:'legacy')
+        self.legacy = attributes[:'legacy']
+      end
+
+      if attributes.key?(:'dismissed_at')
+        self.dismissed_at = attributes[:'dismissed_at']
+      end
+
+      if attributes.key?(:'order_id')
+        self.order_id = attributes[:'order_id']
+      end
+
+      if attributes.key?(:'listing_id')
+        self.listing_id = attributes[:'listing_id']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -242,7 +282,7 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["confirmed", "failed", "acted", "held", "asked", "ignored", "undone"])
+      status_validator = EnumAttributeValidator.new('String', ["confirmed", "dismissed", "failed", "acted", "held", "asked", "ignored", "undone"])
       return false unless status_validator.valid?(@status)
       return false if @reports.nil?
       return false if @guards.nil?
@@ -257,7 +297,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["confirmed", "failed", "acted", "held", "asked", "ignored", "undone"])
+      validator = EnumAttributeValidator.new('String', ["confirmed", "dismissed", "failed", "acted", "held", "asked", "ignored", "undone"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end
@@ -281,6 +321,10 @@ module Crossly
           can_undo == o.can_undo &&
           candidate_titles == o.candidate_titles &&
           title == o.title &&
+          legacy == o.legacy &&
+          dismissed_at == o.dismissed_at &&
+          order_id == o.order_id &&
+          listing_id == o.listing_id &&
           created_at == o.created_at
     end
 
@@ -293,7 +337,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, rule_id, rule_name, reports, guards, plan, actions, can_confirm, can_undo, candidate_titles, title, created_at].hash
+      [id, status, rule_id, rule_name, reports, guards, plan, actions, can_confirm, can_undo, candidate_titles, title, legacy, dismissed_at, order_id, listing_id, created_at].hash
     end
 
     # Builds the object from hash

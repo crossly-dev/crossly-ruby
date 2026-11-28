@@ -152,7 +152,7 @@ module Crossly
       game_validator = EnumAttributeValidator.new('String', ["price_guess", "hunt", "speed_trade"])
       return false unless game_validator.valid?(@game)
       return false if @period.nil?
-      period_validator = EnumAttributeValidator.new('String', ["week", "all"])
+      period_validator = EnumAttributeValidator.new('String', ["all", "week"])
       return false unless period_validator.valid?(@period)
       return false if @label.nil?
       return false if @unit.nil?
@@ -173,7 +173,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] period Object to be assigned
     def period=(period)
-      validator = EnumAttributeValidator.new('String', ["week", "all"])
+      validator = EnumAttributeValidator.new('String', ["all", "week"])
       unless validator.valid?(period)
         fail ArgumentError, "invalid value for \"period\", must be one of #{validator.allowable_values}."
       end

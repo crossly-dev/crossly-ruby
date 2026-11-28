@@ -19,23 +19,91 @@ module Crossly
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Add a Slack/Discord/Webhook destination.
+    # Connect a custom webhook CRM or Mailchimp. HubSpot, Salesforce, Pipedrive and Zoho connect by signing in from the dashboard.
     # @param [Hash] opts the optional parameters
-    # @return [IdResponse]
-    def create_notification_integration(opts = {})
-      data, _status_code, _headers = create_notification_integration_with_http_info(opts)
+    # @option opts [CreateCrmIntegrationRequest] :create_crm_integration_request 
+    # @return [CreateCrmIntegrationResponse]
+    def create_crm_integration(opts = {})
+      data, _status_code, _headers = create_crm_integration_with_http_info(opts)
       data
     end
 
-    # Add a Slack/Discord/Webhook destination.
+    # Connect a custom webhook CRM or Mailchimp. HubSpot, Salesforce, Pipedrive and Zoho connect by signing in from the dashboard.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(IdResponse, Integer, Hash)>] IdResponse data, response status code and response headers
-    def create_notification_integration_with_http_info(opts = {})
+    # @option opts [CreateCrmIntegrationRequest] :create_crm_integration_request 
+    # @return [Array<(CreateCrmIntegrationResponse, Integer, Hash)>] CreateCrmIntegrationResponse data, response status code and response headers
+    def create_crm_integration_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_notification_integration ...'
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_crm_integration ...'
       end
       # resource path
-      local_var_path = '/v1/notification-integrations'
+      local_var_path = '/v1/crm/integrations'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_crm_integration_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateCrmIntegrationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_crm_integration",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_crm_integration\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Send a sample buyer to the CRM and report whether it arrived, in one sanitized line.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateCrmIntegrationTestResponse]
+    def create_crm_integration_test(id, opts = {})
+      data, _status_code, _headers = create_crm_integration_test_with_http_info(id, opts)
+      data
+    end
+
+    # Send a sample buyer to the CRM and report whether it arrived, in one sanitized line.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateCrmIntegrationTestResponse, Integer, Hash)>] CreateCrmIntegrationTestResponse data, response status code and response headers
+    def create_crm_integration_test_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_crm_integration_test ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.create_crm_integration_test"
+      end
+      # resource path
+      local_var_path = '/v1/crm/integrations/{id}/test'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -52,7 +120,326 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'IdResponse'
+      return_type = opts[:debug_return_type] || 'CreateCrmIntegrationTestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_crm_integration_test",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_crm_integration_test\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Import Figma frames or Canva pages as images on the Crossly CDN, for the site editor, share cards, ad creatives, Branding drops or lookbooks.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateDesignToolImportRequest] :create_design_tool_import_request 
+    # @return [CreateDesignToolImportResponse]
+    def create_design_tool_import(opts = {})
+      data, _status_code, _headers = create_design_tool_import_with_http_info(opts)
+      data
+    end
+
+    # Import Figma frames or Canva pages as images on the Crossly CDN, for the site editor, share cards, ad creatives, Branding drops or lookbooks.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateDesignToolImportRequest] :create_design_tool_import_request 
+    # @return [Array<(CreateDesignToolImportResponse, Integer, Hash)>] CreateDesignToolImportResponse data, response status code and response headers
+    def create_design_tool_import_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_design_tool_import ...'
+      end
+      # resource path
+      local_var_path = '/v1/design-tools/import'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_design_tool_import_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateDesignToolImportResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_design_tool_import",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_design_tool_import\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Connect an email sender (16 providers). The key is encrypted; the event webhook URL is returned once.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateEmailProviderRequest] :create_email_provider_request 
+    # @return [CreateEmailProviderResponse]
+    def create_email_provider(opts = {})
+      data, _status_code, _headers = create_email_provider_with_http_info(opts)
+      data
+    end
+
+    # Connect an email sender (16 providers). The key is encrypted; the event webhook URL is returned once.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateEmailProviderRequest] :create_email_provider_request 
+    # @return [Array<(CreateEmailProviderResponse, Integer, Hash)>] CreateEmailProviderResponse data, response status code and response headers
+    def create_email_provider_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_email_provider ...'
+      end
+      # resource path
+      local_var_path = '/v1/email-providers'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_email_provider_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateEmailProviderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_email_provider",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_email_provider\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Send a real test email through the sender; the result is one sanitized line.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateEmailProviderTestRequest] :create_email_provider_test_request 
+    # @return [CreateEmailProviderTestResponse]
+    def create_email_provider_test(id, opts = {})
+      data, _status_code, _headers = create_email_provider_test_with_http_info(id, opts)
+      data
+    end
+
+    # Send a real test email through the sender; the result is one sanitized line.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateEmailProviderTestRequest] :create_email_provider_test_request 
+    # @return [Array<(CreateEmailProviderTestResponse, Integer, Hash)>] CreateEmailProviderTestResponse data, response status code and response headers
+    def create_email_provider_test_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_email_provider_test ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.create_email_provider_test"
+      end
+      # resource path
+      local_var_path = '/v1/email-providers/{id}/test'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_email_provider_test_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateEmailProviderTestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_email_provider_test",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_email_provider_test\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Make a new event webhook URL for the sender (the old one stops working). It is returned once.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateEmailProviderWebhookUrlResponse]
+    def create_email_provider_webhook_url(id, opts = {})
+      data, _status_code, _headers = create_email_provider_webhook_url_with_http_info(id, opts)
+      data
+    end
+
+    # Make a new event webhook URL for the sender (the old one stops working). It is returned once.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateEmailProviderWebhookUrlResponse, Integer, Hash)>] CreateEmailProviderWebhookUrlResponse data, response status code and response headers
+    def create_email_provider_webhook_url_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_email_provider_webhook_url ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.create_email_provider_webhook_url"
+      end
+      # resource path
+      local_var_path = '/v1/email-providers/{id}/webhook-url'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateEmailProviderWebhookUrlResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_email_provider_webhook_url",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_email_provider_webhook_url\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias: add a Slack/Discord/JSON webhook for automations. Use POST /api/v1/webhooks with kind.
+    # @param create_notification_integration_request [CreateNotificationIntegrationRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateNotificationIntegrationResponse]
+    def create_notification_integration(create_notification_integration_request, opts = {})
+      data, _status_code, _headers = create_notification_integration_with_http_info(create_notification_integration_request, opts)
+      data
+    end
+
+    # Deprecated alias: add a Slack/Discord/JSON webhook for automations. Use POST /api/v1/webhooks with kind.
+    # @param create_notification_integration_request [CreateNotificationIntegrationRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateNotificationIntegrationResponse, Integer, Hash)>] CreateNotificationIntegrationResponse data, response status code and response headers
+    def create_notification_integration_with_http_info(create_notification_integration_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_notification_integration ...'
+      end
+      # verify the required parameter 'create_notification_integration_request' is set
+      if @api_client.config.client_side_validation && create_notification_integration_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_notification_integration_request' when calling IntegrationsApi.create_notification_integration"
+      end
+      # resource path
+      local_var_path = '/v1/notification-integrations'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_notification_integration_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateNotificationIntegrationResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -74,7 +461,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Fire a canned test message to a notification destination.
+    # Deprecated alias: send a test message to a destination. Use POST /api/v1/webhooks/{id}/test.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [CreateNotificationIntegrationTestResponse]
@@ -83,7 +470,7 @@ module Crossly
       data
     end
 
-    # Fire a canned test message to a notification destination.
+    # Deprecated alias: send a test message to a destination. Use POST /api/v1/webhooks/{id}/test.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateNotificationIntegrationTestResponse, Integer, Hash)>] CreateNotificationIntegrationTestResponse data, response status code and response headers
@@ -135,7 +522,441 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Delete a notification destination.
+    # Decide a notification action from its signed token (an offer, a reprice, a label buy, a workflow approval). Single use; the token must be your own. Errors: expired (410), already decided (409).
+    # @param token_object [TokenObject] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateNotifyActionResponse]
+    def create_notify_action(token_object, opts = {})
+      data, _status_code, _headers = create_notify_action_with_http_info(token_object, opts)
+      data
+    end
+
+    # Decide a notification action from its signed token (an offer, a reprice, a label buy, a workflow approval). Single use; the token must be your own. Errors: expired (410), already decided (409).
+    # @param token_object [TokenObject] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateNotifyActionResponse, Integer, Hash)>] CreateNotifyActionResponse data, response status code and response headers
+    def create_notify_action_with_http_info(token_object, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_notify_action ...'
+      end
+      # verify the required parameter 'token_object' is set
+      if @api_client.config.client_side_validation && token_object.nil?
+        fail ArgumentError, "Missing the required parameter 'token_object' when calling IntegrationsApi.create_notify_action"
+      end
+      # resource path
+      local_var_path = '/v1/notify/actions'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(token_object)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateNotifyActionResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_notify_action",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_notify_action\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Save a Lob or PostGrid key (tested against the provider first), with the return address and your per-piece prices.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailCredentialRequest] :create_print_mail_credential_request 
+    # @return [CreatePrintMailCredentialResponse]
+    def create_print_mail_credential(opts = {})
+      data, _status_code, _headers = create_print_mail_credential_with_http_info(opts)
+      data
+    end
+
+    # Save a Lob or PostGrid key (tested against the provider first), with the return address and your per-piece prices.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailCredentialRequest] :create_print_mail_credential_request 
+    # @return [Array<(CreatePrintMailCredentialResponse, Integer, Hash)>] CreatePrintMailCredentialResponse data, response status code and response headers
+    def create_print_mail_credential_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_print_mail_credential ...'
+      end
+      # resource path
+      local_var_path = '/v1/print-mail/credentials'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_print_mail_credential_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePrintMailCredentialResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_print_mail_credential",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_print_mail_credential\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Check a Lob or PostGrid key with the provider before saving it. Saves nothing, mails nothing.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailCredentialTestRequest] :create_print_mail_credential_test_request 
+    # @return [CreatePrintMailCredentialTestResponse]
+    def create_print_mail_credential_test(opts = {})
+      data, _status_code, _headers = create_print_mail_credential_test_with_http_info(opts)
+      data
+    end
+
+    # Check a Lob or PostGrid key with the provider before saving it. Saves nothing, mails nothing.
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreatePrintMailCredentialTestRequest] :create_print_mail_credential_test_request 
+    # @return [Array<(CreatePrintMailCredentialTestResponse, Integer, Hash)>] CreatePrintMailCredentialTestResponse data, response status code and response headers
+    def create_print_mail_credential_test_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_print_mail_credential_test ...'
+      end
+      # resource path
+      local_var_path = '/v1/print-mail/credentials/test'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_print_mail_credential_test_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePrintMailCredentialTestResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_print_mail_credential_test",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_print_mail_credential_test\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Re-check a saved Lob or PostGrid key; the result is one sanitized line.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreatePrintMailCredentialTestByIdResponse]
+    def create_print_mail_credential_test_by_id(id, opts = {})
+      data, _status_code, _headers = create_print_mail_credential_test_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Re-check a saved Lob or PostGrid key; the result is one sanitized line.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreatePrintMailCredentialTestByIdResponse, Integer, Hash)>] CreatePrintMailCredentialTestByIdResponse data, response status code and response headers
+    def create_print_mail_credential_test_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.create_print_mail_credential_test_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.create_print_mail_credential_test_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/print-mail/credentials/{id}/test'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePrintMailCredentialTestByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.create_print_mail_credential_test_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#create_print_mail_credential_test_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Disconnect a CRM. Buyers stop flowing to it; its delivery log goes with it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_crm_integration(id, opts = {})
+      data, _status_code, _headers = delete_crm_integration_with_http_info(id, opts)
+      data
+    end
+
+    # Disconnect a CRM. Buyers stop flowing to it; its delivery log goes with it.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_crm_integration_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.delete_crm_integration ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.delete_crm_integration"
+      end
+      # resource path
+      local_var_path = '/v1/crm/integrations/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.delete_crm_integration",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#delete_crm_integration\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Disconnect Figma or Canva for the store.
+    # @param tool [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_design_tool(tool, opts = {})
+      data, _status_code, _headers = delete_design_tool_with_http_info(tool, opts)
+      data
+    end
+
+    # Disconnect Figma or Canva for the store.
+    # @param tool [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_design_tool_with_http_info(tool, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.delete_design_tool ...'
+      end
+      # verify the required parameter 'tool' is set
+      if @api_client.config.client_side_validation && tool.nil?
+        fail ArgumentError, "Missing the required parameter 'tool' when calling IntegrationsApi.delete_design_tool"
+      end
+      # resource path
+      local_var_path = '/v1/design-tools/{tool}'.sub('{' + 'tool' + '}', CGI.escape(tool.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.delete_design_tool",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#delete_design_tool\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Disconnect an email sender. The next newest becomes the default.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_email_provider(id, opts = {})
+      data, _status_code, _headers = delete_email_provider_with_http_info(id, opts)
+      data
+    end
+
+    # Disconnect an email sender. The next newest becomes the default.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_email_provider_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.delete_email_provider ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.delete_email_provider"
+      end
+      # resource path
+      local_var_path = '/v1/email-providers/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.delete_email_provider",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#delete_email_provider\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias: delete a notification destination. Use DELETE /api/v1/webhooks/{id}.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [OkResponse]
@@ -144,7 +965,7 @@ module Crossly
       data
     end
 
-    # Delete a notification destination.
+    # Deprecated alias: delete a notification destination. Use DELETE /api/v1/webhooks/{id}.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
@@ -196,7 +1017,392 @@ module Crossly
       return data, status_code, headers
     end
 
-    # List Slack/Discord/Webhook destinations for notify.* automation actions.
+    # Remove a print and mail account.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateGroupBuyResponse]
+    def delete_print_mail_credential(id, opts = {})
+      data, _status_code, _headers = delete_print_mail_credential_with_http_info(id, opts)
+      data
+    end
+
+    # Remove a print and mail account.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
+    def delete_print_mail_credential_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.delete_print_mail_credential ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.delete_print_mail_credential"
+      end
+      # resource path
+      local_var_path = '/v1/print-mail/credentials/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.delete_print_mail_credential",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#delete_print_mail_credential\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Whether Figma or Canva is connected for the store, and as whom. Never the token.
+    # @param tool [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetDesignToolResponse]
+    def get_design_tool(tool, opts = {})
+      data, _status_code, _headers = get_design_tool_with_http_info(tool, opts)
+      data
+    end
+
+    # Whether Figma or Canva is connected for the store, and as whom. Never the token.
+    # @param tool [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDesignToolResponse, Integer, Hash)>] GetDesignToolResponse data, response status code and response headers
+    def get_design_tool_with_http_info(tool, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.get_design_tool ...'
+      end
+      # verify the required parameter 'tool' is set
+      if @api_client.config.client_side_validation && tool.nil?
+        fail ArgumentError, "Missing the required parameter 'tool' when calling IntegrationsApi.get_design_tool"
+      end
+      # resource path
+      local_var_path = '/v1/design-tools/{tool}'.sub('{' + 'tool' + '}', CGI.escape(tool.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDesignToolResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.get_design_tool",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#get_design_tool\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every connected integration of the store (AI, CRM, email senders, design apps) as uniform rows.
+    # @param [Hash] opts the optional parameters
+    # @return [GetIntegrationResponse]
+    def get_integration(opts = {})
+      data, _status_code, _headers = get_integration_with_http_info(opts)
+      data
+    end
+
+    # Every connected integration of the store (AI, CRM, email senders, design apps) as uniform rows.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetIntegrationResponse, Integer, Hash)>] GetIntegrationResponse data, response status code and response headers
+    def get_integration_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.get_integration ...'
+      end
+      # resource path
+      local_var_path = '/v1/integrations'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetIntegrationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.get_integration",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#get_integration\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Estimate a printed lookbook send: pieces × the seller's own per-piece price, per format the account's provider prints.
+    # @param lookbook_id [String] 
+    # @param count [Float] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :credential_id 
+    # @option opts [String] :format 
+    # @return [GetPrintMailEstimateResponse]
+    def get_print_mail_estimate(lookbook_id, count, opts = {})
+      data, _status_code, _headers = get_print_mail_estimate_with_http_info(lookbook_id, count, opts)
+      data
+    end
+
+    # Estimate a printed lookbook send: pieces × the seller&#39;s own per-piece price, per format the account&#39;s provider prints.
+    # @param lookbook_id [String] 
+    # @param count [Float] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :credential_id 
+    # @option opts [String] :format 
+    # @return [Array<(GetPrintMailEstimateResponse, Integer, Hash)>] GetPrintMailEstimateResponse data, response status code and response headers
+    def get_print_mail_estimate_with_http_info(lookbook_id, count, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.get_print_mail_estimate ...'
+      end
+      # verify the required parameter 'lookbook_id' is set
+      if @api_client.config.client_side_validation && lookbook_id.nil?
+        fail ArgumentError, "Missing the required parameter 'lookbook_id' when calling IntegrationsApi.get_print_mail_estimate"
+      end
+      # verify the required parameter 'count' is set
+      if @api_client.config.client_side_validation && count.nil?
+        fail ArgumentError, "Missing the required parameter 'count' when calling IntegrationsApi.get_print_mail_estimate"
+      end
+      allowable_values = ["postcard_4x6", "postcard_6x9", "postcard_6x11", "booklet_8x5"]
+      if @api_client.config.client_side_validation && opts[:'format'] && !allowable_values.include?(opts[:'format'])
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/print-mail/estimate'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'lookbookId'] = lookbook_id
+      query_params[:'count'] = count
+      query_params[:'credentialId'] = opts[:'credential_id'] if !opts[:'credential_id'].nil?
+      query_params[:'format'] = opts[:'format'] if !opts[:'format'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetPrintMailEstimateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.get_print_mail_estimate",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#get_print_mail_estimate\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A CRM connection's delivery log, newest first, paged; filter by status.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Float] :page 
+    # @option opts [Float] :page_size 
+    # @option opts [String] :status 
+    # @return [ListCrmIntegrationLogsResponse]
+    def list_crm_integration_logs(id, opts = {})
+      data, _status_code, _headers = list_crm_integration_logs_with_http_info(id, opts)
+      data
+    end
+
+    # A CRM connection&#39;s delivery log, newest first, paged; filter by status.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [Float] :page 
+    # @option opts [Float] :page_size 
+    # @option opts [String] :status 
+    # @return [Array<(ListCrmIntegrationLogsResponse, Integer, Hash)>] ListCrmIntegrationLogsResponse data, response status code and response headers
+    def list_crm_integration_logs_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.list_crm_integration_logs ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.list_crm_integration_logs"
+      end
+      allowable_values = ["pending", "sent", "failed", "retrying"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/crm/integrations/{id}/logs'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'pageSize'] = opts[:'page_size'] if !opts[:'page_size'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListCrmIntegrationLogsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.list_crm_integration_logs",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#list_crm_integration_logs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The store's CRM connections: provider, name, sync settings, health. Secrets are redacted.
+    # @param [Hash] opts the optional parameters
+    # @return [ListCrmIntegrationsResponse]
+    def list_crm_integrations(opts = {})
+      data, _status_code, _headers = list_crm_integrations_with_http_info(opts)
+      data
+    end
+
+    # The store&#39;s CRM connections: provider, name, sync settings, health. Secrets are redacted.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListCrmIntegrationsResponse, Integer, Hash)>] ListCrmIntegrationsResponse data, response status code and response headers
+    def list_crm_integrations_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.list_crm_integrations ...'
+      end
+      # resource path
+      local_var_path = '/v1/crm/integrations'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListCrmIntegrationsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.list_crm_integrations",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#list_crm_integrations\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated (one release; use GET /api/v1/webhooks): every webhook of the seller as an old-style notification destination (provider slack/discord/webhook, plus kind), and any destination not yet copied to webhooks.
     # @param [Hash] opts the optional parameters
     # @return [ListNotificationIntegrationsResponse]
     def list_notification_integrations(opts = {})
@@ -204,7 +1410,7 @@ module Crossly
       data
     end
 
-    # List Slack/Discord/Webhook destinations for notify.* automation actions.
+    # Deprecated (one release; use GET /api/v1/webhooks): every webhook of the seller as an old-style notification destination (provider slack/discord/webhook, plus kind), and any destination not yet copied to webhooks.
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListNotificationIntegrationsResponse, Integer, Hash)>] ListNotificationIntegrationsResponse data, response status code and response headers
     def list_notification_integrations_with_http_info(opts = {})
@@ -251,29 +1457,23 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Edit a notification destination.
-    # @param id [String] 
+    # The store's Lob and PostGrid accounts: mode, key as last 4, return address, per-piece prices.
     # @param [Hash] opts the optional parameters
-    # @return [OkResponse]
-    def update_notification_integration(id, opts = {})
-      data, _status_code, _headers = update_notification_integration_with_http_info(id, opts)
+    # @return [ListPrintMailCredentialsResponse]
+    def list_print_mail_credentials(opts = {})
+      data, _status_code, _headers = list_print_mail_credentials_with_http_info(opts)
       data
     end
 
-    # Edit a notification destination.
-    # @param id [String] 
+    # The store&#39;s Lob and PostGrid accounts: mode, key as last 4, return address, per-piece prices.
     # @param [Hash] opts the optional parameters
-    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
-    def update_notification_integration_with_http_info(id, opts = {})
+    # @return [Array<(ListPrintMailCredentialsResponse, Integer, Hash)>] ListPrintMailCredentialsResponse data, response status code and response headers
+    def list_print_mail_credentials_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: IntegrationsApi.update_notification_integration ...'
-      end
-      # verify the required parameter 'id' is set
-      if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.update_notification_integration"
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.list_print_mail_credentials ...'
       end
       # resource path
-      local_var_path = '/v1/notification-integrations/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+      local_var_path = '/v1/print-mail/credentials'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -288,6 +1488,282 @@ module Crossly
 
       # http body (model)
       post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListPrintMailCredentialsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.list_print_mail_credentials",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#list_print_mail_credentials\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rename, pause, re-key or change what a CRM receives (sources, opted-in only, field mapping). Blank secrets keep the stored ones.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateCrmIntegrationRequest] :update_crm_integration_request 
+    # @return [CreateCrmIntegrationResponse]
+    def update_crm_integration(id, opts = {})
+      data, _status_code, _headers = update_crm_integration_with_http_info(id, opts)
+      data
+    end
+
+    # Rename, pause, re-key or change what a CRM receives (sources, opted-in only, field mapping). Blank secrets keep the stored ones.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateCrmIntegrationRequest] :update_crm_integration_request 
+    # @return [Array<(CreateCrmIntegrationResponse, Integer, Hash)>] CreateCrmIntegrationResponse data, response status code and response headers
+    def update_crm_integration_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.update_crm_integration ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.update_crm_integration"
+      end
+      # resource path
+      local_var_path = '/v1/crm/integrations/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_crm_integration_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateCrmIntegrationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.update_crm_integration",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#update_crm_integration\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Connect Figma with a personal access token, or save your own Canva Connect app (client id + secret; finish the Canva sign-in in the dashboard).
+    # @param tool [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [TokenObject] :token_object 
+    # @return [UpdateDesignToolResponse]
+    def update_design_tool(tool, opts = {})
+      data, _status_code, _headers = update_design_tool_with_http_info(tool, opts)
+      data
+    end
+
+    # Connect Figma with a personal access token, or save your own Canva Connect app (client id + secret; finish the Canva sign-in in the dashboard).
+    # @param tool [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [TokenObject] :token_object 
+    # @return [Array<(UpdateDesignToolResponse, Integer, Hash)>] UpdateDesignToolResponse data, response status code and response headers
+    def update_design_tool_with_http_info(tool, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.update_design_tool ...'
+      end
+      # verify the required parameter 'tool' is set
+      if @api_client.config.client_side_validation && tool.nil?
+        fail ArgumentError, "Missing the required parameter 'tool' when calling IntegrationsApi.update_design_tool"
+      end
+      # resource path
+      local_var_path = '/v1/design-tools/{tool}'.sub('{' + 'tool' + '}', CGI.escape(tool.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'token_object'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateDesignToolResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.update_design_tool",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#update_design_tool\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Edit an email sender: label, from address, reply-to, default, settings. Blank secrets keep the stored ones.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateEmailProviderRequest] :update_email_provider_request 
+    # @return [UpdateEmailProviderResponse]
+    def update_email_provider(id, opts = {})
+      data, _status_code, _headers = update_email_provider_with_http_info(id, opts)
+      data
+    end
+
+    # Edit an email sender: label, from address, reply-to, default, settings. Blank secrets keep the stored ones.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdateEmailProviderRequest] :update_email_provider_request 
+    # @return [Array<(UpdateEmailProviderResponse, Integer, Hash)>] UpdateEmailProviderResponse data, response status code and response headers
+    def update_email_provider_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.update_email_provider ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.update_email_provider"
+      end
+      # resource path
+      local_var_path = '/v1/email-providers/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_email_provider_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateEmailProviderResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.update_email_provider",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#update_email_provider\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Deprecated alias: edit a notification destination. Use PATCH /api/v1/webhooks/{id}.
+    # @param id [String] 
+    # @param update_notification_integration_request [UpdateNotificationIntegrationRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [OkResponse]
+    def update_notification_integration(id, update_notification_integration_request, opts = {})
+      data, _status_code, _headers = update_notification_integration_with_http_info(id, update_notification_integration_request, opts)
+      data
+    end
+
+    # Deprecated alias: edit a notification destination. Use PATCH /api/v1/webhooks/{id}.
+    # @param id [String] 
+    # @param update_notification_integration_request [UpdateNotificationIntegrationRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(OkResponse, Integer, Hash)>] OkResponse data, response status code and response headers
+    def update_notification_integration_with_http_info(id, update_notification_integration_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.update_notification_integration ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.update_notification_integration"
+      end
+      # verify the required parameter 'update_notification_integration_request' is set
+      if @api_client.config.client_side_validation && update_notification_integration_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_notification_integration_request' when calling IntegrationsApi.update_notification_integration"
+      end
+      # resource path
+      local_var_path = '/v1/notification-integrations/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_notification_integration_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'OkResponse'
@@ -308,6 +1784,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: IntegrationsApi#update_notification_integration\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Change a print and mail account: label, return address, per-piece prices (cents per format).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdatePrintMailCredentialRequest] :update_print_mail_credential_request 
+    # @return [CreatePrintMailCredentialResponse]
+    def update_print_mail_credential(id, opts = {})
+      data, _status_code, _headers = update_print_mail_credential_with_http_info(id, opts)
+      data
+    end
+
+    # Change a print and mail account: label, return address, per-piece prices (cents per format).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [UpdatePrintMailCredentialRequest] :update_print_mail_credential_request 
+    # @return [Array<(CreatePrintMailCredentialResponse, Integer, Hash)>] CreatePrintMailCredentialResponse data, response status code and response headers
+    def update_print_mail_credential_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: IntegrationsApi.update_print_mail_credential ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling IntegrationsApi.update_print_mail_credential"
+      end
+      # resource path
+      local_var_path = '/v1/print-mail/credentials/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_print_mail_credential_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreatePrintMailCredentialResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"IntegrationsApi.update_print_mail_credential",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: IntegrationsApi#update_print_mail_credential\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

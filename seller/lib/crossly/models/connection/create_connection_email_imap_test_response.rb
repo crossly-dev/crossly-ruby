@@ -15,15 +15,15 @@ require 'time'
 
 module Crossly
   class CreateConnectionEmailImapTestResponse
-    attr_accessor :success
+    attr_accessor :data
 
-    attr_accessor :message
+    attr_accessor :success
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'success' => :'success',
-        :'message' => :'message'
+        :'data' => :'data',
+        :'success' => :'success'
       }
     end
 
@@ -35,8 +35,8 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'success' => :'Boolean',
-        :'message' => :'String'
+        :'data' => :'CreateAiKeyTestResponse',
+        :'success' => :'Boolean'
       }
     end
 
@@ -61,12 +61,12 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'success')
-        self.success = attributes[:'success']
+      if attributes.key?(:'data')
+        self.data = attributes[:'data']
       end
 
-      if attributes.key?(:'message')
-        self.message = attributes[:'message']
+      if attributes.key?(:'success')
+        self.success = attributes[:'success']
       end
     end
 
@@ -74,12 +74,12 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @success.nil?
-        invalid_properties.push('invalid value for "success", success cannot be nil.')
+      if @data.nil?
+        invalid_properties.push('invalid value for "data", data cannot be nil.')
       end
 
-      if @message.nil?
-        invalid_properties.push('invalid value for "message", message cannot be nil.')
+      if @success.nil?
+        invalid_properties.push('invalid value for "success", success cannot be nil.')
       end
 
       invalid_properties
@@ -88,8 +88,8 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @data.nil?
       return false if @success.nil?
-      return false if @message.nil?
       true
     end
 
@@ -98,8 +98,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          success == o.success &&
-          message == o.message
+          data == o.data &&
+          success == o.success
     end
 
     # @see the `==` method
@@ -111,7 +111,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [success, message].hash
+      [data, success].hash
     end
 
     # Builds the object from hash

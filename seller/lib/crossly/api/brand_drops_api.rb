@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a brand drop as a draft (name, dropAt in the future, optional description, cover image and Crossly platform-listing ids). Approved partners only (403 drop_partner_required); counts against your monthly allowance (403 drop_quota_exhausted).
+    # @param create_brand_drop_request [CreateBrandDropRequest] 
     # @param [Hash] opts the optional parameters
     # @return [BrandDropResponse]
-    def create_brand_drop(opts = {})
-      data, _status_code, _headers = create_brand_drop_with_http_info(opts)
+    def create_brand_drop(create_brand_drop_request, opts = {})
+      data, _status_code, _headers = create_brand_drop_with_http_info(create_brand_drop_request, opts)
       data
     end
 
     # Create a brand drop as a draft (name, dropAt in the future, optional description, cover image and Crossly platform-listing ids). Approved partners only (403 drop_partner_required); counts against your monthly allowance (403 drop_quota_exhausted).
+    # @param create_brand_drop_request [CreateBrandDropRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(BrandDropResponse, Integer, Hash)>] BrandDropResponse data, response status code and response headers
-    def create_brand_drop_with_http_info(opts = {})
+    def create_brand_drop_with_http_info(create_brand_drop_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandDropsApi.create_brand_drop ...'
+      end
+      # verify the required parameter 'create_brand_drop_request' is set
+      if @api_client.config.client_side_validation && create_brand_drop_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_brand_drop_request' when calling BrandDropsApi.create_brand_drop"
       end
       # resource path
       local_var_path = '/v1/brand-drops'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_brand_drop_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'BrandDropResponse'
@@ -253,6 +264,8 @@ module Crossly
 
     # Your brand drops, newest start time first. Filter with ?status=draft|pending_review|scheduled|live|sold_out|ended|cancelled. Empty when you are not a partner.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Float] :limit 
     # @return [ListBrandDropsResponse]
     def list_brand_drops(opts = {})
       data, _status_code, _headers = list_brand_drops_with_http_info(opts)
@@ -261,16 +274,24 @@ module Crossly
 
     # Your brand drops, newest start time first. Filter with ?status&#x3D;draft|pending_review|scheduled|live|sold_out|ended|cancelled. Empty when you are not a partner.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :status 
+    # @option opts [Float] :limit 
     # @return [Array<(ListBrandDropsResponse, Integer, Hash)>] ListBrandDropsResponse data, response status code and response headers
     def list_brand_drops_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandDropsApi.list_brand_drops ...'
+      end
+      allowable_values = ["draft", "live", "cancelled", "scheduled", "ended", "sold_out", "pending_review"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/brand-drops'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -309,6 +330,7 @@ module Crossly
     # Edit a brand drop and/or change its status: draft (withdraw / unschedule), pending_review (submit for review), scheduled (only with canSelfPublish — 403 drop_review_required otherwise), cancelled. Editing name, time or description of a reviewed drop sends it back to review. Live and finished drops cannot be changed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBrandDropRequest] :update_brand_drop_request 
     # @return [BrandDropResponse]
     def update_brand_drop(id, opts = {})
       data, _status_code, _headers = update_brand_drop_with_http_info(id, opts)
@@ -318,6 +340,7 @@ module Crossly
     # Edit a brand drop and/or change its status: draft (withdraw / unschedule), pending_review (submit for review), scheduled (only with canSelfPublish — 403 drop_review_required otherwise), cancelled. Editing name, time or description of a reviewed drop sends it back to review. Live and finished drops cannot be changed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateBrandDropRequest] :update_brand_drop_request 
     # @return [Array<(BrandDropResponse, Integer, Hash)>] BrandDropResponse data, response status code and response headers
     def update_brand_drop_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -337,12 +360,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_brand_drop_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'BrandDropResponse'
@@ -369,24 +397,30 @@ module Crossly
 
     # Replace the listings a brand drop releases, by master listing id (up to 100). Each must already be listed on Crossly — otherwise 400 listing_not_on_crossly naming them. Not allowed once the drop is live or finished.
     # @param id [String] 
+    # @param update_brand_drop_listing_request [UpdateBrandDropListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListBrandDropListingsResponse]
-    def update_brand_drop_listing(id, opts = {})
-      data, _status_code, _headers = update_brand_drop_listing_with_http_info(id, opts)
+    def update_brand_drop_listing(id, update_brand_drop_listing_request, opts = {})
+      data, _status_code, _headers = update_brand_drop_listing_with_http_info(id, update_brand_drop_listing_request, opts)
       data
     end
 
     # Replace the listings a brand drop releases, by master listing id (up to 100). Each must already be listed on Crossly — otherwise 400 listing_not_on_crossly naming them. Not allowed once the drop is live or finished.
     # @param id [String] 
+    # @param update_brand_drop_listing_request [UpdateBrandDropListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListBrandDropListingsResponse, Integer, Hash)>] ListBrandDropListingsResponse data, response status code and response headers
-    def update_brand_drop_listing_with_http_info(id, opts = {})
+    def update_brand_drop_listing_with_http_info(id, update_brand_drop_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BrandDropsApi.update_brand_drop_listing ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BrandDropsApi.update_brand_drop_listing"
+      end
+      # verify the required parameter 'update_brand_drop_listing_request' is set
+      if @api_client.config.client_side_validation && update_brand_drop_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_brand_drop_listing_request' when calling BrandDropsApi.update_brand_drop_listing"
       end
       # resource path
       local_var_path = '/v1/brand-drops/{id}/listings'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -398,12 +432,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_brand_drop_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListBrandDropListingsResponse'

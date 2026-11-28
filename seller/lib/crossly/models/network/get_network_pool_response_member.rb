@@ -19,9 +19,9 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :platforms
-
     attr_accessor :joined_at
+
+    attr_accessor :platforms
 
     attr_accessor :share_enabled
 
@@ -42,8 +42,8 @@ module Crossly
       {
         :'id' => :'id',
         :'user_id' => :'userId',
-        :'platforms' => :'platforms',
         :'joined_at' => :'joinedAt',
+        :'platforms' => :'platforms',
         :'share_enabled' => :'shareEnabled',
         :'follow_enabled' => :'followEnabled',
         :'like_enabled' => :'likeEnabled',
@@ -64,8 +64,8 @@ module Crossly
       {
         :'id' => :'String',
         :'user_id' => :'String',
-        :'platforms' => :'String',
         :'joined_at' => :'Time',
+        :'platforms' => :'String',
         :'share_enabled' => :'Boolean',
         :'follow_enabled' => :'Boolean',
         :'like_enabled' => :'Boolean',
@@ -107,12 +107,12 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'platforms')
-        self.platforms = attributes[:'platforms']
-      end
-
       if attributes.key?(:'joined_at')
         self.joined_at = attributes[:'joined_at']
+      end
+
+      if attributes.key?(:'platforms')
+        self.platforms = attributes[:'platforms']
       end
 
       if attributes.key?(:'share_enabled')
@@ -156,12 +156,12 @@ module Crossly
         invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
       end
 
-      if @platforms.nil?
-        invalid_properties.push('invalid value for "platforms", platforms cannot be nil.')
-      end
-
       if @joined_at.nil?
         invalid_properties.push('invalid value for "joined_at", joined_at cannot be nil.')
+      end
+
+      if @platforms.nil?
+        invalid_properties.push('invalid value for "platforms", platforms cannot be nil.')
       end
 
       if @share_enabled.nil?
@@ -192,8 +192,8 @@ module Crossly
     def valid?
       return false if @id.nil?
       return false if @user_id.nil?
-      return false if @platforms.nil?
       return false if @joined_at.nil?
+      return false if @platforms.nil?
       return false if @share_enabled.nil?
       return false if @follow_enabled.nil?
       return false if @like_enabled.nil?
@@ -209,8 +209,8 @@ module Crossly
       self.class == o.class &&
           id == o.id &&
           user_id == o.user_id &&
-          platforms == o.platforms &&
           joined_at == o.joined_at &&
+          platforms == o.platforms &&
           share_enabled == o.share_enabled &&
           follow_enabled == o.follow_enabled &&
           like_enabled == o.like_enabled &&
@@ -229,7 +229,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, user_id, platforms, joined_at, share_enabled, follow_enabled, like_enabled, last_engagement_at, engagements_performed, engagements_received, flagged_until].hash
+      [id, user_id, joined_at, platforms, share_enabled, follow_enabled, like_enabled, last_engagement_at, engagements_performed, engagements_received, flagged_until].hash
     end
 
     # Builds the object from hash

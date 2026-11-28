@@ -230,7 +230,7 @@ end
 
 ## create_world_experience_collaborator
 
-> <CreateWorldExperienceCollaboratorResponse> create_world_experience_collaborator(experience_id)
+> <CreateWorldExperienceCollaboratorResponse> create_world_experience_collaborator(experience_id, opts)
 
 Invite a Crossly handle with a role. Owner or admin; only the owner makes admins. Counts against the owner's plan cap.
 
@@ -247,10 +247,13 @@ end
 
 api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_collaborator_request: Crossly::CreateWorldExperienceCollaboratorRequest.new({handle: 'handle_example', role: 'admin'}) # CreateWorldExperienceCollaboratorRequest | 
+}
 
 begin
   # Invite a Crossly handle with a role. Owner or admin; only the owner makes admins. Counts against the owner's plan cap.
-  result = api_instance.create_world_experience_collaborator(experience_id)
+  result = api_instance.create_world_experience_collaborator(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->create_world_experience_collaborator: #{e}"
@@ -261,12 +264,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceCollaboratorResponse>, Integer, Hash)> create_world_experience_collaborator_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceCollaboratorResponse>, Integer, Hash)> create_world_experience_collaborator_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Invite a Crossly handle with a role. Owner or admin; only the owner makes admins. Counts against the owner's plan cap.
-  data, status_code, headers = api_instance.create_world_experience_collaborator_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_collaborator_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceCollaboratorResponse>
@@ -280,6 +283,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_collaborator_request** | **CreateWorldExperienceCollaboratorRequest** |  | [optional] |
 
 ### Return type
 
@@ -291,13 +295,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_collab_op
 
-> <CreateWorldExperiencePlaceCollabOpResponse> create_world_experience_place_collab_op(experience_id, place_id)
+> <CreateWorldExperiencePlaceCollabOpResponse> create_world_experience_place_collab_op(experience_id, place_id, opts)
 
 Apply a batch of ops (insert, delete, move, prop, attr, name, tags, world) in server order. Each op is checked against your role; a retried batch id is answered, not re-applied.
 
@@ -315,10 +319,13 @@ end
 api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_collab_op_request: Crossly::CreateWorldExperiencePlaceCollabOpRequest.new({ops: [3.56]}) # CreateWorldExperiencePlaceCollabOpRequest | 
+}
 
 begin
   # Apply a batch of ops (insert, delete, move, prop, attr, name, tags, world) in server order. Each op is checked against your role; a retried batch id is answered, not re-applied.
-  result = api_instance.create_world_experience_place_collab_op(experience_id, place_id)
+  result = api_instance.create_world_experience_place_collab_op(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->create_world_experience_place_collab_op: #{e}"
@@ -329,12 +336,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceCollabOpResponse>, Integer, Hash)> create_world_experience_place_collab_op_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceCollabOpResponse>, Integer, Hash)> create_world_experience_place_collab_op_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Apply a batch of ops (insert, delete, move, prop, attr, name, tags, world) in server order. Each op is checked against your role; a retried batch id is answered, not re-applied.
-  data, status_code, headers = api_instance.create_world_experience_place_collab_op_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_collab_op_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceCollabOpResponse>
@@ -349,6 +356,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_collab_op_request** | **CreateWorldExperiencePlaceCollabOpRequest** |  | [optional] |
 
 ### Return type
 
@@ -360,7 +368,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -435,7 +443,7 @@ end
 
 ## create_world_experience_place_collab_script_commit
 
-> <CreateWorldExperiencePlaceCollabScriptCommitResponse> create_world_experience_place_collab_script_commit(experience_id, place_id, node_id)
+> <CreateWorldExperiencePlaceCollabScriptCommitResponse> create_world_experience_place_collab_script_commit(experience_id, place_id, node_id, opts)
 
 Commit your draft with a three-way merge. 409 merge_conflict carries the merged text with conflict blocks and the current source.
 
@@ -454,10 +462,13 @@ api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
 node_id = 'node_id_example' # String | 
+opts = {
+  create_world_experience_place_collab_script_commit_request: Crossly::CreateWorldExperiencePlaceCollabScriptCommitRequest.new # CreateWorldExperiencePlaceCollabScriptCommitRequest | 
+}
 
 begin
   # Commit your draft with a three-way merge. 409 merge_conflict carries the merged text with conflict blocks and the current source.
-  result = api_instance.create_world_experience_place_collab_script_commit(experience_id, place_id, node_id)
+  result = api_instance.create_world_experience_place_collab_script_commit(experience_id, place_id, node_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->create_world_experience_place_collab_script_commit: #{e}"
@@ -468,12 +479,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceCollabScriptCommitResponse>, Integer, Hash)> create_world_experience_place_collab_script_commit_with_http_info(experience_id, place_id, node_id)
+> <Array(<CreateWorldExperiencePlaceCollabScriptCommitResponse>, Integer, Hash)> create_world_experience_place_collab_script_commit_with_http_info(experience_id, place_id, node_id, opts)
 
 ```ruby
 begin
   # Commit your draft with a three-way merge. 409 merge_conflict carries the merged text with conflict blocks and the current source.
-  data, status_code, headers = api_instance.create_world_experience_place_collab_script_commit_with_http_info(experience_id, place_id, node_id)
+  data, status_code, headers = api_instance.create_world_experience_place_collab_script_commit_with_http_info(experience_id, place_id, node_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceCollabScriptCommitResponse>
@@ -489,6 +500,7 @@ end
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
 | **node_id** | **String** |  |  |
+| **create_world_experience_place_collab_script_commit_request** | **CreateWorldExperiencePlaceCollabScriptCommitRequest** |  | [optional] |
 
 ### Return type
 
@@ -500,7 +512,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -715,7 +727,7 @@ end
 
 ## get_world_experience_place_collab_op
 
-> <GetWorldExperiencePlaceCollabOpResponse> get_world_experience_place_collab_op(experience_id, place_id)
+> <GetWorldExperiencePlaceCollabOpResponse> get_world_experience_place_collab_op(experience_id, place_id, since)
 
 Ops after a sequence number, grouped by batch. 409 resync when they are no longer kept: reload the session.
 
@@ -733,10 +745,11 @@ end
 api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+since = 8.14 # Float | 
 
 begin
   # Ops after a sequence number, grouped by batch. 409 resync when they are no longer kept: reload the session.
-  result = api_instance.get_world_experience_place_collab_op(experience_id, place_id)
+  result = api_instance.get_world_experience_place_collab_op(experience_id, place_id, since)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->get_world_experience_place_collab_op: #{e}"
@@ -747,12 +760,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceCollabOpResponse>, Integer, Hash)> get_world_experience_place_collab_op_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceCollabOpResponse>, Integer, Hash)> get_world_experience_place_collab_op_with_http_info(experience_id, place_id, since)
 
 ```ruby
 begin
   # Ops after a sequence number, grouped by batch. 409 resync when they are no longer kept: reload the session.
-  data, status_code, headers = api_instance.get_world_experience_place_collab_op_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_collab_op_with_http_info(experience_id, place_id, since)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceCollabOpResponse>
@@ -767,6 +780,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **since** | **Float** |  |  |
 
 ### Return type
 
@@ -982,7 +996,7 @@ This endpoint does not need any parameter.
 
 ## list_world_experience_activity
 
-> <ListWorldExperienceActivityResponse> list_world_experience_activity(experience_id)
+> <ListWorldExperienceActivityResponse> list_world_experience_activity(experience_id, opts)
 
 Activity history, newest first: who changed what, when, from where (studio, api, mcp, cli); instance changes are revertible.
 
@@ -999,10 +1013,15 @@ end
 
 api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14, # Float | 
+  place_id: 'place_id_example' # String | 
+}
 
 begin
   # Activity history, newest first: who changed what, when, from where (studio, api, mcp, cli); instance changes are revertible.
-  result = api_instance.list_world_experience_activity(experience_id)
+  result = api_instance.list_world_experience_activity(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->list_world_experience_activity: #{e}"
@@ -1013,12 +1032,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldExperienceActivityResponse>, Integer, Hash)> list_world_experience_activity_with_http_info(experience_id)
+> <Array(<ListWorldExperienceActivityResponse>, Integer, Hash)> list_world_experience_activity_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Activity history, newest first: who changed what, when, from where (studio, api, mcp, cli); instance changes are revertible.
-  data, status_code, headers = api_instance.list_world_experience_activity_with_http_info(experience_id)
+  data, status_code, headers = api_instance.list_world_experience_activity_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldExperienceActivityResponse>
@@ -1032,6 +1051,9 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **place_id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1118,7 +1140,7 @@ end
 
 ## update_world_experience_collaborator
 
-> <CreateWorldExperienceCollaboratorResponse> update_world_experience_collaborator(experience_id, user_id)
+> <CreateWorldExperienceCollaboratorResponse> update_world_experience_collaborator(experience_id, user_id, opts)
 
 Change a collaborator's role.
 
@@ -1136,10 +1158,13 @@ end
 api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
 user_id = 'user_id_example' # String | 
+opts = {
+  update_world_experience_collaborator_request: Crossly::UpdateWorldExperienceCollaboratorRequest.new({role: 'admin'}) # UpdateWorldExperienceCollaboratorRequest | 
+}
 
 begin
   # Change a collaborator's role.
-  result = api_instance.update_world_experience_collaborator(experience_id, user_id)
+  result = api_instance.update_world_experience_collaborator(experience_id, user_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->update_world_experience_collaborator: #{e}"
@@ -1150,12 +1175,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceCollaboratorResponse>, Integer, Hash)> update_world_experience_collaborator_with_http_info(experience_id, user_id)
+> <Array(<CreateWorldExperienceCollaboratorResponse>, Integer, Hash)> update_world_experience_collaborator_with_http_info(experience_id, user_id, opts)
 
 ```ruby
 begin
   # Change a collaborator's role.
-  data, status_code, headers = api_instance.update_world_experience_collaborator_with_http_info(experience_id, user_id)
+  data, status_code, headers = api_instance.update_world_experience_collaborator_with_http_info(experience_id, user_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceCollaboratorResponse>
@@ -1170,6 +1195,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **user_id** | **String** |  |  |
+| **update_world_experience_collaborator_request** | **UpdateWorldExperienceCollaboratorRequest** |  | [optional] |
 
 ### Return type
 
@@ -1181,13 +1207,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_place_collab_script
 
-> <UpdateWorldExperiencePlaceCollabScriptResponse> update_world_experience_place_collab_script(experience_id, place_id, node_id)
+> <UpdateWorldExperiencePlaceCollabScriptResponse> update_world_experience_place_collab_script(experience_id, place_id, node_id, opts)
 
 Save your own draft of a script (needs edit scripts).
 
@@ -1206,10 +1232,13 @@ api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
 node_id = 'node_id_example' # String | 
+opts = {
+  update_world_interactive_design_draft_request: Crossly::UpdateWorldInteractiveDesignDraftRequest.new({source: 'source_example'}) # UpdateWorldInteractiveDesignDraftRequest | 
+}
 
 begin
   # Save your own draft of a script (needs edit scripts).
-  result = api_instance.update_world_experience_place_collab_script(experience_id, place_id, node_id)
+  result = api_instance.update_world_experience_place_collab_script(experience_id, place_id, node_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->update_world_experience_place_collab_script: #{e}"
@@ -1220,12 +1249,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperiencePlaceCollabScriptResponse>, Integer, Hash)> update_world_experience_place_collab_script_with_http_info(experience_id, place_id, node_id)
+> <Array(<UpdateWorldExperiencePlaceCollabScriptResponse>, Integer, Hash)> update_world_experience_place_collab_script_with_http_info(experience_id, place_id, node_id, opts)
 
 ```ruby
 begin
   # Save your own draft of a script (needs edit scripts).
-  data, status_code, headers = api_instance.update_world_experience_place_collab_script_with_http_info(experience_id, place_id, node_id)
+  data, status_code, headers = api_instance.update_world_experience_place_collab_script_with_http_info(experience_id, place_id, node_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperiencePlaceCollabScriptResponse>
@@ -1241,6 +1270,7 @@ end
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
 | **node_id** | **String** |  |  |
+| **update_world_interactive_design_draft_request** | **UpdateWorldInteractiveDesignDraftRequest** |  | [optional] |
 
 ### Return type
 
@@ -1252,13 +1282,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_experience_split
 
-> <GetWorldExperienceSplitResponse> update_world_experience_split(experience_id)
+> <GetWorldExperienceSplitResponse> update_world_experience_split(experience_id, opts)
 
 Owner only: split the creator share (70% of net) in basis points summing to 10000. Takes effect the 1st of next month; every party is notified. The 70% total never changes.
 
@@ -1275,10 +1305,13 @@ end
 
 api_instance = Crossly::WorldsTeamApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  update_world_experience_split_request: Crossly::UpdateWorldExperienceSplitRequest.new({shares: [Crossly::UpdateWorldExperienceSplitRequestShares.new({user_id: 'user_id_example', bps: 3.56})]}) # UpdateWorldExperienceSplitRequest | 
+}
 
 begin
   # Owner only: split the creator share (70% of net) in basis points summing to 10000. Takes effect the 1st of next month; every party is notified. The 70% total never changes.
-  result = api_instance.update_world_experience_split(experience_id)
+  result = api_instance.update_world_experience_split(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsTeamApi->update_world_experience_split: #{e}"
@@ -1289,12 +1322,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperienceSplitResponse>, Integer, Hash)> update_world_experience_split_with_http_info(experience_id)
+> <Array(<GetWorldExperienceSplitResponse>, Integer, Hash)> update_world_experience_split_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Owner only: split the creator share (70% of net) in basis points summing to 10000. Takes effect the 1st of next month; every party is notified. The 70% total never changes.
-  data, status_code, headers = api_instance.update_world_experience_split_with_http_info(experience_id)
+  data, status_code, headers = api_instance.update_world_experience_split_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperienceSplitResponse>
@@ -1308,6 +1341,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **update_world_experience_split_request** | **UpdateWorldExperienceSplitRequest** |  | [optional] |
 
 ### Return type
 
@@ -1319,6 +1353,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

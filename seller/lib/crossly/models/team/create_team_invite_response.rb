@@ -15,49 +15,12 @@ require 'time'
 
 module Crossly
   class CreateTeamInviteResponse
-    attr_accessor :id
-
-    attr_accessor :invitee_email
-
-    attr_accessor :role
-
-    attr_accessor :scopes
-
-    attr_accessor :expires_at
-
-    attr_accessor :accept_url
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :data
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'invitee_email' => :'inviteeEmail',
-        :'role' => :'role',
-        :'scopes' => :'scopes',
-        :'expires_at' => :'expiresAt',
-        :'accept_url' => :'acceptUrl'
+        :'data' => :'data'
       }
     end
 
@@ -69,19 +32,13 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'id' => :'String',
-        :'invitee_email' => :'String',
-        :'role' => :'String',
-        :'scopes' => :'Array<String>',
-        :'expires_at' => :'String',
-        :'accept_url' => :'String'
+        :'data' => :'CreateTeamInviteResponseData'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'accept_url'
       ])
     end
 
@@ -100,30 +57,8 @@ module Crossly
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
-      end
-
-      if attributes.key?(:'invitee_email')
-        self.invitee_email = attributes[:'invitee_email']
-      end
-
-      if attributes.key?(:'role')
-        self.role = attributes[:'role']
-      end
-
-      if attributes.key?(:'scopes')
-        if (value = attributes[:'scopes']).is_a?(Array)
-          self.scopes = value
-        end
-      end
-
-      if attributes.key?(:'expires_at')
-        self.expires_at = attributes[:'expires_at']
-      end
-
-      if attributes.key?(:'accept_url')
-        self.accept_url = attributes[:'accept_url']
+      if attributes.key?(:'data')
+        self.data = attributes[:'data']
       end
     end
 
@@ -131,24 +66,8 @@ module Crossly
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @invitee_email.nil?
-        invalid_properties.push('invalid value for "invitee_email", invitee_email cannot be nil.')
-      end
-
-      if @role.nil?
-        invalid_properties.push('invalid value for "role", role cannot be nil.')
-      end
-
-      if @scopes.nil?
-        invalid_properties.push('invalid value for "scopes", scopes cannot be nil.')
-      end
-
-      if @expires_at.nil?
-        invalid_properties.push('invalid value for "expires_at", expires_at cannot be nil.')
+      if @data.nil?
+        invalid_properties.push('invalid value for "data", data cannot be nil.')
       end
 
       invalid_properties
@@ -157,24 +76,8 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
-      return false if @invitee_email.nil?
-      return false if @role.nil?
-      role_validator = EnumAttributeValidator.new('String', ["va", "admin"])
-      return false unless role_validator.valid?(@role)
-      return false if @scopes.nil?
-      return false if @expires_at.nil?
+      return false if @data.nil?
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] role Object to be assigned
-    def role=(role)
-      validator = EnumAttributeValidator.new('String', ["va", "admin"])
-      unless validator.valid?(role)
-        fail ArgumentError, "invalid value for \"role\", must be one of #{validator.allowable_values}."
-      end
-      @role = role
     end
 
     # Checks equality by comparing each attribute.
@@ -182,12 +85,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          invitee_email == o.invitee_email &&
-          role == o.role &&
-          scopes == o.scopes &&
-          expires_at == o.expires_at &&
-          accept_url == o.accept_url
+          data == o.data
     end
 
     # @see the `==` method
@@ -199,7 +97,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, invitee_email, role, scopes, expires_at, accept_url].hash
+      [data].hash
     end
 
     # Builds the object from hash

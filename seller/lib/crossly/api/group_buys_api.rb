@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
+    # @param create_group_buy_request [CreateGroupBuyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBreakResponse]
-    def create_group_buy(opts = {})
-      data, _status_code, _headers = create_group_buy_with_http_info(opts)
+    def create_group_buy(create_group_buy_request, opts = {})
+      data, _status_code, _headers = create_group_buy_with_http_info(create_group_buy_request, opts)
       data
     end
 
     # Run a group buy on a listing with stock: price tiers by committed quantity, a goal and minimum to proceed, a per-buyer max, a deadline, authorize-now or pay-now-refund-the-difference, a goal-miss policy (cancel, proceed, extend once), visibility, placement and share copy. The original body (tiers by buyer count, minBuyers, days) is still accepted.
+    # @param create_group_buy_request [CreateGroupBuyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBreakResponse, Integer, Hash)>] CreateBreakResponse data, response status code and response headers
-    def create_group_buy_with_http_info(opts = {})
+    def create_group_buy_with_http_info(create_group_buy_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GroupBuysApi.create_group_buy ...'
+      end
+      # verify the required parameter 'create_group_buy_request' is set
+      if @api_client.config.client_side_validation && create_group_buy_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_group_buy_request' when calling GroupBuysApi.create_group_buy"
       end
       # resource path
       local_var_path = '/v1/group-buys'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_group_buy_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBreakResponse'
@@ -199,6 +210,7 @@ module Crossly
     # Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGroupBuyExtendRequest] :create_group_buy_extend_request 
     # @return [CreateGroupBuyExtendResponse]
     def create_group_buy_extend(id, opts = {})
       data, _status_code, _headers = create_group_buy_extend_with_http_info(id, opts)
@@ -208,6 +220,7 @@ module Crossly
     # Move the deadline later by N days (authorize-now pools run at most 6 days, pay-now pools 30).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGroupBuyExtendRequest] :create_group_buy_extend_request 
     # @return [Array<(CreateGroupBuyExtendResponse, Integer, Hash)>] CreateGroupBuyExtendResponse data, response status code and response headers
     def create_group_buy_extend_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -227,12 +240,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_group_buy_extend_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateGroupBuyExtendResponse'
@@ -260,6 +278,7 @@ module Crossly
     # Send a notification to every buyer committed to the group buy.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGroupBuyMessageRequest] :create_group_buy_message_request 
     # @return [CreateGroupBuyMessageResponse]
     def create_group_buy_message(id, opts = {})
       data, _status_code, _headers = create_group_buy_message_with_http_info(id, opts)
@@ -269,6 +288,7 @@ module Crossly
     # Send a notification to every buyer committed to the group buy.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateGroupBuyMessageRequest] :create_group_buy_message_request 
     # @return [Array<(CreateGroupBuyMessageResponse, Integer, Hash)>] CreateGroupBuyMessageResponse data, response status code and response headers
     def create_group_buy_message_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -288,12 +308,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_group_buy_message_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateGroupBuyMessageResponse'
@@ -498,6 +523,7 @@ module Crossly
     # Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateGroupBuyRequest] :update_group_buy_request 
     # @return [UpdateGroupBuyResponse]
     def update_group_buy(id, opts = {})
       data, _status_code, _headers = update_group_buy_with_http_info(id, opts)
@@ -507,6 +533,7 @@ module Crossly
     # Edit a group buy. Copy, visibility, placement and the per-buyer max change any time; tiers, goal, minimum, payment mode and goal-miss policy only before anyone commits.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateGroupBuyRequest] :update_group_buy_request 
     # @return [Array<(UpdateGroupBuyResponse, Integer, Hash)>] UpdateGroupBuyResponse data, response status code and response headers
     def update_group_buy_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -526,12 +553,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_group_buy_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateGroupBuyResponse'

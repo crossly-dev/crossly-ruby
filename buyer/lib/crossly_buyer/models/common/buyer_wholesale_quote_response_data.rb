@@ -271,7 +271,7 @@ module CrosslyBuyer
     def valid?
       return false if @id.nil?
       return false if @status.nil?
-      status_validator = EnumAttributeValidator.new('String', ["accepted", "declined", "expired", "requested", "withdrawn", "answered"])
+      status_validator = EnumAttributeValidator.new('String', ["expired", "accepted", "declined", "requested", "withdrawn", "answered"])
       return false unless status_validator.valid?(@status)
       return false if @buyer_user_id.nil?
       return false if @seller_user_id.nil?
@@ -283,7 +283,7 @@ module CrosslyBuyer
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      validator = EnumAttributeValidator.new('String', ["accepted", "declined", "expired", "requested", "withdrawn", "answered"])
+      validator = EnumAttributeValidator.new('String', ["expired", "accepted", "declined", "requested", "withdrawn", "answered"])
       unless validator.valid?(status)
         fail ArgumentError, "invalid value for \"status\", must be one of #{validator.allowable_values}."
       end

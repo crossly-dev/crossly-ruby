@@ -7,12 +7,12 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_pat**](PATApi.md#create_pat) | **POST** /v1/pat | Mint a new PAT. Full token returned ONCE — store it on the client. |
 | [**delete_pat**](PATApi.md#delete_pat) | **DELETE** /v1/pat/{id} | Revoke a PAT by id. |
 | [**get_pat_scope**](PATApi.md#get_pat_scope) | **GET** /v1/pat/scopes | List the canonical scope catalog. |
-| [**list_pat**](PATApi.md#list_pat) | **GET** /v1/pat | List the caller&#39;s PATs (preview only). |
+| [**list_pat**](PATApi.md#list_pat) | **GET** /v1/pat | List the caller&#39;s PATs (preview only). Optional: q (name or prefix), scope, lastUsed (7d|30d|90d|never|stale), status (active|expired|revoked|all), page, pageSize. |
 
 
 ## create_pat
 
-> <CreatePatResponse> create_pat
+> <CreatePatResponse> create_pat(create_pat_request)
 
 Mint a new PAT. Full token returned ONCE — store it on the client.
 
@@ -28,10 +28,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::PATApi.new
+create_pat_request = Crossly::CreatePatRequest.new({name: 'name_example', scopes: ['scopes_example']}) # CreatePatRequest | 
 
 begin
   # Mint a new PAT. Full token returned ONCE — store it on the client.
-  result = api_instance.create_pat
+  result = api_instance.create_pat(create_pat_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling PATApi->create_pat: #{e}"
@@ -42,12 +43,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreatePatResponse>, Integer, Hash)> create_pat_with_http_info
+> <Array(<CreatePatResponse>, Integer, Hash)> create_pat_with_http_info(create_pat_request)
 
 ```ruby
 begin
   # Mint a new PAT. Full token returned ONCE — store it on the client.
-  data, status_code, headers = api_instance.create_pat_with_http_info
+  data, status_code, headers = api_instance.create_pat_with_http_info(create_pat_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreatePatResponse>
@@ -58,7 +59,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_pat_request** | **CreatePatRequest** |  |  |
 
 ### Return type
 
@@ -70,7 +73,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -209,7 +212,7 @@ This endpoint does not need any parameter.
 
 > <ListPatResponse> list_pat
 
-List the caller's PATs (preview only).
+List the caller's PATs (preview only). Optional: q (name or prefix), scope, lastUsed (7d|30d|90d|never|stale), status (active|expired|revoked|all), page, pageSize.
 
 ### Examples
 
@@ -225,7 +228,7 @@ end
 api_instance = Crossly::PATApi.new
 
 begin
-  # List the caller's PATs (preview only).
+  # List the caller's PATs (preview only). Optional: q (name or prefix), scope, lastUsed (7d|30d|90d|never|stale), status (active|expired|revoked|all), page, pageSize.
   result = api_instance.list_pat
   p result
 rescue Crossly::ApiError => e
@@ -241,7 +244,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # List the caller's PATs (preview only).
+  # List the caller's PATs (preview only). Optional: q (name or prefix), scope, lastUsed (7d|30d|90d|never|stale), status (active|expired|revoked|all), page, pageSize.
   data, status_code, headers = api_instance.list_pat_with_http_info
   p status_code # => 2xx
   p headers # => { ... }

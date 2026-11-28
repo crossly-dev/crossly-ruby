@@ -19,11 +19,18 @@ module Crossly
 
     attr_accessor :ledger
 
+    attr_accessor :store
+
+    # True while the app has no store: earnings keep accruing and wait here, never lost.
+    attr_accessor :held
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'summary' => :'summary',
-        :'ledger' => :'ledger'
+        :'ledger' => :'ledger',
+        :'store' => :'store',
+        :'held' => :'held'
       }
     end
 
@@ -36,13 +43,16 @@ module Crossly
     def self.openapi_types
       {
         :'summary' => :'GetAppEarningResponseSummary',
-        :'ledger' => :'Array<GetAppEarningResponseLedger>'
+        :'ledger' => :'Array<GetAppEarningResponseLedger>',
+        :'store' => :'IdName2',
+        :'held' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'store',
       ])
     end
 
@@ -70,6 +80,14 @@ module Crossly
           self.ledger = value
         end
       end
+
+      if attributes.key?(:'store')
+        self.store = attributes[:'store']
+      end
+
+      if attributes.key?(:'held')
+        self.held = attributes[:'held']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -84,6 +102,10 @@ module Crossly
         invalid_properties.push('invalid value for "ledger", ledger cannot be nil.')
       end
 
+      if @held.nil?
+        invalid_properties.push('invalid value for "held", held cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -92,6 +114,7 @@ module Crossly
     def valid?
       return false if @summary.nil?
       return false if @ledger.nil?
+      return false if @held.nil?
       true
     end
 
@@ -101,7 +124,9 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           summary == o.summary &&
-          ledger == o.ledger
+          ledger == o.ledger &&
+          store == o.store &&
+          held == o.held
     end
 
     # @see the `==` method
@@ -113,7 +138,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [summary, ledger].hash
+      [summary, ledger, store, held].hash
     end
 
     # Builds the object from hash

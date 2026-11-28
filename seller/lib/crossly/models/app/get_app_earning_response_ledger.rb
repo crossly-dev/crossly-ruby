@@ -29,6 +29,9 @@ module Crossly
 
     attr_accessor :sale_id
 
+    # The store the row belongs to (drizzle/1320); null while the app waits for a store.
+    attr_accessor :storefront_id
+
     attr_accessor :created_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -41,6 +44,7 @@ module Crossly
         :'bps' => :'bps',
         :'status' => :'status',
         :'sale_id' => :'saleId',
+        :'storefront_id' => :'storefrontId',
         :'created_at' => :'createdAt'
       }
     end
@@ -60,6 +64,7 @@ module Crossly
         :'bps' => :'Float',
         :'status' => :'String',
         :'sale_id' => :'String',
+        :'storefront_id' => :'String',
         :'created_at' => :'Time'
       }
     end
@@ -70,6 +75,7 @@ module Crossly
         :'basis_cents',
         :'bps',
         :'sale_id',
+        :'storefront_id',
       ])
     end
 
@@ -114,6 +120,10 @@ module Crossly
 
       if attributes.key?(:'sale_id')
         self.sale_id = attributes[:'sale_id']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
       end
 
       if attributes.key?(:'created_at')
@@ -171,6 +181,7 @@ module Crossly
           bps == o.bps &&
           status == o.status &&
           sale_id == o.sale_id &&
+          storefront_id == o.storefront_id &&
           created_at == o.created_at
     end
 
@@ -183,7 +194,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, kind, amount_cents, basis_cents, bps, status, sale_id, created_at].hash
+      [id, kind, amount_cents, basis_cents, bps, status, sale_id, storefront_id, created_at].hash
     end
 
     # Builds the object from hash

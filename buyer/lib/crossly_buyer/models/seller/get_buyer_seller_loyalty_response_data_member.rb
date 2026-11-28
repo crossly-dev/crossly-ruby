@@ -31,6 +31,8 @@ module CrosslyBuyer
 
     attr_accessor :history
 
+    attr_accessor :id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -41,7 +43,8 @@ module CrosslyBuyer
         :'grace_until' => :'graceUntil',
         :'joined_at' => :'joinedAt',
         :'perks' => :'perks',
-        :'history' => :'history'
+        :'history' => :'history',
+        :'id' => :'id'
       }
     end
 
@@ -60,7 +63,8 @@ module CrosslyBuyer
         :'grace_until' => :'String',
         :'joined_at' => :'String',
         :'perks' => :'Array<GetBuyerSellerLoyaltyResponseDataMemberPerks>',
-        :'history' => :'Array<GetBuyerSellerLoyaltyResponseDataMemberHistory>'
+        :'history' => :'Array<GetBuyerSellerLoyaltyResponseDataMemberHistory>',
+        :'id' => :'String'
       }
     end
 
@@ -70,6 +74,7 @@ module CrosslyBuyer
         :'tier',
         :'_next',
         :'grace_until',
+        :'id'
       ])
     end
 
@@ -123,6 +128,10 @@ module CrosslyBuyer
           self.history = value
         end
       end
+
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -175,7 +184,8 @@ module CrosslyBuyer
           grace_until == o.grace_until &&
           joined_at == o.joined_at &&
           perks == o.perks &&
-          history == o.history
+          history == o.history &&
+          id == o.id
     end
 
     # @see the `==` method
@@ -187,7 +197,7 @@ module CrosslyBuyer
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [standing, value, tier, _next, grace_until, joined_at, perks, history].hash
+      [standing, value, tier, _next, grace_until, joined_at, perks, history, id].hash
     end
 
     # Builds the object from hash

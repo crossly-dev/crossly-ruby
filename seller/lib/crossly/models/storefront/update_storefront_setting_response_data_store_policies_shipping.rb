@@ -139,7 +139,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @level.nil?
-      level_validator = EnumAttributeValidator.new('String', ["default", "override", "store", "listing", "legacy", "seller_default"])
+      level_validator = EnumAttributeValidator.new('String', ["default", "override", "legacy", "listing", "store", "seller_default"])
       return false unless level_validator.valid?(@level)
       true
     end
@@ -147,7 +147,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] level Object to be assigned
     def level=(level)
-      validator = EnumAttributeValidator.new('String', ["default", "override", "store", "listing", "legacy", "seller_default"])
+      validator = EnumAttributeValidator.new('String', ["default", "override", "legacy", "listing", "store", "seller_default"])
       unless validator.valid?(level)
         fail ArgumentError, "invalid value for \"level\", must be one of #{validator.allowable_values}."
       end

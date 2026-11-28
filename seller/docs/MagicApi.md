@@ -8,7 +8,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_magic_auto_item**](MagicApi.md#create_magic_auto_item) | **POST** /v1/magic/auto/items | Scan one item and match it automatically (drafts only, never publishes). |
 | [**create_magic_auto_run**](MagicApi.md#create_magic_auto_run) | **POST** /v1/magic/auto/runs/{runId} | Score a Magic List run automatically; a confident match in auto mode becomes a draft. |
 | [**create_magic_auto_run_swipe**](MagicApi.md#create_magic_auto_run_swipe) | **POST** /v1/magic/auto/runs/{runId}/swipes | Record a seller swipe session (kept and rejected match keys) for a Magic List run. |
-| [**create_magic_scan**](MagicApi.md#create_magic_scan) | **POST** /v1/magic/scan | Run a Magic List image scan. |
+| [**create_magic_scan**](MagicApi.md#create_magic_scan) | **POST** /v1/magic/scan | Run a Magic List image scan. Optional matchMode (off | auto | review_all) sets this scan&#39;s automated matching; omitted &#x3D; your remembered default. |
 | [**create_magic_scan_synthesize**](MagicApi.md#create_magic_scan_synthesize) | **POST** /v1/magic/scan/{runId}/synthesize | Synthesize a draft from confirmed matches. |
 | [**get_magic_auto_setting**](MagicApi.md#get_magic_auto_setting) | **GET** /v1/magic/auto/settings | The seller’s Magic List automated-matching mode. |
 | [**get_magic_draft**](MagicApi.md#get_magic_draft) | **GET** /v1/magic/drafts/{draftId} | Get a synthesized Magic List draft. |
@@ -86,7 +86,7 @@ end
 
 ## create_magic_auto_item
 
-> <CreateMagicAutoItemResponse> create_magic_auto_item
+> <CreateMagicAutoItemResponse> create_magic_auto_item(create_magic_auto_item_request)
 
 Scan one item and match it automatically (drafts only, never publishes).
 
@@ -102,10 +102,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::MagicApi.new
+create_magic_auto_item_request = Crossly::CreateMagicAutoItemRequest.new({image_urls: ['image_urls_example']}) # CreateMagicAutoItemRequest | 
 
 begin
   # Scan one item and match it automatically (drafts only, never publishes).
-  result = api_instance.create_magic_auto_item
+  result = api_instance.create_magic_auto_item(create_magic_auto_item_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling MagicApi->create_magic_auto_item: #{e}"
@@ -116,12 +117,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMagicAutoItemResponse>, Integer, Hash)> create_magic_auto_item_with_http_info
+> <Array(<CreateMagicAutoItemResponse>, Integer, Hash)> create_magic_auto_item_with_http_info(create_magic_auto_item_request)
 
 ```ruby
 begin
   # Scan one item and match it automatically (drafts only, never publishes).
-  data, status_code, headers = api_instance.create_magic_auto_item_with_http_info
+  data, status_code, headers = api_instance.create_magic_auto_item_with_http_info(create_magic_auto_item_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateMagicAutoItemResponse>
@@ -132,7 +133,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_magic_auto_item_request** | **CreateMagicAutoItemRequest** |  |  |
 
 ### Return type
 
@@ -144,13 +147,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_magic_auto_run
 
-> <CreateMagicAutoRunResponse> create_magic_auto_run(run_id)
+> <CreateMagicAutoRunResponse> create_magic_auto_run(run_id, opts)
 
 Score a Magic List run automatically; a confident match in auto mode becomes a draft.
 
@@ -167,10 +170,13 @@ end
 
 api_instance = Crossly::MagicApi.new
 run_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_magic_auto_run_request: Crossly::CreateMagicAutoRunRequest.new # CreateMagicAutoRunRequest | 
+}
 
 begin
   # Score a Magic List run automatically; a confident match in auto mode becomes a draft.
-  result = api_instance.create_magic_auto_run(run_id)
+  result = api_instance.create_magic_auto_run(run_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling MagicApi->create_magic_auto_run: #{e}"
@@ -181,12 +187,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMagicAutoRunResponse>, Integer, Hash)> create_magic_auto_run_with_http_info(run_id)
+> <Array(<CreateMagicAutoRunResponse>, Integer, Hash)> create_magic_auto_run_with_http_info(run_id, opts)
 
 ```ruby
 begin
   # Score a Magic List run automatically; a confident match in auto mode becomes a draft.
-  data, status_code, headers = api_instance.create_magic_auto_run_with_http_info(run_id)
+  data, status_code, headers = api_instance.create_magic_auto_run_with_http_info(run_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateMagicAutoRunResponse>
@@ -200,6 +206,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **run_id** | **String** |  |  |
+| **create_magic_auto_run_request** | **CreateMagicAutoRunRequest** |  | [optional] |
 
 ### Return type
 
@@ -211,13 +218,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_magic_auto_run_swipe
 
-> <CreateMagicAutoRunSwipeResponse> create_magic_auto_run_swipe(run_id)
+> <CreateMagicAutoRunSwipeResponse> create_magic_auto_run_swipe(run_id, opts)
 
 Record a seller swipe session (kept and rejected match keys) for a Magic List run.
 
@@ -234,10 +241,13 @@ end
 
 api_instance = Crossly::MagicApi.new
 run_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_magic_auto_run_swipe_request: Crossly::CreateMagicAutoRunSwipeRequest.new # CreateMagicAutoRunSwipeRequest | 
+}
 
 begin
   # Record a seller swipe session (kept and rejected match keys) for a Magic List run.
-  result = api_instance.create_magic_auto_run_swipe(run_id)
+  result = api_instance.create_magic_auto_run_swipe(run_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling MagicApi->create_magic_auto_run_swipe: #{e}"
@@ -248,12 +258,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMagicAutoRunSwipeResponse>, Integer, Hash)> create_magic_auto_run_swipe_with_http_info(run_id)
+> <Array(<CreateMagicAutoRunSwipeResponse>, Integer, Hash)> create_magic_auto_run_swipe_with_http_info(run_id, opts)
 
 ```ruby
 begin
   # Record a seller swipe session (kept and rejected match keys) for a Magic List run.
-  data, status_code, headers = api_instance.create_magic_auto_run_swipe_with_http_info(run_id)
+  data, status_code, headers = api_instance.create_magic_auto_run_swipe_with_http_info(run_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateMagicAutoRunSwipeResponse>
@@ -267,6 +277,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **run_id** | **String** |  |  |
+| **create_magic_auto_run_swipe_request** | **CreateMagicAutoRunSwipeRequest** |  | [optional] |
 
 ### Return type
 
@@ -278,15 +289,15 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_magic_scan
 
-> <CreateMagicScanResponse> create_magic_scan
+> <CreateMagicScanResponse> create_magic_scan(create_magic_scan_request)
 
-Run a Magic List image scan.
+Run a Magic List image scan. Optional matchMode (off | auto | review_all) sets this scan's automated matching; omitted = your remembered default.
 
 ### Examples
 
@@ -300,10 +311,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::MagicApi.new
+create_magic_scan_request = Crossly::CreateMagicScanRequest.new # CreateMagicScanRequest | 
 
 begin
-  # Run a Magic List image scan.
-  result = api_instance.create_magic_scan
+  # Run a Magic List image scan. Optional matchMode (off | auto | review_all) sets this scan's automated matching; omitted = your remembered default.
+  result = api_instance.create_magic_scan(create_magic_scan_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling MagicApi->create_magic_scan: #{e}"
@@ -314,12 +326,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMagicScanResponse>, Integer, Hash)> create_magic_scan_with_http_info
+> <Array(<CreateMagicScanResponse>, Integer, Hash)> create_magic_scan_with_http_info(create_magic_scan_request)
 
 ```ruby
 begin
-  # Run a Magic List image scan.
-  data, status_code, headers = api_instance.create_magic_scan_with_http_info
+  # Run a Magic List image scan. Optional matchMode (off | auto | review_all) sets this scan's automated matching; omitted = your remembered default.
+  data, status_code, headers = api_instance.create_magic_scan_with_http_info(create_magic_scan_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateMagicScanResponse>
@@ -330,7 +342,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_magic_scan_request** | **CreateMagicScanRequest** |  |  |
 
 ### Return type
 
@@ -342,13 +356,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_magic_scan_synthesize
 
-> <CreateMagicScanSynthesizeResponse> create_magic_scan_synthesize(run_id)
+> <CreateMagicScanSynthesizeResponse> create_magic_scan_synthesize(run_id, create_magic_scan_synthesize_request)
 
 Synthesize a draft from confirmed matches.
 
@@ -365,10 +379,11 @@ end
 
 api_instance = Crossly::MagicApi.new
 run_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_magic_scan_synthesize_request = Crossly::CreateMagicScanSynthesizeRequest.new # CreateMagicScanSynthesizeRequest | 
 
 begin
   # Synthesize a draft from confirmed matches.
-  result = api_instance.create_magic_scan_synthesize(run_id)
+  result = api_instance.create_magic_scan_synthesize(run_id, create_magic_scan_synthesize_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling MagicApi->create_magic_scan_synthesize: #{e}"
@@ -379,12 +394,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateMagicScanSynthesizeResponse>, Integer, Hash)> create_magic_scan_synthesize_with_http_info(run_id)
+> <Array(<CreateMagicScanSynthesizeResponse>, Integer, Hash)> create_magic_scan_synthesize_with_http_info(run_id, create_magic_scan_synthesize_request)
 
 ```ruby
 begin
   # Synthesize a draft from confirmed matches.
-  data, status_code, headers = api_instance.create_magic_scan_synthesize_with_http_info(run_id)
+  data, status_code, headers = api_instance.create_magic_scan_synthesize_with_http_info(run_id, create_magic_scan_synthesize_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateMagicScanSynthesizeResponse>
@@ -398,6 +413,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **run_id** | **String** |  |  |
+| **create_magic_scan_synthesize_request** | **CreateMagicScanSynthesizeRequest** |  |  |
 
 ### Return type
 
@@ -409,7 +425,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

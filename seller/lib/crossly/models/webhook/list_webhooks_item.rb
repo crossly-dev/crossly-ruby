@@ -17,37 +17,88 @@ module Crossly
   class ListWebhooksItem
     attr_accessor :id
 
-    attr_accessor :url
+    attr_accessor :name
 
-    attr_accessor :events
+    attr_accessor :created_at
 
     attr_accessor :description
 
+    # The store it belongs to (1500); null = the default store, hearing every store's events for one release.
+    attr_accessor :storefront_id
+
+    attr_accessor :kind
+
     attr_accessor :enabled
-
-    attr_accessor :last_delivery_at
-
-    attr_accessor :last_error_at
-
-    attr_accessor :last_error
 
     attr_accessor :consecutive_failures
 
-    attr_accessor :created_at
+    attr_accessor :last_error
+
+    attr_accessor :last_error_at
+
+    attr_accessor :events
+
+    attr_accessor :url
+
+    attr_accessor :app_name
+
+    attr_accessor :last_delivery_at
+
+    attr_accessor :oauth_app_id
+
+    attr_accessor :destination
+
+    attr_accessor :event_delivery
+
+    attr_accessor :has_bot_token
+
+    # json: the custom header NAMES (values are credentials and never leave the api).
+    attr_accessor :header_names
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'url' => :'url',
-        :'events' => :'events',
+        :'name' => :'name',
+        :'created_at' => :'createdAt',
         :'description' => :'description',
+        :'storefront_id' => :'storefrontId',
+        :'kind' => :'kind',
         :'enabled' => :'enabled',
-        :'last_delivery_at' => :'lastDeliveryAt',
-        :'last_error_at' => :'lastErrorAt',
-        :'last_error' => :'lastError',
         :'consecutive_failures' => :'consecutiveFailures',
-        :'created_at' => :'createdAt'
+        :'last_error' => :'lastError',
+        :'last_error_at' => :'lastErrorAt',
+        :'events' => :'events',
+        :'url' => :'url',
+        :'app_name' => :'appName',
+        :'last_delivery_at' => :'lastDeliveryAt',
+        :'oauth_app_id' => :'oauthAppId',
+        :'destination' => :'destination',
+        :'event_delivery' => :'eventDelivery',
+        :'has_bot_token' => :'hasBotToken',
+        :'header_names' => :'headerNames'
       }
     end
 
@@ -60,25 +111,38 @@ module Crossly
     def self.openapi_types
       {
         :'id' => :'String',
-        :'url' => :'String',
-        :'events' => :'Array<String>',
+        :'name' => :'String',
+        :'created_at' => :'Time',
         :'description' => :'String',
+        :'storefront_id' => :'String',
+        :'kind' => :'String',
         :'enabled' => :'Boolean',
-        :'last_delivery_at' => :'Time',
-        :'last_error_at' => :'Time',
-        :'last_error' => :'String',
         :'consecutive_failures' => :'Float',
-        :'created_at' => :'Time'
+        :'last_error' => :'String',
+        :'last_error_at' => :'Time',
+        :'events' => :'Array<String>',
+        :'url' => :'String',
+        :'app_name' => :'String',
+        :'last_delivery_at' => :'Time',
+        :'oauth_app_id' => :'String',
+        :'destination' => :'Hash<String, Object>',
+        :'event_delivery' => :'Boolean',
+        :'has_bot_token' => :'Boolean',
+        :'header_names' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'name',
         :'description',
-        :'last_delivery_at',
-        :'last_error_at',
+        :'storefront_id',
         :'last_error',
+        :'last_error_at',
+        :'app_name',
+        :'last_delivery_at',
+        :'oauth_app_id',
       ])
     end
 
@@ -101,8 +165,40 @@ module Crossly
         self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'url')
-        self.url = attributes[:'url']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      end
+
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      end
+
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'enabled')
+        self.enabled = attributes[:'enabled']
+      end
+
+      if attributes.key?(:'consecutive_failures')
+        self.consecutive_failures = attributes[:'consecutive_failures']
+      end
+
+      if attributes.key?(:'last_error')
+        self.last_error = attributes[:'last_error']
+      end
+
+      if attributes.key?(:'last_error_at')
+        self.last_error_at = attributes[:'last_error_at']
       end
 
       if attributes.key?(:'events')
@@ -111,32 +207,40 @@ module Crossly
         end
       end
 
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
+      if attributes.key?(:'url')
+        self.url = attributes[:'url']
       end
 
-      if attributes.key?(:'enabled')
-        self.enabled = attributes[:'enabled']
+      if attributes.key?(:'app_name')
+        self.app_name = attributes[:'app_name']
       end
 
       if attributes.key?(:'last_delivery_at')
         self.last_delivery_at = attributes[:'last_delivery_at']
       end
 
-      if attributes.key?(:'last_error_at')
-        self.last_error_at = attributes[:'last_error_at']
+      if attributes.key?(:'oauth_app_id')
+        self.oauth_app_id = attributes[:'oauth_app_id']
       end
 
-      if attributes.key?(:'last_error')
-        self.last_error = attributes[:'last_error']
+      if attributes.key?(:'destination')
+        if (value = attributes[:'destination']).is_a?(Hash)
+          self.destination = value
+        end
       end
 
-      if attributes.key?(:'consecutive_failures')
-        self.consecutive_failures = attributes[:'consecutive_failures']
+      if attributes.key?(:'event_delivery')
+        self.event_delivery = attributes[:'event_delivery']
       end
 
-      if attributes.key?(:'created_at')
-        self.created_at = attributes[:'created_at']
+      if attributes.key?(:'has_bot_token')
+        self.has_bot_token = attributes[:'has_bot_token']
+      end
+
+      if attributes.key?(:'header_names')
+        if (value = attributes[:'header_names']).is_a?(Array)
+          self.header_names = value
+        end
       end
     end
 
@@ -148,12 +252,12 @@ module Crossly
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
-      if @url.nil?
-        invalid_properties.push('invalid value for "url", url cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
-      if @events.nil?
-        invalid_properties.push('invalid value for "events", events cannot be nil.')
+      if @kind.nil?
+        invalid_properties.push('invalid value for "kind", kind cannot be nil.')
       end
 
       if @enabled.nil?
@@ -164,8 +268,28 @@ module Crossly
         invalid_properties.push('invalid value for "consecutive_failures", consecutive_failures cannot be nil.')
       end
 
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      if @events.nil?
+        invalid_properties.push('invalid value for "events", events cannot be nil.')
+      end
+
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
+      end
+
+      if @destination.nil?
+        invalid_properties.push('invalid value for "destination", destination cannot be nil.')
+      end
+
+      if @event_delivery.nil?
+        invalid_properties.push('invalid value for "event_delivery", event_delivery cannot be nil.')
+      end
+
+      if @has_bot_token.nil?
+        invalid_properties.push('invalid value for "has_bot_token", has_bot_token cannot be nil.')
+      end
+
+      if @header_names.nil?
+        invalid_properties.push('invalid value for "header_names", header_names cannot be nil.')
       end
 
       invalid_properties
@@ -175,12 +299,29 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
-      return false if @url.nil?
-      return false if @events.nil?
+      return false if @created_at.nil?
+      return false if @kind.nil?
+      kind_validator = EnumAttributeValidator.new('String', ["json", "teams", "discord", "slack", "telegram", "google_chat", "mattermost", "zapier"])
+      return false unless kind_validator.valid?(@kind)
       return false if @enabled.nil?
       return false if @consecutive_failures.nil?
-      return false if @created_at.nil?
+      return false if @events.nil?
+      return false if @url.nil?
+      return false if @destination.nil?
+      return false if @event_delivery.nil?
+      return false if @has_bot_token.nil?
+      return false if @header_names.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] kind Object to be assigned
+    def kind=(kind)
+      validator = EnumAttributeValidator.new('String', ["json", "teams", "discord", "slack", "telegram", "google_chat", "mattermost", "zapier"])
+      unless validator.valid?(kind)
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
+      end
+      @kind = kind
     end
 
     # Checks equality by comparing each attribute.
@@ -189,15 +330,24 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          url == o.url &&
-          events == o.events &&
+          name == o.name &&
+          created_at == o.created_at &&
           description == o.description &&
+          storefront_id == o.storefront_id &&
+          kind == o.kind &&
           enabled == o.enabled &&
-          last_delivery_at == o.last_delivery_at &&
-          last_error_at == o.last_error_at &&
-          last_error == o.last_error &&
           consecutive_failures == o.consecutive_failures &&
-          created_at == o.created_at
+          last_error == o.last_error &&
+          last_error_at == o.last_error_at &&
+          events == o.events &&
+          url == o.url &&
+          app_name == o.app_name &&
+          last_delivery_at == o.last_delivery_at &&
+          oauth_app_id == o.oauth_app_id &&
+          destination == o.destination &&
+          event_delivery == o.event_delivery &&
+          has_bot_token == o.has_bot_token &&
+          header_names == o.header_names
     end
 
     # @see the `==` method
@@ -209,7 +359,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, url, events, description, enabled, last_delivery_at, last_error_at, last_error, consecutive_failures, created_at].hash
+      [id, name, created_at, description, storefront_id, kind, enabled, consecutive_failures, last_error, last_error_at, events, url, app_name, last_delivery_at, oauth_app_id, destination, event_delivery, has_bot_token, header_names].hash
     end
 
     # Builds the object from hash

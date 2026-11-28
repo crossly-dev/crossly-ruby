@@ -82,24 +82,30 @@ module Crossly
 
     # Republish a restock prompt to platforms.
     # @param id [String] 
+    # @param create_restock_prompt_republish_request [CreateRestockPromptRepublishRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateRestockPromptRepublishResponse]
-    def create_restock_prompt_republish(id, opts = {})
-      data, _status_code, _headers = create_restock_prompt_republish_with_http_info(id, opts)
+    def create_restock_prompt_republish(id, create_restock_prompt_republish_request, opts = {})
+      data, _status_code, _headers = create_restock_prompt_republish_with_http_info(id, create_restock_prompt_republish_request, opts)
       data
     end
 
     # Republish a restock prompt to platforms.
     # @param id [String] 
+    # @param create_restock_prompt_republish_request [CreateRestockPromptRepublishRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateRestockPromptRepublishResponse, Integer, Hash)>] CreateRestockPromptRepublishResponse data, response status code and response headers
-    def create_restock_prompt_republish_with_http_info(id, opts = {})
+    def create_restock_prompt_republish_with_http_info(id, create_restock_prompt_republish_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RestockPromptsApi.create_restock_prompt_republish ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling RestockPromptsApi.create_restock_prompt_republish"
+      end
+      # verify the required parameter 'create_restock_prompt_republish_request' is set
+      if @api_client.config.client_side_validation && create_restock_prompt_republish_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_restock_prompt_republish_request' when calling RestockPromptsApi.create_restock_prompt_republish"
       end
       # resource path
       local_var_path = '/v1/restock-prompts/{id}/republish'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -111,12 +117,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_restock_prompt_republish_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateRestockPromptRepublishResponse'
@@ -141,8 +152,8 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Whether restocked items are republished automatically.
-    # autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+    # Deprecated: whether every platform account of the store republishes restocked items automatically.
+    # autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically. The setting is per platform account now (GET /api/v1/channel-accounts/:accountId/settings → restock.autoRepublish); this reads true only while every account of the store has it on. Removed next release.
     # @param [Hash] opts the optional parameters
     # @return [GetRestockPromptSettingResponse]
     def get_restock_prompt_setting(opts = {})
@@ -150,8 +161,8 @@ module Crossly
       data
     end
 
-    # Whether restocked items are republished automatically.
-    # autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+    # Deprecated: whether every platform account of the store republishes restocked items automatically.
+    # autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically. The setting is per platform account now (GET /api/v1/channel-accounts/:accountId/settings → restock.autoRepublish); this reads true only while every account of the store has it on. Removed next release.
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetRestockPromptSettingResponse, Integer, Hash)>] GetRestockPromptSettingResponse data, response status code and response headers
     def get_restock_prompt_setting_with_http_info(opts = {})
@@ -253,7 +264,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Turn automatic republish of restocked items on or off.
+    # Deprecated: turn automatic republish on or off for every platform account of the store at once. Use PUT /api/v1/channel-accounts/:accountId/settings { autoRepublish } per account (removed next release).
     # @param get_restock_prompt_setting_response [GetRestockPromptSettingResponse] 
     # @param [Hash] opts the optional parameters
     # @return [GetRestockPromptSettingResponse]
@@ -262,7 +273,7 @@ module Crossly
       data
     end
 
-    # Turn automatic republish of restocked items on or off.
+    # Deprecated: turn automatic republish on or off for every platform account of the store at once. Use PUT /api/v1/channel-accounts/:accountId/settings { autoRepublish } per account (removed next release).
     # @param get_restock_prompt_setting_response [GetRestockPromptSettingResponse] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetRestockPromptSettingResponse, Integer, Hash)>] GetRestockPromptSettingResponse data, response status code and response headers

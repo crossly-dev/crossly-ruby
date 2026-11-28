@@ -36,7 +36,7 @@ module Crossly
     def self.openapi_types
       {
         :'success' => :'Boolean',
-        :'image' => :'GetAiStatusResponseImage'
+        :'image' => :'GetAiRoutingResponseImage'
       }
     end
 

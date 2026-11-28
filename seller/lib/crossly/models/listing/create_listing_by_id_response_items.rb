@@ -185,6 +185,12 @@ module Crossly
     # Which quota this listing is counted in (migration 1064): 'app_allowance' = the attributed app's per-seller allowance (services/app-allowance/), 'plan' = the seller's plan, null = created before allowances / by no app (plan rules). Stays 'app_allowance' after an unlink (grandfathered, no longer counted).
     attr_accessor :quota_bucket
 
+    # The store this listing belongs to (STORE-SCOPE-PLAN D7, migration 1342): stamped at write time from the request store, the connection's home store or the default store. NULL = not stamped yet, which belongs to the owner's DEFAULT store (services/storefronts/scope.ts inStore) until backfill-store-usage.ts stamps it. Hot table: nullable, no default; the index is built CONCURRENTLY in 1343.
+    attr_accessor :storefront_id
+
+    # The teammate this listing (or draft) is assigned to (team_members.id, migration 1613); NULL = unassigned. Written only through the work-assignment service (api-orders services/work-assignment). Hot table: nullable, no default; the partial index is built CONCURRENTLY in 1613.
+    attr_accessor :assignee_member_id
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -287,6 +293,8 @@ module Crossly
         :'attributed_oauth_app_id' => :'attributedOauthAppId',
         :'attributed_grant_id' => :'attributedGrantId',
         :'quota_bucket' => :'quotaBucket',
+        :'storefront_id' => :'storefrontId',
+        :'assignee_member_id' => :'assigneeMemberId',
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt'
       }
@@ -373,6 +381,8 @@ module Crossly
         :'attributed_oauth_app_id' => :'String',
         :'attributed_grant_id' => :'String',
         :'quota_bucket' => :'String',
+        :'storefront_id' => :'String',
+        :'assignee_member_id' => :'String',
         :'created_at' => :'Time',
         :'updated_at' => :'Time'
       }
@@ -429,6 +439,8 @@ module Crossly
         :'attributed_oauth_app_id',
         :'attributed_grant_id',
         :'quota_bucket',
+        :'storefront_id',
+        :'assignee_member_id',
       ])
     end
 
@@ -771,6 +783,14 @@ module Crossly
         self.quota_bucket = attributes[:'quota_bucket']
       end
 
+      if attributes.key?(:'storefront_id')
+        self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'assignee_member_id')
+        self.assignee_member_id = attributes[:'assignee_member_id']
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       end
@@ -1018,6 +1038,8 @@ module Crossly
           attributed_oauth_app_id == o.attributed_oauth_app_id &&
           attributed_grant_id == o.attributed_grant_id &&
           quota_bucket == o.quota_bucket &&
+          storefront_id == o.storefront_id &&
+          assignee_member_id == o.assignee_member_id &&
           created_at == o.created_at &&
           updated_at == o.updated_at
     end
@@ -1031,7 +1053,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [effective_title, effective_price, effective_description, effective_images, effective_brand, effective_condition, effective_size, effective_sku, effective_color, effective_tags, platform_listings, inventory_item_id, id, user_id, name, title, description, description_html, price, currency, images, video_url, ai_media_urls, ai_media_declared, ai_media_detected_urls, status, condition, grade_key, grading, brand, size, material, style, pattern, department, gender, item_type, size_system, color, tags, sku, is_digital, quantity, quantity_available, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, publish_at, scheduled_platforms, parent_listing_id, group_kind, is_bundle, automation_assigned_rule_ids, automation_blocked_rule_ids, automation_assigned_chain_ids, automation_blocked_chain_ids, workflow_blocked_ids, workflow_assigned_ids, hs_code, country_of_origin, price_floor_cents, floor_is_net, delisted_at, sold_at, ebay_attributes_enriched_at, source, duplicate_of_listing_id, client_draft_id, attributed_oauth_app_id, attributed_grant_id, quota_bucket, created_at, updated_at].hash
+      [effective_title, effective_price, effective_description, effective_images, effective_brand, effective_condition, effective_size, effective_sku, effective_color, effective_tags, platform_listings, inventory_item_id, id, user_id, name, title, description, description_html, price, currency, images, video_url, ai_media_urls, ai_media_declared, ai_media_detected_urls, status, condition, grade_key, grading, brand, size, material, style, pattern, department, gender, item_type, size_system, color, tags, sku, is_digital, quantity, quantity_available, weight_lb, weight_oz, dimension_lin, dimension_win, dimension_hin, publish_at, scheduled_platforms, parent_listing_id, group_kind, is_bundle, automation_assigned_rule_ids, automation_blocked_rule_ids, automation_assigned_chain_ids, automation_blocked_chain_ids, workflow_blocked_ids, workflow_assigned_ids, hs_code, country_of_origin, price_floor_cents, floor_is_net, delisted_at, sold_at, ebay_attributes_enriched_at, source, duplicate_of_listing_id, client_draft_id, attributed_oauth_app_id, attributed_grant_id, quota_bucket, storefront_id, assignee_member_id, created_at, updated_at].hash
     end
 
     # Builds the object from hash

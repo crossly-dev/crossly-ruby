@@ -22,6 +22,7 @@ module Crossly
     # The ads for a game's in-world ad surfaces (parts tagged CrosslyAdSurface), for the token's owner: Sponsored Listings labelled \"Ad\", served only to signed-in adults where the game's creator turned ads on, never to its team. A click is POST /api/public/shop/ads/click { token }.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :slots 
     # @return [GetWorldExperienceAdResponse]
     def get_world_experience_ad(experience_id, opts = {})
       data, _status_code, _headers = get_world_experience_ad_with_http_info(experience_id, opts)
@@ -31,6 +32,7 @@ module Crossly
     # The ads for a game&#39;s in-world ad surfaces (parts tagged CrosslyAdSurface), for the token&#39;s owner: Sponsored Listings labelled \&quot;Ad\&quot;, served only to signed-in adults where the game&#39;s creator turned ads on, never to its team. A click is POST /api/public/shop/ads/click { token }.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :slots 
     # @return [Array<(GetWorldExperienceAdResponse, Integer, Hash)>] GetWorldExperienceAdResponse data, response status code and response headers
     def get_world_experience_ad_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -45,6 +47,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'slots'] = opts[:'slots'] if !opts[:'slots'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -83,6 +86,7 @@ module Crossly
     # In-game ads over the last N days (default 30, max 90): impressions, clicks, charged clicks, advertiser spend and your earned share, per day.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [GetWorldExperienceAdReportResponse]
     def get_world_experience_ad_report(experience_id, opts = {})
       data, _status_code, _headers = get_world_experience_ad_report_with_http_info(experience_id, opts)
@@ -92,6 +96,7 @@ module Crossly
     # In-game ads over the last N days (default 30, max 90): impressions, clicks, charged clicks, advertiser spend and your earned share, per day.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :days 
     # @return [Array<(GetWorldExperienceAdReportResponse, Integer, Hash)>] GetWorldExperienceAdReportResponse data, response status code and response headers
     def get_world_experience_ad_report_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -106,6 +111,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -205,6 +211,7 @@ module Crossly
     # Turn in-game ads on or off for this game. Ads fill the game's ad surfaces (parts tagged CrosslyAdSurface); nothing shows until it has one.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [GetWorldExperienceAdSettingResponse]
     def update_world_experience_ad_setting(experience_id, opts = {})
       data, _status_code, _headers = update_world_experience_ad_setting_with_http_info(experience_id, opts)
@@ -214,6 +221,7 @@ module Crossly
     # Turn in-game ads on or off for this game. Ads fill the game&#39;s ad surfaces (parts tagged CrosslyAdSurface); nothing shows until it has one.
     # @param experience_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [EnabledRequest] :enabled_request 
     # @return [Array<(GetWorldExperienceAdSettingResponse, Integer, Hash)>] GetWorldExperienceAdSettingResponse data, response status code and response headers
     def update_world_experience_ad_setting_with_http_info(experience_id, opts = {})
       if @api_client.config.debugging
@@ -233,12 +241,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'enabled_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetWorldExperienceAdSettingResponse'

@@ -84,7 +84,7 @@ module Crossly
         :'lent_units' => :'Float',
         :'insured_value_cents' => :'Float',
         :'mark' => :'GetVaultMarketNavResponseHoldingsMark',
-        :'asc820' => :'GetVaultMarketNavResponseHoldingsAsc820',
+        :'asc820' => :'ReasonRequest',
         :'mark_value_cents' => :'Float',
         :'bid' => :'GetVaultMarketNavResponseHoldingsBid',
         :'liquidation' => :'GetVaultMarketNavResponseHoldingsLiquidation',

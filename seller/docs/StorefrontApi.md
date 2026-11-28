@@ -24,7 +24,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_storefront**](StorefrontApi.md#get_storefront) | **GET** /v1/storefront | Your storefront design: banner, logo, tagline, bio, theme, SEO title and description, social links, and whether it is published. |
 | [**get_storefront_merch**](StorefrontApi.md#get_storefront_merch) | **GET** /v1/storefront/merch | Your store&#39;s live listings by tag, category, condition and brand, with the price range: what product sources can select. |
 | [**get_storefront_profile**](StorefrontApi.md#get_storefront_profile) | **GET** /v1/storefront/profile | Your shop profile (the Crossly Shop page): banner, logo, tagline, bio, accent, announcement, shelves, blocks and All items options. |
-| [**get_storefront_shipping**](StorefrontApi.md#get_storefront_shipping) | **GET** /v1/storefront/shipping | Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address. |
+| [**get_storefront_shipping**](StorefrontApi.md#get_storefront_shipping) | **GET** /v1/storefront/shipping | Your Crossly shipping policy (domestic and international services, which countries you ship to) and the default ship-from address of the store named by X-Storefront-Id (else your default store). |
 | [**get_storefront_site**](StorefrontApi.md#get_storefront_site) | **GET** /v1/storefront/site | Your store website: the draft design, what is live, when each changed, whether the site is switched on, and its custom domain. |
 | [**get_storefront_trade_site**](StorefrontApi.md#get_storefront_trade_site) | **GET** /v1/storefront/trade-site | Your store&#39;s trade (wholesale) site at /site/:slug/trade: the draft, what is live, whether it is on and its gating (public | prices_private | approved_only). |
 | [**list_storefront_highlights**](StorefrontApi.md#list_storefront_highlights) | **GET** /v1/storefront/highlights | Your store’s story highlights in display order, each with its saved stories (media, overlays, product tie-in, when posted). Empty highlights included. |
@@ -38,7 +38,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**update_storefront_profile**](StorefrontApi.md#update_storefront_profile) | **PUT** /v1/storefront/profile | Replace your shop profile (a complete ShopProfile). Saved straight away. |
 | [**update_storefront_section**](StorefrontApi.md#update_storefront_section) | **PATCH** /v1/storefront/sections/{id} | Rename, show/hide, refill (listings shelves) or reconfigure a section. |
 | [**update_storefront_section_reorder**](StorefrontApi.md#update_storefront_section_reorder) | **PUT** /v1/storefront/sections/reorder | Set the section order in one atomic call: every section id, top to bottom. |
-| [**update_storefront_shipping**](StorefrontApi.md#update_storefront_shipping) | **PUT** /v1/storefront/shipping | Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin). |
+| [**update_storefront_shipping**](StorefrontApi.md#update_storefront_shipping) | **PUT** /v1/storefront/shipping | Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or the default ship-from address of the store named by X-Storefront-Id, else your default store (any country; 422 for a sanctioned origin). |
 | [**update_storefront_site_draft**](StorefrontApi.md#update_storefront_site_draft) | **PUT** /v1/storefront/site/draft | Save the website draft (a complete SiteDesign). Validated strictly (a bad field is a 400 naming its path) and sanitized; buyers see nothing until you publish. |
 | [**update_storefront_site_enabled**](StorefrontApi.md#update_storefront_site_enabled) | **PUT** /v1/storefront/site/enabled | Switch the website on or off. On requires a publish first; off makes /site/:slug 404 and the custom domain show the shop profile. |
 | [**update_storefront_trade_site_draft**](StorefrontApi.md#update_storefront_trade_site_draft) | **PUT** /v1/storefront/trade-site/draft | Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized. |
@@ -48,7 +48,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_storefront_highlight
 
-> <CreateStorefrontHighlightResponse> create_storefront_highlight
+> <CreateStorefrontHighlightResponse> create_storefront_highlight(opts)
 
 Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
 
@@ -64,10 +64,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  create_storefront_highlight_request: Crossly::CreateStorefrontHighlightRequest.new({title: 'title_example'}) # CreateStorefrontHighlightRequest | 
+}
 
 begin
   # Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
-  result = api_instance.create_storefront_highlight
+  result = api_instance.create_storefront_highlight(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->create_storefront_highlight: #{e}"
@@ -78,12 +81,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateStorefrontHighlightResponse>, Integer, Hash)> create_storefront_highlight_with_http_info
+> <Array(<CreateStorefrontHighlightResponse>, Integer, Hash)> create_storefront_highlight_with_http_info(opts)
 
 ```ruby
 begin
   # Create a highlight: title (up to 24 characters), optional coverUrl, and optional storyIds (your live or archived stories) to save into it. Up to 50 per store.
-  data, status_code, headers = api_instance.create_storefront_highlight_with_http_info
+  data, status_code, headers = api_instance.create_storefront_highlight_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateStorefrontHighlightResponse>
@@ -94,7 +97,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_storefront_highlight_request** | **CreateStorefrontHighlightRequest** |  | [optional] |
 
 ### Return type
 
@@ -106,13 +111,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_storefront_highlight_item
 
-> <StorefrontHighlightResponse> create_storefront_highlight_item(id)
+> <StorefrontHighlightResponse> create_storefront_highlight_item(id, opts)
 
 Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
 
@@ -129,10 +134,13 @@ end
 
 api_instance = Crossly::StorefrontApi.new
 id = 'id_example' # String | 
+opts = {
+  create_storefront_highlight_item_request: Crossly::CreateStorefrontHighlightItemRequest.new({story_ids: ['story_ids_example']}) # CreateStorefrontHighlightItemRequest | 
+}
 
 begin
   # Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
-  result = api_instance.create_storefront_highlight_item(id)
+  result = api_instance.create_storefront_highlight_item(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->create_storefront_highlight_item: #{e}"
@@ -143,12 +151,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontHighlightResponse>, Integer, Hash)> create_storefront_highlight_item_with_http_info(id)
+> <Array(<StorefrontHighlightResponse>, Integer, Hash)> create_storefront_highlight_item_with_http_info(id, opts)
 
 ```ruby
 begin
   # Save stories into a highlight (appended in the order given). Each is copied, so it stays after the story expires. A story already in the highlight is skipped.
-  data, status_code, headers = api_instance.create_storefront_highlight_item_with_http_info(id)
+  data, status_code, headers = api_instance.create_storefront_highlight_item_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontHighlightResponse>
@@ -162,6 +170,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_storefront_highlight_item_request** | **CreateStorefrontHighlightItemRequest** |  | [optional] |
 
 ### Return type
 
@@ -173,7 +182,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -243,7 +252,7 @@ This endpoint does not need any parameter.
 
 ## create_storefront_section
 
-> <StorefrontSectionResponse> create_storefront_section
+> <StorefrontSectionResponse> create_storefront_section(opts)
 
 Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
 
@@ -259,10 +268,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  create_storefront_section_request: Crossly::CreateStorefrontSectionRequest.new # CreateStorefrontSectionRequest | 
+}
 
 begin
   # Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
-  result = api_instance.create_storefront_section
+  result = api_instance.create_storefront_section(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->create_storefront_section: #{e}"
@@ -273,12 +285,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontSectionResponse>, Integer, Hash)> create_storefront_section_with_http_info
+> <Array(<StorefrontSectionResponse>, Integer, Hash)> create_storefront_section_with_http_info(opts)
 
 ```ruby
 begin
   # Add a section at the bottom: kind hero | listings | collections | about | policies | social | announcement | faq (default listings), with its config.
-  data, status_code, headers = api_instance.create_storefront_section_with_http_info
+  data, status_code, headers = api_instance.create_storefront_section_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontSectionResponse>
@@ -289,7 +301,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_storefront_section_request** | **CreateStorefrontSectionRequest** |  | [optional] |
 
 ### Return type
 
@@ -301,7 +315,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -694,7 +708,7 @@ end
 
 ## create_storefront_trade_site_publish
 
-> <StorefrontResponse2> create_storefront_trade_site_publish
+> <StorefrontResponse2> create_storefront_trade_site_publish(opts)
 
 Publish the trade site draft (a version is kept).
 
@@ -710,10 +724,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  create_storefront_trade_site_publish_request: Crossly::CreateStorefrontTradeSitePublishRequest.new # CreateStorefrontTradeSitePublishRequest | 
+}
 
 begin
   # Publish the trade site draft (a version is kept).
-  result = api_instance.create_storefront_trade_site_publish
+  result = api_instance.create_storefront_trade_site_publish(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->create_storefront_trade_site_publish: #{e}"
@@ -724,12 +741,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontResponse2>, Integer, Hash)> create_storefront_trade_site_publish_with_http_info
+> <Array(<StorefrontResponse2>, Integer, Hash)> create_storefront_trade_site_publish_with_http_info(opts)
 
 ```ruby
 begin
   # Publish the trade site draft (a version is kept).
-  data, status_code, headers = api_instance.create_storefront_trade_site_publish_with_http_info
+  data, status_code, headers = api_instance.create_storefront_trade_site_publish_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontResponse2>
@@ -740,7 +757,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_storefront_trade_site_publish_request** | **CreateStorefrontTradeSitePublishRequest** |  | [optional] |
 
 ### Return type
 
@@ -752,13 +771,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_storefront_trade_site_resolve
 
-> <CreateStorefrontSiteResolveResponse> create_storefront_trade_site_resolve
+> <CreateStorefrontSiteResolveResponse> create_storefront_trade_site_resolve(opts)
 
 The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
 
@@ -774,10 +793,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  create_storefront_trade_site_resolve_request: Crossly::CreateStorefrontTradeSiteResolveRequest.new({source: 3.56}) # CreateStorefrontTradeSiteResolveRequest | 
+}
 
 begin
   # The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
-  result = api_instance.create_storefront_trade_site_resolve
+  result = api_instance.create_storefront_trade_site_resolve(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->create_storefront_trade_site_resolve: #{e}"
@@ -788,12 +810,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateStorefrontSiteResolveResponse>, Integer, Hash)> create_storefront_trade_site_resolve_with_http_info
+> <Array(<CreateStorefrontSiteResolveResponse>, Integer, Hash)> create_storefront_trade_site_resolve_with_http_info(opts)
 
 ```ruby
 begin
   # The listings a ListingSource selects on your trade site: only items in your active wholesale catalogs (narrowed further by source.catalogIds), and how many match.
-  data, status_code, headers = api_instance.create_storefront_trade_site_resolve_with_http_info
+  data, status_code, headers = api_instance.create_storefront_trade_site_resolve_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateStorefrontSiteResolveResponse>
@@ -804,7 +826,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_storefront_trade_site_resolve_request** | **CreateStorefrontTradeSiteResolveRequest** |  | [optional] |
 
 ### Return type
 
@@ -816,13 +840,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_storefront_trade_site_starter
 
-> <StorefrontResponse2> create_storefront_trade_site_starter
+> <StorefrontResponse2> create_storefront_trade_site_starter(opts)
 
 Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
 
@@ -838,10 +862,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  create_storefront_trade_site_starter_request: Crossly::CreateStorefrontTradeSiteStarterRequest.new({starter_id: 'trade_classic'}) # CreateStorefrontTradeSiteStarterRequest | 
+}
 
 begin
   # Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
-  result = api_instance.create_storefront_trade_site_starter
+  result = api_instance.create_storefront_trade_site_starter(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->create_storefront_trade_site_starter: #{e}"
@@ -852,12 +879,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontResponse2>, Integer, Hash)> create_storefront_trade_site_starter_with_http_info
+> <Array(<StorefrontResponse2>, Integer, Hash)> create_storefront_trade_site_starter_with_http_info(opts)
 
 ```ruby
 begin
   # Replace the trade site draft with a trade starter (trade_classic, trade_line_sheet, trade_brand_house, trade_apply_first). The current draft is kept as a version first.
-  data, status_code, headers = api_instance.create_storefront_trade_site_starter_with_http_info
+  data, status_code, headers = api_instance.create_storefront_trade_site_starter_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontResponse2>
@@ -868,7 +895,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_storefront_trade_site_starter_request** | **CreateStorefrontTradeSiteStarterRequest** |  | [optional] |
 
 ### Return type
 
@@ -880,7 +909,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1347,7 +1376,7 @@ This endpoint does not need any parameter.
 
 > <GetStorefrontShippingResponse> get_storefront_shipping
 
-Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address.
+Your Crossly shipping policy (domestic and international services, which countries you ship to) and the default ship-from address of the store named by X-Storefront-Id (else your default store).
 
 ### Examples
 
@@ -1363,7 +1392,7 @@ end
 api_instance = Crossly::StorefrontApi.new
 
 begin
-  # Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address.
+  # Your Crossly shipping policy (domestic and international services, which countries you ship to) and the default ship-from address of the store named by X-Storefront-Id (else your default store).
   result = api_instance.get_storefront_shipping
   p result
 rescue Crossly::ApiError => e
@@ -1379,7 +1408,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Your Crossly shipping policy (domestic and international services, which countries you ship to) and your default ship-from address.
+  # Your Crossly shipping policy (domestic and international services, which countries you ship to) and the default ship-from address of the store named by X-Storefront-Id (else your default store).
   data, status_code, headers = api_instance.get_storefront_shipping_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -1729,7 +1758,7 @@ This endpoint does not need any parameter.
 
 ## list_storefront_story_archive
 
-> <ListStorefrontStoryArchiveResponse> list_storefront_story_archive
+> <ListStorefrontStoryArchiveResponse> list_storefront_story_archive(opts)
 
 Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before = meta.nextCursor of the previous page.
 
@@ -1745,10 +1774,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  before: 'before_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before = meta.nextCursor of the previous page.
-  result = api_instance.list_storefront_story_archive
+  result = api_instance.list_storefront_story_archive(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->list_storefront_story_archive: #{e}"
@@ -1759,12 +1792,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListStorefrontStoryArchiveResponse>, Integer, Hash)> list_storefront_story_archive_with_http_info
+> <Array(<ListStorefrontStoryArchiveResponse>, Integer, Hash)> list_storefront_story_archive_with_http_info(opts)
 
 ```ruby
 begin
   # Your stories, live and expired, newest first: what can be saved to a highlight. Paginated: pass before = meta.nextCursor of the previous page.
-  data, status_code, headers = api_instance.list_storefront_story_archive_with_http_info
+  data, status_code, headers = api_instance.list_storefront_story_archive_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListStorefrontStoryArchiveResponse>
@@ -1775,7 +1808,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **before** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1793,7 +1829,7 @@ This endpoint does not need any parameter.
 
 ## update_storefront
 
-> <GetStorefrontResponse> update_storefront
+> <GetStorefrontResponse> update_storefront(opts)
 
 Update your storefront design. Omitted fields are unchanged, null clears. published=false keeps the design as a draft and buyers see the standard storefront.
 
@@ -1809,10 +1845,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  update_storefront_request: Crossly::UpdateStorefrontRequest.new # UpdateStorefrontRequest | 
+}
 
 begin
   # Update your storefront design. Omitted fields are unchanged, null clears. published=false keeps the design as a draft and buyers see the standard storefront.
-  result = api_instance.update_storefront
+  result = api_instance.update_storefront(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront: #{e}"
@@ -1823,12 +1862,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetStorefrontResponse>, Integer, Hash)> update_storefront_with_http_info
+> <Array(<GetStorefrontResponse>, Integer, Hash)> update_storefront_with_http_info(opts)
 
 ```ruby
 begin
   # Update your storefront design. Omitted fields are unchanged, null clears. published=false keeps the design as a draft and buyers see the standard storefront.
-  data, status_code, headers = api_instance.update_storefront_with_http_info
+  data, status_code, headers = api_instance.update_storefront_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetStorefrontResponse>
@@ -1839,7 +1878,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_storefront_request** | **UpdateStorefrontRequest** |  | [optional] |
 
 ### Return type
 
@@ -1851,13 +1892,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_highlight
 
-> <StorefrontHighlightResponse> update_storefront_highlight(id)
+> <StorefrontHighlightResponse> update_storefront_highlight(id, opts)
 
 Rename a highlight or change its cover (coverUrl null = use the first story).
 
@@ -1874,10 +1915,13 @@ end
 
 api_instance = Crossly::StorefrontApi.new
 id = 'id_example' # String | 
+opts = {
+  update_storefront_highlight_request: Crossly::UpdateStorefrontHighlightRequest.new # UpdateStorefrontHighlightRequest | 
+}
 
 begin
   # Rename a highlight or change its cover (coverUrl null = use the first story).
-  result = api_instance.update_storefront_highlight(id)
+  result = api_instance.update_storefront_highlight(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_highlight: #{e}"
@@ -1888,12 +1932,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontHighlightResponse>, Integer, Hash)> update_storefront_highlight_with_http_info(id)
+> <Array(<StorefrontHighlightResponse>, Integer, Hash)> update_storefront_highlight_with_http_info(id, opts)
 
 ```ruby
 begin
   # Rename a highlight or change its cover (coverUrl null = use the first story).
-  data, status_code, headers = api_instance.update_storefront_highlight_with_http_info(id)
+  data, status_code, headers = api_instance.update_storefront_highlight_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontHighlightResponse>
@@ -1907,6 +1951,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_storefront_highlight_request** | **UpdateStorefrontHighlightRequest** |  | [optional] |
 
 ### Return type
 
@@ -1918,13 +1963,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_highlight_item_order
 
-> <StorefrontHighlightResponse> update_storefront_highlight_item_order(id)
+> <StorefrontHighlightResponse> update_storefront_highlight_item_order(id, opts)
 
 Set the order of a highlight’s saved stories: every item id, first to last.
 
@@ -1941,10 +1986,13 @@ end
 
 api_instance = Crossly::StorefrontApi.new
 id = 'id_example' # String | 
+opts = {
+  create_listing_by_id_request: Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
+}
 
 begin
   # Set the order of a highlight’s saved stories: every item id, first to last.
-  result = api_instance.update_storefront_highlight_item_order(id)
+  result = api_instance.update_storefront_highlight_item_order(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_highlight_item_order: #{e}"
@@ -1955,12 +2003,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontHighlightResponse>, Integer, Hash)> update_storefront_highlight_item_order_with_http_info(id)
+> <Array(<StorefrontHighlightResponse>, Integer, Hash)> update_storefront_highlight_item_order_with_http_info(id, opts)
 
 ```ruby
 begin
   # Set the order of a highlight’s saved stories: every item id, first to last.
-  data, status_code, headers = api_instance.update_storefront_highlight_item_order_with_http_info(id)
+  data, status_code, headers = api_instance.update_storefront_highlight_item_order_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontHighlightResponse>
@@ -1974,6 +2022,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -1985,13 +2034,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_highlight_order
 
-> <ListStorefrontHighlightsResponse> update_storefront_highlight_order
+> <ListStorefrontHighlightsResponse> update_storefront_highlight_order(opts)
 
 Set the highlight order in one call: every highlight id, first to last.
 
@@ -2007,10 +2056,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  create_listing_by_id_request: Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
+}
 
 begin
   # Set the highlight order in one call: every highlight id, first to last.
-  result = api_instance.update_storefront_highlight_order
+  result = api_instance.update_storefront_highlight_order(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_highlight_order: #{e}"
@@ -2021,12 +2073,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListStorefrontHighlightsResponse>, Integer, Hash)> update_storefront_highlight_order_with_http_info
+> <Array(<ListStorefrontHighlightsResponse>, Integer, Hash)> update_storefront_highlight_order_with_http_info(opts)
 
 ```ruby
 begin
   # Set the highlight order in one call: every highlight id, first to last.
-  data, status_code, headers = api_instance.update_storefront_highlight_order_with_http_info
+  data, status_code, headers = api_instance.update_storefront_highlight_order_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListStorefrontHighlightsResponse>
@@ -2037,7 +2089,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -2049,7 +2103,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2119,7 +2173,7 @@ This endpoint does not need any parameter.
 
 ## update_storefront_section
 
-> <StorefrontSectionResponse> update_storefront_section(id)
+> <StorefrontSectionResponse> update_storefront_section(id, opts)
 
 Rename, show/hide, refill (listings shelves) or reconfigure a section.
 
@@ -2136,10 +2190,13 @@ end
 
 api_instance = Crossly::StorefrontApi.new
 id = 'id_example' # String | 
+opts = {
+  update_storefront_section_request: Crossly::UpdateStorefrontSectionRequest.new # UpdateStorefrontSectionRequest | 
+}
 
 begin
   # Rename, show/hide, refill (listings shelves) or reconfigure a section.
-  result = api_instance.update_storefront_section(id)
+  result = api_instance.update_storefront_section(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_section: #{e}"
@@ -2150,12 +2207,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontSectionResponse>, Integer, Hash)> update_storefront_section_with_http_info(id)
+> <Array(<StorefrontSectionResponse>, Integer, Hash)> update_storefront_section_with_http_info(id, opts)
 
 ```ruby
 begin
   # Rename, show/hide, refill (listings shelves) or reconfigure a section.
-  data, status_code, headers = api_instance.update_storefront_section_with_http_info(id)
+  data, status_code, headers = api_instance.update_storefront_section_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontSectionResponse>
@@ -2169,6 +2226,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_storefront_section_request** | **UpdateStorefrontSectionRequest** |  | [optional] |
 
 ### Return type
 
@@ -2180,13 +2238,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_section_reorder
 
-> <StorefrontResponse4> update_storefront_section_reorder
+> <StorefrontResponse4> update_storefront_section_reorder(create_listing_by_id_request)
 
 Set the section order in one atomic call: every section id, top to bottom.
 
@@ -2202,10 +2260,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+create_listing_by_id_request = Crossly::CreateListingByIdRequest.new({ids: ['ids_example']}) # CreateListingByIdRequest | 
 
 begin
   # Set the section order in one atomic call: every section id, top to bottom.
-  result = api_instance.update_storefront_section_reorder
+  result = api_instance.update_storefront_section_reorder(create_listing_by_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_section_reorder: #{e}"
@@ -2216,12 +2275,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontResponse4>, Integer, Hash)> update_storefront_section_reorder_with_http_info
+> <Array(<StorefrontResponse4>, Integer, Hash)> update_storefront_section_reorder_with_http_info(create_listing_by_id_request)
 
 ```ruby
 begin
   # Set the section order in one atomic call: every section id, top to bottom.
-  data, status_code, headers = api_instance.update_storefront_section_reorder_with_http_info
+  data, status_code, headers = api_instance.update_storefront_section_reorder_with_http_info(create_listing_by_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontResponse4>
@@ -2232,7 +2291,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_listing_by_id_request** | **CreateListingByIdRequest** |  |  |
 
 ### Return type
 
@@ -2244,15 +2305,15 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_shipping
 
-> <GetStorefrontShippingResponse> update_storefront_shipping
+> <GetStorefrontShippingResponse> update_storefront_shipping(update_storefront_shipping_request)
 
-Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin).
+Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or the default ship-from address of the store named by X-Storefront-Id, else your default store (any country; 422 for a sanctioned origin).
 
 ### Examples
 
@@ -2266,10 +2327,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+update_storefront_shipping_request = Crossly::UpdateStorefrontShippingRequest.new # UpdateStorefrontShippingRequest | 
 
 begin
-  # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin).
-  result = api_instance.update_storefront_shipping
+  # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or the default ship-from address of the store named by X-Storefront-Id, else your default store (any country; 422 for a sanctioned origin).
+  result = api_instance.update_storefront_shipping(update_storefront_shipping_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_shipping: #{e}"
@@ -2280,12 +2342,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetStorefrontShippingResponse>, Integer, Hash)> update_storefront_shipping_with_http_info
+> <Array(<GetStorefrontShippingResponse>, Integer, Hash)> update_storefront_shipping_with_http_info(update_storefront_shipping_request)
 
 ```ruby
 begin
-  # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or your default ship-from address (any country; 422 for a sanctioned origin).
-  data, status_code, headers = api_instance.update_storefront_shipping_with_http_info
+  # Set your shipping policy (international.enabled, shipsTo worldwide or ISO codes, excludes) and/or the default ship-from address of the store named by X-Storefront-Id, else your default store (any country; 422 for a sanctioned origin).
+  data, status_code, headers = api_instance.update_storefront_shipping_with_http_info(update_storefront_shipping_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetStorefrontShippingResponse>
@@ -2296,7 +2358,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_storefront_shipping_request** | **UpdateStorefrontShippingRequest** |  |  |
 
 ### Return type
 
@@ -2308,7 +2372,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2442,7 +2506,7 @@ This endpoint does not need any parameter.
 
 ## update_storefront_trade_site_draft
 
-> <StorefrontResponse2> update_storefront_trade_site_draft
+> <StorefrontResponse2> update_storefront_trade_site_draft(opts)
 
 Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
 
@@ -2458,10 +2522,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  update_storefront_trade_site_draft_request: Crossly::UpdateStorefrontTradeSiteDraftRequest.new({design: 3.56}) # UpdateStorefrontTradeSiteDraftRequest | 
+}
 
 begin
   # Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
-  result = api_instance.update_storefront_trade_site_draft
+  result = api_instance.update_storefront_trade_site_draft(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_trade_site_draft: #{e}"
@@ -2472,12 +2539,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontResponse2>, Integer, Hash)> update_storefront_trade_site_draft_with_http_info
+> <Array(<StorefrontResponse2>, Integer, Hash)> update_storefront_trade_site_draft_with_http_info(opts)
 
 ```ruby
 begin
   # Save the trade site draft (a complete SiteDesign; trade sections included). Validated strictly and sanitized.
-  data, status_code, headers = api_instance.update_storefront_trade_site_draft_with_http_info
+  data, status_code, headers = api_instance.update_storefront_trade_site_draft_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontResponse2>
@@ -2488,7 +2555,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_storefront_trade_site_draft_request** | **UpdateStorefrontTradeSiteDraftRequest** |  | [optional] |
 
 ### Return type
 
@@ -2500,13 +2569,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_trade_site_enabled
 
-> <StorefrontResponse3> update_storefront_trade_site_enabled
+> <StorefrontResponse3> update_storefront_trade_site_enabled(opts)
 
 Switch the trade site on (needs a publish first) or off.
 
@@ -2522,10 +2591,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  enabled_request: Crossly::EnabledRequest.new({enabled: false}) # EnabledRequest | 
+}
 
 begin
   # Switch the trade site on (needs a publish first) or off.
-  result = api_instance.update_storefront_trade_site_enabled
+  result = api_instance.update_storefront_trade_site_enabled(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_trade_site_enabled: #{e}"
@@ -2536,12 +2608,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontResponse3>, Integer, Hash)> update_storefront_trade_site_enabled_with_http_info
+> <Array(<StorefrontResponse3>, Integer, Hash)> update_storefront_trade_site_enabled_with_http_info(opts)
 
 ```ruby
 begin
   # Switch the trade site on (needs a publish first) or off.
-  data, status_code, headers = api_instance.update_storefront_trade_site_enabled_with_http_info
+  data, status_code, headers = api_instance.update_storefront_trade_site_enabled_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontResponse3>
@@ -2552,7 +2624,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **enabled_request** | **EnabledRequest** |  | [optional] |
 
 ### Return type
 
@@ -2564,13 +2638,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_storefront_trade_site_gating
 
-> <StorefrontResponse3> update_storefront_trade_site_gating
+> <StorefrontResponse3> update_storefront_trade_site_gating(opts)
 
 Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
 
@@ -2586,10 +2660,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::StorefrontApi.new
+opts = {
+  update_storefront_trade_site_gating_request: Crossly::UpdateStorefrontTradeSiteGatingRequest.new({gating: 'public'}) # UpdateStorefrontTradeSiteGatingRequest | 
+}
 
 begin
   # Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
-  result = api_instance.update_storefront_trade_site_gating
+  result = api_instance.update_storefront_trade_site_gating(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling StorefrontApi->update_storefront_trade_site_gating: #{e}"
@@ -2600,12 +2677,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StorefrontResponse3>, Integer, Hash)> update_storefront_trade_site_gating_with_http_info
+> <Array(<StorefrontResponse3>, Integer, Hash)> update_storefront_trade_site_gating_with_http_info(opts)
 
 ```ruby
 begin
   # Who sees the trade site: public (everyone, with prices), prices_private (everyone, prices for approved buyers) or approved_only (approved buyers; others get the apply page).
-  data, status_code, headers = api_instance.update_storefront_trade_site_gating_with_http_info
+  data, status_code, headers = api_instance.update_storefront_trade_site_gating_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StorefrontResponse3>
@@ -2616,7 +2693,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_storefront_trade_site_gating_request** | **UpdateStorefrontTradeSiteGatingRequest** |  | [optional] |
 
 ### Return type
 
@@ -2628,6 +2707,6 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

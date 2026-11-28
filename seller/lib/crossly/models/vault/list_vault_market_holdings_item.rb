@@ -70,6 +70,9 @@ module Crossly
 
     attr_accessor :deposit
 
+    # The seller's inventory item for this unit (p5-13: a holding opens its item page): the one it was sent in from,  else the one it got when it was bought on the book (migration 1496). 1496 backfilled older units.
+    attr_accessor :inventory_item_id
+
     attr_accessor :actions
 
     class EnumAttributeValidator
@@ -124,6 +127,7 @@ module Crossly
         :'created_at' => :'createdAt',
         :'updated_at' => :'updatedAt',
         :'deposit' => :'deposit',
+        :'inventory_item_id' => :'inventoryItemId',
         :'actions' => :'actions'
       }
     end
@@ -163,6 +167,7 @@ module Crossly
         :'created_at' => :'String',
         :'updated_at' => :'String',
         :'deposit' => :'ListVaultMarketHoldingsItemDeposit',
+        :'inventory_item_id' => :'String',
         :'actions' => :'ListVaultMarketHoldingsItemActions'
       }
     end
@@ -186,6 +191,7 @@ module Crossly
         :'withdraw_tracking',
         :'received_at',
         :'deposit',
+        :'inventory_item_id',
       ])
     end
 
@@ -312,6 +318,10 @@ module Crossly
         self.deposit = attributes[:'deposit']
       end
 
+      if attributes.key?(:'inventory_item_id')
+        self.inventory_item_id = attributes[:'inventory_item_id']
+      end
+
       if attributes.key?(:'actions')
         self.actions = attributes[:'actions']
       end
@@ -434,6 +444,7 @@ module Crossly
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           deposit == o.deposit &&
+          inventory_item_id == o.inventory_item_id &&
           actions == o.actions
     end
 
@@ -446,7 +457,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, situation, past, source, name, image_url, variant_label, condition, grade_key, book_key, location, value_cents, value_source, mark_cents, last_sale_cents, declared_value_cents, insured_value_cents, storage_accrued_cents, ask_price_cents, early_withdraw_fee_cents, withdraw_speed, withdraw_tracking, received_at, created_at, updated_at, deposit, actions].hash
+      [id, status, situation, past, source, name, image_url, variant_label, condition, grade_key, book_key, location, value_cents, value_source, mark_cents, last_sale_cents, declared_value_cents, insured_value_cents, storage_accrued_cents, ask_price_cents, early_withdraw_fee_cents, withdraw_speed, withdraw_tracking, received_at, created_at, updated_at, deposit, inventory_item_id, actions].hash
     end
 
     # Builds the object from hash

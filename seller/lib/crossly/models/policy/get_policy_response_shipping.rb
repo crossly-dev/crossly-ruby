@@ -36,7 +36,7 @@ module Crossly
     def self.openapi_types
       {
         :'default_preset_id' => :'String',
-        :'presets' => :'Array<ListPolicyPresetsItem>'
+        :'presets' => :'Array<GetPolicyResponseShippingPresets>'
       }
     end
 

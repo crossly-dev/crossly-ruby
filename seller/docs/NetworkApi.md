@@ -339,7 +339,7 @@ end
 
 ## update_network_pool
 
-> <OkResponse> update_network_pool
+> <OkResponse> update_network_pool(update_network_pool_request)
 
 Update per-action toggles + platforms on pool membership.
 
@@ -355,10 +355,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::NetworkApi.new
+update_network_pool_request = Crossly::UpdateNetworkPoolRequest.new # UpdateNetworkPoolRequest | 
 
 begin
   # Update per-action toggles + platforms on pool membership.
-  result = api_instance.update_network_pool
+  result = api_instance.update_network_pool(update_network_pool_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling NetworkApi->update_network_pool: #{e}"
@@ -369,12 +370,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> update_network_pool_with_http_info
+> <Array(<OkResponse>, Integer, Hash)> update_network_pool_with_http_info(update_network_pool_request)
 
 ```ruby
 begin
   # Update per-action toggles + platforms on pool membership.
-  data, status_code, headers = api_instance.update_network_pool_with_http_info
+  data, status_code, headers = api_instance.update_network_pool_with_http_info(update_network_pool_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -385,7 +386,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_network_pool_request** | **UpdateNetworkPoolRequest** |  |  |
 
 ### Return type
 
@@ -397,6 +400,6 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

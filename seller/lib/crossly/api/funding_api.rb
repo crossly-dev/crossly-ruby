@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Apply for Crossly Funding. Decided at once on the checklist rules: approved opens your line (limit = 25% of 90 days of settled Crossly payouts), declined lists why, needs_review goes to a person.
+    # @param create_funding_apply_request [CreateFundingApplyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingApplyResponse]
-    def create_funding_apply(opts = {})
-      data, _status_code, _headers = create_funding_apply_with_http_info(opts)
+    def create_funding_apply(create_funding_apply_request, opts = {})
+      data, _status_code, _headers = create_funding_apply_with_http_info(create_funding_apply_request, opts)
       data
     end
 
     # Apply for Crossly Funding. Decided at once on the checklist rules: approved opens your line (limit &#x3D; 25% of 90 days of settled Crossly payouts), declined lists why, needs_review goes to a person.
+    # @param create_funding_apply_request [CreateFundingApplyRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingApplyResponse, Integer, Hash)>] CreateFundingApplyResponse data, response status code and response headers
-    def create_funding_apply_with_http_info(opts = {})
+    def create_funding_apply_with_http_info(create_funding_apply_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_apply ...'
+      end
+      # verify the required parameter 'create_funding_apply_request' is set
+      if @api_client.config.client_side_validation && create_funding_apply_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_apply_request' when calling FundingApi.create_funding_apply"
       end
       # resource path
       local_var_path = '/v1/funding/apply'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_apply_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingApplyResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Draw on your line for a supplier order. Send the supplier, the invoice (an uploaded invoiceFileId from POST /v1/funding/invoice-files, a reference, or a URL) and the APR from the quote you accepted (acceptedAprBps); refused if your rate changed. The advance is held as in-platform Crossly balance, never cash. Idempotent on idempotencyKey.
+    # @param create_funding_draw_request [CreateFundingDrawRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingDrawResponse]
-    def create_funding_draw(opts = {})
-      data, _status_code, _headers = create_funding_draw_with_http_info(opts)
+    def create_funding_draw(create_funding_draw_request, opts = {})
+      data, _status_code, _headers = create_funding_draw_with_http_info(create_funding_draw_request, opts)
       data
     end
 
     # Draw on your line for a supplier order. Send the supplier, the invoice (an uploaded invoiceFileId from POST /v1/funding/invoice-files, a reference, or a URL) and the APR from the quote you accepted (acceptedAprBps); refused if your rate changed. The advance is held as in-platform Crossly balance, never cash. Idempotent on idempotencyKey.
+    # @param create_funding_draw_request [CreateFundingDrawRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingDrawResponse, Integer, Hash)>] CreateFundingDrawResponse data, response status code and response headers
-    def create_funding_draw_with_http_info(opts = {})
+    def create_funding_draw_with_http_info(create_funding_draw_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_draw ...'
+      end
+      # verify the required parameter 'create_funding_draw_request' is set
+      if @api_client.config.client_side_validation && create_funding_draw_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_draw_request' when calling FundingApi.create_funding_draw"
       end
       # resource path
       local_var_path = '/v1/funding/draws'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_draw_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingDrawResponse'
@@ -132,6 +154,7 @@ module Crossly
     # Approve a held draw. The two-person rule needs two distinct approvers; the requester never approves their own.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [NoteRequest] :note_request 
     # @return [CreateFundingDrawRejectResponse]
     def create_funding_draw_approve(id, opts = {})
       data, _status_code, _headers = create_funding_draw_approve_with_http_info(id, opts)
@@ -141,6 +164,7 @@ module Crossly
     # Approve a held draw. The two-person rule needs two distinct approvers; the requester never approves their own.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [NoteRequest] :note_request 
     # @return [Array<(CreateFundingDrawRejectResponse, Integer, Hash)>] CreateFundingDrawRejectResponse data, response status code and response headers
     def create_funding_draw_approve_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -160,12 +184,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'note_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingDrawRejectResponse'
@@ -191,19 +220,25 @@ module Crossly
     end
 
     # The disclosure for a draw of amountCents: APR, the simple-interest fee for the full term, the total and the due date, plus your available headroom. Nothing is drawn.
+    # @param create_funding_draw_quote_request [CreateFundingDrawQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingDrawQuoteResponse]
-    def create_funding_draw_quote(opts = {})
-      data, _status_code, _headers = create_funding_draw_quote_with_http_info(opts)
+    def create_funding_draw_quote(create_funding_draw_quote_request, opts = {})
+      data, _status_code, _headers = create_funding_draw_quote_with_http_info(create_funding_draw_quote_request, opts)
       data
     end
 
     # The disclosure for a draw of amountCents: APR, the simple-interest fee for the full term, the total and the due date, plus your available headroom. Nothing is drawn.
+    # @param create_funding_draw_quote_request [CreateFundingDrawQuoteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingDrawQuoteResponse, Integer, Hash)>] CreateFundingDrawQuoteResponse data, response status code and response headers
-    def create_funding_draw_quote_with_http_info(opts = {})
+    def create_funding_draw_quote_with_http_info(create_funding_draw_quote_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_draw_quote ...'
+      end
+      # verify the required parameter 'create_funding_draw_quote_request' is set
+      if @api_client.config.client_side_validation && create_funding_draw_quote_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_draw_quote_request' when calling FundingApi.create_funding_draw_quote"
       end
       # resource path
       local_var_path = '/v1/funding/draws/quote'
@@ -215,12 +250,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_draw_quote_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingDrawQuoteResponse'
@@ -248,6 +288,7 @@ module Crossly
     # Reject a held draw. Nothing was drawn, so nothing is owed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [NoteRequest] :note_request 
     # @return [CreateFundingDrawRejectResponse]
     def create_funding_draw_reject(id, opts = {})
       data, _status_code, _headers = create_funding_draw_reject_with_http_info(id, opts)
@@ -257,6 +298,7 @@ module Crossly
     # Reject a held draw. Nothing was drawn, so nothing is owed.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [NoteRequest] :note_request 
     # @return [Array<(CreateFundingDrawRejectResponse, Integer, Hash)>] CreateFundingDrawRejectResponse data, response status code and response headers
     def create_funding_draw_reject_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -276,12 +318,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'note_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingDrawRejectResponse'
@@ -307,19 +354,25 @@ module Crossly
     end
 
     # Request a draw for an approved use. Refused by the spend controls, held for approval (stage requested — no debt until disbursed), or disbursed at once as restricted funding CBX. A DEBT with interest: show the disclosure first.
+    # @param create_funding_draw_use_request [CreateFundingDrawUseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingDrawUseResponse]
-    def create_funding_draw_use(opts = {})
-      data, _status_code, _headers = create_funding_draw_use_with_http_info(opts)
+    def create_funding_draw_use(create_funding_draw_use_request, opts = {})
+      data, _status_code, _headers = create_funding_draw_use_with_http_info(create_funding_draw_use_request, opts)
       data
     end
 
     # Request a draw for an approved use. Refused by the spend controls, held for approval (stage requested — no debt until disbursed), or disbursed at once as restricted funding CBX. A DEBT with interest: show the disclosure first.
+    # @param create_funding_draw_use_request [CreateFundingDrawUseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingDrawUseResponse, Integer, Hash)>] CreateFundingDrawUseResponse data, response status code and response headers
-    def create_funding_draw_use_with_http_info(opts = {})
+    def create_funding_draw_use_with_http_info(create_funding_draw_use_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_draw_use ...'
+      end
+      # verify the required parameter 'create_funding_draw_use_request' is set
+      if @api_client.config.client_side_validation && create_funding_draw_use_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_draw_use_request' when calling FundingApi.create_funding_draw_use"
       end
       # resource path
       local_var_path = '/v1/funding/draws/use'
@@ -331,12 +384,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_draw_use_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingDrawUseResponse'
@@ -362,19 +420,25 @@ module Crossly
     end
 
     # Sign an upload for a supplier invoice: a PDF or image (application/pdf, image/jpeg, image/png, image/webp, image/heic) of at most 15 MB. PUT the bytes to uploadUrl with the same Content-Type and exactly contentLength bytes, then draw with invoiceFileId = file.id. Stored privately; one draw per file.
+    # @param create_funding_invoice_file_request [CreateFundingInvoiceFileRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingInvoiceFileResponse]
-    def create_funding_invoice_file(opts = {})
-      data, _status_code, _headers = create_funding_invoice_file_with_http_info(opts)
+    def create_funding_invoice_file(create_funding_invoice_file_request, opts = {})
+      data, _status_code, _headers = create_funding_invoice_file_with_http_info(create_funding_invoice_file_request, opts)
       data
     end
 
     # Sign an upload for a supplier invoice: a PDF or image (application/pdf, image/jpeg, image/png, image/webp, image/heic) of at most 15 MB. PUT the bytes to uploadUrl with the same Content-Type and exactly contentLength bytes, then draw with invoiceFileId &#x3D; file.id. Stored privately; one draw per file.
+    # @param create_funding_invoice_file_request [CreateFundingInvoiceFileRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingInvoiceFileResponse, Integer, Hash)>] CreateFundingInvoiceFileResponse data, response status code and response headers
-    def create_funding_invoice_file_with_http_info(opts = {})
+    def create_funding_invoice_file_with_http_info(create_funding_invoice_file_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_invoice_file ...'
+      end
+      # verify the required parameter 'create_funding_invoice_file_request' is set
+      if @api_client.config.client_side_validation && create_funding_invoice_file_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_invoice_file_request' when calling FundingApi.create_funding_invoice_file"
       end
       # resource path
       local_var_path = '/v1/funding/invoice-files'
@@ -386,12 +450,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_invoice_file_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingInvoiceFileResponse'
@@ -417,19 +486,25 @@ module Crossly
     end
 
     # Pay an open invoice of your Crossly plan with restricted funding CBX (no card is charged; the invoice is marked paid). Idempotent per invoice.
+    # @param create_funding_pay_crossly_fee_request [CreateFundingPayCrosslyFeeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingPayCrosslyFeeResponse]
-    def create_funding_pay_crossly_fee(opts = {})
-      data, _status_code, _headers = create_funding_pay_crossly_fee_with_http_info(opts)
+    def create_funding_pay_crossly_fee(create_funding_pay_crossly_fee_request, opts = {})
+      data, _status_code, _headers = create_funding_pay_crossly_fee_with_http_info(create_funding_pay_crossly_fee_request, opts)
       data
     end
 
     # Pay an open invoice of your Crossly plan with restricted funding CBX (no card is charged; the invoice is marked paid). Idempotent per invoice.
+    # @param create_funding_pay_crossly_fee_request [CreateFundingPayCrosslyFeeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingPayCrosslyFeeResponse, Integer, Hash)>] CreateFundingPayCrosslyFeeResponse data, response status code and response headers
-    def create_funding_pay_crossly_fee_with_http_info(opts = {})
+    def create_funding_pay_crossly_fee_with_http_info(create_funding_pay_crossly_fee_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_pay_crossly_fee ...'
+      end
+      # verify the required parameter 'create_funding_pay_crossly_fee_request' is set
+      if @api_client.config.client_side_validation && create_funding_pay_crossly_fee_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_pay_crossly_fee_request' when calling FundingApi.create_funding_pay_crossly_fee"
       end
       # resource path
       local_var_path = '/v1/funding/pay/crossly-fees'
@@ -441,12 +516,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_pay_crossly_fee_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingPayCrosslyFeeResponse'
@@ -472,19 +552,25 @@ module Crossly
     end
 
     # Top up your shipping wallet with restricted funding CBX; labels you buy are then debited from it. Idempotent on idempotencyKey. Refused when the spend controls forbid shipping labels or it is over your approval threshold with no approved draw.
+    # @param create_funding_pay_shipping_label_request [CreateFundingPayShippingLabelRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingPayShippingLabelResponse]
-    def create_funding_pay_shipping_label(opts = {})
-      data, _status_code, _headers = create_funding_pay_shipping_label_with_http_info(opts)
+    def create_funding_pay_shipping_label(create_funding_pay_shipping_label_request, opts = {})
+      data, _status_code, _headers = create_funding_pay_shipping_label_with_http_info(create_funding_pay_shipping_label_request, opts)
       data
     end
 
     # Top up your shipping wallet with restricted funding CBX; labels you buy are then debited from it. Idempotent on idempotencyKey. Refused when the spend controls forbid shipping labels or it is over your approval threshold with no approved draw.
+    # @param create_funding_pay_shipping_label_request [CreateFundingPayShippingLabelRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingPayShippingLabelResponse, Integer, Hash)>] CreateFundingPayShippingLabelResponse data, response status code and response headers
-    def create_funding_pay_shipping_label_with_http_info(opts = {})
+    def create_funding_pay_shipping_label_with_http_info(create_funding_pay_shipping_label_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_pay_shipping_label ...'
+      end
+      # verify the required parameter 'create_funding_pay_shipping_label_request' is set
+      if @api_client.config.client_side_validation && create_funding_pay_shipping_label_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_pay_shipping_label_request' when calling FundingApi.create_funding_pay_shipping_label"
       end
       # resource path
       local_var_path = '/v1/funding/pay/shipping-labels'
@@ -496,12 +582,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_pay_shipping_label_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingPayShippingLabelResponse'
@@ -527,19 +618,25 @@ module Crossly
     end
 
     # Ship a stored Vault unit home and pay its fee (shipping, storage owed, early withdrawal) with restricted funding CBX instead of your card.
+    # @param create_funding_pay_vault_fee_request [CreateFundingPayVaultFeeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingPayVaultFeeResponse]
-    def create_funding_pay_vault_fee(opts = {})
-      data, _status_code, _headers = create_funding_pay_vault_fee_with_http_info(opts)
+    def create_funding_pay_vault_fee(create_funding_pay_vault_fee_request, opts = {})
+      data, _status_code, _headers = create_funding_pay_vault_fee_with_http_info(create_funding_pay_vault_fee_request, opts)
       data
     end
 
     # Ship a stored Vault unit home and pay its fee (shipping, storage owed, early withdrawal) with restricted funding CBX instead of your card.
+    # @param create_funding_pay_vault_fee_request [CreateFundingPayVaultFeeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingPayVaultFeeResponse, Integer, Hash)>] CreateFundingPayVaultFeeResponse data, response status code and response headers
-    def create_funding_pay_vault_fee_with_http_info(opts = {})
+    def create_funding_pay_vault_fee_with_http_info(create_funding_pay_vault_fee_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_pay_vault_fee ...'
+      end
+      # verify the required parameter 'create_funding_pay_vault_fee_request' is set
+      if @api_client.config.client_side_validation && create_funding_pay_vault_fee_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_pay_vault_fee_request' when calling FundingApi.create_funding_pay_vault_fee"
       end
       # resource path
       local_var_path = '/v1/funding/pay/vault-fees'
@@ -551,12 +648,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_pay_vault_fee_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingPayVaultFeeResponse'
@@ -582,19 +684,25 @@ module Crossly
     end
 
     # Stake earned CBX into the funding pool. Refused, with the reason, until the pool is live and staking is open.
+    # @param create_funding_pool_stake_request [CreateFundingPoolStakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingPoolStakeResponse]
-    def create_funding_pool_stake(opts = {})
-      data, _status_code, _headers = create_funding_pool_stake_with_http_info(opts)
+    def create_funding_pool_stake(create_funding_pool_stake_request, opts = {})
+      data, _status_code, _headers = create_funding_pool_stake_with_http_info(create_funding_pool_stake_request, opts)
       data
     end
 
     # Stake earned CBX into the funding pool. Refused, with the reason, until the pool is live and staking is open.
+    # @param create_funding_pool_stake_request [CreateFundingPoolStakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingPoolStakeResponse, Integer, Hash)>] CreateFundingPoolStakeResponse data, response status code and response headers
-    def create_funding_pool_stake_with_http_info(opts = {})
+    def create_funding_pool_stake_with_http_info(create_funding_pool_stake_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_pool_stake ...'
+      end
+      # verify the required parameter 'create_funding_pool_stake_request' is set
+      if @api_client.config.client_side_validation && create_funding_pool_stake_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_pool_stake_request' when calling FundingApi.create_funding_pool_stake"
       end
       # resource path
       local_var_path = '/v1/funding/pool/stake'
@@ -606,12 +714,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_pool_stake_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingPoolStakeResponse'
@@ -637,19 +750,25 @@ module Crossly
     end
 
     # Queue an unstake. Paid first-in first-out once your lockup has passed.
+    # @param create_funding_pool_unstake_request [CreateFundingPoolUnstakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [FundingPoolResponse]
-    def create_funding_pool_unstake(opts = {})
-      data, _status_code, _headers = create_funding_pool_unstake_with_http_info(opts)
+    def create_funding_pool_unstake(create_funding_pool_unstake_request, opts = {})
+      data, _status_code, _headers = create_funding_pool_unstake_with_http_info(create_funding_pool_unstake_request, opts)
       data
     end
 
     # Queue an unstake. Paid first-in first-out once your lockup has passed.
+    # @param create_funding_pool_unstake_request [CreateFundingPoolUnstakeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(FundingPoolResponse, Integer, Hash)>] FundingPoolResponse data, response status code and response headers
-    def create_funding_pool_unstake_with_http_info(opts = {})
+    def create_funding_pool_unstake_with_http_info(create_funding_pool_unstake_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_pool_unstake ...'
+      end
+      # verify the required parameter 'create_funding_pool_unstake_request' is set
+      if @api_client.config.client_side_validation && create_funding_pool_unstake_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_pool_unstake_request' when calling FundingApi.create_funding_pool_unstake"
       end
       # resource path
       local_var_path = '/v1/funding/pool/unstake'
@@ -661,12 +780,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_pool_unstake_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'FundingPoolResponse'
@@ -808,19 +932,25 @@ module Crossly
     end
 
     # Repay. source \"balance\" (default) takes it from your available Stripe payout balance and applies it at once. source \"card\" returns a PaymentIntent client secret to confirm with Stripe; source \"checkout\" returns checkoutUrl, a hosted Stripe Checkout page the seller pays on (no Stripe SDK needed). source \"cbx\" pays early from your EARNED CBX at the obligation rate (granted and funding CBX never repay a line) and applies at once. Card and checkout apply when the payment succeeds. Never more than you owe; idempotent on idempotencyKey.
+    # @param create_funding_repay_request [CreateFundingRepayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateFundingRepayResponse]
-    def create_funding_repay(opts = {})
-      data, _status_code, _headers = create_funding_repay_with_http_info(opts)
+    def create_funding_repay(create_funding_repay_request, opts = {})
+      data, _status_code, _headers = create_funding_repay_with_http_info(create_funding_repay_request, opts)
       data
     end
 
     # Repay. source \&quot;balance\&quot; (default) takes it from your available Stripe payout balance and applies it at once. source \&quot;card\&quot; returns a PaymentIntent client secret to confirm with Stripe; source \&quot;checkout\&quot; returns checkoutUrl, a hosted Stripe Checkout page the seller pays on (no Stripe SDK needed). source \&quot;cbx\&quot; pays early from your EARNED CBX at the obligation rate (granted and funding CBX never repay a line) and applies at once. Card and checkout apply when the payment succeeds. Never more than you owe; idempotent on idempotencyKey.
+    # @param create_funding_repay_request [CreateFundingRepayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateFundingRepayResponse, Integer, Hash)>] CreateFundingRepayResponse data, response status code and response headers
-    def create_funding_repay_with_http_info(opts = {})
+    def create_funding_repay_with_http_info(create_funding_repay_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.create_funding_repay ...'
+      end
+      # verify the required parameter 'create_funding_repay_request' is set
+      if @api_client.config.client_side_validation && create_funding_repay_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_funding_repay_request' when calling FundingApi.create_funding_repay"
       end
       # resource path
       local_var_path = '/v1/funding/repay'
@@ -832,12 +962,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_funding_repay_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateFundingRepayResponse'
@@ -1096,6 +1231,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: FundingApi#get_funding_draw_invoice\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # What your Crossly Funding line could advance against your open wholesale invoices: per invoice its balance due, the advance at the rate (80%), what the line can cover now within its headroom (earliest due first), and why not (overdue, no line, line unavailable, over headroom). Eligibility only: an advance cannot be drawn against an invoice yet. X-Storefront-Id narrows to one store.
+    # @param [Hash] opts the optional parameters
+    # @return [GetFundingInvoiceAdvanceEligibilityResponse]
+    def get_funding_invoice_advance_eligibility(opts = {})
+      data, _status_code, _headers = get_funding_invoice_advance_eligibility_with_http_info(opts)
+      data
+    end
+
+    # What your Crossly Funding line could advance against your open wholesale invoices: per invoice its balance due, the advance at the rate (80%), what the line can cover now within its headroom (earliest due first), and why not (overdue, no line, line unavailable, over headroom). Eligibility only: an advance cannot be drawn against an invoice yet. X-Storefront-Id narrows to one store.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetFundingInvoiceAdvanceEligibilityResponse, Integer, Hash)>] GetFundingInvoiceAdvanceEligibilityResponse data, response status code and response headers
+    def get_funding_invoice_advance_eligibility_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: FundingApi.get_funding_invoice_advance_eligibility ...'
+      end
+      # resource path
+      local_var_path = '/v1/funding/invoice-advance-eligibility'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetFundingInvoiceAdvanceEligibilityResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"FundingApi.get_funding_invoice_advance_eligibility",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: FundingApi#get_funding_invoice_advance_eligibility\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1542,6 +1732,7 @@ module Crossly
 
     # Your funding payments to Crossly, newest first: the use, what it paid for, cents, status (pending, paid, failed) and the draw it was stamped against.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
     # @return [ListFundingReceiptsResponse]
     def list_funding_receipts(opts = {})
       data, _status_code, _headers = list_funding_receipts_with_http_info(opts)
@@ -1550,6 +1741,7 @@ module Crossly
 
     # Your funding payments to Crossly, newest first: the use, what it paid for, cents, status (pending, paid, failed) and the draw it was stamped against.
     # @param [Hash] opts the optional parameters
+    # @option opts [Float] :limit 
     # @return [Array<(ListFundingReceiptsResponse, Integer, Hash)>] ListFundingReceiptsResponse data, response status code and response headers
     def list_funding_receipts_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1560,6 +1752,7 @@ module Crossly
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -1651,19 +1844,25 @@ module Crossly
     end
 
     # Set the share of each Crossly payout applied to what you owe: a whole percent from 10 to 100 (default 20). Never more than you owe is taken.
+    # @param update_funding_autorepay_request [UpdateFundingAutorepayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateFundingAutorepayResponse]
-    def update_funding_autorepay(opts = {})
-      data, _status_code, _headers = update_funding_autorepay_with_http_info(opts)
+    def update_funding_autorepay(update_funding_autorepay_request, opts = {})
+      data, _status_code, _headers = update_funding_autorepay_with_http_info(update_funding_autorepay_request, opts)
       data
     end
 
     # Set the share of each Crossly payout applied to what you owe: a whole percent from 10 to 100 (default 20). Never more than you owe is taken.
+    # @param update_funding_autorepay_request [UpdateFundingAutorepayRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateFundingAutorepayResponse, Integer, Hash)>] UpdateFundingAutorepayResponse data, response status code and response headers
-    def update_funding_autorepay_with_http_info(opts = {})
+    def update_funding_autorepay_with_http_info(update_funding_autorepay_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.update_funding_autorepay ...'
+      end
+      # verify the required parameter 'update_funding_autorepay_request' is set
+      if @api_client.config.client_side_validation && update_funding_autorepay_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_funding_autorepay_request' when calling FundingApi.update_funding_autorepay"
       end
       # resource path
       local_var_path = '/v1/funding/autorepay'
@@ -1675,12 +1874,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_funding_autorepay_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateFundingAutorepayResponse'
@@ -1706,19 +1910,25 @@ module Crossly
     end
 
     # Change your funding spend controls. Enforced at every spend: wholesale checkout, labels, ads, Crossly and Vault fees.
+    # @param update_funding_control_request [UpdateFundingControlRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateFundingControlResponse]
-    def update_funding_control(opts = {})
-      data, _status_code, _headers = update_funding_control_with_http_info(opts)
+    def update_funding_control(update_funding_control_request, opts = {})
+      data, _status_code, _headers = update_funding_control_with_http_info(update_funding_control_request, opts)
       data
     end
 
     # Change your funding spend controls. Enforced at every spend: wholesale checkout, labels, ads, Crossly and Vault fees.
+    # @param update_funding_control_request [UpdateFundingControlRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateFundingControlResponse, Integer, Hash)>] UpdateFundingControlResponse data, response status code and response headers
-    def update_funding_control_with_http_info(opts = {})
+    def update_funding_control_with_http_info(update_funding_control_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.update_funding_control ...'
+      end
+      # verify the required parameter 'update_funding_control_request' is set
+      if @api_client.config.client_side_validation && update_funding_control_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_funding_control_request' when calling FundingApi.update_funding_control"
       end
       # resource path
       local_var_path = '/v1/funding/controls'
@@ -1730,12 +1940,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_funding_control_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateFundingControlResponse'
@@ -1762,24 +1977,30 @@ module Crossly
 
     # Set a team member’s funding limit (per draw or per month).
     # @param member_user_id [String] 
+    # @param update_funding_member_request [UpdateFundingMemberRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateFundingMemberResponse]
-    def update_funding_member(member_user_id, opts = {})
-      data, _status_code, _headers = update_funding_member_with_http_info(member_user_id, opts)
+    def update_funding_member(member_user_id, update_funding_member_request, opts = {})
+      data, _status_code, _headers = update_funding_member_with_http_info(member_user_id, update_funding_member_request, opts)
       data
     end
 
     # Set a team member’s funding limit (per draw or per month).
     # @param member_user_id [String] 
+    # @param update_funding_member_request [UpdateFundingMemberRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateFundingMemberResponse, Integer, Hash)>] UpdateFundingMemberResponse data, response status code and response headers
-    def update_funding_member_with_http_info(member_user_id, opts = {})
+    def update_funding_member_with_http_info(member_user_id, update_funding_member_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: FundingApi.update_funding_member ...'
       end
       # verify the required parameter 'member_user_id' is set
       if @api_client.config.client_side_validation && member_user_id.nil?
         fail ArgumentError, "Missing the required parameter 'member_user_id' when calling FundingApi.update_funding_member"
+      end
+      # verify the required parameter 'update_funding_member_request' is set
+      if @api_client.config.client_side_validation && update_funding_member_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_funding_member_request' when calling FundingApi.update_funding_member"
       end
       # resource path
       local_var_path = '/v1/funding/members/{memberUserId}'.sub('{' + 'memberUserId' + '}', CGI.escape(member_user_id.to_s))
@@ -1791,12 +2012,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_funding_member_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateFundingMemberResponse'

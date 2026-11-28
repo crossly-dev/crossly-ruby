@@ -77,6 +77,7 @@ module Crossly
     # Identify items: match to Crossly Market, Magic List, or auto (by preset). Runs in the background.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBulkBatchIdentifyRequest] :create_bulk_batch_identify_request 
     # @return [CreateBulkBatchIdentifyResponse]
     def create_bulk_batch_identify(id, opts = {})
       data, _status_code, _headers = create_bulk_batch_identify_with_http_info(id, opts)
@@ -86,6 +87,7 @@ module Crossly
     # Identify items: match to Crossly Market, Magic List, or auto (by preset). Runs in the background.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBulkBatchIdentifyRequest] :create_bulk_batch_identify_request 
     # @return [Array<(CreateBulkBatchIdentifyResponse, Integer, Hash)>] CreateBulkBatchIdentifyResponse data, response status code and response headers
     def create_bulk_batch_identify_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -105,12 +107,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_bulk_batch_identify_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBulkBatchIdentifyResponse'
@@ -137,24 +144,30 @@ module Crossly
 
     # Append one item (every photo of it, primary first).
     # @param id [String] 
+    # @param create_bulk_batch_item_request [CreateBulkBatchItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBulkBatchItemResponse]
-    def create_bulk_batch_item(id, opts = {})
-      data, _status_code, _headers = create_bulk_batch_item_with_http_info(id, opts)
+    def create_bulk_batch_item(id, create_bulk_batch_item_request, opts = {})
+      data, _status_code, _headers = create_bulk_batch_item_with_http_info(id, create_bulk_batch_item_request, opts)
       data
     end
 
     # Append one item (every photo of it, primary first).
     # @param id [String] 
+    # @param create_bulk_batch_item_request [CreateBulkBatchItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBulkBatchItemResponse, Integer, Hash)>] CreateBulkBatchItemResponse data, response status code and response headers
-    def create_bulk_batch_item_with_http_info(id, opts = {})
+    def create_bulk_batch_item_with_http_info(id, create_bulk_batch_item_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BulkBatchesApi.create_bulk_batch_item ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BulkBatchesApi.create_bulk_batch_item"
+      end
+      # verify the required parameter 'create_bulk_batch_item_request' is set
+      if @api_client.config.client_side_validation && create_bulk_batch_item_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_bulk_batch_item_request' when calling BulkBatchesApi.create_bulk_batch_item"
       end
       # resource path
       local_var_path = '/v1/bulk-batches/{id}/items'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -166,12 +179,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_bulk_batch_item_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBulkBatchItemResponse'
@@ -198,24 +216,30 @@ module Crossly
 
     # Set price/quantity/condition/status on many items.
     # @param id [String] 
+    # @param create_bulk_batch_item_bulk_request [CreateBulkBatchItemBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdatedResponse]
-    def create_bulk_batch_item_bulk(id, opts = {})
-      data, _status_code, _headers = create_bulk_batch_item_bulk_with_http_info(id, opts)
+    def create_bulk_batch_item_bulk(id, create_bulk_batch_item_bulk_request, opts = {})
+      data, _status_code, _headers = create_bulk_batch_item_bulk_with_http_info(id, create_bulk_batch_item_bulk_request, opts)
       data
     end
 
     # Set price/quantity/condition/status on many items.
     # @param id [String] 
+    # @param create_bulk_batch_item_bulk_request [CreateBulkBatchItemBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdatedResponse, Integer, Hash)>] UpdatedResponse data, response status code and response headers
-    def create_bulk_batch_item_bulk_with_http_info(id, opts = {})
+    def create_bulk_batch_item_bulk_with_http_info(id, create_bulk_batch_item_bulk_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BulkBatchesApi.create_bulk_batch_item_bulk ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BulkBatchesApi.create_bulk_batch_item_bulk"
+      end
+      # verify the required parameter 'create_bulk_batch_item_bulk_request' is set
+      if @api_client.config.client_side_validation && create_bulk_batch_item_bulk_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_bulk_batch_item_bulk_request' when calling BulkBatchesApi.create_bulk_batch_item_bulk"
       end
       # resource path
       local_var_path = '/v1/bulk-batches/{id}/items/bulk'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -227,12 +251,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_bulk_batch_item_bulk_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdatedResponse'
@@ -260,6 +289,7 @@ module Crossly
     # Publish reviewed items: drafts only (default) or live on destinations; adds quantity to an existing matching listing.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBulkBatchPublishRequest] :create_bulk_batch_publish_request 
     # @return [CreateBulkBatchPublishResponse]
     def create_bulk_batch_publish(id, opts = {})
       data, _status_code, _headers = create_bulk_batch_publish_with_http_info(id, opts)
@@ -269,6 +299,7 @@ module Crossly
     # Publish reviewed items: drafts only (default) or live on destinations; adds quantity to an existing matching listing.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateBulkBatchPublishRequest] :create_bulk_batch_publish_request 
     # @return [Array<(CreateBulkBatchPublishResponse, Integer, Hash)>] CreateBulkBatchPublishResponse data, response status code and response headers
     def create_bulk_batch_publish_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -288,12 +319,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_bulk_batch_publish_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBulkBatchPublishResponse'
@@ -569,24 +605,30 @@ module Crossly
 
     # Change batch settings, or set stage \"identify\" when capture is done.
     # @param id [String] 
+    # @param update_bulk_batch_request [UpdateBulkBatchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListBulkBatchesItem]
-    def update_bulk_batch(id, opts = {})
-      data, _status_code, _headers = update_bulk_batch_with_http_info(id, opts)
+    def update_bulk_batch(id, update_bulk_batch_request, opts = {})
+      data, _status_code, _headers = update_bulk_batch_with_http_info(id, update_bulk_batch_request, opts)
       data
     end
 
     # Change batch settings, or set stage \&quot;identify\&quot; when capture is done.
     # @param id [String] 
+    # @param update_bulk_batch_request [UpdateBulkBatchRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListBulkBatchesItem, Integer, Hash)>] ListBulkBatchesItem data, response status code and response headers
-    def update_bulk_batch_with_http_info(id, opts = {})
+    def update_bulk_batch_with_http_info(id, update_bulk_batch_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BulkBatchesApi.update_bulk_batch ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BulkBatchesApi.update_bulk_batch"
+      end
+      # verify the required parameter 'update_bulk_batch_request' is set
+      if @api_client.config.client_side_validation && update_bulk_batch_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_bulk_batch_request' when calling BulkBatchesApi.update_bulk_batch"
       end
       # resource path
       local_var_path = '/v1/bulk-batches/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -598,12 +640,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_bulk_batch_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListBulkBatchesItem'
@@ -630,24 +677,30 @@ module Crossly
 
     # Correct one item (match, title, price, photos…).
     # @param id [String] 
+    # @param update_bulk_batch_item_request [UpdateBulkBatchItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateBulkBatchItemResponse]
-    def update_bulk_batch_item(id, opts = {})
-      data, _status_code, _headers = update_bulk_batch_item_with_http_info(id, opts)
+    def update_bulk_batch_item(id, update_bulk_batch_item_request, opts = {})
+      data, _status_code, _headers = update_bulk_batch_item_with_http_info(id, update_bulk_batch_item_request, opts)
       data
     end
 
     # Correct one item (match, title, price, photos…).
     # @param id [String] 
+    # @param update_bulk_batch_item_request [UpdateBulkBatchItemRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateBulkBatchItemResponse, Integer, Hash)>] CreateBulkBatchItemResponse data, response status code and response headers
-    def update_bulk_batch_item_with_http_info(id, opts = {})
+    def update_bulk_batch_item_with_http_info(id, update_bulk_batch_item_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: BulkBatchesApi.update_bulk_batch_item ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling BulkBatchesApi.update_bulk_batch_item"
+      end
+      # verify the required parameter 'update_bulk_batch_item_request' is set
+      if @api_client.config.client_side_validation && update_bulk_batch_item_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_bulk_batch_item_request' when calling BulkBatchesApi.update_bulk_batch_item"
       end
       # resource path
       local_var_path = '/v1/bulk-batches/items/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -659,12 +712,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_bulk_batch_item_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateBulkBatchItemResponse'

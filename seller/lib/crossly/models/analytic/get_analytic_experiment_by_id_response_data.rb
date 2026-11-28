@@ -45,11 +45,11 @@ module Crossly
 
     attr_accessor :status
 
+    attr_accessor :kind
+
     attr_accessor :field
 
     attr_accessor :started_at
-
-    attr_accessor :kind
 
     attr_accessor :verdict
 
@@ -99,9 +99,9 @@ module Crossly
         :'id' => :'id',
         :'name' => :'name',
         :'status' => :'status',
+        :'kind' => :'kind',
         :'field' => :'field',
         :'started_at' => :'startedAt',
-        :'kind' => :'kind',
         :'verdict' => :'verdict',
         :'primary_metric' => :'primaryMetric',
         :'days_running' => :'daysRunning',
@@ -132,9 +132,9 @@ module Crossly
         :'id' => :'String',
         :'name' => :'String',
         :'status' => :'String',
+        :'kind' => :'String',
         :'field' => :'String',
         :'started_at' => :'String',
-        :'kind' => :'String',
         :'verdict' => :'String',
         :'primary_metric' => :'String',
         :'days_running' => :'Float',
@@ -240,16 +240,16 @@ module Crossly
         self.status = attributes[:'status']
       end
 
+      if attributes.key?(:'kind')
+        self.kind = attributes[:'kind']
+      end
+
       if attributes.key?(:'field')
         self.field = attributes[:'field']
       end
 
       if attributes.key?(:'started_at')
         self.started_at = attributes[:'started_at']
-      end
-
-      if attributes.key?(:'kind')
-        self.kind = attributes[:'kind']
       end
 
       if attributes.key?(:'verdict')
@@ -305,12 +305,12 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @field.nil?
-        invalid_properties.push('invalid value for "field", field cannot be nil.')
-      end
-
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @field.nil?
+        invalid_properties.push('invalid value for "field", field cannot be nil.')
       end
 
       if @verdict.nil?
@@ -343,12 +343,12 @@ module Crossly
       return false if @status.nil?
       status_validator = EnumAttributeValidator.new('String', ["draft", "running", "concluded", "stopped"])
       return false unless status_validator.valid?(@status)
-      return false if @field.nil?
-      field_validator = EnumAttributeValidator.new('String', ["description", "category", "shipping", "title", "price", "photos", "marketplace", "other"])
-      return false unless field_validator.valid?(@field)
       return false if @kind.nil?
       kind_validator = EnumAttributeValidator.new('String', ["split", "sequential"])
       return false unless kind_validator.valid?(@kind)
+      return false if @field.nil?
+      field_validator = EnumAttributeValidator.new('String', ["description", "category", "shipping", "title", "price", "photos", "marketplace", "other"])
+      return false unless field_validator.valid?(@field)
       return false if @verdict.nil?
       verdict_validator = EnumAttributeValidator.new('String', ["insufficient", "b_better", "a_better", "no_difference", "leading_b", "leading_a"])
       return false unless verdict_validator.valid?(@verdict)
@@ -380,16 +380,6 @@ module Crossly
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] field Object to be assigned
-    def field=(field)
-      validator = EnumAttributeValidator.new('String', ["description", "category", "shipping", "title", "price", "photos", "marketplace", "other"])
-      unless validator.valid?(field)
-        fail ArgumentError, "invalid value for \"field\", must be one of #{validator.allowable_values}."
-      end
-      @field = field
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] kind Object to be assigned
     def kind=(kind)
       validator = EnumAttributeValidator.new('String', ["split", "sequential"])
@@ -397,6 +387,16 @@ module Crossly
         fail ArgumentError, "invalid value for \"kind\", must be one of #{validator.allowable_values}."
       end
       @kind = kind
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] field Object to be assigned
+    def field=(field)
+      validator = EnumAttributeValidator.new('String', ["description", "category", "shipping", "title", "price", "photos", "marketplace", "other"])
+      unless validator.valid?(field)
+        fail ArgumentError, "invalid value for \"field\", must be one of #{validator.allowable_values}."
+      end
+      @field = field
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -439,9 +439,9 @@ module Crossly
           id == o.id &&
           name == o.name &&
           status == o.status &&
+          kind == o.kind &&
           field == o.field &&
           started_at == o.started_at &&
-          kind == o.kind &&
           verdict == o.verdict &&
           primary_metric == o.primary_metric &&
           days_running == o.days_running &&
@@ -457,7 +457,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [hypothesis, notes, planned_end_at, stopped_at, conclusion, winner_arm_id, caveat, arms, primary, guardrails, daily, recommendation, id, name, status, field, started_at, kind, verdict, primary_metric, days_running, winner_label].hash
+      [hypothesis, notes, planned_end_at, stopped_at, conclusion, winner_arm_id, caveat, arms, primary, guardrails, daily, recommendation, id, name, status, kind, field, started_at, verdict, primary_metric, days_running, winner_label].hash
     end
 
     # Builds the object from hash

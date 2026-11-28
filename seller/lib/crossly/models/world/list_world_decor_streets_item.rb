@@ -27,6 +27,11 @@ module Crossly
 
     attr_accessor :decor
 
+    # The store the street belongs to (s5-65; null: a platform street, or not stamped yet = the default store).
+    attr_accessor :store_id
+
+    attr_accessor :store
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -34,7 +39,9 @@ module Crossly
         :'name' => :'name',
         :'platform' => :'platform',
         :'can_edit' => :'canEdit',
-        :'decor' => :'decor'
+        :'decor' => :'decor',
+        :'store_id' => :'storeId',
+        :'store' => :'store'
       }
     end
 
@@ -50,13 +57,17 @@ module Crossly
         :'name' => :'String',
         :'platform' => :'Boolean',
         :'can_edit' => :'Boolean',
-        :'decor' => :'ListWorldDecorStreetsItemDecor'
+        :'decor' => :'ListWorldDecorStreetsItemDecor',
+        :'store_id' => :'String',
+        :'store' => :'IdName2'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'store_id',
+        :'store'
       ])
     end
 
@@ -93,6 +104,14 @@ module Crossly
 
       if attributes.key?(:'decor')
         self.decor = attributes[:'decor']
+      end
+
+      if attributes.key?(:'store_id')
+        self.store_id = attributes[:'store_id']
+      end
+
+      if attributes.key?(:'store')
+        self.store = attributes[:'store']
       end
     end
 
@@ -143,7 +162,9 @@ module Crossly
           name == o.name &&
           platform == o.platform &&
           can_edit == o.can_edit &&
-          decor == o.decor
+          decor == o.decor &&
+          store_id == o.store_id &&
+          store == o.store
     end
 
     # @see the `==` method
@@ -155,7 +176,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [street, name, platform, can_edit, decor].hash
+      [street, name, platform, can_edit, decor, store_id, store].hash
     end
 
     # Builds the object from hash

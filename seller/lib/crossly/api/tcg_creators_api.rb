@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Submit a card-game package version for review: game.json, cards.json, rules/game.js, thumb.png, art/*.png as { path, base64 }. Checked, conformance-run, art quarantined, then reviewed by a person.
+    # @param create_tcg_creator_game_request [CreateTcgCreatorGameRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTcgCreatorGameResponse]
-    def create_tcg_creator_game(opts = {})
-      data, _status_code, _headers = create_tcg_creator_game_with_http_info(opts)
+    def create_tcg_creator_game(create_tcg_creator_game_request, opts = {})
+      data, _status_code, _headers = create_tcg_creator_game_with_http_info(create_tcg_creator_game_request, opts)
       data
     end
 
     # Submit a card-game package version for review: game.json, cards.json, rules/game.js, thumb.png, art/*.png as { path, base64 }. Checked, conformance-run, art quarantined, then reviewed by a person.
+    # @param create_tcg_creator_game_request [CreateTcgCreatorGameRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTcgCreatorGameResponse, Integer, Hash)>] CreateTcgCreatorGameResponse data, response status code and response headers
-    def create_tcg_creator_game_with_http_info(opts = {})
+    def create_tcg_creator_game_with_http_info(create_tcg_creator_game_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TCGCreatorsApi.create_tcg_creator_game ...'
+      end
+      # verify the required parameter 'create_tcg_creator_game_request' is set
+      if @api_client.config.client_side_validation && create_tcg_creator_game_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_tcg_creator_game_request' when calling TCGCreatorsApi.create_tcg_creator_game"
       end
       # resource path
       local_var_path = '/v1/tcg/creator/games'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_tcg_creator_game_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgCreatorGameResponse'
@@ -75,19 +86,25 @@ module Crossly
     end
 
     # Check a card-game package exactly as a submission is checked -- the static report and bot games played against your rules in the sandbox -- storing nothing. Files as { path, base64 }.
+    # @param create_tcg_creator_game_request [CreateTcgCreatorGameRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateTcgCreatorGameCheckResponse]
-    def create_tcg_creator_game_check(opts = {})
-      data, _status_code, _headers = create_tcg_creator_game_check_with_http_info(opts)
+    def create_tcg_creator_game_check(create_tcg_creator_game_request, opts = {})
+      data, _status_code, _headers = create_tcg_creator_game_check_with_http_info(create_tcg_creator_game_request, opts)
       data
     end
 
     # Check a card-game package exactly as a submission is checked -- the static report and bot games played against your rules in the sandbox -- storing nothing. Files as { path, base64 }.
+    # @param create_tcg_creator_game_request [CreateTcgCreatorGameRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateTcgCreatorGameCheckResponse, Integer, Hash)>] CreateTcgCreatorGameCheckResponse data, response status code and response headers
-    def create_tcg_creator_game_check_with_http_info(opts = {})
+    def create_tcg_creator_game_check_with_http_info(create_tcg_creator_game_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: TCGCreatorsApi.create_tcg_creator_game_check ...'
+      end
+      # verify the required parameter 'create_tcg_creator_game_request' is set
+      if @api_client.config.client_side_validation && create_tcg_creator_game_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_tcg_creator_game_request' when calling TCGCreatorsApi.create_tcg_creator_game_check"
       end
       # resource path
       local_var_path = '/v1/tcg/creator/games/check'
@@ -99,12 +116,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_tcg_creator_game_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgCreatorGameCheckResponse'
@@ -199,6 +221,7 @@ module Crossly
     # Claim a creator game's free starter deck by its key (once per account; account-bound, never tradeable).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgCreatorGameStarterRequest] :create_tcg_creator_game_starter_request 
     # @return [CreateTcgStarterResponse]
     def create_tcg_creator_game_starter(id, opts = {})
       data, _status_code, _headers = create_tcg_creator_game_starter_with_http_info(id, opts)
@@ -208,6 +231,7 @@ module Crossly
     # Claim a creator game&#39;s free starter deck by its key (once per account; account-bound, never tradeable).
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateTcgCreatorGameStarterRequest] :create_tcg_creator_game_starter_request 
     # @return [Array<(CreateTcgStarterResponse, Integer, Hash)>] CreateTcgStarterResponse data, response status code and response headers
     def create_tcg_creator_game_starter_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -227,12 +251,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_tcg_creator_game_starter_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateTcgStarterResponse'

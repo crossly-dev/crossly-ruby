@@ -116,6 +116,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_web3_search**](Web3Api.md#list_web3_search) | **GET** /v1/web3/search | Find collections by contract address (every chain) or by name. |
 | [**list_web3_search_tokens**](Web3Api.md#list_web3_search_tokens) | **GET** /v1/web3/search/tokens | Find tokens by collection name and number: &#39;pudgy 42&#39;, &#39;Bored Ape #1234&#39;. |
 | [**list_web3_store_wallet_balances**](Web3Api.md#list_web3_store_wallet_balances) | **GET** /v1/web3/store-wallets/balances | The native-coin balance (SOL, ETH, POL, …) of each of the store&#39;s selling wallets, read on chain. |
+| [**list_web3_store_wallet_marketplaces**](Web3Api.md#list_web3_store_wallet_marketplaces) | **GET** /v1/web3/store-wallets/marketplaces | Each NFT marketplace&#39;s status for this store: Live only with a usable API key AND a verified store wallet of its network switched on for it. &#x60;keyMode&#x60; is &#x60;crossly&#x60; (Crossly&#39;s key, nothing to set up) or &#x60;own_key&#x60; (connect your own key). |
 | [**list_web3_store_wallets**](Web3Api.md#list_web3_store_wallets) | **GET** /v1/web3/store-wallets | List the store&#39;s selling wallets (X-Storefront-Id; default store when omitted). |
 | [**list_web3_wallets**](Web3Api.md#list_web3_wallets) | **GET** /v1/web3/wallets | List your verified, linked wallets (EVM and Solana). |
 | [**list_web3_watchlist**](Web3Api.md#list_web3_watchlist) | **GET** /v1/web3/watchlist | Your favourited NFTs, with the cheapest open Crossly listing and the last sale of each. |
@@ -126,12 +127,13 @@ All URIs are relative to *https://crossly.net/api*
 | [**update_web3_marketplace_key**](Web3Api.md#update_web3_marketplace_key) | **PUT** /v1/web3/marketplace-keys/{marketplace} | Save your own API key for a marketplace (checked against the marketplace first where it can be); stored encrypted. |
 | [**update_web3_store_wallet**](Web3Api.md#update_web3_store_wallet) | **PATCH** /v1/web3/store-wallets/{walletId} | Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id). |
 | [**update_web3_store_wallet_default**](Web3Api.md#update_web3_store_wallet_default) | **PUT** /v1/web3/store-wallets/{walletId}/default | Make a linked wallet the store&#39;s default selling wallet on its network (EVM or Solana). |
+| [**update_web3_store_wallet_marketplace**](Web3Api.md#update_web3_store_wallet_marketplace) | **PUT** /v1/web3/store-wallets/{walletId}/marketplaces/{marketplace} | Switch one NFT marketplace (opensea, rarible on EVM; magic_eden, tensor on Solana) on or off for a store wallet: &#x60;{ enabled }&#x60;. |
 | [**update_web3_wallet**](Web3Api.md#update_web3_wallet) | **PATCH** /v1/web3/wallets/{id} | Change a linked wallet: &#x60;autoImport&#x60; (a sync adds new NFTs to inventory; off, it only refreshes the ones there) and &#x60;label&#x60;. |
 
 
 ## create_web3_alert
 
-> <IdResponse> create_web3_alert
+> <IdResponse> create_web3_alert(create_web3_alert_request)
 
 Set a price alert on a token, or on a whole collection without tokenId: you are notified when one is listed at or below `price` (the chain's native coin). Setting it again moves the price.
 
@@ -147,10 +149,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_alert_request = Crossly::CreateWeb3AlertRequest.new({chain: 'ethereum', contract: 'contract_example', price: 'price_example'}) # CreateWeb3AlertRequest | 
 
 begin
   # Set a price alert on a token, or on a whole collection without tokenId: you are notified when one is listed at or below `price` (the chain's native coin). Setting it again moves the price.
-  result = api_instance.create_web3_alert
+  result = api_instance.create_web3_alert(create_web3_alert_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_alert: #{e}"
@@ -161,12 +164,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<IdResponse>, Integer, Hash)> create_web3_alert_with_http_info
+> <Array(<IdResponse>, Integer, Hash)> create_web3_alert_with_http_info(create_web3_alert_request)
 
 ```ruby
 begin
   # Set a price alert on a token, or on a whole collection without tokenId: you are notified when one is listed at or below `price` (the chain's native coin). Setting it again moves the price.
-  data, status_code, headers = api_instance.create_web3_alert_with_http_info
+  data, status_code, headers = api_instance.create_web3_alert_with_http_info(create_web3_alert_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <IdResponse>
@@ -177,7 +180,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_alert_request** | **CreateWeb3AlertRequest** |  |  |
 
 ### Return type
 
@@ -189,13 +194,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_auction
 
-> <CreateWeb3AuctionResponse> create_web3_auction
+> <CreateWeb3AuctionResponse> create_web3_auction(create_web3_auction_request)
 
 Start an English auction on a token in your linked wallet: `reserve` is the opening bid in the chain's native coin, `hours` its length (1–720). Bids must rise 5%; a late bid extends the end by 10 minutes.
 
@@ -211,10 +216,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_auction_request = Crossly::CreateWeb3AuctionRequest.new({chain: 'ethereum', contract: 'contract_example', token_id: 'token_id_example', reserve: 'reserve_example', hours: 3.56}) # CreateWeb3AuctionRequest | 
 
 begin
   # Start an English auction on a token in your linked wallet: `reserve` is the opening bid in the chain's native coin, `hours` its length (1–720). Bids must rise 5%; a late bid extends the end by 10 minutes.
-  result = api_instance.create_web3_auction
+  result = api_instance.create_web3_auction(create_web3_auction_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_auction: #{e}"
@@ -225,12 +231,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3AuctionResponse>, Integer, Hash)> create_web3_auction_with_http_info
+> <Array(<CreateWeb3AuctionResponse>, Integer, Hash)> create_web3_auction_with_http_info(create_web3_auction_request)
 
 ```ruby
 begin
   # Start an English auction on a token in your linked wallet: `reserve` is the opening bid in the chain's native coin, `hours` its length (1–720). Bids must rise 5%; a late bid extends the end by 10 minutes.
-  data, status_code, headers = api_instance.create_web3_auction_with_http_info
+  data, status_code, headers = api_instance.create_web3_auction_with_http_info(create_web3_auction_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3AuctionResponse>
@@ -241,7 +247,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_auction_request** | **CreateWeb3AuctionRequest** |  |  |
 
 ### Return type
 
@@ -253,7 +261,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -326,7 +334,7 @@ end
 
 ## create_web3_creator_claim
 
-> <CreateWeb3CreatorClaimResponse> create_web3_creator_claim
+> <CreateWeb3CreatorClaimResponse> create_web3_creator_claim(create_web3_creator_claim_request)
 
 Claim an EVM collection as its creator: its owner() must be one of your verified wallets. Returns `{ chain, contract }`.
 
@@ -342,10 +350,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_creator_claim_request = Crossly::CreateWeb3CreatorClaimRequest.new({chain: 'ethereum', contract: 'contract_example'}) # CreateWeb3CreatorClaimRequest | 
 
 begin
   # Claim an EVM collection as its creator: its owner() must be one of your verified wallets. Returns `{ chain, contract }`.
-  result = api_instance.create_web3_creator_claim
+  result = api_instance.create_web3_creator_claim(create_web3_creator_claim_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_creator_claim: #{e}"
@@ -356,12 +365,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3CreatorClaimResponse>, Integer, Hash)> create_web3_creator_claim_with_http_info
+> <Array(<CreateWeb3CreatorClaimResponse>, Integer, Hash)> create_web3_creator_claim_with_http_info(create_web3_creator_claim_request)
 
 ```ruby
 begin
   # Claim an EVM collection as its creator: its owner() must be one of your verified wallets. Returns `{ chain, contract }`.
-  data, status_code, headers = api_instance.create_web3_creator_claim_with_http_info
+  data, status_code, headers = api_instance.create_web3_creator_claim_with_http_info(create_web3_creator_claim_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3CreatorClaimResponse>
@@ -372,7 +381,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_creator_claim_request** | **CreateWeb3CreatorClaimRequest** |  |  |
 
 ### Return type
 
@@ -384,13 +395,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_crosslist
 
-> <CreateWeb3CrosslistResponse> create_web3_crosslist
+> <CreateWeb3CrosslistResponse> create_web3_crosslist(create_web3_crosslist_request)
 
 Submit signed Seaport listings for several marketplaces at once (crossly, opensea); results per marketplace.
 
@@ -406,10 +417,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_crosslist_request = Crossly::CreateWeb3CrosslistRequest.new({chain: 'ethereum', orders: [Crossly::CreateWeb3CrosslistRequestOrders.new({marketplace: 'crossly', components: Crossly::CreateWeb3CrosslistRequestOrdersComponents.new({offerer: 'offerer_example', zone: 'zone_example', offer: [{ key: 3.56}], consideration: [{ key: 3.56}], order_type: 3.56, start_time: 'start_time_example', end_time: 'end_time_example', zone_hash: 'zone_hash_example', salt: 'salt_example', conduit_key: 'conduit_key_example', counter: 'counter_example'}), signature: 'signature_example'})]}) # CreateWeb3CrosslistRequest | 
 
 begin
   # Submit signed Seaport listings for several marketplaces at once (crossly, opensea); results per marketplace.
-  result = api_instance.create_web3_crosslist
+  result = api_instance.create_web3_crosslist(create_web3_crosslist_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_crosslist: #{e}"
@@ -420,12 +432,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3CrosslistResponse>, Integer, Hash)> create_web3_crosslist_with_http_info
+> <Array(<CreateWeb3CrosslistResponse>, Integer, Hash)> create_web3_crosslist_with_http_info(create_web3_crosslist_request)
 
 ```ruby
 begin
   # Submit signed Seaport listings for several marketplaces at once (crossly, opensea); results per marketplace.
-  data, status_code, headers = api_instance.create_web3_crosslist_with_http_info
+  data, status_code, headers = api_instance.create_web3_crosslist_with_http_info(create_web3_crosslist_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3CrosslistResponse>
@@ -436,7 +448,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_crosslist_request** | **CreateWeb3CrosslistRequest** |  |  |
 
 ### Return type
 
@@ -448,7 +462,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -521,7 +535,7 @@ end
 
 ## create_web3_favorite
 
-> <CreateWeb3FavoriteResponse> create_web3_favorite
+> <CreateWeb3FavoriteResponse> create_web3_favorite(create_web3_favorite_request)
 
 Favourite an NFT, or unfavourite it if it already is. Returns `{ favorited }`.
 
@@ -537,10 +551,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_favorite_request = Crossly::CreateWeb3FavoriteRequest.new({chain: 'ethereum', contract: 'contract_example', token_id: 'token_id_example'}) # CreateWeb3FavoriteRequest | 
 
 begin
   # Favourite an NFT, or unfavourite it if it already is. Returns `{ favorited }`.
-  result = api_instance.create_web3_favorite
+  result = api_instance.create_web3_favorite(create_web3_favorite_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_favorite: #{e}"
@@ -551,12 +566,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3FavoriteResponse>, Integer, Hash)> create_web3_favorite_with_http_info
+> <Array(<CreateWeb3FavoriteResponse>, Integer, Hash)> create_web3_favorite_with_http_info(create_web3_favorite_request)
 
 ```ruby
 begin
   # Favourite an NFT, or unfavourite it if it already is. Returns `{ favorited }`.
-  data, status_code, headers = api_instance.create_web3_favorite_with_http_info
+  data, status_code, headers = api_instance.create_web3_favorite_with_http_info(create_web3_favorite_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3FavoriteResponse>
@@ -567,7 +582,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_favorite_request** | **CreateWeb3FavoriteRequest** |  |  |
 
 ### Return type
 
@@ -579,13 +596,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_launch
 
-> <ListWeb3LaunchesItem> create_web3_launch
+> <ListWeb3LaunchesItem> create_web3_launch(create_web3_launch_request)
 
 Draft a launchpad collection: name, symbol, supply, mint price (wei of the chain’s native currency), schedule, optional holder phase and royalty. Crossly takes 5% of each mint inside the contract.
 
@@ -601,10 +618,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_launch_request = Crossly::CreateWeb3LaunchRequest.new({chain: 'ethereum', name: 'name_example', symbol: 'symbol_example', max_supply: 3.56, price_wei: 'price_wei_example', public_start: 'public_start_example'}) # CreateWeb3LaunchRequest | 
 
 begin
   # Draft a launchpad collection: name, symbol, supply, mint price (wei of the chain’s native currency), schedule, optional holder phase and royalty. Crossly takes 5% of each mint inside the contract.
-  result = api_instance.create_web3_launch
+  result = api_instance.create_web3_launch(create_web3_launch_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_launch: #{e}"
@@ -615,12 +633,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3LaunchesItem>, Integer, Hash)> create_web3_launch_with_http_info
+> <Array(<ListWeb3LaunchesItem>, Integer, Hash)> create_web3_launch_with_http_info(create_web3_launch_request)
 
 ```ruby
 begin
   # Draft a launchpad collection: name, symbol, supply, mint price (wei of the chain’s native currency), schedule, optional holder phase and royalty. Crossly takes 5% of each mint inside the contract.
-  data, status_code, headers = api_instance.create_web3_launch_with_http_info
+  data, status_code, headers = api_instance.create_web3_launch_with_http_info(create_web3_launch_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3LaunchesItem>
@@ -631,7 +649,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_launch_request** | **CreateWeb3LaunchRequest** |  |  |
 
 ### Return type
 
@@ -643,7 +663,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -984,7 +1004,7 @@ end
 
 ## create_web3_order
 
-> <CreateWeb3OrderResponse> create_web3_order
+> <CreateWeb3OrderResponse> create_web3_order(create_web3_order_request)
 
 Place a signed Seaport 1.6 order (listing, offer or collection offer) in the Crossly book.
 
@@ -1000,10 +1020,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_order_request = Crossly::CreateWeb3OrderRequest.new({chain: 'ethereum', signature: 'signature_example', components: Crossly::CreateWeb3OrderRequestComponents.new({offerer: 'offerer_example', zone: 'zone_example', offer: [Crossly::CreateWeb3OrderRequestComponentsOffer.new({item_type: 3.56, token: 'token_example', identifier_or_criteria: 'identifier_or_criteria_example', start_amount: 'start_amount_example', end_amount: 'end_amount_example'})], consideration: [Crossly::CreateWeb3OrderRequestComponentsConsideration.new({item_type: 3.56, token: 'token_example', identifier_or_criteria: 'identifier_or_criteria_example', start_amount: 'start_amount_example', end_amount: 'end_amount_example', recipient: 'recipient_example'})], order_type: 3.56, start_time: 'start_time_example', end_time: 'end_time_example', zone_hash: 'zone_hash_example', salt: 'salt_example', conduit_key: 'conduit_key_example', counter: 'counter_example'})}) # CreateWeb3OrderRequest | 
 
 begin
   # Place a signed Seaport 1.6 order (listing, offer or collection offer) in the Crossly book.
-  result = api_instance.create_web3_order
+  result = api_instance.create_web3_order(create_web3_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_order: #{e}"
@@ -1014,12 +1035,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3OrderResponse>, Integer, Hash)> create_web3_order_with_http_info
+> <Array(<CreateWeb3OrderResponse>, Integer, Hash)> create_web3_order_with_http_info(create_web3_order_request)
 
 ```ruby
 begin
   # Place a signed Seaport 1.6 order (listing, offer or collection offer) in the Crossly book.
-  data, status_code, headers = api_instance.create_web3_order_with_http_info
+  data, status_code, headers = api_instance.create_web3_order_with_http_info(create_web3_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3OrderResponse>
@@ -1030,7 +1051,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_order_request** | **CreateWeb3OrderRequest** |  |  |
 
 ### Return type
 
@@ -1042,7 +1065,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1117,7 +1140,7 @@ end
 
 ## create_web3_order_fulfillment_batch
 
-> <CreateWeb3OrderFulfillmentBatchResponse> create_web3_order_fulfillment_batch
+> <CreateWeb3OrderFulfillmentBatchResponse> create_web3_order_fulfillment_batch(create_web3_order_fulfillment_batch_request)
 
 Fulfilments for sweeping several listings in one Seaport transaction; unfillable ones are skipped with a reason.
 
@@ -1133,10 +1156,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_order_fulfillment_batch_request = Crossly::CreateWeb3OrderFulfillmentBatchRequest.new({chain: 'ethereum', order_hashes: ['order_hashes_example']}) # CreateWeb3OrderFulfillmentBatchRequest | 
 
 begin
   # Fulfilments for sweeping several listings in one Seaport transaction; unfillable ones are skipped with a reason.
-  result = api_instance.create_web3_order_fulfillment_batch
+  result = api_instance.create_web3_order_fulfillment_batch(create_web3_order_fulfillment_batch_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_order_fulfillment_batch: #{e}"
@@ -1147,12 +1171,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3OrderFulfillmentBatchResponse>, Integer, Hash)> create_web3_order_fulfillment_batch_with_http_info
+> <Array(<CreateWeb3OrderFulfillmentBatchResponse>, Integer, Hash)> create_web3_order_fulfillment_batch_with_http_info(create_web3_order_fulfillment_batch_request)
 
 ```ruby
 begin
   # Fulfilments for sweeping several listings in one Seaport transaction; unfillable ones are skipped with a reason.
-  data, status_code, headers = api_instance.create_web3_order_fulfillment_batch_with_http_info
+  data, status_code, headers = api_instance.create_web3_order_fulfillment_batch_with_http_info(create_web3_order_fulfillment_batch_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3OrderFulfillmentBatchResponse>
@@ -1163,7 +1187,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_order_fulfillment_batch_request** | **CreateWeb3OrderFulfillmentBatchRequest** |  |  |
 
 ### Return type
 
@@ -1175,13 +1201,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_phygital
 
-> <CreateWeb3PhygitalResponse> create_web3_phygital
+> <CreateWeb3PhygitalResponse> create_web3_phygital(create_web3_phygital_request)
 
 Make an NFT you hold redeemable for one of your physical inventory items.
 
@@ -1197,10 +1223,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_phygital_request = Crossly::CreateWeb3PhygitalRequest.new({chain: 'ethereum', contract: 'contract_example', token_id: 'token_id_example', inventory_item_id: 'inventory_item_id_example', title: 'title_example'}) # CreateWeb3PhygitalRequest | 
 
 begin
   # Make an NFT you hold redeemable for one of your physical inventory items.
-  result = api_instance.create_web3_phygital
+  result = api_instance.create_web3_phygital(create_web3_phygital_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_phygital: #{e}"
@@ -1211,12 +1238,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3PhygitalResponse>, Integer, Hash)> create_web3_phygital_with_http_info
+> <Array(<CreateWeb3PhygitalResponse>, Integer, Hash)> create_web3_phygital_with_http_info(create_web3_phygital_request)
 
 ```ruby
 begin
   # Make an NFT you hold redeemable for one of your physical inventory items.
-  data, status_code, headers = api_instance.create_web3_phygital_with_http_info
+  data, status_code, headers = api_instance.create_web3_phygital_with_http_info(create_web3_phygital_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3PhygitalResponse>
@@ -1227,7 +1254,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_phygital_request** | **CreateWeb3PhygitalRequest** |  |  |
 
 ### Return type
 
@@ -1239,13 +1268,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_phygital_redeem
 
-> <CreateWeb3PhygitalRedeemResponse> create_web3_phygital_redeem(id)
+> <CreateWeb3PhygitalRedeemResponse> create_web3_phygital_redeem(id, create_web3_phygital_redeem_request)
 
 Redeem a phygital you hold (checked on-chain) for its physical item, with a shipping address. Once per phygital.
 
@@ -1262,10 +1291,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 id = 'id_example' # String | 
+create_web3_phygital_redeem_request = Crossly::CreateWeb3PhygitalRedeemRequest.new({ship_to: Crossly::CreateWeb3PhygitalRedeemRequestShipTo.new({name: 'name_example', line1: 'line1_example', city: 'city_example', postal_code: 'postal_code_example', country: 'country_example'})}) # CreateWeb3PhygitalRedeemRequest | 
 
 begin
   # Redeem a phygital you hold (checked on-chain) for its physical item, with a shipping address. Once per phygital.
-  result = api_instance.create_web3_phygital_redeem(id)
+  result = api_instance.create_web3_phygital_redeem(id, create_web3_phygital_redeem_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_phygital_redeem: #{e}"
@@ -1276,12 +1306,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3PhygitalRedeemResponse>, Integer, Hash)> create_web3_phygital_redeem_with_http_info(id)
+> <Array(<CreateWeb3PhygitalRedeemResponse>, Integer, Hash)> create_web3_phygital_redeem_with_http_info(id, create_web3_phygital_redeem_request)
 
 ```ruby
 begin
   # Redeem a phygital you hold (checked on-chain) for its physical item, with a shipping address. Once per phygital.
-  data, status_code, headers = api_instance.create_web3_phygital_redeem_with_http_info(id)
+  data, status_code, headers = api_instance.create_web3_phygital_redeem_with_http_info(id, create_web3_phygital_redeem_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3PhygitalRedeemResponse>
@@ -1295,6 +1325,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_web3_phygital_redeem_request** | **CreateWeb3PhygitalRedeemRequest** |  |  |
 
 ### Return type
 
@@ -1306,13 +1337,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_phygital_redemption_ship
 
-> <OkResponse> create_web3_phygital_redemption_ship(id)
+> <OkResponse> create_web3_phygital_redemption_ship(id, create_web3_phygital_redemption_ship_request)
 
 Mark a redemption shipped with its carrier and tracking number; the redeemer is notified.
 
@@ -1329,10 +1360,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 id = 'id_example' # String | 
+create_web3_phygital_redemption_ship_request = Crossly::CreateWeb3PhygitalRedemptionShipRequest.new({carrier: 'carrier_example', tracking_number: 'tracking_number_example'}) # CreateWeb3PhygitalRedemptionShipRequest | 
 
 begin
   # Mark a redemption shipped with its carrier and tracking number; the redeemer is notified.
-  result = api_instance.create_web3_phygital_redemption_ship(id)
+  result = api_instance.create_web3_phygital_redemption_ship(id, create_web3_phygital_redemption_ship_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_phygital_redemption_ship: #{e}"
@@ -1343,12 +1375,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> create_web3_phygital_redemption_ship_with_http_info(id)
+> <Array(<OkResponse>, Integer, Hash)> create_web3_phygital_redemption_ship_with_http_info(id, create_web3_phygital_redemption_ship_request)
 
 ```ruby
 begin
   # Mark a redemption shipped with its carrier and tracking number; the redeemer is notified.
-  data, status_code, headers = api_instance.create_web3_phygital_redemption_ship_with_http_info(id)
+  data, status_code, headers = api_instance.create_web3_phygital_redemption_ship_with_http_info(id, create_web3_phygital_redemption_ship_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -1362,6 +1394,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_web3_phygital_redemption_ship_request** | **CreateWeb3PhygitalRedemptionShipRequest** |  |  |
 
 ### Return type
 
@@ -1373,13 +1406,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_rarible_draft
 
-> <CreateWeb3RaribleDraftResponse> create_web3_rarible_draft
+> <CreateWeb3RaribleDraftResponse> create_web3_rarible_draft(create_web3_rarible_draft_request)
 
 Draft a Rarible V2 listing for an NFT in your linked wallet: the EIP-712 order to sign and whether Rarible's transfer proxy is approved.
 
@@ -1395,10 +1428,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_rarible_draft_request = Crossly::CreateWeb3RaribleDraftRequest.new({chain: 'ethereum', maker: 'maker_example', contract: 'contract_example', token_id: 'token_id_example', standard: 'erc721', price_wei: 'price_wei_example', days: 3.56}) # CreateWeb3RaribleDraftRequest | 
 
 begin
   # Draft a Rarible V2 listing for an NFT in your linked wallet: the EIP-712 order to sign and whether Rarible's transfer proxy is approved.
-  result = api_instance.create_web3_rarible_draft
+  result = api_instance.create_web3_rarible_draft(create_web3_rarible_draft_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_rarible_draft: #{e}"
@@ -1409,12 +1443,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3RaribleDraftResponse>, Integer, Hash)> create_web3_rarible_draft_with_http_info
+> <Array(<CreateWeb3RaribleDraftResponse>, Integer, Hash)> create_web3_rarible_draft_with_http_info(create_web3_rarible_draft_request)
 
 ```ruby
 begin
   # Draft a Rarible V2 listing for an NFT in your linked wallet: the EIP-712 order to sign and whether Rarible's transfer proxy is approved.
-  data, status_code, headers = api_instance.create_web3_rarible_draft_with_http_info
+  data, status_code, headers = api_instance.create_web3_rarible_draft_with_http_info(create_web3_rarible_draft_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3RaribleDraftResponse>
@@ -1425,7 +1459,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_rarible_draft_request** | **CreateWeb3RaribleDraftRequest** |  |  |
 
 ### Return type
 
@@ -1437,13 +1473,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_rarible_listing
 
-> <OrderHashResponse> create_web3_rarible_listing
+> <OrderHashResponse> create_web3_rarible_listing(create_web3_rarible_listing_request)
 
 Submit a signed Rarible V2 listing: the signature is verified, then the order is posted to Rarible and recorded.
 
@@ -1459,10 +1495,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_rarible_listing_request = Crossly::CreateWeb3RaribleListingRequest.new({token_id: 'token_id_example', standard: 'erc721', chain: 'ethereum', contract: 'contract_example', maker: 'maker_example', price_wei: 'price_wei_example', salt: 'salt_example', start: 3.56, _end: 3.56, signature: 'signature_example'}) # CreateWeb3RaribleListingRequest | 
 
 begin
   # Submit a signed Rarible V2 listing: the signature is verified, then the order is posted to Rarible and recorded.
-  result = api_instance.create_web3_rarible_listing
+  result = api_instance.create_web3_rarible_listing(create_web3_rarible_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_rarible_listing: #{e}"
@@ -1473,12 +1510,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OrderHashResponse>, Integer, Hash)> create_web3_rarible_listing_with_http_info
+> <Array(<OrderHashResponse>, Integer, Hash)> create_web3_rarible_listing_with_http_info(create_web3_rarible_listing_request)
 
 ```ruby
 begin
   # Submit a signed Rarible V2 listing: the signature is verified, then the order is posted to Rarible and recorded.
-  data, status_code, headers = api_instance.create_web3_rarible_listing_with_http_info
+  data, status_code, headers = api_instance.create_web3_rarible_listing_with_http_info(create_web3_rarible_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OrderHashResponse>
@@ -1489,7 +1526,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_rarible_listing_request** | **CreateWeb3RaribleListingRequest** |  |  |
 
 ### Return type
 
@@ -1501,13 +1540,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_list_tx
 
-> <CreateWeb3SolanaListTxResponse> create_web3_solana_list_tx(marketplace)
+> <CreateWeb3SolanaListTxResponse> create_web3_solana_list_tx(marketplace, create_web3_solana_list_tx_request)
 
 Build an unsigned listing transaction on the Crossly book, Tensor or Magic Eden for a Solana NFT in your linked wallet.
 
@@ -1524,10 +1563,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 marketplace = 'crossly' # String | 
+create_web3_solana_list_tx_request = Crossly::CreateWeb3SolanaListTxRequest.new({mint: 'mint_example', owner: 'owner_example', price_sol: 'price_sol_example', blockhash: 'blockhash_example'}) # CreateWeb3SolanaListTxRequest | 
 
 begin
   # Build an unsigned listing transaction on the Crossly book, Tensor or Magic Eden for a Solana NFT in your linked wallet.
-  result = api_instance.create_web3_solana_list_tx(marketplace)
+  result = api_instance.create_web3_solana_list_tx(marketplace, create_web3_solana_list_tx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_list_tx: #{e}"
@@ -1538,12 +1578,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_list_tx_with_http_info(marketplace)
+> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_list_tx_with_http_info(marketplace, create_web3_solana_list_tx_request)
 
 ```ruby
 begin
   # Build an unsigned listing transaction on the Crossly book, Tensor or Magic Eden for a Solana NFT in your linked wallet.
-  data, status_code, headers = api_instance.create_web3_solana_list_tx_with_http_info(marketplace)
+  data, status_code, headers = api_instance.create_web3_solana_list_tx_with_http_info(marketplace, create_web3_solana_list_tx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaListTxResponse>
@@ -1557,6 +1597,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **marketplace** | **String** |  |  |
+| **create_web3_solana_list_tx_request** | **CreateWeb3SolanaListTxRequest** |  |  |
 
 ### Return type
 
@@ -1568,13 +1609,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_listing
 
-> <OrderHashResponse> create_web3_solana_listing(marketplace)
+> <OrderHashResponse> create_web3_solana_listing(marketplace, create_web3_solana_listing_request)
 
 Record a Crossly-book, Tensor or Magic Eden listing your wallet sent (read back from the chain first).
 
@@ -1591,10 +1632,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 marketplace = 'crossly' # String | 
+create_web3_solana_listing_request = Crossly::CreateWeb3SolanaListingRequest.new({owner: 'owner_example', mint: 'mint_example', price_sol: 'price_sol_example', signature: 'signature_example'}) # CreateWeb3SolanaListingRequest | 
 
 begin
   # Record a Crossly-book, Tensor or Magic Eden listing your wallet sent (read back from the chain first).
-  result = api_instance.create_web3_solana_listing(marketplace)
+  result = api_instance.create_web3_solana_listing(marketplace, create_web3_solana_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_listing: #{e}"
@@ -1605,12 +1647,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OrderHashResponse>, Integer, Hash)> create_web3_solana_listing_with_http_info(marketplace)
+> <Array(<OrderHashResponse>, Integer, Hash)> create_web3_solana_listing_with_http_info(marketplace, create_web3_solana_listing_request)
 
 ```ruby
 begin
   # Record a Crossly-book, Tensor or Magic Eden listing your wallet sent (read back from the chain first).
-  data, status_code, headers = api_instance.create_web3_solana_listing_with_http_info(marketplace)
+  data, status_code, headers = api_instance.create_web3_solana_listing_with_http_info(marketplace, create_web3_solana_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OrderHashResponse>
@@ -1624,6 +1666,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **marketplace** | **String** |  |  |
+| **create_web3_solana_listing_request** | **CreateWeb3SolanaListingRequest** |  |  |
 
 ### Return type
 
@@ -1635,13 +1678,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_offer
 
-> <OrderHashResponse> create_web3_solana_offer
+> <OrderHashResponse> create_web3_solana_offer(create_web3_solana_offer_request)
 
 Record a sent bid; it is recorded only once its trade state exists on chain.
 
@@ -1657,10 +1700,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_solana_offer_request = Crossly::CreateWeb3SolanaOfferRequest.new({mint: 'mint_example', buyer: 'buyer_example', price_sol: 'price_sol_example', signature: 'signature_example'}) # CreateWeb3SolanaOfferRequest | 
 
 begin
   # Record a sent bid; it is recorded only once its trade state exists on chain.
-  result = api_instance.create_web3_solana_offer
+  result = api_instance.create_web3_solana_offer(create_web3_solana_offer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_offer: #{e}"
@@ -1671,12 +1715,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OrderHashResponse>, Integer, Hash)> create_web3_solana_offer_with_http_info
+> <Array(<OrderHashResponse>, Integer, Hash)> create_web3_solana_offer_with_http_info(create_web3_solana_offer_request)
 
 ```ruby
 begin
   # Record a sent bid; it is recorded only once its trade state exists on chain.
-  data, status_code, headers = api_instance.create_web3_solana_offer_with_http_info
+  data, status_code, headers = api_instance.create_web3_solana_offer_with_http_info(create_web3_solana_offer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OrderHashResponse>
@@ -1687,7 +1731,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_solana_offer_request** | **CreateWeb3SolanaOfferRequest** |  |  |
 
 ### Return type
 
@@ -1699,13 +1745,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_offer_accept_tx
 
-> <CreateWeb3SolanaListTxResponse> create_web3_solana_offer_accept_tx(hash)
+> <CreateWeb3SolanaListTxResponse> create_web3_solana_offer_accept_tx(hash, create_web3_solana_offer_accept_tx_request)
 
 Build the sale into a bid from your linked wallet that holds the NFT (sell + execute_sale, one transaction).
 
@@ -1722,10 +1768,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 hash = 'hash_example' # String | 
+create_web3_solana_offer_accept_tx_request = Crossly::CreateWeb3SolanaOfferAcceptTxRequest.new({seller: 'seller_example', blockhash: 'blockhash_example'}) # CreateWeb3SolanaOfferAcceptTxRequest | 
 
 begin
   # Build the sale into a bid from your linked wallet that holds the NFT (sell + execute_sale, one transaction).
-  result = api_instance.create_web3_solana_offer_accept_tx(hash)
+  result = api_instance.create_web3_solana_offer_accept_tx(hash, create_web3_solana_offer_accept_tx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_offer_accept_tx: #{e}"
@@ -1736,12 +1783,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_offer_accept_tx_with_http_info(hash)
+> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_offer_accept_tx_with_http_info(hash, create_web3_solana_offer_accept_tx_request)
 
 ```ruby
 begin
   # Build the sale into a bid from your linked wallet that holds the NFT (sell + execute_sale, one transaction).
-  data, status_code, headers = api_instance.create_web3_solana_offer_accept_tx_with_http_info(hash)
+  data, status_code, headers = api_instance.create_web3_solana_offer_accept_tx_with_http_info(hash, create_web3_solana_offer_accept_tx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaListTxResponse>
@@ -1755,6 +1802,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **hash** | **String** |  |  |
+| **create_web3_solana_offer_accept_tx_request** | **CreateWeb3SolanaOfferAcceptTxRequest** |  |  |
 
 ### Return type
 
@@ -1766,13 +1814,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_offer_cancel_tx
 
-> <CreateWeb3SolanaListTxResponse> create_web3_solana_offer_cancel_tx(hash)
+> <CreateWeb3SolanaListTxResponse> create_web3_solana_offer_cancel_tx(hash, create_web3_solana_offer_cancel_tx_request)
 
 Build the cancel of your bid: the SOL your other bids do not need comes back.
 
@@ -1789,10 +1837,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 hash = 'hash_example' # String | 
+create_web3_solana_offer_cancel_tx_request = Crossly::CreateWeb3SolanaOfferCancelTxRequest.new({blockhash: 'blockhash_example'}) # CreateWeb3SolanaOfferCancelTxRequest | 
 
 begin
   # Build the cancel of your bid: the SOL your other bids do not need comes back.
-  result = api_instance.create_web3_solana_offer_cancel_tx(hash)
+  result = api_instance.create_web3_solana_offer_cancel_tx(hash, create_web3_solana_offer_cancel_tx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_offer_cancel_tx: #{e}"
@@ -1803,12 +1852,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_offer_cancel_tx_with_http_info(hash)
+> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_offer_cancel_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request)
 
 ```ruby
 begin
   # Build the cancel of your bid: the SOL your other bids do not need comes back.
-  data, status_code, headers = api_instance.create_web3_solana_offer_cancel_tx_with_http_info(hash)
+  data, status_code, headers = api_instance.create_web3_solana_offer_cancel_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaListTxResponse>
@@ -1822,6 +1871,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **hash** | **String** |  |  |
+| **create_web3_solana_offer_cancel_tx_request** | **CreateWeb3SolanaOfferCancelTxRequest** |  |  |
 
 ### Return type
 
@@ -1833,13 +1883,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_offer_confirm
 
-> <CreateWeb3SolanaOfferConfirmResponse> create_web3_solana_offer_confirm(hash)
+> <CreateWeb3SolanaOfferConfirmResponse> create_web3_solana_offer_confirm(hash, create_web3_solana_offer_confirm_request)
 
 Apply a sent accept or cancel once the chain shows the bid closed.
 
@@ -1856,10 +1906,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 hash = 'hash_example' # String | 
+create_web3_solana_offer_confirm_request = Crossly::CreateWeb3SolanaOfferConfirmRequest.new({signature: 'signature_example', action: 'accept'}) # CreateWeb3SolanaOfferConfirmRequest | 
 
 begin
   # Apply a sent accept or cancel once the chain shows the bid closed.
-  result = api_instance.create_web3_solana_offer_confirm(hash)
+  result = api_instance.create_web3_solana_offer_confirm(hash, create_web3_solana_offer_confirm_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_offer_confirm: #{e}"
@@ -1870,12 +1921,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaOfferConfirmResponse>, Integer, Hash)> create_web3_solana_offer_confirm_with_http_info(hash)
+> <Array(<CreateWeb3SolanaOfferConfirmResponse>, Integer, Hash)> create_web3_solana_offer_confirm_with_http_info(hash, create_web3_solana_offer_confirm_request)
 
 ```ruby
 begin
   # Apply a sent accept or cancel once the chain shows the bid closed.
-  data, status_code, headers = api_instance.create_web3_solana_offer_confirm_with_http_info(hash)
+  data, status_code, headers = api_instance.create_web3_solana_offer_confirm_with_http_info(hash, create_web3_solana_offer_confirm_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaOfferConfirmResponse>
@@ -1889,6 +1940,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **hash** | **String** |  |  |
+| **create_web3_solana_offer_confirm_request** | **CreateWeb3SolanaOfferConfirmRequest** |  |  |
 
 ### Return type
 
@@ -1900,13 +1952,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_offer_tx
 
-> <CreateWeb3SolanaOfferTxResponse> create_web3_solana_offer_tx
+> <CreateWeb3SolanaOfferTxResponse> create_web3_solana_offer_tx(create_web3_solana_offer_tx_request)
 
 Build a bid on a Solana NFT on Crossly's book for your linked wallet to sign; the SOL goes into your Auction House escrow.
 
@@ -1922,10 +1974,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_solana_offer_tx_request = Crossly::CreateWeb3SolanaOfferTxRequest.new({mint: 'mint_example', buyer: 'buyer_example', price_sol: 'price_sol_example', blockhash: 'blockhash_example'}) # CreateWeb3SolanaOfferTxRequest | 
 
 begin
   # Build a bid on a Solana NFT on Crossly's book for your linked wallet to sign; the SOL goes into your Auction House escrow.
-  result = api_instance.create_web3_solana_offer_tx
+  result = api_instance.create_web3_solana_offer_tx(create_web3_solana_offer_tx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_offer_tx: #{e}"
@@ -1936,12 +1989,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaOfferTxResponse>, Integer, Hash)> create_web3_solana_offer_tx_with_http_info
+> <Array(<CreateWeb3SolanaOfferTxResponse>, Integer, Hash)> create_web3_solana_offer_tx_with_http_info(create_web3_solana_offer_tx_request)
 
 ```ruby
 begin
   # Build a bid on a Solana NFT on Crossly's book for your linked wallet to sign; the SOL goes into your Auction House escrow.
-  data, status_code, headers = api_instance.create_web3_solana_offer_tx_with_http_info
+  data, status_code, headers = api_instance.create_web3_solana_offer_tx_with_http_info(create_web3_solana_offer_tx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaOfferTxResponse>
@@ -1952,7 +2005,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_solana_offer_tx_request** | **CreateWeb3SolanaOfferTxRequest** |  |  |
 
 ### Return type
 
@@ -1964,13 +2019,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_order_buy_tx
 
-> <CreateWeb3SolanaOrderBuyTxResponse> create_web3_solana_order_buy_tx(hash)
+> <CreateWeb3SolanaOrderBuyTxResponse> create_web3_solana_order_buy_tx(hash, create_web3_solana_order_buy_tx_request)
 
 Build the unsigned transaction that buys a Solana listing (price capped at the listed price).
 
@@ -1987,10 +2042,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 hash = 'hash_example' # String | 
+create_web3_solana_order_buy_tx_request = Crossly::CreateWeb3SolanaOrderBuyTxRequest.new({buyer: 'buyer_example', blockhash: 'blockhash_example'}) # CreateWeb3SolanaOrderBuyTxRequest | 
 
 begin
   # Build the unsigned transaction that buys a Solana listing (price capped at the listed price).
-  result = api_instance.create_web3_solana_order_buy_tx(hash)
+  result = api_instance.create_web3_solana_order_buy_tx(hash, create_web3_solana_order_buy_tx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_order_buy_tx: #{e}"
@@ -2001,12 +2057,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaOrderBuyTxResponse>, Integer, Hash)> create_web3_solana_order_buy_tx_with_http_info(hash)
+> <Array(<CreateWeb3SolanaOrderBuyTxResponse>, Integer, Hash)> create_web3_solana_order_buy_tx_with_http_info(hash, create_web3_solana_order_buy_tx_request)
 
 ```ruby
 begin
   # Build the unsigned transaction that buys a Solana listing (price capped at the listed price).
-  data, status_code, headers = api_instance.create_web3_solana_order_buy_tx_with_http_info(hash)
+  data, status_code, headers = api_instance.create_web3_solana_order_buy_tx_with_http_info(hash, create_web3_solana_order_buy_tx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaOrderBuyTxResponse>
@@ -2020,6 +2076,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **hash** | **String** |  |  |
+| **create_web3_solana_order_buy_tx_request** | **CreateWeb3SolanaOrderBuyTxRequest** |  |  |
 
 ### Return type
 
@@ -2031,13 +2088,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_order_confirm
 
-> <CreateWeb3SolanaOfferConfirmResponse> create_web3_solana_order_confirm(hash)
+> <CreateWeb3SolanaOfferConfirmResponse> create_web3_solana_order_confirm(hash, create_web3_solana_order_confirm_request)
 
 Apply a sent Solana buy or delist to the book (the transaction is read back from the chain).
 
@@ -2054,10 +2111,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 hash = 'hash_example' # String | 
+create_web3_solana_order_confirm_request = Crossly::CreateWeb3SolanaOrderConfirmRequest.new({signature: 'signature_example', action: 'delist'}) # CreateWeb3SolanaOrderConfirmRequest | 
 
 begin
   # Apply a sent Solana buy or delist to the book (the transaction is read back from the chain).
-  result = api_instance.create_web3_solana_order_confirm(hash)
+  result = api_instance.create_web3_solana_order_confirm(hash, create_web3_solana_order_confirm_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_order_confirm: #{e}"
@@ -2068,12 +2126,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaOfferConfirmResponse>, Integer, Hash)> create_web3_solana_order_confirm_with_http_info(hash)
+> <Array(<CreateWeb3SolanaOfferConfirmResponse>, Integer, Hash)> create_web3_solana_order_confirm_with_http_info(hash, create_web3_solana_order_confirm_request)
 
 ```ruby
 begin
   # Apply a sent Solana buy or delist to the book (the transaction is read back from the chain).
-  data, status_code, headers = api_instance.create_web3_solana_order_confirm_with_http_info(hash)
+  data, status_code, headers = api_instance.create_web3_solana_order_confirm_with_http_info(hash, create_web3_solana_order_confirm_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaOfferConfirmResponse>
@@ -2087,6 +2145,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **hash** | **String** |  |  |
+| **create_web3_solana_order_confirm_request** | **CreateWeb3SolanaOrderConfirmRequest** |  |  |
 
 ### Return type
 
@@ -2098,13 +2157,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_solana_order_delist_tx
 
-> <CreateWeb3SolanaListTxResponse> create_web3_solana_order_delist_tx(hash)
+> <CreateWeb3SolanaListTxResponse> create_web3_solana_order_delist_tx(hash, create_web3_solana_offer_cancel_tx_request)
 
 Build the unsigned transaction that takes your Solana listing down.
 
@@ -2121,10 +2180,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 hash = 'hash_example' # String | 
+create_web3_solana_offer_cancel_tx_request = Crossly::CreateWeb3SolanaOfferCancelTxRequest.new({blockhash: 'blockhash_example'}) # CreateWeb3SolanaOfferCancelTxRequest | 
 
 begin
   # Build the unsigned transaction that takes your Solana listing down.
-  result = api_instance.create_web3_solana_order_delist_tx(hash)
+  result = api_instance.create_web3_solana_order_delist_tx(hash, create_web3_solana_offer_cancel_tx_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_solana_order_delist_tx: #{e}"
@@ -2135,12 +2195,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_order_delist_tx_with_http_info(hash)
+> <Array(<CreateWeb3SolanaListTxResponse>, Integer, Hash)> create_web3_solana_order_delist_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request)
 
 ```ruby
 begin
   # Build the unsigned transaction that takes your Solana listing down.
-  data, status_code, headers = api_instance.create_web3_solana_order_delist_tx_with_http_info(hash)
+  data, status_code, headers = api_instance.create_web3_solana_order_delist_tx_with_http_info(hash, create_web3_solana_offer_cancel_tx_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3SolanaListTxResponse>
@@ -2154,6 +2214,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **hash** | **String** |  |  |
+| **create_web3_solana_offer_cancel_tx_request** | **CreateWeb3SolanaOfferCancelTxRequest** |  |  |
 
 ### Return type
 
@@ -2165,7 +2226,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2555,7 +2616,7 @@ This endpoint does not need any parameter.
 
 ## create_web3_store_wallet
 
-> <CreateWeb3StoreWalletResponse> create_web3_store_wallet
+> <CreateWeb3StoreWalletResponse> create_web3_store_wallet(create_web3_store_wallet_request)
 
 Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
 
@@ -2571,10 +2632,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_store_wallet_request = Crossly::CreateWeb3StoreWalletRequest.new({wallet_id: 'wallet_id_example'}) # CreateWeb3StoreWalletRequest | 
 
 begin
   # Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
-  result = api_instance.create_web3_store_wallet
+  result = api_instance.create_web3_store_wallet(create_web3_store_wallet_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_store_wallet: #{e}"
@@ -2585,12 +2647,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3StoreWalletResponse>, Integer, Hash)> create_web3_store_wallet_with_http_info
+> <Array(<CreateWeb3StoreWalletResponse>, Integer, Hash)> create_web3_store_wallet_with_http_info(create_web3_store_wallet_request)
 
 ```ruby
 begin
   # Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
-  data, status_code, headers = api_instance.create_web3_store_wallet_with_http_info
+  data, status_code, headers = api_instance.create_web3_store_wallet_with_http_info(create_web3_store_wallet_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3StoreWalletResponse>
@@ -2601,7 +2663,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_store_wallet_request** | **CreateWeb3StoreWalletRequest** |  |  |
 
 ### Return type
 
@@ -2613,13 +2677,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_store_wallet_challenge
 
-> <CreateWeb3WalletChallengeResponse> create_web3_store_wallet_challenge
+> <CreateWeb3WalletChallengeResponse> create_web3_store_wallet_challenge(create_web3_wallet_challenge_request)
 
 Start adding a selling wallet to the store: the message the wallet signs.
 
@@ -2635,10 +2699,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_wallet_challenge_request = Crossly::CreateWeb3WalletChallengeRequest.new({family: 'solana', address: 'address_example'}) # CreateWeb3WalletChallengeRequest | 
 
 begin
   # Start adding a selling wallet to the store: the message the wallet signs.
-  result = api_instance.create_web3_store_wallet_challenge
+  result = api_instance.create_web3_store_wallet_challenge(create_web3_wallet_challenge_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_store_wallet_challenge: #{e}"
@@ -2649,12 +2714,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3WalletChallengeResponse>, Integer, Hash)> create_web3_store_wallet_challenge_with_http_info
+> <Array(<CreateWeb3WalletChallengeResponse>, Integer, Hash)> create_web3_store_wallet_challenge_with_http_info(create_web3_wallet_challenge_request)
 
 ```ruby
 begin
   # Start adding a selling wallet to the store: the message the wallet signs.
-  data, status_code, headers = api_instance.create_web3_store_wallet_challenge_with_http_info
+  data, status_code, headers = api_instance.create_web3_store_wallet_challenge_with_http_info(create_web3_wallet_challenge_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3WalletChallengeResponse>
@@ -2665,7 +2730,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_wallet_challenge_request** | **CreateWeb3WalletChallengeRequest** |  |  |
 
 ### Return type
 
@@ -2677,13 +2744,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_store_wallet_import
 
-> <CreateWeb3WalletImportResponse> create_web3_store_wallet_import(wallet_id)
+> <CreateWeb3WalletImportResponse> create_web3_store_wallet_import(wallet_id, create_web3_store_wallet_import_request)
 
 Add picked NFTs (`tokens: [{ chain, contract, tokenId }]`) from a store wallet to inventory.
 
@@ -2700,10 +2767,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 wallet_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_web3_store_wallet_import_request = Crossly::CreateWeb3StoreWalletImportRequest.new({tokens: [Crossly::CreateWeb3FavoriteRequest.new({chain: 'ethereum', contract: 'contract_example', token_id: 'token_id_example'})]}) # CreateWeb3StoreWalletImportRequest | 
 
 begin
   # Add picked NFTs (`tokens: [{ chain, contract, tokenId }]`) from a store wallet to inventory.
-  result = api_instance.create_web3_store_wallet_import(wallet_id)
+  result = api_instance.create_web3_store_wallet_import(wallet_id, create_web3_store_wallet_import_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_store_wallet_import: #{e}"
@@ -2714,12 +2782,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3WalletImportResponse>, Integer, Hash)> create_web3_store_wallet_import_with_http_info(wallet_id)
+> <Array(<CreateWeb3WalletImportResponse>, Integer, Hash)> create_web3_store_wallet_import_with_http_info(wallet_id, create_web3_store_wallet_import_request)
 
 ```ruby
 begin
   # Add picked NFTs (`tokens: [{ chain, contract, tokenId }]`) from a store wallet to inventory.
-  data, status_code, headers = api_instance.create_web3_store_wallet_import_with_http_info(wallet_id)
+  data, status_code, headers = api_instance.create_web3_store_wallet_import_with_http_info(wallet_id, create_web3_store_wallet_import_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3WalletImportResponse>
@@ -2733,6 +2801,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **wallet_id** | **String** |  |  |
+| **create_web3_store_wallet_import_request** | **CreateWeb3StoreWalletImportRequest** |  |  |
 
 ### Return type
 
@@ -2744,7 +2813,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2817,7 +2886,7 @@ end
 
 ## create_web3_store_wallet_verify
 
-> <CreateWeb3StoreWalletResponse> create_web3_store_wallet_verify
+> <CreateWeb3StoreWalletResponse> create_web3_store_wallet_verify(create_web3_store_wallet_verify_request)
 
 Finish adding a selling wallet: verify its signature and link it to the store.
 
@@ -2833,10 +2902,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_store_wallet_verify_request = Crossly::CreateWeb3StoreWalletVerifyRequest.new({wallet_id: 'wallet_id_example'}) # CreateWeb3StoreWalletVerifyRequest | 
 
 begin
   # Finish adding a selling wallet: verify its signature and link it to the store.
-  result = api_instance.create_web3_store_wallet_verify
+  result = api_instance.create_web3_store_wallet_verify(create_web3_store_wallet_verify_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_store_wallet_verify: #{e}"
@@ -2847,12 +2917,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3StoreWalletResponse>, Integer, Hash)> create_web3_store_wallet_verify_with_http_info
+> <Array(<CreateWeb3StoreWalletResponse>, Integer, Hash)> create_web3_store_wallet_verify_with_http_info(create_web3_store_wallet_verify_request)
 
 ```ruby
 begin
   # Finish adding a selling wallet: verify its signature and link it to the store.
-  data, status_code, headers = api_instance.create_web3_store_wallet_verify_with_http_info
+  data, status_code, headers = api_instance.create_web3_store_wallet_verify_with_http_info(create_web3_store_wallet_verify_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3StoreWalletResponse>
@@ -2863,7 +2933,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_store_wallet_verify_request** | **CreateWeb3StoreWalletVerifyRequest** |  |  |
 
 ### Return type
 
@@ -2875,7 +2947,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2952,7 +3024,7 @@ end
 
 ## create_web3_transaction
 
-> <CreateWeb3TransactionResponse> create_web3_transaction
+> <CreateWeb3TransactionResponse> create_web3_transaction(create_web3_transaction_request)
 
 Apply a Seaport transaction's fills and cancels to the Crossly book (read from the receipt).
 
@@ -2968,10 +3040,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_transaction_request = Crossly::CreateWeb3TransactionRequest.new({chain: 'ethereum', tx_hash: 'tx_hash_example'}) # CreateWeb3TransactionRequest | 
 
 begin
   # Apply a Seaport transaction's fills and cancels to the Crossly book (read from the receipt).
-  result = api_instance.create_web3_transaction
+  result = api_instance.create_web3_transaction(create_web3_transaction_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_transaction: #{e}"
@@ -2982,12 +3055,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3TransactionResponse>, Integer, Hash)> create_web3_transaction_with_http_info
+> <Array(<CreateWeb3TransactionResponse>, Integer, Hash)> create_web3_transaction_with_http_info(create_web3_transaction_request)
 
 ```ruby
 begin
   # Apply a Seaport transaction's fills and cancels to the Crossly book (read from the receipt).
-  data, status_code, headers = api_instance.create_web3_transaction_with_http_info
+  data, status_code, headers = api_instance.create_web3_transaction_with_http_info(create_web3_transaction_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3TransactionResponse>
@@ -2998,7 +3071,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_transaction_request** | **CreateWeb3TransactionRequest** |  |  |
 
 ### Return type
 
@@ -3010,13 +3085,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_web3_wallet_challenge
 
-> <CreateWeb3WalletChallengeResponse> create_web3_wallet_challenge
+> <CreateWeb3WalletChallengeResponse> create_web3_wallet_challenge(create_web3_wallet_challenge_request)
 
 Start linking a wallet: returns the message the wallet must sign.
 
@@ -3032,10 +3107,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_wallet_challenge_request = Crossly::CreateWeb3WalletChallengeRequest.new({family: 'solana', address: 'address_example'}) # CreateWeb3WalletChallengeRequest | 
 
 begin
   # Start linking a wallet: returns the message the wallet must sign.
-  result = api_instance.create_web3_wallet_challenge
+  result = api_instance.create_web3_wallet_challenge(create_web3_wallet_challenge_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_wallet_challenge: #{e}"
@@ -3046,12 +3122,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3WalletChallengeResponse>, Integer, Hash)> create_web3_wallet_challenge_with_http_info
+> <Array(<CreateWeb3WalletChallengeResponse>, Integer, Hash)> create_web3_wallet_challenge_with_http_info(create_web3_wallet_challenge_request)
 
 ```ruby
 begin
   # Start linking a wallet: returns the message the wallet must sign.
-  data, status_code, headers = api_instance.create_web3_wallet_challenge_with_http_info
+  data, status_code, headers = api_instance.create_web3_wallet_challenge_with_http_info(create_web3_wallet_challenge_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3WalletChallengeResponse>
@@ -3062,7 +3138,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_wallet_challenge_request** | **CreateWeb3WalletChallengeRequest** |  |  |
 
 ### Return type
 
@@ -3074,7 +3152,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3214,7 +3292,7 @@ end
 
 ## create_web3_wallet_verify
 
-> <CreateWeb3WalletVerifyResponse> create_web3_wallet_verify
+> <CreateWeb3WalletVerifyResponse> create_web3_wallet_verify(create_web3_wallet_verify_request)
 
 Finish linking a wallet with its signature over the challenge message.
 
@@ -3230,10 +3308,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+create_web3_wallet_verify_request = Crossly::CreateWeb3WalletVerifyRequest.new({wallet_id: 'wallet_id_example', signature: 'signature_example'}) # CreateWeb3WalletVerifyRequest | 
 
 begin
   # Finish linking a wallet with its signature over the challenge message.
-  result = api_instance.create_web3_wallet_verify
+  result = api_instance.create_web3_wallet_verify(create_web3_wallet_verify_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->create_web3_wallet_verify: #{e}"
@@ -3244,12 +3323,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWeb3WalletVerifyResponse>, Integer, Hash)> create_web3_wallet_verify_with_http_info
+> <Array(<CreateWeb3WalletVerifyResponse>, Integer, Hash)> create_web3_wallet_verify_with_http_info(create_web3_wallet_verify_request)
 
 ```ruby
 begin
   # Finish linking a wallet with its signature over the challenge message.
-  data, status_code, headers = api_instance.create_web3_wallet_verify_with_http_info
+  data, status_code, headers = api_instance.create_web3_wallet_verify_with_http_info(create_web3_wallet_verify_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWeb3WalletVerifyResponse>
@@ -3260,7 +3339,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_web3_wallet_verify_request** | **CreateWeb3WalletVerifyRequest** |  |  |
 
 ### Return type
 
@@ -3272,7 +3353,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3949,7 +4030,7 @@ This endpoint does not need any parameter.
 
 ## get_web3_browse
 
-> <GetWeb3BrowseResponse> get_web3_browse
+> <GetWeb3BrowseResponse> get_web3_browse(opts)
 
 The Web3 directory's categories and chains, with how many collections each holds.
 
@@ -3965,10 +4046,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  category: 'pfps' # String | 
+}
 
 begin
   # The Web3 directory's categories and chains, with how many collections each holds.
-  result = api_instance.get_web3_browse
+  result = api_instance.get_web3_browse(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->get_web3_browse: #{e}"
@@ -3979,12 +4064,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWeb3BrowseResponse>, Integer, Hash)> get_web3_browse_with_http_info
+> <Array(<GetWeb3BrowseResponse>, Integer, Hash)> get_web3_browse_with_http_info(opts)
 
 ```ruby
 begin
   # The Web3 directory's categories and chains, with how many collections each holds.
-  data, status_code, headers = api_instance.get_web3_browse_with_http_info
+  data, status_code, headers = api_instance.get_web3_browse_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWeb3BrowseResponse>
@@ -3995,7 +4080,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
 
 ### Return type
 
@@ -4220,7 +4308,7 @@ end
 
 ## get_web3_collection_item
 
-> <GetWeb3CollectionItemResponse> get_web3_collection_item(chain, contract)
+> <GetWeb3CollectionItemResponse> get_web3_collection_item(chain, contract, opts)
 
 A collection's NFTs: filter by traits (repeat trait=Type:Value; OR within a type, AND across), search by name or token id, sort by id, rarity or Crossly price. Whole-collection once indexed.
 
@@ -4238,10 +4326,19 @@ end
 api_instance = Crossly::Web3Api.new
 chain = 'chain_example' # String | 
 contract = 'contract_example' # String | 
+opts = {
+  offset: 8.14, # Float | 
+  limit: 8.14, # Float | 
+  q: 'q_example', # String | 
+  sort: 'id', # String | 
+  trait: 'trait_example', # String | 
+  listed: true, # Boolean | 
+  page_key: 'page_key_example' # String | 
+}
 
 begin
   # A collection's NFTs: filter by traits (repeat trait=Type:Value; OR within a type, AND across), search by name or token id, sort by id, rarity or Crossly price. Whole-collection once indexed.
-  result = api_instance.get_web3_collection_item(chain, contract)
+  result = api_instance.get_web3_collection_item(chain, contract, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->get_web3_collection_item: #{e}"
@@ -4252,12 +4349,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWeb3CollectionItemResponse>, Integer, Hash)> get_web3_collection_item_with_http_info(chain, contract)
+> <Array(<GetWeb3CollectionItemResponse>, Integer, Hash)> get_web3_collection_item_with_http_info(chain, contract, opts)
 
 ```ruby
 begin
   # A collection's NFTs: filter by traits (repeat trait=Type:Value; OR within a type, AND across), search by name or token id, sort by id, rarity or Crossly price. Whole-collection once indexed.
-  data, status_code, headers = api_instance.get_web3_collection_item_with_http_info(chain, contract)
+  data, status_code, headers = api_instance.get_web3_collection_item_with_http_info(chain, contract, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWeb3CollectionItemResponse>
@@ -4272,6 +4369,13 @@ end
 | ---- | ---- | ----------- | ----- |
 | **chain** | **String** |  |  |
 | **contract** | **String** |  |  |
+| **offset** | **Float** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **trait** | **String** |  | [optional] |
+| **listed** | **Boolean** |  | [optional] |
+| **page_key** | **String** |  | [optional] |
 
 ### Return type
 
@@ -4358,7 +4462,7 @@ end
 
 ## get_web3_collection_trait_token
 
-> <GetWeb3CollectionTraitTokenResponse> get_web3_collection_trait_token(chain, contract)
+> <GetWeb3CollectionTraitTokenResponse> get_web3_collection_trait_token(chain, contract, type, value)
 
 Token ids in a collection with one trait — what a trait offer commits to.
 
@@ -4376,10 +4480,12 @@ end
 api_instance = Crossly::Web3Api.new
 chain = 'chain_example' # String | 
 contract = 'contract_example' # String | 
+type = 'type_example' # String | 
+value = 'value_example' # String | 
 
 begin
   # Token ids in a collection with one trait — what a trait offer commits to.
-  result = api_instance.get_web3_collection_trait_token(chain, contract)
+  result = api_instance.get_web3_collection_trait_token(chain, contract, type, value)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->get_web3_collection_trait_token: #{e}"
@@ -4390,12 +4496,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWeb3CollectionTraitTokenResponse>, Integer, Hash)> get_web3_collection_trait_token_with_http_info(chain, contract)
+> <Array(<GetWeb3CollectionTraitTokenResponse>, Integer, Hash)> get_web3_collection_trait_token_with_http_info(chain, contract, type, value)
 
 ```ruby
 begin
   # Token ids in a collection with one trait — what a trait offer commits to.
-  data, status_code, headers = api_instance.get_web3_collection_trait_token_with_http_info(chain, contract)
+  data, status_code, headers = api_instance.get_web3_collection_trait_token_with_http_info(chain, contract, type, value)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWeb3CollectionTraitTokenResponse>
@@ -4410,6 +4516,8 @@ end
 | ---- | ---- | ----------- | ----- |
 | **chain** | **String** |  |  |
 | **contract** | **String** |  |  |
+| **type** | **String** |  |  |
+| **value** | **String** |  |  |
 
 ### Return type
 
@@ -4560,7 +4668,7 @@ end
 
 ## get_web3_crosslist_quote
 
-> <GetWeb3CrosslistQuoteResponse> get_web3_crosslist_quote
+> <GetWeb3CrosslistQuoteResponse> get_web3_crosslist_quote(chain, contract, token_id)
 
 Each marketplace's terms for listing a token: Crossly fee, OpenSea required fees and zone, Tensor availability.
 
@@ -4576,10 +4684,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+chain = 'ethereum' # String | 
+contract = 'contract_example' # String | 
+token_id = 'token_id_example' # String | 
 
 begin
   # Each marketplace's terms for listing a token: Crossly fee, OpenSea required fees and zone, Tensor availability.
-  result = api_instance.get_web3_crosslist_quote
+  result = api_instance.get_web3_crosslist_quote(chain, contract, token_id)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->get_web3_crosslist_quote: #{e}"
@@ -4590,12 +4701,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWeb3CrosslistQuoteResponse>, Integer, Hash)> get_web3_crosslist_quote_with_http_info
+> <Array(<GetWeb3CrosslistQuoteResponse>, Integer, Hash)> get_web3_crosslist_quote_with_http_info(chain, contract, token_id)
 
 ```ruby
 begin
   # Each marketplace's terms for listing a token: Crossly fee, OpenSea required fees and zone, Tensor availability.
-  data, status_code, headers = api_instance.get_web3_crosslist_quote_with_http_info
+  data, status_code, headers = api_instance.get_web3_crosslist_quote_with_http_info(chain, contract, token_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWeb3CrosslistQuoteResponse>
@@ -4606,7 +4717,11 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  |  |
+| **contract** | **String** |  |  |
+| **token_id** | **String** |  |  |
 
 ### Return type
 
@@ -5023,7 +5138,7 @@ end
 
 ## get_web3_order_fulfillment
 
-> <GetWeb3OrderFulfillmentResponse> get_web3_order_fulfillment(chain, hash)
+> <GetWeb3OrderFulfillmentResponse> get_web3_order_fulfillment(chain, hash, opts)
 
 The signed order a taker passes to Seaport, after re-checking it can still fill.
 
@@ -5041,10 +5156,13 @@ end
 api_instance = Crossly::Web3Api.new
 chain = 'chain_example' # String | 
 hash = 'hash_example' # String | 
+opts = {
+  token_id: 'token_id_example' # String | 
+}
 
 begin
   # The signed order a taker passes to Seaport, after re-checking it can still fill.
-  result = api_instance.get_web3_order_fulfillment(chain, hash)
+  result = api_instance.get_web3_order_fulfillment(chain, hash, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->get_web3_order_fulfillment: #{e}"
@@ -5055,12 +5173,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWeb3OrderFulfillmentResponse>, Integer, Hash)> get_web3_order_fulfillment_with_http_info(chain, hash)
+> <Array(<GetWeb3OrderFulfillmentResponse>, Integer, Hash)> get_web3_order_fulfillment_with_http_info(chain, hash, opts)
 
 ```ruby
 begin
   # The signed order a taker passes to Seaport, after re-checking it can still fill.
-  data, status_code, headers = api_instance.get_web3_order_fulfillment_with_http_info(chain, hash)
+  data, status_code, headers = api_instance.get_web3_order_fulfillment_with_http_info(chain, hash, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWeb3OrderFulfillmentResponse>
@@ -5075,6 +5193,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **chain** | **String** |  |  |
 | **hash** | **String** |  |  |
+| **token_id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -5291,7 +5410,7 @@ This endpoint does not need any parameter.
 
 ## get_web3_portfolio_tax
 
-> <GetWeb3PortfolioTaxResponse> get_web3_portfolio_tax
+> <GetWeb3PortfolioTaxResponse> get_web3_portfolio_tax(year)
 
 One calendar year of NFT disposals from your linked wallets as CSV text: acquired, sold, proceeds, cost basis, gain (coin and USD).
 
@@ -5307,10 +5426,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+year = 8.14 # Float | 
 
 begin
   # One calendar year of NFT disposals from your linked wallets as CSV text: acquired, sold, proceeds, cost basis, gain (coin and USD).
-  result = api_instance.get_web3_portfolio_tax
+  result = api_instance.get_web3_portfolio_tax(year)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->get_web3_portfolio_tax: #{e}"
@@ -5321,12 +5441,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWeb3PortfolioTaxResponse>, Integer, Hash)> get_web3_portfolio_tax_with_http_info
+> <Array(<GetWeb3PortfolioTaxResponse>, Integer, Hash)> get_web3_portfolio_tax_with_http_info(year)
 
 ```ruby
 begin
   # One calendar year of NFT disposals from your linked wallets as CSV text: acquired, sold, proceeds, cost basis, gain (coin and USD).
-  data, status_code, headers = api_instance.get_web3_portfolio_tax_with_http_info
+  data, status_code, headers = api_instance.get_web3_portfolio_tax_with_http_info(year)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWeb3PortfolioTaxResponse>
@@ -5337,7 +5457,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **year** | **Float** |  |  |
 
 ### Return type
 
@@ -5893,7 +6015,7 @@ end
 
 ## list_web3_activity
 
-> <ListWeb3ActivityResponse> list_web3_activity
+> <ListWeb3ActivityResponse> list_web3_activity(opts)
 
 Listings, offers, sales and cancels in the Crossly book, newest first.
 
@@ -5909,10 +6031,16 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  contract: 'contract_example', # String | 
+  token_id: 'token_id_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Listings, offers, sales and cancels in the Crossly book, newest first.
-  result = api_instance.list_web3_activity
+  result = api_instance.list_web3_activity(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_activity: #{e}"
@@ -5923,12 +6051,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3ActivityResponse>, Integer, Hash)> list_web3_activity_with_http_info
+> <Array(<ListWeb3ActivityResponse>, Integer, Hash)> list_web3_activity_with_http_info(opts)
 
 ```ruby
 begin
   # Listings, offers, sales and cancels in the Crossly book, newest first.
-  data, status_code, headers = api_instance.list_web3_activity_with_http_info
+  data, status_code, headers = api_instance.list_web3_activity_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3ActivityResponse>
@@ -5939,7 +6067,12 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **contract** | **String** |  | [optional] |
+| **token_id** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6085,7 +6218,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_auctions
 
-> <ListWeb3AuctionsResponse> list_web3_auctions
+> <ListWeb3AuctionsResponse> list_web3_auctions(opts)
 
 Live English auctions on the Crossly book, ending soonest first, each with its top bid and the least the next bid can be.
 
@@ -6101,10 +6234,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Live English auctions on the Crossly book, ending soonest first, each with its top bid and the least the next bid can be.
-  result = api_instance.list_web3_auctions
+  result = api_instance.list_web3_auctions(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_auctions: #{e}"
@@ -6115,12 +6252,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3AuctionsResponse>, Integer, Hash)> list_web3_auctions_with_http_info
+> <Array(<ListWeb3AuctionsResponse>, Integer, Hash)> list_web3_auctions_with_http_info(opts)
 
 ```ruby
 begin
   # Live English auctions on the Crossly book, ending soonest first, each with its top bid and the least the next bid can be.
-  data, status_code, headers = api_instance.list_web3_auctions_with_http_info
+  data, status_code, headers = api_instance.list_web3_auctions_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3AuctionsResponse>
@@ -6131,7 +6268,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6149,7 +6289,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_browse_collections
 
-> <ListWeb3BrowseCollectionsResponse> list_web3_browse_collections
+> <ListWeb3BrowseCollectionsResponse> list_web3_browse_collections(opts)
 
 Browse NFT collections by chain, category and name; sort hot (Crossly sales, listings, favourites), new, volume, floor or name.
 
@@ -6165,10 +6305,22 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  category: 'pfps', # String | 
+  q: 'q_example', # String | 
+  sort: 'name', # String | 
+  listed: true, # Boolean | 
+  verified: true, # Boolean | 
+  floor_min: 'floor_min_example', # String | Floor range in the chosen chain's native coin, e.g. 0.5 (ETH); ignored without a chain.
+  floor_max: 'floor_max_example', # String | 
+  limit: 8.14, # Float | 
+  offset: 8.14 # Float | 
+}
 
 begin
   # Browse NFT collections by chain, category and name; sort hot (Crossly sales, listings, favourites), new, volume, floor or name.
-  result = api_instance.list_web3_browse_collections
+  result = api_instance.list_web3_browse_collections(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_browse_collections: #{e}"
@@ -6179,12 +6331,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3BrowseCollectionsResponse>, Integer, Hash)> list_web3_browse_collections_with_http_info
+> <Array(<ListWeb3BrowseCollectionsResponse>, Integer, Hash)> list_web3_browse_collections_with_http_info(opts)
 
 ```ruby
 begin
   # Browse NFT collections by chain, category and name; sort hot (Crossly sales, listings, favourites), new, volume, floor or name.
-  data, status_code, headers = api_instance.list_web3_browse_collections_with_http_info
+  data, status_code, headers = api_instance.list_web3_browse_collections_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3BrowseCollectionsResponse>
@@ -6195,7 +6347,18 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **listed** | **Boolean** |  | [optional] |
+| **verified** | **Boolean** |  | [optional] |
+| **floor_min** | **String** | Floor range in the chosen chain&#39;s native coin, e.g. 0.5 (ETH); ignored without a chain. | [optional] |
+| **floor_max** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **offset** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6213,7 +6376,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_browse_tokens
 
-> <ListWeb3BrowseTokensResponse> list_web3_browse_tokens
+> <ListWeb3BrowseTokensResponse> list_web3_browse_tokens(opts)
 
 Hot NFTs: what is for sale on Crossly first, then tokens from the hottest collections.
 
@@ -6229,10 +6392,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  category: 'pfps', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Hot NFTs: what is for sale on Crossly first, then tokens from the hottest collections.
-  result = api_instance.list_web3_browse_tokens
+  result = api_instance.list_web3_browse_tokens(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_browse_tokens: #{e}"
@@ -6243,12 +6411,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3BrowseTokensResponse>, Integer, Hash)> list_web3_browse_tokens_with_http_info
+> <Array(<ListWeb3BrowseTokensResponse>, Integer, Hash)> list_web3_browse_tokens_with_http_info(opts)
 
 ```ruby
 begin
   # Hot NFTs: what is for sale on Crossly first, then tokens from the hottest collections.
-  data, status_code, headers = api_instance.list_web3_browse_tokens_with_http_info
+  data, status_code, headers = api_instance.list_web3_browse_tokens_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3BrowseTokensResponse>
@@ -6259,7 +6427,11 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6277,7 +6449,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_bundles
 
-> <ListWeb3BundlesResponse> list_web3_bundles
+> <ListWeb3BundlesResponse> list_web3_bundles(opts)
 
 Open bundle listings (2–30 NFTs for one price), newest first, by chain or by a contract any item is from.
 
@@ -6293,10 +6465,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  contract: 'contract_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Open bundle listings (2–30 NFTs for one price), newest first, by chain or by a contract any item is from.
-  result = api_instance.list_web3_bundles
+  result = api_instance.list_web3_bundles(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_bundles: #{e}"
@@ -6307,12 +6484,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3BundlesResponse>, Integer, Hash)> list_web3_bundles_with_http_info
+> <Array(<ListWeb3BundlesResponse>, Integer, Hash)> list_web3_bundles_with_http_info(opts)
 
 ```ruby
 begin
   # Open bundle listings (2–30 NFTs for one price), newest first, by chain or by a contract any item is from.
-  data, status_code, headers = api_instance.list_web3_bundles_with_http_info
+  data, status_code, headers = api_instance.list_web3_bundles_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3BundlesResponse>
@@ -6323,7 +6500,11 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **contract** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6341,7 +6522,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_collection_history
 
-> <ListWeb3CollectionHistoryResponse> list_web3_collection_history(chain, contract)
+> <ListWeb3CollectionHistoryResponse> list_web3_collection_history(chain, contract, opts)
 
 Daily floor, sales, volume, holders and listed count for a collection, oldest first (up to 365 days).
 
@@ -6359,10 +6540,13 @@ end
 api_instance = Crossly::Web3Api.new
 chain = 'chain_example' # String | 
 contract = 'contract_example' # String | 
+opts = {
+  days: 8.14 # Float | 
+}
 
 begin
   # Daily floor, sales, volume, holders and listed count for a collection, oldest first (up to 365 days).
-  result = api_instance.list_web3_collection_history(chain, contract)
+  result = api_instance.list_web3_collection_history(chain, contract, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_collection_history: #{e}"
@@ -6373,12 +6557,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3CollectionHistoryResponse>, Integer, Hash)> list_web3_collection_history_with_http_info(chain, contract)
+> <Array(<ListWeb3CollectionHistoryResponse>, Integer, Hash)> list_web3_collection_history_with_http_info(chain, contract, opts)
 
 ```ruby
 begin
   # Daily floor, sales, volume, holders and listed count for a collection, oldest first (up to 365 days).
-  data, status_code, headers = api_instance.list_web3_collection_history_with_http_info(chain, contract)
+  data, status_code, headers = api_instance.list_web3_collection_history_with_http_info(chain, contract, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3CollectionHistoryResponse>
@@ -6393,6 +6577,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **chain** | **String** |  |  |
 | **contract** | **String** |  |  |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6410,7 +6595,7 @@ end
 
 ## list_web3_collections
 
-> <ListWeb3CollectionsResponse> list_web3_collections
+> <ListWeb3CollectionsResponse> list_web3_collections(opts)
 
 Collections ranked by 30-day Crossly volume, with floor and listed count.
 
@@ -6426,10 +6611,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Collections ranked by 30-day Crossly volume, with floor and listed count.
-  result = api_instance.list_web3_collections
+  result = api_instance.list_web3_collections(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_collections: #{e}"
@@ -6440,12 +6629,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3CollectionsResponse>, Integer, Hash)> list_web3_collections_with_http_info
+> <Array(<ListWeb3CollectionsResponse>, Integer, Hash)> list_web3_collections_with_http_info(opts)
 
 ```ruby
 begin
   # Collections ranked by 30-day Crossly volume, with floor and listed count.
-  data, status_code, headers = api_instance.list_web3_collections_with_http_info
+  data, status_code, headers = api_instance.list_web3_collections_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3CollectionsResponse>
@@ -6456,7 +6645,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -6797,7 +6989,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_listings
 
-> <ListWeb3ListingsResponse> list_web3_listings
+> <ListWeb3ListingsResponse> list_web3_listings(opts)
 
 Open NFT listings in the Crossly book — the cheapest per token.
 
@@ -6813,10 +7005,17 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  contract: 'contract_example', # String | 
+  sort: 'price_asc', # String | 
+  page: 8.14, # Float | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Open NFT listings in the Crossly book — the cheapest per token.
-  result = api_instance.list_web3_listings
+  result = api_instance.list_web3_listings(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_listings: #{e}"
@@ -6827,12 +7026,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3ListingsResponse>, Integer, Hash)> list_web3_listings_with_http_info
+> <Array(<ListWeb3ListingsResponse>, Integer, Hash)> list_web3_listings_with_http_info(opts)
 
 ```ruby
 begin
   # Open NFT listings in the Crossly book — the cheapest per token.
-  data, status_code, headers = api_instance.list_web3_listings_with_http_info
+  data, status_code, headers = api_instance.list_web3_listings_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3ListingsResponse>
@@ -6843,7 +7042,13 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **contract** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **page** | **Float** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -7128,7 +7333,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_rankings
 
-> <ListWeb3RankingsResponse> list_web3_rankings
+> <ListWeb3RankingsResponse> list_web3_rankings(opts)
 
 Collections by sales volume over 24h, 7d or 30d, in one coin: the ETH chains together, or Polygon / Solana on their own.
 
@@ -7144,10 +7349,16 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  window: '7d', # String | 
+  chain: 'ethereum', # String | 
+  category: 'pfps', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Collections by sales volume over 24h, 7d or 30d, in one coin: the ETH chains together, or Polygon / Solana on their own.
-  result = api_instance.list_web3_rankings
+  result = api_instance.list_web3_rankings(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_rankings: #{e}"
@@ -7158,12 +7369,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3RankingsResponse>, Integer, Hash)> list_web3_rankings_with_http_info
+> <Array(<ListWeb3RankingsResponse>, Integer, Hash)> list_web3_rankings_with_http_info(opts)
 
 ```ruby
 begin
   # Collections by sales volume over 24h, 7d or 30d, in one coin: the ETH chains together, or Polygon / Solana on their own.
-  data, status_code, headers = api_instance.list_web3_rankings_with_http_info
+  data, status_code, headers = api_instance.list_web3_rankings_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3RankingsResponse>
@@ -7174,7 +7385,12 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **window** | **String** |  | [optional] |
+| **chain** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -7256,7 +7472,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_sales
 
-> <ListWeb3SalesResponse> list_web3_sales
+> <ListWeb3SalesResponse> list_web3_sales(opts)
 
 The latest NFT sales across the directory, from the chain (Seaport and Blur) and the Crossly book, newest first; page with `before`.
 
@@ -7272,10 +7488,16 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+opts = {
+  chain: 'ethereum', # String | 
+  category: 'pfps', # String | 
+  limit: 8.14, # Float | 
+  before: 'before_example' # String | 
+}
 
 begin
   # The latest NFT sales across the directory, from the chain (Seaport and Blur) and the Crossly book, newest first; page with `before`.
-  result = api_instance.list_web3_sales
+  result = api_instance.list_web3_sales(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_sales: #{e}"
@@ -7286,12 +7508,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3SalesResponse>, Integer, Hash)> list_web3_sales_with_http_info
+> <Array(<ListWeb3SalesResponse>, Integer, Hash)> list_web3_sales_with_http_info(opts)
 
 ```ruby
 begin
   # The latest NFT sales across the directory, from the chain (Seaport and Blur) and the Crossly book, newest first; page with `before`.
-  data, status_code, headers = api_instance.list_web3_sales_with_http_info
+  data, status_code, headers = api_instance.list_web3_sales_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3SalesResponse>
@@ -7302,7 +7524,12 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **chain** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **before** | **String** |  | [optional] |
 
 ### Return type
 
@@ -7320,7 +7547,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_search
 
-> <ListWeb3SearchResponse> list_web3_search
+> <ListWeb3SearchResponse> list_web3_search(q)
 
 Find collections by contract address (every chain) or by name.
 
@@ -7336,10 +7563,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+q = 'q_example' # String | 
 
 begin
   # Find collections by contract address (every chain) or by name.
-  result = api_instance.list_web3_search
+  result = api_instance.list_web3_search(q)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_search: #{e}"
@@ -7350,12 +7578,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3SearchResponse>, Integer, Hash)> list_web3_search_with_http_info
+> <Array(<ListWeb3SearchResponse>, Integer, Hash)> list_web3_search_with_http_info(q)
 
 ```ruby
 begin
   # Find collections by contract address (every chain) or by name.
-  data, status_code, headers = api_instance.list_web3_search_with_http_info
+  data, status_code, headers = api_instance.list_web3_search_with_http_info(q)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3SearchResponse>
@@ -7366,7 +7594,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  |  |
 
 ### Return type
 
@@ -7384,7 +7614,7 @@ This endpoint does not need any parameter.
 
 ## list_web3_search_tokens
 
-> <ListWeb3SearchTokensResponse> list_web3_search_tokens
+> <ListWeb3SearchTokensResponse> list_web3_search_tokens(q)
 
 Find tokens by collection name and number: 'pudgy 42', 'Bored Ape #1234'.
 
@@ -7400,10 +7630,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+q = 'q_example' # String | 
 
 begin
   # Find tokens by collection name and number: 'pudgy 42', 'Bored Ape #1234'.
-  result = api_instance.list_web3_search_tokens
+  result = api_instance.list_web3_search_tokens(q)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->list_web3_search_tokens: #{e}"
@@ -7414,12 +7645,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3SearchTokensResponse>, Integer, Hash)> list_web3_search_tokens_with_http_info
+> <Array(<ListWeb3SearchTokensResponse>, Integer, Hash)> list_web3_search_tokens_with_http_info(q)
 
 ```ruby
 begin
   # Find tokens by collection name and number: 'pudgy 42', 'Bored Ape #1234'.
-  data, status_code, headers = api_instance.list_web3_search_tokens_with_http_info
+  data, status_code, headers = api_instance.list_web3_search_tokens_with_http_info(q)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3SearchTokensResponse>
@@ -7430,7 +7661,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  |  |
 
 ### Return type
 
@@ -7499,6 +7732,70 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListWeb3StoreWalletBalancesResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_web3_store_wallet_marketplaces
+
+> <ListWeb3StoreWalletMarketplacesResponse> list_web3_store_wallet_marketplaces
+
+Each NFT marketplace's status for this store: Live only with a usable API key AND a verified store wallet of its network switched on for it. `keyMode` is `crossly` (Crossly's key, nothing to set up) or `own_key` (connect your own key).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::Web3Api.new
+
+begin
+  # Each NFT marketplace's status for this store: Live only with a usable API key AND a verified store wallet of its network switched on for it. `keyMode` is `crossly` (Crossly's key, nothing to set up) or `own_key` (connect your own key).
+  result = api_instance.list_web3_store_wallet_marketplaces
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling Web3Api->list_web3_store_wallet_marketplaces: #{e}"
+end
+```
+
+#### Using the list_web3_store_wallet_marketplaces_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListWeb3StoreWalletMarketplacesResponse>, Integer, Hash)> list_web3_store_wallet_marketplaces_with_http_info
+
+```ruby
+begin
+  # Each NFT marketplace's status for this store: Live only with a usable API key AND a verified store wallet of its network switched on for it. `keyMode` is `crossly` (Crossly's key, nothing to set up) or `own_key` (connect your own key).
+  data, status_code, headers = api_instance.list_web3_store_wallet_marketplaces_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListWeb3StoreWalletMarketplacesResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling Web3Api->list_web3_store_wallet_marketplaces_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWeb3StoreWalletMarketplacesResponse**
 
 ### Authorization
 
@@ -7704,7 +8001,7 @@ This endpoint does not need any parameter.
 
 ## update_web3_holder_perk
 
-> <UpdateWeb3HolderPerkResponse> update_web3_holder_perk
+> <UpdateWeb3HolderPerkResponse> update_web3_holder_perk(update_web3_holder_perk_request)
 
 DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
 
@@ -7720,10 +8017,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::Web3Api.new
+update_web3_holder_perk_request = Crossly::UpdateWeb3HolderPerkRequest.new({chain: 'ethereum', contract: 'contract_example', percent_off_bps: 3.56}) # UpdateWeb3HolderPerkRequest | 
 
 begin
   # DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
-  result = api_instance.update_web3_holder_perk
+  result = api_instance.update_web3_holder_perk(update_web3_holder_perk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->update_web3_holder_perk: #{e}"
@@ -7734,12 +8032,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWeb3HolderPerkResponse>, Integer, Hash)> update_web3_holder_perk_with_http_info
+> <Array(<UpdateWeb3HolderPerkResponse>, Integer, Hash)> update_web3_holder_perk_with_http_info(update_web3_holder_perk_request)
 
 ```ruby
 begin
   # DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
-  data, status_code, headers = api_instance.update_web3_holder_perk_with_http_info
+  data, status_code, headers = api_instance.update_web3_holder_perk_with_http_info(update_web3_holder_perk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWeb3HolderPerkResponse>
@@ -7750,7 +8048,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_web3_holder_perk_request** | **UpdateWeb3HolderPerkRequest** |  |  |
 
 ### Return type
 
@@ -7762,7 +8062,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -7969,7 +8269,7 @@ end
 
 ## update_web3_marketplace_key
 
-> <ListWeb3MarketplaceKeysItem> update_web3_marketplace_key(marketplace)
+> <ListWeb3MarketplaceKeysItem> update_web3_marketplace_key(marketplace, update_web3_marketplace_key_request)
 
 Save your own API key for a marketplace (checked against the marketplace first where it can be); stored encrypted.
 
@@ -7986,10 +8286,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 marketplace = 'opensea' # String | 
+update_web3_marketplace_key_request = Crossly::UpdateWeb3MarketplaceKeyRequest.new({api_key: 'api_key_example'}) # UpdateWeb3MarketplaceKeyRequest | 
 
 begin
   # Save your own API key for a marketplace (checked against the marketplace first where it can be); stored encrypted.
-  result = api_instance.update_web3_marketplace_key(marketplace)
+  result = api_instance.update_web3_marketplace_key(marketplace, update_web3_marketplace_key_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->update_web3_marketplace_key: #{e}"
@@ -8000,12 +8301,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWeb3MarketplaceKeysItem>, Integer, Hash)> update_web3_marketplace_key_with_http_info(marketplace)
+> <Array(<ListWeb3MarketplaceKeysItem>, Integer, Hash)> update_web3_marketplace_key_with_http_info(marketplace, update_web3_marketplace_key_request)
 
 ```ruby
 begin
   # Save your own API key for a marketplace (checked against the marketplace first where it can be); stored encrypted.
-  data, status_code, headers = api_instance.update_web3_marketplace_key_with_http_info(marketplace)
+  data, status_code, headers = api_instance.update_web3_marketplace_key_with_http_info(marketplace, update_web3_marketplace_key_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWeb3MarketplaceKeysItem>
@@ -8019,6 +8320,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **marketplace** | **String** |  |  |
+| **update_web3_marketplace_key_request** | **UpdateWeb3MarketplaceKeyRequest** |  |  |
 
 ### Return type
 
@@ -8030,13 +8332,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_web3_store_wallet
 
-> <UpdateWeb3StoreWalletResponse> update_web3_store_wallet(wallet_id)
+> <UpdateWeb3StoreWalletResponse> update_web3_store_wallet(wallet_id, update_web3_store_wallet_request)
 
 Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
 
@@ -8053,10 +8355,11 @@ end
 
 api_instance = Crossly::Web3Api.new
 wallet_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_web3_store_wallet_request = Crossly::UpdateWeb3StoreWalletRequest.new({auto_import: false}) # UpdateWeb3StoreWalletRequest | 
 
 begin
   # Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
-  result = api_instance.update_web3_store_wallet(wallet_id)
+  result = api_instance.update_web3_store_wallet(wallet_id, update_web3_store_wallet_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling Web3Api->update_web3_store_wallet: #{e}"
@@ -8067,12 +8370,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWeb3StoreWalletResponse>, Integer, Hash)> update_web3_store_wallet_with_http_info(wallet_id)
+> <Array(<UpdateWeb3StoreWalletResponse>, Integer, Hash)> update_web3_store_wallet_with_http_info(wallet_id, update_web3_store_wallet_request)
 
 ```ruby
 begin
   # Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
-  data, status_code, headers = api_instance.update_web3_store_wallet_with_http_info(wallet_id)
+  data, status_code, headers = api_instance.update_web3_store_wallet_with_http_info(wallet_id, update_web3_store_wallet_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWeb3StoreWalletResponse>
@@ -8086,6 +8389,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **wallet_id** | **String** |  |  |
+| **update_web3_store_wallet_request** | **UpdateWeb3StoreWalletRequest** |  |  |
 
 ### Return type
 
@@ -8097,7 +8401,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8165,6 +8469,77 @@ end
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_web3_store_wallet_marketplace
+
+> <UpdateWeb3StoreWalletResponse> update_web3_store_wallet_marketplace(wallet_id, marketplace, enabled_request)
+
+Switch one NFT marketplace (opensea, rarible on EVM; magic_eden, tensor on Solana) on or off for a store wallet: `{ enabled }`.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::Web3Api.new
+wallet_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+marketplace = 'opensea' # String | 
+enabled_request = Crossly::EnabledRequest.new({enabled: false}) # EnabledRequest | 
+
+begin
+  # Switch one NFT marketplace (opensea, rarible on EVM; magic_eden, tensor on Solana) on or off for a store wallet: `{ enabled }`.
+  result = api_instance.update_web3_store_wallet_marketplace(wallet_id, marketplace, enabled_request)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling Web3Api->update_web3_store_wallet_marketplace: #{e}"
+end
+```
+
+#### Using the update_web3_store_wallet_marketplace_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateWeb3StoreWalletResponse>, Integer, Hash)> update_web3_store_wallet_marketplace_with_http_info(wallet_id, marketplace, enabled_request)
+
+```ruby
+begin
+  # Switch one NFT marketplace (opensea, rarible on EVM; magic_eden, tensor on Solana) on or off for a store wallet: `{ enabled }`.
+  data, status_code, headers = api_instance.update_web3_store_wallet_marketplace_with_http_info(wallet_id, marketplace, enabled_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateWeb3StoreWalletResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling Web3Api->update_web3_store_wallet_marketplace_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **wallet_id** | **String** |  |  |
+| **marketplace** | **String** |  |  |
+| **enabled_request** | **EnabledRequest** |  |  |
+
+### Return type
+
+**UpdateWeb3StoreWalletResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

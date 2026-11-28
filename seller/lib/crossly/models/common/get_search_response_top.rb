@@ -241,7 +241,7 @@ module Crossly
       return false if @title.nil?
       return false if @platforms.nil?
       return false if @matched.nil?
-      matched_validator = EnumAttributeValidator.new('String', ["id", "brand", "email", "sku", "listing_id", "title", "order_id", "text", "url", "buyer", "barcode", "tracking"])
+      matched_validator = EnumAttributeValidator.new('String', ["id", "brand", "email", "text", "sku", "listing_id", "title", "order_id", "url", "buyer", "barcode", "tracking"])
       return false unless matched_validator.valid?(@matched)
       return false if @href.nil?
       return false if @score.nil?
@@ -261,7 +261,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] matched Object to be assigned
     def matched=(matched)
-      validator = EnumAttributeValidator.new('String', ["id", "brand", "email", "sku", "listing_id", "title", "order_id", "text", "url", "buyer", "barcode", "tracking"])
+      validator = EnumAttributeValidator.new('String', ["id", "brand", "email", "text", "sku", "listing_id", "title", "order_id", "url", "buyer", "barcode", "tracking"])
       unless validator.valid?(matched)
         fail ArgumentError, "invalid value for \"matched\", must be one of #{validator.allowable_values}."
       end

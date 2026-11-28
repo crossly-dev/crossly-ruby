@@ -20,19 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Create a sold-comp watchlist.
+    # @param create_comp_watchlist_request [CreateCompWatchlistRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListCompWatchlistsItem]
-    def create_comp_watchlist(opts = {})
-      data, _status_code, _headers = create_comp_watchlist_with_http_info(opts)
+    def create_comp_watchlist(create_comp_watchlist_request, opts = {})
+      data, _status_code, _headers = create_comp_watchlist_with_http_info(create_comp_watchlist_request, opts)
       data
     end
 
     # Create a sold-comp watchlist.
+    # @param create_comp_watchlist_request [CreateCompWatchlistRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListCompWatchlistsItem, Integer, Hash)>] ListCompWatchlistsItem data, response status code and response headers
-    def create_comp_watchlist_with_http_info(opts = {})
+    def create_comp_watchlist_with_http_info(create_comp_watchlist_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CompWatchlistsApi.create_comp_watchlist ...'
+      end
+      # verify the required parameter 'create_comp_watchlist_request' is set
+      if @api_client.config.client_side_validation && create_comp_watchlist_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_comp_watchlist_request' when calling CompWatchlistsApi.create_comp_watchlist"
       end
       # resource path
       local_var_path = '/v1/comp-watchlists'
@@ -44,12 +50,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_comp_watchlist_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListCompWatchlistsItem'

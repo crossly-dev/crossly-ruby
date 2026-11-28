@@ -21,9 +21,9 @@ module Crossly
 
     attr_accessor :user_id
 
-    attr_accessor :stripe_payment_intent_id
-
     attr_accessor :attempts
+
+    attr_accessor :stripe_payment_intent_id
 
     attr_accessor :contest_id
 
@@ -61,8 +61,8 @@ module Crossly
         :'id' => :'id',
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
-        :'stripe_payment_intent_id' => :'stripePaymentIntentId',
         :'attempts' => :'attempts',
+        :'stripe_payment_intent_id' => :'stripePaymentIntentId',
         :'contest_id' => :'contestId',
         :'best_score' => :'bestScore',
         :'best_at' => :'bestAt',
@@ -81,8 +81,8 @@ module Crossly
         :'id' => :'String',
         :'created_at' => :'Time',
         :'user_id' => :'String',
-        :'stripe_payment_intent_id' => :'String',
         :'attempts' => :'Float',
+        :'stripe_payment_intent_id' => :'String',
         :'contest_id' => :'String',
         :'best_score' => :'Float',
         :'best_at' => :'Time',
@@ -126,12 +126,12 @@ module Crossly
         self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'stripe_payment_intent_id')
-        self.stripe_payment_intent_id = attributes[:'stripe_payment_intent_id']
-      end
-
       if attributes.key?(:'attempts')
         self.attempts = attributes[:'attempts']
+      end
+
+      if attributes.key?(:'stripe_payment_intent_id')
+        self.stripe_payment_intent_id = attributes[:'stripe_payment_intent_id']
       end
 
       if attributes.key?(:'contest_id')
@@ -214,8 +214,8 @@ module Crossly
           id == o.id &&
           created_at == o.created_at &&
           user_id == o.user_id &&
-          stripe_payment_intent_id == o.stripe_payment_intent_id &&
           attempts == o.attempts &&
+          stripe_payment_intent_id == o.stripe_payment_intent_id &&
           contest_id == o.contest_id &&
           best_score == o.best_score &&
           best_at == o.best_at &&
@@ -231,7 +231,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, user_id, stripe_payment_intent_id, attempts, contest_id, best_score, best_at, payment_state].hash
+      [id, created_at, user_id, attempts, stripe_payment_intent_id, contest_id, best_score, best_at, payment_state].hash
     end
 
     # Builds the object from hash

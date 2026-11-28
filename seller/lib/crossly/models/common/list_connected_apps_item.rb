@@ -38,6 +38,24 @@ module Crossly
     # The share of take-home THIS install agreed to (frozen at consent), not the app's current terms. Null = free.
     attr_accessor :rev_share_bps
 
+    # Who publishes it (spec DV2 \"by publisher\"): the store that owns the app (drizzle/1320), else its developer's display name for an app still waiting for a store.
+    attr_accessor :publisher_name
+
+    # \"About this app\" (spec DV2): the directory profile when it is listed, else these facts in a dialog.
+    attr_accessor :tagline
+
+    attr_accessor :slug
+
+    attr_accessor :listed
+
+    attr_accessor :verified
+
+    attr_accessor :support_url
+
+    attr_accessor :privacy_url
+
+    attr_accessor :terms_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -51,7 +69,15 @@ module Crossly
         :'homepage_url' => :'homepageUrl',
         :'developer_name' => :'developerName',
         :'developer_email' => :'developerEmail',
-        :'rev_share_bps' => :'revShareBps'
+        :'rev_share_bps' => :'revShareBps',
+        :'publisher_name' => :'publisherName',
+        :'tagline' => :'tagline',
+        :'slug' => :'slug',
+        :'listed' => :'listed',
+        :'verified' => :'verified',
+        :'support_url' => :'supportUrl',
+        :'privacy_url' => :'privacyUrl',
+        :'terms_url' => :'termsUrl'
       }
     end
 
@@ -73,7 +99,15 @@ module Crossly
         :'homepage_url' => :'String',
         :'developer_name' => :'String',
         :'developer_email' => :'String',
-        :'rev_share_bps' => :'Float'
+        :'rev_share_bps' => :'Float',
+        :'publisher_name' => :'String',
+        :'tagline' => :'String',
+        :'slug' => :'String',
+        :'listed' => :'Boolean',
+        :'verified' => :'Boolean',
+        :'support_url' => :'String',
+        :'privacy_url' => :'String',
+        :'terms_url' => :'String'
       }
     end
 
@@ -84,7 +118,13 @@ module Crossly
         :'app_description',
         :'homepage_url',
         :'developer_name',
-        :'rev_share_bps'
+        :'rev_share_bps',
+        :'publisher_name',
+        :'tagline',
+        :'slug',
+        :'support_url',
+        :'privacy_url',
+        :'terms_url'
       ])
     end
 
@@ -148,6 +188,38 @@ module Crossly
       if attributes.key?(:'rev_share_bps')
         self.rev_share_bps = attributes[:'rev_share_bps']
       end
+
+      if attributes.key?(:'publisher_name')
+        self.publisher_name = attributes[:'publisher_name']
+      end
+
+      if attributes.key?(:'tagline')
+        self.tagline = attributes[:'tagline']
+      end
+
+      if attributes.key?(:'slug')
+        self.slug = attributes[:'slug']
+      end
+
+      if attributes.key?(:'listed')
+        self.listed = attributes[:'listed']
+      end
+
+      if attributes.key?(:'verified')
+        self.verified = attributes[:'verified']
+      end
+
+      if attributes.key?(:'support_url')
+        self.support_url = attributes[:'support_url']
+      end
+
+      if attributes.key?(:'privacy_url')
+        self.privacy_url = attributes[:'privacy_url']
+      end
+
+      if attributes.key?(:'terms_url')
+        self.terms_url = attributes[:'terms_url']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -178,6 +250,14 @@ module Crossly
         invalid_properties.push('invalid value for "developer_email", developer_email cannot be nil.')
       end
 
+      if @listed.nil?
+        invalid_properties.push('invalid value for "listed", listed cannot be nil.')
+      end
+
+      if @verified.nil?
+        invalid_properties.push('invalid value for "verified", verified cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -190,6 +270,8 @@ module Crossly
       return false if @app_id.nil?
       return false if @app_name.nil?
       return false if @developer_email.nil?
+      return false if @listed.nil?
+      return false if @verified.nil?
       true
     end
 
@@ -208,7 +290,15 @@ module Crossly
           homepage_url == o.homepage_url &&
           developer_name == o.developer_name &&
           developer_email == o.developer_email &&
-          rev_share_bps == o.rev_share_bps
+          rev_share_bps == o.rev_share_bps &&
+          publisher_name == o.publisher_name &&
+          tagline == o.tagline &&
+          slug == o.slug &&
+          listed == o.listed &&
+          verified == o.verified &&
+          support_url == o.support_url &&
+          privacy_url == o.privacy_url &&
+          terms_url == o.terms_url
     end
 
     # @see the `==` method
@@ -220,7 +310,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [grant_id, scopes, connected_at, last_used_at, app_id, app_name, app_description, homepage_url, developer_name, developer_email, rev_share_bps].hash
+      [grant_id, scopes, connected_at, last_used_at, app_id, app_name, app_description, homepage_url, developer_name, developer_email, rev_share_bps, publisher_name, tagline, slug, listed, verified, support_url, privacy_url, terms_url].hash
     end
 
     # Builds the object from hash

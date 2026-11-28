@@ -27,11 +27,11 @@ module Crossly
 
     attr_accessor :slug
 
+    attr_accessor :about
+
     attr_accessor :venue
 
     attr_accessor :host_user_id
-
-    attr_accessor :about
 
     attr_accessor :gate_chain
 
@@ -50,9 +50,9 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'status' => :'status',
         :'slug' => :'slug',
+        :'about' => :'about',
         :'venue' => :'venue',
         :'host_user_id' => :'hostUserId',
-        :'about' => :'about',
         :'gate_chain' => :'gateChain',
         :'gate_contract' => :'gateContract',
         :'gate_name' => :'gateName',
@@ -74,9 +74,9 @@ module Crossly
         :'updated_at' => :'Time',
         :'status' => :'String',
         :'slug' => :'String',
+        :'about' => :'String',
         :'venue' => :'String',
         :'host_user_id' => :'String',
-        :'about' => :'String',
         :'gate_chain' => :'String',
         :'gate_contract' => :'String',
         :'gate_name' => :'String',
@@ -133,16 +133,16 @@ module Crossly
         self.slug = attributes[:'slug']
       end
 
+      if attributes.key?(:'about')
+        self.about = attributes[:'about']
+      end
+
       if attributes.key?(:'venue')
         self.venue = attributes[:'venue']
       end
 
       if attributes.key?(:'host_user_id')
         self.host_user_id = attributes[:'host_user_id']
-      end
-
-      if attributes.key?(:'about')
-        self.about = attributes[:'about']
       end
 
       if attributes.key?(:'gate_chain')
@@ -231,9 +231,9 @@ module Crossly
           updated_at == o.updated_at &&
           status == o.status &&
           slug == o.slug &&
+          about == o.about &&
           venue == o.venue &&
           host_user_id == o.host_user_id &&
-          about == o.about &&
           gate_chain == o.gate_chain &&
           gate_contract == o.gate_contract &&
           gate_name == o.gate_name &&
@@ -249,7 +249,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, status, slug, venue, host_user_id, about, gate_chain, gate_contract, gate_name, membership].hash
+      [id, name, created_at, updated_at, status, slug, about, venue, host_user_id, gate_chain, gate_contract, gate_name, membership].hash
     end
 
     # Builds the object from hash

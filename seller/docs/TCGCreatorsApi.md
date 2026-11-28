@@ -20,7 +20,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_tcg_creator_game
 
-> <CreateTcgCreatorGameResponse> create_tcg_creator_game
+> <CreateTcgCreatorGameResponse> create_tcg_creator_game(create_tcg_creator_game_request)
 
 Submit a card-game package version for review: game.json, cards.json, rules/game.js, thumb.png, art/*.png as { path, base64 }. Checked, conformance-run, art quarantined, then reviewed by a person.
 
@@ -36,10 +36,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::TCGCreatorsApi.new
+create_tcg_creator_game_request = Crossly::CreateTcgCreatorGameRequest.new({files: [Crossly::PathBase64.new({path: 'path_example', base64: 'base64_example'})]}) # CreateTcgCreatorGameRequest | 
 
 begin
   # Submit a card-game package version for review: game.json, cards.json, rules/game.js, thumb.png, art/*.png as { path, base64 }. Checked, conformance-run, art quarantined, then reviewed by a person.
-  result = api_instance.create_tcg_creator_game
+  result = api_instance.create_tcg_creator_game(create_tcg_creator_game_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGCreatorsApi->create_tcg_creator_game: #{e}"
@@ -50,12 +51,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgCreatorGameResponse>, Integer, Hash)> create_tcg_creator_game_with_http_info
+> <Array(<CreateTcgCreatorGameResponse>, Integer, Hash)> create_tcg_creator_game_with_http_info(create_tcg_creator_game_request)
 
 ```ruby
 begin
   # Submit a card-game package version for review: game.json, cards.json, rules/game.js, thumb.png, art/*.png as { path, base64 }. Checked, conformance-run, art quarantined, then reviewed by a person.
-  data, status_code, headers = api_instance.create_tcg_creator_game_with_http_info
+  data, status_code, headers = api_instance.create_tcg_creator_game_with_http_info(create_tcg_creator_game_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgCreatorGameResponse>
@@ -66,7 +67,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_tcg_creator_game_request** | **CreateTcgCreatorGameRequest** |  |  |
 
 ### Return type
 
@@ -78,13 +81,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_tcg_creator_game_check
 
-> <CreateTcgCreatorGameCheckResponse> create_tcg_creator_game_check
+> <CreateTcgCreatorGameCheckResponse> create_tcg_creator_game_check(create_tcg_creator_game_request)
 
 Check a card-game package exactly as a submission is checked -- the static report and bot games played against your rules in the sandbox -- storing nothing. Files as { path, base64 }.
 
@@ -100,10 +103,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::TCGCreatorsApi.new
+create_tcg_creator_game_request = Crossly::CreateTcgCreatorGameRequest.new({files: [Crossly::PathBase64.new({path: 'path_example', base64: 'base64_example'})]}) # CreateTcgCreatorGameRequest | 
 
 begin
   # Check a card-game package exactly as a submission is checked -- the static report and bot games played against your rules in the sandbox -- storing nothing. Files as { path, base64 }.
-  result = api_instance.create_tcg_creator_game_check
+  result = api_instance.create_tcg_creator_game_check(create_tcg_creator_game_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGCreatorsApi->create_tcg_creator_game_check: #{e}"
@@ -114,12 +118,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgCreatorGameCheckResponse>, Integer, Hash)> create_tcg_creator_game_check_with_http_info
+> <Array(<CreateTcgCreatorGameCheckResponse>, Integer, Hash)> create_tcg_creator_game_check_with_http_info(create_tcg_creator_game_request)
 
 ```ruby
 begin
   # Check a card-game package exactly as a submission is checked -- the static report and bot games played against your rules in the sandbox -- storing nothing. Files as { path, base64 }.
-  data, status_code, headers = api_instance.create_tcg_creator_game_check_with_http_info
+  data, status_code, headers = api_instance.create_tcg_creator_game_check_with_http_info(create_tcg_creator_game_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgCreatorGameCheckResponse>
@@ -130,7 +134,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_tcg_creator_game_request** | **CreateTcgCreatorGameRequest** |  |  |
 
 ### Return type
 
@@ -142,7 +148,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -217,7 +223,7 @@ end
 
 ## create_tcg_creator_game_starter
 
-> <CreateTcgStarterResponse> create_tcg_creator_game_starter(id)
+> <CreateTcgStarterResponse> create_tcg_creator_game_starter(id, opts)
 
 Claim a creator game's free starter deck by its key (once per account; account-bound, never tradeable).
 
@@ -234,10 +240,13 @@ end
 
 api_instance = Crossly::TCGCreatorsApi.new
 id = 'id_example' # String | 
+opts = {
+  create_tcg_creator_game_starter_request: Crossly::CreateTcgCreatorGameStarterRequest.new({key: 'key_example'}) # CreateTcgCreatorGameStarterRequest | 
+}
 
 begin
   # Claim a creator game's free starter deck by its key (once per account; account-bound, never tradeable).
-  result = api_instance.create_tcg_creator_game_starter(id)
+  result = api_instance.create_tcg_creator_game_starter(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling TCGCreatorsApi->create_tcg_creator_game_starter: #{e}"
@@ -248,12 +257,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateTcgStarterResponse>, Integer, Hash)> create_tcg_creator_game_starter_with_http_info(id)
+> <Array(<CreateTcgStarterResponse>, Integer, Hash)> create_tcg_creator_game_starter_with_http_info(id, opts)
 
 ```ruby
 begin
   # Claim a creator game's free starter deck by its key (once per account; account-bound, never tradeable).
-  data, status_code, headers = api_instance.create_tcg_creator_game_starter_with_http_info(id)
+  data, status_code, headers = api_instance.create_tcg_creator_game_starter_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateTcgStarterResponse>
@@ -267,6 +276,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_tcg_creator_game_starter_request** | **CreateTcgCreatorGameStarterRequest** |  | [optional] |
 
 ### Return type
 
@@ -278,7 +288,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

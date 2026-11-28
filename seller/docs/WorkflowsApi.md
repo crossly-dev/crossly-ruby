@@ -249,7 +249,7 @@ end
 
 ## create_workflow_chain
 
-> <IdResponse> create_workflow_chain
+> <IdResponse> create_workflow_chain(create_workflow_chain_request)
 
 Create a multi-step workflow chain.
 
@@ -267,10 +267,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorkflowsApi.new
+create_workflow_chain_request = Crossly::CreateWorkflowChainRequest.new({name: 'name_example', trigger_id: 'trigger_id_example', steps: [Crossly::CreateWorkflowChainRequestSteps.new({step_type: 'action'})]}) # CreateWorkflowChainRequest | 
 
 begin
   # Create a multi-step workflow chain.
-  result = api_instance.create_workflow_chain
+  result = api_instance.create_workflow_chain(create_workflow_chain_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorkflowsApi->create_workflow_chain: #{e}"
@@ -281,12 +282,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<IdResponse>, Integer, Hash)> create_workflow_chain_with_http_info
+> <Array(<IdResponse>, Integer, Hash)> create_workflow_chain_with_http_info(create_workflow_chain_request)
 
 ```ruby
 begin
   # Create a multi-step workflow chain.
-  data, status_code, headers = api_instance.create_workflow_chain_with_http_info
+  data, status_code, headers = api_instance.create_workflow_chain_with_http_info(create_workflow_chain_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <IdResponse>
@@ -297,7 +298,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_workflow_chain_request** | **CreateWorkflowChainRequest** |  |  |
 
 ### Return type
 
@@ -309,7 +312,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -656,7 +659,7 @@ end
 
 ## create_workflow_import
 
-> <CreateWorkflowImportResponse> create_workflow_import(request_body)
+> <CreateWorkflowImportResponse> create_workflow_import(opts)
 
 Import a crossly.workflow export document (or { document, name }) as a new, paused workflow. Integration and workflow references are cleared (they belong to the exporting account) and listed in stripped.
 
@@ -672,11 +675,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorkflowsApi.new
-request_body = { key: 3.56} # Hash<String, Object> | 
+opts = {
+  create_workflow_import_request: Crossly::CreateWorkflowImportRequest.new # CreateWorkflowImportRequest | 
+}
 
 begin
   # Import a crossly.workflow export document (or { document, name }) as a new, paused workflow. Integration and workflow references are cleared (they belong to the exporting account) and listed in stripped.
-  result = api_instance.create_workflow_import(request_body)
+  result = api_instance.create_workflow_import(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorkflowsApi->create_workflow_import: #{e}"
@@ -687,12 +692,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorkflowImportResponse>, Integer, Hash)> create_workflow_import_with_http_info(request_body)
+> <Array(<CreateWorkflowImportResponse>, Integer, Hash)> create_workflow_import_with_http_info(opts)
 
 ```ruby
 begin
   # Import a crossly.workflow export document (or { document, name }) as a new, paused workflow. Integration and workflow references are cleared (they belong to the exporting account) and listed in stripped.
-  data, status_code, headers = api_instance.create_workflow_import_with_http_info(request_body)
+  data, status_code, headers = api_instance.create_workflow_import_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorkflowImportResponse>
@@ -705,7 +710,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **request_body** | **Hash&lt;String, Object&gt;** |  |  |
+| **create_workflow_import_request** | **CreateWorkflowImportRequest** |  | [optional] |
 
 ### Return type
 
@@ -1265,7 +1270,7 @@ end
 
 ## create_workflow_version_restore
 
-> <WorkflowResponse> create_workflow_version_restore(id, v)
+> <WorkflowResponse> create_workflow_version_restore(id, v, opts)
 
 Restore an earlier version's graph as a new version. Pass version (the current one you read) to refuse the restore when someone saved meanwhile (409). Body optional: { version?: integer }.
 
@@ -1283,10 +1288,13 @@ end
 api_instance = Crossly::WorkflowsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Workflow id.
 v = 56 # Integer | The version number to restore.
+opts = {
+  create_workflow_version_restore_request: Crossly::CreateWorkflowVersionRestoreRequest.new # CreateWorkflowVersionRestoreRequest | 
+}
 
 begin
   # Restore an earlier version's graph as a new version. Pass version (the current one you read) to refuse the restore when someone saved meanwhile (409). Body optional: { version?: integer }.
-  result = api_instance.create_workflow_version_restore(id, v)
+  result = api_instance.create_workflow_version_restore(id, v, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorkflowsApi->create_workflow_version_restore: #{e}"
@@ -1297,12 +1305,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorkflowResponse>, Integer, Hash)> create_workflow_version_restore_with_http_info(id, v)
+> <Array(<WorkflowResponse>, Integer, Hash)> create_workflow_version_restore_with_http_info(id, v, opts)
 
 ```ruby
 begin
   # Restore an earlier version's graph as a new version. Pass version (the current one you read) to refuse the restore when someone saved meanwhile (409). Body optional: { version?: integer }.
-  data, status_code, headers = api_instance.create_workflow_version_restore_with_http_info(id, v)
+  data, status_code, headers = api_instance.create_workflow_version_restore_with_http_info(id, v, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorkflowResponse>
@@ -1317,6 +1325,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** | Workflow id. |  |
 | **v** | **Integer** | The version number to restore. |  |
+| **create_workflow_version_restore_request** | **CreateWorkflowVersionRestoreRequest** |  | [optional] |
 
 ### Return type
 
@@ -1328,7 +1337,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2599,7 +2608,7 @@ end
 
 ## update_workflow_chain
 
-> <OkResponse> update_workflow_chain(id)
+> <OkResponse> update_workflow_chain(id, create_workflow_chain_request)
 
 Replace a workflow chain wholesale.
 
@@ -2618,10 +2627,11 @@ end
 
 api_instance = Crossly::WorkflowsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_workflow_chain_request = Crossly::CreateWorkflowChainRequest.new({name: 'name_example', trigger_id: 'trigger_id_example', steps: [Crossly::CreateWorkflowChainRequestSteps.new({step_type: 'action'})]}) # CreateWorkflowChainRequest | 
 
 begin
   # Replace a workflow chain wholesale.
-  result = api_instance.update_workflow_chain(id)
+  result = api_instance.update_workflow_chain(id, create_workflow_chain_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorkflowsApi->update_workflow_chain: #{e}"
@@ -2632,12 +2642,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> update_workflow_chain_with_http_info(id)
+> <Array(<OkResponse>, Integer, Hash)> update_workflow_chain_with_http_info(id, create_workflow_chain_request)
 
 ```ruby
 begin
   # Replace a workflow chain wholesale.
-  data, status_code, headers = api_instance.update_workflow_chain_with_http_info(id)
+  data, status_code, headers = api_instance.update_workflow_chain_with_http_info(id, create_workflow_chain_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -2651,6 +2661,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_workflow_chain_request** | **CreateWorkflowChainRequest** |  |  |
 
 ### Return type
 
@@ -2662,6 +2673,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

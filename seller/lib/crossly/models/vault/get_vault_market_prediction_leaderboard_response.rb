@@ -161,7 +161,7 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @period.nil?
-      period_validator = EnumAttributeValidator.new('String', ["week", "month", "all"])
+      period_validator = EnumAttributeValidator.new('String', ["all", "week", "month"])
       return false unless period_validator.valid?(@period)
       return false if @metric.nil?
       metric_validator = EnumAttributeValidator.new('String', ["pnl", "accuracy", "brier"])
@@ -178,7 +178,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] period Object to be assigned
     def period=(period)
-      validator = EnumAttributeValidator.new('String', ["week", "month", "all"])
+      validator = EnumAttributeValidator.new('String', ["all", "week", "month"])
       unless validator.valid?(period)
         fail ArgumentError, "invalid value for \"period\", must be one of #{validator.allowable_values}."
       end

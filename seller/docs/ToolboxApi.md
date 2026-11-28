@@ -24,7 +24,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_toolbox_asset
 
-> <ToolboxAssetResponse> create_toolbox_asset
+> <ToolboxAssetResponse> create_toolbox_asset(opts)
 
 Publish an asset (place nodes). Scanned (lint, text, credits, uploads) then reviewed. Free by default; paid needs Pro and a verified identity.
 
@@ -40,10 +40,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ToolboxApi.new
+opts = {
+  create_toolbox_asset_request: Crossly::CreateToolboxAssetRequest.new({kind: 'package', name: 'name_example', payload: Crossly::CreateToolboxAssetRequestPayload.new({nodes: [3.56]})}) # CreateToolboxAssetRequest | 
+}
 
 begin
   # Publish an asset (place nodes). Scanned (lint, text, credits, uploads) then reviewed. Free by default; paid needs Pro and a verified identity.
-  result = api_instance.create_toolbox_asset
+  result = api_instance.create_toolbox_asset(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->create_toolbox_asset: #{e}"
@@ -54,12 +57,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ToolboxAssetResponse>, Integer, Hash)> create_toolbox_asset_with_http_info
+> <Array(<ToolboxAssetResponse>, Integer, Hash)> create_toolbox_asset_with_http_info(opts)
 
 ```ruby
 begin
   # Publish an asset (place nodes). Scanned (lint, text, credits, uploads) then reviewed. Free by default; paid needs Pro and a verified identity.
-  data, status_code, headers = api_instance.create_toolbox_asset_with_http_info
+  data, status_code, headers = api_instance.create_toolbox_asset_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ToolboxAssetResponse>
@@ -70,7 +73,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_toolbox_asset_request** | **CreateToolboxAssetRequest** |  | [optional] |
 
 ### Return type
 
@@ -82,7 +87,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -222,7 +227,7 @@ end
 
 ## create_toolbox_asset_use
 
-> <CreateToolboxAssetUseResponse> create_toolbox_asset_use(asset_id)
+> <CreateToolboxAssetUseResponse> create_toolbox_asset_use(asset_id, opts)
 
 Get the asset's nodes stamped with its id for a place you can edit; insert:true also inserts them into the place's live session. Paid assets need the experience owner's licence.
 
@@ -239,10 +244,13 @@ end
 
 api_instance = Crossly::ToolboxApi.new
 asset_id = 'asset_id_example' # String | 
+opts = {
+  create_toolbox_asset_use_request: Crossly::CreateToolboxAssetUseRequest.new({experience_id: 'experience_id_example', place_id: 'place_id_example'}) # CreateToolboxAssetUseRequest | 
+}
 
 begin
   # Get the asset's nodes stamped with its id for a place you can edit; insert:true also inserts them into the place's live session. Paid assets need the experience owner's licence.
-  result = api_instance.create_toolbox_asset_use(asset_id)
+  result = api_instance.create_toolbox_asset_use(asset_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->create_toolbox_asset_use: #{e}"
@@ -253,12 +261,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateToolboxAssetUseResponse>, Integer, Hash)> create_toolbox_asset_use_with_http_info(asset_id)
+> <Array(<CreateToolboxAssetUseResponse>, Integer, Hash)> create_toolbox_asset_use_with_http_info(asset_id, opts)
 
 ```ruby
 begin
   # Get the asset's nodes stamped with its id for a place you can edit; insert:true also inserts them into the place's live session. Paid assets need the experience owner's licence.
-  data, status_code, headers = api_instance.create_toolbox_asset_use_with_http_info(asset_id)
+  data, status_code, headers = api_instance.create_toolbox_asset_use_with_http_info(asset_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateToolboxAssetUseResponse>
@@ -272,6 +280,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **asset_id** | **String** |  |  |
+| **create_toolbox_asset_use_request** | **CreateToolboxAssetUseRequest** |  | [optional] |
 
 ### Return type
 
@@ -283,13 +292,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_toolbox_asset_version
 
-> <ToolboxAssetResponse> create_toolbox_asset_version(asset_id)
+> <ToolboxAssetResponse> create_toolbox_asset_version(asset_id, opts)
 
 A new version (reviewed); the live one keeps serving until it is approved.
 
@@ -306,10 +315,13 @@ end
 
 api_instance = Crossly::ToolboxApi.new
 asset_id = 'asset_id_example' # String | 
+opts = {
+  create_toolbox_asset_version_request: Crossly::CreateToolboxAssetVersionRequest.new({payload: Crossly::CreateToolboxAssetRequestPayload.new({nodes: [3.56]})}) # CreateToolboxAssetVersionRequest | 
+}
 
 begin
   # A new version (reviewed); the live one keeps serving until it is approved.
-  result = api_instance.create_toolbox_asset_version(asset_id)
+  result = api_instance.create_toolbox_asset_version(asset_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->create_toolbox_asset_version: #{e}"
@@ -320,12 +332,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ToolboxAssetResponse>, Integer, Hash)> create_toolbox_asset_version_with_http_info(asset_id)
+> <Array(<ToolboxAssetResponse>, Integer, Hash)> create_toolbox_asset_version_with_http_info(asset_id, opts)
 
 ```ruby
 begin
   # A new version (reviewed); the live one keeps serving until it is approved.
-  data, status_code, headers = api_instance.create_toolbox_asset_version_with_http_info(asset_id)
+  data, status_code, headers = api_instance.create_toolbox_asset_version_with_http_info(asset_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ToolboxAssetResponse>
@@ -339,6 +351,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **asset_id** | **String** |  |  |
+| **create_toolbox_asset_version_request** | **CreateToolboxAssetVersionRequest** |  | [optional] |
 
 ### Return type
 
@@ -350,13 +363,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_toolbox_purchase_refund
 
-> <CreateWorldMeReceiptRefundResponse> create_toolbox_purchase_refund(purchase_id)
+> <CreateWorldMeReceiptRefundResponse> create_toolbox_purchase_refund(purchase_id, opts)
 
 Refund a licence within 14 days while no published version of yours uses the asset. Ends the licence; the author's share is reversed.
 
@@ -373,10 +386,13 @@ end
 
 api_instance = Crossly::ToolboxApi.new
 purchase_id = 'purchase_id_example' # String | 
+opts = {
+  reason_request2: Crossly::ReasonRequest2.new # ReasonRequest2 | 
+}
 
 begin
   # Refund a licence within 14 days while no published version of yours uses the asset. Ends the licence; the author's share is reversed.
-  result = api_instance.create_toolbox_purchase_refund(purchase_id)
+  result = api_instance.create_toolbox_purchase_refund(purchase_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->create_toolbox_purchase_refund: #{e}"
@@ -387,12 +403,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldMeReceiptRefundResponse>, Integer, Hash)> create_toolbox_purchase_refund_with_http_info(purchase_id)
+> <Array(<CreateWorldMeReceiptRefundResponse>, Integer, Hash)> create_toolbox_purchase_refund_with_http_info(purchase_id, opts)
 
 ```ruby
 begin
   # Refund a licence within 14 days while no published version of yours uses the asset. Ends the licence; the author's share is reversed.
-  data, status_code, headers = api_instance.create_toolbox_purchase_refund_with_http_info(purchase_id)
+  data, status_code, headers = api_instance.create_toolbox_purchase_refund_with_http_info(purchase_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldMeReceiptRefundResponse>
@@ -406,6 +422,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **purchase_id** | **String** |  |  |
+| **reason_request2** | **ReasonRequest2** |  | [optional] |
 
 ### Return type
 
@@ -417,7 +434,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -691,7 +708,7 @@ end
 
 ## list_toolbox_assets
 
-> <ListToolboxAssetsResponse> list_toolbox_assets
+> <ListToolboxAssetsResponse> list_toolbox_assets(opts)
 
 Search the Toolbox: models, scripts, sounds, images, packages. Free and paid; `owned` says whether you may insert it now.
 
@@ -707,10 +724,19 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ToolboxApi.new
+opts = {
+  q: 'q_example', # String | 
+  kind: 'package', # String | 
+  price: 'free', # String | 
+  sort: 'price', # String | 
+  min_rating: 8.14, # Float | 
+  cursor: 'cursor_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Search the Toolbox: models, scripts, sounds, images, packages. Free and paid; `owned` says whether you may insert it now.
-  result = api_instance.list_toolbox_assets
+  result = api_instance.list_toolbox_assets(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->list_toolbox_assets: #{e}"
@@ -721,12 +747,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListToolboxAssetsResponse>, Integer, Hash)> list_toolbox_assets_with_http_info
+> <Array(<ListToolboxAssetsResponse>, Integer, Hash)> list_toolbox_assets_with_http_info(opts)
 
 ```ruby
 begin
   # Search the Toolbox: models, scripts, sounds, images, packages. Free and paid; `owned` says whether you may insert it now.
-  data, status_code, headers = api_instance.list_toolbox_assets_with_http_info
+  data, status_code, headers = api_instance.list_toolbox_assets_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListToolboxAssetsResponse>
@@ -737,7 +763,15 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  | [optional] |
+| **kind** | **String** |  | [optional] |
+| **price** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **min_rating** | **Float** |  | [optional] |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -883,7 +917,7 @@ This endpoint does not need any parameter.
 
 ## list_toolbox_sales
 
-> <ListToolboxSalesResponse> list_toolbox_sales
+> <ListToolboxSalesResponse> list_toolbox_sales(opts)
 
 Your Toolbox sales: gross, net, your 80% share after refunds. Never who bought.
 
@@ -899,10 +933,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::ToolboxApi.new
+opts = {
+  cursor: 'cursor_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Your Toolbox sales: gross, net, your 80% share after refunds. Never who bought.
-  result = api_instance.list_toolbox_sales
+  result = api_instance.list_toolbox_sales(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->list_toolbox_sales: #{e}"
@@ -913,12 +951,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListToolboxSalesResponse>, Integer, Hash)> list_toolbox_sales_with_http_info
+> <Array(<ListToolboxSalesResponse>, Integer, Hash)> list_toolbox_sales_with_http_info(opts)
 
 ```ruby
 begin
   # Your Toolbox sales: gross, net, your 80% share after refunds. Never who bought.
-  data, status_code, headers = api_instance.list_toolbox_sales_with_http_info
+  data, status_code, headers = api_instance.list_toolbox_sales_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListToolboxSalesResponse>
@@ -929,7 +967,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **cursor** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -947,7 +988,7 @@ This endpoint does not need any parameter.
 
 ## update_toolbox_asset
 
-> <ToolboxAssetResponse> update_toolbox_asset(asset_id)
+> <ToolboxAssetResponse> update_toolbox_asset(asset_id, opts)
 
 Edit name, description, tags, thumbnail or price.
 
@@ -964,10 +1005,13 @@ end
 
 api_instance = Crossly::ToolboxApi.new
 asset_id = 'asset_id_example' # String | 
+opts = {
+  update_toolbox_asset_request: Crossly::UpdateToolboxAssetRequest.new # UpdateToolboxAssetRequest | 
+}
 
 begin
   # Edit name, description, tags, thumbnail or price.
-  result = api_instance.update_toolbox_asset(asset_id)
+  result = api_instance.update_toolbox_asset(asset_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->update_toolbox_asset: #{e}"
@@ -978,12 +1022,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ToolboxAssetResponse>, Integer, Hash)> update_toolbox_asset_with_http_info(asset_id)
+> <Array(<ToolboxAssetResponse>, Integer, Hash)> update_toolbox_asset_with_http_info(asset_id, opts)
 
 ```ruby
 begin
   # Edit name, description, tags, thumbnail or price.
-  data, status_code, headers = api_instance.update_toolbox_asset_with_http_info(asset_id)
+  data, status_code, headers = api_instance.update_toolbox_asset_with_http_info(asset_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ToolboxAssetResponse>
@@ -997,6 +1041,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **asset_id** | **String** |  |  |
+| **update_toolbox_asset_request** | **UpdateToolboxAssetRequest** |  | [optional] |
 
 ### Return type
 
@@ -1008,13 +1053,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_toolbox_asset_rating_mine
 
-> <UpdateToolboxAssetRatingMineResponse> update_toolbox_asset_rating_mine(asset_id)
+> <UpdateToolboxAssetRatingMineResponse> update_toolbox_asset_rating_mine(asset_id, opts)
 
 Rate an asset you bought or installed: 1–5 stars and an optional review (1000 characters). Not your own.
 
@@ -1031,10 +1076,13 @@ end
 
 api_instance = Crossly::ToolboxApi.new
 asset_id = 'asset_id_example' # String | 
+opts = {
+  update_toolbox_asset_rating_mine_request: Crossly::UpdateToolboxAssetRatingMineRequest.new({stars: 3.56}) # UpdateToolboxAssetRatingMineRequest | 
+}
 
 begin
   # Rate an asset you bought or installed: 1–5 stars and an optional review (1000 characters). Not your own.
-  result = api_instance.update_toolbox_asset_rating_mine(asset_id)
+  result = api_instance.update_toolbox_asset_rating_mine(asset_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling ToolboxApi->update_toolbox_asset_rating_mine: #{e}"
@@ -1045,12 +1093,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateToolboxAssetRatingMineResponse>, Integer, Hash)> update_toolbox_asset_rating_mine_with_http_info(asset_id)
+> <Array(<UpdateToolboxAssetRatingMineResponse>, Integer, Hash)> update_toolbox_asset_rating_mine_with_http_info(asset_id, opts)
 
 ```ruby
 begin
   # Rate an asset you bought or installed: 1–5 stars and an optional review (1000 characters). Not your own.
-  data, status_code, headers = api_instance.update_toolbox_asset_rating_mine_with_http_info(asset_id)
+  data, status_code, headers = api_instance.update_toolbox_asset_rating_mine_with_http_info(asset_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateToolboxAssetRatingMineResponse>
@@ -1064,6 +1112,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **asset_id** | **String** |  |  |
+| **update_toolbox_asset_rating_mine_request** | **UpdateToolboxAssetRatingMineRequest** |  | [optional] |
 
 ### Return type
 
@@ -1075,6 +1124,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

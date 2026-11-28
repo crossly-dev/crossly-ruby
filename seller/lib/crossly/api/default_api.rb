@@ -20,25 +20,25 @@ module Crossly
       @api_client = api_client
     end
     # Opt a design in or out of the free chain unlock a popular limited design earns (on by default). Designer-only. Answers the popularity of the design toward the bar.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_chain_auto_unlock_request [CreateCosmDesignerChainAutoUnlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCosmDesignerChainAutoUnlockResponse]
-    def create_cosm_designer_chain_auto_unlock(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_chain_auto_unlock_with_http_info(request_body, opts)
+    def create_cosm_designer_chain_auto_unlock(create_cosm_designer_chain_auto_unlock_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_chain_auto_unlock_with_http_info(create_cosm_designer_chain_auto_unlock_request, opts)
       data
     end
 
     # Opt a design in or out of the free chain unlock a popular limited design earns (on by default). Designer-only. Answers the popularity of the design toward the bar.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_chain_auto_unlock_request [CreateCosmDesignerChainAutoUnlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCosmDesignerChainAutoUnlockResponse, Integer, Hash)>] CreateCosmDesignerChainAutoUnlockResponse data, response status code and response headers
-    def create_cosm_designer_chain_auto_unlock_with_http_info(request_body, opts = {})
+    def create_cosm_designer_chain_auto_unlock_with_http_info(create_cosm_designer_chain_auto_unlock_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_chain_auto_unlock ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_chain_auto_unlock"
+      # verify the required parameter 'create_cosm_designer_chain_auto_unlock_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_chain_auto_unlock_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_chain_auto_unlock_request' when calling DefaultApi.create_cosm_designer_chain_auto_unlock"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/chain-auto-unlock'
@@ -60,7 +60,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_chain_auto_unlock_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerChainAutoUnlockResponse'
@@ -86,25 +86,25 @@ module Crossly
     end
 
     # Burn COSM to make a design mintable on chain. Designer-only and idempotent: paying twice is impossible, and a second call returns the existing unlock without charging. The fee is DESTROYED rather than collected. Limited editions only. Once unlocked, any holder may take their own copy on chain.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_chain_unlock_request [CreateCosmDesignerChainUnlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCosmDesignerChainUnlockResponse]
-    def create_cosm_designer_chain_unlock(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_chain_unlock_with_http_info(request_body, opts)
+    def create_cosm_designer_chain_unlock(create_cosm_designer_chain_unlock_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_chain_unlock_with_http_info(create_cosm_designer_chain_unlock_request, opts)
       data
     end
 
     # Burn COSM to make a design mintable on chain. Designer-only and idempotent: paying twice is impossible, and a second call returns the existing unlock without charging. The fee is DESTROYED rather than collected. Limited editions only. Once unlocked, any holder may take their own copy on chain.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_chain_unlock_request [CreateCosmDesignerChainUnlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCosmDesignerChainUnlockResponse, Integer, Hash)>] CreateCosmDesignerChainUnlockResponse data, response status code and response headers
-    def create_cosm_designer_chain_unlock_with_http_info(request_body, opts = {})
+    def create_cosm_designer_chain_unlock_with_http_info(create_cosm_designer_chain_unlock_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_chain_unlock ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_chain_unlock"
+      # verify the required parameter 'create_cosm_designer_chain_unlock_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_chain_unlock_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_chain_unlock_request' when calling DefaultApi.create_cosm_designer_chain_unlock"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/chain-unlock'
@@ -126,7 +126,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_chain_unlock_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerChainUnlockResponse'
@@ -152,25 +152,25 @@ module Crossly
     end
 
     # Lock a copy and return an UNSIGNED Metaplex Core mint for the holder to sign. One call: it resolves the designer royalty, locks the copy, publishes immutable content-addressed metadata and builds the transaction — so a lock is never taken without a transaction to go with it, and a failure after the lock releases it. Does NOT void the copy; call confirm once the chain reaches FINALIZED commitment. Every royalty recipient needs a connected wallet first, and the designer must have unlocked the design.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_materialise_request [CreateCosmDesignerMaterialiseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCosmDesignerMaterialiseResponse]
-    def create_cosm_designer_materialise(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_materialise_with_http_info(request_body, opts)
+    def create_cosm_designer_materialise(create_cosm_designer_materialise_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_materialise_with_http_info(create_cosm_designer_materialise_request, opts)
       data
     end
 
     # Lock a copy and return an UNSIGNED Metaplex Core mint for the holder to sign. One call: it resolves the designer royalty, locks the copy, publishes immutable content-addressed metadata and builds the transaction — so a lock is never taken without a transaction to go with it, and a failure after the lock releases it. Does NOT void the copy; call confirm once the chain reaches FINALIZED commitment. Every royalty recipient needs a connected wallet first, and the designer must have unlocked the design.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_materialise_request [CreateCosmDesignerMaterialiseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCosmDesignerMaterialiseResponse, Integer, Hash)>] CreateCosmDesignerMaterialiseResponse data, response status code and response headers
-    def create_cosm_designer_materialise_with_http_info(request_body, opts = {})
+    def create_cosm_designer_materialise_with_http_info(create_cosm_designer_materialise_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_materialise ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_materialise"
+      # verify the required parameter 'create_cosm_designer_materialise_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_materialise_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_materialise_request' when calling DefaultApi.create_cosm_designer_materialise"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/materialise'
@@ -192,7 +192,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_materialise_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerMaterialiseResponse'
@@ -218,25 +218,25 @@ module Crossly
     end
 
     # Record a confirmed mint and void the in-world copy, in one transaction. The caller MUST have verified the transaction at finalized commitment first — an NFT recorded against a transaction that never landed cannot be recalled, and the copy it voided is gone. Idempotent on an already-confirmed request.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_materialise_confirm_request [CreateCosmDesignerMaterialiseConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCosmDesignerMaterialiseConfirmResponse]
-    def create_cosm_designer_materialise_confirm(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_materialise_confirm_with_http_info(request_body, opts)
+    def create_cosm_designer_materialise_confirm(create_cosm_designer_materialise_confirm_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_materialise_confirm_with_http_info(create_cosm_designer_materialise_confirm_request, opts)
       data
     end
 
     # Record a confirmed mint and void the in-world copy, in one transaction. The caller MUST have verified the transaction at finalized commitment first — an NFT recorded against a transaction that never landed cannot be recalled, and the copy it voided is gone. Idempotent on an already-confirmed request.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_materialise_confirm_request [CreateCosmDesignerMaterialiseConfirmRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCosmDesignerMaterialiseConfirmResponse, Integer, Hash)>] CreateCosmDesignerMaterialiseConfirmResponse data, response status code and response headers
-    def create_cosm_designer_materialise_confirm_with_http_info(request_body, opts = {})
+    def create_cosm_designer_materialise_confirm_with_http_info(create_cosm_designer_materialise_confirm_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_materialise_confirm ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_materialise_confirm"
+      # verify the required parameter 'create_cosm_designer_materialise_confirm_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_materialise_confirm_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_materialise_confirm_request' when calling DefaultApi.create_cosm_designer_materialise_confirm"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/materialise/confirm'
@@ -258,7 +258,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_materialise_confirm_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerMaterialiseConfirmResponse'
@@ -284,25 +284,25 @@ module Crossly
     end
 
     # Release a mint lock that was never signed. The ordinary outcome of somebody closing a wallet prompt, and it leaves the copy exactly as it was. Refuses a request that has already minted, because releasing one would unlock a copy that is on chain.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_materialise_release_request [CreateCosmDesignerMaterialiseReleaseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateWorldJobShiftReleaseResponse]
-    def create_cosm_designer_materialise_release(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_materialise_release_with_http_info(request_body, opts)
+    def create_cosm_designer_materialise_release(create_cosm_designer_materialise_release_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_materialise_release_with_http_info(create_cosm_designer_materialise_release_request, opts)
       data
     end
 
     # Release a mint lock that was never signed. The ordinary outcome of somebody closing a wallet prompt, and it leaves the copy exactly as it was. Refuses a request that has already minted, because releasing one would unlock a copy that is on chain.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_materialise_release_request [CreateCosmDesignerMaterialiseReleaseRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateWorldJobShiftReleaseResponse, Integer, Hash)>] CreateWorldJobShiftReleaseResponse data, response status code and response headers
-    def create_cosm_designer_materialise_release_with_http_info(request_body, opts = {})
+    def create_cosm_designer_materialise_release_with_http_info(create_cosm_designer_materialise_release_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_materialise_release ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_materialise_release"
+      # verify the required parameter 'create_cosm_designer_materialise_release_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_materialise_release_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_materialise_release_request' when calling DefaultApi.create_cosm_designer_materialise_release"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/materialise/release'
@@ -324,7 +324,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_materialise_release_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateWorldJobShiftReleaseResponse'
@@ -350,25 +350,25 @@ module Crossly
     end
 
     # Submit a user-authored design for moderation. Designer-only, and refuses a design with no preview image HERE rather than at approval so the designer learns what is missing while they can still fix it. Submitting twice returns the existing pending review instead of queueing a second one — a moderator facing two reviews of one piece does not know which they are deciding. A design already on sale is refused.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_chain_unlock_request [CreateCosmDesignerChainUnlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCosmDesignerSubmitForReviewResponse]
-    def create_cosm_designer_submit_for_review(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_submit_for_review_with_http_info(request_body, opts)
+    def create_cosm_designer_submit_for_review(create_cosm_designer_chain_unlock_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_submit_for_review_with_http_info(create_cosm_designer_chain_unlock_request, opts)
       data
     end
 
     # Submit a user-authored design for moderation. Designer-only, and refuses a design with no preview image HERE rather than at approval so the designer learns what is missing while they can still fix it. Submitting twice returns the existing pending review instead of queueing a second one — a moderator facing two reviews of one piece does not know which they are deciding. A design already on sale is refused.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_chain_unlock_request [CreateCosmDesignerChainUnlockRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCosmDesignerSubmitForReviewResponse, Integer, Hash)>] CreateCosmDesignerSubmitForReviewResponse data, response status code and response headers
-    def create_cosm_designer_submit_for_review_with_http_info(request_body, opts = {})
+    def create_cosm_designer_submit_for_review_with_http_info(create_cosm_designer_chain_unlock_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_submit_for_review ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_submit_for_review"
+      # verify the required parameter 'create_cosm_designer_chain_unlock_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_chain_unlock_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_chain_unlock_request' when calling DefaultApi.create_cosm_designer_submit_for_review"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/submit-for-review'
@@ -390,7 +390,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_chain_unlock_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerSubmitForReviewResponse'
@@ -416,25 +416,25 @@ module Crossly
     end
 
     # Publish terms for a design. Never edits: every change is a new version, and a copy sold under an earlier one keeps those terms forever. Only the designer may call it. Collaborator shares are of the ROYALTY rather than the sale price and may total at most 100%, with the remainder staying with the designer; a total above 100% is refused rather than scaled down.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_term_request [CreateCosmDesignerTermRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateCosmDesignerTermResponse]
-    def create_cosm_designer_term(request_body, opts = {})
-      data, _status_code, _headers = create_cosm_designer_term_with_http_info(request_body, opts)
+    def create_cosm_designer_term(create_cosm_designer_term_request, opts = {})
+      data, _status_code, _headers = create_cosm_designer_term_with_http_info(create_cosm_designer_term_request, opts)
       data
     end
 
     # Publish terms for a design. Never edits: every change is a new version, and a copy sold under an earlier one keeps those terms forever. Only the designer may call it. Collaborator shares are of the ROYALTY rather than the sale price and may total at most 100%, with the remainder staying with the designer; a total above 100% is refused rather than scaled down.
-    # @param request_body [Hash<String, Object>] 
+    # @param create_cosm_designer_term_request [CreateCosmDesignerTermRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateCosmDesignerTermResponse, Integer, Hash)>] CreateCosmDesignerTermResponse data, response status code and response headers
-    def create_cosm_designer_term_with_http_info(request_body, opts = {})
+    def create_cosm_designer_term_with_http_info(create_cosm_designer_term_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: DefaultApi.create_cosm_designer_term ...'
       end
-      # verify the required parameter 'request_body' is set
-      if @api_client.config.client_side_validation && request_body.nil?
-        fail ArgumentError, "Missing the required parameter 'request_body' when calling DefaultApi.create_cosm_designer_term"
+      # verify the required parameter 'create_cosm_designer_term_request' is set
+      if @api_client.config.client_side_validation && create_cosm_designer_term_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_cosm_designer_term_request' when calling DefaultApi.create_cosm_designer_term"
       end
       # resource path
       local_var_path = '/v1/cosm/designer/terms'
@@ -456,7 +456,7 @@ module Crossly
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_cosm_designer_term_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateCosmDesignerTermResponse'

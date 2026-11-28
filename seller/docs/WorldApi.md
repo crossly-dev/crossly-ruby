@@ -20,6 +20,9 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_spatial_scene_unpin**](WorldApi.md#create_spatial_scene_unpin) | **POST** /v1/spatial/scenes/{id}/unpin | Clear every pin in one of your rooms, so it arranges itself again. |
 | [**create_spatial_scene_visibility**](WorldApi.md#create_spatial_scene_visibility) | **POST** /v1/spatial/scenes/{id}/visibility | Make one of your rooms private, unlisted (anyone with the link) or public (in the lobby and searchable). |
 | [**create_spatial_scene_warehouse_stock**](WorldApi.md#create_spatial_scene_warehouse_stock) | **POST** /v1/spatial/scenes/{id}/warehouse/stock | Put an inventory item (or unit) on a rack in one of your warehouse rooms. |
+| [**create_spatial_street_admission_accept**](WorldApi.md#create_spatial_street_admission_accept) | **POST** /v1/spatial/streets/admissions/{id}/accept | Accept a street admission: an application to a street your store owns, or an invitation to your store shop. Seats the shop. |
+| [**create_spatial_street_admission_decline**](WorldApi.md#create_spatial_street_admission_decline) | **POST** /v1/spatial/streets/admissions/{id}/decline | Decline a street admission: an application to a street your store owns, or an invitation to your store shop. |
+| [**create_spatial_street_admission_withdraw**](WorldApi.md#create_spatial_street_admission_withdraw) | **POST** /v1/spatial/streets/admissions/{id}/withdraw | Take back a street admission your store sent: its shop application, or an invitation from its street. |
 | [**create_spatial_street_apply**](WorldApi.md#create_spatial_street_apply) | **POST** /v1/spatial/streets/{slug}/apply | Ask to open your shop on a street whose owner reviews applications. |
 | [**create_spatial_street_invite**](WorldApi.md#create_spatial_street_invite) | **POST** /v1/spatial/streets/{slug}/invite | Invite a shop (by its slug) to open on a street you own. |
 | [**create_world_attendant_test_chat**](WorldApi.md#create_world_attendant_test_chat) | **POST** /v1/world/attendant/test-chat | One test answer from your AI attendant, on your own AI key (409 ai_key_required without one). |
@@ -107,7 +110,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_world_staff_assignment_rate_worker**](WorldApi.md#create_world_staff_assignment_rate_worker) | **POST** /v1/world/staff/assignments/{id}/rate-worker | Rate the worker of one of your seats. |
 | [**create_world_staff_posting**](WorldApi.md#create_world_staff_posting) | **POST** /v1/world/staff/postings | Post a job: a showroom, stall or convention, pay, recurrence and rules. |
 | [**create_world_staff_posting_status**](WorldApi.md#create_world_staff_posting_status) | **POST** /v1/world/staff/postings/{id}/status | Open, pause or close a posting. |
-| [**create_world_street_owned_upkeep_pay**](WorldApi.md#create_world_street_owned_upkeep_pay) | **POST** /v1/world/streets/owned/{id}/upkeep/pay | Pay your street&#39;s upkeep forward. |
+| [**create_world_street_owned_upkeep_pay**](WorldApi.md#create_world_street_owned_upkeep_pay) | **POST** /v1/world/streets/owned/{id}/upkeep/pay | Pay your store&#39;s street upkeep forward. |
 | [**create_world_venue_booking_cancel**](WorldApi.md#create_world_venue_booking_cancel) | **POST** /v1/world/venue-bookings/{id}/cancel | Cancel a hall rental: the whole rent back until 7 days before the first day, nothing after. |
 | [**create_world_work_assignment_rate_employer**](WorldApi.md#create_world_work_assignment_rate_employer) | **POST** /v1/world/work/assignments/{id}/rate-employer | Rate the employer of a public-job shift you worked: paid on time, job as described, conduct. |
 | [**create_world_work_posting_apply**](WorldApi.md#create_world_work_posting_apply) | **POST** /v1/world/work/postings/{id}/apply | Apply for a job. |
@@ -213,8 +216,10 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_world_space_can_host**](WorldApi.md#get_world_space_can_host) | **GET** /v1/world/spaces/can-host | Whether you may open a Space: sellers only, at most two active. |
 | [**get_world_staff_posting**](WorldApi.md#get_world_staff_posting) | **GET** /v1/world/staff/postings/{id} | One of your postings, with its shifts. |
 | [**get_world_staff_reputation**](WorldApi.md#get_world_staff_reputation) | **GET** /v1/world/staff/reputation | Your employer reputation, rated by the people who worked your public jobs. |
+| [**get_world_stand**](WorldApi.md#get_world_stand) | **GET** /v1/world/stands/{kind}/{id} | The stands of one of your places: kind plot (the showroom standing on it; none &#x3D; no stands) or showroom. Same fields as /api/v1/world/stands/shop. |
+| [**get_world_stand_shop**](WorldApi.md#get_world_stand_shop) | **GET** /v1/world/stands/shop | The stands of your shop (its primary showroom&#39;s visible fixtures, in order): index (what a drop&#39;s world.boothSpotIndex stores), name, display, units and capacity, whether another of your drops already stands there (takenBy) and priceCents (null: your own place costs nothing extra). |
 | [**get_world_street_fund**](WorldApi.md#get_world_street_fund) | **GET** /v1/world/streets/{slug}/fund | A street&#39;s fund: the CBX property payments on its plots over the last four weeks, and the street events it unlocked. |
-| [**get_world_street_owned**](WorldApi.md#get_world_street_owned) | **GET** /v1/world/streets/owned/{id} | A street you own: tenants, applications, upkeep, look, fund. |
+| [**get_world_street_owned**](WorldApi.md#get_world_street_owned) | **GET** /v1/world/streets/owned/{id} | A street your store owns: tenants, applications, upkeep, look, fund, and the owning &#x60;store&#x60;. |
 | [**get_world_street_trespass_barrier**](WorldApi.md#get_world_street_trespass_barrier) | **GET** /v1/world/streets/{slug}/trespass-barriers | Plot numbers on the street you are trespassed from. |
 | [**get_world_trial_leaderboard**](WorldApi.md#get_world_trial_leaderboard) | **GET** /v1/world/trials/{course}/leaderboard | A Time Trials course&#39;s boards, as the board beside it in the Commons shows them: data.course, week, weekly (this week&#39;s ten fastest: rank, name, short, named, ms, at) and allTime (the ten fastest ever, each person once). A name shows only for somebody who chose to be seen by name in the world; everyone else is \&quot;A player\&quot;. 404 for an unknown course; course 1 is commons-loop. |
 | [**get_world_trial_mine**](WorldApi.md#get_world_trial_mine) | **GET** /v1/world/trials/mine | Your Hoverboard Time Trials bests: data.week (its Monday, YYYY-MM-DD, UTC) and courses, each with course (id, name, parMs, rings, lengthM), week (your best lap this week in ms, your place on the weekly board, laps finished, and the split at each ring) or null, and allTime (your best ever in ms, your place on the all-time board, when) or null. Laps are timed by Crossly from where it saw you ride in the world; nothing here writes one. |
@@ -338,7 +343,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**update_world_space_holder_gate**](WorldApi.md#update_world_space_holder_gate) | **PUT** /v1/world/spaces/{slug}/holder-gate | Make your Space holders-only: only holders of an NFT collection join it (others can look in). Send null to open it again. Returns &#x60;{ gate }&#x60;. |
 | [**update_world_staff_posting**](WorldApi.md#update_world_staff_posting) | **PUT** /v1/world/staff/postings/{id} | Replace a posting; its future unstaffed shifts are re-made. |
 | [**update_world_stall_booking_booth**](WorldApi.md#update_world_stall_booking_booth) | **PUT** /v1/world/stalls/bookings/{id}/booth | Dress the booth of a stall you booked (decor you hold). |
-| [**update_world_street_owned_theme**](WorldApi.md#update_world_street_owned_theme) | **PUT** /v1/world/streets/owned/{id}/theme | Set your street&#39;s theme. |
+| [**update_world_street_owned_theme**](WorldApi.md#update_world_street_owned_theme) | **PUT** /v1/world/streets/owned/{id}/theme | Set your store&#39;s street theme. |
 
 
 ## create_game_pack_break
@@ -407,7 +412,7 @@ This endpoint does not need any parameter.
 
 ## create_game_pack_break_pick
 
-> <CreateGamePackBreakPickResponse> create_game_pack_break_pick(id)
+> <CreateGamePackBreakPickResponse> create_game_pack_break_pick(id, opts)
 
 Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
 
@@ -424,10 +429,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_game_pack_break_pick_request: Crossly::CreateGamePackBreakPickRequest.new({index: 3.56}) # CreateGamePackBreakPickRequest | 
+}
 
 begin
   # Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
-  result = api_instance.create_game_pack_break_pick(id)
+  result = api_instance.create_game_pack_break_pick(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_game_pack_break_pick: #{e}"
@@ -438,12 +446,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateGamePackBreakPickResponse>, Integer, Hash)> create_game_pack_break_pick_with_http_info(id)
+> <Array(<CreateGamePackBreakPickResponse>, Integer, Hash)> create_game_pack_break_pick_with_http_info(id, opts)
 
 ```ruby
 begin
   # Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
-  data, status_code, headers = api_instance.create_game_pack_break_pick_with_http_info(id)
+  data, status_code, headers = api_instance.create_game_pack_break_pick_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateGamePackBreakPickResponse>
@@ -457,6 +465,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_game_pack_break_pick_request** | **CreateGamePackBreakPickRequest** |  | [optional] |
 
 ### Return type
 
@@ -468,13 +477,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_showroom
 
-> <CreateShowroomResponse> create_showroom(opts)
+> <CreateShowroomResponse> create_showroom(create_showroom_request, opts)
 
 Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
 
@@ -490,13 +499,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_showroom_request = Crossly::CreateShowroomRequest.new({name: 'name_example'}) # CreateShowroomRequest | 
 opts = {
   storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
 }
 
 begin
   # Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
-  result = api_instance.create_showroom(opts)
+  result = api_instance.create_showroom(create_showroom_request, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_showroom: #{e}"
@@ -507,12 +517,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateShowroomResponse>, Integer, Hash)> create_showroom_with_http_info(opts)
+> <Array(<CreateShowroomResponse>, Integer, Hash)> create_showroom_with_http_info(create_showroom_request, opts)
 
 ```ruby
 begin
   # Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
-  data, status_code, headers = api_instance.create_showroom_with_http_info(opts)
+  data, status_code, headers = api_instance.create_showroom_with_http_info(create_showroom_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateShowroomResponse>
@@ -525,6 +535,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
+| **create_showroom_request** | **CreateShowroomRequest** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
 
 ### Return type
@@ -537,13 +548,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_showroom_placement
 
-> <CreateShowroomPlacementResponse> create_showroom_placement(id, opts)
+> <CreateShowroomPlacementResponse> create_showroom_placement(id, create_showroom_placement_request, opts)
 
 Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
 
@@ -560,13 +571,14 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_showroom_placement_request = Crossly::CreateShowroomPlacementRequest.new({plot_id: 'plot_id_example'}) # CreateShowroomPlacementRequest | 
 opts = {
   storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
 }
 
 begin
   # Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
-  result = api_instance.create_showroom_placement(id, opts)
+  result = api_instance.create_showroom_placement(id, create_showroom_placement_request, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_showroom_placement: #{e}"
@@ -577,12 +589,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateShowroomPlacementResponse>, Integer, Hash)> create_showroom_placement_with_http_info(id, opts)
+> <Array(<CreateShowroomPlacementResponse>, Integer, Hash)> create_showroom_placement_with_http_info(id, create_showroom_placement_request, opts)
 
 ```ruby
 begin
   # Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
-  data, status_code, headers = api_instance.create_showroom_placement_with_http_info(id, opts)
+  data, status_code, headers = api_instance.create_showroom_placement_with_http_info(id, create_showroom_placement_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateShowroomPlacementResponse>
@@ -596,6 +608,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_showroom_placement_request** | **CreateShowroomPlacementRequest** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
 
 ### Return type
@@ -608,13 +621,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_spatial_invite_accept
 
-> <CreateSpatialInviteAcceptResponse> create_spatial_invite_accept
+> <CreateSpatialInviteAcceptResponse> create_spatial_invite_accept(create_order_pack_scan_request)
 
 Redeem an invite code (dashes optional); returns the room it opens.
 
@@ -630,10 +643,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_order_pack_scan_request = Crossly::CreateOrderPackScanRequest.new({code: 'code_example'}) # CreateOrderPackScanRequest | 
 
 begin
   # Redeem an invite code (dashes optional); returns the room it opens.
-  result = api_instance.create_spatial_invite_accept
+  result = api_instance.create_spatial_invite_accept(create_order_pack_scan_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_invite_accept: #{e}"
@@ -644,12 +658,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialInviteAcceptResponse>, Integer, Hash)> create_spatial_invite_accept_with_http_info
+> <Array(<CreateSpatialInviteAcceptResponse>, Integer, Hash)> create_spatial_invite_accept_with_http_info(create_order_pack_scan_request)
 
 ```ruby
 begin
   # Redeem an invite code (dashes optional); returns the room it opens.
-  data, status_code, headers = api_instance.create_spatial_invite_accept_with_http_info
+  data, status_code, headers = api_instance.create_spatial_invite_accept_with_http_info(create_order_pack_scan_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialInviteAcceptResponse>
@@ -660,7 +674,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_pack_scan_request** | **CreateOrderPackScanRequest** |  |  |
 
 ### Return type
 
@@ -672,7 +688,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -812,7 +828,7 @@ end
 
 ## create_spatial_scene_grant
 
-> <CreateSpatialSceneGrantResponse> create_spatial_scene_grant(id)
+> <CreateSpatialSceneGrantResponse> create_spatial_scene_grant(id, create_spatial_scene_grant_request)
 
 Let a specific user into one of your rooms (visitor or staff), no code needed.
 
@@ -829,10 +845,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_spatial_scene_grant_request = Crossly::CreateSpatialSceneGrantRequest.new({user_id: 'user_id_example'}) # CreateSpatialSceneGrantRequest | 
 
 begin
   # Let a specific user into one of your rooms (visitor or staff), no code needed.
-  result = api_instance.create_spatial_scene_grant(id)
+  result = api_instance.create_spatial_scene_grant(id, create_spatial_scene_grant_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_scene_grant: #{e}"
@@ -843,12 +860,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialSceneGrantResponse>, Integer, Hash)> create_spatial_scene_grant_with_http_info(id)
+> <Array(<CreateSpatialSceneGrantResponse>, Integer, Hash)> create_spatial_scene_grant_with_http_info(id, create_spatial_scene_grant_request)
 
 ```ruby
 begin
   # Let a specific user into one of your rooms (visitor or staff), no code needed.
-  data, status_code, headers = api_instance.create_spatial_scene_grant_with_http_info(id)
+  data, status_code, headers = api_instance.create_spatial_scene_grant_with_http_info(id, create_spatial_scene_grant_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialSceneGrantResponse>
@@ -862,6 +879,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_spatial_scene_grant_request** | **CreateSpatialSceneGrantRequest** |  |  |
 
 ### Return type
 
@@ -873,13 +891,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_spatial_scene_invite
 
-> <CreateSpatialSceneInviteResponse> create_spatial_scene_invite(id)
+> <CreateSpatialSceneInviteResponse> create_spatial_scene_invite(id, opts)
 
 Mint an invite code to one of your rooms (visitor or staff, optional expiry in hours). The code is in this response only: just its hash is stored.
 
@@ -896,10 +914,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_spatial_scene_invite_request: Crossly::CreateSpatialSceneInviteRequest.new # CreateSpatialSceneInviteRequest | 
+}
 
 begin
   # Mint an invite code to one of your rooms (visitor or staff, optional expiry in hours). The code is in this response only: just its hash is stored.
-  result = api_instance.create_spatial_scene_invite(id)
+  result = api_instance.create_spatial_scene_invite(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_scene_invite: #{e}"
@@ -910,12 +931,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialSceneInviteResponse>, Integer, Hash)> create_spatial_scene_invite_with_http_info(id)
+> <Array(<CreateSpatialSceneInviteResponse>, Integer, Hash)> create_spatial_scene_invite_with_http_info(id, opts)
 
 ```ruby
 begin
   # Mint an invite code to one of your rooms (visitor or staff, optional expiry in hours). The code is in this response only: just its hash is stored.
-  data, status_code, headers = api_instance.create_spatial_scene_invite_with_http_info(id)
+  data, status_code, headers = api_instance.create_spatial_scene_invite_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialSceneInviteResponse>
@@ -929,6 +950,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_spatial_scene_invite_request** | **CreateSpatialSceneInviteRequest** |  | [optional] |
 
 ### Return type
 
@@ -940,13 +962,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_spatial_scene_node
 
-> <CreateSpatialSceneNodeResponse> create_spatial_scene_node(id)
+> <CreateSpatialSceneNodeResponse> create_spatial_scene_node(id, create_spatial_scene_node_request)
 
 Add a unit (rack, shelf, bin) to one of your warehouse rooms.
 
@@ -963,10 +985,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_spatial_scene_node_request = Crossly::CreateSpatialSceneNodeRequest.new({unit_key: 'unit_key_example'}) # CreateSpatialSceneNodeRequest | 
 
 begin
   # Add a unit (rack, shelf, bin) to one of your warehouse rooms.
-  result = api_instance.create_spatial_scene_node(id)
+  result = api_instance.create_spatial_scene_node(id, create_spatial_scene_node_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_scene_node: #{e}"
@@ -977,12 +1000,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialSceneNodeResponse>, Integer, Hash)> create_spatial_scene_node_with_http_info(id)
+> <Array(<CreateSpatialSceneNodeResponse>, Integer, Hash)> create_spatial_scene_node_with_http_info(id, create_spatial_scene_node_request)
 
 ```ruby
 begin
   # Add a unit (rack, shelf, bin) to one of your warehouse rooms.
-  data, status_code, headers = api_instance.create_spatial_scene_node_with_http_info(id)
+  data, status_code, headers = api_instance.create_spatial_scene_node_with_http_info(id, create_spatial_scene_node_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialSceneNodeResponse>
@@ -996,6 +1019,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_spatial_scene_node_request** | **CreateSpatialSceneNodeRequest** |  |  |
 
 ### Return type
 
@@ -1007,7 +1031,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1149,7 +1173,7 @@ end
 
 ## create_spatial_scene_shop_place
 
-> <CreateSpatialSceneShopPlaceResponse> create_spatial_scene_shop_place(id)
+> <CreateSpatialSceneShopPlaceResponse> create_spatial_scene_shop_place(id, create_spatial_scene_shop_place_request)
 
 Place an inventory item in a section and display of your shop room.
 
@@ -1166,10 +1190,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_spatial_scene_shop_place_request = Crossly::CreateSpatialSceneShopPlaceRequest.new({section_id: 'section_id_example', container_key: 'container_key_example', container_index: 3.56, slot_index: 3.56, inventory_item_id: 'inventory_item_id_example'}) # CreateSpatialSceneShopPlaceRequest | 
 
 begin
   # Place an inventory item in a section and display of your shop room.
-  result = api_instance.create_spatial_scene_shop_place(id)
+  result = api_instance.create_spatial_scene_shop_place(id, create_spatial_scene_shop_place_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_scene_shop_place: #{e}"
@@ -1180,12 +1205,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialSceneShopPlaceResponse>, Integer, Hash)> create_spatial_scene_shop_place_with_http_info(id)
+> <Array(<CreateSpatialSceneShopPlaceResponse>, Integer, Hash)> create_spatial_scene_shop_place_with_http_info(id, create_spatial_scene_shop_place_request)
 
 ```ruby
 begin
   # Place an inventory item in a section and display of your shop room.
-  data, status_code, headers = api_instance.create_spatial_scene_shop_place_with_http_info(id)
+  data, status_code, headers = api_instance.create_spatial_scene_shop_place_with_http_info(id, create_spatial_scene_shop_place_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialSceneShopPlaceResponse>
@@ -1199,6 +1224,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_spatial_scene_shop_place_request** | **CreateSpatialSceneShopPlaceRequest** |  |  |
 
 ### Return type
 
@@ -1210,7 +1236,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1352,7 +1378,7 @@ end
 
 ## create_spatial_scene_warehouse_stock
 
-> <CreateSpatialScenePlaceResponse> create_spatial_scene_warehouse_stock(id)
+> <CreateSpatialScenePlaceResponse> create_spatial_scene_warehouse_stock(id, create_spatial_scene_warehouse_stock_request)
 
 Put an inventory item (or unit) on a rack in one of your warehouse rooms.
 
@@ -1369,10 +1395,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_spatial_scene_warehouse_stock_request = Crossly::CreateSpatialSceneWarehouseStockRequest.new({node_id: 'node_id_example', inventory_item_id: 'inventory_item_id_example'}) # CreateSpatialSceneWarehouseStockRequest | 
 
 begin
   # Put an inventory item (or unit) on a rack in one of your warehouse rooms.
-  result = api_instance.create_spatial_scene_warehouse_stock(id)
+  result = api_instance.create_spatial_scene_warehouse_stock(id, create_spatial_scene_warehouse_stock_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_scene_warehouse_stock: #{e}"
@@ -1383,12 +1410,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialScenePlaceResponse>, Integer, Hash)> create_spatial_scene_warehouse_stock_with_http_info(id)
+> <Array(<CreateSpatialScenePlaceResponse>, Integer, Hash)> create_spatial_scene_warehouse_stock_with_http_info(id, create_spatial_scene_warehouse_stock_request)
 
 ```ruby
 begin
   # Put an inventory item (or unit) on a rack in one of your warehouse rooms.
-  data, status_code, headers = api_instance.create_spatial_scene_warehouse_stock_with_http_info(id)
+  data, status_code, headers = api_instance.create_spatial_scene_warehouse_stock_with_http_info(id, create_spatial_scene_warehouse_stock_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialScenePlaceResponse>
@@ -1402,10 +1429,212 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_spatial_scene_warehouse_stock_request** | **CreateSpatialSceneWarehouseStockRequest** |  |  |
 
 ### Return type
 
 **CreateSpatialScenePlaceResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_spatial_street_admission_accept
+
+> <SpatialStreetAdmissionResponse> create_spatial_street_admission_accept(id)
+
+Accept a street admission: an application to a street your store owns, or an invitation to your store shop. Seats the shop.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WorldApi.new
+id = 'id_example' # String | 
+
+begin
+  # Accept a street admission: an application to a street your store owns, or an invitation to your store shop. Seats the shop.
+  result = api_instance.create_spatial_street_admission_accept(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->create_spatial_street_admission_accept: #{e}"
+end
+```
+
+#### Using the create_spatial_street_admission_accept_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SpatialStreetAdmissionResponse>, Integer, Hash)> create_spatial_street_admission_accept_with_http_info(id)
+
+```ruby
+begin
+  # Accept a street admission: an application to a street your store owns, or an invitation to your store shop. Seats the shop.
+  data, status_code, headers = api_instance.create_spatial_street_admission_accept_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SpatialStreetAdmissionResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->create_spatial_street_admission_accept_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**SpatialStreetAdmissionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_spatial_street_admission_decline
+
+> <SpatialStreetAdmissionResponse> create_spatial_street_admission_decline(id)
+
+Decline a street admission: an application to a street your store owns, or an invitation to your store shop.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WorldApi.new
+id = 'id_example' # String | 
+
+begin
+  # Decline a street admission: an application to a street your store owns, or an invitation to your store shop.
+  result = api_instance.create_spatial_street_admission_decline(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->create_spatial_street_admission_decline: #{e}"
+end
+```
+
+#### Using the create_spatial_street_admission_decline_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SpatialStreetAdmissionResponse>, Integer, Hash)> create_spatial_street_admission_decline_with_http_info(id)
+
+```ruby
+begin
+  # Decline a street admission: an application to a street your store owns, or an invitation to your store shop.
+  data, status_code, headers = api_instance.create_spatial_street_admission_decline_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SpatialStreetAdmissionResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->create_spatial_street_admission_decline_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**SpatialStreetAdmissionResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_spatial_street_admission_withdraw
+
+> <SpatialStreetAdmissionResponse> create_spatial_street_admission_withdraw(id)
+
+Take back a street admission your store sent: its shop application, or an invitation from its street.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WorldApi.new
+id = 'id_example' # String | 
+
+begin
+  # Take back a street admission your store sent: its shop application, or an invitation from its street.
+  result = api_instance.create_spatial_street_admission_withdraw(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->create_spatial_street_admission_withdraw: #{e}"
+end
+```
+
+#### Using the create_spatial_street_admission_withdraw_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SpatialStreetAdmissionResponse>, Integer, Hash)> create_spatial_street_admission_withdraw_with_http_info(id)
+
+```ruby
+begin
+  # Take back a street admission your store sent: its shop application, or an invitation from its street.
+  data, status_code, headers = api_instance.create_spatial_street_admission_withdraw_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SpatialStreetAdmissionResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->create_spatial_street_admission_withdraw_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**SpatialStreetAdmissionResponse**
 
 ### Authorization
 
@@ -1486,7 +1715,7 @@ end
 
 ## create_spatial_street_invite
 
-> <CreateSpatialStreetApplyResponse> create_spatial_street_invite(slug)
+> <CreateSpatialStreetApplyResponse> create_spatial_street_invite(slug, create_spatial_street_invite_request)
 
 Invite a shop (by its slug) to open on a street you own.
 
@@ -1503,10 +1732,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+create_spatial_street_invite_request = Crossly::CreateSpatialStreetInviteRequest.new({shop_slug: 'shop_slug_example'}) # CreateSpatialStreetInviteRequest | 
 
 begin
   # Invite a shop (by its slug) to open on a street you own.
-  result = api_instance.create_spatial_street_invite(slug)
+  result = api_instance.create_spatial_street_invite(slug, create_spatial_street_invite_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_spatial_street_invite: #{e}"
@@ -1517,12 +1747,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSpatialStreetApplyResponse>, Integer, Hash)> create_spatial_street_invite_with_http_info(slug)
+> <Array(<CreateSpatialStreetApplyResponse>, Integer, Hash)> create_spatial_street_invite_with_http_info(slug, create_spatial_street_invite_request)
 
 ```ruby
 begin
   # Invite a shop (by its slug) to open on a street you own.
-  data, status_code, headers = api_instance.create_spatial_street_invite_with_http_info(slug)
+  data, status_code, headers = api_instance.create_spatial_street_invite_with_http_info(slug, create_spatial_street_invite_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSpatialStreetApplyResponse>
@@ -1536,6 +1766,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_spatial_street_invite_request** | **CreateSpatialStreetInviteRequest** |  |  |
 
 ### Return type
 
@@ -1547,13 +1778,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_attendant_test_chat
 
-> <CreateWorldAttendantTestChatResponse> create_world_attendant_test_chat
+> <CreateWorldAttendantTestChatResponse> create_world_attendant_test_chat(create_world_attendant_test_chat_request)
 
 One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
 
@@ -1569,10 +1800,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_world_attendant_test_chat_request = Crossly::CreateWorldAttendantTestChatRequest.new({message: 'message_example'}) # CreateWorldAttendantTestChatRequest | 
 
 begin
   # One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
-  result = api_instance.create_world_attendant_test_chat
+  result = api_instance.create_world_attendant_test_chat(create_world_attendant_test_chat_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_attendant_test_chat: #{e}"
@@ -1583,12 +1815,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldAttendantTestChatResponse>, Integer, Hash)> create_world_attendant_test_chat_with_http_info
+> <Array(<CreateWorldAttendantTestChatResponse>, Integer, Hash)> create_world_attendant_test_chat_with_http_info(create_world_attendant_test_chat_request)
 
 ```ruby
 begin
   # One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
-  data, status_code, headers = api_instance.create_world_attendant_test_chat_with_http_info
+  data, status_code, headers = api_instance.create_world_attendant_test_chat_with_http_info(create_world_attendant_test_chat_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldAttendantTestChatResponse>
@@ -1599,7 +1831,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_attendant_test_chat_request** | **CreateWorldAttendantTestChatRequest** |  |  |
 
 ### Return type
 
@@ -1611,7 +1845,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1751,7 +1985,7 @@ end
 
 ## create_world_avatar_wearable
 
-> <CreateWorldAvatarWearableResponse> create_world_avatar_wearable
+> <CreateWorldAvatarWearableResponse> create_world_avatar_wearable(opts)
 
 Author a wearable for a body slot (a mesh profile and params, an asking price in COSM base units as a string). A submission: inactive until an operator approves it.
 
@@ -1767,10 +2001,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_avatar_wearable_request: Crossly::CreateWorldAvatarWearableRequest.new({slug: 'slug_example', name: 'name_example', slot: 'avatar_head', mesh_profile: 'mesh_profile_example', price_base_units: 'price_base_units_example'}) # CreateWorldAvatarWearableRequest | 
+}
 
 begin
   # Author a wearable for a body slot (a mesh profile and params, an asking price in COSM base units as a string). A submission: inactive until an operator approves it.
-  result = api_instance.create_world_avatar_wearable
+  result = api_instance.create_world_avatar_wearable(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_avatar_wearable: #{e}"
@@ -1781,12 +2018,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldAvatarWearableResponse>, Integer, Hash)> create_world_avatar_wearable_with_http_info
+> <Array(<CreateWorldAvatarWearableResponse>, Integer, Hash)> create_world_avatar_wearable_with_http_info(opts)
 
 ```ruby
 begin
   # Author a wearable for a body slot (a mesh profile and params, an asking price in COSM base units as a string). A submission: inactive until an operator approves it.
-  data, status_code, headers = api_instance.create_world_avatar_wearable_with_http_info
+  data, status_code, headers = api_instance.create_world_avatar_wearable_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldAvatarWearableResponse>
@@ -1797,7 +2034,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_avatar_wearable_request** | **CreateWorldAvatarWearableRequest** |  | [optional] |
 
 ### Return type
 
@@ -1809,7 +2048,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2013,7 +2252,7 @@ end
 
 ## create_world_convention
 
-> <CreateWorldConventionResponse> create_world_convention
+> <CreateWorldConventionResponse> create_world_convention(opts)
 
 Host a convention in one of your rooms: title, dates, tables and how sellers get one (invite, free, a fee in cents, or a revenue share in basis points).
 
@@ -2029,10 +2268,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_convention_request: Crossly::CreateWorldConventionRequest.new({scene_id: 'scene_id_example', title: 'title_example', starts_at: 3.56, ends_at: 3.56, entry_model: 'free'}) # CreateWorldConventionRequest | 
+}
 
 begin
   # Host a convention in one of your rooms: title, dates, tables and how sellers get one (invite, free, a fee in cents, or a revenue share in basis points).
-  result = api_instance.create_world_convention
+  result = api_instance.create_world_convention(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention: #{e}"
@@ -2043,12 +2285,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionResponse>, Integer, Hash)> create_world_convention_with_http_info
+> <Array(<CreateWorldConventionResponse>, Integer, Hash)> create_world_convention_with_http_info(opts)
 
 ```ruby
 begin
   # Host a convention in one of your rooms: title, dates, tables and how sellers get one (invite, free, a fee in cents, or a revenue share in basis points).
-  data, status_code, headers = api_instance.create_world_convention_with_http_info
+  data, status_code, headers = api_instance.create_world_convention_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionResponse>
@@ -2059,7 +2301,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_convention_request** | **CreateWorldConventionRequest** |  | [optional] |
 
 ### Return type
 
@@ -2071,13 +2315,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_accept
 
-> <CreateWorldConventionAcceptResponse> create_world_convention_accept(id)
+> <CreateWorldConventionAcceptResponse> create_world_convention_accept(id, opts)
 
 Accept: your own invitation (no body), or, as host, an application (username).
 
@@ -2094,10 +2338,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_accept_request: Crossly::CreateWorldConventionAcceptRequest.new # CreateWorldConventionAcceptRequest | 
+}
 
 begin
   # Accept: your own invitation (no body), or, as host, an application (username).
-  result = api_instance.create_world_convention_accept(id)
+  result = api_instance.create_world_convention_accept(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_accept: #{e}"
@@ -2108,12 +2355,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionAcceptResponse>, Integer, Hash)> create_world_convention_accept_with_http_info(id)
+> <Array(<CreateWorldConventionAcceptResponse>, Integer, Hash)> create_world_convention_accept_with_http_info(id, opts)
 
 ```ruby
 begin
   # Accept: your own invitation (no body), or, as host, an application (username).
-  data, status_code, headers = api_instance.create_world_convention_accept_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_accept_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionAcceptResponse>
@@ -2127,6 +2374,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_accept_request** | **CreateWorldConventionAcceptRequest** |  | [optional] |
 
 ### Return type
 
@@ -2138,7 +2386,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2211,7 +2459,7 @@ end
 
 ## create_world_convention_booth_apply
 
-> <CreateWorldConventionBoothApplyResponse> create_world_convention_booth_apply(id)
+> <CreateWorldConventionBoothApplyResponse> create_world_convention_booth_apply(id, opts)
 
 Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
 
@@ -2228,10 +2476,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_booth_apply_request: Crossly::CreateWorldConventionBoothApplyRequest.new({tier_id: 'tier_id_example'}) # CreateWorldConventionBoothApplyRequest | 
+}
 
 begin
   # Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
-  result = api_instance.create_world_convention_booth_apply(id)
+  result = api_instance.create_world_convention_booth_apply(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_booth_apply: #{e}"
@@ -2242,12 +2493,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionBoothApplyResponse>, Integer, Hash)> create_world_convention_booth_apply_with_http_info(id)
+> <Array(<CreateWorldConventionBoothApplyResponse>, Integer, Hash)> create_world_convention_booth_apply_with_http_info(id, opts)
 
 ```ruby
 begin
   # Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
-  data, status_code, headers = api_instance.create_world_convention_booth_apply_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_booth_apply_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionBoothApplyResponse>
@@ -2261,6 +2512,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_booth_apply_request** | **CreateWorldConventionBoothApplyRequest** |  | [optional] |
 
 ### Return type
 
@@ -2272,13 +2524,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_booth_fee
 
-> <CreateWorldConventionBoothFeeResponse> create_world_convention_booth_fee(id)
+> <CreateWorldConventionBoothFeeResponse> create_world_convention_booth_fee(id, opts)
 
 Pay your booth fee to the organiser on a Worlds rail: { rail: \"cash\" | \"cbx\" }. Once per booth. Full-access token and Idempotency-Key required.
 
@@ -2295,10 +2547,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_booth_fee_request: Crossly::CreateWorldConventionBoothFeeRequest.new({rail: 'cash'}) # CreateWorldConventionBoothFeeRequest | 
+}
 
 begin
   # Pay your booth fee to the organiser on a Worlds rail: { rail: \"cash\" | \"cbx\" }. Once per booth. Full-access token and Idempotency-Key required.
-  result = api_instance.create_world_convention_booth_fee(id)
+  result = api_instance.create_world_convention_booth_fee(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_booth_fee: #{e}"
@@ -2309,12 +2564,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionBoothFeeResponse>, Integer, Hash)> create_world_convention_booth_fee_with_http_info(id)
+> <Array(<CreateWorldConventionBoothFeeResponse>, Integer, Hash)> create_world_convention_booth_fee_with_http_info(id, opts)
 
 ```ruby
 begin
   # Pay your booth fee to the organiser on a Worlds rail: { rail: \"cash\" | \"cbx\" }. Once per booth. Full-access token and Idempotency-Key required.
-  data, status_code, headers = api_instance.create_world_convention_booth_fee_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_booth_fee_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionBoothFeeResponse>
@@ -2328,6 +2583,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_booth_fee_request** | **CreateWorldConventionBoothFeeRequest** |  | [optional] |
 
 ### Return type
 
@@ -2339,13 +2595,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_check_in
 
-> <CreateWorldConventionCheckInResponse> create_world_convention_check_in(id)
+> <CreateWorldConventionCheckInResponse> create_world_convention_check_in(id, opts)
 
 Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
 
@@ -2362,10 +2618,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_check_in_request: Crossly::CreateWorldConventionCheckInRequest.new # CreateWorldConventionCheckInRequest | 
+}
 
 begin
   # Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
-  result = api_instance.create_world_convention_check_in(id)
+  result = api_instance.create_world_convention_check_in(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_check_in: #{e}"
@@ -2376,12 +2635,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionCheckInResponse>, Integer, Hash)> create_world_convention_check_in_with_http_info(id)
+> <Array(<CreateWorldConventionCheckInResponse>, Integer, Hash)> create_world_convention_check_in_with_http_info(id, opts)
 
 ```ruby
 begin
   # Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
-  data, status_code, headers = api_instance.create_world_convention_check_in_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_check_in_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionCheckInResponse>
@@ -2395,6 +2654,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_check_in_request** | **CreateWorldConventionCheckInRequest** |  | [optional] |
 
 ### Return type
 
@@ -2406,13 +2666,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_full
 
-> <GetWorldConventionManageResponse> create_world_convention_full
+> <GetWorldConventionManageResponse> create_world_convention_full(opts)
 
 Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
 
@@ -2428,10 +2688,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_convention_full_request: Crossly::CreateWorldConventionFullRequest.new({title: 'title_example', venue_id: 'venue_id_example', starts_on: 'starts_on_example', ends_on: 'ends_on_example', rail: 'cash', tiers: [Crossly::CreateWorldConventionFullRequestTiers.new({name: 'name_example', size: 'small', price_cents: 3.56, count: 3.56})]}) # CreateWorldConventionFullRequest | 
+}
 
 begin
   # Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
-  result = api_instance.create_world_convention_full
+  result = api_instance.create_world_convention_full(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_full: #{e}"
@@ -2442,12 +2705,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldConventionManageResponse>, Integer, Hash)> create_world_convention_full_with_http_info
+> <Array(<GetWorldConventionManageResponse>, Integer, Hash)> create_world_convention_full_with_http_info(opts)
 
 ```ruby
 begin
   # Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
-  data, status_code, headers = api_instance.create_world_convention_full_with_http_info
+  data, status_code, headers = api_instance.create_world_convention_full_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldConventionManageResponse>
@@ -2458,7 +2721,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_convention_full_request** | **CreateWorldConventionFullRequest** |  | [optional] |
 
 ### Return type
 
@@ -2470,13 +2735,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_invite
 
-> <CreateWorldSpaceInviteResponse> create_world_convention_invite(id)
+> <CreateWorldSpaceInviteResponse> create_world_convention_invite(id, opts)
 
 Invite a seller (by shop handle) to a convention you host.
 
@@ -2493,10 +2758,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_paid_request: Crossly::CreateWorldConventionPaidRequest.new({username: 'username_example'}) # CreateWorldConventionPaidRequest | 
+}
 
 begin
   # Invite a seller (by shop handle) to a convention you host.
-  result = api_instance.create_world_convention_invite(id)
+  result = api_instance.create_world_convention_invite(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_invite: #{e}"
@@ -2507,12 +2775,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceInviteResponse>, Integer, Hash)> create_world_convention_invite_with_http_info(id)
+> <Array(<CreateWorldSpaceInviteResponse>, Integer, Hash)> create_world_convention_invite_with_http_info(id, opts)
 
 ```ruby
 begin
   # Invite a seller (by shop handle) to a convention you host.
-  data, status_code, headers = api_instance.create_world_convention_invite_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_invite_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceInviteResponse>
@@ -2526,6 +2794,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_paid_request** | **CreateWorldConventionPaidRequest** |  | [optional] |
 
 ### Return type
 
@@ -2537,13 +2806,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_message
 
-> <CreateWorldConventionMessageResponse> create_world_convention_message(id)
+> <CreateWorldConventionMessageResponse> create_world_convention_message(id, opts)
 
 Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
 
@@ -2560,10 +2829,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_message_request: Crossly::CreateWorldConventionMessageRequest.new({body: 'body_example'}) # CreateWorldConventionMessageRequest | 
+}
 
 begin
   # Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
-  result = api_instance.create_world_convention_message(id)
+  result = api_instance.create_world_convention_message(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_message: #{e}"
@@ -2574,12 +2846,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionMessageResponse>, Integer, Hash)> create_world_convention_message_with_http_info(id)
+> <Array(<CreateWorldConventionMessageResponse>, Integer, Hash)> create_world_convention_message_with_http_info(id, opts)
 
 ```ruby
 begin
   # Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
-  data, status_code, headers = api_instance.create_world_convention_message_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_message_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionMessageResponse>
@@ -2593,6 +2865,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_message_request** | **CreateWorldConventionMessageRequest** |  | [optional] |
 
 ### Return type
 
@@ -2604,13 +2877,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_paid
 
-> <UpdateGroupBuyResponse> create_world_convention_paid(id)
+> <UpdateGroupBuyResponse> create_world_convention_paid(id, opts)
 
 As host, record that a seller (username) paid their table fee off-platform. Moves no money.
 
@@ -2627,10 +2900,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_paid_request: Crossly::CreateWorldConventionPaidRequest.new({username: 'username_example'}) # CreateWorldConventionPaidRequest | 
+}
 
 begin
   # As host, record that a seller (username) paid their table fee off-platform. Moves no money.
-  result = api_instance.create_world_convention_paid(id)
+  result = api_instance.create_world_convention_paid(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_paid: #{e}"
@@ -2641,12 +2917,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_world_convention_paid_with_http_info(id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_world_convention_paid_with_http_info(id, opts)
 
 ```ruby
 begin
   # As host, record that a seller (username) paid their table fee off-platform. Moves no money.
-  data, status_code, headers = api_instance.create_world_convention_paid_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_paid_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateGroupBuyResponse>
@@ -2660,6 +2936,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_paid_request** | **CreateWorldConventionPaidRequest** |  | [optional] |
 
 ### Return type
 
@@ -2671,13 +2948,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_seller_assign
 
-> <CreateWorldConventionSellerAssignResponse> create_world_convention_seller_assign(id)
+> <CreateWorldConventionSellerAssignResponse> create_world_convention_seller_assign(id, opts)
 
 Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
 
@@ -2694,10 +2971,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_seller_assign_request: Crossly::CreateWorldConventionSellerAssignRequest.new({exhibitor_id: 'exhibitor_id_example', booth_key: 'booth_key_example'}) # CreateWorldConventionSellerAssignRequest | 
+}
 
 begin
   # Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
-  result = api_instance.create_world_convention_seller_assign(id)
+  result = api_instance.create_world_convention_seller_assign(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_seller_assign: #{e}"
@@ -2708,12 +2988,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionSellerAssignResponse>, Integer, Hash)> create_world_convention_seller_assign_with_http_info(id)
+> <Array(<CreateWorldConventionSellerAssignResponse>, Integer, Hash)> create_world_convention_seller_assign_with_http_info(id, opts)
 
 ```ruby
 begin
   # Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
-  data, status_code, headers = api_instance.create_world_convention_seller_assign_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_seller_assign_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionSellerAssignResponse>
@@ -2727,6 +3007,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_seller_assign_request** | **CreateWorldConventionSellerAssignRequest** |  | [optional] |
 
 ### Return type
 
@@ -2738,13 +3019,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_seller_decide
 
-> <CreateWorldConventionBoothApplyResponse> create_world_convention_seller_decide(id)
+> <CreateWorldConventionBoothApplyResponse> create_world_convention_seller_decide(id, opts)
 
 Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
 
@@ -2761,10 +3042,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_seller_decide_request: Crossly::CreateWorldConventionSellerDecideRequest.new({exhibitor_id: 'exhibitor_id_example', decision: 'decline'}) # CreateWorldConventionSellerDecideRequest | 
+}
 
 begin
   # Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
-  result = api_instance.create_world_convention_seller_decide(id)
+  result = api_instance.create_world_convention_seller_decide(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_seller_decide: #{e}"
@@ -2775,12 +3059,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldConventionBoothApplyResponse>, Integer, Hash)> create_world_convention_seller_decide_with_http_info(id)
+> <Array(<CreateWorldConventionBoothApplyResponse>, Integer, Hash)> create_world_convention_seller_decide_with_http_info(id, opts)
 
 ```ruby
 begin
   # Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
-  data, status_code, headers = api_instance.create_world_convention_seller_decide_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_seller_decide_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldConventionBoothApplyResponse>
@@ -2794,6 +3078,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_seller_decide_request** | **CreateWorldConventionSellerDecideRequest** |  | [optional] |
 
 ### Return type
 
@@ -2805,13 +3090,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_convention_withdraw
 
-> <UpdateGroupBuyResponse> create_world_convention_withdraw(id)
+> <UpdateGroupBuyResponse> create_world_convention_withdraw(id, opts)
 
 Withdraw your table or decline your invitation; as host, decline someone (username).
 
@@ -2828,10 +3113,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_convention_withdraw_request: Crossly::CreateWorldConventionWithdrawRequest.new # CreateWorldConventionWithdrawRequest | 
+}
 
 begin
   # Withdraw your table or decline your invitation; as host, decline someone (username).
-  result = api_instance.create_world_convention_withdraw(id)
+  result = api_instance.create_world_convention_withdraw(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_convention_withdraw: #{e}"
@@ -2842,12 +3130,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_world_convention_withdraw_with_http_info(id)
+> <Array(<UpdateGroupBuyResponse>, Integer, Hash)> create_world_convention_withdraw_with_http_info(id, opts)
 
 ```ruby
 begin
   # Withdraw your table or decline your invitation; as host, decline someone (username).
-  data, status_code, headers = api_instance.create_world_convention_withdraw_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_convention_withdraw_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateGroupBuyResponse>
@@ -2861,6 +3149,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_convention_withdraw_request** | **CreateWorldConventionWithdrawRequest** |  | [optional] |
 
 ### Return type
 
@@ -2872,7 +3161,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3143,7 +3432,7 @@ This endpoint does not need any parameter.
 
 ## create_world_decor_design
 
-> <CreateWorldDecorDesignResponse> create_world_decor_design
+> <CreateWorldDecorDesignResponse> create_world_decor_design(opts)
 
 Author a decor design (what it unlocks, a mesh profile and params, an asking price in COSM base units as a string). Inactive until an operator approves it.
 
@@ -3159,10 +3448,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_decor_design_request: Crossly::CreateWorldDecorDesignRequest.new({unlocks_key: 'unlocks_key_example', slug: 'slug_example', name: 'name_example', mesh_profile: 'mesh_profile_example', price_base_units: 'price_base_units_example'}) # CreateWorldDecorDesignRequest | 
+}
 
 begin
   # Author a decor design (what it unlocks, a mesh profile and params, an asking price in COSM base units as a string). Inactive until an operator approves it.
-  result = api_instance.create_world_decor_design
+  result = api_instance.create_world_decor_design(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_decor_design: #{e}"
@@ -3173,12 +3465,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldDecorDesignResponse>, Integer, Hash)> create_world_decor_design_with_http_info
+> <Array(<CreateWorldDecorDesignResponse>, Integer, Hash)> create_world_decor_design_with_http_info(opts)
 
 ```ruby
 begin
   # Author a decor design (what it unlocks, a mesh profile and params, an asking price in COSM base units as a string). Inactive until an operator approves it.
-  data, status_code, headers = api_instance.create_world_decor_design_with_http_info
+  data, status_code, headers = api_instance.create_world_decor_design_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldDecorDesignResponse>
@@ -3189,7 +3481,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_decor_design_request** | **CreateWorldDecorDesignRequest** |  | [optional] |
 
 ### Return type
 
@@ -3201,7 +3495,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3274,7 +3568,7 @@ end
 
 ## create_world_decor_retract
 
-> <CreateWorldDecorRetractResponse> create_world_decor_retract
+> <CreateWorldDecorRetractResponse> create_world_decor_retract(opts)
 
 Take a placed decor piece back into your inventory; answers the inventory after.
 
@@ -3290,10 +3584,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_decor_retract_request: Crossly::CreateWorldDecorRetractRequest.new({space: Crossly::CreateWorldDecorRetractRequestSpace.new({kind: 'home', id: 'id_example'}), key: 'key_example', value: 'value_example'}) # CreateWorldDecorRetractRequest | 
+}
 
 begin
   # Take a placed decor piece back into your inventory; answers the inventory after.
-  result = api_instance.create_world_decor_retract
+  result = api_instance.create_world_decor_retract(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_decor_retract: #{e}"
@@ -3304,12 +3601,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldDecorRetractResponse>, Integer, Hash)> create_world_decor_retract_with_http_info
+> <Array(<CreateWorldDecorRetractResponse>, Integer, Hash)> create_world_decor_retract_with_http_info(opts)
 
 ```ruby
 begin
   # Take a placed decor piece back into your inventory; answers the inventory after.
-  data, status_code, headers = api_instance.create_world_decor_retract_with_http_info
+  data, status_code, headers = api_instance.create_world_decor_retract_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldDecorRetractResponse>
@@ -3320,7 +3617,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_decor_retract_request** | **CreateWorldDecorRetractRequest** |  | [optional] |
 
 ### Return type
 
@@ -3332,7 +3631,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3543,7 +3842,7 @@ end
 
 ## create_world_game_package
 
-> <CreateWorldGamePackageResponse> create_world_game_package
+> <CreateWorldGamePackageResponse> create_world_game_package(opts)
 
 Submit a game package version for review: files as { path, base64 } (game.json, thumb.png, logic/, scene/, audio/, images/). Checked like the CLI, assets quarantined, the entry document dry-run, then reviewed by a person.
 
@@ -3559,10 +3858,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_game_package_request: Crossly::CreateWorldGamePackageRequest.new({files: [Crossly::PathBase64.new({path: 'path_example', base64: 'base64_example'})]}) # CreateWorldGamePackageRequest | 
+}
 
 begin
   # Submit a game package version for review: files as { path, base64 } (game.json, thumb.png, logic/, scene/, audio/, images/). Checked like the CLI, assets quarantined, the entry document dry-run, then reviewed by a person.
-  result = api_instance.create_world_game_package
+  result = api_instance.create_world_game_package(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_game_package: #{e}"
@@ -3573,12 +3875,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGamePackageResponse>, Integer, Hash)> create_world_game_package_with_http_info
+> <Array(<CreateWorldGamePackageResponse>, Integer, Hash)> create_world_game_package_with_http_info(opts)
 
 ```ruby
 begin
   # Submit a game package version for review: files as { path, base64 } (game.json, thumb.png, logic/, scene/, audio/, images/). Checked like the CLI, assets quarantined, the entry document dry-run, then reviewed by a person.
-  data, status_code, headers = api_instance.create_world_game_package_with_http_info
+  data, status_code, headers = api_instance.create_world_game_package_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGamePackageResponse>
@@ -3589,7 +3891,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_game_package_request** | **CreateWorldGamePackageRequest** |  | [optional] |
 
 ### Return type
 
@@ -3601,13 +3905,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_game_package_check
 
-> <CreateWorldGamePackageCheckResponse> create_world_game_package_check
+> <CreateWorldGamePackageCheckResponse> create_world_game_package_check(opts)
 
 Validate a game package exactly as a submission is checked (the shared intake report, your version still free) without storing, uploading or queuing anything: world-kit validate for an agent. Same files body as submit.
 
@@ -3623,10 +3927,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_tcg_creator_game_request: Crossly::CreateTcgCreatorGameRequest.new({files: [Crossly::PathBase64.new({path: 'path_example', base64: 'base64_example'})]}) # CreateTcgCreatorGameRequest | 
+}
 
 begin
   # Validate a game package exactly as a submission is checked (the shared intake report, your version still free) without storing, uploading or queuing anything: world-kit validate for an agent. Same files body as submit.
-  result = api_instance.create_world_game_package_check
+  result = api_instance.create_world_game_package_check(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_game_package_check: #{e}"
@@ -3637,12 +3944,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGamePackageCheckResponse>, Integer, Hash)> create_world_game_package_check_with_http_info
+> <Array(<CreateWorldGamePackageCheckResponse>, Integer, Hash)> create_world_game_package_check_with_http_info(opts)
 
 ```ruby
 begin
   # Validate a game package exactly as a submission is checked (the shared intake report, your version still free) without storing, uploading or queuing anything: world-kit validate for an agent. Same files body as submit.
-  data, status_code, headers = api_instance.create_world_game_package_check_with_http_info
+  data, status_code, headers = api_instance.create_world_game_package_check_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGamePackageCheckResponse>
@@ -3653,7 +3960,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_tcg_creator_game_request** | **CreateTcgCreatorGameRequest** |  | [optional] |
 
 ### Return type
 
@@ -3665,13 +3974,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_game_package_publish
 
-> <CreateWorldGamePackagePublishResponse> create_world_game_package_publish(id)
+> <CreateWorldGamePackagePublishResponse> create_world_game_package_publish(id, opts)
 
 Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
 
@@ -3688,10 +3997,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_game_package_publish_request: Crossly::CreateWorldGamePackagePublishRequest.new({version: 'version_example'}) # CreateWorldGamePackagePublishRequest | 
+}
 
 begin
   # Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
-  result = api_instance.create_world_game_package_publish(id)
+  result = api_instance.create_world_game_package_publish(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_game_package_publish: #{e}"
@@ -3702,12 +4014,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGamePackagePublishResponse>, Integer, Hash)> create_world_game_package_publish_with_http_info(id)
+> <Array(<CreateWorldGamePackagePublishResponse>, Integer, Hash)> create_world_game_package_publish_with_http_info(id, opts)
 
 ```ruby
 begin
   # Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
-  data, status_code, headers = api_instance.create_world_game_package_publish_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_game_package_publish_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGamePackagePublishResponse>
@@ -3721,6 +4033,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_game_package_publish_request** | **CreateWorldGamePackagePublishRequest** |  | [optional] |
 
 ### Return type
 
@@ -3732,7 +4045,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3941,7 +4254,7 @@ end
 
 ## create_world_game_rating
 
-> <CreateWorldGameRatingResponse> create_world_game_rating(id)
+> <CreateWorldGameRatingResponse> create_world_game_rating(id, opts)
 
 Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
 
@@ -3958,10 +4271,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_game_rating_request: Crossly::CreateWorldGameRatingRequest.new({stars: 3.56}) # CreateWorldGameRatingRequest | 
+}
 
 begin
   # Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
-  result = api_instance.create_world_game_rating(id)
+  result = api_instance.create_world_game_rating(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_game_rating: #{e}"
@@ -3972,12 +4288,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGameRatingResponse>, Integer, Hash)> create_world_game_rating_with_http_info(id)
+> <Array(<CreateWorldGameRatingResponse>, Integer, Hash)> create_world_game_rating_with_http_info(id, opts)
 
 ```ruby
 begin
   # Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
-  data, status_code, headers = api_instance.create_world_game_rating_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_game_rating_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGameRatingResponse>
@@ -3991,6 +4307,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_game_rating_request** | **CreateWorldGameRatingRequest** |  | [optional] |
 
 ### Return type
 
@@ -4002,13 +4319,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_game_report
 
-> <CreateWorldGameReportResponse> create_world_game_report(id)
+> <CreateWorldGameReportResponse> create_world_game_report(id, opts)
 
 Report a game: reason broken | unfair | offensive | scam | other, optional detail. Staff review it; the creator is told the reason, never who.
 
@@ -4025,10 +4342,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_game_report_request: Crossly::CreateWorldGameReportRequest.new({reason: 'reason_example'}) # CreateWorldGameReportRequest | 
+}
 
 begin
   # Report a game: reason broken | unfair | offensive | scam | other, optional detail. Staff review it; the creator is told the reason, never who.
-  result = api_instance.create_world_game_report(id)
+  result = api_instance.create_world_game_report(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_game_report: #{e}"
@@ -4039,12 +4359,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGameReportResponse>, Integer, Hash)> create_world_game_report_with_http_info(id)
+> <Array(<CreateWorldGameReportResponse>, Integer, Hash)> create_world_game_report_with_http_info(id, opts)
 
 ```ruby
 begin
   # Report a game: reason broken | unfair | offensive | scam | other, optional detail. Staff review it; the creator is told the reason, never who.
-  data, status_code, headers = api_instance.create_world_game_report_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_game_report_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGameReportResponse>
@@ -4058,6 +4378,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_game_report_request** | **CreateWorldGameReportRequest** |  | [optional] |
 
 ### Return type
 
@@ -4069,7 +4390,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4144,7 +4465,7 @@ end
 
 ## create_world_grail_match
 
-> <CreateWorldGrailMatchResponse> create_world_grail_match
+> <CreateWorldGrailMatchResponse> create_world_grail_match(opts)
 
 Grail glints: send the ids on show somewhere (listingIds -- listings.id, inventoryIds, skuIds -- catalogue market SKUs; up to 400 each) and get back data.listingIds / data.inventoryIds / data.skuIds: the ones that are things you already want -- an open bid, a watched or wishlisted listing (or one selling the same SKU), a market watch, or a card your deck is missing. Read-only.
 
@@ -4160,10 +4481,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_grail_match_request: Crossly::CreateWorldGrailMatchRequest.new # CreateWorldGrailMatchRequest | 
+}
 
 begin
   # Grail glints: send the ids on show somewhere (listingIds -- listings.id, inventoryIds, skuIds -- catalogue market SKUs; up to 400 each) and get back data.listingIds / data.inventoryIds / data.skuIds: the ones that are things you already want -- an open bid, a watched or wishlisted listing (or one selling the same SKU), a market watch, or a card your deck is missing. Read-only.
-  result = api_instance.create_world_grail_match
+  result = api_instance.create_world_grail_match(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_grail_match: #{e}"
@@ -4174,12 +4498,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGrailMatchResponse>, Integer, Hash)> create_world_grail_match_with_http_info
+> <Array(<CreateWorldGrailMatchResponse>, Integer, Hash)> create_world_grail_match_with_http_info(opts)
 
 ```ruby
 begin
   # Grail glints: send the ids on show somewhere (listingIds -- listings.id, inventoryIds, skuIds -- catalogue market SKUs; up to 400 each) and get back data.listingIds / data.inventoryIds / data.skuIds: the ones that are things you already want -- an open bid, a watched or wishlisted listing (or one selling the same SKU), a market watch, or a card your deck is missing. Read-only.
-  data, status_code, headers = api_instance.create_world_grail_match_with_http_info
+  data, status_code, headers = api_instance.create_world_grail_match_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGrailMatchResponse>
@@ -4190,7 +4514,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_grail_match_request** | **CreateWorldGrailMatchRequest** |  | [optional] |
 
 ### Return type
 
@@ -4202,13 +4528,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_hall_loan
 
-> <CreateWorldHallLoanResponse> create_world_hall_loan
+> <CreateWorldHallLoanResponse> create_world_hall_loan(opts)
 
 Lend a piece from your vault to this week's Hall of Grails exhibition: { vaultItemId, credit: 'name' | 'anonymous' }. It shows under your plaque until the exhibition ends; it stays in your vault (still listable and withdrawable), and stops showing if it leaves.
 
@@ -4224,10 +4550,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_hall_loan_request: Crossly::CreateWorldHallLoanRequest.new({vault_item_id: 'vault_item_id_example'}) # CreateWorldHallLoanRequest | 
+}
 
 begin
   # Lend a piece from your vault to this week's Hall of Grails exhibition: { vaultItemId, credit: 'name' | 'anonymous' }. It shows under your plaque until the exhibition ends; it stays in your vault (still listable and withdrawable), and stops showing if it leaves.
-  result = api_instance.create_world_hall_loan
+  result = api_instance.create_world_hall_loan(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_hall_loan: #{e}"
@@ -4238,12 +4567,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldHallLoanResponse>, Integer, Hash)> create_world_hall_loan_with_http_info
+> <Array(<CreateWorldHallLoanResponse>, Integer, Hash)> create_world_hall_loan_with_http_info(opts)
 
 ```ruby
 begin
   # Lend a piece from your vault to this week's Hall of Grails exhibition: { vaultItemId, credit: 'name' | 'anonymous' }. It shows under your plaque until the exhibition ends; it stays in your vault (still listable and withdrawable), and stops showing if it leaves.
-  data, status_code, headers = api_instance.create_world_hall_loan_with_http_info
+  data, status_code, headers = api_instance.create_world_hall_loan_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldHallLoanResponse>
@@ -4254,7 +4583,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_hall_loan_request** | **CreateWorldHallLoanRequest** |  | [optional] |
 
 ### Return type
 
@@ -4266,13 +4597,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_home_ask
 
-> <CreateWorldHomeAskResponse> create_world_home_ask(slug)
+> <CreateWorldHomeAskResponse> create_world_home_ask(slug, opts)
 
 Ask a home owner whether they would sell a piece you saw there (an item or a decor piece).
 
@@ -4289,10 +4620,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+opts = {
+  create_world_home_ask_request: Crossly::CreateWorldHomeAskRequest.new({ref: Crossly::GetWorldHomePlaceableResponseDataItemsRef.new({kind: 'inventory', id: 'id_example'})}) # CreateWorldHomeAskRequest | 
+}
 
 begin
   # Ask a home owner whether they would sell a piece you saw there (an item or a decor piece).
-  result = api_instance.create_world_home_ask(slug)
+  result = api_instance.create_world_home_ask(slug, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_home_ask: #{e}"
@@ -4303,12 +4637,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldHomeAskResponse>, Integer, Hash)> create_world_home_ask_with_http_info(slug)
+> <Array(<CreateWorldHomeAskResponse>, Integer, Hash)> create_world_home_ask_with_http_info(slug, opts)
 
 ```ruby
 begin
   # Ask a home owner whether they would sell a piece you saw there (an item or a decor piece).
-  data, status_code, headers = api_instance.create_world_home_ask_with_http_info(slug)
+  data, status_code, headers = api_instance.create_world_home_ask_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldHomeAskResponse>
@@ -4322,6 +4656,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_world_home_ask_request** | **CreateWorldHomeAskRequest** |  | [optional] |
 
 ### Return type
 
@@ -4333,13 +4668,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_home_guestbook
 
-> <CreateWorldHomeGuestbookResponse> create_world_home_guestbook(slug)
+> <CreateWorldHomeGuestbookResponse> create_world_home_guestbook(slug, opts)
 
 Sign a home guestbook (one short line).
 
@@ -4356,10 +4691,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+opts = {
+  body_request: Crossly::BodyRequest.new({body: 'body_example'}) # BodyRequest | 
+}
 
 begin
   # Sign a home guestbook (one short line).
-  result = api_instance.create_world_home_guestbook(slug)
+  result = api_instance.create_world_home_guestbook(slug, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_home_guestbook: #{e}"
@@ -4370,12 +4708,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldHomeGuestbookResponse>, Integer, Hash)> create_world_home_guestbook_with_http_info(slug)
+> <Array(<CreateWorldHomeGuestbookResponse>, Integer, Hash)> create_world_home_guestbook_with_http_info(slug, opts)
 
 ```ruby
 begin
   # Sign a home guestbook (one short line).
-  data, status_code, headers = api_instance.create_world_home_guestbook_with_http_info(slug)
+  data, status_code, headers = api_instance.create_world_home_guestbook_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldHomeGuestbookResponse>
@@ -4389,6 +4727,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **body_request** | **BodyRequest** |  | [optional] |
 
 ### Return type
 
@@ -4400,13 +4739,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_home_guestbook_report
 
-> <CreateWorldGameReportResponse> create_world_home_guestbook_report(slug, id)
+> <CreateWorldGameReportResponse> create_world_home_guestbook_report(slug, id, opts)
 
 Report a guestbook entry to moderation.
 
@@ -4424,10 +4763,13 @@ end
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
 id = 'id_example' # String | 
+opts = {
+  create_world_home_guestbook_report_request: Crossly::CreateWorldHomeGuestbookReportRequest.new({reason: 'other'}) # CreateWorldHomeGuestbookReportRequest | 
+}
 
 begin
   # Report a guestbook entry to moderation.
-  result = api_instance.create_world_home_guestbook_report(slug, id)
+  result = api_instance.create_world_home_guestbook_report(slug, id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_home_guestbook_report: #{e}"
@@ -4438,12 +4780,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldGameReportResponse>, Integer, Hash)> create_world_home_guestbook_report_with_http_info(slug, id)
+> <Array(<CreateWorldGameReportResponse>, Integer, Hash)> create_world_home_guestbook_report_with_http_info(slug, id, opts)
 
 ```ruby
 begin
   # Report a guestbook entry to moderation.
-  data, status_code, headers = api_instance.create_world_home_guestbook_report_with_http_info(slug, id)
+  data, status_code, headers = api_instance.create_world_home_guestbook_report_with_http_info(slug, id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldGameReportResponse>
@@ -4458,6 +4800,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
 | **id** | **String** |  |  |
+| **create_world_home_guestbook_report_request** | **CreateWorldHomeGuestbookReportRequest** |  | [optional] |
 
 ### Return type
 
@@ -4469,7 +4812,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4539,7 +4882,7 @@ This endpoint does not need any parameter.
 
 ## create_world_interactive_asset
 
-> <CreateWorldInteractiveAssetResponse> create_world_interactive_asset
+> <CreateWorldInteractiveAssetResponse> create_world_interactive_asset(opts)
 
 Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
 
@@ -4555,10 +4898,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_interactive_asset_request: Crossly::CreateWorldInteractiveAssetRequest.new({kind: 'kind_example', data_base64: 'data_base64_example'}) # CreateWorldInteractiveAssetRequest | 
+}
 
 begin
   # Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
-  result = api_instance.create_world_interactive_asset
+  result = api_instance.create_world_interactive_asset(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_interactive_asset: #{e}"
@@ -4569,12 +4915,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldInteractiveAssetResponse>, Integer, Hash)> create_world_interactive_asset_with_http_info
+> <Array(<CreateWorldInteractiveAssetResponse>, Integer, Hash)> create_world_interactive_asset_with_http_info(opts)
 
 ```ruby
 begin
   # Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
-  data, status_code, headers = api_instance.create_world_interactive_asset_with_http_info
+  data, status_code, headers = api_instance.create_world_interactive_asset_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldInteractiveAssetResponse>
@@ -4585,7 +4931,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_interactive_asset_request** | **CreateWorldInteractiveAssetRequest** |  | [optional] |
 
 ### Return type
 
@@ -4597,13 +4945,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_interactive_design
 
-> <GetWorldInteractiveDesignResponse> create_world_interactive_design
+> <GetWorldInteractiveDesignResponse> create_world_interactive_design(opts)
 
 Create an interactive design: name, footprint (s, m, l or f), optional tint and description, an asking price in COSM base units (a string, six decimals) and optional max supply. Inactive until ops approve a submitted version.
 
@@ -4619,10 +4967,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_interactive_design_request: Crossly::CreateWorldInteractiveDesignRequest.new({name: 'name_example', footprint: 'f', price_base_units: 'price_base_units_example'}) # CreateWorldInteractiveDesignRequest | 
+}
 
 begin
   # Create an interactive design: name, footprint (s, m, l or f), optional tint and description, an asking price in COSM base units (a string, six decimals) and optional max supply. Inactive until ops approve a submitted version.
-  result = api_instance.create_world_interactive_design
+  result = api_instance.create_world_interactive_design(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_interactive_design: #{e}"
@@ -4633,12 +4984,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldInteractiveDesignResponse>, Integer, Hash)> create_world_interactive_design_with_http_info
+> <Array(<GetWorldInteractiveDesignResponse>, Integer, Hash)> create_world_interactive_design_with_http_info(opts)
 
 ```ruby
 begin
   # Create an interactive design: name, footprint (s, m, l or f), optional tint and description, an asking price in COSM base units (a string, six decimals) and optional max supply. Inactive until ops approve a submitted version.
-  data, status_code, headers = api_instance.create_world_interactive_design_with_http_info
+  data, status_code, headers = api_instance.create_world_interactive_design_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldInteractiveDesignResponse>
@@ -4649,7 +5000,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_interactive_design_request** | **CreateWorldInteractiveDesignRequest** |  | [optional] |
 
 ### Return type
 
@@ -4661,7 +5014,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4868,7 +5221,7 @@ end
 
 ## create_world_interactive_reset
 
-> <CreateWorldInteractiveResetResponse> create_world_interactive_reset
+> <CreateWorldInteractiveResetResponse> create_world_interactive_reset(opts)
 
 Wipe the stored state of an interactive piece standing in a place you own (a home or your boutique).
 
@@ -4884,10 +5237,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  create_world_interactive_reset_request: Crossly::CreateWorldInteractiveResetRequest.new({instance_id: 'instance_id_example'}) # CreateWorldInteractiveResetRequest | 
+}
 
 begin
   # Wipe the stored state of an interactive piece standing in a place you own (a home or your boutique).
-  result = api_instance.create_world_interactive_reset
+  result = api_instance.create_world_interactive_reset(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_interactive_reset: #{e}"
@@ -4898,12 +5254,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldInteractiveResetResponse>, Integer, Hash)> create_world_interactive_reset_with_http_info
+> <Array(<CreateWorldInteractiveResetResponse>, Integer, Hash)> create_world_interactive_reset_with_http_info(opts)
 
 ```ruby
 begin
   # Wipe the stored state of an interactive piece standing in a place you own (a home or your boutique).
-  data, status_code, headers = api_instance.create_world_interactive_reset_with_http_info
+  data, status_code, headers = api_instance.create_world_interactive_reset_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldInteractiveResetResponse>
@@ -4914,7 +5270,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_interactive_reset_request** | **CreateWorldInteractiveResetRequest** |  | [optional] |
 
 ### Return type
 
@@ -4926,13 +5284,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_job_appraisal_answer
 
-> <CreateWorldJobAppraisalAnswerResponse> create_world_job_appraisal_answer(id)
+> <CreateWorldJobAppraisalAnswerResponse> create_world_job_appraisal_answer(id, create_world_job_appraisal_answer_request)
 
 Answer a price check: your estimate of the item value in CENTS and an optional note. Moves no money; the asker may accept it.
 
@@ -4949,10 +5307,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_job_appraisal_answer_request = Crossly::CreateWorldJobAppraisalAnswerRequest.new({value_cents: 3.56}) # CreateWorldJobAppraisalAnswerRequest | 
 
 begin
   # Answer a price check: your estimate of the item value in CENTS and an optional note. Moves no money; the asker may accept it.
-  result = api_instance.create_world_job_appraisal_answer(id)
+  result = api_instance.create_world_job_appraisal_answer(id, create_world_job_appraisal_answer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_job_appraisal_answer: #{e}"
@@ -4963,12 +5322,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldJobAppraisalAnswerResponse>, Integer, Hash)> create_world_job_appraisal_answer_with_http_info(id)
+> <Array(<CreateWorldJobAppraisalAnswerResponse>, Integer, Hash)> create_world_job_appraisal_answer_with_http_info(id, create_world_job_appraisal_answer_request)
 
 ```ruby
 begin
   # Answer a price check: your estimate of the item value in CENTS and an optional note. Moves no money; the asker may accept it.
-  data, status_code, headers = api_instance.create_world_job_appraisal_answer_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_job_appraisal_answer_with_http_info(id, create_world_job_appraisal_answer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldJobAppraisalAnswerResponse>
@@ -4982,6 +5341,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_job_appraisal_answer_request** | **CreateWorldJobAppraisalAnswerRequest** |  |  |
 
 ### Return type
 
@@ -4993,7 +5353,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -5133,7 +5493,7 @@ end
 
 ## create_world_market_buy
 
-> <CreateWorldMarketBuyResponse> create_world_market_buy(kind, id)
+> <CreateWorldMarketBuyResponse> create_world_market_buy(kind, id, opts)
 
 Buy a plot or a street.
 
@@ -5151,10 +5511,13 @@ end
 api_instance = Crossly::WorldApi.new
 kind = 'kind_example' # String | 
 id = 'id_example' # String | 
+opts = {
+  create_world_market_buy_request: Crossly::CreateWorldMarketBuyRequest.new # CreateWorldMarketBuyRequest | 
+}
 
 begin
   # Buy a plot or a street.
-  result = api_instance.create_world_market_buy(kind, id)
+  result = api_instance.create_world_market_buy(kind, id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_market_buy: #{e}"
@@ -5165,12 +5528,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldMarketBuyResponse>, Integer, Hash)> create_world_market_buy_with_http_info(kind, id)
+> <Array(<CreateWorldMarketBuyResponse>, Integer, Hash)> create_world_market_buy_with_http_info(kind, id, opts)
 
 ```ruby
 begin
   # Buy a plot or a street.
-  data, status_code, headers = api_instance.create_world_market_buy_with_http_info(kind, id)
+  data, status_code, headers = api_instance.create_world_market_buy_with_http_info(kind, id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldMarketBuyResponse>
@@ -5185,6 +5548,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **kind** | **String** |  |  |
 | **id** | **String** |  |  |
+| **create_world_market_buy_request** | **CreateWorldMarketBuyRequest** |  | [optional] |
 
 ### Return type
 
@@ -5196,13 +5560,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_market_listing
 
-> <CreateWorldMarketListingResponse> create_world_market_listing
+> <CreateWorldMarketListingResponse> create_world_market_listing(create_world_market_listing_request)
 
 List a plot for sale or rent, or a street for sale.
 
@@ -5218,10 +5582,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_world_market_listing_request = Crossly::CreateWorldMarketListingRequest.new({kind: 'plot', id: 'id_example', mode: 'sale', price_cents: 3.56}) # CreateWorldMarketListingRequest | 
 
 begin
   # List a plot for sale or rent, or a street for sale.
-  result = api_instance.create_world_market_listing
+  result = api_instance.create_world_market_listing(create_world_market_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_market_listing: #{e}"
@@ -5232,12 +5597,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldMarketListingResponse>, Integer, Hash)> create_world_market_listing_with_http_info
+> <Array(<CreateWorldMarketListingResponse>, Integer, Hash)> create_world_market_listing_with_http_info(create_world_market_listing_request)
 
 ```ruby
 begin
   # List a plot for sale or rent, or a street for sale.
-  data, status_code, headers = api_instance.create_world_market_listing_with_http_info
+  data, status_code, headers = api_instance.create_world_market_listing_with_http_info(create_world_market_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldMarketListingResponse>
@@ -5248,7 +5613,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_market_listing_request** | **CreateWorldMarketListingRequest** |  |  |
 
 ### Return type
 
@@ -5260,13 +5627,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_market_plot_rent
 
-> <CreateWorldMarketPlotRentResponse> create_world_market_plot_rent(id)
+> <CreateWorldMarketPlotRentResponse> create_world_market_plot_rent(id, opts)
 
 Rent a plot offered for lease.
 
@@ -5283,10 +5650,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_market_buy_request: Crossly::CreateWorldMarketBuyRequest.new # CreateWorldMarketBuyRequest | 
+}
 
 begin
   # Rent a plot offered for lease.
-  result = api_instance.create_world_market_plot_rent(id)
+  result = api_instance.create_world_market_plot_rent(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_market_plot_rent: #{e}"
@@ -5297,12 +5667,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldMarketPlotRentResponse>, Integer, Hash)> create_world_market_plot_rent_with_http_info(id)
+> <Array(<CreateWorldMarketPlotRentResponse>, Integer, Hash)> create_world_market_plot_rent_with_http_info(id, opts)
 
 ```ruby
 begin
   # Rent a plot offered for lease.
-  data, status_code, headers = api_instance.create_world_market_plot_rent_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_market_plot_rent_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldMarketPlotRentResponse>
@@ -5316,6 +5686,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_market_buy_request** | **CreateWorldMarketBuyRequest** |  | [optional] |
 
 ### Return type
 
@@ -5327,7 +5698,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -5531,7 +5902,7 @@ This endpoint does not need any parameter.
 
 ## create_world_party_chat
 
-> <WorldResponse> create_world_party_chat(id)
+> <WorldResponse> create_world_party_chat(id, opts)
 
 Say something in your party chat (up to 2000 characters).
 
@@ -5548,10 +5919,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_party_chat_request: Crossly::CreateWorldPartyChatRequest.new({text: 'text_example'}) # CreateWorldPartyChatRequest | 
+}
 
 begin
   # Say something in your party chat (up to 2000 characters).
-  result = api_instance.create_world_party_chat(id)
+  result = api_instance.create_world_party_chat(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_party_chat: #{e}"
@@ -5562,12 +5936,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldResponse>, Integer, Hash)> create_world_party_chat_with_http_info(id)
+> <Array(<WorldResponse>, Integer, Hash)> create_world_party_chat_with_http_info(id, opts)
 
 ```ruby
 begin
   # Say something in your party chat (up to 2000 characters).
-  data, status_code, headers = api_instance.create_world_party_chat_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_party_chat_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldResponse>
@@ -5581,6 +5955,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_party_chat_request** | **CreateWorldPartyChatRequest** |  | [optional] |
 
 ### Return type
 
@@ -5592,13 +5967,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_party_invite
 
-> <CreateWorldPartyInviteResponse> create_world_party_invite(id)
+> <CreateWorldPartyInviteResponse> create_world_party_invite(id, opts)
 
 Invite a friend (userId) to your party.
 
@@ -5615,10 +5990,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  user_id_request: Crossly::UserIdRequest.new({user_id: 'user_id_example'}) # UserIdRequest | 
+}
 
 begin
   # Invite a friend (userId) to your party.
-  result = api_instance.create_world_party_invite(id)
+  result = api_instance.create_world_party_invite(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_party_invite: #{e}"
@@ -5629,12 +6007,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPartyInviteResponse>, Integer, Hash)> create_world_party_invite_with_http_info(id)
+> <Array(<CreateWorldPartyInviteResponse>, Integer, Hash)> create_world_party_invite_with_http_info(id, opts)
 
 ```ruby
 begin
   # Invite a friend (userId) to your party.
-  data, status_code, headers = api_instance.create_world_party_invite_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_party_invite_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPartyInviteResponse>
@@ -5648,6 +6026,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **user_id_request** | **UserIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -5659,7 +6038,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -5799,7 +6178,7 @@ end
 
 ## create_world_party_kick
 
-> <CreateWorldPartyKickResponse> create_world_party_kick(id)
+> <CreateWorldPartyKickResponse> create_world_party_kick(id, opts)
 
 As leader, remove a member (userId).
 
@@ -5816,10 +6195,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  user_id_request: Crossly::UserIdRequest.new({user_id: 'user_id_example'}) # UserIdRequest | 
+}
 
 begin
   # As leader, remove a member (userId).
-  result = api_instance.create_world_party_kick(id)
+  result = api_instance.create_world_party_kick(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_party_kick: #{e}"
@@ -5830,12 +6212,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPartyKickResponse>, Integer, Hash)> create_world_party_kick_with_http_info(id)
+> <Array(<CreateWorldPartyKickResponse>, Integer, Hash)> create_world_party_kick_with_http_info(id, opts)
 
 ```ruby
 begin
   # As leader, remove a member (userId).
-  data, status_code, headers = api_instance.create_world_party_kick_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_party_kick_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPartyKickResponse>
@@ -5849,6 +6231,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **user_id_request** | **UserIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -5860,13 +6243,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_party_leader
 
-> <CreateWorldPartyLeaderResponse> create_world_party_leader(id)
+> <CreateWorldPartyLeaderResponse> create_world_party_leader(id, opts)
 
 As leader, pass the lead to a member (userId).
 
@@ -5883,10 +6266,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  user_id_request: Crossly::UserIdRequest.new({user_id: 'user_id_example'}) # UserIdRequest | 
+}
 
 begin
   # As leader, pass the lead to a member (userId).
-  result = api_instance.create_world_party_leader(id)
+  result = api_instance.create_world_party_leader(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_party_leader: #{e}"
@@ -5897,12 +6283,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPartyLeaderResponse>, Integer, Hash)> create_world_party_leader_with_http_info(id)
+> <Array(<CreateWorldPartyLeaderResponse>, Integer, Hash)> create_world_party_leader_with_http_info(id, opts)
 
 ```ruby
 begin
   # As leader, pass the lead to a member (userId).
-  data, status_code, headers = api_instance.create_world_party_leader_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_party_leader_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPartyLeaderResponse>
@@ -5916,6 +6302,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **user_id_request** | **UserIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -5927,7 +6314,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -6000,7 +6387,7 @@ end
 
 ## create_world_party_wishlist
 
-> <CreateWorldPartyWishlistResponse> create_world_party_wishlist(id)
+> <CreateWorldPartyWishlistResponse> create_world_party_wishlist(id, opts)
 
 Add a listing (listingId, or its shop slug) to the party wishlist; answers the wishlist.
 
@@ -6017,10 +6404,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_world_party_wishlist_request: Crossly::CreateWorldPartyWishlistRequest.new # CreateWorldPartyWishlistRequest | 
+}
 
 begin
   # Add a listing (listingId, or its shop slug) to the party wishlist; answers the wishlist.
-  result = api_instance.create_world_party_wishlist(id)
+  result = api_instance.create_world_party_wishlist(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_party_wishlist: #{e}"
@@ -6031,12 +6421,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPartyWishlistResponse>, Integer, Hash)> create_world_party_wishlist_with_http_info(id)
+> <Array(<CreateWorldPartyWishlistResponse>, Integer, Hash)> create_world_party_wishlist_with_http_info(id, opts)
 
 ```ruby
 begin
   # Add a listing (listingId, or its shop slug) to the party wishlist; answers the wishlist.
-  data, status_code, headers = api_instance.create_world_party_wishlist_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_party_wishlist_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPartyWishlistResponse>
@@ -6050,6 +6440,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_party_wishlist_request** | **CreateWorldPartyWishlistRequest** |  | [optional] |
 
 ### Return type
 
@@ -6061,7 +6452,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -6205,7 +6596,7 @@ end
 
 ## create_world_property_plot_photo_upload_url
 
-> <CreateWorldPropertyPlotPhotoUploadUrlResponse> create_world_property_plot_photo_upload_url(plot_id)
+> <CreateWorldPropertyPlotPhotoUploadUrlResponse> create_world_property_plot_photo_upload_url(plot_id, create_world_property_plot_photo_upload_url_request)
 
 A presigned upload for a plot's photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
 
@@ -6222,10 +6613,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 plot_id = 'plot_id_example' # String | 
+create_world_property_plot_photo_upload_url_request = Crossly::CreateWorldPropertyPlotPhotoUploadUrlRequest.new({content_type: 'image/jpeg', content_length: 3.56}) # CreateWorldPropertyPlotPhotoUploadUrlRequest | 
 
 begin
   # A presigned upload for a plot's photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
-  result = api_instance.create_world_property_plot_photo_upload_url(plot_id)
+  result = api_instance.create_world_property_plot_photo_upload_url(plot_id, create_world_property_plot_photo_upload_url_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_property_plot_photo_upload_url: #{e}"
@@ -6236,12 +6628,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPropertyPlotPhotoUploadUrlResponse>, Integer, Hash)> create_world_property_plot_photo_upload_url_with_http_info(plot_id)
+> <Array(<CreateWorldPropertyPlotPhotoUploadUrlResponse>, Integer, Hash)> create_world_property_plot_photo_upload_url_with_http_info(plot_id, create_world_property_plot_photo_upload_url_request)
 
 ```ruby
 begin
   # A presigned upload for a plot's photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
-  data, status_code, headers = api_instance.create_world_property_plot_photo_upload_url_with_http_info(plot_id)
+  data, status_code, headers = api_instance.create_world_property_plot_photo_upload_url_with_http_info(plot_id, create_world_property_plot_photo_upload_url_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPropertyPlotPhotoUploadUrlResponse>
@@ -6255,6 +6647,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **plot_id** | **String** |  |  |
+| **create_world_property_plot_photo_upload_url_request** | **CreateWorldPropertyPlotPhotoUploadUrlRequest** |  |  |
 
 ### Return type
 
@@ -6266,13 +6659,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_property_plot_showroom
 
-> <CreateWorldPropertyPlotShowroomResponse> create_world_property_plot_showroom(plot_id)
+> <CreateWorldPropertyPlotShowroomResponse> create_world_property_plot_showroom(plot_id, create_world_property_plot_showroom_request)
 
 Stand one of your showrooms on a plot you own or rent.
 
@@ -6289,10 +6682,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 plot_id = 'plot_id_example' # String | 
+create_world_property_plot_showroom_request = Crossly::CreateWorldPropertyPlotShowroomRequest.new({showroom_id: 'showroom_id_example'}) # CreateWorldPropertyPlotShowroomRequest | 
 
 begin
   # Stand one of your showrooms on a plot you own or rent.
-  result = api_instance.create_world_property_plot_showroom(plot_id)
+  result = api_instance.create_world_property_plot_showroom(plot_id, create_world_property_plot_showroom_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_property_plot_showroom: #{e}"
@@ -6303,12 +6697,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldPropertyPlotShowroomResponse>, Integer, Hash)> create_world_property_plot_showroom_with_http_info(plot_id)
+> <Array(<CreateWorldPropertyPlotShowroomResponse>, Integer, Hash)> create_world_property_plot_showroom_with_http_info(plot_id, create_world_property_plot_showroom_request)
 
 ```ruby
 begin
   # Stand one of your showrooms on a plot you own or rent.
-  data, status_code, headers = api_instance.create_world_property_plot_showroom_with_http_info(plot_id)
+  data, status_code, headers = api_instance.create_world_property_plot_showroom_with_http_info(plot_id, create_world_property_plot_showroom_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldPropertyPlotShowroomResponse>
@@ -6322,6 +6716,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **plot_id** | **String** |  |  |
+| **create_world_property_plot_showroom_request** | **CreateWorldPropertyPlotShowroomRequest** |  |  |
 
 ### Return type
 
@@ -6333,13 +6728,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_property_trespassed
 
-> <ListWorldPropertyTrespassedResponse> create_world_property_trespassed
+> <ListWorldPropertyTrespassedResponse> create_world_property_trespassed(create_world_property_trespassed_request)
 
 Ban someone owner-wide or from one showroom.
 
@@ -6355,10 +6750,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_world_property_trespassed_request = Crossly::CreateWorldPropertyTrespassedRequest.new({scope: 'owner'}) # CreateWorldPropertyTrespassedRequest | 
 
 begin
   # Ban someone owner-wide or from one showroom.
-  result = api_instance.create_world_property_trespassed
+  result = api_instance.create_world_property_trespassed(create_world_property_trespassed_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_property_trespassed: #{e}"
@@ -6369,12 +6765,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldPropertyTrespassedResponse>, Integer, Hash)> create_world_property_trespassed_with_http_info
+> <Array(<ListWorldPropertyTrespassedResponse>, Integer, Hash)> create_world_property_trespassed_with_http_info(create_world_property_trespassed_request)
 
 ```ruby
 begin
   # Ban someone owner-wide or from one showroom.
-  data, status_code, headers = api_instance.create_world_property_trespassed_with_http_info
+  data, status_code, headers = api_instance.create_world_property_trespassed_with_http_info(create_world_property_trespassed_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldPropertyTrespassedResponse>
@@ -6385,7 +6781,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_property_trespassed_request** | **CreateWorldPropertyTrespassedRequest** |  |  |
 
 ### Return type
 
@@ -6397,13 +6795,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_space
 
-> <CreateWorldSpaceResponse> create_world_space
+> <CreateWorldSpaceResponse> create_world_space(create_world_space_request)
 
 Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
 
@@ -6419,10 +6817,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_world_space_request = Crossly::CreateWorldSpaceRequest.new({slug: 'slug_example', name: 'name_example', venue: 'stage'}) # CreateWorldSpaceRequest | 
 
 begin
   # Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
-  result = api_instance.create_world_space
+  result = api_instance.create_world_space(create_world_space_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_space: #{e}"
@@ -6433,12 +6832,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceResponse>, Integer, Hash)> create_world_space_with_http_info
+> <Array(<CreateWorldSpaceResponse>, Integer, Hash)> create_world_space_with_http_info(create_world_space_request)
 
 ```ruby
 begin
   # Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
-  data, status_code, headers = api_instance.create_world_space_with_http_info
+  data, status_code, headers = api_instance.create_world_space_with_http_info(create_world_space_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceResponse>
@@ -6449,7 +6848,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_space_request** | **CreateWorldSpaceRequest** |  |  |
 
 ### Return type
 
@@ -6461,13 +6862,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_space_event
 
-> <CreateWorldSpaceEventResponse> create_world_space_event(slug)
+> <CreateWorldSpaceEventResponse> create_world_space_event(slug, create_world_space_event_request)
 
 As host or co-host, put an event on: title, kind, optional about, ISO start and end with offset.
 
@@ -6484,10 +6885,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+create_world_space_event_request = Crossly::CreateWorldSpaceEventRequest.new({title: 'title_example', kind: 'live_sale', starts_at: 'starts_at_example', ends_at: 'ends_at_example'}) # CreateWorldSpaceEventRequest | 
 
 begin
   # As host or co-host, put an event on: title, kind, optional about, ISO start and end with offset.
-  result = api_instance.create_world_space_event(slug)
+  result = api_instance.create_world_space_event(slug, create_world_space_event_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_space_event: #{e}"
@@ -6498,12 +6900,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceEventResponse>, Integer, Hash)> create_world_space_event_with_http_info(slug)
+> <Array(<CreateWorldSpaceEventResponse>, Integer, Hash)> create_world_space_event_with_http_info(slug, create_world_space_event_request)
 
 ```ruby
 begin
   # As host or co-host, put an event on: title, kind, optional about, ISO start and end with offset.
-  data, status_code, headers = api_instance.create_world_space_event_with_http_info(slug)
+  data, status_code, headers = api_instance.create_world_space_event_with_http_info(slug, create_world_space_event_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceEventResponse>
@@ -6517,6 +6919,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_world_space_event_request** | **CreateWorldSpaceEventRequest** |  |  |
 
 ### Return type
 
@@ -6528,13 +6931,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_space_event_rsvp
 
-> <CreateWorldSpaceEventRsvpResponse> create_world_space_event_rsvp(slug, id)
+> <CreateWorldSpaceEventRsvpResponse> create_world_space_event_rsvp(slug, id, create_world_space_event_rsvp_request)
 
 Say whether you are going to an event.
 
@@ -6552,10 +6955,11 @@ end
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
 id = 'id_example' # String | 
+create_world_space_event_rsvp_request = Crossly::CreateWorldSpaceEventRsvpRequest.new({going: false}) # CreateWorldSpaceEventRsvpRequest | 
 
 begin
   # Say whether you are going to an event.
-  result = api_instance.create_world_space_event_rsvp(slug, id)
+  result = api_instance.create_world_space_event_rsvp(slug, id, create_world_space_event_rsvp_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_space_event_rsvp: #{e}"
@@ -6566,12 +6970,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceEventRsvpResponse>, Integer, Hash)> create_world_space_event_rsvp_with_http_info(slug, id)
+> <Array(<CreateWorldSpaceEventRsvpResponse>, Integer, Hash)> create_world_space_event_rsvp_with_http_info(slug, id, create_world_space_event_rsvp_request)
 
 ```ruby
 begin
   # Say whether you are going to an event.
-  data, status_code, headers = api_instance.create_world_space_event_rsvp_with_http_info(slug, id)
+  data, status_code, headers = api_instance.create_world_space_event_rsvp_with_http_info(slug, id, create_world_space_event_rsvp_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceEventRsvpResponse>
@@ -6586,6 +6990,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
 | **id** | **String** |  |  |
+| **create_world_space_event_rsvp_request** | **CreateWorldSpaceEventRsvpRequest** |  |  |
 
 ### Return type
 
@@ -6597,13 +7002,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_space_invite
 
-> <CreateWorldSpaceInviteResponse> create_world_space_invite(slug)
+> <CreateWorldSpaceInviteResponse> create_world_space_invite(slug, user_id_request)
 
 Invite somebody (userId) to a Space.
 
@@ -6620,10 +7025,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+user_id_request = Crossly::UserIdRequest.new({user_id: 'user_id_example'}) # UserIdRequest | 
 
 begin
   # Invite somebody (userId) to a Space.
-  result = api_instance.create_world_space_invite(slug)
+  result = api_instance.create_world_space_invite(slug, user_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_space_invite: #{e}"
@@ -6634,12 +7040,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceInviteResponse>, Integer, Hash)> create_world_space_invite_with_http_info(slug)
+> <Array(<CreateWorldSpaceInviteResponse>, Integer, Hash)> create_world_space_invite_with_http_info(slug, user_id_request)
 
 ```ruby
 begin
   # Invite somebody (userId) to a Space.
-  data, status_code, headers = api_instance.create_world_space_invite_with_http_info(slug)
+  data, status_code, headers = api_instance.create_world_space_invite_with_http_info(slug, user_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceInviteResponse>
@@ -6653,6 +7059,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **user_id_request** | **UserIdRequest** |  |  |
 
 ### Return type
 
@@ -6664,7 +7071,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -6804,7 +7211,7 @@ end
 
 ## create_world_space_request_by_user_id
 
-> <CreateWorldSpaceRequestByUserIdResponse> create_world_space_request_by_user_id(slug, user_id)
+> <CreateWorldSpaceRequestByUserIdResponse> create_world_space_request_by_user_id(slug, user_id, create_world_space_request_by_user_id_request)
 
 As host or co-host, accept or turn down a request to join.
 
@@ -6822,10 +7229,11 @@ end
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
 user_id = 'user_id_example' # String | 
+create_world_space_request_by_user_id_request = Crossly::CreateWorldSpaceRequestByUserIdRequest.new({accept: false}) # CreateWorldSpaceRequestByUserIdRequest | 
 
 begin
   # As host or co-host, accept or turn down a request to join.
-  result = api_instance.create_world_space_request_by_user_id(slug, user_id)
+  result = api_instance.create_world_space_request_by_user_id(slug, user_id, create_world_space_request_by_user_id_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_space_request_by_user_id: #{e}"
@@ -6836,12 +7244,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceRequestByUserIdResponse>, Integer, Hash)> create_world_space_request_by_user_id_with_http_info(slug, user_id)
+> <Array(<CreateWorldSpaceRequestByUserIdResponse>, Integer, Hash)> create_world_space_request_by_user_id_with_http_info(slug, user_id, create_world_space_request_by_user_id_request)
 
 ```ruby
 begin
   # As host or co-host, accept or turn down a request to join.
-  data, status_code, headers = api_instance.create_world_space_request_by_user_id_with_http_info(slug, user_id)
+  data, status_code, headers = api_instance.create_world_space_request_by_user_id_with_http_info(slug, user_id, create_world_space_request_by_user_id_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceRequestByUserIdResponse>
@@ -6856,6 +7264,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
 | **user_id** | **String** |  |  |
+| **create_world_space_request_by_user_id_request** | **CreateWorldSpaceRequestByUserIdRequest** |  |  |
 
 ### Return type
 
@@ -6867,13 +7276,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_space_role
 
-> <CreateWorldSpaceRoleResponse> create_world_space_role(slug)
+> <CreateWorldSpaceRoleResponse> create_world_space_role(slug, create_world_space_role_request)
 
 As host, make a member a co-host or back to a member.
 
@@ -6890,10 +7299,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+create_world_space_role_request = Crossly::CreateWorldSpaceRoleRequest.new({user_id: 'user_id_example', role: 'member'}) # CreateWorldSpaceRoleRequest | 
 
 begin
   # As host, make a member a co-host or back to a member.
-  result = api_instance.create_world_space_role(slug)
+  result = api_instance.create_world_space_role(slug, create_world_space_role_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_space_role: #{e}"
@@ -6904,12 +7314,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldSpaceRoleResponse>, Integer, Hash)> create_world_space_role_with_http_info(slug)
+> <Array(<CreateWorldSpaceRoleResponse>, Integer, Hash)> create_world_space_role_with_http_info(slug, create_world_space_role_request)
 
 ```ruby
 begin
   # As host, make a member a co-host or back to a member.
-  data, status_code, headers = api_instance.create_world_space_role_with_http_info(slug)
+  data, status_code, headers = api_instance.create_world_space_role_with_http_info(slug, create_world_space_role_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldSpaceRoleResponse>
@@ -6923,6 +7333,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_world_space_role_request** | **CreateWorldSpaceRoleRequest** |  |  |
 
 ### Return type
 
@@ -6934,13 +7345,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_staff_application_decide
 
-> <CreateWorldStaffApplicationDecideResponse> create_world_staff_application_decide(id)
+> <CreateWorldStaffApplicationDecideResponse> create_world_staff_application_decide(id, create_world_staff_application_decide_request)
 
 Accept or decline an application.
 
@@ -6957,10 +7368,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_staff_application_decide_request = Crossly::CreateWorldStaffApplicationDecideRequest.new({decision: 'accept'}) # CreateWorldStaffApplicationDecideRequest | 
 
 begin
   # Accept or decline an application.
-  result = api_instance.create_world_staff_application_decide(id)
+  result = api_instance.create_world_staff_application_decide(id, create_world_staff_application_decide_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_staff_application_decide: #{e}"
@@ -6971,12 +7383,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldStaffApplicationDecideResponse>, Integer, Hash)> create_world_staff_application_decide_with_http_info(id)
+> <Array(<CreateWorldStaffApplicationDecideResponse>, Integer, Hash)> create_world_staff_application_decide_with_http_info(id, create_world_staff_application_decide_request)
 
 ```ruby
 begin
   # Accept or decline an application.
-  data, status_code, headers = api_instance.create_world_staff_application_decide_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_staff_application_decide_with_http_info(id, create_world_staff_application_decide_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldStaffApplicationDecideResponse>
@@ -6990,6 +7402,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_staff_application_decide_request** | **CreateWorldStaffApplicationDecideRequest** |  |  |
 
 ### Return type
 
@@ -7001,13 +7414,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_staff_assignment_rate_worker
 
-> <CreateWorldStaffAssignmentRateWorkerResponse> create_world_staff_assignment_rate_worker(id)
+> <CreateWorldStaffAssignmentRateWorkerResponse> create_world_staff_assignment_rate_worker(id, create_world_staff_assignment_rate_worker_request)
 
 Rate the worker of one of your seats.
 
@@ -7024,10 +7437,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_staff_assignment_rate_worker_request = Crossly::CreateWorldStaffAssignmentRateWorkerRequest.new({reliability: 3.56, skill: 3.56, conduct: 3.56}) # CreateWorldStaffAssignmentRateWorkerRequest | 
 
 begin
   # Rate the worker of one of your seats.
-  result = api_instance.create_world_staff_assignment_rate_worker(id)
+  result = api_instance.create_world_staff_assignment_rate_worker(id, create_world_staff_assignment_rate_worker_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_staff_assignment_rate_worker: #{e}"
@@ -7038,12 +7452,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldStaffAssignmentRateWorkerResponse>, Integer, Hash)> create_world_staff_assignment_rate_worker_with_http_info(id)
+> <Array(<CreateWorldStaffAssignmentRateWorkerResponse>, Integer, Hash)> create_world_staff_assignment_rate_worker_with_http_info(id, create_world_staff_assignment_rate_worker_request)
 
 ```ruby
 begin
   # Rate the worker of one of your seats.
-  data, status_code, headers = api_instance.create_world_staff_assignment_rate_worker_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_staff_assignment_rate_worker_with_http_info(id, create_world_staff_assignment_rate_worker_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldStaffAssignmentRateWorkerResponse>
@@ -7057,6 +7471,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_staff_assignment_rate_worker_request** | **CreateWorldStaffAssignmentRateWorkerRequest** |  |  |
 
 ### Return type
 
@@ -7068,13 +7483,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_staff_posting
 
-> <WorldStaffPostingResponse> create_world_staff_posting
+> <WorldStaffPostingResponse> create_world_staff_posting(create_world_staff_posting_request)
 
 Post a job: a showroom, stall or convention, pay, recurrence and rules.
 
@@ -7090,10 +7505,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+create_world_staff_posting_request = Crossly::CreateWorldStaffPostingRequest.new({target_kind: 'showroom', target_id: 'target_id_example', role: 'host', title: 'title_example', visibility: 'public', pay: Crossly::CreateWorldStaffPostingRequestPay.new({rail: 'cash', basis: 'shift'}), timezone: 'timezone_example', recurrence: Crossly::CreateWorldStaffPostingRequestRecurrence.new({freq: 'none'}), starts_at: 'starts_at_example', ends_at: 'ends_at_example', max_staff: 3.56}) # CreateWorldStaffPostingRequest | 
 
 begin
   # Post a job: a showroom, stall or convention, pay, recurrence and rules.
-  result = api_instance.create_world_staff_posting
+  result = api_instance.create_world_staff_posting(create_world_staff_posting_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_staff_posting: #{e}"
@@ -7104,12 +7520,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldStaffPostingResponse>, Integer, Hash)> create_world_staff_posting_with_http_info
+> <Array(<WorldStaffPostingResponse>, Integer, Hash)> create_world_staff_posting_with_http_info(create_world_staff_posting_request)
 
 ```ruby
 begin
   # Post a job: a showroom, stall or convention, pay, recurrence and rules.
-  data, status_code, headers = api_instance.create_world_staff_posting_with_http_info
+  data, status_code, headers = api_instance.create_world_staff_posting_with_http_info(create_world_staff_posting_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldStaffPostingResponse>
@@ -7120,7 +7536,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_world_staff_posting_request** | **CreateWorldStaffPostingRequest** |  |  |
 
 ### Return type
 
@@ -7132,13 +7550,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_staff_posting_status
 
-> <WorldStaffPostingResponse> create_world_staff_posting_status(id)
+> <WorldStaffPostingResponse> create_world_staff_posting_status(id, create_world_staff_posting_status_request)
 
 Open, pause or close a posting.
 
@@ -7155,10 +7573,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_staff_posting_status_request = Crossly::CreateWorldStaffPostingStatusRequest.new({status: 'paused'}) # CreateWorldStaffPostingStatusRequest | 
 
 begin
   # Open, pause or close a posting.
-  result = api_instance.create_world_staff_posting_status(id)
+  result = api_instance.create_world_staff_posting_status(id, create_world_staff_posting_status_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_staff_posting_status: #{e}"
@@ -7169,12 +7588,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldStaffPostingResponse>, Integer, Hash)> create_world_staff_posting_status_with_http_info(id)
+> <Array(<WorldStaffPostingResponse>, Integer, Hash)> create_world_staff_posting_status_with_http_info(id, create_world_staff_posting_status_request)
 
 ```ruby
 begin
   # Open, pause or close a posting.
-  data, status_code, headers = api_instance.create_world_staff_posting_status_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_staff_posting_status_with_http_info(id, create_world_staff_posting_status_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldStaffPostingResponse>
@@ -7188,6 +7607,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_staff_posting_status_request** | **CreateWorldStaffPostingStatusRequest** |  |  |
 
 ### Return type
 
@@ -7199,15 +7619,15 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_street_owned_upkeep_pay
 
-> <CreateWorldStreetOwnedUpkeepPayResponse> create_world_street_owned_upkeep_pay(id)
+> <CreateWorldStreetOwnedUpkeepPayResponse> create_world_street_owned_upkeep_pay(id, create_world_street_owned_upkeep_pay_request)
 
-Pay your street's upkeep forward.
+Pay your store's street upkeep forward.
 
 ### Examples
 
@@ -7222,10 +7642,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_street_owned_upkeep_pay_request = Crossly::CreateWorldStreetOwnedUpkeepPayRequest.new({weeks: 3.56}) # CreateWorldStreetOwnedUpkeepPayRequest | 
 
 begin
-  # Pay your street's upkeep forward.
-  result = api_instance.create_world_street_owned_upkeep_pay(id)
+  # Pay your store's street upkeep forward.
+  result = api_instance.create_world_street_owned_upkeep_pay(id, create_world_street_owned_upkeep_pay_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_street_owned_upkeep_pay: #{e}"
@@ -7236,12 +7657,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldStreetOwnedUpkeepPayResponse>, Integer, Hash)> create_world_street_owned_upkeep_pay_with_http_info(id)
+> <Array(<CreateWorldStreetOwnedUpkeepPayResponse>, Integer, Hash)> create_world_street_owned_upkeep_pay_with_http_info(id, create_world_street_owned_upkeep_pay_request)
 
 ```ruby
 begin
-  # Pay your street's upkeep forward.
-  data, status_code, headers = api_instance.create_world_street_owned_upkeep_pay_with_http_info(id)
+  # Pay your store's street upkeep forward.
+  data, status_code, headers = api_instance.create_world_street_owned_upkeep_pay_with_http_info(id, create_world_street_owned_upkeep_pay_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldStreetOwnedUpkeepPayResponse>
@@ -7255,6 +7676,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_street_owned_upkeep_pay_request** | **CreateWorldStreetOwnedUpkeepPayRequest** |  |  |
 
 ### Return type
 
@@ -7266,7 +7688,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -7339,7 +7761,7 @@ end
 
 ## create_world_work_assignment_rate_employer
 
-> <CreateWorldStaffAssignmentRateWorkerResponse> create_world_work_assignment_rate_employer(id)
+> <CreateWorldStaffAssignmentRateWorkerResponse> create_world_work_assignment_rate_employer(id, create_world_work_assignment_rate_employer_request)
 
 Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
 
@@ -7356,10 +7778,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_work_assignment_rate_employer_request = Crossly::CreateWorldWorkAssignmentRateEmployerRequest.new({paid_on_time: 3.56, accurate: 3.56, conduct: 3.56}) # CreateWorldWorkAssignmentRateEmployerRequest | 
 
 begin
   # Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
-  result = api_instance.create_world_work_assignment_rate_employer(id)
+  result = api_instance.create_world_work_assignment_rate_employer(id, create_world_work_assignment_rate_employer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_work_assignment_rate_employer: #{e}"
@@ -7370,12 +7793,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldStaffAssignmentRateWorkerResponse>, Integer, Hash)> create_world_work_assignment_rate_employer_with_http_info(id)
+> <Array(<CreateWorldStaffAssignmentRateWorkerResponse>, Integer, Hash)> create_world_work_assignment_rate_employer_with_http_info(id, create_world_work_assignment_rate_employer_request)
 
 ```ruby
 begin
   # Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
-  data, status_code, headers = api_instance.create_world_work_assignment_rate_employer_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_work_assignment_rate_employer_with_http_info(id, create_world_work_assignment_rate_employer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldStaffAssignmentRateWorkerResponse>
@@ -7389,6 +7812,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_work_assignment_rate_employer_request** | **CreateWorldWorkAssignmentRateEmployerRequest** |  |  |
 
 ### Return type
 
@@ -7400,13 +7824,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_work_posting_apply
 
-> <CreateWorldWorkPostingApplyResponse> create_world_work_posting_apply(id)
+> <CreateWorldWorkPostingApplyResponse> create_world_work_posting_apply(id, opts)
 
 Apply for a job.
 
@@ -7423,10 +7847,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  create_video_request_decline_request: Crossly::CreateVideoRequestDeclineRequest.new # CreateVideoRequestDeclineRequest | 
+}
 
 begin
   # Apply for a job.
-  result = api_instance.create_world_work_posting_apply(id)
+  result = api_instance.create_world_work_posting_apply(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->create_world_work_posting_apply: #{e}"
@@ -7437,12 +7864,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldWorkPostingApplyResponse>, Integer, Hash)> create_world_work_posting_apply_with_http_info(id)
+> <Array(<CreateWorldWorkPostingApplyResponse>, Integer, Hash)> create_world_work_posting_apply_with_http_info(id, opts)
 
 ```ruby
 begin
   # Apply for a job.
-  data, status_code, headers = api_instance.create_world_work_posting_apply_with_http_info(id)
+  data, status_code, headers = api_instance.create_world_work_posting_apply_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldWorkPostingApplyResponse>
@@ -7456,6 +7883,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_video_request_decline_request** | **CreateVideoRequestDeclineRequest** |  | [optional] |
 
 ### Return type
 
@@ -7467,7 +7895,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -7686,7 +8114,7 @@ end
 
 ## delete_spatial_scene_node
 
-> <DeleteSpatialSceneNodeResponse> delete_spatial_scene_node(id)
+> <DeleteSpatialSceneNodeResponse> delete_spatial_scene_node(id, delete_spatial_scene_node_request)
 
 Remove units (by id, up to 500) from one of your warehouse rooms.
 
@@ -7703,10 +8131,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+delete_spatial_scene_node_request = Crossly::DeleteSpatialSceneNodeRequest.new({node_ids: ['node_ids_example']}) # DeleteSpatialSceneNodeRequest | 
 
 begin
   # Remove units (by id, up to 500) from one of your warehouse rooms.
-  result = api_instance.delete_spatial_scene_node(id)
+  result = api_instance.delete_spatial_scene_node(id, delete_spatial_scene_node_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->delete_spatial_scene_node: #{e}"
@@ -7717,12 +8146,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteSpatialSceneNodeResponse>, Integer, Hash)> delete_spatial_scene_node_with_http_info(id)
+> <Array(<DeleteSpatialSceneNodeResponse>, Integer, Hash)> delete_spatial_scene_node_with_http_info(id, delete_spatial_scene_node_request)
 
 ```ruby
 begin
   # Remove units (by id, up to 500) from one of your warehouse rooms.
-  data, status_code, headers = api_instance.delete_spatial_scene_node_with_http_info(id)
+  data, status_code, headers = api_instance.delete_spatial_scene_node_with_http_info(id, delete_spatial_scene_node_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteSpatialSceneNodeResponse>
@@ -7736,6 +8165,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **delete_spatial_scene_node_request** | **DeleteSpatialSceneNodeRequest** |  |  |
 
 ### Return type
 
@@ -7747,13 +8177,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## delete_spatial_scene_warehouse_stock
 
-> <DeleteSpatialSceneGrantResponse> delete_spatial_scene_warehouse_stock(id)
+> <DeleteSpatialSceneGrantResponse> delete_spatial_scene_warehouse_stock(id, delete_spatial_scene_warehouse_stock_request)
 
 Take an inventory item (or unit) off its rack.
 
@@ -7770,10 +8200,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+delete_spatial_scene_warehouse_stock_request = Crossly::DeleteSpatialSceneWarehouseStockRequest.new({inventory_item_id: 'inventory_item_id_example'}) # DeleteSpatialSceneWarehouseStockRequest | 
 
 begin
   # Take an inventory item (or unit) off its rack.
-  result = api_instance.delete_spatial_scene_warehouse_stock(id)
+  result = api_instance.delete_spatial_scene_warehouse_stock(id, delete_spatial_scene_warehouse_stock_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->delete_spatial_scene_warehouse_stock: #{e}"
@@ -7784,12 +8215,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteSpatialSceneGrantResponse>, Integer, Hash)> delete_spatial_scene_warehouse_stock_with_http_info(id)
+> <Array(<DeleteSpatialSceneGrantResponse>, Integer, Hash)> delete_spatial_scene_warehouse_stock_with_http_info(id, delete_spatial_scene_warehouse_stock_request)
 
 ```ruby
 begin
   # Take an inventory item (or unit) off its rack.
-  data, status_code, headers = api_instance.delete_spatial_scene_warehouse_stock_with_http_info(id)
+  data, status_code, headers = api_instance.delete_spatial_scene_warehouse_stock_with_http_info(id, delete_spatial_scene_warehouse_stock_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteSpatialSceneGrantResponse>
@@ -7803,6 +8234,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **delete_spatial_scene_warehouse_stock_request** | **DeleteSpatialSceneWarehouseStockRequest** |  |  |
 
 ### Return type
 
@@ -7814,7 +8246,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8089,7 +8521,7 @@ end
 
 ## delete_world_game_package
 
-> <DeleteWorldGamePackageResponse> delete_world_game_package(id)
+> <DeleteWorldGamePackageResponse> delete_world_game_package(id, opts)
 
 Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
 
@@ -8106,10 +8538,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  delete_world_experience_request: Crossly::DeleteWorldExperienceRequest.new({confirm_name: 'confirm_name_example'}) # DeleteWorldExperienceRequest | 
+}
 
 begin
   # Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
-  result = api_instance.delete_world_game_package(id)
+  result = api_instance.delete_world_game_package(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->delete_world_game_package: #{e}"
@@ -8120,12 +8555,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteWorldGamePackageResponse>, Integer, Hash)> delete_world_game_package_with_http_info(id)
+> <Array(<DeleteWorldGamePackageResponse>, Integer, Hash)> delete_world_game_package_with_http_info(id, opts)
 
 ```ruby
 begin
   # Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
-  data, status_code, headers = api_instance.delete_world_game_package_with_http_info(id)
+  data, status_code, headers = api_instance.delete_world_game_package_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteWorldGamePackageResponse>
@@ -8139,6 +8574,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **delete_world_experience_request** | **DeleteWorldExperienceRequest** |  | [optional] |
 
 ### Return type
 
@@ -8150,7 +8586,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -8769,7 +9205,7 @@ end
 
 ## delete_world_property_trespassed
 
-> <DeleteSpatialSceneGrantResponse> delete_world_property_trespassed(user_id)
+> <DeleteSpatialSceneGrantResponse> delete_world_property_trespassed(user_id, place)
 
 Lift a ban.
 
@@ -8786,10 +9222,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 user_id = 'user_id_example' # String | 
+place = 'place_example' # String | 
 
 begin
   # Lift a ban.
-  result = api_instance.delete_world_property_trespassed(user_id)
+  result = api_instance.delete_world_property_trespassed(user_id, place)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->delete_world_property_trespassed: #{e}"
@@ -8800,12 +9237,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteSpatialSceneGrantResponse>, Integer, Hash)> delete_world_property_trespassed_with_http_info(user_id)
+> <Array(<DeleteSpatialSceneGrantResponse>, Integer, Hash)> delete_world_property_trespassed_with_http_info(user_id, place)
 
 ```ruby
 begin
   # Lift a ban.
-  data, status_code, headers = api_instance.delete_world_property_trespassed_with_http_info(user_id)
+  data, status_code, headers = api_instance.delete_world_property_trespassed_with_http_info(user_id, place)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteSpatialSceneGrantResponse>
@@ -8819,6 +9256,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **user_id** | **String** |  |  |
+| **place** | **String** |  |  |
 
 ### Return type
 
@@ -11989,7 +12427,7 @@ end
 
 ## get_world_game_package_stat
 
-> <GetWorldGamePackageStatResponse> get_world_game_package_stat(id)
+> <GetWorldGamePackageStatResponse> get_world_game_package_stat(id, opts)
 
 Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days=1-90.
 
@@ -12006,10 +12444,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  days: 8.14 # Float | 
+}
 
 begin
   # Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days=1-90.
-  result = api_instance.get_world_game_package_stat(id)
+  result = api_instance.get_world_game_package_stat(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->get_world_game_package_stat: #{e}"
@@ -12020,12 +12461,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldGamePackageStatResponse>, Integer, Hash)> get_world_game_package_stat_with_http_info(id)
+> <Array(<GetWorldGamePackageStatResponse>, Integer, Hash)> get_world_game_package_stat_with_http_info(id, opts)
 
 ```ruby
 begin
   # Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days=1-90.
-  data, status_code, headers = api_instance.get_world_game_package_stat_with_http_info(id)
+  data, status_code, headers = api_instance.get_world_game_package_stat_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldGamePackageStatResponse>
@@ -12039,6 +12480,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **days** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -12123,7 +12565,7 @@ end
 
 ## get_world_game_template
 
-> <GetWorldGameTemplateResponse> get_world_game_template(kind)
+> <GetWorldGameTemplateResponse> get_world_game_template(kind, opts)
 
 A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id=my-game&name=My Game.
 
@@ -12140,10 +12582,14 @@ end
 
 api_instance = Crossly::WorldApi.new
 kind = 'kind_example' # String | 
+opts = {
+  id: 'id_example', # String | 
+  name: 'name_example' # String | 
+}
 
 begin
   # A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id=my-game&name=My Game.
-  result = api_instance.get_world_game_template(kind)
+  result = api_instance.get_world_game_template(kind, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->get_world_game_template: #{e}"
@@ -12154,12 +12600,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldGameTemplateResponse>, Integer, Hash)> get_world_game_template_with_http_info(kind)
+> <Array(<GetWorldGameTemplateResponse>, Integer, Hash)> get_world_game_template_with_http_info(kind, opts)
 
 ```ruby
 begin
   # A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id=my-game&name=My Game.
-  data, status_code, headers = api_instance.get_world_game_template_with_http_info(kind)
+  data, status_code, headers = api_instance.get_world_game_template_with_http_info(kind, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldGameTemplateResponse>
@@ -12173,6 +12619,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **kind** | **String** |  |  |
+| **id** | **String** |  | [optional] |
+| **name** | **String** |  | [optional] |
 
 ### Return type
 
@@ -14230,6 +14678,148 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## get_world_stand
+
+> <GetWorldStandResponse> get_world_stand(kind, id, opts)
+
+The stands of one of your places: kind plot (the showroom standing on it; none = no stands) or showroom. Same fields as /api/v1/world/stands/shop.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WorldApi.new
+kind = 'kind_example' # String | 
+id = 'id_example' # String | 
+opts = {
+  storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
+}
+
+begin
+  # The stands of one of your places: kind plot (the showroom standing on it; none = no stands) or showroom. Same fields as /api/v1/world/stands/shop.
+  result = api_instance.get_world_stand(kind, id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->get_world_stand: #{e}"
+end
+```
+
+#### Using the get_world_stand_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetWorldStandResponse>, Integer, Hash)> get_world_stand_with_http_info(kind, id, opts)
+
+```ruby
+begin
+  # The stands of one of your places: kind plot (the showroom standing on it; none = no stands) or showroom. Same fields as /api/v1/world/stands/shop.
+  data, status_code, headers = api_instance.get_world_stand_with_http_info(kind, id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetWorldStandResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->get_world_stand_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **kind** | **String** |  |  |
+| **id** | **String** |  |  |
+| **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
+
+### Return type
+
+**GetWorldStandResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_world_stand_shop
+
+> <GetWorldStandResponse> get_world_stand_shop(opts)
+
+The stands of your shop (its primary showroom's visible fixtures, in order): index (what a drop's world.boothSpotIndex stores), name, display, units and capacity, whether another of your drops already stands there (takenBy) and priceCents (null: your own place costs nothing extra).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::WorldApi.new
+opts = {
+  storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
+}
+
+begin
+  # The stands of your shop (its primary showroom's visible fixtures, in order): index (what a drop's world.boothSpotIndex stores), name, display, units and capacity, whether another of your drops already stands there (takenBy) and priceCents (null: your own place costs nothing extra).
+  result = api_instance.get_world_stand_shop(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->get_world_stand_shop: #{e}"
+end
+```
+
+#### Using the get_world_stand_shop_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetWorldStandResponse>, Integer, Hash)> get_world_stand_shop_with_http_info(opts)
+
+```ruby
+begin
+  # The stands of your shop (its primary showroom's visible fixtures, in order): index (what a drop's world.boothSpotIndex stores), name, display, units and capacity, whether another of your drops already stands there (takenBy) and priceCents (null: your own place costs nothing extra).
+  data, status_code, headers = api_instance.get_world_stand_shop_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetWorldStandResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling WorldApi->get_world_stand_shop_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
+
+### Return type
+
+**GetWorldStandResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_world_street_fund
 
 > <GetWorldStreetFundResponse> get_world_street_fund(slug)
@@ -14301,7 +14891,7 @@ end
 
 > <GetWorldStreetOwnedResponse> get_world_street_owned(id)
 
-A street you own: tenants, applications, upkeep, look, fund.
+A street your store owns: tenants, applications, upkeep, look, fund, and the owning `store`.
 
 ### Examples
 
@@ -14318,7 +14908,7 @@ api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
 
 begin
-  # A street you own: tenants, applications, upkeep, look, fund.
+  # A street your store owns: tenants, applications, upkeep, look, fund, and the owning `store`.
   result = api_instance.get_world_street_owned(id)
   p result
 rescue Crossly::ApiError => e
@@ -14334,7 +14924,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # A street you own: tenants, applications, upkeep, look, fund.
+  # A street your store owns: tenants, applications, upkeep, look, fund, and the owning `store`.
   data, status_code, headers = api_instance.get_world_street_owned_with_http_info(id)
   p status_code # => 2xx
   p headers # => { ... }
@@ -14564,7 +15154,7 @@ This endpoint does not need any parameter.
 
 ## get_world_venue_quote
 
-> <GetWorldVenueQuoteResponse> get_world_venue_quote(id)
+> <GetWorldVenueQuoteResponse> get_world_venue_quote(id, starts_on, ends_on)
 
 What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
 
@@ -14581,10 +15171,12 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+starts_on = 'starts_on_example' # String | 
+ends_on = 'ends_on_example' # String | 
 
 begin
   # What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
-  result = api_instance.get_world_venue_quote(id)
+  result = api_instance.get_world_venue_quote(id, starts_on, ends_on)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->get_world_venue_quote: #{e}"
@@ -14595,12 +15187,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldVenueQuoteResponse>, Integer, Hash)> get_world_venue_quote_with_http_info(id)
+> <Array(<GetWorldVenueQuoteResponse>, Integer, Hash)> get_world_venue_quote_with_http_info(id, starts_on, ends_on)
 
 ```ruby
 begin
   # What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
-  data, status_code, headers = api_instance.get_world_venue_quote_with_http_info(id)
+  data, status_code, headers = api_instance.get_world_venue_quote_with_http_info(id, starts_on, ends_on)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldVenueQuoteResponse>
@@ -14614,6 +15206,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **starts_on** | **String** |  |  |
+| **ends_on** | **String** |  |  |
 
 ### Return type
 
@@ -14969,7 +15563,12 @@ end
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
 opts = {
-  storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
+  storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | Which store (else X-Storefront-Id, else your default store).
+  q: 'q_example', # String | 
+  brand: 'brand_example', # String | 
+  category: 'category_example', # String | 
+  condition: 'condition_example', # String | 
+  listed: 'any' # String | 
 }
 
 begin
@@ -15005,6 +15604,11 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
+| **q** | **String** |  | [optional] |
+| **brand** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **condition** | **String** |  | [optional] |
+| **listed** | **String** |  | [optional] |
 
 ### Return type
 
@@ -15222,7 +15826,7 @@ end
 
 ## list_spatial_scene_warehouse_unplaced
 
-> <ListSpatialSceneWarehouseUnplacedResponse> list_spatial_scene_warehouse_unplaced(id)
+> <ListSpatialSceneWarehouseUnplacedResponse> list_spatial_scene_warehouse_unplaced(id, opts)
 
 Stock not yet on a shelf in a warehouse room you can arrange (q filters by title).
 
@@ -15239,10 +15843,14 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  q: 'q_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Stock not yet on a shelf in a warehouse room you can arrange (q filters by title).
-  result = api_instance.list_spatial_scene_warehouse_unplaced(id)
+  result = api_instance.list_spatial_scene_warehouse_unplaced(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_spatial_scene_warehouse_unplaced: #{e}"
@@ -15253,12 +15861,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListSpatialSceneWarehouseUnplacedResponse>, Integer, Hash)> list_spatial_scene_warehouse_unplaced_with_http_info(id)
+> <Array(<ListSpatialSceneWarehouseUnplacedResponse>, Integer, Hash)> list_spatial_scene_warehouse_unplaced_with_http_info(id, opts)
 
 ```ruby
 begin
   # Stock not yet on a shelf in a warehouse room you can arrange (q filters by title).
-  data, status_code, headers = api_instance.list_spatial_scene_warehouse_unplaced_with_http_info(id)
+  data, status_code, headers = api_instance.list_spatial_scene_warehouse_unplaced_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListSpatialSceneWarehouseUnplacedResponse>
@@ -15272,6 +15880,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **q** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -16009,7 +16619,7 @@ end
 
 ## list_world_convention_messages
 
-> <ListWorldConventionMessagesResponse> list_world_convention_messages(id)
+> <ListWorldConventionMessagesResponse> list_world_convention_messages(id, opts)
 
 Convention messages you may read: the organiser all of them (?with=<userId> for one seller), an exhibitor theirs and the broadcasts.
 
@@ -16026,10 +16636,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  with: 'with_example' # String | 
+}
 
 begin
   # Convention messages you may read: the organiser all of them (?with=<userId> for one seller), an exhibitor theirs and the broadcasts.
-  result = api_instance.list_world_convention_messages(id)
+  result = api_instance.list_world_convention_messages(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_convention_messages: #{e}"
@@ -16040,12 +16653,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldConventionMessagesResponse>, Integer, Hash)> list_world_convention_messages_with_http_info(id)
+> <Array(<ListWorldConventionMessagesResponse>, Integer, Hash)> list_world_convention_messages_with_http_info(id, opts)
 
 ```ruby
 begin
   # Convention messages you may read: the organiser all of them (?with=<userId> for one seller), an exhibitor theirs and the broadcasts.
-  data, status_code, headers = api_instance.list_world_convention_messages_with_http_info(id)
+  data, status_code, headers = api_instance.list_world_convention_messages_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldConventionMessagesResponse>
@@ -16059,6 +16672,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **with** | **String** |  | [optional] |
 
 ### Return type
 
@@ -16600,7 +17214,7 @@ This endpoint does not need any parameter.
 
 ## list_world_decor_market
 
-> <ListWorldDecorMarketResponse> list_world_decor_market
+> <ListWorldDecorMarketResponse> list_world_decor_market(opts)
 
 Decor copies other people are reselling (asks in COSM); optional pair filter. Read only: listing and buying stay on crossly.net.
 
@@ -16616,10 +17230,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  pair: 'pair_example' # String | 
+}
 
 begin
   # Decor copies other people are reselling (asks in COSM); optional pair filter. Read only: listing and buying stay on crossly.net.
-  result = api_instance.list_world_decor_market
+  result = api_instance.list_world_decor_market(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_decor_market: #{e}"
@@ -16630,12 +17247,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldDecorMarketResponse>, Integer, Hash)> list_world_decor_market_with_http_info
+> <Array(<ListWorldDecorMarketResponse>, Integer, Hash)> list_world_decor_market_with_http_info(opts)
 
 ```ruby
 begin
   # Decor copies other people are reselling (asks in COSM); optional pair filter. Read only: listing and buying stay on crossly.net.
-  data, status_code, headers = api_instance.list_world_decor_market_with_http_info
+  data, status_code, headers = api_instance.list_world_decor_market_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldDecorMarketResponse>
@@ -16646,7 +17263,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **pair** | **String** |  | [optional] |
 
 ### Return type
 
@@ -17632,7 +18251,7 @@ end
 
 ## list_world_job_board
 
-> <ListWorldJobBoardResponse> list_world_job_board
+> <ListWorldJobBoardResponse> list_world_job_board(opts)
 
 The public Job Board, filterable.
 
@@ -17648,10 +18267,23 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  role: 'host', # String | 
+  rail: 'cash', # String | 
+  basis: 'shift', # String | 
+  place: 'showroom', # String | 
+  min_pay_cents: 8.14, # Float | 
+  min_employer_rep: 8.14, # Float | 
+  after: 'after_example', # String | 
+  before: 'before_example', # String | 
+  q: 'q_example', # String | 
+  sort: 'pay', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # The public Job Board, filterable.
-  result = api_instance.list_world_job_board
+  result = api_instance.list_world_job_board(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_job_board: #{e}"
@@ -17662,12 +18294,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldJobBoardResponse>, Integer, Hash)> list_world_job_board_with_http_info
+> <Array(<ListWorldJobBoardResponse>, Integer, Hash)> list_world_job_board_with_http_info(opts)
 
 ```ruby
 begin
   # The public Job Board, filterable.
-  data, status_code, headers = api_instance.list_world_job_board_with_http_info
+  data, status_code, headers = api_instance.list_world_job_board_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldJobBoardResponse>
@@ -17678,7 +18310,19 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **role** | **String** |  | [optional] |
+| **rail** | **String** |  | [optional] |
+| **basis** | **String** |  | [optional] |
+| **place** | **String** |  | [optional] |
+| **min_pay_cents** | **Float** |  | [optional] |
+| **min_employer_rep** | **Float** |  | [optional] |
+| **after** | **String** |  | [optional] |
+| **before** | **String** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -17760,7 +18404,7 @@ This endpoint does not need any parameter.
 
 ## list_world_market
 
-> <ListWorldMarketResponse> list_world_market
+> <ListWorldMarketResponse> list_world_market(opts)
 
 Plots and streets for sale or rent in the Worlds Market.
 
@@ -17776,10 +18420,23 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  kind: 'plot', # String | 
+  mode: 'sale', # String | 
+  street: 'street_example', # String | 
+  theme: 'theme_example', # String | 
+  min_price: 8.14, # Float | 
+  max_price: 8.14, # Float | 
+  size: 'small', # String | 
+  traffic: 'quiet', # String | 
+  sort: 'newest', # String | 
+  offset: 8.14, # Float | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Plots and streets for sale or rent in the Worlds Market.
-  result = api_instance.list_world_market
+  result = api_instance.list_world_market(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_market: #{e}"
@@ -17790,12 +18447,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldMarketResponse>, Integer, Hash)> list_world_market_with_http_info
+> <Array(<ListWorldMarketResponse>, Integer, Hash)> list_world_market_with_http_info(opts)
 
 ```ruby
 begin
   # Plots and streets for sale or rent in the Worlds Market.
-  data, status_code, headers = api_instance.list_world_market_with_http_info
+  data, status_code, headers = api_instance.list_world_market_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldMarketResponse>
@@ -17806,7 +18463,19 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **kind** | **String** |  | [optional] |
+| **mode** | **String** |  | [optional] |
+| **street** | **String** |  | [optional] |
+| **theme** | **String** |  | [optional] |
+| **min_price** | **Float** |  | [optional] |
+| **max_price** | **Float** |  | [optional] |
+| **size** | **String** |  | [optional] |
+| **traffic** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **offset** | **Float** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -18424,7 +19093,7 @@ end
 
 ## list_world_promoted
 
-> <ListWorldPromotedResponse> list_world_promoted
+> <ListWorldPromotedResponse> list_world_promoted(opts)
 
 Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \"Promoted\"), with the token to send when one is opened.
 
@@ -18440,10 +19109,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  kind: 'showroom', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \"Promoted\"), with the token to send when one is opened.
-  result = api_instance.list_world_promoted
+  result = api_instance.list_world_promoted(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_promoted: #{e}"
@@ -18454,12 +19127,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldPromotedResponse>, Integer, Hash)> list_world_promoted_with_http_info
+> <Array(<ListWorldPromotedResponse>, Integer, Hash)> list_world_promoted_with_http_info(opts)
 
 ```ruby
 begin
   # Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \"Promoted\"), with the token to send when one is opened.
-  data, status_code, headers = api_instance.list_world_promoted_with_http_info
+  data, status_code, headers = api_instance.list_world_promoted_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldPromotedResponse>
@@ -18470,7 +19143,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **kind** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -18744,7 +19420,7 @@ This endpoint does not need any parameter.
 
 ## list_world_provenance
 
-> <ListWorldProvenanceResponse> list_world_provenance
+> <ListWorldProvenanceResponse> list_world_provenance(opts)
 
 Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds=a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \"Found at The Sneaker Vault, Oct 2026\" }]. Yours only.
 
@@ -18760,10 +19436,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  listing_ids: 'listing_ids_example' # String | 
+}
 
 begin
   # Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds=a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \"Found at The Sneaker Vault, Oct 2026\" }]. Yours only.
-  result = api_instance.list_world_provenance
+  result = api_instance.list_world_provenance(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_provenance: #{e}"
@@ -18774,12 +19453,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldProvenanceResponse>, Integer, Hash)> list_world_provenance_with_http_info
+> <Array(<ListWorldProvenanceResponse>, Integer, Hash)> list_world_provenance_with_http_info(opts)
 
 ```ruby
 begin
   # Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds=a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \"Found at The Sneaker Vault, Oct 2026\" }]. Yours only.
-  data, status_code, headers = api_instance.list_world_provenance_with_http_info
+  data, status_code, headers = api_instance.list_world_provenance_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldProvenanceResponse>
@@ -18790,7 +19469,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **listing_ids** | **String** |  | [optional] |
 
 ### Return type
 
@@ -19067,7 +19748,7 @@ This endpoint does not need any parameter.
 
 ## list_world_spaces
 
-> <ListWorldSpacesResponse> list_world_spaces
+> <ListWorldSpacesResponse> list_world_spaces(opts)
 
 The Spaces directory: seller-hosted clubs with a venue, members and events (optional venue filter).
 
@@ -19083,10 +19764,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  venue: 'stage' # String | 
+}
 
 begin
   # The Spaces directory: seller-hosted clubs with a venue, members and events (optional venue filter).
-  result = api_instance.list_world_spaces
+  result = api_instance.list_world_spaces(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_spaces: #{e}"
@@ -19097,12 +19781,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldSpacesResponse>, Integer, Hash)> list_world_spaces_with_http_info
+> <Array(<ListWorldSpacesResponse>, Integer, Hash)> list_world_spaces_with_http_info(opts)
 
 ```ruby
 begin
   # The Spaces directory: seller-hosted clubs with a venue, members and events (optional venue filter).
-  data, status_code, headers = api_instance.list_world_spaces_with_http_info
+  data, status_code, headers = api_instance.list_world_spaces_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldSpacesResponse>
@@ -19113,7 +19797,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **venue** | **String** |  | [optional] |
 
 ### Return type
 
@@ -19131,7 +19817,7 @@ This endpoint does not need any parameter.
 
 ## list_world_staff_applicants
 
-> <ListWorldStaffApplicantsResponse> list_world_staff_applicants
+> <ListWorldStaffApplicantsResponse> list_world_staff_applicants(opts)
 
 Who applied to your postings, with their worker reputation.
 
@@ -19147,10 +19833,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  posting_id: 'posting_id_example' # String | 
+}
 
 begin
   # Who applied to your postings, with their worker reputation.
-  result = api_instance.list_world_staff_applicants
+  result = api_instance.list_world_staff_applicants(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_staff_applicants: #{e}"
@@ -19161,12 +19850,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldStaffApplicantsResponse>, Integer, Hash)> list_world_staff_applicants_with_http_info
+> <Array(<ListWorldStaffApplicantsResponse>, Integer, Hash)> list_world_staff_applicants_with_http_info(opts)
 
 ```ruby
 begin
   # Who applied to your postings, with their worker reputation.
-  data, status_code, headers = api_instance.list_world_staff_applicants_with_http_info
+  data, status_code, headers = api_instance.list_world_staff_applicants_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldStaffApplicantsResponse>
@@ -19177,7 +19866,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **posting_id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -19707,7 +20398,7 @@ This endpoint does not need any parameter.
 
 ## list_world_venues
 
-> <ListWorldVenuesResponse> list_world_venues
+> <ListWorldVenuesResponse> list_world_venues(opts)
 
 The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
 
@@ -19723,10 +20414,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  from: 'from_example', # String | 
+  to: 'to_example' # String | 
+}
 
 begin
   # The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
-  result = api_instance.list_world_venues
+  result = api_instance.list_world_venues(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->list_world_venues: #{e}"
@@ -19737,12 +20432,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldVenuesResponse>, Integer, Hash)> list_world_venues_with_http_info
+> <Array(<ListWorldVenuesResponse>, Integer, Hash)> list_world_venues_with_http_info(opts)
 
 ```ruby
 begin
   # The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
-  data, status_code, headers = api_instance.list_world_venues_with_http_info
+  data, status_code, headers = api_instance.list_world_venues_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldVenuesResponse>
@@ -19753,7 +20448,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
 
 ### Return type
 
@@ -19771,7 +20469,7 @@ This endpoint does not need any parameter.
 
 ## update_showroom
 
-> <UpdateShowroomResponse> update_showroom(opts)
+> <UpdateShowroomResponse> update_showroom(update_showroom_request, opts)
 
 Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store's, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
 
@@ -19787,13 +20485,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+update_showroom_request = Crossly::UpdateShowroomRequest.new({room: Crossly::UpdateShowroomRequestRoom.new({name: 'name_example', size: 'auto', ceiling: 3.56, look: Crossly::UpdateShowroomRequestRoomLook.new({theme: 'studio', wall: 'metal', floor: 'metal', cove_colour: 'cove_colour_example', cove_intensity: 3.56, shopfront: 'shopfront_example', shopfront_colour: 'shopfront_colour_example', facade: 'facade_example', sign_style: 'sign_style_example', sign_font: 'sign_font_example', window_mood: 'none'}), props: [Crossly::GetShowroomResponseDataRoomProps.new({model: 'model_example', position: [3.56]})]}), fixtures: [Crossly::UpdateShowroomRequestFixtures.new({id: 'id_example', display: 'display_example', label: 'label_example', hidden: false, position: [3.56], rotation: 3.56, units: 3.56})], placements: [Crossly::UpdateShowroomRequestPlacements.new({fixture_id: 'fixture_id_example', unit: 3.56, slot: 3.56, item_id: 'item_id_example', unit_id: 'unit_id_example'})], settings: Crossly::UpdateShowroomRequestSettings.new({visibility: 'unlisted', open_to_all: false, group_by: [Crossly::UpdateShowroomRequestSettingsGroupByItem::brand], sort_by: [Crossly::UpdateShowroomRequestSettingsSortByItem::brand], overlay: 'status'})}) # UpdateShowroomRequest | 
 opts = {
   storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
 }
 
 begin
   # Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store's, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
-  result = api_instance.update_showroom(opts)
+  result = api_instance.update_showroom(update_showroom_request, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_showroom: #{e}"
@@ -19804,12 +20503,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateShowroomResponse>, Integer, Hash)> update_showroom_with_http_info(opts)
+> <Array(<UpdateShowroomResponse>, Integer, Hash)> update_showroom_with_http_info(update_showroom_request, opts)
 
 ```ruby
 begin
   # Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store's, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
-  data, status_code, headers = api_instance.update_showroom_with_http_info(opts)
+  data, status_code, headers = api_instance.update_showroom_with_http_info(update_showroom_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateShowroomResponse>
@@ -19822,6 +20521,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
+| **update_showroom_request** | **UpdateShowroomRequest** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
 
 ### Return type
@@ -19834,13 +20534,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_showroom2
 
-> <UpdateShowroom2Response> update_showroom2(opts)
+> <UpdateShowroom2Response> update_showroom2(update_showroom2_request, opts)
 
 Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
 
@@ -19856,13 +20556,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+update_showroom2_request = Crossly::UpdateShowroom2Request.new({ops: [Crossly::UpdateShowroom2RequestOpsItem.new({op: 'op_example'})]}) # UpdateShowroom2Request | 
 opts = {
   storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
 }
 
 begin
   # Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
-  result = api_instance.update_showroom2(opts)
+  result = api_instance.update_showroom2(update_showroom2_request, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_showroom2: #{e}"
@@ -19873,12 +20574,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateShowroom2Response>, Integer, Hash)> update_showroom2_with_http_info(opts)
+> <Array(<UpdateShowroom2Response>, Integer, Hash)> update_showroom2_with_http_info(update_showroom2_request, opts)
 
 ```ruby
 begin
   # Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
-  data, status_code, headers = api_instance.update_showroom2_with_http_info(opts)
+  data, status_code, headers = api_instance.update_showroom2_with_http_info(update_showroom2_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateShowroom2Response>
@@ -19891,6 +20592,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
+| **update_showroom2_request** | **UpdateShowroom2Request** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
 
 ### Return type
@@ -19903,13 +20605,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_showroom3
 
-> <UpdateShowroom2Response> update_showroom3(id, opts)
+> <UpdateShowroom2Response> update_showroom3(id, update_showroom2_request, opts)
 
 Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
 
@@ -19926,13 +20628,14 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+update_showroom2_request = Crossly::UpdateShowroom2Request.new({ops: [Crossly::UpdateShowroom2RequestOpsItem.new({op: 'op_example'})]}) # UpdateShowroom2Request | 
 opts = {
   storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
 }
 
 begin
   # Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
-  result = api_instance.update_showroom3(id, opts)
+  result = api_instance.update_showroom3(id, update_showroom2_request, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_showroom3: #{e}"
@@ -19943,12 +20646,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateShowroom2Response>, Integer, Hash)> update_showroom3_with_http_info(id, opts)
+> <Array(<UpdateShowroom2Response>, Integer, Hash)> update_showroom3_with_http_info(id, update_showroom2_request, opts)
 
 ```ruby
 begin
   # Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
-  data, status_code, headers = api_instance.update_showroom3_with_http_info(id, opts)
+  data, status_code, headers = api_instance.update_showroom3_with_http_info(id, update_showroom2_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateShowroom2Response>
@@ -19962,6 +20665,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_showroom2_request** | **UpdateShowroom2Request** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
 
 ### Return type
@@ -19974,13 +20678,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_showroom_by_id
 
-> <UpdateShowroomResponse> update_showroom_by_id(id, opts)
+> <UpdateShowroomResponse> update_showroom_by_id(id, update_showroom_request, opts)
 
 Replace one showroom's whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
 
@@ -19997,13 +20701,14 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+update_showroom_request = Crossly::UpdateShowroomRequest.new({room: Crossly::UpdateShowroomRequestRoom.new({name: 'name_example', size: 'auto', ceiling: 3.56, look: Crossly::UpdateShowroomRequestRoomLook.new({theme: 'studio', wall: 'metal', floor: 'metal', cove_colour: 'cove_colour_example', cove_intensity: 3.56, shopfront: 'shopfront_example', shopfront_colour: 'shopfront_colour_example', facade: 'facade_example', sign_style: 'sign_style_example', sign_font: 'sign_font_example', window_mood: 'none'}), props: [Crossly::GetShowroomResponseDataRoomProps.new({model: 'model_example', position: [3.56]})]}), fixtures: [Crossly::UpdateShowroomRequestFixtures.new({id: 'id_example', display: 'display_example', label: 'label_example', hidden: false, position: [3.56], rotation: 3.56, units: 3.56})], placements: [Crossly::UpdateShowroomRequestPlacements.new({fixture_id: 'fixture_id_example', unit: 3.56, slot: 3.56, item_id: 'item_id_example', unit_id: 'unit_id_example'})], settings: Crossly::UpdateShowroomRequestSettings.new({visibility: 'unlisted', open_to_all: false, group_by: [Crossly::UpdateShowroomRequestSettingsGroupByItem::brand], sort_by: [Crossly::UpdateShowroomRequestSettingsSortByItem::brand], overlay: 'status'})}) # UpdateShowroomRequest | 
 opts = {
   storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Which store (else X-Storefront-Id, else your default store).
 }
 
 begin
   # Replace one showroom's whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
-  result = api_instance.update_showroom_by_id(id, opts)
+  result = api_instance.update_showroom_by_id(id, update_showroom_request, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_showroom_by_id: #{e}"
@@ -20014,12 +20719,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateShowroomResponse>, Integer, Hash)> update_showroom_by_id_with_http_info(id, opts)
+> <Array(<UpdateShowroomResponse>, Integer, Hash)> update_showroom_by_id_with_http_info(id, update_showroom_request, opts)
 
 ```ruby
 begin
   # Replace one showroom's whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
-  data, status_code, headers = api_instance.update_showroom_by_id_with_http_info(id, opts)
+  data, status_code, headers = api_instance.update_showroom_by_id_with_http_info(id, update_showroom_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateShowroomResponse>
@@ -20033,6 +20738,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_showroom_request** | **UpdateShowroomRequest** |  |  |
 | **storefront_id** | **String** | Which store (else X-Storefront-Id, else your default store). | [optional] |
 
 ### Return type
@@ -20045,7 +20751,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -20118,7 +20824,7 @@ end
 
 ## update_spatial_scene_node
 
-> <UpdateSpatialSceneNodeResponse> update_spatial_scene_node(id, node_id)
+> <UpdateSpatialSceneNodeResponse> update_spatial_scene_node(id, node_id, update_spatial_scene_node_request)
 
 Move a rack in one of your warehouse rooms (position in metres).
 
@@ -20136,10 +20842,11 @@ end
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
 node_id = 'node_id_example' # String | 
+update_spatial_scene_node_request = Crossly::UpdateSpatialSceneNodeRequest.new({position: [3.56]}) # UpdateSpatialSceneNodeRequest | 
 
 begin
   # Move a rack in one of your warehouse rooms (position in metres).
-  result = api_instance.update_spatial_scene_node(id, node_id)
+  result = api_instance.update_spatial_scene_node(id, node_id, update_spatial_scene_node_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_spatial_scene_node: #{e}"
@@ -20150,12 +20857,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateSpatialSceneNodeResponse>, Integer, Hash)> update_spatial_scene_node_with_http_info(id, node_id)
+> <Array(<UpdateSpatialSceneNodeResponse>, Integer, Hash)> update_spatial_scene_node_with_http_info(id, node_id, update_spatial_scene_node_request)
 
 ```ruby
 begin
   # Move a rack in one of your warehouse rooms (position in metres).
-  data, status_code, headers = api_instance.update_spatial_scene_node_with_http_info(id, node_id)
+  data, status_code, headers = api_instance.update_spatial_scene_node_with_http_info(id, node_id, update_spatial_scene_node_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateSpatialSceneNodeResponse>
@@ -20170,6 +20877,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **node_id** | **String** |  |  |
+| **update_spatial_scene_node_request** | **UpdateSpatialSceneNodeRequest** |  |  |
 
 ### Return type
 
@@ -20181,13 +20889,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_spatial_scene_setting
 
-> <SpatialSceneResponse> update_spatial_scene_setting(id)
+> <SpatialSceneResponse> update_spatial_scene_setting(id, opts)
 
 How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
 
@@ -20204,10 +20912,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  update_spatial_scene_setting_request: Crossly::UpdateSpatialSceneSettingRequest.new # UpdateSpatialSceneSettingRequest | 
+}
 
 begin
   # How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
-  result = api_instance.update_spatial_scene_setting(id)
+  result = api_instance.update_spatial_scene_setting(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_spatial_scene_setting: #{e}"
@@ -20218,12 +20929,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SpatialSceneResponse>, Integer, Hash)> update_spatial_scene_setting_with_http_info(id)
+> <Array(<SpatialSceneResponse>, Integer, Hash)> update_spatial_scene_setting_with_http_info(id, opts)
 
 ```ruby
 begin
   # How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
-  data, status_code, headers = api_instance.update_spatial_scene_setting_with_http_info(id)
+  data, status_code, headers = api_instance.update_spatial_scene_setting_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SpatialSceneResponse>
@@ -20237,6 +20948,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_spatial_scene_setting_request** | **UpdateSpatialSceneSettingRequest** |  | [optional] |
 
 ### Return type
 
@@ -20248,13 +20960,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_spatial_scene_shop_layout
 
-> <UpdateSpatialSceneShopLayoutResponse> update_spatial_scene_shop_layout(id)
+> <UpdateSpatialSceneShopLayoutResponse> update_spatial_scene_shop_layout(id, update_spatial_scene_shop_layout_request)
 
 Save your shop room's sections and displays (validated server-side; the response is the stored layout).
 
@@ -20271,10 +20983,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+update_spatial_scene_shop_layout_request = Crossly::UpdateSpatialSceneShopLayoutRequest.new({layout: 3.56}) # UpdateSpatialSceneShopLayoutRequest | 
 
 begin
   # Save your shop room's sections and displays (validated server-side; the response is the stored layout).
-  result = api_instance.update_spatial_scene_shop_layout(id)
+  result = api_instance.update_spatial_scene_shop_layout(id, update_spatial_scene_shop_layout_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_spatial_scene_shop_layout: #{e}"
@@ -20285,12 +20998,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateSpatialSceneShopLayoutResponse>, Integer, Hash)> update_spatial_scene_shop_layout_with_http_info(id)
+> <Array(<UpdateSpatialSceneShopLayoutResponse>, Integer, Hash)> update_spatial_scene_shop_layout_with_http_info(id, update_spatial_scene_shop_layout_request)
 
 ```ruby
 begin
   # Save your shop room's sections and displays (validated server-side; the response is the stored layout).
-  data, status_code, headers = api_instance.update_spatial_scene_shop_layout_with_http_info(id)
+  data, status_code, headers = api_instance.update_spatial_scene_shop_layout_with_http_info(id, update_spatial_scene_shop_layout_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateSpatialSceneShopLayoutResponse>
@@ -20304,6 +21017,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_spatial_scene_shop_layout_request** | **UpdateSpatialSceneShopLayoutRequest** |  |  |
 
 ### Return type
 
@@ -20315,13 +21029,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_spatial_scene_window
 
-> <UpdateSpatialSceneWindowResponse> update_spatial_scene_window(id)
+> <UpdateSpatialSceneWindowResponse> update_spatial_scene_window(id, update_brand_drop_listing_request)
 
 Choose up to three of your live Crossly listings for the street window of your shop, in slot order. Picks that sell drop out and the newest fill in; an empty list goes back to newest first.
 
@@ -20338,10 +21052,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+update_brand_drop_listing_request = Crossly::UpdateBrandDropListingRequest.new({listing_ids: ['listing_ids_example']}) # UpdateBrandDropListingRequest | 
 
 begin
   # Choose up to three of your live Crossly listings for the street window of your shop, in slot order. Picks that sell drop out and the newest fill in; an empty list goes back to newest first.
-  result = api_instance.update_spatial_scene_window(id)
+  result = api_instance.update_spatial_scene_window(id, update_brand_drop_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_spatial_scene_window: #{e}"
@@ -20352,12 +21067,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateSpatialSceneWindowResponse>, Integer, Hash)> update_spatial_scene_window_with_http_info(id)
+> <Array(<UpdateSpatialSceneWindowResponse>, Integer, Hash)> update_spatial_scene_window_with_http_info(id, update_brand_drop_listing_request)
 
 ```ruby
 begin
   # Choose up to three of your live Crossly listings for the street window of your shop, in slot order. Picks that sell drop out and the newest fill in; an empty list goes back to newest first.
-  data, status_code, headers = api_instance.update_spatial_scene_window_with_http_info(id)
+  data, status_code, headers = api_instance.update_spatial_scene_window_with_http_info(id, update_brand_drop_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateSpatialSceneWindowResponse>
@@ -20371,6 +21086,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_brand_drop_listing_request** | **UpdateBrandDropListingRequest** |  |  |
 
 ### Return type
 
@@ -20382,7 +21098,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -20455,7 +21171,7 @@ end
 
 ## update_spatial_street_owned
 
-> <SpatialStreetResponse> update_spatial_street_owned(id)
+> <SpatialStreetResponse> update_spatial_street_owned(id, update_spatial_street_owned_request)
 
 Who may open a shop on a street you own (open, apply or invite).
 
@@ -20472,10 +21188,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+update_spatial_street_owned_request = Crossly::UpdateSpatialStreetOwnedRequest.new({admission: 'admission_example'}) # UpdateSpatialStreetOwnedRequest | 
 
 begin
   # Who may open a shop on a street you own (open, apply or invite).
-  result = api_instance.update_spatial_street_owned(id)
+  result = api_instance.update_spatial_street_owned(id, update_spatial_street_owned_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_spatial_street_owned: #{e}"
@@ -20486,12 +21203,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SpatialStreetResponse>, Integer, Hash)> update_spatial_street_owned_with_http_info(id)
+> <Array(<SpatialStreetResponse>, Integer, Hash)> update_spatial_street_owned_with_http_info(id, update_spatial_street_owned_request)
 
 ```ruby
 begin
   # Who may open a shop on a street you own (open, apply or invite).
-  data, status_code, headers = api_instance.update_spatial_street_owned_with_http_info(id)
+  data, status_code, headers = api_instance.update_spatial_street_owned_with_http_info(id, update_spatial_street_owned_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SpatialStreetResponse>
@@ -20505,6 +21222,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_spatial_street_owned_request** | **UpdateSpatialStreetOwnedRequest** |  |  |
 
 ### Return type
 
@@ -20516,13 +21234,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_attendant
 
-> <UpdateWorldAttendantResponse> update_world_attendant
+> <UpdateWorldAttendantResponse> update_world_attendant(update_world_attendant_request)
 
 Create or replace your AI attendant (BYOK: switching it on needs your AI key).
 
@@ -20538,10 +21256,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+update_world_attendant_request = Crossly::UpdateWorldAttendantRequest.new({name: 'name_example', brain: 'rules', enabled: false, appearance: Crossly::UpdateWorldAttendantRequestAppearance.new({avatar_model: 'humanoid', outfit: 'shop_apron', colours: Crossly::GetWorldAttendantResponseDataAttendantAppearanceColours.new({primary: 'primary_example', accent: 'accent_example'})}), personality: Crossly::GetWorldAttendantResponseDataAttendantPersonality.new({tone: 'friendly', verbosity: 'brief', greeting: 'greeting_example', catchphrases: ['catchphrases_example']}), knowledge: Crossly::UpdateWorldAttendantRequestKnowledge.new({listings: false, policies: false, faqs: [Crossly::UpdateWorldAttendantRequestKnowledgeFaqs.new({q: 'q_example', a: 'a_example'})]}), languages: [Crossly::UpdateWorldAttendantRequestLanguagesItem::IT], allowed_actions: Crossly::GetWorldAttendantResponseDataAttendantAllowedActions.new({answer: false, offers: Crossly::GetWorldAttendantResponseDataAttendantAllowedActionsOffers.new({enabled: false, max_discount_bps: 3.56}), holds: Crossly::GetWorldAttendantResponseDataAttendantAllowedActionsHolds.new({enabled: false, minutes: 3.56}), handoff: false}), showroom_ids: ['showroom_ids_example']}) # UpdateWorldAttendantRequest | 
 
 begin
   # Create or replace your AI attendant (BYOK: switching it on needs your AI key).
-  result = api_instance.update_world_attendant
+  result = api_instance.update_world_attendant(update_world_attendant_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_attendant: #{e}"
@@ -20552,12 +21271,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldAttendantResponse>, Integer, Hash)> update_world_attendant_with_http_info
+> <Array(<UpdateWorldAttendantResponse>, Integer, Hash)> update_world_attendant_with_http_info(update_world_attendant_request)
 
 ```ruby
 begin
   # Create or replace your AI attendant (BYOK: switching it on needs your AI key).
-  data, status_code, headers = api_instance.update_world_attendant_with_http_info
+  data, status_code, headers = api_instance.update_world_attendant_with_http_info(update_world_attendant_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldAttendantResponse>
@@ -20568,7 +21287,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_attendant_request** | **UpdateWorldAttendantRequest** |  |  |
 
 ### Return type
 
@@ -20580,13 +21301,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_avatar_identity
 
-> <UpdateWorldAvatarIdentityResponse> update_world_avatar_identity
+> <UpdateWorldAvatarIdentityResponse> update_world_avatar_identity(opts)
 
 Choose named or anonymous. Rooms you are already in keep the old answer until you rejoin.
 
@@ -20602,10 +21323,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_avatar_identity_request: Crossly::UpdateWorldAvatarIdentityRequest.new({choice: 'anonymous'}) # UpdateWorldAvatarIdentityRequest | 
+}
 
 begin
   # Choose named or anonymous. Rooms you are already in keep the old answer until you rejoin.
-  result = api_instance.update_world_avatar_identity
+  result = api_instance.update_world_avatar_identity(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_avatar_identity: #{e}"
@@ -20616,12 +21340,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldAvatarIdentityResponse>, Integer, Hash)> update_world_avatar_identity_with_http_info
+> <Array(<UpdateWorldAvatarIdentityResponse>, Integer, Hash)> update_world_avatar_identity_with_http_info(opts)
 
 ```ruby
 begin
   # Choose named or anonymous. Rooms you are already in keep the old answer until you rejoin.
-  data, status_code, headers = api_instance.update_world_avatar_identity_with_http_info
+  data, status_code, headers = api_instance.update_world_avatar_identity_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldAvatarIdentityResponse>
@@ -20632,7 +21356,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_avatar_identity_request** | **UpdateWorldAvatarIdentityRequest** |  | [optional] |
 
 ### Return type
 
@@ -20644,13 +21370,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_avatar_look
 
-> <UpdateWorldAvatarLookResponse> update_world_avatar_look
+> <UpdateWorldAvatarLookResponse> update_world_avatar_look(opts)
 
 Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit = { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
 
@@ -20666,10 +21392,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_avatar_look_request: Crossly::UpdateWorldAvatarLookRequest.new({look: 3.56, appearance: { key: 3.56}}) # UpdateWorldAvatarLookRequest | 
+}
 
 begin
   # Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit = { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
-  result = api_instance.update_world_avatar_look
+  result = api_instance.update_world_avatar_look(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_avatar_look: #{e}"
@@ -20680,12 +21409,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldAvatarLookResponse>, Integer, Hash)> update_world_avatar_look_with_http_info
+> <Array(<UpdateWorldAvatarLookResponse>, Integer, Hash)> update_world_avatar_look_with_http_info(opts)
 
 ```ruby
 begin
   # Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit = { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
-  data, status_code, headers = api_instance.update_world_avatar_look_with_http_info
+  data, status_code, headers = api_instance.update_world_avatar_look_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldAvatarLookResponse>
@@ -20696,7 +21425,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_avatar_look_request** | **UpdateWorldAvatarLookRequest** |  | [optional] |
 
 ### Return type
 
@@ -20708,7 +21439,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -20778,7 +21509,7 @@ This endpoint does not need any parameter.
 
 ## update_world_capability_wear
 
-> <GetWorldCapabilityWearResponse> update_world_capability_wear
+> <GetWorldCapabilityWearResponse> update_world_capability_wear(opts)
 
 Wear a held token on an avatar slot (refId from GET /v1/world/capabilities), or pass refId null to take it off. Its collection must declare a wear capability for that slot.
 
@@ -20794,10 +21525,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_capability_wear_request: Crossly::UpdateWorldCapabilityWearRequest.new({slot: 'slot_example', ref_id: 'ref_id_example'}) # UpdateWorldCapabilityWearRequest | 
+}
 
 begin
   # Wear a held token on an avatar slot (refId from GET /v1/world/capabilities), or pass refId null to take it off. Its collection must declare a wear capability for that slot.
-  result = api_instance.update_world_capability_wear
+  result = api_instance.update_world_capability_wear(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_capability_wear: #{e}"
@@ -20808,12 +21542,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldCapabilityWearResponse>, Integer, Hash)> update_world_capability_wear_with_http_info
+> <Array(<GetWorldCapabilityWearResponse>, Integer, Hash)> update_world_capability_wear_with_http_info(opts)
 
 ```ruby
 begin
   # Wear a held token on an avatar slot (refId from GET /v1/world/capabilities), or pass refId null to take it off. Its collection must declare a wear capability for that slot.
-  data, status_code, headers = api_instance.update_world_capability_wear_with_http_info
+  data, status_code, headers = api_instance.update_world_capability_wear_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldCapabilityWearResponse>
@@ -20824,7 +21558,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_capability_wear_request** | **UpdateWorldCapabilityWearRequest** |  | [optional] |
 
 ### Return type
 
@@ -20836,7 +21572,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -20911,7 +21647,7 @@ end
 
 ## update_world_control
 
-> <GetWorldControlResponse> update_world_control
+> <GetWorldControlResponse> update_world_control(opts)
 
 Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
 
@@ -20927,10 +21663,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_control_request: Crossly::UpdateWorldControlRequest.new # UpdateWorldControlRequest | 
+}
 
 begin
   # Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
-  result = api_instance.update_world_control
+  result = api_instance.update_world_control(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_control: #{e}"
@@ -20941,12 +21680,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldControlResponse>, Integer, Hash)> update_world_control_with_http_info
+> <Array(<GetWorldControlResponse>, Integer, Hash)> update_world_control_with_http_info(opts)
 
 ```ruby
 begin
   # Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
-  data, status_code, headers = api_instance.update_world_control_with_http_info
+  data, status_code, headers = api_instance.update_world_control_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldControlResponse>
@@ -20957,7 +21696,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_control_request** | **UpdateWorldControlRequest** |  | [optional] |
 
 ### Return type
 
@@ -20969,13 +21710,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_convention_hall
 
-> <UpdateWorldConventionHallResponse> update_world_convention_hall(id)
+> <UpdateWorldConventionHallResponse> update_world_convention_hall(id, opts)
 
 Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
 
@@ -20992,10 +21733,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  update_world_convention_hall_request: Crossly::UpdateWorldConventionHallRequest.new({doc: 3.56, expected_version: 3.56}) # UpdateWorldConventionHallRequest | 
+}
 
 begin
   # Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
-  result = api_instance.update_world_convention_hall(id)
+  result = api_instance.update_world_convention_hall(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_convention_hall: #{e}"
@@ -21006,12 +21750,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldConventionHallResponse>, Integer, Hash)> update_world_convention_hall_with_http_info(id)
+> <Array(<UpdateWorldConventionHallResponse>, Integer, Hash)> update_world_convention_hall_with_http_info(id, opts)
 
 ```ruby
 begin
   # Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
-  data, status_code, headers = api_instance.update_world_convention_hall_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_convention_hall_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldConventionHallResponse>
@@ -21025,6 +21769,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_world_convention_hall_request** | **UpdateWorldConventionHallRequest** |  | [optional] |
 
 ### Return type
 
@@ -21036,13 +21781,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_convention_my_booth
 
-> <UpdateWorldConventionMyBoothResponse> update_world_convention_my_booth(id)
+> <UpdateWorldConventionMyBoothResponse> update_world_convention_my_booth(id, opts)
 
 Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
 
@@ -21059,10 +21804,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  update_brand_drop_listing_request: Crossly::UpdateBrandDropListingRequest.new({listing_ids: ['listing_ids_example']}) # UpdateBrandDropListingRequest | 
+}
 
 begin
   # Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
-  result = api_instance.update_world_convention_my_booth(id)
+  result = api_instance.update_world_convention_my_booth(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_convention_my_booth: #{e}"
@@ -21073,12 +21821,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldConventionMyBoothResponse>, Integer, Hash)> update_world_convention_my_booth_with_http_info(id)
+> <Array(<UpdateWorldConventionMyBoothResponse>, Integer, Hash)> update_world_convention_my_booth_with_http_info(id, opts)
 
 ```ruby
 begin
   # Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
-  data, status_code, headers = api_instance.update_world_convention_my_booth_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_convention_my_booth_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldConventionMyBoothResponse>
@@ -21092,6 +21840,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_brand_drop_listing_request** | **UpdateBrandDropListingRequest** |  | [optional] |
 
 ### Return type
 
@@ -21103,13 +21852,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_convention_status
 
-> <UpdateWorldConventionStatusResponse> update_world_convention_status(id)
+> <UpdateWorldConventionStatusResponse> update_world_convention_status(id, opts)
 
 Open, start, end or cancel a convention you host.
 
@@ -21126,10 +21875,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  update_world_convention_status_request: Crossly::UpdateWorldConventionStatusRequest.new({status: 'live'}) # UpdateWorldConventionStatusRequest | 
+}
 
 begin
   # Open, start, end or cancel a convention you host.
-  result = api_instance.update_world_convention_status(id)
+  result = api_instance.update_world_convention_status(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_convention_status: #{e}"
@@ -21140,12 +21892,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldConventionStatusResponse>, Integer, Hash)> update_world_convention_status_with_http_info(id)
+> <Array(<UpdateWorldConventionStatusResponse>, Integer, Hash)> update_world_convention_status_with_http_info(id, opts)
 
 ```ruby
 begin
   # Open, start, end or cancel a convention you host.
-  data, status_code, headers = api_instance.update_world_convention_status_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_convention_status_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldConventionStatusResponse>
@@ -21159,6 +21911,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_world_convention_status_request** | **UpdateWorldConventionStatusRequest** |  | [optional] |
 
 ### Return type
 
@@ -21170,13 +21923,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_cosm_design_chain_auto_unlock
 
-> <CreateCosmDesignerChainAutoUnlockResponse> update_world_cosm_design_chain_auto_unlock(id)
+> <CreateCosmDesignerChainAutoUnlockResponse> update_world_cosm_design_chain_auto_unlock(id, opts)
 
 Opt one of your COSM designs in or out of the free chain unlock it earns when popular (on by default). Answers its popularity.
 
@@ -21193,10 +21946,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  enabled_request: Crossly::EnabledRequest.new({enabled: false}) # EnabledRequest | 
+}
 
 begin
   # Opt one of your COSM designs in or out of the free chain unlock it earns when popular (on by default). Answers its popularity.
-  result = api_instance.update_world_cosm_design_chain_auto_unlock(id)
+  result = api_instance.update_world_cosm_design_chain_auto_unlock(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_cosm_design_chain_auto_unlock: #{e}"
@@ -21207,12 +21963,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateCosmDesignerChainAutoUnlockResponse>, Integer, Hash)> update_world_cosm_design_chain_auto_unlock_with_http_info(id)
+> <Array(<CreateCosmDesignerChainAutoUnlockResponse>, Integer, Hash)> update_world_cosm_design_chain_auto_unlock_with_http_info(id, opts)
 
 ```ruby
 begin
   # Opt one of your COSM designs in or out of the free chain unlock it earns when popular (on by default). Answers its popularity.
-  data, status_code, headers = api_instance.update_world_cosm_design_chain_auto_unlock_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_cosm_design_chain_auto_unlock_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateCosmDesignerChainAutoUnlockResponse>
@@ -21226,6 +21982,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **enabled_request** | **EnabledRequest** |  | [optional] |
 
 ### Return type
 
@@ -21237,7 +21994,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -21310,7 +22067,7 @@ end
 
 ## update_world_fit_value_share
 
-> <UpdateWorldFitValueShareResponse> update_world_fit_value_share
+> <UpdateWorldFitValueShareResponse> update_world_fit_value_share(opts)
 
 Whether people in a room can see what your outfit is worth.
 
@@ -21326,10 +22083,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_fit_value_share_request: Crossly::UpdateWorldFitValueShareRequest.new({share: false}) # UpdateWorldFitValueShareRequest | 
+}
 
 begin
   # Whether people in a room can see what your outfit is worth.
-  result = api_instance.update_world_fit_value_share
+  result = api_instance.update_world_fit_value_share(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_fit_value_share: #{e}"
@@ -21340,12 +22100,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldFitValueShareResponse>, Integer, Hash)> update_world_fit_value_share_with_http_info
+> <Array(<UpdateWorldFitValueShareResponse>, Integer, Hash)> update_world_fit_value_share_with_http_info(opts)
 
 ```ruby
 begin
   # Whether people in a room can see what your outfit is worth.
-  data, status_code, headers = api_instance.update_world_fit_value_share_with_http_info
+  data, status_code, headers = api_instance.update_world_fit_value_share_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldFitValueShareResponse>
@@ -21356,7 +22116,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_fit_value_share_request** | **UpdateWorldFitValueShareRequest** |  | [optional] |
 
 ### Return type
 
@@ -21368,13 +22130,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_home
 
-> <WorldHomeResponse> update_world_home
+> <WorldHomeResponse> update_world_home(opts)
 
 Your home: privacy (open, friends, private), theme, and wall, floor and mood decor you hold.
 
@@ -21390,10 +22152,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_home_request: Crossly::UpdateWorldHomeRequest.new # UpdateWorldHomeRequest | 
+}
 
 begin
   # Your home: privacy (open, friends, private), theme, and wall, floor and mood decor you hold.
-  result = api_instance.update_world_home
+  result = api_instance.update_world_home(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_home: #{e}"
@@ -21404,12 +22169,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldHomeResponse>, Integer, Hash)> update_world_home_with_http_info
+> <Array(<WorldHomeResponse>, Integer, Hash)> update_world_home_with_http_info(opts)
 
 ```ruby
 begin
   # Your home: privacy (open, friends, private), theme, and wall, floor and mood decor you hold.
-  data, status_code, headers = api_instance.update_world_home_with_http_info
+  data, status_code, headers = api_instance.update_world_home_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldHomeResponse>
@@ -21420,7 +22185,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_home_request** | **UpdateWorldHomeRequest** |  | [optional] |
 
 ### Return type
 
@@ -21432,7 +22199,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -21505,7 +22272,7 @@ end
 
 ## update_world_home_layout
 
-> <WorldHomeResponse> update_world_home_layout
+> <WorldHomeResponse> update_world_home_layout(opts)
 
 Arrange your home: the full layout (up to 200 pieces you own), validated server-side.
 
@@ -21521,10 +22288,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldApi.new
+opts = {
+  update_world_home_layout_request: Crossly::UpdateWorldHomeLayoutRequest.new({layout: [3.56]}) # UpdateWorldHomeLayoutRequest | 
+}
 
 begin
   # Arrange your home: the full layout (up to 200 pieces you own), validated server-side.
-  result = api_instance.update_world_home_layout
+  result = api_instance.update_world_home_layout(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_home_layout: #{e}"
@@ -21535,12 +22305,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldHomeResponse>, Integer, Hash)> update_world_home_layout_with_http_info
+> <Array(<WorldHomeResponse>, Integer, Hash)> update_world_home_layout_with_http_info(opts)
 
 ```ruby
 begin
   # Arrange your home: the full layout (up to 200 pieces you own), validated server-side.
-  data, status_code, headers = api_instance.update_world_home_layout_with_http_info
+  data, status_code, headers = api_instance.update_world_home_layout_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldHomeResponse>
@@ -21551,7 +22321,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_world_home_layout_request** | **UpdateWorldHomeLayoutRequest** |  | [optional] |
 
 ### Return type
 
@@ -21563,13 +22335,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_home_layout_by_slug
 
-> <WorldHomeResponse> update_world_home_layout_by_slug(slug)
+> <WorldHomeResponse> update_world_home_layout_by_slug(slug, opts)
 
 Rearrange a home you co-build (never adding the owner bought pieces).
 
@@ -21586,10 +22358,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+opts = {
+  update_world_home_layout_request: Crossly::UpdateWorldHomeLayoutRequest.new({layout: [3.56]}) # UpdateWorldHomeLayoutRequest | 
+}
 
 begin
   # Rearrange a home you co-build (never adding the owner bought pieces).
-  result = api_instance.update_world_home_layout_by_slug(slug)
+  result = api_instance.update_world_home_layout_by_slug(slug, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_home_layout_by_slug: #{e}"
@@ -21600,12 +22375,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldHomeResponse>, Integer, Hash)> update_world_home_layout_by_slug_with_http_info(slug)
+> <Array(<WorldHomeResponse>, Integer, Hash)> update_world_home_layout_by_slug_with_http_info(slug, opts)
 
 ```ruby
 begin
   # Rearrange a home you co-build (never adding the owner bought pieces).
-  data, status_code, headers = api_instance.update_world_home_layout_by_slug_with_http_info(slug)
+  data, status_code, headers = api_instance.update_world_home_layout_by_slug_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldHomeResponse>
@@ -21619,6 +22394,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **update_world_home_layout_request** | **UpdateWorldHomeLayoutRequest** |  | [optional] |
 
 ### Return type
 
@@ -21630,13 +22406,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_interactive_design_draft
 
-> <UpdateWorldInteractiveDesignDraftResponse> update_world_interactive_design_draft(id)
+> <UpdateWorldInteractiveDesignDraftResponse> update_world_interactive_design_draft(id, opts)
 
 Save the draft MML source (up to 64 KB); the response carries its static check.
 
@@ -21653,10 +22429,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  update_world_interactive_design_draft_request: Crossly::UpdateWorldInteractiveDesignDraftRequest.new({source: 'source_example'}) # UpdateWorldInteractiveDesignDraftRequest | 
+}
 
 begin
   # Save the draft MML source (up to 64 KB); the response carries its static check.
-  result = api_instance.update_world_interactive_design_draft(id)
+  result = api_instance.update_world_interactive_design_draft(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_interactive_design_draft: #{e}"
@@ -21667,12 +22446,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldInteractiveDesignDraftResponse>, Integer, Hash)> update_world_interactive_design_draft_with_http_info(id)
+> <Array(<UpdateWorldInteractiveDesignDraftResponse>, Integer, Hash)> update_world_interactive_design_draft_with_http_info(id, opts)
 
 ```ruby
 begin
   # Save the draft MML source (up to 64 KB); the response carries its static check.
-  data, status_code, headers = api_instance.update_world_interactive_design_draft_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_interactive_design_draft_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldInteractiveDesignDraftResponse>
@@ -21686,6 +22465,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_world_interactive_design_draft_request** | **UpdateWorldInteractiveDesignDraftRequest** |  | [optional] |
 
 ### Return type
 
@@ -21697,13 +22477,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_listing_holders_only
 
-> <UpdateWorldListingHoldersOnlyResponse> update_world_listing_holders_only(id)
+> <UpdateWorldListingHoldersOnlyResponse> update_world_listing_holders_only(id, opts)
 
 Reserve one of your listings for holders of a collection you declared a holders_only perk for (or release it). Checkout refuses anybody else.
 
@@ -21720,10 +22500,13 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+opts = {
+  enabled_request: Crossly::EnabledRequest.new({enabled: false}) # EnabledRequest | 
+}
 
 begin
   # Reserve one of your listings for holders of a collection you declared a holders_only perk for (or release it). Checkout refuses anybody else.
-  result = api_instance.update_world_listing_holders_only(id)
+  result = api_instance.update_world_listing_holders_only(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_listing_holders_only: #{e}"
@@ -21734,12 +22517,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldListingHoldersOnlyResponse>, Integer, Hash)> update_world_listing_holders_only_with_http_info(id)
+> <Array(<UpdateWorldListingHoldersOnlyResponse>, Integer, Hash)> update_world_listing_holders_only_with_http_info(id, opts)
 
 ```ruby
 begin
   # Reserve one of your listings for holders of a collection you declared a holders_only perk for (or release it). Checkout refuses anybody else.
-  data, status_code, headers = api_instance.update_world_listing_holders_only_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_listing_holders_only_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldListingHoldersOnlyResponse>
@@ -21753,6 +22536,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **enabled_request** | **EnabledRequest** |  | [optional] |
 
 ### Return type
 
@@ -21764,7 +22548,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -21906,7 +22690,7 @@ end
 
 ## update_world_property_plot_photo
 
-> <UpdateWorldPropertyPlotPhotoResponse> update_world_property_plot_photo(plot_id)
+> <UpdateWorldPropertyPlotPhotoResponse> update_world_property_plot_photo(plot_id, update_world_property_plot_photo_request)
 
 Store a plot's photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot's current one) or an in-world capture.
 
@@ -21923,10 +22707,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 plot_id = 'plot_id_example' # String | 
+update_world_property_plot_photo_request = Crossly::UpdateWorldPropertyPlotPhotoRequest.new({url: 'url_example', build_key: 'build_key_example'}) # UpdateWorldPropertyPlotPhotoRequest | 
 
 begin
   # Store a plot's photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot's current one) or an in-world capture.
-  result = api_instance.update_world_property_plot_photo(plot_id)
+  result = api_instance.update_world_property_plot_photo(plot_id, update_world_property_plot_photo_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_property_plot_photo: #{e}"
@@ -21937,12 +22722,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldPropertyPlotPhotoResponse>, Integer, Hash)> update_world_property_plot_photo_with_http_info(plot_id)
+> <Array(<UpdateWorldPropertyPlotPhotoResponse>, Integer, Hash)> update_world_property_plot_photo_with_http_info(plot_id, update_world_property_plot_photo_request)
 
 ```ruby
 begin
   # Store a plot's photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot's current one) or an in-world capture.
-  data, status_code, headers = api_instance.update_world_property_plot_photo_with_http_info(plot_id)
+  data, status_code, headers = api_instance.update_world_property_plot_photo_with_http_info(plot_id, update_world_property_plot_photo_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldPropertyPlotPhotoResponse>
@@ -21956,6 +22741,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **plot_id** | **String** |  |  |
+| **update_world_property_plot_photo_request** | **UpdateWorldPropertyPlotPhotoRequest** |  |  |
 
 ### Return type
 
@@ -21967,13 +22753,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_world_property_renting
 
-> <UpdateWorldPropertyRentingResponse> update_world_property_renting(lease_id)
+> <UpdateWorldPropertyRentingResponse> update_world_property_renting(lease_id, update_world_property_renting_request)
 
 Turn weekly autopay on or off (card leases).
 
@@ -21990,10 +22776,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 lease_id = 'lease_id_example' # String | 
+update_world_property_renting_request = Crossly::UpdateWorldPropertyRentingRequest.new({autopay: false}) # UpdateWorldPropertyRentingRequest | 
 
 begin
   # Turn weekly autopay on or off (card leases).
-  result = api_instance.update_world_property_renting(lease_id)
+  result = api_instance.update_world_property_renting(lease_id, update_world_property_renting_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_property_renting: #{e}"
@@ -22004,12 +22791,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldPropertyRentingResponse>, Integer, Hash)> update_world_property_renting_with_http_info(lease_id)
+> <Array(<UpdateWorldPropertyRentingResponse>, Integer, Hash)> update_world_property_renting_with_http_info(lease_id, update_world_property_renting_request)
 
 ```ruby
 begin
   # Turn weekly autopay on or off (card leases).
-  data, status_code, headers = api_instance.update_world_property_renting_with_http_info(lease_id)
+  data, status_code, headers = api_instance.update_world_property_renting_with_http_info(lease_id, update_world_property_renting_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldPropertyRentingResponse>
@@ -22023,6 +22810,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **lease_id** | **String** |  |  |
+| **update_world_property_renting_request** | **UpdateWorldPropertyRentingRequest** |  |  |
 
 ### Return type
 
@@ -22034,7 +22822,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -22174,7 +22962,7 @@ end
 
 ## update_world_space
 
-> <UpdateWorldSpaceResponse> update_world_space(slug)
+> <UpdateWorldSpaceResponse> update_world_space(slug, update_world_space_request)
 
 As host, change a Space name, about or membership.
 
@@ -22191,10 +22979,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 slug = 'slug_example' # String | 
+update_world_space_request = Crossly::UpdateWorldSpaceRequest.new # UpdateWorldSpaceRequest | 
 
 begin
   # As host, change a Space name, about or membership.
-  result = api_instance.update_world_space(slug)
+  result = api_instance.update_world_space(slug, update_world_space_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_space: #{e}"
@@ -22205,12 +22994,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldSpaceResponse>, Integer, Hash)> update_world_space_with_http_info(slug)
+> <Array(<UpdateWorldSpaceResponse>, Integer, Hash)> update_world_space_with_http_info(slug, update_world_space_request)
 
 ```ruby
 begin
   # As host, change a Space name, about or membership.
-  data, status_code, headers = api_instance.update_world_space_with_http_info(slug)
+  data, status_code, headers = api_instance.update_world_space_with_http_info(slug, update_world_space_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldSpaceResponse>
@@ -22224,6 +23013,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **update_world_space_request** | **UpdateWorldSpaceRequest** |  |  |
 
 ### Return type
 
@@ -22235,7 +23025,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -22308,7 +23098,7 @@ end
 
 ## update_world_staff_posting
 
-> <WorldStaffPostingResponse> update_world_staff_posting(id)
+> <WorldStaffPostingResponse> update_world_staff_posting(id, create_world_staff_posting_request)
 
 Replace a posting; its future unstaffed shifts are re-made.
 
@@ -22325,10 +23115,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+create_world_staff_posting_request = Crossly::CreateWorldStaffPostingRequest.new({target_kind: 'showroom', target_id: 'target_id_example', role: 'host', title: 'title_example', visibility: 'public', pay: Crossly::CreateWorldStaffPostingRequestPay.new({rail: 'cash', basis: 'shift'}), timezone: 'timezone_example', recurrence: Crossly::CreateWorldStaffPostingRequestRecurrence.new({freq: 'none'}), starts_at: 'starts_at_example', ends_at: 'ends_at_example', max_staff: 3.56}) # CreateWorldStaffPostingRequest | 
 
 begin
   # Replace a posting; its future unstaffed shifts are re-made.
-  result = api_instance.update_world_staff_posting(id)
+  result = api_instance.update_world_staff_posting(id, create_world_staff_posting_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_staff_posting: #{e}"
@@ -22339,12 +23130,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<WorldStaffPostingResponse>, Integer, Hash)> update_world_staff_posting_with_http_info(id)
+> <Array(<WorldStaffPostingResponse>, Integer, Hash)> update_world_staff_posting_with_http_info(id, create_world_staff_posting_request)
 
 ```ruby
 begin
   # Replace a posting; its future unstaffed shifts are re-made.
-  data, status_code, headers = api_instance.update_world_staff_posting_with_http_info(id)
+  data, status_code, headers = api_instance.update_world_staff_posting_with_http_info(id, create_world_staff_posting_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <WorldStaffPostingResponse>
@@ -22358,6 +23149,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_world_staff_posting_request** | **CreateWorldStaffPostingRequest** |  |  |
 
 ### Return type
 
@@ -22369,7 +23161,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -22442,9 +23234,9 @@ end
 
 ## update_world_street_owned_theme
 
-> <UpdateWorldStreetOwnedThemeResponse> update_world_street_owned_theme(id)
+> <UpdateWorldStreetOwnedThemeResponse> update_world_street_owned_theme(id, update_world_street_owned_theme_request)
 
-Set your street's theme.
+Set your store's street theme.
 
 ### Examples
 
@@ -22459,10 +23251,11 @@ end
 
 api_instance = Crossly::WorldApi.new
 id = 'id_example' # String | 
+update_world_street_owned_theme_request = Crossly::UpdateWorldStreetOwnedThemeRequest.new({theme: 'theme_example'}) # UpdateWorldStreetOwnedThemeRequest | 
 
 begin
-  # Set your street's theme.
-  result = api_instance.update_world_street_owned_theme(id)
+  # Set your store's street theme.
+  result = api_instance.update_world_street_owned_theme(id, update_world_street_owned_theme_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldApi->update_world_street_owned_theme: #{e}"
@@ -22473,12 +23266,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldStreetOwnedThemeResponse>, Integer, Hash)> update_world_street_owned_theme_with_http_info(id)
+> <Array(<UpdateWorldStreetOwnedThemeResponse>, Integer, Hash)> update_world_street_owned_theme_with_http_info(id, update_world_street_owned_theme_request)
 
 ```ruby
 begin
-  # Set your street's theme.
-  data, status_code, headers = api_instance.update_world_street_owned_theme_with_http_info(id)
+  # Set your store's street theme.
+  data, status_code, headers = api_instance.update_world_street_owned_theme_with_http_info(id, update_world_street_owned_theme_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldStreetOwnedThemeResponse>
@@ -22492,6 +23285,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_world_street_owned_theme_request** | **UpdateWorldStreetOwnedThemeRequest** |  |  |
 
 ### Return type
 
@@ -22503,6 +23297,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

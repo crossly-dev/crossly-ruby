@@ -155,7 +155,7 @@ module Crossly
     # @param id [String] 
     # @param create_detected_event_event_confirm_request [CreateDetectedEventEventConfirmRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateDetectedEventEventUndoResponse]
+    # @return [DetectedEventEventResponse]
     def create_detected_event_event_confirm(id, create_detected_event_event_confirm_request, opts = {})
       data, _status_code, _headers = create_detected_event_event_confirm_with_http_info(id, create_detected_event_event_confirm_request, opts)
       data
@@ -165,7 +165,7 @@ module Crossly
     # @param id [String] 
     # @param create_detected_event_event_confirm_request [CreateDetectedEventEventConfirmRequest] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateDetectedEventEventUndoResponse, Integer, Hash)>] CreateDetectedEventEventUndoResponse data, response status code and response headers
+    # @return [Array<(DetectedEventEventResponse, Integer, Hash)>] DetectedEventEventResponse data, response status code and response headers
     def create_detected_event_event_confirm_with_http_info(id, create_detected_event_event_confirm_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ActivityApi.create_detected_event_event_confirm ...'
@@ -201,7 +201,7 @@ module Crossly
       post_body = opts[:debug_body] || @api_client.object_to_http_body(create_detected_event_event_confirm_request)
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateDetectedEventEventUndoResponse'
+      return_type = opts[:debug_return_type] || 'DetectedEventEventResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -223,10 +223,154 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Close an open ask without acting (status dismissed): nothing runs and nothing is recorded for the event. reason is kept with it. Returns the event. 409 ask_not_open when the event is not waiting.
+    # @param id [String] 
+    # @param create_detected_event_event_dismiss_request [CreateDetectedEventEventDismissRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [DetectedEventEventResponse]
+    def create_detected_event_event_dismiss(id, create_detected_event_event_dismiss_request, opts = {})
+      data, _status_code, _headers = create_detected_event_event_dismiss_with_http_info(id, create_detected_event_event_dismiss_request, opts)
+      data
+    end
+
+    # Close an open ask without acting (status dismissed): nothing runs and nothing is recorded for the event. reason is kept with it. Returns the event. 409 ask_not_open when the event is not waiting.
+    # @param id [String] 
+    # @param create_detected_event_event_dismiss_request [CreateDetectedEventEventDismissRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DetectedEventEventResponse, Integer, Hash)>] DetectedEventEventResponse data, response status code and response headers
+    def create_detected_event_event_dismiss_with_http_info(id, create_detected_event_event_dismiss_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.create_detected_event_event_dismiss ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ActivityApi.create_detected_event_event_dismiss"
+      end
+      # verify the required parameter 'create_detected_event_event_dismiss_request' is set
+      if @api_client.config.client_side_validation && create_detected_event_event_dismiss_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_detected_event_event_dismiss_request' when calling ActivityApi.create_detected_event_event_dismiss"
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/events/{id}/dismiss'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_detected_event_event_dismiss_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DetectedEventEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.create_detected_event_event_dismiss",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#create_detected_event_event_dismiss\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # \"Not this item\": drop the suggested match of an open ask (itemId: just that candidate; omitted: every candidate). The ask stays open with the remaining candidates, or asks which item it is. Returns the event.
+    # @param id [String] 
+    # @param create_detected_event_event_reject_request [CreateDetectedEventEventRejectRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [DetectedEventEventResponse]
+    def create_detected_event_event_reject(id, create_detected_event_event_reject_request, opts = {})
+      data, _status_code, _headers = create_detected_event_event_reject_with_http_info(id, create_detected_event_event_reject_request, opts)
+      data
+    end
+
+    # \&quot;Not this item\&quot;: drop the suggested match of an open ask (itemId: just that candidate; omitted: every candidate). The ask stays open with the remaining candidates, or asks which item it is. Returns the event.
+    # @param id [String] 
+    # @param create_detected_event_event_reject_request [CreateDetectedEventEventRejectRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DetectedEventEventResponse, Integer, Hash)>] DetectedEventEventResponse data, response status code and response headers
+    def create_detected_event_event_reject_with_http_info(id, create_detected_event_event_reject_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.create_detected_event_event_reject ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ActivityApi.create_detected_event_event_reject"
+      end
+      # verify the required parameter 'create_detected_event_event_reject_request' is set
+      if @api_client.config.client_side_validation && create_detected_event_event_reject_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_detected_event_event_reject_request' when calling ActivityApi.create_detected_event_event_reject"
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/events/{id}/reject'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_detected_event_event_reject_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'DetectedEventEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.create_detected_event_event_reject",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#create_detected_event_event_reject\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Undo what Crossly did for an event (canUndo true): every executed action's stored inverse runs, newest first (restore stock, relist, unlink…). Returns the event. 409 nothing_to_undo when nothing is reversible.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [CreateDetectedEventEventUndoResponse]
+    # @return [DetectedEventEventResponse]
     def create_detected_event_event_undo(id, opts = {})
       data, _status_code, _headers = create_detected_event_event_undo_with_http_info(id, opts)
       data
@@ -235,7 +379,7 @@ module Crossly
     # Undo what Crossly did for an event (canUndo true): every executed action&#39;s stored inverse runs, newest first (restore stock, relist, unlink…). Returns the event. 409 nothing_to_undo when nothing is reversible.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(CreateDetectedEventEventUndoResponse, Integer, Hash)>] CreateDetectedEventEventUndoResponse data, response status code and response headers
+    # @return [Array<(DetectedEventEventResponse, Integer, Hash)>] DetectedEventEventResponse data, response status code and response headers
     def create_detected_event_event_undo_with_http_info(id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ActivityApi.create_detected_event_event_undo ...'
@@ -262,7 +406,7 @@ module Crossly
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'CreateDetectedEventEventUndoResponse'
+      return_type = opts[:debug_return_type] || 'DetectedEventEventResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
@@ -346,6 +490,78 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ActivityApi#create_detected_event_rule\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Copy one rule (a stored id, or default.<key> for the store's effective rule of a situation) into other stores of yours, at the same relative position. A target store that already has its own rule for that situation keeps it unless overwrite is true. Returns what was copied (and whether it replaced a rule) and what was skipped, and why.
+    # @param ref [String] A rule id, or default.&lt;key&gt; (default:&lt;key&gt; works).
+    # @param create_detected_event_rule_copy_request [CreateDetectedEventRuleCopyRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateDetectedEventRuleCopyResponse]
+    def create_detected_event_rule_copy(ref, create_detected_event_rule_copy_request, opts = {})
+      data, _status_code, _headers = create_detected_event_rule_copy_with_http_info(ref, create_detected_event_rule_copy_request, opts)
+      data
+    end
+
+    # Copy one rule (a stored id, or default.&lt;key&gt; for the store&#39;s effective rule of a situation) into other stores of yours, at the same relative position. A target store that already has its own rule for that situation keeps it unless overwrite is true. Returns what was copied (and whether it replaced a rule) and what was skipped, and why.
+    # @param ref [String] A rule id, or default.&lt;key&gt; (default:&lt;key&gt; works).
+    # @param create_detected_event_rule_copy_request [CreateDetectedEventRuleCopyRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateDetectedEventRuleCopyResponse, Integer, Hash)>] CreateDetectedEventRuleCopyResponse data, response status code and response headers
+    def create_detected_event_rule_copy_with_http_info(ref, create_detected_event_rule_copy_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.create_detected_event_rule_copy ...'
+      end
+      # verify the required parameter 'ref' is set
+      if @api_client.config.client_side_validation && ref.nil?
+        fail ArgumentError, "Missing the required parameter 'ref' when calling ActivityApi.create_detected_event_rule_copy"
+      end
+      # verify the required parameter 'create_detected_event_rule_copy_request' is set
+      if @api_client.config.client_side_validation && create_detected_event_rule_copy_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_detected_event_rule_copy_request' when calling ActivityApi.create_detected_event_rule_copy"
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/rules/{ref}/copy'.sub('{' + 'ref' + '}', CGI.escape(ref.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_detected_event_rule_copy_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateDetectedEventRuleCopyResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.create_detected_event_rule_copy",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#create_detected_event_rule_copy\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -680,6 +896,72 @@ module Crossly
       return data, status_code, headers
     end
 
+    # What applying a starting point would change, nothing saved: per situation its title, the outcome now and after, and whether it would overwrite a default you edited by hand (those are kept: a starting point only rewrites untouched defaults, never your own rules).
+    # @param update_detected_event_starting_point_request [UpdateDetectedEventStartingPointRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [CreateDetectedEventStartingPointPreviewResponse]
+    def create_detected_event_starting_point_preview(update_detected_event_starting_point_request, opts = {})
+      data, _status_code, _headers = create_detected_event_starting_point_preview_with_http_info(update_detected_event_starting_point_request, opts)
+      data
+    end
+
+    # What applying a starting point would change, nothing saved: per situation its title, the outcome now and after, and whether it would overwrite a default you edited by hand (those are kept: a starting point only rewrites untouched defaults, never your own rules).
+    # @param update_detected_event_starting_point_request [UpdateDetectedEventStartingPointRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(CreateDetectedEventStartingPointPreviewResponse, Integer, Hash)>] CreateDetectedEventStartingPointPreviewResponse data, response status code and response headers
+    def create_detected_event_starting_point_preview_with_http_info(update_detected_event_starting_point_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.create_detected_event_starting_point_preview ...'
+      end
+      # verify the required parameter 'update_detected_event_starting_point_request' is set
+      if @api_client.config.client_side_validation && update_detected_event_starting_point_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_detected_event_starting_point_request' when calling ActivityApi.create_detected_event_starting_point_preview"
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/starting-point/preview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_detected_event_starting_point_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateDetectedEventStartingPointPreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.create_detected_event_starting_point_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#create_detected_event_starting_point_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Confirm an email-detected event: re-run it as certain (a possible sale records the sale and delists the item elsewhere). When several listings could be meant, pass platformListingDbId to choose one.
     # @param id [String] 
     # @param create_email_event_confirm_request [CreateEmailEventConfirmRequest] 
@@ -809,6 +1091,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ActivityApi#create_email_event_dismiss\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Re-process a marketplace email with the current templates (one Crossly did not recognise, could not finish, or ignored). Refused (409) for an email that already changed something, or once its 30-day copy is gone.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetEmailEventResponse]
+    def create_email_event_reprocess(id, opts = {})
+      data, _status_code, _headers = create_email_event_reprocess_with_http_info(id, opts)
+      data
+    end
+
+    # Re-process a marketplace email with the current templates (one Crossly did not recognise, could not finish, or ignored). Refused (409) for an email that already changed something, or once its 30-day copy is gone.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetEmailEventResponse, Integer, Hash)>] GetEmailEventResponse data, response status code and response headers
+    def create_email_event_reprocess_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.create_email_event_reprocess ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ActivityApi.create_email_event_reprocess"
+      end
+      # resource path
+      local_var_path = '/v1/email-events/{id}/reprocess'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetEmailEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.create_email_event_reprocess",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#create_email_event_reprocess\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -1295,6 +1638,299 @@ module Crossly
       return data, status_code, headers
     end
 
+    # What Crossly does today in each situation for the store, computed from the store's real rules the way the engine decides: per situation its topic, title, the outcome in words, the rule ref that decides it, whether it differs from the recommended default, and narrower rules (one marketplace, account or app) that decide it differently there. Also the headline situations per topic, the starting point (hands_on / balanced / hands_off / custom), how many rules are your own and how many events wait for you. The store is X-Storefront-Id (omitted: the default store).
+    # @param [Hash] opts the optional parameters
+    # @return [GetDetectedEventOverviewResponse]
+    def get_detected_event_overview(opts = {})
+      data, _status_code, _headers = get_detected_event_overview_with_http_info(opts)
+      data
+    end
+
+    # What Crossly does today in each situation for the store, computed from the store&#39;s real rules the way the engine decides: per situation its topic, title, the outcome in words, the rule ref that decides it, whether it differs from the recommended default, and narrower rules (one marketplace, account or app) that decide it differently there. Also the headline situations per topic, the starting point (hands_on / balanced / hands_off / custom), how many rules are your own and how many events wait for you. The store is X-Storefront-Id (omitted: the default store).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDetectedEventOverviewResponse, Integer, Hash)>] GetDetectedEventOverviewResponse data, response status code and response headers
+    def get_detected_event_overview_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.get_detected_event_overview ...'
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/overview'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDetectedEventOverviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.get_detected_event_overview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#get_detected_event_overview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One detection rule by its ref: a stored rule's id, or default.<key> for a situation (the store's effective rule for it: your edit when there is one, else the shipped default). Returns the rule, the situation it decides (topic, title, why it is the default), the choice cards offered for that situation (each a complete rule body, the recommended one first) and which card the rule is (custom when none). A retired key (order.notify, account) opens the key it was split into. 404 when the ref names nothing.
+    # @param ref [String] A stored rule id (uuid), or default.&lt;key&gt; for a situation default (default:&lt;key&gt; also works).
+    # @param [Hash] opts the optional parameters
+    # @return [GetDetectedEventRuleResponse]
+    def get_detected_event_rule(ref, opts = {})
+      data, _status_code, _headers = get_detected_event_rule_with_http_info(ref, opts)
+      data
+    end
+
+    # One detection rule by its ref: a stored rule&#39;s id, or default.&lt;key&gt; for a situation (the store&#39;s effective rule for it: your edit when there is one, else the shipped default). Returns the rule, the situation it decides (topic, title, why it is the default), the choice cards offered for that situation (each a complete rule body, the recommended one first) and which card the rule is (custom when none). A retired key (order.notify, account) opens the key it was split into. 404 when the ref names nothing.
+    # @param ref [String] A stored rule id (uuid), or default.&lt;key&gt; for a situation default (default:&lt;key&gt; also works).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDetectedEventRuleResponse, Integer, Hash)>] GetDetectedEventRuleResponse data, response status code and response headers
+    def get_detected_event_rule_with_http_info(ref, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.get_detected_event_rule ...'
+      end
+      # verify the required parameter 'ref' is set
+      if @api_client.config.client_side_validation && ref.nil?
+        fail ArgumentError, "Missing the required parameter 'ref' when calling ActivityApi.get_detected_event_rule"
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/rules/{ref}'.sub('{' + 'ref' + '}', CGI.escape(ref.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDetectedEventRuleResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.get_detected_event_rule",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#get_detected_event_rule\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The store's starting point: hands_on, balanced (recommended), hands_off, or custom once a default was edited by hand. Preview a change with POST starting-point/preview, apply it with PUT starting-point.
+    # @param [Hash] opts the optional parameters
+    # @return [GetDetectedEventStartingPointResponse]
+    def get_detected_event_starting_point(opts = {})
+      data, _status_code, _headers = get_detected_event_starting_point_with_http_info(opts)
+      data
+    end
+
+    # The store&#39;s starting point: hands_on, balanced (recommended), hands_off, or custom once a default was edited by hand. Preview a change with POST starting-point/preview, apply it with PUT starting-point.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDetectedEventStartingPointResponse, Integer, Hash)>] GetDetectedEventStartingPointResponse data, response status code and response headers
+    def get_detected_event_starting_point_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.get_detected_event_starting_point ...'
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/starting-point'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDetectedEventStartingPointResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.get_detected_event_starting_point",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#get_detected_event_starting_point\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # One marketplace email Crossly read: what it did with it (outcome), the fields the template extracted, and the mailbox it came from.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetEmailEventResponse]
+    def get_email_event(id, opts = {})
+      data, _status_code, _headers = get_email_event_with_http_info(id, opts)
+      data
+    end
+
+    # One marketplace email Crossly read: what it did with it (outcome), the fields the template extracted, and the mailbox it came from.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetEmailEventResponse, Integer, Hash)>] GetEmailEventResponse data, response status code and response headers
+    def get_email_event_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.get_email_event ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ActivityApi.get_email_event"
+      end
+      # resource path
+      local_var_path = '/v1/email-events/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetEmailEventResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.get_email_event",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#get_email_event\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # A marketplace email's sanitized preview: text only, buyer address lines hidden, links without their query. Crossly keeps each email 30 days; after that this is a 409.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetEmailEventPreviewResponse]
+    def get_email_event_preview(id, opts = {})
+      data, _status_code, _headers = get_email_event_preview_with_http_info(id, opts)
+      data
+    end
+
+    # A marketplace email&#39;s sanitized preview: text only, buyer address lines hidden, links without their query. Crossly keeps each email 30 days; after that this is a 409.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetEmailEventPreviewResponse, Integer, Hash)>] GetEmailEventPreviewResponse data, response status code and response headers
+    def get_email_event_preview_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.get_email_event_preview ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ActivityApi.get_email_event_preview"
+      end
+      # resource path
+      local_var_path = '/v1/email-events/{id}/preview'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetEmailEventPreviewResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.get_email_event_preview",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#get_email_event_preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # What Crossly does with each detected marketplace event (sale, listing ended, offer, cancellation, label, shipped, delivered, refund, return, payout, message), per who owns the item (crossly, imported, app_managed, other_tool, untracked). Each matrix cell lists the allowed actions and the effective one, with the scope it comes from (app > platform > global > default). Pass platform (or appId) to see the matrix as that platform's (or app's) items see it. Also returns the rules, platforms and connected apps.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :platform 
@@ -1651,12 +2287,18 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+    # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms, statuses, accounts and channels (comma-separated), one item, listing, order or deciding rule, and since (ISO time). statuses=asked is what waits for you; dismissed is an ask closed without acting. Rows from before the rules update carry legacy: true and have no actions. Per store: X-Storefront-Id (omitted: the default store, which also keeps events recorded before stores existed).
     # @param [Hash] opts the optional parameters
     # @option opts [String] :kinds 
     # @option opts [String] :platforms 
     # @option opts [String] :accounts Comma-separated platform account ids (scope.account).
-    # @option opts [String] :statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected
+    # @option opts [String] :statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected, dismissed
+    # @option opts [String] :channels Comma-separated, how it was reported: platform_webhook, platform_poll, cookie_poll, health_probe, listing_discovery, app_push, email, extension, manual
+    # @option opts [String] :item_id Only events about this inventory item.
+    # @option opts [String] :listing_id Only events about this platform listing.
+    # @option opts [String] :order_id Only events about this order.
+    # @option opts [String] :rule_id Only events this rule decided (a rule id, or default:&lt;key&gt;).
+    # @option opts [String] :ownership Comma-separated, who manages the item (crossly, imported, app_managed, other_tool, untracked).
     # @option opts [Time] :since 
     # @option opts [String] :cursor 
     # @option opts [Integer] :limit 
@@ -1666,12 +2308,18 @@ module Crossly
       data
     end
 
-    # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+    # Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms, statuses, accounts and channels (comma-separated), one item, listing, order or deciding rule, and since (ISO time). statuses&#x3D;asked is what waits for you; dismissed is an ask closed without acting. Rows from before the rules update carry legacy: true and have no actions. Per store: X-Storefront-Id (omitted: the default store, which also keeps events recorded before stores existed).
     # @param [Hash] opts the optional parameters
     # @option opts [String] :kinds 
     # @option opts [String] :platforms 
     # @option opts [String] :accounts Comma-separated platform account ids (scope.account).
-    # @option opts [String] :statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected
+    # @option opts [String] :statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected, dismissed
+    # @option opts [String] :channels Comma-separated, how it was reported: platform_webhook, platform_poll, cookie_poll, health_probe, listing_discovery, app_push, email, extension, manual
+    # @option opts [String] :item_id Only events about this inventory item.
+    # @option opts [String] :listing_id Only events about this platform listing.
+    # @option opts [String] :order_id Only events about this order.
+    # @option opts [String] :rule_id Only events this rule decided (a rule id, or default:&lt;key&gt;).
+    # @option opts [String] :ownership Comma-separated, who manages the item (crossly, imported, app_managed, other_tool, untracked).
     # @option opts [Time] :since 
     # @option opts [String] :cursor 
     # @option opts [Integer] :limit 
@@ -1697,6 +2345,12 @@ module Crossly
       query_params[:'platforms'] = opts[:'platforms'] if !opts[:'platforms'].nil?
       query_params[:'accounts'] = opts[:'accounts'] if !opts[:'accounts'].nil?
       query_params[:'statuses'] = opts[:'statuses'] if !opts[:'statuses'].nil?
+      query_params[:'channels'] = opts[:'channels'] if !opts[:'channels'].nil?
+      query_params[:'itemId'] = opts[:'item_id'] if !opts[:'item_id'].nil?
+      query_params[:'listingId'] = opts[:'listing_id'] if !opts[:'listing_id'].nil?
+      query_params[:'orderId'] = opts[:'order_id'] if !opts[:'order_id'].nil?
+      query_params[:'ruleId'] = opts[:'rule_id'] if !opts[:'rule_id'].nil?
+      query_params[:'ownership'] = opts[:'ownership'] if !opts[:'ownership'].nil?
       query_params[:'since'] = opts[:'since'] if !opts[:'since'].nil?
       query_params[:'cursor'] = opts[:'cursor'] if !opts[:'cursor'].nil?
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
@@ -1786,6 +2440,61 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ActivityApi#list_detected_event_rules\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Every situation Crossly decides (a sale of an item in Crossly, a sale not in Crossly with no match, a return opened, a connection lost…), grouped by topic (sales, orders, listings, buyers, account): its title, whether it is a headline row of the Overview, why the default is what it is, its rule ref (default.<key>) and the choice cards offered for it. To pick a card, PUT its body to the rule default:<key>. The same catalog for every seller; GET overview says what each does today.
+    # @param [Hash] opts the optional parameters
+    # @return [ListDetectedEventSituationsResponse]
+    def list_detected_event_situations(opts = {})
+      data, _status_code, _headers = list_detected_event_situations_with_http_info(opts)
+      data
+    end
+
+    # Every situation Crossly decides (a sale of an item in Crossly, a sale not in Crossly with no match, a return opened, a connection lost…), grouped by topic (sales, orders, listings, buyers, account): its title, whether it is a headline row of the Overview, why the default is what it is, its rule ref (default.&lt;key&gt;) and the choice cards offered for it. To pick a card, PUT its body to the rule default:&lt;key&gt;. The same catalog for every seller; GET overview says what each does today.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ListDetectedEventSituationsResponse, Integer, Hash)>] ListDetectedEventSituationsResponse data, response status code and response headers
+    def list_detected_event_situations_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.list_detected_event_situations ...'
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/situations'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ListDetectedEventSituationsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.list_detected_event_situations",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#list_detected_event_situations\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -2013,6 +2722,72 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ActivityApi#update_detected_event_rule\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Apply a starting point to the store: rewrites the store's untouched default rules as ordinary rules (balanced removes them, so the shipped defaults apply). Defaults you edited and your own rules stay as they are; starting points do not stack. Logged to Activity. Returns the starting point now in effect.
+    # @param update_detected_event_starting_point_request [UpdateDetectedEventStartingPointRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetDetectedEventStartingPointResponse]
+    def update_detected_event_starting_point(update_detected_event_starting_point_request, opts = {})
+      data, _status_code, _headers = update_detected_event_starting_point_with_http_info(update_detected_event_starting_point_request, opts)
+      data
+    end
+
+    # Apply a starting point to the store: rewrites the store&#39;s untouched default rules as ordinary rules (balanced removes them, so the shipped defaults apply). Defaults you edited and your own rules stay as they are; starting points do not stack. Logged to Activity. Returns the starting point now in effect.
+    # @param update_detected_event_starting_point_request [UpdateDetectedEventStartingPointRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetDetectedEventStartingPointResponse, Integer, Hash)>] GetDetectedEventStartingPointResponse data, response status code and response headers
+    def update_detected_event_starting_point_with_http_info(update_detected_event_starting_point_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ActivityApi.update_detected_event_starting_point ...'
+      end
+      # verify the required parameter 'update_detected_event_starting_point_request' is set
+      if @api_client.config.client_side_validation && update_detected_event_starting_point_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_detected_event_starting_point_request' when calling ActivityApi.update_detected_event_starting_point"
+      end
+      # resource path
+      local_var_path = '/v1/detected-events/starting-point'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_detected_event_starting_point_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDetectedEventStartingPointResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"ActivityApi.update_detected_event_starting_point",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ActivityApi#update_detected_event_starting_point\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

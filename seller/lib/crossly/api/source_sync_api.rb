@@ -282,6 +282,7 @@ module Crossly
     # Update a store's source-sync settings: on/off, source-owned fields, deletion handling, auto-export channels.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateSourceSyncRequest] :update_source_sync_request 
     # @return [ListSourceSyncItem]
     def update_source_sync(platform, opts = {})
       data, _status_code, _headers = update_source_sync_with_http_info(platform, opts)
@@ -291,6 +292,7 @@ module Crossly
     # Update a store&#39;s source-sync settings: on/off, source-owned fields, deletion handling, auto-export channels.
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [UpdateSourceSyncRequest] :update_source_sync_request 
     # @return [Array<(ListSourceSyncItem, Integer, Hash)>] ListSourceSyncItem data, response status code and response headers
     def update_source_sync_with_http_info(platform, opts = {})
       if @api_client.config.debugging
@@ -315,12 +317,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'update_source_sync_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListSourceSyncItem'

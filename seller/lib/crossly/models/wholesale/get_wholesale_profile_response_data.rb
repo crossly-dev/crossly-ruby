@@ -39,9 +39,9 @@ module Crossly
 
     attr_accessor :return_policy
 
-    attr_accessor :return_preset_id
-
     attr_accessor :shipping_preset_id
+
+    attr_accessor :return_preset_id
 
     attr_accessor :payment_preset_id
 
@@ -110,8 +110,8 @@ module Crossly
         :'logo_url' => :'logoUrl',
         :'banner_url' => :'bannerUrl',
         :'return_policy' => :'returnPolicy',
-        :'return_preset_id' => :'returnPresetId',
         :'shipping_preset_id' => :'shippingPresetId',
+        :'return_preset_id' => :'returnPresetId',
         :'payment_preset_id' => :'paymentPresetId',
         :'requires_business_verification' => :'requiresBusinessVerification',
         :'directory_categories' => :'directoryCategories',
@@ -161,8 +161,8 @@ module Crossly
         :'logo_url' => :'String',
         :'banner_url' => :'String',
         :'return_policy' => :'String',
-        :'return_preset_id' => :'String',
         :'shipping_preset_id' => :'String',
+        :'return_preset_id' => :'String',
         :'payment_preset_id' => :'String',
         :'requires_business_verification' => :'Boolean',
         :'directory_categories' => :'Array<String>',
@@ -203,8 +203,8 @@ module Crossly
         :'logo_url',
         :'banner_url',
         :'return_policy',
-        :'return_preset_id',
         :'shipping_preset_id',
+        :'return_preset_id',
         :'payment_preset_id',
         :'ships_from_region',
         :'directory_blurb',
@@ -287,12 +287,12 @@ module Crossly
         self.return_policy = attributes[:'return_policy']
       end
 
-      if attributes.key?(:'return_preset_id')
-        self.return_preset_id = attributes[:'return_preset_id']
-      end
-
       if attributes.key?(:'shipping_preset_id')
         self.shipping_preset_id = attributes[:'shipping_preset_id']
+      end
+
+      if attributes.key?(:'return_preset_id')
+        self.return_preset_id = attributes[:'return_preset_id']
       end
 
       if attributes.key?(:'payment_preset_id')
@@ -506,8 +506,8 @@ module Crossly
           logo_url == o.logo_url &&
           banner_url == o.banner_url &&
           return_policy == o.return_policy &&
-          return_preset_id == o.return_preset_id &&
           shipping_preset_id == o.shipping_preset_id &&
+          return_preset_id == o.return_preset_id &&
           payment_preset_id == o.payment_preset_id &&
           requires_business_verification == o.requires_business_verification &&
           directory_categories == o.directory_categories &&
@@ -545,7 +545,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, storefront_id, min_order_quantity, seller_user_id, min_order_cents, contact_email, tagline, logo_url, banner_url, return_policy, return_preset_id, shipping_preset_id, payment_preset_id, requires_business_verification, directory_categories, ships_from_region, directory_blurb, case_pack, lead_time_days, price_visibility, max_per_order, backorder, company_name, ships_from, payment_terms_offered, directory_listed, invoicing_enabled, invoice_settings, brands_carried, year_founded, min_first_order_cents, min_reorder_cents, buyer_requirements, trade_rewards_bps, accepts_funding, saved, legacy_storeless, invoice_settings_resolved].hash
+      [id, created_at, updated_at, storefront_id, min_order_quantity, seller_user_id, min_order_cents, contact_email, tagline, logo_url, banner_url, return_policy, shipping_preset_id, return_preset_id, payment_preset_id, requires_business_verification, directory_categories, ships_from_region, directory_blurb, case_pack, lead_time_days, price_visibility, max_per_order, backorder, company_name, ships_from, payment_terms_offered, directory_listed, invoicing_enabled, invoice_settings, brands_carried, year_founded, min_first_order_cents, min_reorder_cents, buyer_requirements, trade_rewards_bps, accepts_funding, saved, legacy_storeless, invoice_settings_resolved].hash
     end
 
     # Builds the object from hash

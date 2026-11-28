@@ -13,7 +13,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_buyer_monitor
 
-> <ListBuyerMonitorsItem> create_buyer_monitor
+> <ListBuyerMonitorsItem> create_buyer_monitor(create_buyer_monitor_request)
 
 Watch a search, and be told when it matches.
 
@@ -31,10 +31,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerMonitorsApi.new
+create_buyer_monitor_request = CrosslyBuyer::CreateBuyerMonitorRequest.new({name: 'name_example', kind: 'new_listing'}) # CreateBuyerMonitorRequest | 
 
 begin
   # Watch a search, and be told when it matches.
-  result = api_instance.create_buyer_monitor
+  result = api_instance.create_buyer_monitor(create_buyer_monitor_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerMonitorsApi->create_buyer_monitor: #{e}"
@@ -45,12 +46,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerMonitorsItem>, Integer, Hash)> create_buyer_monitor_with_http_info
+> <Array(<ListBuyerMonitorsItem>, Integer, Hash)> create_buyer_monitor_with_http_info(create_buyer_monitor_request)
 
 ```ruby
 begin
   # Watch a search, and be told when it matches.
-  data, status_code, headers = api_instance.create_buyer_monitor_with_http_info
+  data, status_code, headers = api_instance.create_buyer_monitor_with_http_info(create_buyer_monitor_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerMonitorsItem>
@@ -61,7 +62,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_monitor_request** | **CreateBuyerMonitorRequest** |  |  |
 
 ### Return type
 
@@ -73,7 +76,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -278,7 +281,7 @@ This endpoint does not need any parameter.
 
 ## update_buyer_monitor
 
-> <ListBuyerMonitorsItem> update_buyer_monitor(id)
+> <ListBuyerMonitorsItem> update_buyer_monitor(id, opts)
 
 Pause, resume or rename a monitor.
 
@@ -295,10 +298,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerMonitorsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  update_buyer_monitor_request: CrosslyBuyer::UpdateBuyerMonitorRequest.new # UpdateBuyerMonitorRequest | 
+}
 
 begin
   # Pause, resume or rename a monitor.
-  result = api_instance.update_buyer_monitor(id)
+  result = api_instance.update_buyer_monitor(id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerMonitorsApi->update_buyer_monitor: #{e}"
@@ -309,12 +315,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerMonitorsItem>, Integer, Hash)> update_buyer_monitor_with_http_info(id)
+> <Array(<ListBuyerMonitorsItem>, Integer, Hash)> update_buyer_monitor_with_http_info(id, opts)
 
 ```ruby
 begin
   # Pause, resume or rename a monitor.
-  data, status_code, headers = api_instance.update_buyer_monitor_with_http_info(id)
+  data, status_code, headers = api_instance.update_buyer_monitor_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerMonitorsItem>
@@ -328,6 +334,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_buyer_monitor_request** | **UpdateBuyerMonitorRequest** |  | [optional] |
 
 ### Return type
 
@@ -339,6 +346,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

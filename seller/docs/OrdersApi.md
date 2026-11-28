@@ -16,10 +16,12 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_order_dispute**](OrdersApi.md#create_order_dispute) | **POST** /v1/orders/{id}/dispute | Flag an order as disputed. |
 | [**create_order_import**](OrdersApi.md#create_order_import) | **POST** /v1/orders/import | Manually (re-)pull one or more connected platforms&#39; order history for a day-window. |
 | [**create_order_label**](OrdersApi.md#create_order_label) | **POST** /v1/orders/{id}/label | Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true. |
+| [**create_order_label_print**](OrdersApi.md#create_order_label_print) | **POST** /v1/orders/{id}/label/print | Send the label to your print agent: mode agent (jobId), pdf (url, reason no_agent | offline | not_capable) or skipped (already_printed; pass reprint true to print again). |
 | [**create_order_label_void**](OrdersApi.md#create_order_label_void) | **POST** /v1/orders/{id}/label/void | Void a Crossly Shipping label and refund it to the shipping wallet. |
 | [**create_order_link_listing**](OrdersApi.md#create_order_link_listing) | **POST** /v1/orders/{id}/link-listing | Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere). |
 | [**create_order_message**](OrdersApi.md#create_order_message) | **POST** /v1/orders/{id}/message | Message the order&#39;s buyer on the marketplace. |
 | [**create_order_order_chat**](OrdersApi.md#create_order_order_chat) | **POST** /v1/orders/{id}/order-chat | Send a message to the order&#39;s buyer chat on the marketplace. Mirrored into the Crossly inbox. |
+| [**create_order_pack_scan**](OrdersApi.md#create_order_pack_scan) | **POST** /v1/orders/{id}/pack-scan | Check a scanned item against the order being packed: ok true with matchedBy (sku | custom_label | item_id) and expectedQuantity, or ok false with reason (wrong_item | no_item) and the expected item. |
 | [**create_order_pickup**](OrdersApi.md#create_order_pickup) | **POST** /v1/orders/pickups | Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead). |
 | [**create_order_pickup_label**](OrdersApi.md#create_order_pickup_label) | **POST** /v1/orders/{id}/pickup-label | Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true. |
 | [**create_order_platform_label_package**](OrdersApi.md#create_order_platform_label_package) | **POST** /v1/orders/{id}/platform-label/package | Save the package (weight oz, box inches) the marketplace prices the label from. |
@@ -49,6 +51,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_rental_release_deposit**](OrdersApi.md#create_rental_release_deposit) | **POST** /v1/rentals/{id}/release-deposit | Release the deposit now, without a claim. |
 | [**create_rental_returned**](OrdersApi.md#create_rental_returned) | **POST** /v1/rentals/{id}/returned | Mark a rental back with you. You then have 3 days to claim damage before the deposit goes back. |
 | [**create_rental_shipped**](OrdersApi.md#create_rental_shipped) | **POST** /v1/rentals/{id}/shipped | Mark a booked rental shipped, with at least 2 photos of its condition as it leaves (URLs you uploaded) — the evidence any later claim is judged against. |
+| [**get_device_scale**](OrdersApi.md#get_device_scale) | **GET** /v1/devices/scale | Read your USB postal scale: ok true with weightOz and stable, or ok false with reason (no_agent | not_capable | offline | failed | timeout). |
 | [**get_order**](OrdersApi.md#get_order) | **GET** /v1/orders/{id} | Get one order, with its sale price, fees, SKU and line items. |
 | [**get_order_cancel_eligibility**](OrdersApi.md#get_order_cancel_eligibility) | **GET** /v1/orders/{id}/cancel-eligibility | Whether this order can be cancelled, and which reason codes the marketplace accepts. |
 | [**get_order_count**](OrdersApi.md#get_order_count) | **GET** /v1/orders/counts | Tab badge counts by status. |
@@ -57,6 +60,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_order_label_print**](OrdersApi.md#get_order_label_print) | **GET** /v1/orders/{id}/label/print | The order&#39;s shipping label as a PDF sized for printing (cropped, upright, fitted). |
 | [**get_order_order_chat**](OrdersApi.md#get_order_order_chat) | **GET** /v1/orders/{id}/order-chat | The order&#39;s buyer chat thread on the marketplace (separate from listing comments): { orderId, platform, messages: [{ id, sender (buyer|seller|platform), body, sentAt, attachments? }], canSend }, oldest message first. |
 | [**get_order_packing_slip**](OrdersApi.md#get_order_packing_slip) | **GET** /v1/orders/{id}/packing-slip | Single-order packing slip PDF. |
+| [**get_order_pick_list**](OrdersApi.md#get_order_pick_list) | **GET** /v1/orders/pick-list | The items to pull for a batch of orders, grouped by storage bin: groups[{bin, lines[{orderId, orderNumber, platform, title, sku, quantity, buyer}]}], orderCount, itemCount. orderIds (comma list, at most 500) or every order still to ship; storefrontId for one store; format&#x3D;pdf for the printable list. |
 | [**get_order_platform_label_option**](OrdersApi.md#get_order_platform_label_option) | **GET** /v1/orders/{id}/platform-label/options | What buying a marketplace label offers for this order (weight tiers, mailbox state). |
 | [**get_order_platform_label_packing_slip**](OrdersApi.md#get_order_platform_label_packing_slip) | **GET** /v1/orders/{id}/platform-label/packing-slip | A fresh link to the marketplace&#39;s own packing slip PDF. |
 | [**get_order_platform_label_state**](OrdersApi.md#get_order_platform_label_state) | **GET** /v1/orders/{id}/platform-label/state | The marketplace&#39;s shipment for an order (package, label, tracking). Records a label found on it. |
@@ -66,10 +70,12 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_order_sales_tax**](OrdersApi.md#get_order_sales_tax) | **GET** /v1/orders/{id}/sales-tax | Who collected sales tax on one Crossly marketplace order, where, and the seller notice. |
 | [**get_order_scan_form**](OrdersApi.md#get_order_scan_form) | **GET** /v1/orders/scan-forms/{id} | One SCAN form; a queued form is re-read from the carrier and its PDF appears once built. |
 | [**get_order_shipment**](OrdersApi.md#get_order_shipment) | **GET** /v1/orders/{id}/shipments | List the parcels an order shipped in. |
+| [**get_order_suggested_parcel**](OrdersApi.md#get_order_suggested_parcel) | **GET** /v1/orders/{id}/suggested-parcel | The suggested parcel for this order: source (learned | box | item | none), presetId, presetName, lengthIn, widthIn, heightIn, weightOz, sampleSize. |
 | [**get_order_whatnot_packing_slip**](OrdersApi.md#get_order_whatnot_packing_slip) | **GET** /v1/orders/{id}/whatnot/packing-slip | A fresh link to Whatnot&#39;s packing slip PDF. |
 | [**get_order_whatnot_shipment**](OrdersApi.md#get_order_whatnot_shipment) | **GET** /v1/orders/{id}/whatnot/shipment | Whatnot shipment for an order (package, label, tracking). Records a label found on it. |
 | [**get_rental**](OrdersApi.md#get_rental) | **GET** /v1/rentals/{id} | One rental: its timeline, both sides’ condition photos, payments, extensions and what can be done next. |
 | [**get_rental_calendar**](OrdersApi.md#get_rental_calendar) | **GET** /v1/rentals/calendar | Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days). |
+| [**get_rental_inventory**](OrdersApi.md#get_rental_inventory) | **GET** /v1/rentals/inventory/{inventoryItemId} | An inventory item’s rentals: units out with a renter now (reserved on the item), upcoming bookings and returns waiting for inspection. |
 | [**list_layaways**](OrdersApi.md#list_layaways) | **GET** /v1/layaways | Your items on layaway (active and paid off). Do not ship an active one: its order moves to needs_fulfillment when paid in full. |
 | [**list_live_shipments**](OrdersApi.md#list_live_shipments) | **GET** /v1/live-shipments | Your show boxes: every buyer’s orders from one live show, to ship together. |
 | [**list_order_pickup_ready**](OrdersApi.md#list_order_pickup_ready) | **GET** /v1/orders/pickup-ready | Orders with a purchased Crossly Shipping label a courier can collect or a SCAN form can cover, grouped by carrier. |
@@ -81,6 +87,8 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_rental_history**](OrdersApi.md#list_rental_history) | **GET** /v1/rentals/history | Active rentals and history, filtered by view, status, dates, item or a search. |
 | [**list_rentals**](OrdersApi.md#list_rentals) | **GET** /v1/rentals | Rentals of your items, with the ship-to and the outbound label. |
 | [**update_order**](OrdersApi.md#update_order) | **PATCH** /v1/orders/{id} | Update order (status, notes, tracking). |
+| [**update_order_assignee**](OrdersApi.md#update_order_assignee) | **PATCH** /v1/orders/assignee | Assign many orders to a teammate, round robin across several, or unassign them (null). |
+| [**update_order_assignee_by_id**](OrdersApi.md#update_order_assignee_by_id) | **PATCH** /v1/orders/{id}/assignee | Assign one order to a teammate, or unassign it (null). |
 
 
 ## create_live_shipment_label
@@ -152,7 +160,7 @@ end
 
 ## create_live_shipment_ship
 
-> <CreateLiveShipmentShipResponse> create_live_shipment_ship(id)
+> <CreateLiveShipmentShipResponse> create_live_shipment_ship(id, create_live_shipment_ship_request)
 
 Ship a show box with your own label: every order is marked shipped with this tracking and the buyer’s extra postage is refunded.
 
@@ -169,10 +177,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = 'id_example' # String | 
+create_live_shipment_ship_request = Crossly::CreateLiveShipmentShipRequest.new({tracking_number: 'tracking_number_example'}) # CreateLiveShipmentShipRequest | 
 
 begin
   # Ship a show box with your own label: every order is marked shipped with this tracking and the buyer’s extra postage is refunded.
-  result = api_instance.create_live_shipment_ship(id)
+  result = api_instance.create_live_shipment_ship(id, create_live_shipment_ship_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_live_shipment_ship: #{e}"
@@ -183,12 +192,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateLiveShipmentShipResponse>, Integer, Hash)> create_live_shipment_ship_with_http_info(id)
+> <Array(<CreateLiveShipmentShipResponse>, Integer, Hash)> create_live_shipment_ship_with_http_info(id, create_live_shipment_ship_request)
 
 ```ruby
 begin
   # Ship a show box with your own label: every order is marked shipped with this tracking and the buyer’s extra postage is refunded.
-  data, status_code, headers = api_instance.create_live_shipment_ship_with_http_info(id)
+  data, status_code, headers = api_instance.create_live_shipment_ship_with_http_info(id, create_live_shipment_ship_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateLiveShipmentShipResponse>
@@ -202,6 +211,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_live_shipment_ship_request** | **CreateLiveShipmentShipRequest** |  |  |
 
 ### Return type
 
@@ -213,13 +223,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_bulk_delete
 
-> <CreateOrderBulkDeleteResponse> create_order_bulk_delete
+> <CreateOrderBulkDeleteResponse> create_order_bulk_delete(create_order_bulk_delete_request)
 
 Bulk soft- or hard-delete orders by id.
 
@@ -235,10 +245,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_bulk_delete_request = Crossly::CreateOrderBulkDeleteRequest.new({order_ids: ['order_ids_example']}) # CreateOrderBulkDeleteRequest | 
 
 begin
   # Bulk soft- or hard-delete orders by id.
-  result = api_instance.create_order_bulk_delete
+  result = api_instance.create_order_bulk_delete(create_order_bulk_delete_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_bulk_delete: #{e}"
@@ -249,12 +260,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderBulkDeleteResponse>, Integer, Hash)> create_order_bulk_delete_with_http_info
+> <Array(<CreateOrderBulkDeleteResponse>, Integer, Hash)> create_order_bulk_delete_with_http_info(create_order_bulk_delete_request)
 
 ```ruby
 begin
   # Bulk soft- or hard-delete orders by id.
-  data, status_code, headers = api_instance.create_order_bulk_delete_with_http_info
+  data, status_code, headers = api_instance.create_order_bulk_delete_with_http_info(create_order_bulk_delete_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderBulkDeleteResponse>
@@ -265,7 +276,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_bulk_delete_request** | **CreateOrderBulkDeleteRequest** |  |  |
 
 ### Return type
 
@@ -277,13 +290,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_bulk_export
 
-> String create_order_bulk_export
+> String create_order_bulk_export(create_order_bulk_export_request)
 
 Bulk export selected orders as CSV.
 
@@ -299,10 +312,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_bulk_export_request = Crossly::CreateOrderBulkExportRequest.new({order_ids: ['order_ids_example']}) # CreateOrderBulkExportRequest | 
 
 begin
   # Bulk export selected orders as CSV.
-  result = api_instance.create_order_bulk_export
+  result = api_instance.create_order_bulk_export(create_order_bulk_export_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_bulk_export: #{e}"
@@ -313,12 +327,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(String, Integer, Hash)> create_order_bulk_export_with_http_info
+> <Array(String, Integer, Hash)> create_order_bulk_export_with_http_info(create_order_bulk_export_request)
 
 ```ruby
 begin
   # Bulk export selected orders as CSV.
-  data, status_code, headers = api_instance.create_order_bulk_export_with_http_info
+  data, status_code, headers = api_instance.create_order_bulk_export_with_http_info(create_order_bulk_export_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => String
@@ -329,7 +343,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_bulk_export_request** | **CreateOrderBulkExportRequest** |  |  |
 
 ### Return type
 
@@ -341,13 +357,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_bulk_mark_disputed
 
-> <UpdatedResponse> create_order_bulk_mark_disputed
+> <UpdatedResponse> create_order_bulk_mark_disputed(create_order_bulk_mark_disputed_request)
 
 Bulk mark orders as disputed with a shared reason.
 
@@ -363,10 +379,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_bulk_mark_disputed_request = Crossly::CreateOrderBulkMarkDisputedRequest.new({order_ids: ['order_ids_example'], reason: 'reason_example'}) # CreateOrderBulkMarkDisputedRequest | 
 
 begin
   # Bulk mark orders as disputed with a shared reason.
-  result = api_instance.create_order_bulk_mark_disputed
+  result = api_instance.create_order_bulk_mark_disputed(create_order_bulk_mark_disputed_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_bulk_mark_disputed: #{e}"
@@ -377,12 +394,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdatedResponse>, Integer, Hash)> create_order_bulk_mark_disputed_with_http_info
+> <Array(<UpdatedResponse>, Integer, Hash)> create_order_bulk_mark_disputed_with_http_info(create_order_bulk_mark_disputed_request)
 
 ```ruby
 begin
   # Bulk mark orders as disputed with a shared reason.
-  data, status_code, headers = api_instance.create_order_bulk_mark_disputed_with_http_info
+  data, status_code, headers = api_instance.create_order_bulk_mark_disputed_with_http_info(create_order_bulk_mark_disputed_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdatedResponse>
@@ -393,7 +410,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_bulk_mark_disputed_request** | **CreateOrderBulkMarkDisputedRequest** |  |  |
 
 ### Return type
 
@@ -405,13 +424,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_bulk_mark_shipped
 
-> <CreateOrderBulkMarkShippedResponse> create_order_bulk_mark_shipped
+> <CreateOrderBulkMarkShippedResponse> create_order_bulk_mark_shipped(create_order_bulk_mark_shipped_request)
 
 Bulk flip status=shipped, clear the reserved-stock marker, and notify each platform.
 
@@ -427,10 +446,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_bulk_mark_shipped_request = Crossly::CreateOrderBulkMarkShippedRequest.new({order_ids: ['order_ids_example']}) # CreateOrderBulkMarkShippedRequest | 
 
 begin
   # Bulk flip status=shipped, clear the reserved-stock marker, and notify each platform.
-  result = api_instance.create_order_bulk_mark_shipped
+  result = api_instance.create_order_bulk_mark_shipped(create_order_bulk_mark_shipped_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_bulk_mark_shipped: #{e}"
@@ -441,12 +461,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderBulkMarkShippedResponse>, Integer, Hash)> create_order_bulk_mark_shipped_with_http_info
+> <Array(<CreateOrderBulkMarkShippedResponse>, Integer, Hash)> create_order_bulk_mark_shipped_with_http_info(create_order_bulk_mark_shipped_request)
 
 ```ruby
 begin
   # Bulk flip status=shipped, clear the reserved-stock marker, and notify each platform.
-  data, status_code, headers = api_instance.create_order_bulk_mark_shipped_with_http_info
+  data, status_code, headers = api_instance.create_order_bulk_mark_shipped_with_http_info(create_order_bulk_mark_shipped_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderBulkMarkShippedResponse>
@@ -457,7 +477,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_bulk_mark_shipped_request** | **CreateOrderBulkMarkShippedRequest** |  |  |
 
 ### Return type
 
@@ -469,13 +491,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_bulk_packing_slip
 
-> File create_order_bulk_packing_slip
+> File create_order_bulk_packing_slip(create_order_bulk_export_request)
 
 Bulk packing slips PDF.
 
@@ -491,10 +513,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_bulk_export_request = Crossly::CreateOrderBulkExportRequest.new({order_ids: ['order_ids_example']}) # CreateOrderBulkExportRequest | 
 
 begin
   # Bulk packing slips PDF.
-  result = api_instance.create_order_bulk_packing_slip
+  result = api_instance.create_order_bulk_packing_slip(create_order_bulk_export_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_bulk_packing_slip: #{e}"
@@ -505,12 +528,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(File, Integer, Hash)> create_order_bulk_packing_slip_with_http_info
+> <Array(File, Integer, Hash)> create_order_bulk_packing_slip_with_http_info(create_order_bulk_export_request)
 
 ```ruby
 begin
   # Bulk packing slips PDF.
-  data, status_code, headers = api_instance.create_order_bulk_packing_slip_with_http_info
+  data, status_code, headers = api_instance.create_order_bulk_packing_slip_with_http_info(create_order_bulk_export_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => File
@@ -521,7 +544,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_bulk_export_request** | **CreateOrderBulkExportRequest** |  |  |
 
 ### Return type
 
@@ -533,13 +558,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/pdf, application/json
 
 
 ## create_order_cancel
 
-> <CreateOrderCancelResponse> create_order_cancel(id)
+> <CreateOrderCancelResponse> create_order_cancel(id, opts)
 
 Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
 
@@ -556,10 +581,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_cancel_request: Crossly::CreateOrderCancelRequest.new # CreateOrderCancelRequest | 
+}
 
 begin
   # Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
-  result = api_instance.create_order_cancel(id)
+  result = api_instance.create_order_cancel(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_cancel: #{e}"
@@ -570,12 +598,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderCancelResponse>, Integer, Hash)> create_order_cancel_with_http_info(id)
+> <Array(<CreateOrderCancelResponse>, Integer, Hash)> create_order_cancel_with_http_info(id, opts)
 
 ```ruby
 begin
   # Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
-  data, status_code, headers = api_instance.create_order_cancel_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_cancel_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderCancelResponse>
@@ -589,6 +617,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_cancel_request** | **CreateOrderCancelRequest** |  | [optional] |
 
 ### Return type
 
@@ -600,13 +629,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_correct_tracking
 
-> <CreateOrderCorrectTrackingResponse> create_order_correct_tracking(id)
+> <CreateOrderCorrectTrackingResponse> create_order_correct_tracking(id, opts)
 
 Correct a wrong tracking number the marketplace already holds.
 
@@ -625,10 +654,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_correct_tracking_request: Crossly::CreateOrderCorrectTrackingRequest.new({tracking_number: 'tracking_number_example'}) # CreateOrderCorrectTrackingRequest | 
+}
 
 begin
   # Correct a wrong tracking number the marketplace already holds.
-  result = api_instance.create_order_correct_tracking(id)
+  result = api_instance.create_order_correct_tracking(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_correct_tracking: #{e}"
@@ -639,12 +671,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderCorrectTrackingResponse>, Integer, Hash)> create_order_correct_tracking_with_http_info(id)
+> <Array(<CreateOrderCorrectTrackingResponse>, Integer, Hash)> create_order_correct_tracking_with_http_info(id, opts)
 
 ```ruby
 begin
   # Correct a wrong tracking number the marketplace already holds.
-  data, status_code, headers = api_instance.create_order_correct_tracking_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_correct_tracking_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderCorrectTrackingResponse>
@@ -658,6 +690,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_correct_tracking_request** | **CreateOrderCorrectTrackingRequest** |  | [optional] |
 
 ### Return type
 
@@ -669,13 +702,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_dispute
 
-> <CreateOrderDisputeResponse> create_order_dispute(id)
+> <CreateOrderDisputeResponse> create_order_dispute(id, create_order_dispute_request)
 
 Flag an order as disputed.
 
@@ -692,10 +725,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_dispute_request = Crossly::CreateOrderDisputeRequest.new({reason: 'reason_example'}) # CreateOrderDisputeRequest | 
 
 begin
   # Flag an order as disputed.
-  result = api_instance.create_order_dispute(id)
+  result = api_instance.create_order_dispute(id, create_order_dispute_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_dispute: #{e}"
@@ -706,12 +740,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderDisputeResponse>, Integer, Hash)> create_order_dispute_with_http_info(id)
+> <Array(<CreateOrderDisputeResponse>, Integer, Hash)> create_order_dispute_with_http_info(id, create_order_dispute_request)
 
 ```ruby
 begin
   # Flag an order as disputed.
-  data, status_code, headers = api_instance.create_order_dispute_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_dispute_with_http_info(id, create_order_dispute_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderDisputeResponse>
@@ -725,6 +759,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_dispute_request** | **CreateOrderDisputeRequest** |  |  |
 
 ### Return type
 
@@ -736,13 +771,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_import
 
-> <CreateOrderImportResponse> create_order_import
+> <CreateOrderImportResponse> create_order_import(create_order_import_request)
 
 Manually (re-)pull one or more connected platforms' order history for a day-window.
 
@@ -758,10 +793,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_import_request = Crossly::CreateOrderImportRequest.new({days: 3.56}) # CreateOrderImportRequest | 
 
 begin
   # Manually (re-)pull one or more connected platforms' order history for a day-window.
-  result = api_instance.create_order_import
+  result = api_instance.create_order_import(create_order_import_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_import: #{e}"
@@ -772,12 +808,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderImportResponse>, Integer, Hash)> create_order_import_with_http_info
+> <Array(<CreateOrderImportResponse>, Integer, Hash)> create_order_import_with_http_info(create_order_import_request)
 
 ```ruby
 begin
   # Manually (re-)pull one or more connected platforms' order history for a day-window.
-  data, status_code, headers = api_instance.create_order_import_with_http_info
+  data, status_code, headers = api_instance.create_order_import_with_http_info(create_order_import_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderImportResponse>
@@ -788,7 +824,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_import_request** | **CreateOrderImportRequest** |  |  |
 
 ### Return type
 
@@ -800,13 +838,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_label
 
-> <CreateOrderLabelResponse> create_order_label(id)
+> <CreateOrderLabelResponse> create_order_label(id, create_order_label_request)
 
 Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
 
@@ -823,10 +861,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_label_request = Crossly::CreateOrderLabelRequest.new({rate_id: 'rate_id_example'}) # CreateOrderLabelRequest | 
 
 begin
   # Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
-  result = api_instance.create_order_label(id)
+  result = api_instance.create_order_label(id, create_order_label_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_label: #{e}"
@@ -837,12 +876,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderLabelResponse>, Integer, Hash)> create_order_label_with_http_info(id)
+> <Array(<CreateOrderLabelResponse>, Integer, Hash)> create_order_label_with_http_info(id, create_order_label_request)
 
 ```ruby
 begin
   # Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
-  data, status_code, headers = api_instance.create_order_label_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_label_with_http_info(id, create_order_label_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderLabelResponse>
@@ -856,6 +895,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_label_request** | **CreateOrderLabelRequest** |  |  |
 
 ### Return type
 
@@ -867,7 +907,78 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_order_label_print
+
+> <CreateOrderLabelPrintResponse> create_order_label_print(id, opts)
+
+Send the label to your print agent: mode agent (jobId), pdf (url, reason no_agent | offline | not_capable) or skipped (already_printed; pass reprint true to print again).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_label_print_request: Crossly::CreateOrderLabelPrintRequest.new # CreateOrderLabelPrintRequest | 
+}
+
+begin
+  # Send the label to your print agent: mode agent (jobId), pdf (url, reason no_agent | offline | not_capable) or skipped (already_printed; pass reprint true to print again).
+  result = api_instance.create_order_label_print(id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->create_order_label_print: #{e}"
+end
+```
+
+#### Using the create_order_label_print_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateOrderLabelPrintResponse>, Integer, Hash)> create_order_label_print_with_http_info(id, opts)
+
+```ruby
+begin
+  # Send the label to your print agent: mode agent (jobId), pdf (url, reason no_agent | offline | not_capable) or skipped (already_printed; pass reprint true to print again).
+  data, status_code, headers = api_instance.create_order_label_print_with_http_info(id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateOrderLabelPrintResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->create_order_label_print_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **create_order_label_print_request** | **CreateOrderLabelPrintRequest** |  | [optional] |
+
+### Return type
+
+**CreateOrderLabelPrintResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -942,7 +1053,7 @@ end
 
 ## create_order_link_listing
 
-> <CreateOrderLinkListingResponse> create_order_link_listing(id)
+> <CreateOrderLinkListingResponse> create_order_link_listing(id, create_order_link_listing_request)
 
 Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
 
@@ -961,10 +1072,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_link_listing_request = Crossly::CreateOrderLinkListingRequest.new({listing_id: 'listing_id_example'}) # CreateOrderLinkListingRequest | 
 
 begin
   # Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
-  result = api_instance.create_order_link_listing(id)
+  result = api_instance.create_order_link_listing(id, create_order_link_listing_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_link_listing: #{e}"
@@ -975,12 +1087,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderLinkListingResponse>, Integer, Hash)> create_order_link_listing_with_http_info(id)
+> <Array(<CreateOrderLinkListingResponse>, Integer, Hash)> create_order_link_listing_with_http_info(id, create_order_link_listing_request)
 
 ```ruby
 begin
   # Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
-  data, status_code, headers = api_instance.create_order_link_listing_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_link_listing_with_http_info(id, create_order_link_listing_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderLinkListingResponse>
@@ -994,6 +1106,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_link_listing_request** | **CreateOrderLinkListingRequest** |  |  |
 
 ### Return type
 
@@ -1005,13 +1118,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_message
 
-> <CreateOrderMessageResponse> create_order_message(id)
+> <CreateOrderMessageResponse> create_order_message(id, create_order_message_request)
 
 Message the order's buyer on the marketplace.
 
@@ -1028,10 +1141,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_message_request = Crossly::CreateOrderMessageRequest.new({body: 'body_example'}) # CreateOrderMessageRequest | 
 
 begin
   # Message the order's buyer on the marketplace.
-  result = api_instance.create_order_message(id)
+  result = api_instance.create_order_message(id, create_order_message_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_message: #{e}"
@@ -1042,12 +1156,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderMessageResponse>, Integer, Hash)> create_order_message_with_http_info(id)
+> <Array(<CreateOrderMessageResponse>, Integer, Hash)> create_order_message_with_http_info(id, create_order_message_request)
 
 ```ruby
 begin
   # Message the order's buyer on the marketplace.
-  data, status_code, headers = api_instance.create_order_message_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_message_with_http_info(id, create_order_message_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderMessageResponse>
@@ -1061,6 +1175,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_message_request** | **CreateOrderMessageRequest** |  |  |
 
 ### Return type
 
@@ -1072,7 +1187,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1145,9 +1260,80 @@ end
 - **Accept**: application/json
 
 
+## create_order_pack_scan
+
+> <CreateOrderPackScanResponse> create_order_pack_scan(id, opts)
+
+Check a scanned item against the order being packed: ok true with matchedBy (sku | custom_label | item_id) and expectedQuantity, or ok false with reason (wrong_item | no_item) and the expected item.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_pack_scan_request: Crossly::CreateOrderPackScanRequest.new({code: 'code_example'}) # CreateOrderPackScanRequest | 
+}
+
+begin
+  # Check a scanned item against the order being packed: ok true with matchedBy (sku | custom_label | item_id) and expectedQuantity, or ok false with reason (wrong_item | no_item) and the expected item.
+  result = api_instance.create_order_pack_scan(id, opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->create_order_pack_scan: #{e}"
+end
+```
+
+#### Using the create_order_pack_scan_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateOrderPackScanResponse>, Integer, Hash)> create_order_pack_scan_with_http_info(id, opts)
+
+```ruby
+begin
+  # Check a scanned item against the order being packed: ok true with matchedBy (sku | custom_label | item_id) and expectedQuantity, or ok false with reason (wrong_item | no_item) and the expected item.
+  data, status_code, headers = api_instance.create_order_pack_scan_with_http_info(id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateOrderPackScanResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->create_order_pack_scan_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+| **create_order_pack_scan_request** | **CreateOrderPackScanRequest** |  | [optional] |
+
+### Return type
+
+**CreateOrderPackScanResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
 ## create_order_pickup
 
-> <CreateOrderPickupResponse> create_order_pickup
+> <CreateOrderPickupResponse> create_order_pickup(create_order_pickup_request)
 
 Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead).
 
@@ -1163,10 +1349,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+create_order_pickup_request = Crossly::CreateOrderPickupRequest.new({order_ids: ['order_ids_example'], date: 'date_example', min_time: 'min_time_example', max_time: 'max_time_example'}) # CreateOrderPickupRequest | 
 
 begin
   # Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead).
-  result = api_instance.create_order_pickup
+  result = api_instance.create_order_pickup(create_order_pickup_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_pickup: #{e}"
@@ -1177,12 +1364,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderPickupResponse>, Integer, Hash)> create_order_pickup_with_http_info
+> <Array(<CreateOrderPickupResponse>, Integer, Hash)> create_order_pickup_with_http_info(create_order_pickup_request)
 
 ```ruby
 begin
   # Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead).
-  data, status_code, headers = api_instance.create_order_pickup_with_http_info
+  data, status_code, headers = api_instance.create_order_pickup_with_http_info(create_order_pickup_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderPickupResponse>
@@ -1193,7 +1380,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_pickup_request** | **CreateOrderPickupRequest** |  |  |
 
 ### Return type
 
@@ -1205,13 +1394,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_pickup_label
 
-> <CreateOrderPickupLabelResponse> create_order_pickup_label(id)
+> <CreateOrderPickupLabelResponse> create_order_pickup_label(id, opts)
 
 Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
 
@@ -1228,10 +1417,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = 'id_example' # String | 
+opts = {
+  create_order_pickup_label_request: Crossly::CreateOrderPickupLabelRequest.new # CreateOrderPickupLabelRequest | 
+}
 
 begin
   # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
-  result = api_instance.create_order_pickup_label(id)
+  result = api_instance.create_order_pickup_label(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_pickup_label: #{e}"
@@ -1242,12 +1434,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderPickupLabelResponse>, Integer, Hash)> create_order_pickup_label_with_http_info(id)
+> <Array(<CreateOrderPickupLabelResponse>, Integer, Hash)> create_order_pickup_label_with_http_info(id, opts)
 
 ```ruby
 begin
   # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
-  data, status_code, headers = api_instance.create_order_pickup_label_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_pickup_label_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderPickupLabelResponse>
@@ -1261,6 +1453,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_pickup_label_request** | **CreateOrderPickupLabelRequest** |  | [optional] |
 
 ### Return type
 
@@ -1272,7 +1465,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1680,7 +1873,7 @@ end
 
 ## create_order_rate
 
-> <CreateOrderRateResponse> create_order_rate(id)
+> <CreateOrderRateResponse> create_order_rate(id, create_order_rate_request)
 
 Crossly Shipping rate quote for an order.
 
@@ -1697,10 +1890,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_rate_request = Crossly::CreateOrderRateRequest.new({weight_oz: 3.56}) # CreateOrderRateRequest | 
 
 begin
   # Crossly Shipping rate quote for an order.
-  result = api_instance.create_order_rate(id)
+  result = api_instance.create_order_rate(id, create_order_rate_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_rate: #{e}"
@@ -1711,12 +1905,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderRateResponse>, Integer, Hash)> create_order_rate_with_http_info(id)
+> <Array(<CreateOrderRateResponse>, Integer, Hash)> create_order_rate_with_http_info(id, create_order_rate_request)
 
 ```ruby
 begin
   # Crossly Shipping rate quote for an order.
-  data, status_code, headers = api_instance.create_order_rate_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_rate_with_http_info(id, create_order_rate_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderRateResponse>
@@ -1730,6 +1924,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_rate_request** | **CreateOrderRateRequest** |  |  |
 
 ### Return type
 
@@ -1741,13 +1936,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_refund
 
-> <CreateOrderRefundResponse> create_order_refund(id)
+> <CreateOrderRefundResponse> create_order_refund(id, opts)
 
 DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
 
@@ -1764,10 +1959,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_refund_request: Crossly::CreateOrderRefundRequest.new # CreateOrderRefundRequest | 
+}
 
 begin
   # DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
-  result = api_instance.create_order_refund(id)
+  result = api_instance.create_order_refund(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_refund: #{e}"
@@ -1778,12 +1976,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderRefundResponse>, Integer, Hash)> create_order_refund_with_http_info(id)
+> <Array(<CreateOrderRefundResponse>, Integer, Hash)> create_order_refund_with_http_info(id, opts)
 
 ```ruby
 begin
   # DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
-  data, status_code, headers = api_instance.create_order_refund_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_refund_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderRefundResponse>
@@ -1797,6 +1995,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_refund_request** | **CreateOrderRefundRequest** |  | [optional] |
 
 ### Return type
 
@@ -1808,13 +2007,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_refund_by_id
 
-> <CreateOrderRefundByIdResponse> create_order_refund_by_id(id)
+> <CreateOrderRefundByIdResponse> create_order_refund_by_id(id, opts)
 
 Refund an order, in full or in part. `amount` is dollars; omit it for everything left (or the line items' value). Crossly-marketplace orders refund the buyer's card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order's status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
 
@@ -1831,10 +2030,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_refund_by_id_request: Crossly::CreateOrderRefundByIdRequest.new({reason: 'reason_example'}) # CreateOrderRefundByIdRequest | 
+}
 
 begin
   # Refund an order, in full or in part. `amount` is dollars; omit it for everything left (or the line items' value). Crossly-marketplace orders refund the buyer's card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order's status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
-  result = api_instance.create_order_refund_by_id(id)
+  result = api_instance.create_order_refund_by_id(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_refund_by_id: #{e}"
@@ -1845,12 +2047,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderRefundByIdResponse>, Integer, Hash)> create_order_refund_by_id_with_http_info(id)
+> <Array(<CreateOrderRefundByIdResponse>, Integer, Hash)> create_order_refund_by_id_with_http_info(id, opts)
 
 ```ruby
 begin
   # Refund an order, in full or in part. `amount` is dollars; omit it for everything left (or the line items' value). Crossly-marketplace orders refund the buyer's card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order's status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
-  data, status_code, headers = api_instance.create_order_refund_by_id_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_refund_by_id_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderRefundByIdResponse>
@@ -1864,6 +2066,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_refund_by_id_request** | **CreateOrderRefundByIdRequest** |  | [optional] |
 
 ### Return type
 
@@ -1875,13 +2078,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_refund_resolve
 
-> <ListOrderRefundsItem> create_order_refund_resolve(id, refund_id)
+> <ListOrderRefundsItem> create_order_refund_resolve(id, refund_id, opts)
 
 Settle an `unverified` refund (one Crossly could not confirm with the marketplace after its request was interrupted) once you have checked the marketplace: succeeded (with the amount actually refunded, dollars) or failed (nothing moved; the same Idempotency-Key can then try again). Crossly-marketplace refunds are confirmed by support instead.
 
@@ -1899,10 +2102,13 @@ end
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 refund_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_refund_resolve_request: Crossly::CreateOrderRefundResolveRequest.new({outcome: 'failed'}) # CreateOrderRefundResolveRequest | 
+}
 
 begin
   # Settle an `unverified` refund (one Crossly could not confirm with the marketplace after its request was interrupted) once you have checked the marketplace: succeeded (with the amount actually refunded, dollars) or failed (nothing moved; the same Idempotency-Key can then try again). Crossly-marketplace refunds are confirmed by support instead.
-  result = api_instance.create_order_refund_resolve(id, refund_id)
+  result = api_instance.create_order_refund_resolve(id, refund_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_refund_resolve: #{e}"
@@ -1913,12 +2119,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListOrderRefundsItem>, Integer, Hash)> create_order_refund_resolve_with_http_info(id, refund_id)
+> <Array(<ListOrderRefundsItem>, Integer, Hash)> create_order_refund_resolve_with_http_info(id, refund_id, opts)
 
 ```ruby
 begin
   # Settle an `unverified` refund (one Crossly could not confirm with the marketplace after its request was interrupted) once you have checked the marketplace: succeeded (with the amount actually refunded, dollars) or failed (nothing moved; the same Idempotency-Key can then try again). Crossly-marketplace refunds are confirmed by support instead.
-  data, status_code, headers = api_instance.create_order_refund_resolve_with_http_info(id, refund_id)
+  data, status_code, headers = api_instance.create_order_refund_resolve_with_http_info(id, refund_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListOrderRefundsItem>
@@ -1933,6 +2139,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **refund_id** | **String** |  |  |
+| **create_order_refund_resolve_request** | **CreateOrderRefundResolveRequest** |  | [optional] |
 
 ### Return type
 
@@ -1944,13 +2151,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_scan_form
 
-> <CreateOrderScanFormResponse> create_order_scan_form
+> <CreateOrderScanFormResponse> create_order_scan_form(opts)
 
 Create SCAN forms (one per carrier account and ship-from address) for labels the carrier has not scanned yet.
 
@@ -1966,10 +2173,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+opts = {
+  create_order_scan_form_request: Crossly::CreateOrderScanFormRequest.new # CreateOrderScanFormRequest | 
+}
 
 begin
   # Create SCAN forms (one per carrier account and ship-from address) for labels the carrier has not scanned yet.
-  result = api_instance.create_order_scan_form
+  result = api_instance.create_order_scan_form(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_scan_form: #{e}"
@@ -1980,12 +2190,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderScanFormResponse>, Integer, Hash)> create_order_scan_form_with_http_info
+> <Array(<CreateOrderScanFormResponse>, Integer, Hash)> create_order_scan_form_with_http_info(opts)
 
 ```ruby
 begin
   # Create SCAN forms (one per carrier account and ship-from address) for labels the carrier has not scanned yet.
-  data, status_code, headers = api_instance.create_order_scan_form_with_http_info
+  data, status_code, headers = api_instance.create_order_scan_form_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderScanFormResponse>
@@ -1996,7 +2206,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_order_scan_form_request** | **CreateOrderScanFormRequest** |  | [optional] |
 
 ### Return type
 
@@ -2008,13 +2220,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_tracking
 
-> <CreateOrderTrackingResponse> create_order_tracking(id)
+> <CreateOrderTrackingResponse> create_order_tracking(id, create_order_tracking_request)
 
 Submit tracking number + carrier and notify the platform.
 
@@ -2031,10 +2243,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_tracking_request = Crossly::CreateOrderTrackingRequest.new({tracking_number: 'tracking_number_example', carrier: 'carrier_example'}) # CreateOrderTrackingRequest | 
 
 begin
   # Submit tracking number + carrier and notify the platform.
-  result = api_instance.create_order_tracking(id)
+  result = api_instance.create_order_tracking(id, create_order_tracking_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_tracking: #{e}"
@@ -2045,12 +2258,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderTrackingResponse>, Integer, Hash)> create_order_tracking_with_http_info(id)
+> <Array(<CreateOrderTrackingResponse>, Integer, Hash)> create_order_tracking_with_http_info(id, create_order_tracking_request)
 
 ```ruby
 begin
   # Submit tracking number + carrier and notify the platform.
-  data, status_code, headers = api_instance.create_order_tracking_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_tracking_with_http_info(id, create_order_tracking_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderTrackingResponse>
@@ -2064,6 +2277,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_tracking_request** | **CreateOrderTrackingRequest** |  |  |
 
 ### Return type
 
@@ -2075,13 +2289,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_whatnot_label
 
-> <CreateOrderWhatnotLabelResponse> create_order_whatnot_label(id)
+> <CreateOrderWhatnotLabelResponse> create_order_whatnot_label(id, opts)
 
 Generate the Whatnot shipping label and record it on the order.
 
@@ -2098,10 +2312,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+opts = {
+  create_order_whatnot_label_request: Crossly::CreateOrderWhatnotLabelRequest.new # CreateOrderWhatnotLabelRequest | 
+}
 
 begin
   # Generate the Whatnot shipping label and record it on the order.
-  result = api_instance.create_order_whatnot_label(id)
+  result = api_instance.create_order_whatnot_label(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_whatnot_label: #{e}"
@@ -2112,12 +2329,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderWhatnotLabelResponse>, Integer, Hash)> create_order_whatnot_label_with_http_info(id)
+> <Array(<CreateOrderWhatnotLabelResponse>, Integer, Hash)> create_order_whatnot_label_with_http_info(id, opts)
 
 ```ruby
 begin
   # Generate the Whatnot shipping label and record it on the order.
-  data, status_code, headers = api_instance.create_order_whatnot_label_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_whatnot_label_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderWhatnotLabelResponse>
@@ -2131,6 +2348,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_whatnot_label_request** | **CreateOrderWhatnotLabelRequest** |  | [optional] |
 
 ### Return type
 
@@ -2142,13 +2360,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_whatnot_package
 
-> <GetOrderWhatnotShipmentResponse> create_order_whatnot_package(id)
+> <GetOrderWhatnotShipmentResponse> create_order_whatnot_package(id, create_order_whatnot_package_request)
 
 Save a Whatnot shipment package (weight oz, box inches).
 
@@ -2165,10 +2383,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_whatnot_package_request = Crossly::CreateOrderWhatnotPackageRequest.new({weight_oz: 3.56}) # CreateOrderWhatnotPackageRequest | 
 
 begin
   # Save a Whatnot shipment package (weight oz, box inches).
-  result = api_instance.create_order_whatnot_package(id)
+  result = api_instance.create_order_whatnot_package(id, create_order_whatnot_package_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_whatnot_package: #{e}"
@@ -2179,12 +2398,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetOrderWhatnotShipmentResponse>, Integer, Hash)> create_order_whatnot_package_with_http_info(id)
+> <Array(<GetOrderWhatnotShipmentResponse>, Integer, Hash)> create_order_whatnot_package_with_http_info(id, create_order_whatnot_package_request)
 
 ```ruby
 begin
   # Save a Whatnot shipment package (weight oz, box inches).
-  data, status_code, headers = api_instance.create_order_whatnot_package_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_whatnot_package_with_http_info(id, create_order_whatnot_package_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetOrderWhatnotShipmentResponse>
@@ -2198,6 +2417,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_whatnot_package_request** | **CreateOrderWhatnotPackageRequest** |  |  |
 
 ### Return type
 
@@ -2209,13 +2429,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_order_whatnot_package_quote
 
-> <CreateOrderWhatnotPackageQuoteResponse> create_order_whatnot_package_quote(id)
+> <CreateOrderWhatnotPackageQuoteResponse> create_order_whatnot_package_quote(id, create_order_whatnot_package_request)
 
 Quote what a Whatnot package change costs (cents).
 
@@ -2232,10 +2452,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_order_whatnot_package_request = Crossly::CreateOrderWhatnotPackageRequest.new({weight_oz: 3.56}) # CreateOrderWhatnotPackageRequest | 
 
 begin
   # Quote what a Whatnot package change costs (cents).
-  result = api_instance.create_order_whatnot_package_quote(id)
+  result = api_instance.create_order_whatnot_package_quote(id, create_order_whatnot_package_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_order_whatnot_package_quote: #{e}"
@@ -2246,12 +2467,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateOrderWhatnotPackageQuoteResponse>, Integer, Hash)> create_order_whatnot_package_quote_with_http_info(id)
+> <Array(<CreateOrderWhatnotPackageQuoteResponse>, Integer, Hash)> create_order_whatnot_package_quote_with_http_info(id, create_order_whatnot_package_request)
 
 ```ruby
 begin
   # Quote what a Whatnot package change costs (cents).
-  data, status_code, headers = api_instance.create_order_whatnot_package_quote_with_http_info(id)
+  data, status_code, headers = api_instance.create_order_whatnot_package_quote_with_http_info(id, create_order_whatnot_package_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateOrderWhatnotPackageQuoteResponse>
@@ -2265,6 +2486,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_order_whatnot_package_request** | **CreateOrderWhatnotPackageRequest** |  |  |
 
 ### Return type
 
@@ -2276,7 +2498,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2416,7 +2638,7 @@ end
 
 ## create_rental_claim
 
-> <RentalResponse> create_rental_claim(id)
+> <RentalResponse> create_rental_claim(id, create_rental_claim_request)
 
 Claim part or all of the deposit (cents, a note, photo URLs): within 3 days of the return, or 14 days after the end if it never came back.
 
@@ -2433,10 +2655,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = 'id_example' # String | 
+create_rental_claim_request = Crossly::CreateRentalClaimRequest.new({cents: 3.56, note: 'note_example'}) # CreateRentalClaimRequest | 
 
 begin
   # Claim part or all of the deposit (cents, a note, photo URLs): within 3 days of the return, or 14 days after the end if it never came back.
-  result = api_instance.create_rental_claim(id)
+  result = api_instance.create_rental_claim(id, create_rental_claim_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_rental_claim: #{e}"
@@ -2447,12 +2670,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<RentalResponse>, Integer, Hash)> create_rental_claim_with_http_info(id)
+> <Array(<RentalResponse>, Integer, Hash)> create_rental_claim_with_http_info(id, create_rental_claim_request)
 
 ```ruby
 begin
   # Claim part or all of the deposit (cents, a note, photo URLs): within 3 days of the return, or 14 days after the end if it never came back.
-  data, status_code, headers = api_instance.create_rental_claim_with_http_info(id)
+  data, status_code, headers = api_instance.create_rental_claim_with_http_info(id, create_rental_claim_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <RentalResponse>
@@ -2466,6 +2689,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_rental_claim_request** | **CreateRentalClaimRequest** |  |  |
 
 ### Return type
 
@@ -2477,7 +2701,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2617,7 +2841,7 @@ end
 
 ## create_rental_extension_decide
 
-> <CreateRentalExtensionDecideResponse> create_rental_extension_decide(id, extension_id)
+> <CreateRentalExtensionDecideResponse> create_rental_extension_decide(id, extension_id, create_rental_extension_decide_request)
 
 Approve or decline a renter’s request for more days.
 
@@ -2635,10 +2859,11 @@ end
 api_instance = Crossly::OrdersApi.new
 id = 'id_example' # String | 
 extension_id = 'extension_id_example' # String | 
+create_rental_extension_decide_request = Crossly::CreateRentalExtensionDecideRequest.new({approve: false}) # CreateRentalExtensionDecideRequest | 
 
 begin
   # Approve or decline a renter’s request for more days.
-  result = api_instance.create_rental_extension_decide(id, extension_id)
+  result = api_instance.create_rental_extension_decide(id, extension_id, create_rental_extension_decide_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_rental_extension_decide: #{e}"
@@ -2649,12 +2874,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateRentalExtensionDecideResponse>, Integer, Hash)> create_rental_extension_decide_with_http_info(id, extension_id)
+> <Array(<CreateRentalExtensionDecideResponse>, Integer, Hash)> create_rental_extension_decide_with_http_info(id, extension_id, create_rental_extension_decide_request)
 
 ```ruby
 begin
   # Approve or decline a renter’s request for more days.
-  data, status_code, headers = api_instance.create_rental_extension_decide_with_http_info(id, extension_id)
+  data, status_code, headers = api_instance.create_rental_extension_decide_with_http_info(id, extension_id, create_rental_extension_decide_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateRentalExtensionDecideResponse>
@@ -2669,6 +2894,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **extension_id** | **String** |  |  |
+| **create_rental_extension_decide_request** | **CreateRentalExtensionDecideRequest** |  |  |
 
 ### Return type
 
@@ -2680,13 +2906,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_rental_inspect
 
-> <RentalResponse> create_rental_inspect(id)
+> <RentalResponse> create_rental_inspect(id, opts)
 
 Record the return inspection: the checklist, photos, and optionally release the deposit.
 
@@ -2703,10 +2929,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = 'id_example' # String | 
+opts = {
+  create_rental_inspect_request: Crossly::CreateRentalInspectRequest.new # CreateRentalInspectRequest | 
+}
 
 begin
   # Record the return inspection: the checklist, photos, and optionally release the deposit.
-  result = api_instance.create_rental_inspect(id)
+  result = api_instance.create_rental_inspect(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_rental_inspect: #{e}"
@@ -2717,12 +2946,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<RentalResponse>, Integer, Hash)> create_rental_inspect_with_http_info(id)
+> <Array(<RentalResponse>, Integer, Hash)> create_rental_inspect_with_http_info(id, opts)
 
 ```ruby
 begin
   # Record the return inspection: the checklist, photos, and optionally release the deposit.
-  data, status_code, headers = api_instance.create_rental_inspect_with_http_info(id)
+  data, status_code, headers = api_instance.create_rental_inspect_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <RentalResponse>
@@ -2736,6 +2965,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_rental_inspect_request** | **CreateRentalInspectRequest** |  | [optional] |
 
 ### Return type
 
@@ -2747,7 +2977,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3021,7 +3251,7 @@ end
 
 ## create_rental_shipped
 
-> <RentalResponse> create_rental_shipped(id)
+> <RentalResponse> create_rental_shipped(id, opts)
 
 Mark a booked rental shipped, with at least 2 photos of its condition as it leaves (URLs you uploaded) — the evidence any later claim is judged against.
 
@@ -3038,10 +3268,13 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = 'id_example' # String | 
+opts = {
+  create_rental_shipped_request: Crossly::CreateRentalShippedRequest.new # CreateRentalShippedRequest | 
+}
 
 begin
   # Mark a booked rental shipped, with at least 2 photos of its condition as it leaves (URLs you uploaded) — the evidence any later claim is judged against.
-  result = api_instance.create_rental_shipped(id)
+  result = api_instance.create_rental_shipped(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->create_rental_shipped: #{e}"
@@ -3052,12 +3285,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<RentalResponse>, Integer, Hash)> create_rental_shipped_with_http_info(id)
+> <Array(<RentalResponse>, Integer, Hash)> create_rental_shipped_with_http_info(id, opts)
 
 ```ruby
 begin
   # Mark a booked rental shipped, with at least 2 photos of its condition as it leaves (URLs you uploaded) — the evidence any later claim is judged against.
-  data, status_code, headers = api_instance.create_rental_shipped_with_http_info(id)
+  data, status_code, headers = api_instance.create_rental_shipped_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <RentalResponse>
@@ -3071,10 +3304,82 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_rental_shipped_request** | **CreateRentalShippedRequest** |  | [optional] |
 
 ### Return type
 
 **RentalResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## get_device_scale
+
+> <GetDeviceScaleResponse> get_device_scale(opts)
+
+Read your USB postal scale: ok true with weightOz and stable, or ok false with reason (no_agent | not_capable | offline | failed | timeout).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+opts = {
+  agent_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | 
+  timeout_ms: 56 # Integer | 
+}
+
+begin
+  # Read your USB postal scale: ok true with weightOz and stable, or ok false with reason (no_agent | not_capable | offline | failed | timeout).
+  result = api_instance.get_device_scale(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_device_scale: #{e}"
+end
+```
+
+#### Using the get_device_scale_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetDeviceScaleResponse>, Integer, Hash)> get_device_scale_with_http_info(opts)
+
+```ruby
+begin
+  # Read your USB postal scale: ok true with weightOz and stable, or ok false with reason (no_agent | not_capable | offline | failed | timeout).
+  data, status_code, headers = api_instance.get_device_scale_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetDeviceScaleResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_device_scale_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **agent_id** | **String** |  | [optional] |
+| **timeout_ms** | **Integer** |  | [optional] |
+
+### Return type
+
+**GetDeviceScaleResponse**
 
 ### Authorization
 
@@ -3092,7 +3397,7 @@ end
 
 Get one order, with its sale price, fees, SKU and line items.
 
-Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
+Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null, and buyerCompany the trade buyer's business {id, name}: their company (id set), else their verified business name (id null), or null on a consumer order. orderNumber is the readable order number of a Crossly sale (NNN-NNNNNNN-NNNNNNN, the same number the buyer sees); null on other platforms, whose platformOrderId is readable. Show orderNumber ?? platformOrderId; platformOrderId stays the payment reference of a Crossly sale.
 
 ### Examples
 
@@ -3631,6 +3936,79 @@ end
 
 - **Content-Type**: Not defined
 - **Accept**: application/pdf, application/json
+
+
+## get_order_pick_list
+
+> <GetOrderPickListResponse> get_order_pick_list(opts)
+
+The items to pull for a batch of orders, grouped by storage bin: groups[{bin, lines[{orderId, orderNumber, platform, title, sku, quantity, buyer}]}], orderCount, itemCount. orderIds (comma list, at most 500) or every order still to ship; storefrontId for one store; format=pdf for the printable list.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+opts = {
+  order_ids: 'order_ids_example', # String | 
+  format: 'json', # String | 
+  storefront_id: '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+}
+
+begin
+  # The items to pull for a batch of orders, grouped by storage bin: groups[{bin, lines[{orderId, orderNumber, platform, title, sku, quantity, buyer}]}], orderCount, itemCount. orderIds (comma list, at most 500) or every order still to ship; storefrontId for one store; format=pdf for the printable list.
+  result = api_instance.get_order_pick_list(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_order_pick_list: #{e}"
+end
+```
+
+#### Using the get_order_pick_list_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetOrderPickListResponse>, Integer, Hash)> get_order_pick_list_with_http_info(opts)
+
+```ruby
+begin
+  # The items to pull for a batch of orders, grouped by storage bin: groups[{bin, lines[{orderId, orderNumber, platform, title, sku, quantity, buyer}]}], orderCount, itemCount. orderIds (comma list, at most 500) or every order still to ship; storefrontId for one store; format=pdf for the printable list.
+  data, status_code, headers = api_instance.get_order_pick_list_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetOrderPickListResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_order_pick_list_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **order_ids** | **String** |  | [optional] |
+| **format** | **String** |  | [optional] |
+| **storefront_id** | **String** |  | [optional] |
+
+### Return type
+
+**GetOrderPickListResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
 ## get_order_platform_label_option
@@ -4238,6 +4616,73 @@ end
 - **Accept**: application/json
 
 
+## get_order_suggested_parcel
+
+> <GetOrderSuggestedParcelResponse> get_order_suggested_parcel(id)
+
+The suggested parcel for this order: source (learned | box | item | none), presetId, presetName, lengthIn, widthIn, heightIn, weightOz, sampleSize.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+
+begin
+  # The suggested parcel for this order: source (learned | box | item | none), presetId, presetName, lengthIn, widthIn, heightIn, weightOz, sampleSize.
+  result = api_instance.get_order_suggested_parcel(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_order_suggested_parcel: #{e}"
+end
+```
+
+#### Using the get_order_suggested_parcel_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetOrderSuggestedParcelResponse>, Integer, Hash)> get_order_suggested_parcel_with_http_info(id)
+
+```ruby
+begin
+  # The suggested parcel for this order: source (learned | box | item | none), presetId, presetName, lengthIn, widthIn, heightIn, weightOz, sampleSize.
+  data, status_code, headers = api_instance.get_order_suggested_parcel_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetOrderSuggestedParcelResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_order_suggested_parcel_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetOrderSuggestedParcelResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_order_whatnot_packing_slip
 
 > <UrlExpiresInSecondsResponse> get_order_whatnot_packing_slip(id)
@@ -4441,7 +4886,7 @@ end
 
 ## get_rental_calendar
 
-> <GetRentalCalendarResponse> get_rental_calendar
+> <GetRentalCalendarResponse> get_rental_calendar(from, to, opts)
 
 Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
 
@@ -4457,10 +4902,15 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+from = 'from_example' # String | 
+to = 'to_example' # String | 
+opts = {
+  platform_listing_id: 'platform_listing_id_example' # String | 
+}
 
 begin
   # Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
-  result = api_instance.get_rental_calendar
+  result = api_instance.get_rental_calendar(from, to, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->get_rental_calendar: #{e}"
@@ -4471,12 +4921,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetRentalCalendarResponse>, Integer, Hash)> get_rental_calendar_with_http_info
+> <Array(<GetRentalCalendarResponse>, Integer, Hash)> get_rental_calendar_with_http_info(from, to, opts)
 
 ```ruby
 begin
   # Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
-  data, status_code, headers = api_instance.get_rental_calendar_with_http_info
+  data, status_code, headers = api_instance.get_rental_calendar_with_http_info(from, to, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetRentalCalendarResponse>
@@ -4487,11 +4937,82 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **from** | **String** |  |  |
+| **to** | **String** |  |  |
+| **platform_listing_id** | **String** |  | [optional] |
 
 ### Return type
 
 **GetRentalCalendarResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_rental_inventory
+
+> <GetRentalInventoryResponse> get_rental_inventory(inventory_item_id)
+
+An inventory item’s rentals: units out with a renter now (reserved on the item), upcoming bookings and returns waiting for inspection.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+inventory_item_id = 'inventory_item_id_example' # String | 
+
+begin
+  # An inventory item’s rentals: units out with a renter now (reserved on the item), upcoming bookings and returns waiting for inspection.
+  result = api_instance.get_rental_inventory(inventory_item_id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_rental_inventory: #{e}"
+end
+```
+
+#### Using the get_rental_inventory_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetRentalInventoryResponse>, Integer, Hash)> get_rental_inventory_with_http_info(inventory_item_id)
+
+```ruby
+begin
+  # An inventory item’s rentals: units out with a renter now (reserved on the item), upcoming bookings and returns waiting for inspection.
+  data, status_code, headers = api_instance.get_rental_inventory_with_http_info(inventory_item_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetRentalInventoryResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->get_rental_inventory_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **inventory_item_id** | **String** |  |  |
+
+### Return type
+
+**GetRentalInventoryResponse**
 
 ### Authorization
 
@@ -4569,7 +5090,7 @@ This endpoint does not need any parameter.
 
 ## list_live_shipments
 
-> <ListLiveShipmentsResponse> list_live_shipments
+> <ListLiveShipmentsResponse> list_live_shipments(opts)
 
 Your show boxes: every buyer’s orders from one live show, to ship together.
 
@@ -4585,10 +5106,14 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+opts = {
+  stream_id: 'stream_id_example', # String | 
+  status: 'open' # String | 
+}
 
 begin
   # Your show boxes: every buyer’s orders from one live show, to ship together.
-  result = api_instance.list_live_shipments
+  result = api_instance.list_live_shipments(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->list_live_shipments: #{e}"
@@ -4599,12 +5124,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListLiveShipmentsResponse>, Integer, Hash)> list_live_shipments_with_http_info
+> <Array(<ListLiveShipmentsResponse>, Integer, Hash)> list_live_shipments_with_http_info(opts)
 
 ```ruby
 begin
   # Your show boxes: every buyer’s orders from one live show, to ship together.
-  data, status_code, headers = api_instance.list_live_shipments_with_http_info
+  data, status_code, headers = api_instance.list_live_shipments_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListLiveShipmentsResponse>
@@ -4615,7 +5140,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **stream_id** | **String** |  | [optional] |
+| **status** | **String** |  | [optional] |
 
 ### Return type
 
@@ -4965,7 +5493,7 @@ end
 
 List orders, each with its sale price, fees, SKU and line items.
 
-Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
+Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null, and buyerCompany the trade buyer's business {id, name}: their company (id set), else their verified business name (id null), or null on a consumer order. orderNumber is the readable order number of a Crossly sale (NNN-NNNNNNN-NNNNNNN, the same number the buyer sees); null on other platforms, whose platformOrderId is readable. Show orderNumber ?? platformOrderId; platformOrderId stays the payment reference of a Crossly sale.
 
 ### Examples
 
@@ -4987,7 +5515,9 @@ opts = {
   channel: 'retail', # String | Only orders sold through this business channel (e.g. wholesale).
   details: 'pending', # String | pending = only orders whose sale details (price, buyer) have not loaded yet.
   unlinked: '1', # String | 1 or true = only orders whose sale is not linked to any listing (an orphan sale).
-  updated_since: Time.parse('2013-10-20T19:20:30+01:00') # Time | Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes.
+  order_number: 'order_number_example', # String | Find an order by the number the buyer quotes: a Crossly order number (NNN-NNNNNNN-NNNNNNN, also accepted without dashes or with a leading #) or a marketplace order id (exact match on platformOrderId).
+  updated_since: Time.parse('2013-10-20T19:20:30+01:00'), # Time | Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes.
+  assignee: 'assignee_example' # String | Work assignment: 'me' (your own seat), 'none' (unassigned), 'any' (assigned to someone) or a team member id.
 }
 
 begin
@@ -5028,7 +5558,9 @@ end
 | **channel** | **String** | Only orders sold through this business channel (e.g. wholesale). | [optional] |
 | **details** | **String** | pending &#x3D; only orders whose sale details (price, buyer) have not loaded yet. | [optional] |
 | **unlinked** | **String** | 1 or true &#x3D; only orders whose sale is not linked to any listing (an orphan sale). | [optional] |
+| **order_number** | **String** | Find an order by the number the buyer quotes: a Crossly order number (NNN-NNNNNNN-NNNNNNN, also accepted without dashes or with a leading #) or a marketplace order id (exact match on platformOrderId). | [optional] |
 | **updated_since** | **Time** | Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes. | [optional] |
+| **assignee** | **String** | Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id. | [optional] |
 
 ### Return type
 
@@ -5046,7 +5578,7 @@ end
 
 ## list_rental_history
 
-> <ListRentalHistoryResponse> list_rental_history
+> <ListRentalHistoryResponse> list_rental_history(opts)
 
 Active rentals and history, filtered by view, status, dates, item or a search.
 
@@ -5062,10 +5594,20 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::OrdersApi.new
+opts = {
+  view: 'active', # String | 
+  status: ['inner_example'], # Array<String> | 
+  q: 'q_example', # String | 
+  from: 'from_example', # String | 
+  to: 'to_example', # String | 
+  platform_listing_id: 'platform_listing_id_example', # String | 
+  limit: 8.14, # Float | 
+  offset: 8.14 # Float | 
+}
 
 begin
   # Active rentals and history, filtered by view, status, dates, item or a search.
-  result = api_instance.list_rental_history
+  result = api_instance.list_rental_history(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->list_rental_history: #{e}"
@@ -5076,12 +5618,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListRentalHistoryResponse>, Integer, Hash)> list_rental_history_with_http_info
+> <Array(<ListRentalHistoryResponse>, Integer, Hash)> list_rental_history_with_http_info(opts)
 
 ```ruby
 begin
   # Active rentals and history, filtered by view, status, dates, item or a search.
-  data, status_code, headers = api_instance.list_rental_history_with_http_info
+  data, status_code, headers = api_instance.list_rental_history_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListRentalHistoryResponse>
@@ -5092,7 +5634,16 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **view** | **String** |  | [optional] |
+| **status** | **Array&lt;String&gt;** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
+| **platform_listing_id** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **offset** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -5174,7 +5725,7 @@ This endpoint does not need any parameter.
 
 ## update_order
 
-> <UpdateOrderResponse> update_order(id)
+> <UpdateOrderResponse> update_order(id, update_order_request)
 
 Update order (status, notes, tracking).
 
@@ -5191,10 +5742,11 @@ end
 
 api_instance = Crossly::OrdersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_order_request = Crossly::UpdateOrderRequest.new # UpdateOrderRequest | 
 
 begin
   # Update order (status, notes, tracking).
-  result = api_instance.update_order(id)
+  result = api_instance.update_order(id, update_order_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling OrdersApi->update_order: #{e}"
@@ -5205,12 +5757,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateOrderResponse>, Integer, Hash)> update_order_with_http_info(id)
+> <Array(<UpdateOrderResponse>, Integer, Hash)> update_order_with_http_info(id, update_order_request)
 
 ```ruby
 begin
   # Update order (status, notes, tracking).
-  data, status_code, headers = api_instance.update_order_with_http_info(id)
+  data, status_code, headers = api_instance.update_order_with_http_info(id, update_order_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateOrderResponse>
@@ -5224,10 +5776,142 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_order_request** | **UpdateOrderRequest** |  |  |
 
 ### Return type
 
 **UpdateOrderResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## update_order_assignee
+
+> <UpdateOrderAssigneeResponse> update_order_assignee
+
+Assign many orders to a teammate, round robin across several, or unassign them (null).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+
+begin
+  # Assign many orders to a teammate, round robin across several, or unassign them (null).
+  result = api_instance.update_order_assignee
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->update_order_assignee: #{e}"
+end
+```
+
+#### Using the update_order_assignee_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateOrderAssigneeResponse>, Integer, Hash)> update_order_assignee_with_http_info
+
+```ruby
+begin
+  # Assign many orders to a teammate, round robin across several, or unassign them (null).
+  data, status_code, headers = api_instance.update_order_assignee_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateOrderAssigneeResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->update_order_assignee_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**UpdateOrderAssigneeResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_order_assignee_by_id
+
+> <UpdateOrderAssigneeByIdResponse> update_order_assignee_by_id(id)
+
+Assign one order to a teammate, or unassign it (null).
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::OrdersApi.new
+id = 'id_example' # String | 
+
+begin
+  # Assign one order to a teammate, or unassign it (null).
+  result = api_instance.update_order_assignee_by_id(id)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->update_order_assignee_by_id: #{e}"
+end
+```
+
+#### Using the update_order_assignee_by_id_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateOrderAssigneeByIdResponse>, Integer, Hash)> update_order_assignee_by_id_with_http_info(id)
+
+```ruby
+begin
+  # Assign one order to a teammate, or unassign it (null).
+  data, status_code, headers = api_instance.update_order_assignee_by_id_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateOrderAssigneeByIdResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling OrdersApi->update_order_assignee_by_id_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**UpdateOrderAssigneeByIdResponse**
 
 ### Authorization
 

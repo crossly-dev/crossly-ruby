@@ -82,24 +82,30 @@ module Crossly
 
     # Ship a show box with your own label: every order is marked shipped with this tracking and the buyer’s extra postage is refunded.
     # @param id [String] 
+    # @param create_live_shipment_ship_request [CreateLiveShipmentShipRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateLiveShipmentShipResponse]
-    def create_live_shipment_ship(id, opts = {})
-      data, _status_code, _headers = create_live_shipment_ship_with_http_info(id, opts)
+    def create_live_shipment_ship(id, create_live_shipment_ship_request, opts = {})
+      data, _status_code, _headers = create_live_shipment_ship_with_http_info(id, create_live_shipment_ship_request, opts)
       data
     end
 
     # Ship a show box with your own label: every order is marked shipped with this tracking and the buyer’s extra postage is refunded.
     # @param id [String] 
+    # @param create_live_shipment_ship_request [CreateLiveShipmentShipRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateLiveShipmentShipResponse, Integer, Hash)>] CreateLiveShipmentShipResponse data, response status code and response headers
-    def create_live_shipment_ship_with_http_info(id, opts = {})
+    def create_live_shipment_ship_with_http_info(id, create_live_shipment_ship_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_live_shipment_ship ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_live_shipment_ship"
+      end
+      # verify the required parameter 'create_live_shipment_ship_request' is set
+      if @api_client.config.client_side_validation && create_live_shipment_ship_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_live_shipment_ship_request' when calling OrdersApi.create_live_shipment_ship"
       end
       # resource path
       local_var_path = '/v1/live-shipments/{id}/ship'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -111,12 +117,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_live_shipment_ship_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateLiveShipmentShipResponse'
@@ -142,19 +153,25 @@ module Crossly
     end
 
     # Bulk soft- or hard-delete orders by id.
+    # @param create_order_bulk_delete_request [CreateOrderBulkDeleteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderBulkDeleteResponse]
-    def create_order_bulk_delete(opts = {})
-      data, _status_code, _headers = create_order_bulk_delete_with_http_info(opts)
+    def create_order_bulk_delete(create_order_bulk_delete_request, opts = {})
+      data, _status_code, _headers = create_order_bulk_delete_with_http_info(create_order_bulk_delete_request, opts)
       data
     end
 
     # Bulk soft- or hard-delete orders by id.
+    # @param create_order_bulk_delete_request [CreateOrderBulkDeleteRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderBulkDeleteResponse, Integer, Hash)>] CreateOrderBulkDeleteResponse data, response status code and response headers
-    def create_order_bulk_delete_with_http_info(opts = {})
+    def create_order_bulk_delete_with_http_info(create_order_bulk_delete_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_bulk_delete ...'
+      end
+      # verify the required parameter 'create_order_bulk_delete_request' is set
+      if @api_client.config.client_side_validation && create_order_bulk_delete_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_bulk_delete_request' when calling OrdersApi.create_order_bulk_delete"
       end
       # resource path
       local_var_path = '/v1/orders/bulk-delete'
@@ -166,12 +183,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_bulk_delete_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderBulkDeleteResponse'
@@ -197,19 +219,25 @@ module Crossly
     end
 
     # Bulk export selected orders as CSV.
+    # @param create_order_bulk_export_request [CreateOrderBulkExportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [String]
-    def create_order_bulk_export(opts = {})
-      data, _status_code, _headers = create_order_bulk_export_with_http_info(opts)
+    def create_order_bulk_export(create_order_bulk_export_request, opts = {})
+      data, _status_code, _headers = create_order_bulk_export_with_http_info(create_order_bulk_export_request, opts)
       data
     end
 
     # Bulk export selected orders as CSV.
+    # @param create_order_bulk_export_request [CreateOrderBulkExportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(String, Integer, Hash)>] String data, response status code and response headers
-    def create_order_bulk_export_with_http_info(opts = {})
+    def create_order_bulk_export_with_http_info(create_order_bulk_export_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_bulk_export ...'
+      end
+      # verify the required parameter 'create_order_bulk_export_request' is set
+      if @api_client.config.client_side_validation && create_order_bulk_export_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_bulk_export_request' when calling OrdersApi.create_order_bulk_export"
       end
       # resource path
       local_var_path = '/v1/orders/bulk-export'
@@ -221,12 +249,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_bulk_export_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'String'
@@ -252,19 +285,25 @@ module Crossly
     end
 
     # Bulk mark orders as disputed with a shared reason.
+    # @param create_order_bulk_mark_disputed_request [CreateOrderBulkMarkDisputedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdatedResponse]
-    def create_order_bulk_mark_disputed(opts = {})
-      data, _status_code, _headers = create_order_bulk_mark_disputed_with_http_info(opts)
+    def create_order_bulk_mark_disputed(create_order_bulk_mark_disputed_request, opts = {})
+      data, _status_code, _headers = create_order_bulk_mark_disputed_with_http_info(create_order_bulk_mark_disputed_request, opts)
       data
     end
 
     # Bulk mark orders as disputed with a shared reason.
+    # @param create_order_bulk_mark_disputed_request [CreateOrderBulkMarkDisputedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdatedResponse, Integer, Hash)>] UpdatedResponse data, response status code and response headers
-    def create_order_bulk_mark_disputed_with_http_info(opts = {})
+    def create_order_bulk_mark_disputed_with_http_info(create_order_bulk_mark_disputed_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_bulk_mark_disputed ...'
+      end
+      # verify the required parameter 'create_order_bulk_mark_disputed_request' is set
+      if @api_client.config.client_side_validation && create_order_bulk_mark_disputed_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_bulk_mark_disputed_request' when calling OrdersApi.create_order_bulk_mark_disputed"
       end
       # resource path
       local_var_path = '/v1/orders/bulk-mark-disputed'
@@ -276,12 +315,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_bulk_mark_disputed_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdatedResponse'
@@ -307,19 +351,25 @@ module Crossly
     end
 
     # Bulk flip status=shipped, clear the reserved-stock marker, and notify each platform.
+    # @param create_order_bulk_mark_shipped_request [CreateOrderBulkMarkShippedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderBulkMarkShippedResponse]
-    def create_order_bulk_mark_shipped(opts = {})
-      data, _status_code, _headers = create_order_bulk_mark_shipped_with_http_info(opts)
+    def create_order_bulk_mark_shipped(create_order_bulk_mark_shipped_request, opts = {})
+      data, _status_code, _headers = create_order_bulk_mark_shipped_with_http_info(create_order_bulk_mark_shipped_request, opts)
       data
     end
 
     # Bulk flip status&#x3D;shipped, clear the reserved-stock marker, and notify each platform.
+    # @param create_order_bulk_mark_shipped_request [CreateOrderBulkMarkShippedRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderBulkMarkShippedResponse, Integer, Hash)>] CreateOrderBulkMarkShippedResponse data, response status code and response headers
-    def create_order_bulk_mark_shipped_with_http_info(opts = {})
+    def create_order_bulk_mark_shipped_with_http_info(create_order_bulk_mark_shipped_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_bulk_mark_shipped ...'
+      end
+      # verify the required parameter 'create_order_bulk_mark_shipped_request' is set
+      if @api_client.config.client_side_validation && create_order_bulk_mark_shipped_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_bulk_mark_shipped_request' when calling OrdersApi.create_order_bulk_mark_shipped"
       end
       # resource path
       local_var_path = '/v1/orders/bulk-mark-shipped'
@@ -331,12 +381,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_bulk_mark_shipped_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderBulkMarkShippedResponse'
@@ -362,19 +417,25 @@ module Crossly
     end
 
     # Bulk packing slips PDF.
+    # @param create_order_bulk_export_request [CreateOrderBulkExportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [File]
-    def create_order_bulk_packing_slip(opts = {})
-      data, _status_code, _headers = create_order_bulk_packing_slip_with_http_info(opts)
+    def create_order_bulk_packing_slip(create_order_bulk_export_request, opts = {})
+      data, _status_code, _headers = create_order_bulk_packing_slip_with_http_info(create_order_bulk_export_request, opts)
       data
     end
 
     # Bulk packing slips PDF.
+    # @param create_order_bulk_export_request [CreateOrderBulkExportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(File, Integer, Hash)>] File data, response status code and response headers
-    def create_order_bulk_packing_slip_with_http_info(opts = {})
+    def create_order_bulk_packing_slip_with_http_info(create_order_bulk_export_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_bulk_packing_slip ...'
+      end
+      # verify the required parameter 'create_order_bulk_export_request' is set
+      if @api_client.config.client_side_validation && create_order_bulk_export_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_bulk_export_request' when calling OrdersApi.create_order_bulk_packing_slip"
       end
       # resource path
       local_var_path = '/v1/orders/bulk-packing-slips'
@@ -386,12 +447,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/pdf', 'application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_bulk_export_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'File'
@@ -419,6 +485,7 @@ module Crossly
     # Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderCancelRequest] :create_order_cancel_request 
     # @return [CreateOrderCancelResponse]
     def create_order_cancel(id, opts = {})
       data, _status_code, _headers = create_order_cancel_with_http_info(id, opts)
@@ -428,6 +495,7 @@ module Crossly
     # Cancel an order before it ships. Crossly-marketplace orders refund the buyer (also needs orders:refund) and restock; crossposted orders go to the marketplace, or fail not_supported_on_platform (recordOnly: true records a cancel made on the marketplace). Fires order.cancelled.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderCancelRequest] :create_order_cancel_request 
     # @return [Array<(CreateOrderCancelResponse, Integer, Hash)>] CreateOrderCancelResponse data, response status code and response headers
     def create_order_cancel_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -447,12 +515,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_cancel_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderCancelResponse'
@@ -481,6 +554,7 @@ module Crossly
     # Replaces the order's tracking number with `trackingNumber`, on Crossly and on the marketplace, where the platform can change tracking it already has (its trackingCorrection capability): `correction` is replace (overwritten), remove_then_submit (the old number removed, then the new one sent) or submit (the platform held none). Refused with validation_error where the platform cannot change it (update it there), when the order has no tracking, its tracking came with a label (void the label instead), or it is closed or delivered; conflict while the previous tracking update is still in flight.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderCorrectTrackingRequest] :create_order_correct_tracking_request 
     # @return [CreateOrderCorrectTrackingResponse]
     def create_order_correct_tracking(id, opts = {})
       data, _status_code, _headers = create_order_correct_tracking_with_http_info(id, opts)
@@ -491,6 +565,7 @@ module Crossly
     # Replaces the order&#39;s tracking number with &#x60;trackingNumber&#x60;, on Crossly and on the marketplace, where the platform can change tracking it already has (its trackingCorrection capability): &#x60;correction&#x60; is replace (overwritten), remove_then_submit (the old number removed, then the new one sent) or submit (the platform held none). Refused with validation_error where the platform cannot change it (update it there), when the order has no tracking, its tracking came with a label (void the label instead), or it is closed or delivered; conflict while the previous tracking update is still in flight.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderCorrectTrackingRequest] :create_order_correct_tracking_request 
     # @return [Array<(CreateOrderCorrectTrackingResponse, Integer, Hash)>] CreateOrderCorrectTrackingResponse data, response status code and response headers
     def create_order_correct_tracking_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -510,12 +585,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_correct_tracking_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderCorrectTrackingResponse'
@@ -542,24 +622,30 @@ module Crossly
 
     # Flag an order as disputed.
     # @param id [String] 
+    # @param create_order_dispute_request [CreateOrderDisputeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderDisputeResponse]
-    def create_order_dispute(id, opts = {})
-      data, _status_code, _headers = create_order_dispute_with_http_info(id, opts)
+    def create_order_dispute(id, create_order_dispute_request, opts = {})
+      data, _status_code, _headers = create_order_dispute_with_http_info(id, create_order_dispute_request, opts)
       data
     end
 
     # Flag an order as disputed.
     # @param id [String] 
+    # @param create_order_dispute_request [CreateOrderDisputeRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderDisputeResponse, Integer, Hash)>] CreateOrderDisputeResponse data, response status code and response headers
-    def create_order_dispute_with_http_info(id, opts = {})
+    def create_order_dispute_with_http_info(id, create_order_dispute_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_dispute ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_dispute"
+      end
+      # verify the required parameter 'create_order_dispute_request' is set
+      if @api_client.config.client_side_validation && create_order_dispute_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_dispute_request' when calling OrdersApi.create_order_dispute"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/dispute'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -571,12 +657,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_dispute_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderDisputeResponse'
@@ -602,19 +693,25 @@ module Crossly
     end
 
     # Manually (re-)pull one or more connected platforms' order history for a day-window.
+    # @param create_order_import_request [CreateOrderImportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderImportResponse]
-    def create_order_import(opts = {})
-      data, _status_code, _headers = create_order_import_with_http_info(opts)
+    def create_order_import(create_order_import_request, opts = {})
+      data, _status_code, _headers = create_order_import_with_http_info(create_order_import_request, opts)
       data
     end
 
     # Manually (re-)pull one or more connected platforms&#39; order history for a day-window.
+    # @param create_order_import_request [CreateOrderImportRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderImportResponse, Integer, Hash)>] CreateOrderImportResponse data, response status code and response headers
-    def create_order_import_with_http_info(opts = {})
+    def create_order_import_with_http_info(create_order_import_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_import ...'
+      end
+      # verify the required parameter 'create_order_import_request' is set
+      if @api_client.config.client_side_validation && create_order_import_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_import_request' when calling OrdersApi.create_order_import"
       end
       # resource path
       local_var_path = '/v1/orders/import'
@@ -626,12 +723,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_import_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderImportResponse'
@@ -658,24 +760,30 @@ module Crossly
 
     # Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
+    # @param create_order_label_request [CreateOrderLabelRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderLabelResponse]
-    def create_order_label(id, opts = {})
-      data, _status_code, _headers = create_order_label_with_http_info(id, opts)
+    def create_order_label(id, create_order_label_request, opts = {})
+      data, _status_code, _headers = create_order_label_with_http_info(id, create_order_label_request, opts)
       data
     end
 
     # Purchase a Crossly Shipping label. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
+    # @param create_order_label_request [CreateOrderLabelRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderLabelResponse, Integer, Hash)>] CreateOrderLabelResponse data, response status code and response headers
-    def create_order_label_with_http_info(id, opts = {})
+    def create_order_label_with_http_info(id, create_order_label_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_label ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_label"
+      end
+      # verify the required parameter 'create_order_label_request' is set
+      if @api_client.config.client_side_validation && create_order_label_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_label_request' when calling OrdersApi.create_order_label"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/label'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -687,12 +795,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_label_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderLabelResponse'
@@ -713,6 +826,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#create_order_label\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Send the label to your print agent: mode agent (jobId), pdf (url, reason no_agent | offline | not_capable) or skipped (already_printed; pass reprint true to print again).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderLabelPrintRequest] :create_order_label_print_request 
+    # @return [CreateOrderLabelPrintResponse]
+    def create_order_label_print(id, opts = {})
+      data, _status_code, _headers = create_order_label_print_with_http_info(id, opts)
+      data
+    end
+
+    # Send the label to your print agent: mode agent (jobId), pdf (url, reason no_agent | offline | not_capable) or skipped (already_printed; pass reprint true to print again).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderLabelPrintRequest] :create_order_label_print_request 
+    # @return [Array<(CreateOrderLabelPrintResponse, Integer, Hash)>] CreateOrderLabelPrintResponse data, response status code and response headers
+    def create_order_label_print_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_label_print ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_label_print"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/label/print'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_label_print_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderLabelPrintResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_label_print",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_label_print\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -783,25 +964,31 @@ module Crossly
     # Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
     # For an order whose listing is an auto-created external-sale stub. Body: { listingId, platformListingId? }. Moves the sale onto the listing's row on the order's platform (or moves the stub's row under the listing when it has none), decrements its stock like a detected sale, archives the stub, and delists the item from every other marketplace once no unit is left. 409 when the order is already linked.
     # @param id [String] 
+    # @param create_order_link_listing_request [CreateOrderLinkListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderLinkListingResponse]
-    def create_order_link_listing(id, opts = {})
-      data, _status_code, _headers = create_order_link_listing_with_http_info(id, opts)
+    def create_order_link_listing(id, create_order_link_listing_request, opts = {})
+      data, _status_code, _headers = create_order_link_listing_with_http_info(id, create_order_link_listing_request, opts)
       data
     end
 
     # Link an unmatched sale to one of your listings (marks it sold, delists it elsewhere).
     # For an order whose listing is an auto-created external-sale stub. Body: { listingId, platformListingId? }. Moves the sale onto the listing&#39;s row on the order&#39;s platform (or moves the stub&#39;s row under the listing when it has none), decrements its stock like a detected sale, archives the stub, and delists the item from every other marketplace once no unit is left. 409 when the order is already linked.
     # @param id [String] 
+    # @param create_order_link_listing_request [CreateOrderLinkListingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderLinkListingResponse, Integer, Hash)>] CreateOrderLinkListingResponse data, response status code and response headers
-    def create_order_link_listing_with_http_info(id, opts = {})
+    def create_order_link_listing_with_http_info(id, create_order_link_listing_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_link_listing ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_link_listing"
+      end
+      # verify the required parameter 'create_order_link_listing_request' is set
+      if @api_client.config.client_side_validation && create_order_link_listing_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_link_listing_request' when calling OrdersApi.create_order_link_listing"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/link-listing'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -813,12 +1000,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_link_listing_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderLinkListingResponse'
@@ -845,24 +1037,30 @@ module Crossly
 
     # Message the order's buyer on the marketplace.
     # @param id [String] 
+    # @param create_order_message_request [CreateOrderMessageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderMessageResponse]
-    def create_order_message(id, opts = {})
-      data, _status_code, _headers = create_order_message_with_http_info(id, opts)
+    def create_order_message(id, create_order_message_request, opts = {})
+      data, _status_code, _headers = create_order_message_with_http_info(id, create_order_message_request, opts)
       data
     end
 
     # Message the order&#39;s buyer on the marketplace.
     # @param id [String] 
+    # @param create_order_message_request [CreateOrderMessageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderMessageResponse, Integer, Hash)>] CreateOrderMessageResponse data, response status code and response headers
-    def create_order_message_with_http_info(id, opts = {})
+    def create_order_message_with_http_info(id, create_order_message_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_message ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_message"
+      end
+      # verify the required parameter 'create_order_message_request' is set
+      if @api_client.config.client_side_validation && create_order_message_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_message_request' when calling OrdersApi.create_order_message"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/message'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -874,12 +1072,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_message_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderMessageResponse'
@@ -976,20 +1179,94 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Check a scanned item against the order being packed: ok true with matchedBy (sku | custom_label | item_id) and expectedQuantity, or ok false with reason (wrong_item | no_item) and the expected item.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderPackScanRequest] :create_order_pack_scan_request 
+    # @return [CreateOrderPackScanResponse]
+    def create_order_pack_scan(id, opts = {})
+      data, _status_code, _headers = create_order_pack_scan_with_http_info(id, opts)
+      data
+    end
+
+    # Check a scanned item against the order being packed: ok true with matchedBy (sku | custom_label | item_id) and expectedQuantity, or ok false with reason (wrong_item | no_item) and the expected item.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderPackScanRequest] :create_order_pack_scan_request 
+    # @return [Array<(CreateOrderPackScanResponse, Integer, Hash)>] CreateOrderPackScanResponse data, response status code and response headers
+    def create_order_pack_scan_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_pack_scan ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_pack_scan"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/pack-scan'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_pack_scan_request'])
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CreateOrderPackScanResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.create_order_pack_scan",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#create_order_pack_scan\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead).
+    # @param create_order_pickup_request [CreateOrderPickupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderPickupResponse]
-    def create_order_pickup(opts = {})
-      data, _status_code, _headers = create_order_pickup_with_http_info(opts)
+    def create_order_pickup(create_order_pickup_request, opts = {})
+      data, _status_code, _headers = create_order_pickup_with_http_info(create_order_pickup_request, opts)
       data
     end
 
     # Book a carrier pickup for labelled orders (one carrier per pickup; window at least an hour, up to 14 days ahead).
+    # @param create_order_pickup_request [CreateOrderPickupRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderPickupResponse, Integer, Hash)>] CreateOrderPickupResponse data, response status code and response headers
-    def create_order_pickup_with_http_info(opts = {})
+    def create_order_pickup_with_http_info(create_order_pickup_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_pickup ...'
+      end
+      # verify the required parameter 'create_order_pickup_request' is set
+      if @api_client.config.client_side_validation && create_order_pickup_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_pickup_request' when calling OrdersApi.create_order_pickup"
       end
       # resource path
       local_var_path = '/v1/orders/pickups'
@@ -1001,12 +1278,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_pickup_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderPickupResponse'
@@ -1034,6 +1316,7 @@ module Crossly
     # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderPickupLabelRequest] :create_order_pickup_label_request 
     # @return [CreateOrderPickupLabelResponse]
     def create_order_pickup_label(id, opts = {})
       data, _status_code, _headers = create_order_pickup_label_with_http_info(id, opts)
@@ -1043,6 +1326,7 @@ module Crossly
     # Buy the carrier label for a Crossly order the buyer collects from a pickup point (debits your shipping wallet). 402 when the wallet is short. An order that already has a label answers 409 label_exists unless allowSecondLabel is true.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderPickupLabelRequest] :create_order_pickup_label_request 
     # @return [Array<(CreateOrderPickupLabelResponse, Integer, Hash)>] CreateOrderPickupLabelResponse data, response status code and response headers
     def create_order_pickup_label_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1062,12 +1346,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_pickup_label_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderPickupLabelResponse'
@@ -1460,24 +1749,30 @@ module Crossly
 
     # Crossly Shipping rate quote for an order.
     # @param id [String] 
+    # @param create_order_rate_request [CreateOrderRateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderRateResponse]
-    def create_order_rate(id, opts = {})
-      data, _status_code, _headers = create_order_rate_with_http_info(id, opts)
+    def create_order_rate(id, create_order_rate_request, opts = {})
+      data, _status_code, _headers = create_order_rate_with_http_info(id, create_order_rate_request, opts)
       data
     end
 
     # Crossly Shipping rate quote for an order.
     # @param id [String] 
+    # @param create_order_rate_request [CreateOrderRateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderRateResponse, Integer, Hash)>] CreateOrderRateResponse data, response status code and response headers
-    def create_order_rate_with_http_info(id, opts = {})
+    def create_order_rate_with_http_info(id, create_order_rate_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_rate ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_rate"
+      end
+      # verify the required parameter 'create_order_rate_request' is set
+      if @api_client.config.client_side_validation && create_order_rate_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_rate_request' when calling OrdersApi.create_order_rate"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/rates'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1489,12 +1784,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_rate_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderRateResponse'
@@ -1522,6 +1822,7 @@ module Crossly
     # DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderRefundRequest] :create_order_refund_request 
     # @return [CreateOrderRefundResponse]
     def create_order_refund(id, opts = {})
       data, _status_code, _headers = create_order_refund_with_http_info(id, opts)
@@ -1531,6 +1832,7 @@ module Crossly
     # DEPRECATED: use POST /v1/orders/{id}/refunds. Full or partial refund (amount in dollars). Same idempotency and cap as /refunds: the same request twice refunds once (Idempotency-Key, else the body), never past what the buyer paid.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderRefundRequest] :create_order_refund_request 
     # @return [Array<(CreateOrderRefundResponse, Integer, Hash)>] CreateOrderRefundResponse data, response status code and response headers
     def create_order_refund_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1550,12 +1852,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_refund_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderRefundResponse'
@@ -1583,6 +1890,7 @@ module Crossly
     # Refund an order, in full or in part. `amount` is dollars; omit it for everything left (or the line items' value). Crossly-marketplace orders refund the buyer's card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order's status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderRefundByIdRequest] :create_order_refund_by_id_request 
     # @return [CreateOrderRefundByIdResponse]
     def create_order_refund_by_id(id, opts = {})
       data, _status_code, _headers = create_order_refund_by_id_with_http_info(id, opts)
@@ -1592,6 +1900,7 @@ module Crossly
     # Refund an order, in full or in part. &#x60;amount&#x60; is dollars; omit it for everything left (or the line items&#39; value). Crossly-marketplace orders refund the buyer&#39;s card; crossposted orders refund through the marketplace, or fail not_supported_on_platform. Never refunds past the order (refund_exceeds_remaining). The same request twice refunds once: send an Idempotency-Key (without one, the body is the key). A partial refund keeps the order&#39;s status. What the platform takes (full/partial, its own reason keys, a comment) is GET /v1/orders/{id}/refund-options; a request outside it fails partial_refund_unsupported, invalid_refund_reason or refund_exceeds_item_amount. Fires order.refunded.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderRefundByIdRequest] :create_order_refund_by_id_request 
     # @return [Array<(CreateOrderRefundByIdResponse, Integer, Hash)>] CreateOrderRefundByIdResponse data, response status code and response headers
     def create_order_refund_by_id_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1611,12 +1920,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_refund_by_id_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderRefundByIdResponse'
@@ -1645,6 +1959,7 @@ module Crossly
     # @param id [String] 
     # @param refund_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderRefundResolveRequest] :create_order_refund_resolve_request 
     # @return [ListOrderRefundsItem]
     def create_order_refund_resolve(id, refund_id, opts = {})
       data, _status_code, _headers = create_order_refund_resolve_with_http_info(id, refund_id, opts)
@@ -1655,6 +1970,7 @@ module Crossly
     # @param id [String] 
     # @param refund_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderRefundResolveRequest] :create_order_refund_resolve_request 
     # @return [Array<(ListOrderRefundsItem, Integer, Hash)>] ListOrderRefundsItem data, response status code and response headers
     def create_order_refund_resolve_with_http_info(id, refund_id, opts = {})
       if @api_client.config.debugging
@@ -1678,12 +1994,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_refund_resolve_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListOrderRefundsItem'
@@ -1710,6 +2031,7 @@ module Crossly
 
     # Create SCAN forms (one per carrier account and ship-from address) for labels the carrier has not scanned yet.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderScanFormRequest] :create_order_scan_form_request 
     # @return [CreateOrderScanFormResponse]
     def create_order_scan_form(opts = {})
       data, _status_code, _headers = create_order_scan_form_with_http_info(opts)
@@ -1718,6 +2040,7 @@ module Crossly
 
     # Create SCAN forms (one per carrier account and ship-from address) for labels the carrier has not scanned yet.
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderScanFormRequest] :create_order_scan_form_request 
     # @return [Array<(CreateOrderScanFormResponse, Integer, Hash)>] CreateOrderScanFormResponse data, response status code and response headers
     def create_order_scan_form_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1733,12 +2056,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_scan_form_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderScanFormResponse'
@@ -1765,24 +2093,30 @@ module Crossly
 
     # Submit tracking number + carrier and notify the platform.
     # @param id [String] 
+    # @param create_order_tracking_request [CreateOrderTrackingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderTrackingResponse]
-    def create_order_tracking(id, opts = {})
-      data, _status_code, _headers = create_order_tracking_with_http_info(id, opts)
+    def create_order_tracking(id, create_order_tracking_request, opts = {})
+      data, _status_code, _headers = create_order_tracking_with_http_info(id, create_order_tracking_request, opts)
       data
     end
 
     # Submit tracking number + carrier and notify the platform.
     # @param id [String] 
+    # @param create_order_tracking_request [CreateOrderTrackingRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderTrackingResponse, Integer, Hash)>] CreateOrderTrackingResponse data, response status code and response headers
-    def create_order_tracking_with_http_info(id, opts = {})
+    def create_order_tracking_with_http_info(id, create_order_tracking_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_tracking ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_tracking"
+      end
+      # verify the required parameter 'create_order_tracking_request' is set
+      if @api_client.config.client_side_validation && create_order_tracking_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_tracking_request' when calling OrdersApi.create_order_tracking"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/tracking'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1794,12 +2128,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_tracking_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderTrackingResponse'
@@ -1827,6 +2166,7 @@ module Crossly
     # Generate the Whatnot shipping label and record it on the order.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderWhatnotLabelRequest] :create_order_whatnot_label_request 
     # @return [CreateOrderWhatnotLabelResponse]
     def create_order_whatnot_label(id, opts = {})
       data, _status_code, _headers = create_order_whatnot_label_with_http_info(id, opts)
@@ -1836,6 +2176,7 @@ module Crossly
     # Generate the Whatnot shipping label and record it on the order.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderWhatnotLabelRequest] :create_order_whatnot_label_request 
     # @return [Array<(CreateOrderWhatnotLabelResponse, Integer, Hash)>] CreateOrderWhatnotLabelResponse data, response status code and response headers
     def create_order_whatnot_label_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -1855,12 +2196,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_whatnot_label_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderWhatnotLabelResponse'
@@ -1887,24 +2233,30 @@ module Crossly
 
     # Save a Whatnot shipment package (weight oz, box inches).
     # @param id [String] 
+    # @param create_order_whatnot_package_request [CreateOrderWhatnotPackageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [GetOrderWhatnotShipmentResponse]
-    def create_order_whatnot_package(id, opts = {})
-      data, _status_code, _headers = create_order_whatnot_package_with_http_info(id, opts)
+    def create_order_whatnot_package(id, create_order_whatnot_package_request, opts = {})
+      data, _status_code, _headers = create_order_whatnot_package_with_http_info(id, create_order_whatnot_package_request, opts)
       data
     end
 
     # Save a Whatnot shipment package (weight oz, box inches).
     # @param id [String] 
+    # @param create_order_whatnot_package_request [CreateOrderWhatnotPackageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetOrderWhatnotShipmentResponse, Integer, Hash)>] GetOrderWhatnotShipmentResponse data, response status code and response headers
-    def create_order_whatnot_package_with_http_info(id, opts = {})
+    def create_order_whatnot_package_with_http_info(id, create_order_whatnot_package_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_whatnot_package ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_whatnot_package"
+      end
+      # verify the required parameter 'create_order_whatnot_package_request' is set
+      if @api_client.config.client_side_validation && create_order_whatnot_package_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_whatnot_package_request' when calling OrdersApi.create_order_whatnot_package"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/whatnot/package'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1916,12 +2268,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_whatnot_package_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'GetOrderWhatnotShipmentResponse'
@@ -1948,24 +2305,30 @@ module Crossly
 
     # Quote what a Whatnot package change costs (cents).
     # @param id [String] 
+    # @param create_order_whatnot_package_request [CreateOrderWhatnotPackageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderWhatnotPackageQuoteResponse]
-    def create_order_whatnot_package_quote(id, opts = {})
-      data, _status_code, _headers = create_order_whatnot_package_quote_with_http_info(id, opts)
+    def create_order_whatnot_package_quote(id, create_order_whatnot_package_request, opts = {})
+      data, _status_code, _headers = create_order_whatnot_package_quote_with_http_info(id, create_order_whatnot_package_request, opts)
       data
     end
 
     # Quote what a Whatnot package change costs (cents).
     # @param id [String] 
+    # @param create_order_whatnot_package_request [CreateOrderWhatnotPackageRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderWhatnotPackageQuoteResponse, Integer, Hash)>] CreateOrderWhatnotPackageQuoteResponse data, response status code and response headers
-    def create_order_whatnot_package_quote_with_http_info(id, opts = {})
+    def create_order_whatnot_package_quote_with_http_info(id, create_order_whatnot_package_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_order_whatnot_package_quote ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_order_whatnot_package_quote"
+      end
+      # verify the required parameter 'create_order_whatnot_package_request' is set
+      if @api_client.config.client_side_validation && create_order_whatnot_package_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_whatnot_package_request' when calling OrdersApi.create_order_whatnot_package_quote"
       end
       # resource path
       local_var_path = '/v1/orders/{id}/whatnot/package/quote'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -1977,12 +2340,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_whatnot_package_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderWhatnotPackageQuoteResponse'
@@ -2131,24 +2499,30 @@ module Crossly
 
     # Claim part or all of the deposit (cents, a note, photo URLs): within 3 days of the return, or 14 days after the end if it never came back.
     # @param id [String] 
+    # @param create_rental_claim_request [CreateRentalClaimRequest] 
     # @param [Hash] opts the optional parameters
     # @return [RentalResponse]
-    def create_rental_claim(id, opts = {})
-      data, _status_code, _headers = create_rental_claim_with_http_info(id, opts)
+    def create_rental_claim(id, create_rental_claim_request, opts = {})
+      data, _status_code, _headers = create_rental_claim_with_http_info(id, create_rental_claim_request, opts)
       data
     end
 
     # Claim part or all of the deposit (cents, a note, photo URLs): within 3 days of the return, or 14 days after the end if it never came back.
     # @param id [String] 
+    # @param create_rental_claim_request [CreateRentalClaimRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
-    def create_rental_claim_with_http_info(id, opts = {})
+    def create_rental_claim_with_http_info(id, create_rental_claim_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_claim ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.create_rental_claim"
+      end
+      # verify the required parameter 'create_rental_claim_request' is set
+      if @api_client.config.client_side_validation && create_rental_claim_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_rental_claim_request' when calling OrdersApi.create_rental_claim"
       end
       # resource path
       local_var_path = '/v1/rentals/{id}/claim'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -2160,12 +2534,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_rental_claim_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'RentalResponse'
@@ -2315,19 +2694,21 @@ module Crossly
     # Approve or decline a renter’s request for more days.
     # @param id [String] 
     # @param extension_id [String] 
+    # @param create_rental_extension_decide_request [CreateRentalExtensionDecideRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateRentalExtensionDecideResponse]
-    def create_rental_extension_decide(id, extension_id, opts = {})
-      data, _status_code, _headers = create_rental_extension_decide_with_http_info(id, extension_id, opts)
+    def create_rental_extension_decide(id, extension_id, create_rental_extension_decide_request, opts = {})
+      data, _status_code, _headers = create_rental_extension_decide_with_http_info(id, extension_id, create_rental_extension_decide_request, opts)
       data
     end
 
     # Approve or decline a renter’s request for more days.
     # @param id [String] 
     # @param extension_id [String] 
+    # @param create_rental_extension_decide_request [CreateRentalExtensionDecideRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateRentalExtensionDecideResponse, Integer, Hash)>] CreateRentalExtensionDecideResponse data, response status code and response headers
-    def create_rental_extension_decide_with_http_info(id, extension_id, opts = {})
+    def create_rental_extension_decide_with_http_info(id, extension_id, create_rental_extension_decide_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.create_rental_extension_decide ...'
       end
@@ -2339,6 +2720,10 @@ module Crossly
       if @api_client.config.client_side_validation && extension_id.nil?
         fail ArgumentError, "Missing the required parameter 'extension_id' when calling OrdersApi.create_rental_extension_decide"
       end
+      # verify the required parameter 'create_rental_extension_decide_request' is set
+      if @api_client.config.client_side_validation && create_rental_extension_decide_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_rental_extension_decide_request' when calling OrdersApi.create_rental_extension_decide"
+      end
       # resource path
       local_var_path = '/v1/rentals/{id}/extensions/{extensionId}/decide'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'extensionId' + '}', CGI.escape(extension_id.to_s))
 
@@ -2349,12 +2734,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_rental_extension_decide_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateRentalExtensionDecideResponse'
@@ -2382,6 +2772,7 @@ module Crossly
     # Record the return inspection: the checklist, photos, and optionally release the deposit.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateRentalInspectRequest] :create_rental_inspect_request 
     # @return [RentalResponse]
     def create_rental_inspect(id, opts = {})
       data, _status_code, _headers = create_rental_inspect_with_http_info(id, opts)
@@ -2391,6 +2782,7 @@ module Crossly
     # Record the return inspection: the checklist, photos, and optionally release the deposit.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateRentalInspectRequest] :create_rental_inspect_request 
     # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
     def create_rental_inspect_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2410,12 +2802,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_rental_inspect_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'RentalResponse'
@@ -2687,6 +3084,7 @@ module Crossly
     # Mark a booked rental shipped, with at least 2 photos of its condition as it leaves (URLs you uploaded) — the evidence any later claim is judged against.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateRentalShippedRequest] :create_rental_shipped_request 
     # @return [RentalResponse]
     def create_rental_shipped(id, opts = {})
       data, _status_code, _headers = create_rental_shipped_with_http_info(id, opts)
@@ -2696,6 +3094,7 @@ module Crossly
     # Mark a booked rental shipped, with at least 2 photos of its condition as it leaves (URLs you uploaded) — the evidence any later claim is judged against.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateRentalShippedRequest] :create_rental_shipped_request 
     # @return [Array<(RentalResponse, Integer, Hash)>] RentalResponse data, response status code and response headers
     def create_rental_shipped_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -2715,12 +3114,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_rental_shipped_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'RentalResponse'
@@ -2745,8 +3149,69 @@ module Crossly
       return data, status_code, headers
     end
 
+    # Read your USB postal scale: ok true with weightOz and stable, or ok false with reason (no_agent | not_capable | offline | failed | timeout).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :agent_id 
+    # @option opts [Integer] :timeout_ms 
+    # @return [GetDeviceScaleResponse]
+    def get_device_scale(opts = {})
+      data, _status_code, _headers = get_device_scale_with_http_info(opts)
+      data
+    end
+
+    # Read your USB postal scale: ok true with weightOz and stable, or ok false with reason (no_agent | not_capable | offline | failed | timeout).
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :agent_id 
+    # @option opts [Integer] :timeout_ms 
+    # @return [Array<(GetDeviceScaleResponse, Integer, Hash)>] GetDeviceScaleResponse data, response status code and response headers
+    def get_device_scale_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_device_scale ...'
+      end
+      # resource path
+      local_var_path = '/v1/devices/scale'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'agentId'] = opts[:'agent_id'] if !opts[:'agent_id'].nil?
+      query_params[:'timeoutMs'] = opts[:'timeout_ms'] if !opts[:'timeout_ms'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetDeviceScaleResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_device_scale",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_device_scale\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get one order, with its sale price, fees, SKU and line items.
-    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null, and buyerCompany the trade buyer's business {id, name}: their company (id set), else their verified business name (id null), or null on a consumer order. orderNumber is the readable order number of a Crossly sale (NNN-NNNNNNN-NNNNNNN, the same number the buyer sees); null on other platforms, whose platformOrderId is readable. Show orderNumber ?? platformOrderId; platformOrderId stays the payment reference of a Crossly sale.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetOrderResponse]
@@ -2756,7 +3221,7 @@ module Crossly
     end
 
     # Get one order, with its sale price, fees, SKU and line items.
-    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\&quot;exact\&quot; &#x3D; the fee the marketplace charged, \&quot;estimated\&quot;), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer&#39;s PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\&quot;exact\&quot; &#x3D; the fee the marketplace charged, \&quot;estimated\&quot;), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer&#39;s PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null, and buyerCompany the trade buyer&#39;s business {id, name}: their company (id set), else their verified business name (id null), or null on a consumer order. orderNumber is the readable order number of a Crossly sale (NNN-NNNNNNN-NNNNNNN, the same number the buyer sees); null on other platforms, whose platformOrderId is readable. Show orderNumber ?? platformOrderId; platformOrderId stays the payment reference of a Crossly sale.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetOrderResponse, Integer, Hash)>] GetOrderResponse data, response status code and response headers
@@ -3246,6 +3711,74 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#get_order_packing_slip\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # The items to pull for a batch of orders, grouped by storage bin: groups[{bin, lines[{orderId, orderNumber, platform, title, sku, quantity, buyer}]}], orderCount, itemCount. orderIds (comma list, at most 500) or every order still to ship; storefrontId for one store; format=pdf for the printable list.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :order_ids 
+    # @option opts [String] :format 
+    # @option opts [String] :storefront_id 
+    # @return [GetOrderPickListResponse]
+    def get_order_pick_list(opts = {})
+      data, _status_code, _headers = get_order_pick_list_with_http_info(opts)
+      data
+    end
+
+    # The items to pull for a batch of orders, grouped by storage bin: groups[{bin, lines[{orderId, orderNumber, platform, title, sku, quantity, buyer}]}], orderCount, itemCount. orderIds (comma list, at most 500) or every order still to ship; storefrontId for one store; format&#x3D;pdf for the printable list.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :order_ids 
+    # @option opts [String] :format 
+    # @option opts [String] :storefront_id 
+    # @return [Array<(GetOrderPickListResponse, Integer, Hash)>] GetOrderPickListResponse data, response status code and response headers
+    def get_order_pick_list_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_pick_list ...'
+      end
+      allowable_values = ["json", "pdf"]
+      if @api_client.config.client_side_validation && opts[:'format'] && !allowable_values.include?(opts[:'format'])
+        fail ArgumentError, "invalid value for \"format\", must be one of #{allowable_values}"
+      end
+      # resource path
+      local_var_path = '/v1/orders/pick-list'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+      query_params[:'orderIds'] = opts[:'order_ids'] if !opts[:'order_ids'].nil?
+      query_params[:'format'] = opts[:'format'] if !opts[:'format'].nil?
+      query_params[:'storefrontId'] = opts[:'storefront_id'] if !opts[:'storefront_id'].nil?
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderPickListResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_pick_list",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_pick_list\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -3801,6 +4334,67 @@ module Crossly
       return data, status_code, headers
     end
 
+    # The suggested parcel for this order: source (learned | box | item | none), presetId, presetName, lengthIn, widthIn, heightIn, weightOz, sampleSize.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetOrderSuggestedParcelResponse]
+    def get_order_suggested_parcel(id, opts = {})
+      data, _status_code, _headers = get_order_suggested_parcel_with_http_info(id, opts)
+      data
+    end
+
+    # The suggested parcel for this order: source (learned | box | item | none), presetId, presetName, lengthIn, widthIn, heightIn, weightOz, sampleSize.
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetOrderSuggestedParcelResponse, Integer, Hash)>] GetOrderSuggestedParcelResponse data, response status code and response headers
+    def get_order_suggested_parcel_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_order_suggested_parcel ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.get_order_suggested_parcel"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/suggested-parcel'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetOrderSuggestedParcelResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_order_suggested_parcel",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_order_suggested_parcel\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # A fresh link to Whatnot's packing slip PDF.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
@@ -3985,25 +4579,42 @@ module Crossly
     end
 
     # Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
+    # @param from [String] 
+    # @param to [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :platform_listing_id 
     # @return [GetRentalCalendarResponse]
-    def get_rental_calendar(opts = {})
-      data, _status_code, _headers = get_rental_calendar_with_http_info(opts)
+    def get_rental_calendar(from, to, opts = {})
+      data, _status_code, _headers = get_rental_calendar_with_http_info(from, to, opts)
       data
     end
 
     # Every rentable item’s bookings (per unit), turnaround buffers and blackouts between two dates (≤ 93 days).
+    # @param from [String] 
+    # @param to [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :platform_listing_id 
     # @return [Array<(GetRentalCalendarResponse, Integer, Hash)>] GetRentalCalendarResponse data, response status code and response headers
-    def get_rental_calendar_with_http_info(opts = {})
+    def get_rental_calendar_with_http_info(from, to, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.get_rental_calendar ...'
+      end
+      # verify the required parameter 'from' is set
+      if @api_client.config.client_side_validation && from.nil?
+        fail ArgumentError, "Missing the required parameter 'from' when calling OrdersApi.get_rental_calendar"
+      end
+      # verify the required parameter 'to' is set
+      if @api_client.config.client_side_validation && to.nil?
+        fail ArgumentError, "Missing the required parameter 'to' when calling OrdersApi.get_rental_calendar"
       end
       # resource path
       local_var_path = '/v1/rentals/calendar'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'from'] = from
+      query_params[:'to'] = to
+      query_params[:'platformListingId'] = opts[:'platform_listing_id'] if !opts[:'platform_listing_id'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4035,6 +4646,67 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#get_rental_calendar\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # An inventory item’s rentals: units out with a renter now (reserved on the item), upcoming bookings and returns waiting for inspection.
+    # @param inventory_item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [GetRentalInventoryResponse]
+    def get_rental_inventory(inventory_item_id, opts = {})
+      data, _status_code, _headers = get_rental_inventory_with_http_info(inventory_item_id, opts)
+      data
+    end
+
+    # An inventory item’s rentals: units out with a renter now (reserved on the item), upcoming bookings and returns waiting for inspection.
+    # @param inventory_item_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GetRentalInventoryResponse, Integer, Hash)>] GetRentalInventoryResponse data, response status code and response headers
+    def get_rental_inventory_with_http_info(inventory_item_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.get_rental_inventory ...'
+      end
+      # verify the required parameter 'inventory_item_id' is set
+      if @api_client.config.client_side_validation && inventory_item_id.nil?
+        fail ArgumentError, "Missing the required parameter 'inventory_item_id' when calling OrdersApi.get_rental_inventory"
+      end
+      # resource path
+      local_var_path = '/v1/rentals/inventory/{inventoryItemId}'.sub('{' + 'inventoryItemId' + '}', CGI.escape(inventory_item_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GetRentalInventoryResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.get_rental_inventory",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#get_rental_inventory\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -4096,6 +4768,8 @@ module Crossly
 
     # Your show boxes: every buyer’s orders from one live show, to ship together.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :stream_id 
+    # @option opts [String] :status 
     # @return [ListLiveShipmentsResponse]
     def list_live_shipments(opts = {})
       data, _status_code, _headers = list_live_shipments_with_http_info(opts)
@@ -4104,16 +4778,24 @@ module Crossly
 
     # Your show boxes: every buyer’s orders from one live show, to ship together.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :stream_id 
+    # @option opts [String] :status 
     # @return [Array<(ListLiveShipmentsResponse, Integer, Hash)>] ListLiveShipmentsResponse data, response status code and response headers
     def list_live_shipments_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.list_live_shipments ...'
+      end
+      allowable_values = ["open", "shipped"]
+      if @api_client.config.client_side_validation && opts[:'status'] && !allowable_values.include?(opts[:'status'])
+        fail ArgumentError, "invalid value for \"status\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/live-shipments'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'streamId'] = opts[:'stream_id'] if !opts[:'stream_id'].nil?
+      query_params[:'status'] = opts[:'status'] if !opts[:'status'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4439,7 +5121,7 @@ module Crossly
     end
 
     # List orders, each with its sale price, fees, SKU and line items.
-    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\"exact\" = the fee the marketplace charged, \"estimated\"), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer's PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null, and buyerCompany the trade buyer's business {id, name}: their company (id set), else their verified business name (id null), or null on a consumer order. orderNumber is the readable order number of a Crossly sale (NNN-NNNNNNN-NNNNNNN, the same number the buyer sees); null on other platforms, whose platformOrderId is readable. Show orderNumber ?? platformOrderId; platformOrderId stays the payment reference of a Crossly sale.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page  (default to 1)
     # @option opts [Integer] :limit  (default to 25)
@@ -4448,7 +5130,9 @@ module Crossly
     # @option opts [String] :channel Only orders sold through this business channel (e.g. wholesale).
     # @option opts [String] :details pending &#x3D; only orders whose sale details (price, buyer) have not loaded yet.
     # @option opts [String] :unlinked 1 or true &#x3D; only orders whose sale is not linked to any listing (an orphan sale).
+    # @option opts [String] :order_number Find an order by the number the buyer quotes: a Crossly order number (NNN-NNNNNNN-NNNNNNN, also accepted without dashes or with a leading #) or a marketplace order id (exact match on platformOrderId).
     # @option opts [Time] :updated_since Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes.
+    # @option opts [String] :assignee Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id.
     # @return [ListOrdersResponse]
     def list_orders(opts = {})
       data, _status_code, _headers = list_orders_with_http_info(opts)
@@ -4456,7 +5140,7 @@ module Crossly
     end
 
     # List orders, each with its sale price, fees, SKU and line items.
-    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\&quot;exact\&quot; &#x3D; the fee the marketplace charged, \&quot;estimated\&quot;), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer&#39;s PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null.
+    # Each order carries its sale exactly as the order.created webhook sent it: salePrice, platformFee, taxCollected and shippingCharged in DOLLARS as JSON numbers (not decimal strings), feeSource (\&quot;exact\&quot; &#x3D; the fee the marketplace charged, \&quot;estimated\&quot;), sku (the SKU of the listing), quantity (units), and lineItems: one entry per order row {lineKey, listingId, inventoryItemId, platformListingId (the MARKETPLACE listing id), sku (variant SKU, else the listing SKU), variantId, quantity, unitPrice (dollars per unit, rounded to the cent), total (dollars)}. A multi-item marketplace order is one order row per line sharing platformOrderId, each with its own lineKey. detailsPending: true (the sale was recorded before its price and buyer loaded), an order with no sale, or a sale with no listing behind it has null money and lineItems [] (sku and quantity are still given when known). channel is the business channel that sold it (retail, wholesale, auction, live, world, pos), purchaseOrderRef the buyer&#39;s PO number, and trade the on-account invoice behind a wholesale order {invoiceId, invoiceNumber, invoiceStatus (open, partial, overdue, paid, void), netDays, dueAt, totalCents, amountPaidCents, balanceCents} or null, and buyerCompany the trade buyer&#39;s business {id, name}: their company (id set), else their verified business name (id null), or null on a consumer order. orderNumber is the readable order number of a Crossly sale (NNN-NNNNNNN-NNNNNNN, the same number the buyer sees); null on other platforms, whose platformOrderId is readable. Show orderNumber ?? platformOrderId; platformOrderId stays the payment reference of a Crossly sale.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :page 
     # @option opts [Integer] :limit 
@@ -4465,7 +5149,9 @@ module Crossly
     # @option opts [String] :channel Only orders sold through this business channel (e.g. wholesale).
     # @option opts [String] :details pending &#x3D; only orders whose sale details (price, buyer) have not loaded yet.
     # @option opts [String] :unlinked 1 or true &#x3D; only orders whose sale is not linked to any listing (an orphan sale).
+    # @option opts [String] :order_number Find an order by the number the buyer quotes: a Crossly order number (NNN-NNNNNNN-NNNNNNN, also accepted without dashes or with a leading #) or a marketplace order id (exact match on platformOrderId).
     # @option opts [Time] :updated_since Only orders created or changed at or after this time (ISO 8601): poll with the time of your last call to catch new orders and status/tracking changes.
+    # @option opts [String] :assignee Work assignment: &#39;me&#39; (your own seat), &#39;none&#39; (unassigned), &#39;any&#39; (assigned to someone) or a team member id.
     # @return [Array<(ListOrdersResponse, Integer, Hash)>] ListOrdersResponse data, response status code and response headers
     def list_orders_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -4495,6 +5181,10 @@ module Crossly
       if @api_client.config.client_side_validation && opts[:'unlinked'] && !allowable_values.include?(opts[:'unlinked'])
         fail ArgumentError, "invalid value for \"unlinked\", must be one of #{allowable_values}"
       end
+      if @api_client.config.client_side_validation && !opts[:'order_number'].nil? && opts[:'order_number'].to_s.length > 200
+        fail ArgumentError, 'invalid value for "opts[:"order_number"]" when calling OrdersApi.list_orders, the character length must be smaller than or equal to 200.'
+      end
+
       # resource path
       local_var_path = '/v1/orders'
 
@@ -4507,7 +5197,9 @@ module Crossly
       query_params[:'channel'] = opts[:'channel'] if !opts[:'channel'].nil?
       query_params[:'details'] = opts[:'details'] if !opts[:'details'].nil?
       query_params[:'unlinked'] = opts[:'unlinked'] if !opts[:'unlinked'].nil?
+      query_params[:'orderNumber'] = opts[:'order_number'] if !opts[:'order_number'].nil?
       query_params[:'updatedSince'] = opts[:'updated_since'] if !opts[:'updated_since'].nil?
+      query_params[:'assignee'] = opts[:'assignee'] if !opts[:'assignee'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4545,6 +5237,14 @@ module Crossly
 
     # Active rentals and history, filtered by view, status, dates, item or a search.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :view 
+    # @option opts [Array<String>] :status 
+    # @option opts [String] :q 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [String] :platform_listing_id 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [ListRentalHistoryResponse]
     def list_rental_history(opts = {})
       data, _status_code, _headers = list_rental_history_with_http_info(opts)
@@ -4553,16 +5253,36 @@ module Crossly
 
     # Active rentals and history, filtered by view, status, dates, item or a search.
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :view 
+    # @option opts [Array<String>] :status 
+    # @option opts [String] :q 
+    # @option opts [String] :from 
+    # @option opts [String] :to 
+    # @option opts [String] :platform_listing_id 
+    # @option opts [Float] :limit 
+    # @option opts [Float] :offset 
     # @return [Array<(ListRentalHistoryResponse, Integer, Hash)>] ListRentalHistoryResponse data, response status code and response headers
     def list_rental_history_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.list_rental_history ...'
+      end
+      allowable_values = ["active", "all", "history"]
+      if @api_client.config.client_side_validation && opts[:'view'] && !allowable_values.include?(opts[:'view'])
+        fail ArgumentError, "invalid value for \"view\", must be one of #{allowable_values}"
       end
       # resource path
       local_var_path = '/v1/rentals/history'
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'view'] = opts[:'view'] if !opts[:'view'].nil?
+      query_params[:'status'] = @api_client.build_collection_param(opts[:'status'], :multi) if !opts[:'status'].nil?
+      query_params[:'q'] = opts[:'q'] if !opts[:'q'].nil?
+      query_params[:'from'] = opts[:'from'] if !opts[:'from'].nil?
+      query_params[:'to'] = opts[:'to'] if !opts[:'to'].nil?
+      query_params[:'platformListingId'] = opts[:'platform_listing_id'] if !opts[:'platform_listing_id'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -4655,24 +5375,30 @@ module Crossly
 
     # Update order (status, notes, tracking).
     # @param id [String] 
+    # @param update_order_request [UpdateOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [UpdateOrderResponse]
-    def update_order(id, opts = {})
-      data, _status_code, _headers = update_order_with_http_info(id, opts)
+    def update_order(id, update_order_request, opts = {})
+      data, _status_code, _headers = update_order_with_http_info(id, update_order_request, opts)
       data
     end
 
     # Update order (status, notes, tracking).
     # @param id [String] 
+    # @param update_order_request [UpdateOrderRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(UpdateOrderResponse, Integer, Hash)>] UpdateOrderResponse data, response status code and response headers
-    def update_order_with_http_info(id, opts = {})
+    def update_order_with_http_info(id, update_order_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: OrdersApi.update_order ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.update_order"
+      end
+      # verify the required parameter 'update_order_request' is set
+      if @api_client.config.client_side_validation && update_order_request.nil?
+        fail ArgumentError, "Missing the required parameter 'update_order_request' when calling OrdersApi.update_order"
       end
       # resource path
       local_var_path = '/v1/orders/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -4684,12 +5410,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(update_order_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'UpdateOrderResponse'
@@ -4710,6 +5441,122 @@ module Crossly
       data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: OrdersApi#update_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Assign many orders to a teammate, round robin across several, or unassign them (null).
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateOrderAssigneeResponse]
+    def update_order_assignee(opts = {})
+      data, _status_code, _headers = update_order_assignee_with_http_info(opts)
+      data
+    end
+
+    # Assign many orders to a teammate, round robin across several, or unassign them (null).
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateOrderAssigneeResponse, Integer, Hash)>] UpdateOrderAssigneeResponse data, response status code and response headers
+    def update_order_assignee_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.update_order_assignee ...'
+      end
+      # resource path
+      local_var_path = '/v1/orders/assignee'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateOrderAssigneeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.update_order_assignee",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#update_order_assignee\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Assign one order to a teammate, or unassign it (null).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [UpdateOrderAssigneeByIdResponse]
+    def update_order_assignee_by_id(id, opts = {})
+      data, _status_code, _headers = update_order_assignee_by_id_with_http_info(id, opts)
+      data
+    end
+
+    # Assign one order to a teammate, or unassign it (null).
+    # @param id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(UpdateOrderAssigneeByIdResponse, Integer, Hash)>] UpdateOrderAssigneeByIdResponse data, response status code and response headers
+    def update_order_assignee_by_id_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: OrdersApi.update_order_assignee_by_id ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling OrdersApi.update_order_assignee_by_id"
+      end
+      # resource path
+      local_var_path = '/v1/orders/{id}/assignee'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'UpdateOrderAssigneeByIdResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['PersonalAccessToken']
+
+      new_options = opts.merge(
+        :operation => :"OrdersApi.update_order_assignee_by_id",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: OrdersApi#update_order_assignee_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

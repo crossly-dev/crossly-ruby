@@ -45,7 +45,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'range' => :'FromTo2',
+        :'range' => :'CreateListingTagRenameRequest',
         :'totals' => :'SponsoredAdCampaignResponseDataStats',
         :'daily' => :'Array<GetSponsoredAdReportResponseDataDaily>',
         :'campaigns' => :'Array<GetSponsoredAdReportResponseDataCampaignsItem>',

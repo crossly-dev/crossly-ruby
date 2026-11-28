@@ -6,9 +6,9 @@ All URIs are relative to *https://crossly.net/api*
 | ------ | ------------ | ----------- |
 | [**create_restock_prompt_dismiss**](RestockPromptsApi.md#create_restock_prompt_dismiss) | **POST** /v1/restock-prompts/{id}/dismiss | Dismiss a pending restock prompt. |
 | [**create_restock_prompt_republish**](RestockPromptsApi.md#create_restock_prompt_republish) | **POST** /v1/restock-prompts/{id}/republish | Republish a restock prompt to platforms. |
-| [**get_restock_prompt_setting**](RestockPromptsApi.md#get_restock_prompt_setting) | **GET** /v1/restock-prompts/settings | Whether restocked items are republished automatically. |
+| [**get_restock_prompt_setting**](RestockPromptsApi.md#get_restock_prompt_setting) | **GET** /v1/restock-prompts/settings | Deprecated: whether every platform account of the store republishes restocked items automatically. |
 | [**list_restock_prompts**](RestockPromptsApi.md#list_restock_prompts) | **GET** /v1/restock-prompts | List pending restock prompts. |
-| [**update_restock_prompt_setting**](RestockPromptsApi.md#update_restock_prompt_setting) | **PUT** /v1/restock-prompts/settings | Turn automatic republish of restocked items on or off. |
+| [**update_restock_prompt_setting**](RestockPromptsApi.md#update_restock_prompt_setting) | **PUT** /v1/restock-prompts/settings | Deprecated: turn automatic republish on or off for every platform account of the store at once. Use PUT /api/v1/channel-accounts/:accountId/settings { autoRepublish } per account (removed next release). |
 
 
 ## create_restock_prompt_dismiss
@@ -80,7 +80,7 @@ end
 
 ## create_restock_prompt_republish
 
-> <CreateRestockPromptRepublishResponse> create_restock_prompt_republish(id)
+> <CreateRestockPromptRepublishResponse> create_restock_prompt_republish(id, create_restock_prompt_republish_request)
 
 Republish a restock prompt to platforms.
 
@@ -97,10 +97,11 @@ end
 
 api_instance = Crossly::RestockPromptsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_restock_prompt_republish_request = Crossly::CreateRestockPromptRepublishRequest.new({platforms: ['platforms_example']}) # CreateRestockPromptRepublishRequest | 
 
 begin
   # Republish a restock prompt to platforms.
-  result = api_instance.create_restock_prompt_republish(id)
+  result = api_instance.create_restock_prompt_republish(id, create_restock_prompt_republish_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling RestockPromptsApi->create_restock_prompt_republish: #{e}"
@@ -111,12 +112,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateRestockPromptRepublishResponse>, Integer, Hash)> create_restock_prompt_republish_with_http_info(id)
+> <Array(<CreateRestockPromptRepublishResponse>, Integer, Hash)> create_restock_prompt_republish_with_http_info(id, create_restock_prompt_republish_request)
 
 ```ruby
 begin
   # Republish a restock prompt to platforms.
-  data, status_code, headers = api_instance.create_restock_prompt_republish_with_http_info(id)
+  data, status_code, headers = api_instance.create_restock_prompt_republish_with_http_info(id, create_restock_prompt_republish_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateRestockPromptRepublishResponse>
@@ -130,6 +131,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_restock_prompt_republish_request** | **CreateRestockPromptRepublishRequest** |  |  |
 
 ### Return type
 
@@ -141,7 +143,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -149,9 +151,9 @@ end
 
 > <GetRestockPromptSettingResponse> get_restock_prompt_setting
 
-Whether restocked items are republished automatically.
+Deprecated: whether every platform account of the store republishes restocked items automatically.
 
-autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically. The setting is per platform account now (GET /api/v1/channel-accounts/:accountId/settings → restock.autoRepublish); this reads true only while every account of the store has it on. Removed next release.
 
 ### Examples
 
@@ -167,7 +169,7 @@ end
 api_instance = Crossly::RestockPromptsApi.new
 
 begin
-  # Whether restocked items are republished automatically.
+  # Deprecated: whether every platform account of the store republishes restocked items automatically.
   result = api_instance.get_restock_prompt_setting
   p result
 rescue Crossly::ApiError => e
@@ -183,7 +185,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Whether restocked items are republished automatically.
+  # Deprecated: whether every platform account of the store republishes restocked items automatically.
   data, status_code, headers = api_instance.get_restock_prompt_setting_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -279,7 +281,7 @@ This endpoint does not need any parameter.
 
 > <GetRestockPromptSettingResponse> update_restock_prompt_setting(get_restock_prompt_setting_response)
 
-Turn automatic republish of restocked items on or off.
+Deprecated: turn automatic republish on or off for every platform account of the store at once. Use PUT /api/v1/channel-accounts/:accountId/settings { autoRepublish } per account (removed next release).
 
 ### Examples
 
@@ -296,7 +298,7 @@ api_instance = Crossly::RestockPromptsApi.new
 get_restock_prompt_setting_response = Crossly::GetRestockPromptSettingResponse.new({auto_republish: false}) # GetRestockPromptSettingResponse | 
 
 begin
-  # Turn automatic republish of restocked items on or off.
+  # Deprecated: turn automatic republish on or off for every platform account of the store at once. Use PUT /api/v1/channel-accounts/:accountId/settings { autoRepublish } per account (removed next release).
   result = api_instance.update_restock_prompt_setting(get_restock_prompt_setting_response)
   p result
 rescue Crossly::ApiError => e
@@ -312,7 +314,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Turn automatic republish of restocked items on or off.
+  # Deprecated: turn automatic republish on or off for every platform account of the store at once. Use PUT /api/v1/channel-accounts/:accountId/settings { autoRepublish } per account (removed next release).
   data, status_code, headers = api_instance.update_restock_prompt_setting_with_http_info(get_restock_prompt_setting_response)
   p status_code # => 2xx
   p headers # => { ... }

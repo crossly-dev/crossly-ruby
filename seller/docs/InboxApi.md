@@ -31,7 +31,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_inbox_ai_suggest
 
-> <CreateInboxAiSuggestResponse> create_inbox_ai_suggest
+> <CreateInboxAiSuggestResponse> create_inbox_ai_suggest(create_inbox_ai_suggest_request)
 
 AI reply suggestion for a conversation.
 
@@ -47,10 +47,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InboxApi.new
+create_inbox_ai_suggest_request = Crossly::CreateInboxAiSuggestRequest.new({conversation_id: 'conversation_id_example'}) # CreateInboxAiSuggestRequest | 
 
 begin
   # AI reply suggestion for a conversation.
-  result = api_instance.create_inbox_ai_suggest
+  result = api_instance.create_inbox_ai_suggest(create_inbox_ai_suggest_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_ai_suggest: #{e}"
@@ -61,12 +62,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxAiSuggestResponse>, Integer, Hash)> create_inbox_ai_suggest_with_http_info
+> <Array(<CreateInboxAiSuggestResponse>, Integer, Hash)> create_inbox_ai_suggest_with_http_info(create_inbox_ai_suggest_request)
 
 ```ruby
 begin
   # AI reply suggestion for a conversation.
-  data, status_code, headers = api_instance.create_inbox_ai_suggest_with_http_info
+  data, status_code, headers = api_instance.create_inbox_ai_suggest_with_http_info(create_inbox_ai_suggest_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxAiSuggestResponse>
@@ -77,7 +78,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inbox_ai_suggest_request** | **CreateInboxAiSuggestRequest** |  |  |
 
 ### Return type
 
@@ -89,13 +92,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inbox_canned_response
 
-> <CreateInboxCannedResponseResponse> create_inbox_canned_response
+> <CreateInboxCannedResponseResponse> create_inbox_canned_response(create_inbox_canned_response_request)
 
 Create a canned response (added to the end of the list).
 
@@ -111,10 +114,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InboxApi.new
+create_inbox_canned_response_request = Crossly::CreateInboxCannedResponseRequest.new({name: 'name_example', body: 'body_example'}) # CreateInboxCannedResponseRequest | 
 
 begin
   # Create a canned response (added to the end of the list).
-  result = api_instance.create_inbox_canned_response
+  result = api_instance.create_inbox_canned_response(create_inbox_canned_response_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_canned_response: #{e}"
@@ -125,12 +129,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxCannedResponseResponse>, Integer, Hash)> create_inbox_canned_response_with_http_info
+> <Array(<CreateInboxCannedResponseResponse>, Integer, Hash)> create_inbox_canned_response_with_http_info(create_inbox_canned_response_request)
 
 ```ruby
 begin
   # Create a canned response (added to the end of the list).
-  data, status_code, headers = api_instance.create_inbox_canned_response_with_http_info
+  data, status_code, headers = api_instance.create_inbox_canned_response_with_http_info(create_inbox_canned_response_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxCannedResponseResponse>
@@ -141,7 +145,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inbox_canned_response_request** | **CreateInboxCannedResponseRequest** |  |  |
 
 ### Return type
 
@@ -153,13 +159,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inbox_conversation_bulk
 
-> <CreateInboxConversationBulkResponse> create_inbox_conversation_bulk
+> <CreateInboxConversationBulkResponse> create_inbox_conversation_bulk(create_inbox_conversation_bulk_request)
 
 Bulk mark read / mark unread / soft-delete conversations.
 
@@ -175,10 +181,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InboxApi.new
+create_inbox_conversation_bulk_request = Crossly::CreateInboxConversationBulkRequest.new({conversation_ids: ['conversation_ids_example'], action: 'delete'}) # CreateInboxConversationBulkRequest | 
 
 begin
   # Bulk mark read / mark unread / soft-delete conversations.
-  result = api_instance.create_inbox_conversation_bulk
+  result = api_instance.create_inbox_conversation_bulk(create_inbox_conversation_bulk_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_conversation_bulk: #{e}"
@@ -189,12 +196,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxConversationBulkResponse>, Integer, Hash)> create_inbox_conversation_bulk_with_http_info
+> <Array(<CreateInboxConversationBulkResponse>, Integer, Hash)> create_inbox_conversation_bulk_with_http_info(create_inbox_conversation_bulk_request)
 
 ```ruby
 begin
   # Bulk mark read / mark unread / soft-delete conversations.
-  data, status_code, headers = api_instance.create_inbox_conversation_bulk_with_http_info
+  data, status_code, headers = api_instance.create_inbox_conversation_bulk_with_http_info(create_inbox_conversation_bulk_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxConversationBulkResponse>
@@ -205,7 +212,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inbox_conversation_bulk_request** | **CreateInboxConversationBulkRequest** |  |  |
 
 ### Return type
 
@@ -217,13 +226,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inbox_conversation_bulk_ai_respond
 
-> <CreateInboxConversationBulkAiRespondResponse> create_inbox_conversation_bulk_ai_respond
+> <CreateInboxConversationBulkAiRespondResponse> create_inbox_conversation_bulk_ai_respond(create_inbox_conversation_bulk_ai_respond_request)
 
 AI reply suggestion for multiple conversations — draft or send.
 
@@ -239,10 +248,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InboxApi.new
+create_inbox_conversation_bulk_ai_respond_request = Crossly::CreateInboxConversationBulkAiRespondRequest.new({conversation_ids: ['conversation_ids_example'], mode: 'draft'}) # CreateInboxConversationBulkAiRespondRequest | 
 
 begin
   # AI reply suggestion for multiple conversations — draft or send.
-  result = api_instance.create_inbox_conversation_bulk_ai_respond
+  result = api_instance.create_inbox_conversation_bulk_ai_respond(create_inbox_conversation_bulk_ai_respond_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_conversation_bulk_ai_respond: #{e}"
@@ -253,12 +263,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxConversationBulkAiRespondResponse>, Integer, Hash)> create_inbox_conversation_bulk_ai_respond_with_http_info
+> <Array(<CreateInboxConversationBulkAiRespondResponse>, Integer, Hash)> create_inbox_conversation_bulk_ai_respond_with_http_info(create_inbox_conversation_bulk_ai_respond_request)
 
 ```ruby
 begin
   # AI reply suggestion for multiple conversations — draft or send.
-  data, status_code, headers = api_instance.create_inbox_conversation_bulk_ai_respond_with_http_info
+  data, status_code, headers = api_instance.create_inbox_conversation_bulk_ai_respond_with_http_info(create_inbox_conversation_bulk_ai_respond_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxConversationBulkAiRespondResponse>
@@ -269,7 +279,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_inbox_conversation_bulk_ai_respond_request** | **CreateInboxConversationBulkAiRespondRequest** |  |  |
 
 ### Return type
 
@@ -281,13 +293,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inbox_conversation_offer_action
 
-> <UpdateInboxConversationResponse> create_inbox_conversation_offer_action(id)
+> <UpdateInboxConversationResponse> create_inbox_conversation_offer_action(id, create_inbox_conversation_offer_action_request)
 
 Accept / counter / decline an active offer on a conversation.
 
@@ -304,10 +316,11 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_inbox_conversation_offer_action_request = Crossly::CreateInboxConversationOfferActionRequest.new({action: 'accept'}) # CreateInboxConversationOfferActionRequest | 
 
 begin
   # Accept / counter / decline an active offer on a conversation.
-  result = api_instance.create_inbox_conversation_offer_action(id)
+  result = api_instance.create_inbox_conversation_offer_action(id, create_inbox_conversation_offer_action_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_conversation_offer_action: #{e}"
@@ -318,12 +331,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateInboxConversationResponse>, Integer, Hash)> create_inbox_conversation_offer_action_with_http_info(id)
+> <Array(<UpdateInboxConversationResponse>, Integer, Hash)> create_inbox_conversation_offer_action_with_http_info(id, create_inbox_conversation_offer_action_request)
 
 ```ruby
 begin
   # Accept / counter / decline an active offer on a conversation.
-  data, status_code, headers = api_instance.create_inbox_conversation_offer_action_with_http_info(id)
+  data, status_code, headers = api_instance.create_inbox_conversation_offer_action_with_http_info(id, create_inbox_conversation_offer_action_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateInboxConversationResponse>
@@ -337,6 +350,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_inbox_conversation_offer_action_request** | **CreateInboxConversationOfferActionRequest** |  |  |
 
 ### Return type
 
@@ -348,7 +362,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -421,7 +435,7 @@ end
 
 ## create_inbox_offer
 
-> <CreateInboxOfferResponse> create_inbox_offer(id)
+> <CreateInboxOfferResponse> create_inbox_offer(id, create_inbox_offer_request)
 
 Accept, counter, or decline an offer on a conversation.
 
@@ -438,10 +452,11 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+create_inbox_offer_request = Crossly::CreateInboxOfferRequest.new({action: 'accept'}) # CreateInboxOfferRequest | 
 
 begin
   # Accept, counter, or decline an offer on a conversation.
-  result = api_instance.create_inbox_offer(id)
+  result = api_instance.create_inbox_offer(id, create_inbox_offer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_offer: #{e}"
@@ -452,12 +467,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxOfferResponse>, Integer, Hash)> create_inbox_offer_with_http_info(id)
+> <Array(<CreateInboxOfferResponse>, Integer, Hash)> create_inbox_offer_with_http_info(id, create_inbox_offer_request)
 
 ```ruby
 begin
   # Accept, counter, or decline an offer on a conversation.
-  data, status_code, headers = api_instance.create_inbox_offer_with_http_info(id)
+  data, status_code, headers = api_instance.create_inbox_offer_with_http_info(id, create_inbox_offer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxOfferResponse>
@@ -471,6 +486,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_inbox_offer_request** | **CreateInboxOfferRequest** |  |  |
 
 ### Return type
 
@@ -482,13 +498,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_inbox_reply
 
-> <CreateInboxReplyResponse> create_inbox_reply(id)
+> <CreateInboxReplyResponse> create_inbox_reply(id, body_request)
 
 Send a reply to a conversation thread.
 
@@ -505,10 +521,11 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+body_request = Crossly::BodyRequest.new({body: 'body_example'}) # BodyRequest | 
 
 begin
   # Send a reply to a conversation thread.
-  result = api_instance.create_inbox_reply(id)
+  result = api_instance.create_inbox_reply(id, body_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_inbox_reply: #{e}"
@@ -519,12 +536,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxReplyResponse>, Integer, Hash)> create_inbox_reply_with_http_info(id)
+> <Array(<CreateInboxReplyResponse>, Integer, Hash)> create_inbox_reply_with_http_info(id, body_request)
 
 ```ruby
 begin
   # Send a reply to a conversation thread.
-  data, status_code, headers = api_instance.create_inbox_reply_with_http_info(id)
+  data, status_code, headers = api_instance.create_inbox_reply_with_http_info(id, body_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxReplyResponse>
@@ -538,6 +555,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **body_request** | **BodyRequest** |  |  |
 
 ### Return type
 
@@ -549,7 +567,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -624,7 +642,7 @@ end
 
 ## create_video_request_answer
 
-> <CreateVideoRequestAnswerResponse> create_video_request_answer(id)
+> <CreateVideoRequestAnswerResponse> create_video_request_answer(id, create_video_request_answer_request)
 
 Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
 
@@ -641,10 +659,11 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = 'id_example' # String | 
+create_video_request_answer_request = Crossly::CreateVideoRequestAnswerRequest.new({video_url: 'video_url_example'}) # CreateVideoRequestAnswerRequest | 
 
 begin
   # Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
-  result = api_instance.create_video_request_answer(id)
+  result = api_instance.create_video_request_answer(id, create_video_request_answer_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_video_request_answer: #{e}"
@@ -655,12 +674,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVideoRequestAnswerResponse>, Integer, Hash)> create_video_request_answer_with_http_info(id)
+> <Array(<CreateVideoRequestAnswerResponse>, Integer, Hash)> create_video_request_answer_with_http_info(id, create_video_request_answer_request)
 
 ```ruby
 begin
   # Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
-  data, status_code, headers = api_instance.create_video_request_answer_with_http_info(id)
+  data, status_code, headers = api_instance.create_video_request_answer_with_http_info(id, create_video_request_answer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVideoRequestAnswerResponse>
@@ -674,6 +693,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_video_request_answer_request** | **CreateVideoRequestAnswerRequest** |  |  |
 
 ### Return type
 
@@ -685,13 +705,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_video_request_decline
 
-> <CreateVideoRequestAnswerResponse> create_video_request_decline(id)
+> <CreateVideoRequestAnswerResponse> create_video_request_decline(id, opts)
 
 Decline a video request, with an optional note to the buyer.
 
@@ -708,10 +728,13 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = 'id_example' # String | 
+opts = {
+  create_video_request_decline_request: Crossly::CreateVideoRequestDeclineRequest.new # CreateVideoRequestDeclineRequest | 
+}
 
 begin
   # Decline a video request, with an optional note to the buyer.
-  result = api_instance.create_video_request_decline(id)
+  result = api_instance.create_video_request_decline(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_video_request_decline: #{e}"
@@ -722,12 +745,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVideoRequestAnswerResponse>, Integer, Hash)> create_video_request_decline_with_http_info(id)
+> <Array(<CreateVideoRequestAnswerResponse>, Integer, Hash)> create_video_request_decline_with_http_info(id, opts)
 
 ```ruby
 begin
   # Decline a video request, with an optional note to the buyer.
-  data, status_code, headers = api_instance.create_video_request_decline_with_http_info(id)
+  data, status_code, headers = api_instance.create_video_request_decline_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVideoRequestAnswerResponse>
@@ -741,6 +764,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_video_request_decline_request** | **CreateVideoRequestDeclineRequest** |  | [optional] |
 
 ### Return type
 
@@ -752,13 +776,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_video_request_upload_url
 
-> <CreateVideoRequestUploadUrlResponse> create_video_request_upload_url
+> <CreateVideoRequestUploadUrlResponse> create_video_request_upload_url(create_funding_invoice_file_request)
 
 A presigned upload for a video answer: PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then answer with publicUrl.
 
@@ -774,10 +798,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InboxApi.new
+create_funding_invoice_file_request = Crossly::CreateFundingInvoiceFileRequest.new({file_name: 'file_name_example', content_type: 'content_type_example', content_length: 3.56}) # CreateFundingInvoiceFileRequest | 
 
 begin
   # A presigned upload for a video answer: PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then answer with publicUrl.
-  result = api_instance.create_video_request_upload_url
+  result = api_instance.create_video_request_upload_url(create_funding_invoice_file_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->create_video_request_upload_url: #{e}"
@@ -788,12 +813,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVideoRequestUploadUrlResponse>, Integer, Hash)> create_video_request_upload_url_with_http_info
+> <Array(<CreateVideoRequestUploadUrlResponse>, Integer, Hash)> create_video_request_upload_url_with_http_info(create_funding_invoice_file_request)
 
 ```ruby
 begin
   # A presigned upload for a video answer: PUT the file to uploadUrl with the same Content-Type and exact Content-Length, then answer with publicUrl.
-  data, status_code, headers = api_instance.create_video_request_upload_url_with_http_info
+  data, status_code, headers = api_instance.create_video_request_upload_url_with_http_info(create_funding_invoice_file_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVideoRequestUploadUrlResponse>
@@ -804,7 +829,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_funding_invoice_file_request** | **CreateFundingInvoiceFileRequest** |  |  |
 
 ### Return type
 
@@ -816,7 +843,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1287,7 +1314,7 @@ end
 
 ## list_video_requests
 
-> <ListVideoRequestsResponse> list_video_requests
+> <ListVideoRequestsResponse> list_video_requests(opts)
 
 Buyers asking for a video of your items. status: open (default), answered, declined or all.
 
@@ -1303,10 +1330,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::InboxApi.new
+opts = {
+  status: 'all' # String | 
+}
 
 begin
   # Buyers asking for a video of your items. status: open (default), answered, declined or all.
-  result = api_instance.list_video_requests
+  result = api_instance.list_video_requests(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->list_video_requests: #{e}"
@@ -1317,12 +1347,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVideoRequestsResponse>, Integer, Hash)> list_video_requests_with_http_info
+> <Array(<ListVideoRequestsResponse>, Integer, Hash)> list_video_requests_with_http_info(opts)
 
 ```ruby
 begin
   # Buyers asking for a video of your items. status: open (default), answered, declined or all.
-  data, status_code, headers = api_instance.list_video_requests_with_http_info
+  data, status_code, headers = api_instance.list_video_requests_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVideoRequestsResponse>
@@ -1333,7 +1363,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1351,7 +1383,7 @@ This endpoint does not need any parameter.
 
 ## update_inbox_canned_response
 
-> <CreateInboxCannedResponseResponse> update_inbox_canned_response(id)
+> <CreateInboxCannedResponseResponse> update_inbox_canned_response(id, update_inbox_canned_response_request)
 
 Update a canned response.
 
@@ -1368,10 +1400,11 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_inbox_canned_response_request = Crossly::UpdateInboxCannedResponseRequest.new # UpdateInboxCannedResponseRequest | 
 
 begin
   # Update a canned response.
-  result = api_instance.update_inbox_canned_response(id)
+  result = api_instance.update_inbox_canned_response(id, update_inbox_canned_response_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->update_inbox_canned_response: #{e}"
@@ -1382,12 +1415,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateInboxCannedResponseResponse>, Integer, Hash)> update_inbox_canned_response_with_http_info(id)
+> <Array(<CreateInboxCannedResponseResponse>, Integer, Hash)> update_inbox_canned_response_with_http_info(id, update_inbox_canned_response_request)
 
 ```ruby
 begin
   # Update a canned response.
-  data, status_code, headers = api_instance.update_inbox_canned_response_with_http_info(id)
+  data, status_code, headers = api_instance.update_inbox_canned_response_with_http_info(id, update_inbox_canned_response_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateInboxCannedResponseResponse>
@@ -1401,6 +1434,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_inbox_canned_response_request** | **UpdateInboxCannedResponseRequest** |  |  |
 
 ### Return type
 
@@ -1412,7 +1446,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1487,7 +1521,7 @@ end
 
 ## update_inbox_conversation
 
-> <UpdateInboxConversationResponse> update_inbox_conversation(id)
+> <UpdateInboxConversationResponse> update_inbox_conversation(id, update_inbox_conversation_request)
 
 Mark read / change status / close conversation.
 
@@ -1504,10 +1538,11 @@ end
 
 api_instance = Crossly::InboxApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+update_inbox_conversation_request = Crossly::UpdateInboxConversationRequest.new # UpdateInboxConversationRequest | 
 
 begin
   # Mark read / change status / close conversation.
-  result = api_instance.update_inbox_conversation(id)
+  result = api_instance.update_inbox_conversation(id, update_inbox_conversation_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling InboxApi->update_inbox_conversation: #{e}"
@@ -1518,12 +1553,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateInboxConversationResponse>, Integer, Hash)> update_inbox_conversation_with_http_info(id)
+> <Array(<UpdateInboxConversationResponse>, Integer, Hash)> update_inbox_conversation_with_http_info(id, update_inbox_conversation_request)
 
 ```ruby
 begin
   # Mark read / change status / close conversation.
-  data, status_code, headers = api_instance.update_inbox_conversation_with_http_info(id)
+  data, status_code, headers = api_instance.update_inbox_conversation_with_http_info(id, update_inbox_conversation_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateInboxConversationResponse>
@@ -1537,6 +1572,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_inbox_conversation_request** | **UpdateInboxConversationRequest** |  |  |
 
 ### Return type
 
@@ -1548,6 +1584,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

@@ -30,7 +30,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_world_experience_asset_mesh
 
-> <CreateWorldExperienceAssetMeshResponse> create_world_experience_asset_mesh(experience_id)
+> <CreateWorldExperienceAssetMeshResponse> create_world_experience_asset_mesh(experience_id, opts)
 
 Import a .glb (base64) as a MeshPart: safety parse + budgets, stored on the Crossly CDN, a phone LOD over 5k triangles, collision Box or convex Hull. Returns the asset and the MeshPart node; with placeId it is inserted into that place through its co-editing session.
 
@@ -47,10 +47,13 @@ end
 
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_asset_mesh_request: Crossly::CreateWorldExperienceAssetMeshRequest.new({glb_base64: 'glb_base64_example'}) # CreateWorldExperienceAssetMeshRequest | 
+}
 
 begin
   # Import a .glb (base64) as a MeshPart: safety parse + budgets, stored on the Crossly CDN, a phone LOD over 5k triangles, collision Box or convex Hull. Returns the asset and the MeshPart node; with placeId it is inserted into that place through its co-editing session.
-  result = api_instance.create_world_experience_asset_mesh(experience_id)
+  result = api_instance.create_world_experience_asset_mesh(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_asset_mesh: #{e}"
@@ -61,12 +64,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceAssetMeshResponse>, Integer, Hash)> create_world_experience_asset_mesh_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceAssetMeshResponse>, Integer, Hash)> create_world_experience_asset_mesh_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Import a .glb (base64) as a MeshPart: safety parse + budgets, stored on the Crossly CDN, a phone LOD over 5k triangles, collision Box or convex Hull. Returns the asset and the MeshPart node; with placeId it is inserted into that place through its co-editing session.
-  data, status_code, headers = api_instance.create_world_experience_asset_mesh_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_asset_mesh_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceAssetMeshResponse>
@@ -80,6 +83,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_asset_mesh_request** | **CreateWorldExperienceAssetMeshRequest** |  | [optional] |
 
 ### Return type
 
@@ -91,13 +95,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_asset_mesh_check
 
-> <CreateWorldExperienceAssetMeshCheckResponse> create_world_experience_asset_mesh_check(experience_id)
+> <CreateWorldExperienceAssetMeshCheckResponse> create_world_experience_asset_mesh_check(experience_id, opts)
 
 Check a .glb (base64) for import without storing it: the budget report per device, plain-English errors with a fix list, whether a phone LOD will be made, mesh bounds and hull points.
 
@@ -114,10 +118,13 @@ end
 
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_asset_mesh_check_request: Crossly::CreateWorldExperienceAssetMeshCheckRequest.new({glb_base64: 'glb_base64_example'}) # CreateWorldExperienceAssetMeshCheckRequest | 
+}
 
 begin
   # Check a .glb (base64) for import without storing it: the budget report per device, plain-English errors with a fix list, whether a phone LOD will be made, mesh bounds and hull points.
-  result = api_instance.create_world_experience_asset_mesh_check(experience_id)
+  result = api_instance.create_world_experience_asset_mesh_check(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_asset_mesh_check: #{e}"
@@ -128,12 +135,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceAssetMeshCheckResponse>, Integer, Hash)> create_world_experience_asset_mesh_check_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceAssetMeshCheckResponse>, Integer, Hash)> create_world_experience_asset_mesh_check_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Check a .glb (base64) for import without storing it: the budget report per device, plain-English errors with a fix list, whether a phone LOD will be made, mesh bounds and hull points.
-  data, status_code, headers = api_instance.create_world_experience_asset_mesh_check_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_asset_mesh_check_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceAssetMeshCheckResponse>
@@ -147,6 +154,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_asset_mesh_check_request** | **CreateWorldExperienceAssetMeshCheckRequest** |  | [optional] |
 
 ### Return type
 
@@ -158,13 +166,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_assistant
 
-> <CreateWorldExperiencePlaceAssistantResponse> create_world_experience_place_assistant(experience_id, place_id)
+> <CreateWorldExperiencePlaceAssistantResponse> create_world_experience_place_assistant(experience_id, place_id, opts)
 
 Ask the Studio Assistant (mode explain | edit | build): returns an explanation and a proposed change set (scripts, inserts, edits) checked against your role and linted. Nothing is applied.
 
@@ -182,10 +190,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_assistant_request: Crossly::CreateWorldExperiencePlaceAssistantRequest.new # CreateWorldExperiencePlaceAssistantRequest | 
+}
 
 begin
   # Ask the Studio Assistant (mode explain | edit | build): returns an explanation and a proposed change set (scripts, inserts, edits) checked against your role and linted. Nothing is applied.
-  result = api_instance.create_world_experience_place_assistant(experience_id, place_id)
+  result = api_instance.create_world_experience_place_assistant(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_place_assistant: #{e}"
@@ -196,12 +207,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceAssistantResponse>, Integer, Hash)> create_world_experience_place_assistant_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceAssistantResponse>, Integer, Hash)> create_world_experience_place_assistant_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Ask the Studio Assistant (mode explain | edit | build): returns an explanation and a proposed change set (scripts, inserts, edits) checked against your role and linted. Nothing is applied.
-  data, status_code, headers = api_instance.create_world_experience_place_assistant_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_assistant_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceAssistantResponse>
@@ -216,6 +227,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_assistant_request** | **CreateWorldExperiencePlaceAssistantRequest** |  | [optional] |
 
 ### Return type
 
@@ -227,13 +239,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_assistant_apply
 
-> <CreateWorldExperiencePlaceAssistantApplyResponse> create_world_experience_place_assistant_apply(experience_id, place_id)
+> <CreateWorldExperiencePlaceAssistantApplyResponse> create_world_experience_place_assistant_apply(experience_id, place_id, opts)
 
 Apply accepted Assistant changes to the place as one co-editing batch (activity via assistant, revertible). Re-checked against the place as it is now.
 
@@ -251,10 +263,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_assistant_apply_request: Crossly::CreateWorldExperiencePlaceAssistantApplyRequest.new({changes: [3.56]}) # CreateWorldExperiencePlaceAssistantApplyRequest | 
+}
 
 begin
   # Apply accepted Assistant changes to the place as one co-editing batch (activity via assistant, revertible). Re-checked against the place as it is now.
-  result = api_instance.create_world_experience_place_assistant_apply(experience_id, place_id)
+  result = api_instance.create_world_experience_place_assistant_apply(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_place_assistant_apply: #{e}"
@@ -265,12 +280,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceAssistantApplyResponse>, Integer, Hash)> create_world_experience_place_assistant_apply_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceAssistantApplyResponse>, Integer, Hash)> create_world_experience_place_assistant_apply_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Apply accepted Assistant changes to the place as one co-editing batch (activity via assistant, revertible). Re-checked against the place as it is now.
-  data, status_code, headers = api_instance.create_world_experience_place_assistant_apply_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_assistant_apply_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceAssistantApplyResponse>
@@ -285,6 +300,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_assistant_apply_request** | **CreateWorldExperiencePlaceAssistantApplyRequest** |  | [optional] |
 
 ### Return type
 
@@ -296,13 +312,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_studio_edit
 
-> <CreateWorldExperiencePlaceStudioEditResponse> create_world_experience_place_studio_edit(experience_id, place_id)
+> <CreateWorldExperiencePlaceStudioEditResponse> create_world_experience_place_studio_edit(experience_id, place_id, opts)
 
 Apply set / insert / move / delete steps by path as ONE batch through Team Create (live in every open Studio, one revertible activity entry). All-or-nothing: any bad step refuses the batch with every problem listed.
 
@@ -320,10 +336,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_studio_edit_request: Crossly::CreateWorldExperiencePlaceStudioEditRequest.new({edits: [3.56]}) # CreateWorldExperiencePlaceStudioEditRequest | 
+}
 
 begin
   # Apply set / insert / move / delete steps by path as ONE batch through Team Create (live in every open Studio, one revertible activity entry). All-or-nothing: any bad step refuses the batch with every problem listed.
-  result = api_instance.create_world_experience_place_studio_edit(experience_id, place_id)
+  result = api_instance.create_world_experience_place_studio_edit(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_place_studio_edit: #{e}"
@@ -334,12 +353,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceStudioEditResponse>, Integer, Hash)> create_world_experience_place_studio_edit_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceStudioEditResponse>, Integer, Hash)> create_world_experience_place_studio_edit_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Apply set / insert / move / delete steps by path as ONE batch through Team Create (live in every open Studio, one revertible activity entry). All-or-nothing: any bad step refuses the batch with every problem listed.
-  data, status_code, headers = api_instance.create_world_experience_place_studio_edit_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_studio_edit_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceStudioEditResponse>
@@ -354,6 +373,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_studio_edit_request** | **CreateWorldExperiencePlaceStudioEditRequest** |  | [optional] |
 
 ### Return type
 
@@ -365,13 +385,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_studio_insert_asset
 
-> <CreateWorldExperiencePlaceStudioInsertAssetResponse> create_world_experience_place_studio_insert_asset(experience_id, place_id)
+> <CreateWorldExperiencePlaceStudioInsertAssetResponse> create_world_experience_place_studio_insert_asset(experience_id, place_id, opts)
 
 Insert a Toolbox asset under a path (default Workspace; ServerScripts for scripts). Paid assets need the experience owner's licence.
 
@@ -389,10 +409,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_studio_insert_asset_request: Crossly::CreateWorldExperiencePlaceStudioInsertAssetRequest.new({asset_id: 'asset_id_example'}) # CreateWorldExperiencePlaceStudioInsertAssetRequest | 
+}
 
 begin
   # Insert a Toolbox asset under a path (default Workspace; ServerScripts for scripts). Paid assets need the experience owner's licence.
-  result = api_instance.create_world_experience_place_studio_insert_asset(experience_id, place_id)
+  result = api_instance.create_world_experience_place_studio_insert_asset(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_place_studio_insert_asset: #{e}"
@@ -403,12 +426,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceStudioInsertAssetResponse>, Integer, Hash)> create_world_experience_place_studio_insert_asset_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceStudioInsertAssetResponse>, Integer, Hash)> create_world_experience_place_studio_insert_asset_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Insert a Toolbox asset under a path (default Workspace; ServerScripts for scripts). Paid assets need the experience owner's licence.
-  data, status_code, headers = api_instance.create_world_experience_place_studio_insert_asset_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_studio_insert_asset_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceStudioInsertAssetResponse>
@@ -423,6 +446,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_studio_insert_asset_request** | **CreateWorldExperiencePlaceStudioInsertAssetRequest** |  | [optional] |
 
 ### Return type
 
@@ -434,7 +458,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -578,7 +602,7 @@ end
 
 ## create_world_experience_place_studio_publish
 
-> <CreateWorldExperiencePlaceStudioPublishResponse> create_world_experience_place_studio_publish(experience_id, place_id)
+> <CreateWorldExperiencePlaceStudioPublishResponse> create_world_experience_place_studio_publish(experience_id, place_id, opts)
 
 Prepare a publish from the live session: checks, details, rating answers, access. Never submits and never acknowledges the money review — the person does (or submit_worlds_publish).
 
@@ -596,10 +620,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_studio_publish_request: Crossly::CreateWorldExperiencePlaceStudioPublishRequest.new # CreateWorldExperiencePlaceStudioPublishRequest | 
+}
 
 begin
   # Prepare a publish from the live session: checks, details, rating answers, access. Never submits and never acknowledges the money review — the person does (or submit_worlds_publish).
-  result = api_instance.create_world_experience_place_studio_publish(experience_id, place_id)
+  result = api_instance.create_world_experience_place_studio_publish(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_place_studio_publish: #{e}"
@@ -610,12 +637,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceStudioPublishResponse>, Integer, Hash)> create_world_experience_place_studio_publish_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceStudioPublishResponse>, Integer, Hash)> create_world_experience_place_studio_publish_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Prepare a publish from the live session: checks, details, rating answers, access. Never submits and never acknowledges the money review — the person does (or submit_worlds_publish).
-  data, status_code, headers = api_instance.create_world_experience_place_studio_publish_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_studio_publish_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceStudioPublishResponse>
@@ -630,6 +657,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_studio_publish_request** | **CreateWorldExperiencePlaceStudioPublishRequest** |  | [optional] |
 
 ### Return type
 
@@ -641,13 +669,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_world_experience_place_studio_script_commit
 
-> <CreateWorldExperiencePlaceStudioScriptCommitResponse> create_world_experience_place_studio_script_commit(experience_id, place_id)
+> <CreateWorldExperiencePlaceStudioScriptCommitResponse> create_world_experience_place_studio_script_commit(experience_id, place_id, opts)
 
 Commit your draft with a three-way merge onto the script as it is now (collaborators' edits kept). 409 merge_conflict carries merged text with conflict blocks and theirs.
 
@@ -665,10 +693,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  create_world_experience_place_studio_script_commit_request: Crossly::CreateWorldExperiencePlaceStudioScriptCommitRequest.new({path: 'path_example'}) # CreateWorldExperiencePlaceStudioScriptCommitRequest | 
+}
 
 begin
   # Commit your draft with a three-way merge onto the script as it is now (collaborators' edits kept). 409 merge_conflict carries merged text with conflict blocks and theirs.
-  result = api_instance.create_world_experience_place_studio_script_commit(experience_id, place_id)
+  result = api_instance.create_world_experience_place_studio_script_commit(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->create_world_experience_place_studio_script_commit: #{e}"
@@ -679,12 +710,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperiencePlaceStudioScriptCommitResponse>, Integer, Hash)> create_world_experience_place_studio_script_commit_with_http_info(experience_id, place_id)
+> <Array(<CreateWorldExperiencePlaceStudioScriptCommitResponse>, Integer, Hash)> create_world_experience_place_studio_script_commit_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Commit your draft with a three-way merge onto the script as it is now (collaborators' edits kept). 409 merge_conflict carries merged text with conflict blocks and theirs.
-  data, status_code, headers = api_instance.create_world_experience_place_studio_script_commit_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.create_world_experience_place_studio_script_commit_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperiencePlaceStudioScriptCommitResponse>
@@ -699,6 +730,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **create_world_experience_place_studio_script_commit_request** | **CreateWorldExperiencePlaceStudioScriptCommitRequest** |  | [optional] |
 
 ### Return type
 
@@ -710,13 +742,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## delete_world_experience_place_studio_script
 
-> <DeleteWorldExperiencePlaceCollabScriptResponse> delete_world_experience_place_studio_script(experience_id, place_id)
+> <DeleteWorldExperiencePlaceCollabScriptResponse> delete_world_experience_place_studio_script(experience_id, place_id, path)
 
 Discard your draft of a script.
 
@@ -734,10 +766,11 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+path = 'path_example' # String | 
 
 begin
   # Discard your draft of a script.
-  result = api_instance.delete_world_experience_place_studio_script(experience_id, place_id)
+  result = api_instance.delete_world_experience_place_studio_script(experience_id, place_id, path)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->delete_world_experience_place_studio_script: #{e}"
@@ -748,12 +781,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<DeleteWorldExperiencePlaceCollabScriptResponse>, Integer, Hash)> delete_world_experience_place_studio_script_with_http_info(experience_id, place_id)
+> <Array(<DeleteWorldExperiencePlaceCollabScriptResponse>, Integer, Hash)> delete_world_experience_place_studio_script_with_http_info(experience_id, place_id, path)
 
 ```ruby
 begin
   # Discard your draft of a script.
-  data, status_code, headers = api_instance.delete_world_experience_place_studio_script_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.delete_world_experience_place_studio_script_with_http_info(experience_id, place_id, path)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <DeleteWorldExperiencePlaceCollabScriptResponse>
@@ -768,6 +801,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **path** | **String** |  |  |
 
 ### Return type
 
@@ -849,7 +883,7 @@ This endpoint does not need any parameter.
 
 ## get_world_experience_place_studio_find
 
-> <GetWorldExperiencePlaceStudioFindResponse> get_world_experience_place_studio_find(experience_id, place_id)
+> <GetWorldExperiencePlaceStudioFindResponse> get_world_experience_place_studio_find(experience_id, place_id, opts)
 
 Find instances by name (contains), exact class and/or tag.
 
@@ -867,10 +901,16 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  name: 'name_example', # String | 
+  _class: '_class_example', # String | 
+  tag: 'tag_example', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Find instances by name (contains), exact class and/or tag.
-  result = api_instance.get_world_experience_place_studio_find(experience_id, place_id)
+  result = api_instance.get_world_experience_place_studio_find(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_experience_place_studio_find: #{e}"
@@ -881,12 +921,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceStudioFindResponse>, Integer, Hash)> get_world_experience_place_studio_find_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceStudioFindResponse>, Integer, Hash)> get_world_experience_place_studio_find_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Find instances by name (contains), exact class and/or tag.
-  data, status_code, headers = api_instance.get_world_experience_place_studio_find_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_studio_find_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceStudioFindResponse>
@@ -901,6 +941,10 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **name** | **String** |  | [optional] |
+| **_class** | **String** |  | [optional] |
+| **tag** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -918,7 +962,7 @@ end
 
 ## get_world_experience_place_studio_instance
 
-> <GetWorldExperiencePlaceStudioInstanceResponse> get_world_experience_place_studio_instance(experience_id, place_id)
+> <GetWorldExperiencePlaceStudioInstanceResponse> get_world_experience_place_studio_instance(experience_id, place_id, opts)
 
 One instance by path (or session id): class, properties, attributes, tags, children. Script source is read with …/studio/script.
 
@@ -936,10 +980,14 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  path: 'path_example', # String | 
+  id: 'id_example' # String | 
+}
 
 begin
   # One instance by path (or session id): class, properties, attributes, tags, children. Script source is read with …/studio/script.
-  result = api_instance.get_world_experience_place_studio_instance(experience_id, place_id)
+  result = api_instance.get_world_experience_place_studio_instance(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_experience_place_studio_instance: #{e}"
@@ -950,12 +998,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceStudioInstanceResponse>, Integer, Hash)> get_world_experience_place_studio_instance_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceStudioInstanceResponse>, Integer, Hash)> get_world_experience_place_studio_instance_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # One instance by path (or session id): class, properties, attributes, tags, children. Script source is read with …/studio/script.
-  data, status_code, headers = api_instance.get_world_experience_place_studio_instance_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_studio_instance_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceStudioInstanceResponse>
@@ -970,6 +1018,8 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **path** | **String** |  | [optional] |
+| **id** | **String** |  | [optional] |
 
 ### Return type
 
@@ -987,7 +1037,7 @@ end
 
 ## get_world_experience_place_studio_output
 
-> <GetWorldExperiencePlaceStudioOutputResponse> get_world_experience_place_studio_output(experience_id, place_id)
+> <GetWorldExperiencePlaceStudioOutputResponse> get_world_experience_place_studio_output(experience_id, place_id, opts)
 
 Server Output (print, warnings, errors) after a cursor: every line of cloud tests, errors of live servers (scope=all). Kept 24 hours.
 
@@ -1005,10 +1055,17 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  since: 8.14, # Float | 
+  server_id: 'server_id_example', # String | 
+  level: 'info', # String | 
+  scope: 'all', # String | 
+  limit: 8.14 # Float | 
+}
 
 begin
   # Server Output (print, warnings, errors) after a cursor: every line of cloud tests, errors of live servers (scope=all). Kept 24 hours.
-  result = api_instance.get_world_experience_place_studio_output(experience_id, place_id)
+  result = api_instance.get_world_experience_place_studio_output(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_experience_place_studio_output: #{e}"
@@ -1019,12 +1076,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceStudioOutputResponse>, Integer, Hash)> get_world_experience_place_studio_output_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceStudioOutputResponse>, Integer, Hash)> get_world_experience_place_studio_output_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Server Output (print, warnings, errors) after a cursor: every line of cloud tests, errors of live servers (scope=all). Kept 24 hours.
-  data, status_code, headers = api_instance.get_world_experience_place_studio_output_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_studio_output_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceStudioOutputResponse>
@@ -1039,6 +1096,11 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **since** | **Float** |  | [optional] |
+| **server_id** | **String** |  | [optional] |
+| **level** | **String** |  | [optional] |
+| **scope** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1125,7 +1187,7 @@ end
 
 ## get_world_experience_place_studio_script
 
-> <GetWorldExperiencePlaceStudioScriptResponse> get_world_experience_place_studio_script(experience_id, place_id)
+> <GetWorldExperiencePlaceStudioScriptResponse> get_world_experience_place_studio_script(experience_id, place_id, path)
 
 A script's current source, your draft of it (if any, with whether someone committed since) and the lint of each.
 
@@ -1143,10 +1205,11 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+path = 'path_example' # String | 
 
 begin
   # A script's current source, your draft of it (if any, with whether someone committed since) and the lint of each.
-  result = api_instance.get_world_experience_place_studio_script(experience_id, place_id)
+  result = api_instance.get_world_experience_place_studio_script(experience_id, place_id, path)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_experience_place_studio_script: #{e}"
@@ -1157,12 +1220,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceStudioScriptResponse>, Integer, Hash)> get_world_experience_place_studio_script_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceStudioScriptResponse>, Integer, Hash)> get_world_experience_place_studio_script_with_http_info(experience_id, place_id, path)
 
 ```ruby
 begin
   # A script's current source, your draft of it (if any, with whether someone committed since) and the lint of each.
-  data, status_code, headers = api_instance.get_world_experience_place_studio_script_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_studio_script_with_http_info(experience_id, place_id, path)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceStudioScriptResponse>
@@ -1177,6 +1240,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **path** | **String** |  |  |
 
 ### Return type
 
@@ -1194,7 +1258,7 @@ end
 
 ## get_world_experience_place_studio_snapshot
 
-> <GetWorldExperiencePlaceStudioSnapshotResponse> get_world_experience_place_studio_snapshot(experience_id, place_id)
+> <GetWorldExperiencePlaceStudioSnapshotResponse> get_world_experience_place_studio_snapshot(experience_id, place_id, opts)
 
 A plan (top) or front drawing of the parts under a path as SVG, with bounds, spawns and unanchored parts that will fall.
 
@@ -1212,10 +1276,15 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  path: 'path_example', # String | 
+  view: 'top', # String | 
+  labels: 'true' # String | 
+}
 
 begin
   # A plan (top) or front drawing of the parts under a path as SVG, with bounds, spawns and unanchored parts that will fall.
-  result = api_instance.get_world_experience_place_studio_snapshot(experience_id, place_id)
+  result = api_instance.get_world_experience_place_studio_snapshot(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_experience_place_studio_snapshot: #{e}"
@@ -1226,12 +1295,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceStudioSnapshotResponse>, Integer, Hash)> get_world_experience_place_studio_snapshot_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceStudioSnapshotResponse>, Integer, Hash)> get_world_experience_place_studio_snapshot_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # A plan (top) or front drawing of the parts under a path as SVG, with bounds, spawns and unanchored parts that will fall.
-  data, status_code, headers = api_instance.get_world_experience_place_studio_snapshot_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_studio_snapshot_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceStudioSnapshotResponse>
@@ -1246,6 +1315,9 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **path** | **String** |  | [optional] |
+| **view** | **String** |  | [optional] |
+| **labels** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1263,7 +1335,7 @@ end
 
 ## get_world_experience_place_studio_tree
 
-> <GetWorldExperiencePlaceStudioTreeResponse> get_world_experience_place_studio_tree(experience_id, place_id)
+> <GetWorldExperiencePlaceStudioTreeResponse> get_world_experience_place_studio_tree(experience_id, place_id, opts)
 
 The live instance tree (what every open Studio shows) by dotted path, depth levels down (default 3, max 12).
 
@@ -1281,10 +1353,14 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  path: 'path_example', # String | 
+  depth: 8.14 # Float | 
+}
 
 begin
   # The live instance tree (what every open Studio shows) by dotted path, depth levels down (default 3, max 12).
-  result = api_instance.get_world_experience_place_studio_tree(experience_id, place_id)
+  result = api_instance.get_world_experience_place_studio_tree(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_experience_place_studio_tree: #{e}"
@@ -1295,12 +1371,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldExperiencePlaceStudioTreeResponse>, Integer, Hash)> get_world_experience_place_studio_tree_with_http_info(experience_id, place_id)
+> <Array(<GetWorldExperiencePlaceStudioTreeResponse>, Integer, Hash)> get_world_experience_place_studio_tree_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # The live instance tree (what every open Studio shows) by dotted path, depth levels down (default 3, max 12).
-  data, status_code, headers = api_instance.get_world_experience_place_studio_tree_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.get_world_experience_place_studio_tree_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldExperiencePlaceStudioTreeResponse>
@@ -1315,6 +1391,8 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **path** | **String** |  | [optional] |
+| **depth** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1332,7 +1410,7 @@ end
 
 ## get_world_studio_class
 
-> <GetWorldStudioClassResponse> get_world_studio_class
+> <GetWorldStudioClassResponse> get_world_studio_class(opts)
 
 The engine's class table: insertable classes, services, and for ?name= one class with every property, its type, default and the exact JSON a place (and a studio edit) takes.
 
@@ -1348,10 +1426,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::WorldsStudioApi.new
+opts = {
+  name: 'name_example' # String | 
+}
 
 begin
   # The engine's class table: insertable classes, services, and for ?name= one class with every property, its type, default and the exact JSON a place (and a studio edit) takes.
-  result = api_instance.get_world_studio_class
+  result = api_instance.get_world_studio_class(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->get_world_studio_class: #{e}"
@@ -1362,12 +1443,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetWorldStudioClassResponse>, Integer, Hash)> get_world_studio_class_with_http_info
+> <Array(<GetWorldStudioClassResponse>, Integer, Hash)> get_world_studio_class_with_http_info(opts)
 
 ```ruby
 begin
   # The engine's class table: insertable classes, services, and for ?name= one class with every property, its type, default and the exact JSON a place (and a studio edit) takes.
-  data, status_code, headers = api_instance.get_world_studio_class_with_http_info
+  data, status_code, headers = api_instance.get_world_studio_class_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetWorldStudioClassResponse>
@@ -1378,7 +1459,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **name** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1396,7 +1479,7 @@ This endpoint does not need any parameter.
 
 ## list_world_experience_assets
 
-> <ListWorldExperienceAssetsResponse> list_world_experience_assets(experience_id)
+> <ListWorldExperienceAssetsResponse> list_world_experience_assets(experience_id, opts)
 
 Meshes imported into this experience, newest first: paths, phone LOD, bounds, hull size, budget report, moderation (pending until a reviewed publish uses them) and a URL you can load now.
 
@@ -1413,10 +1496,13 @@ end
 
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  limit: 8.14 # Float | 
+}
 
 begin
   # Meshes imported into this experience, newest first: paths, phone LOD, bounds, hull size, budget report, moderation (pending until a reviewed publish uses them) and a URL you can load now.
-  result = api_instance.list_world_experience_assets(experience_id)
+  result = api_instance.list_world_experience_assets(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->list_world_experience_assets: #{e}"
@@ -1427,12 +1513,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListWorldExperienceAssetsResponse>, Integer, Hash)> list_world_experience_assets_with_http_info(experience_id)
+> <Array(<ListWorldExperienceAssetsResponse>, Integer, Hash)> list_world_experience_assets_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Meshes imported into this experience, newest first: paths, phone LOD, bounds, hull size, budget report, moderation (pending until a reviewed publish uses them) and a URL you can load now.
-  data, status_code, headers = api_instance.list_world_experience_assets_with_http_info(experience_id)
+  data, status_code, headers = api_instance.list_world_experience_assets_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListWorldExperienceAssetsResponse>
@@ -1446,6 +1532,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **limit** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1463,7 +1550,7 @@ end
 
 ## update_world_experience_place_studio_script
 
-> <UpdateWorldExperiencePlaceStudioScriptResponse> update_world_experience_place_studio_script(experience_id, place_id)
+> <UpdateWorldExperiencePlaceStudioScriptResponse> update_world_experience_place_studio_script(experience_id, place_id, opts)
 
 Save your draft of a script (the place does not change until you commit). Returns lint and the diff from the current source.
 
@@ -1481,10 +1568,13 @@ end
 api_instance = Crossly::WorldsStudioApi.new
 experience_id = 'experience_id_example' # String | 
 place_id = 'place_id_example' # String | 
+opts = {
+  update_world_experience_place_studio_script_request: Crossly::UpdateWorldExperiencePlaceStudioScriptRequest.new({path: 'path_example', source: 'source_example'}) # UpdateWorldExperiencePlaceStudioScriptRequest | 
+}
 
 begin
   # Save your draft of a script (the place does not change until you commit). Returns lint and the diff from the current source.
-  result = api_instance.update_world_experience_place_studio_script(experience_id, place_id)
+  result = api_instance.update_world_experience_place_studio_script(experience_id, place_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsStudioApi->update_world_experience_place_studio_script: #{e}"
@@ -1495,12 +1585,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperiencePlaceStudioScriptResponse>, Integer, Hash)> update_world_experience_place_studio_script_with_http_info(experience_id, place_id)
+> <Array(<UpdateWorldExperiencePlaceStudioScriptResponse>, Integer, Hash)> update_world_experience_place_studio_script_with_http_info(experience_id, place_id, opts)
 
 ```ruby
 begin
   # Save your draft of a script (the place does not change until you commit). Returns lint and the diff from the current source.
-  data, status_code, headers = api_instance.update_world_experience_place_studio_script_with_http_info(experience_id, place_id)
+  data, status_code, headers = api_instance.update_world_experience_place_studio_script_with_http_info(experience_id, place_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperiencePlaceStudioScriptResponse>
@@ -1515,6 +1605,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **place_id** | **String** |  |  |
+| **update_world_experience_place_studio_script_request** | **UpdateWorldExperiencePlaceStudioScriptRequest** |  | [optional] |
 
 ### Return type
 
@@ -1526,6 +1617,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

@@ -103,7 +103,7 @@ module Crossly
         :'enabled' => :'Boolean',
         :'appearance' => :'GetWorldAttendantResponseDataAttendantAppearance',
         :'personality' => :'GetWorldAttendantResponseDataAttendantPersonality',
-        :'knowledge' => :'UpdateWorldAttendantResponseDataKnowledge',
+        :'knowledge' => :'UpdateWorldAttendantRequestKnowledge',
         :'languages' => :'Array<UpdateWorldAttendantResponseDataLanguagesItem>',
         :'hours' => :'UpdateWorldAttendantResponseDataHours',
         :'allowed_actions' => :'GetWorldAttendantResponseDataAttendantAllowedActions',

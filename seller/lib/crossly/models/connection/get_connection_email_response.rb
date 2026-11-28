@@ -17,16 +17,10 @@ module Crossly
   class GetConnectionEmailResponse
     attr_accessor :data
 
-    attr_accessor :imap
-
-    attr_accessor :oauth
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'data' => :'data',
-        :'imap' => :'imap',
-        :'oauth' => :'oauth'
+        :'data' => :'data'
       }
     end
 
@@ -38,9 +32,7 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'data' => :'Array<GetConnectionEmailResponseData>',
-        :'imap' => :'Array<GetConnectionEmailResponseData>',
-        :'oauth' => :'Array<GetConnectionEmailResponseOauth>'
+        :'data' => :'GetConnectionEmailResponseData'
       }
     end
 
@@ -66,21 +58,7 @@ module Crossly
       }
 
       if attributes.key?(:'data')
-        if (value = attributes[:'data']).is_a?(Array)
-          self.data = value
-        end
-      end
-
-      if attributes.key?(:'imap')
-        if (value = attributes[:'imap']).is_a?(Array)
-          self.imap = value
-        end
-      end
-
-      if attributes.key?(:'oauth')
-        if (value = attributes[:'oauth']).is_a?(Array)
-          self.oauth = value
-        end
+        self.data = attributes[:'data']
       end
     end
 
@@ -92,14 +70,6 @@ module Crossly
         invalid_properties.push('invalid value for "data", data cannot be nil.')
       end
 
-      if @imap.nil?
-        invalid_properties.push('invalid value for "imap", imap cannot be nil.')
-      end
-
-      if @oauth.nil?
-        invalid_properties.push('invalid value for "oauth", oauth cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -107,8 +77,6 @@ module Crossly
     # @return true if the model is valid
     def valid?
       return false if @data.nil?
-      return false if @imap.nil?
-      return false if @oauth.nil?
       true
     end
 
@@ -117,9 +85,7 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          data == o.data &&
-          imap == o.imap &&
-          oauth == o.oauth
+          data == o.data
     end
 
     # @see the `==` method
@@ -131,7 +97,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [data, imap, oauth].hash
+      [data].hash
     end
 
     # Builds the object from hash

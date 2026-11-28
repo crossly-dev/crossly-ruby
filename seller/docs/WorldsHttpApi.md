@@ -13,7 +13,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_world_experience_http_domain
 
-> <CreateWorldExperienceHttpDomainResponse> create_world_experience_http_domain(experience_id)
+> <CreateWorldExperienceHttpDomainResponse> create_world_experience_http_domain(experience_id, opts)
 
 Declare a domain server scripts may call (example.com or *.example.com). It is reviewed by a person before it works.
 
@@ -30,10 +30,13 @@ end
 
 api_instance = Crossly::WorldsHttpApi.new
 experience_id = 'experience_id_example' # String | 
+opts = {
+  create_world_experience_http_domain_request: Crossly::CreateWorldExperienceHttpDomainRequest.new({domain: 'domain_example'}) # CreateWorldExperienceHttpDomainRequest | 
+}
 
 begin
   # Declare a domain server scripts may call (example.com or *.example.com). It is reviewed by a person before it works.
-  result = api_instance.create_world_experience_http_domain(experience_id)
+  result = api_instance.create_world_experience_http_domain(experience_id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsHttpApi->create_world_experience_http_domain: #{e}"
@@ -44,12 +47,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateWorldExperienceHttpDomainResponse>, Integer, Hash)> create_world_experience_http_domain_with_http_info(experience_id)
+> <Array(<CreateWorldExperienceHttpDomainResponse>, Integer, Hash)> create_world_experience_http_domain_with_http_info(experience_id, opts)
 
 ```ruby
 begin
   # Declare a domain server scripts may call (example.com or *.example.com). It is reviewed by a person before it works.
-  data, status_code, headers = api_instance.create_world_experience_http_domain_with_http_info(experience_id)
+  data, status_code, headers = api_instance.create_world_experience_http_domain_with_http_info(experience_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateWorldExperienceHttpDomainResponse>
@@ -63,6 +66,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
+| **create_world_experience_http_domain_request** | **CreateWorldExperienceHttpDomainRequest** |  | [optional] |
 
 ### Return type
 
@@ -74,7 +78,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -285,7 +289,7 @@ end
 
 ## update_world_experience_http_secret
 
-> <UpdateWorldExperienceHttpSecretResponse> update_world_experience_http_secret(experience_id, name)
+> <UpdateWorldExperienceHttpSecretResponse> update_world_experience_http_secret(experience_id, name, opts)
 
 Set a secret (UPPER_SNAKE name). Scripts reference it as Http.secret(\"NAME\"); the value is never returned.
 
@@ -303,10 +307,13 @@ end
 api_instance = Crossly::WorldsHttpApi.new
 experience_id = 'experience_id_example' # String | 
 name = 'name_example' # String | 
+opts = {
+  update_world_experience_http_secret_request: Crossly::UpdateWorldExperienceHttpSecretRequest.new({value: 'value_example'}) # UpdateWorldExperienceHttpSecretRequest | 
+}
 
 begin
   # Set a secret (UPPER_SNAKE name). Scripts reference it as Http.secret(\"NAME\"); the value is never returned.
-  result = api_instance.update_world_experience_http_secret(experience_id, name)
+  result = api_instance.update_world_experience_http_secret(experience_id, name, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling WorldsHttpApi->update_world_experience_http_secret: #{e}"
@@ -317,12 +324,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateWorldExperienceHttpSecretResponse>, Integer, Hash)> update_world_experience_http_secret_with_http_info(experience_id, name)
+> <Array(<UpdateWorldExperienceHttpSecretResponse>, Integer, Hash)> update_world_experience_http_secret_with_http_info(experience_id, name, opts)
 
 ```ruby
 begin
   # Set a secret (UPPER_SNAKE name). Scripts reference it as Http.secret(\"NAME\"); the value is never returned.
-  data, status_code, headers = api_instance.update_world_experience_http_secret_with_http_info(experience_id, name)
+  data, status_code, headers = api_instance.update_world_experience_http_secret_with_http_info(experience_id, name, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateWorldExperienceHttpSecretResponse>
@@ -337,6 +344,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **experience_id** | **String** |  |  |
 | **name** | **String** |  |  |
+| **update_world_experience_http_secret_request** | **UpdateWorldExperienceHttpSecretRequest** |  | [optional] |
 
 ### Return type
 
@@ -348,6 +356,6 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 

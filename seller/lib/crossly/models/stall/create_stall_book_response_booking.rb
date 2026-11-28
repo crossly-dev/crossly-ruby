@@ -379,7 +379,7 @@ module Crossly
       return false if @cancellable.nil?
       return false if @listing_ids.nil?
       return false if @booth_kind.nil?
-      booth_kind_validator = EnumAttributeValidator.new('String', ["booth", "cart", "pavilion"])
+      booth_kind_validator = EnumAttributeValidator.new('String', ["cart", "booth", "pavilion"])
       return false unless booth_kind_validator.valid?(@booth_kind)
       return false if @capacity.nil?
       return false if @attendant.nil?
@@ -421,7 +421,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] booth_kind Object to be assigned
     def booth_kind=(booth_kind)
-      validator = EnumAttributeValidator.new('String', ["booth", "cart", "pavilion"])
+      validator = EnumAttributeValidator.new('String', ["cart", "booth", "pavilion"])
       unless validator.valid?(booth_kind)
         fail ArgumentError, "invalid value for \"booth_kind\", must be one of #{validator.allowable_values}."
       end

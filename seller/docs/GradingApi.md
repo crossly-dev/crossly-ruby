@@ -13,6 +13,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_vault_market_grading_order_pay**](GradingApi.md#create_vault_market_grading_order_pay) | **POST** /v1/vault-markets/grading/orders/{id}/pay | Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required. |
 | [**create_vault_market_grading_order_pay_confirm**](GradingApi.md#create_vault_market_grading_order_pay_confirm) | **POST** /v1/vault-markets/grading/orders/{id}/pay/confirm | After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid. |
 | [**get_grading_price_book**](GradingApi.md#get_grading_price_book) | **GET** /v1/grading/price-book | The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from. |
+| [**get_grading_setting**](GradingApi.md#get_grading_setting) | **GET** /v1/grading/settings | Your grading defaults: defaultGrader (null &#x3D; ask each time), defaultMissMode (roll_over | release, if a run does not fill), defaultReturnMode (always vault: every graded card goes into your vault) and defaultPrescreen. |
 | [**get_grading_worth**](GradingApi.md#get_grading_worth) | **GET** /v1/grading/worth/{inventoryItemId} | Worth grading? Raw value vs what each grade is worth at each grader, against the cost. Never predicts the grade. |
 | [**get_vault_market_grading_order**](GradingApi.md#get_vault_market_grading_order) | **GET** /v1/vault-markets/grading/orders/{id} | One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking. |
 | [**list_grading_rate_card**](GradingApi.md#list_grading_rate_card) | **GET** /v1/grading/rate-card | Every grader and tier Crossly can send to, with the per-card price in cents (null &#x3D; paused at the grader). |
@@ -20,11 +21,12 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_grading_submissions**](GradingApi.md#list_grading_submissions) | **GET** /v1/grading/submissions | Your cards out for grading (runs and Direct), newest first. active&#x3D;1 keeps only the ones still in flight. |
 | [**list_vault_market_grading_candidates**](GradingApi.md#list_vault_market_grading_candidates) | **GET** /v1/vault-markets/grading/candidates | What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go. |
 | [**list_vault_market_grading_orders**](GradingApi.md#list_vault_market_grading_orders) | **GET** /v1/vault-markets/grading/orders | Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers. |
+| [**update_grading_setting**](GradingApi.md#update_grading_setting) | **PUT** /v1/grading/settings | Change your grading defaults (any of defaultGrader, defaultMissMode, defaultPrescreen; defaultReturnMode is always vault, and an old \&quot;return\&quot; is saved as vault). Logged to Activity. Returns the saved defaults. |
 
 
 ## create_grading_run_reserve
 
-> <IdResponse> create_grading_run_reserve(id)
+> <IdResponse> create_grading_run_reserve(id, opts)
 
 Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
 
@@ -41,10 +43,13 @@ end
 
 api_instance = Crossly::GradingApi.new
 id = 'id_example' # String | 
+opts = {
+  create_grading_run_reserve_request: Crossly::CreateGradingRunReserveRequest.new({declared_value_cents: 3.56}) # CreateGradingRunReserveRequest | 
+}
 
 begin
   # Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
-  result = api_instance.create_grading_run_reserve(id)
+  result = api_instance.create_grading_run_reserve(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->create_grading_run_reserve: #{e}"
@@ -55,12 +60,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<IdResponse>, Integer, Hash)> create_grading_run_reserve_with_http_info(id)
+> <Array(<IdResponse>, Integer, Hash)> create_grading_run_reserve_with_http_info(id, opts)
 
 ```ruby
 begin
   # Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
-  data, status_code, headers = api_instance.create_grading_run_reserve_with_http_info(id)
+  data, status_code, headers = api_instance.create_grading_run_reserve_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <IdResponse>
@@ -74,6 +79,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_grading_run_reserve_request** | **CreateGradingRunReserveRequest** |  | [optional] |
 
 ### Return type
 
@@ -85,7 +91,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -158,7 +164,7 @@ end
 
 ## create_grading_submission_shipped
 
-> <OkResponse> create_grading_submission_shipped(id)
+> <OkResponse> create_grading_submission_shipped(id, opts)
 
 Say you mailed a charged card to the hub, with optional tracking.
 
@@ -175,10 +181,13 @@ end
 
 api_instance = Crossly::GradingApi.new
 id = 'id_example' # String | 
+opts = {
+  create_grading_submission_shipped_request: Crossly::CreateGradingSubmissionShippedRequest.new # CreateGradingSubmissionShippedRequest | 
+}
 
 begin
   # Say you mailed a charged card to the hub, with optional tracking.
-  result = api_instance.create_grading_submission_shipped(id)
+  result = api_instance.create_grading_submission_shipped(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->create_grading_submission_shipped: #{e}"
@@ -189,12 +198,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<OkResponse>, Integer, Hash)> create_grading_submission_shipped_with_http_info(id)
+> <Array(<OkResponse>, Integer, Hash)> create_grading_submission_shipped_with_http_info(id, opts)
 
 ```ruby
 begin
   # Say you mailed a charged card to the hub, with optional tracking.
-  data, status_code, headers = api_instance.create_grading_submission_shipped_with_http_info(id)
+  data, status_code, headers = api_instance.create_grading_submission_shipped_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <OkResponse>
@@ -208,6 +217,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_grading_submission_shipped_request** | **CreateGradingSubmissionShippedRequest** |  | [optional] |
 
 ### Return type
 
@@ -219,13 +229,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_grading_verify_cert
 
-> <CreateGradingVerifyCertResponse> create_grading_verify_cert
+> <CreateGradingVerifyCertResponse> create_grading_verify_cert(opts)
 
 Look a cert number up with its grader. found=false when the grader has no record.
 
@@ -241,10 +251,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::GradingApi.new
+opts = {
+  create_grading_verify_cert_request: Crossly::CreateGradingVerifyCertRequest.new({grader_slug: 'grader_slug_example', cert_number: 'cert_number_example'}) # CreateGradingVerifyCertRequest | 
+}
 
 begin
   # Look a cert number up with its grader. found=false when the grader has no record.
-  result = api_instance.create_grading_verify_cert
+  result = api_instance.create_grading_verify_cert(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->create_grading_verify_cert: #{e}"
@@ -255,12 +268,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateGradingVerifyCertResponse>, Integer, Hash)> create_grading_verify_cert_with_http_info
+> <Array(<CreateGradingVerifyCertResponse>, Integer, Hash)> create_grading_verify_cert_with_http_info(opts)
 
 ```ruby
 begin
   # Look a cert number up with its grader. found=false when the grader has no record.
-  data, status_code, headers = api_instance.create_grading_verify_cert_with_http_info
+  data, status_code, headers = api_instance.create_grading_verify_cert_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateGradingVerifyCertResponse>
@@ -271,7 +284,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_grading_verify_cert_request** | **CreateGradingVerifyCertRequest** |  | [optional] |
 
 ### Return type
 
@@ -283,13 +298,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_grading_order
 
-> <CreateVaultMarketGradingOrderResponse> create_vault_market_grading_order
+> <CreateVaultMarketGradingOrderResponse> create_vault_market_grading_order(opts)
 
 Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
 
@@ -305,10 +320,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::GradingApi.new
+opts = {
+  create_vault_market_grading_order_request: Crossly::CreateVaultMarketGradingOrderRequest.new({grader_slug: 'grader_slug_example', tier_slug: 'tier_slug_example', cards: [Crossly::CreateVaultMarketGradingOrderRequestCards.new({source: 'inventory', declared_value_cents: 3.56})]}) # CreateVaultMarketGradingOrderRequest | 
+}
 
 begin
   # Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
-  result = api_instance.create_vault_market_grading_order
+  result = api_instance.create_vault_market_grading_order(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->create_vault_market_grading_order: #{e}"
@@ -319,12 +337,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketGradingOrderResponse>, Integer, Hash)> create_vault_market_grading_order_with_http_info
+> <Array(<CreateVaultMarketGradingOrderResponse>, Integer, Hash)> create_vault_market_grading_order_with_http_info(opts)
 
 ```ruby
 begin
   # Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
-  data, status_code, headers = api_instance.create_vault_market_grading_order_with_http_info
+  data, status_code, headers = api_instance.create_vault_market_grading_order_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketGradingOrderResponse>
@@ -335,7 +353,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_vault_market_grading_order_request** | **CreateVaultMarketGradingOrderRequest** |  | [optional] |
 
 ### Return type
 
@@ -347,7 +367,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -420,7 +440,7 @@ end
 
 ## create_vault_market_grading_order_pay
 
-> <CreateVaultMarketGradingOrderPayResponse> create_vault_market_grading_order_pay(id)
+> <CreateVaultMarketGradingOrderPayResponse> create_vault_market_grading_order_pay(id, opts)
 
 Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
 
@@ -437,10 +457,13 @@ end
 
 api_instance = Crossly::GradingApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_grading_order_pay_request: Crossly::CreateVaultMarketGradingOrderPayRequest.new # CreateVaultMarketGradingOrderPayRequest | 
+}
 
 begin
   # Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
-  result = api_instance.create_vault_market_grading_order_pay(id)
+  result = api_instance.create_vault_market_grading_order_pay(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->create_vault_market_grading_order_pay: #{e}"
@@ -451,12 +474,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateVaultMarketGradingOrderPayResponse>, Integer, Hash)> create_vault_market_grading_order_pay_with_http_info(id)
+> <Array(<CreateVaultMarketGradingOrderPayResponse>, Integer, Hash)> create_vault_market_grading_order_pay_with_http_info(id, opts)
 
 ```ruby
 begin
   # Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
-  data, status_code, headers = api_instance.create_vault_market_grading_order_pay_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_grading_order_pay_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateVaultMarketGradingOrderPayResponse>
@@ -470,6 +493,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_grading_order_pay_request** | **CreateVaultMarketGradingOrderPayRequest** |  | [optional] |
 
 ### Return type
 
@@ -481,13 +505,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_vault_market_grading_order_pay_confirm
 
-> <StatusResponse> create_vault_market_grading_order_pay_confirm(id)
+> <StatusResponse> create_vault_market_grading_order_pay_confirm(id, opts)
 
 After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
 
@@ -504,10 +528,13 @@ end
 
 api_instance = Crossly::GradingApi.new
 id = 'id_example' # String | 
+opts = {
+  create_vault_market_grading_order_pay_confirm_request: Crossly::CreateVaultMarketGradingOrderPayConfirmRequest.new({payment_intent_id: 'payment_intent_id_example'}) # CreateVaultMarketGradingOrderPayConfirmRequest | 
+}
 
 begin
   # After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
-  result = api_instance.create_vault_market_grading_order_pay_confirm(id)
+  result = api_instance.create_vault_market_grading_order_pay_confirm(id, opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->create_vault_market_grading_order_pay_confirm: #{e}"
@@ -518,12 +545,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<StatusResponse>, Integer, Hash)> create_vault_market_grading_order_pay_confirm_with_http_info(id)
+> <Array(<StatusResponse>, Integer, Hash)> create_vault_market_grading_order_pay_confirm_with_http_info(id, opts)
 
 ```ruby
 begin
   # After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
-  data, status_code, headers = api_instance.create_vault_market_grading_order_pay_confirm_with_http_info(id)
+  data, status_code, headers = api_instance.create_vault_market_grading_order_pay_confirm_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StatusResponse>
@@ -537,6 +564,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_vault_market_grading_order_pay_confirm_request** | **CreateVaultMarketGradingOrderPayConfirmRequest** |  | [optional] |
 
 ### Return type
 
@@ -548,7 +576,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -605,6 +633,70 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetGradingPriceBookResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_grading_setting
+
+> <GetGradingSettingResponse> get_grading_setting
+
+Your grading defaults: defaultGrader (null = ask each time), defaultMissMode (roll_over | release, if a run does not fill), defaultReturnMode (always vault: every graded card goes into your vault) and defaultPrescreen.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::GradingApi.new
+
+begin
+  # Your grading defaults: defaultGrader (null = ask each time), defaultMissMode (roll_over | release, if a run does not fill), defaultReturnMode (always vault: every graded card goes into your vault) and defaultPrescreen.
+  result = api_instance.get_grading_setting
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling GradingApi->get_grading_setting: #{e}"
+end
+```
+
+#### Using the get_grading_setting_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetGradingSettingResponse>, Integer, Hash)> get_grading_setting_with_http_info
+
+```ruby
+begin
+  # Your grading defaults: defaultGrader (null = ask each time), defaultMissMode (roll_over | release, if a run does not fill), defaultReturnMode (always vault: every graded card goes into your vault) and defaultPrescreen.
+  data, status_code, headers = api_instance.get_grading_setting_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetGradingSettingResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling GradingApi->get_grading_setting_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetGradingSettingResponse**
 
 ### Authorization
 
@@ -949,7 +1041,7 @@ end
 
 ## list_vault_market_grading_candidates
 
-> <ListVaultMarketGradingCandidatesResponse> list_vault_market_grading_candidates
+> <ListVaultMarketGradingCandidatesResponse> list_vault_market_grading_candidates(opts)
 
 What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
 
@@ -965,10 +1057,13 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::GradingApi.new
+opts = {
+  q: 'q_example' # String | 
+}
 
 begin
   # What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
-  result = api_instance.list_vault_market_grading_candidates
+  result = api_instance.list_vault_market_grading_candidates(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->list_vault_market_grading_candidates: #{e}"
@@ -979,12 +1074,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradingCandidatesResponse>, Integer, Hash)> list_vault_market_grading_candidates_with_http_info
+> <Array(<ListVaultMarketGradingCandidatesResponse>, Integer, Hash)> list_vault_market_grading_candidates_with_http_info(opts)
 
 ```ruby
 begin
   # What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
-  data, status_code, headers = api_instance.list_vault_market_grading_candidates_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_grading_candidates_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradingCandidatesResponse>
@@ -995,7 +1090,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  | [optional] |
 
 ### Return type
 
@@ -1013,7 +1110,7 @@ This endpoint does not need any parameter.
 
 ## list_vault_market_grading_orders
 
-> <ListVaultMarketGradingOrdersResponse> list_vault_market_grading_orders
+> <ListVaultMarketGradingOrdersResponse> list_vault_market_grading_orders(opts)
 
 Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
 
@@ -1029,10 +1126,21 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::GradingApi.new
+opts = {
+  status: 'draft', # String | 
+  active: '0', # String | 
+  grader: 'grader_example', # String | 
+  tier: 'tier_example', # String | 
+  q: 'q_example', # String | 
+  from: 'from_example', # String | 
+  to: 'to_example', # String | 
+  limit: 8.14, # Float | 
+  offset: 8.14 # Float | 
+}
 
 begin
   # Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
-  result = api_instance.list_vault_market_grading_orders
+  result = api_instance.list_vault_market_grading_orders(opts)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling GradingApi->list_vault_market_grading_orders: #{e}"
@@ -1043,12 +1151,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListVaultMarketGradingOrdersResponse>, Integer, Hash)> list_vault_market_grading_orders_with_http_info
+> <Array(<ListVaultMarketGradingOrdersResponse>, Integer, Hash)> list_vault_market_grading_orders_with_http_info(opts)
 
 ```ruby
 begin
   # Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
-  data, status_code, headers = api_instance.list_vault_market_grading_orders_with_http_info
+  data, status_code, headers = api_instance.list_vault_market_grading_orders_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListVaultMarketGradingOrdersResponse>
@@ -1059,7 +1167,17 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **status** | **String** |  | [optional] |
+| **active** | **String** |  | [optional] |
+| **grader** | **String** |  | [optional] |
+| **tier** | **String** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **from** | **String** |  | [optional] |
+| **to** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **offset** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -1072,5 +1190,74 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## update_grading_setting
+
+> <GetGradingSettingResponse> update_grading_setting(opts)
+
+Change your grading defaults (any of defaultGrader, defaultMissMode, defaultPrescreen; defaultReturnMode is always vault, and an old \"return\" is saved as vault). Logged to Activity. Returns the saved defaults.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly'
+# setup authorization
+Crossly.configure do |config|
+  # Configure Bearer authorization: PersonalAccessToken
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = Crossly::GradingApi.new
+opts = {
+  update_grading_setting_request: Crossly::UpdateGradingSettingRequest.new # UpdateGradingSettingRequest | 
+}
+
+begin
+  # Change your grading defaults (any of defaultGrader, defaultMissMode, defaultPrescreen; defaultReturnMode is always vault, and an old \"return\" is saved as vault). Logged to Activity. Returns the saved defaults.
+  result = api_instance.update_grading_setting(opts)
+  p result
+rescue Crossly::ApiError => e
+  puts "Error when calling GradingApi->update_grading_setting: #{e}"
+end
+```
+
+#### Using the update_grading_setting_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetGradingSettingResponse>, Integer, Hash)> update_grading_setting_with_http_info(opts)
+
+```ruby
+begin
+  # Change your grading defaults (any of defaultGrader, defaultMissMode, defaultPrescreen; defaultReturnMode is always vault, and an old \"return\" is saved as vault). Logged to Activity. Returns the saved defaults.
+  data, status_code, headers = api_instance.update_grading_setting_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetGradingSettingResponse>
+rescue Crossly::ApiError => e
+  puts "Error when calling GradingApi->update_grading_setting_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_grading_setting_request** | **UpdateGradingSettingRequest** |  | [optional] |
+
+### Return type
+
+**GetGradingSettingResponse**
+
+### Authorization
+
+[PersonalAccessToken](../README.md#PersonalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 

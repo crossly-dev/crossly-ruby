@@ -25,9 +25,9 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :title
-
     attr_accessor :storefront_id
+
+    attr_accessor :title
 
     attr_accessor :ends_at
 
@@ -95,8 +95,8 @@ module Crossly
         :'updated_at' => :'updatedAt',
         :'description' => :'description',
         :'status' => :'status',
-        :'title' => :'title',
         :'storefront_id' => :'storefrontId',
+        :'title' => :'title',
         :'ends_at' => :'endsAt',
         :'starts_at' => :'startsAt',
         :'timezone' => :'timezone',
@@ -131,8 +131,8 @@ module Crossly
         :'updated_at' => :'Time',
         :'description' => :'String',
         :'status' => :'String',
-        :'title' => :'String',
         :'storefront_id' => :'String',
+        :'title' => :'String',
         :'ends_at' => :'Time',
         :'starts_at' => :'Time',
         :'timezone' => :'String',
@@ -202,12 +202,12 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'title')
-        self.title = attributes[:'title']
-      end
-
       if attributes.key?(:'storefront_id')
         self.storefront_id = attributes[:'storefront_id']
+      end
+
+      if attributes.key?(:'title')
+        self.title = attributes[:'title']
       end
 
       if attributes.key?(:'ends_at')
@@ -420,8 +420,8 @@ module Crossly
           updated_at == o.updated_at &&
           description == o.description &&
           status == o.status &&
-          title == o.title &&
           storefront_id == o.storefront_id &&
+          title == o.title &&
           ends_at == o.ends_at &&
           starts_at == o.starts_at &&
           timezone == o.timezone &&
@@ -451,7 +451,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, created_at, updated_at, description, status, title, storefront_id, ends_at, starts_at, timezone, category_slug, theme, seller_event_id, scene_id, host_user_id, entry_model, entry_fee_cents, revenue_share_bps, table_count, venue_booking_id, opens_hour, closes_hour, floor_plan_version, booking_mode, walk_ins].hash
+      [id, created_at, updated_at, description, status, storefront_id, title, ends_at, starts_at, timezone, category_slug, theme, seller_event_id, scene_id, host_user_id, entry_model, entry_fee_cents, revenue_share_bps, table_count, venue_booking_id, opens_hour, closes_hour, floor_plan_version, booking_mode, walk_ins].hash
     end
 
     # Builds the object from hash

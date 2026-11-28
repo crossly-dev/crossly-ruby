@@ -12,7 +12,7 @@ All URIs are relative to *https://crossly.net/api*
 
 ## create_sourcing_receipt
 
-> <CreateSourcingReceiptResponse> create_sourcing_receipt
+> <CreateSourcingReceiptResponse> create_sourcing_receipt(create_sourcing_receipt_request)
 
 Append a parsed receipt to the sourcing ledger.
 
@@ -28,10 +28,11 @@ Crossly.configure do |config|
 end
 
 api_instance = Crossly::SourcingApi.new
+create_sourcing_receipt_request = Crossly::CreateSourcingReceiptRequest.new({vendor: 'vendor_example', date_iso: 'date_iso_example', items: [Crossly::CreateSourcingReceiptRequestItems.new({description: 'description_example', price_cents: 3.56})], source_image_url: 'source_image_url_example'}) # CreateSourcingReceiptRequest | 
 
 begin
   # Append a parsed receipt to the sourcing ledger.
-  result = api_instance.create_sourcing_receipt
+  result = api_instance.create_sourcing_receipt(create_sourcing_receipt_request)
   p result
 rescue Crossly::ApiError => e
   puts "Error when calling SourcingApi->create_sourcing_receipt: #{e}"
@@ -42,12 +43,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateSourcingReceiptResponse>, Integer, Hash)> create_sourcing_receipt_with_http_info
+> <Array(<CreateSourcingReceiptResponse>, Integer, Hash)> create_sourcing_receipt_with_http_info(create_sourcing_receipt_request)
 
 ```ruby
 begin
   # Append a parsed receipt to the sourcing ledger.
-  data, status_code, headers = api_instance.create_sourcing_receipt_with_http_info
+  data, status_code, headers = api_instance.create_sourcing_receipt_with_http_info(create_sourcing_receipt_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateSourcingReceiptResponse>
@@ -58,7 +59,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_sourcing_receipt_request** | **CreateSourcingReceiptRequest** |  |  |
 
 ### Return type
 
@@ -70,7 +73,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

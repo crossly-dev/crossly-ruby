@@ -27,7 +27,7 @@ module Crossly
 
     attr_accessor :additional_image_links
 
-    # \"12.50 USD\".
+    # \"12.50 USD\" (or the feed's currency).
     attr_accessor :price
 
     attr_accessor :sale_price
@@ -55,6 +55,8 @@ module Crossly
 
     attr_accessor :item_group_id
 
+    attr_accessor :sku
+
     attr_accessor :color
 
     attr_accessor :size
@@ -67,6 +69,22 @@ module Crossly
     attr_accessor :shipping_weight
 
     attr_accessor :identifier_exists
+
+    # custom_label_0..4 (mapping or per-item override).
+    attr_accessor :custom_labels
+
+    # Per-item shipping rates, already in the feed's currency (\"4.95 USD\").
+    attr_accessor :shipping
+
+    # The listing's tags and dates, for generic feeds.
+    attr_accessor :tags
+
+    attr_accessor :published_at
+
+    attr_accessor :updated_at
+
+    # Values a field mapping produced for columns that have no typed field (generic feeds).
+    attr_accessor :extra
 
     attr_accessor :issues
 
@@ -113,12 +131,19 @@ module Crossly
         :'google_product_category' => :'googleProductCategory',
         :'product_type' => :'productType',
         :'item_group_id' => :'itemGroupId',
+        :'sku' => :'sku',
         :'color' => :'color',
         :'size' => :'size',
         :'material' => :'material',
         :'gender' => :'gender',
         :'shipping_weight' => :'shippingWeight',
         :'identifier_exists' => :'identifierExists',
+        :'custom_labels' => :'customLabels',
+        :'shipping' => :'shipping',
+        :'tags' => :'tags',
+        :'published_at' => :'publishedAt',
+        :'updated_at' => :'updatedAt',
+        :'extra' => :'extra',
         :'issues' => :'issues'
       }
     end
@@ -149,12 +174,19 @@ module Crossly
         :'google_product_category' => :'String',
         :'product_type' => :'String',
         :'item_group_id' => :'String',
+        :'sku' => :'String',
         :'color' => :'String',
         :'size' => :'String',
         :'material' => :'String',
         :'gender' => :'String',
         :'shipping_weight' => :'String',
         :'identifier_exists' => :'Boolean',
+        :'custom_labels' => :'Array<String>',
+        :'shipping' => :'Array<Hash<String, Object>>',
+        :'tags' => :'Array<String>',
+        :'published_at' => :'String',
+        :'updated_at' => :'String',
+        :'extra' => :'Hash<String, Object>',
         :'issues' => :'Array<Hash<String, Object>>'
       }
     end
@@ -172,11 +204,14 @@ module Crossly
         :'google_product_category',
         :'product_type',
         :'item_group_id',
+        :'sku',
         :'color',
         :'size',
         :'material',
         :'gender',
         :'shipping_weight',
+        :'published_at',
+        :'updated_at',
       ])
     end
 
@@ -269,6 +304,10 @@ module Crossly
         self.item_group_id = attributes[:'item_group_id']
       end
 
+      if attributes.key?(:'sku')
+        self.sku = attributes[:'sku']
+      end
+
       if attributes.key?(:'color')
         self.color = attributes[:'color']
       end
@@ -291,6 +330,38 @@ module Crossly
 
       if attributes.key?(:'identifier_exists')
         self.identifier_exists = attributes[:'identifier_exists']
+      end
+
+      if attributes.key?(:'custom_labels')
+        if (value = attributes[:'custom_labels']).is_a?(Array)
+          self.custom_labels = value
+        end
+      end
+
+      if attributes.key?(:'shipping')
+        if (value = attributes[:'shipping']).is_a?(Array)
+          self.shipping = value
+        end
+      end
+
+      if attributes.key?(:'tags')
+        if (value = attributes[:'tags']).is_a?(Array)
+          self.tags = value
+        end
+      end
+
+      if attributes.key?(:'published_at')
+        self.published_at = attributes[:'published_at']
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      end
+
+      if attributes.key?(:'extra')
+        if (value = attributes[:'extra']).is_a?(Hash)
+          self.extra = value
+        end
       end
 
       if attributes.key?(:'issues')
@@ -340,6 +411,30 @@ module Crossly
         invalid_properties.push('invalid value for "identifier_exists", identifier_exists cannot be nil.')
       end
 
+      if @custom_labels.nil?
+        invalid_properties.push('invalid value for "custom_labels", custom_labels cannot be nil.')
+      end
+
+      if @custom_labels.length > 5
+        invalid_properties.push('invalid value for "custom_labels", number of items must be less than or equal to 5.')
+      end
+
+      if @custom_labels.length < 5
+        invalid_properties.push('invalid value for "custom_labels", number of items must be greater than or equal to 5.')
+      end
+
+      if @shipping.nil?
+        invalid_properties.push('invalid value for "shipping", shipping cannot be nil.')
+      end
+
+      if @tags.nil?
+        invalid_properties.push('invalid value for "tags", tags cannot be nil.')
+      end
+
+      if @extra.nil?
+        invalid_properties.push('invalid value for "extra", extra cannot be nil.')
+      end
+
       if @issues.nil?
         invalid_properties.push('invalid value for "issues", issues cannot be nil.')
       end
@@ -365,6 +460,12 @@ module Crossly
       gender_validator = EnumAttributeValidator.new('String', ["male", "female", "unisex"])
       return false unless gender_validator.valid?(@gender)
       return false if @identifier_exists.nil?
+      return false if @custom_labels.nil?
+      return false if @custom_labels.length > 5
+      return false if @custom_labels.length < 5
+      return false if @shipping.nil?
+      return false if @tags.nil?
+      return false if @extra.nil?
       return false if @issues.nil?
       true
     end
@@ -399,6 +500,24 @@ module Crossly
       @gender = gender
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] custom_labels Value to be assigned
+    def custom_labels=(custom_labels)
+      if custom_labels.nil?
+        fail ArgumentError, 'custom_labels cannot be nil'
+      end
+
+      if custom_labels.length > 5
+        fail ArgumentError, 'invalid value for "custom_labels", number of items must be less than or equal to 5.'
+      end
+
+      if custom_labels.length < 5
+        fail ArgumentError, 'invalid value for "custom_labels", number of items must be greater than or equal to 5.'
+      end
+
+      @custom_labels = custom_labels
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -422,12 +541,19 @@ module Crossly
           google_product_category == o.google_product_category &&
           product_type == o.product_type &&
           item_group_id == o.item_group_id &&
+          sku == o.sku &&
           color == o.color &&
           size == o.size &&
           material == o.material &&
           gender == o.gender &&
           shipping_weight == o.shipping_weight &&
           identifier_exists == o.identifier_exists &&
+          custom_labels == o.custom_labels &&
+          shipping == o.shipping &&
+          tags == o.tags &&
+          published_at == o.published_at &&
+          updated_at == o.updated_at &&
+          extra == o.extra &&
           issues == o.issues
     end
 
@@ -440,7 +566,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, title, description, link, image_link, additional_image_links, price, sale_price, sale_price_effective_date, availability, quantity, condition, brand, gtin, mpn, google_product_category, product_type, item_group_id, color, size, material, gender, shipping_weight, identifier_exists, issues].hash
+      [id, title, description, link, image_link, additional_image_links, price, sale_price, sale_price_effective_date, availability, quantity, condition, brand, gtin, mpn, google_product_category, product_type, item_group_id, sku, color, size, material, gender, shipping_weight, identifier_exists, custom_labels, shipping, tags, published_at, updated_at, extra, issues].hash
     end
 
     # Builds the object from hash

@@ -80,7 +80,7 @@ module Crossly
       return data, status_code, headers
     end
 
-    # Your OAuth app's revenue-share earnings: summary + ledger. Owner only.
+    # Your store's OAuth app's revenue-share earnings: summary (with the store they pay out to) + ledger. The app's store owner, or a teammate with apps:read on it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [GetAppEarningResponse]
@@ -89,7 +89,7 @@ module Crossly
       data
     end
 
-    # Your OAuth app&#39;s revenue-share earnings: summary + ledger. Owner only.
+    # Your store&#39;s OAuth app&#39;s revenue-share earnings: summary (with the store they pay out to) + ledger. The app&#39;s store owner, or a teammate with apps:read on it.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(GetAppEarningResponse, Integer, Hash)>] GetAppEarningResponse data, response status code and response headers

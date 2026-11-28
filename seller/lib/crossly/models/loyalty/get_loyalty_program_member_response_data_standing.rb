@@ -21,12 +21,15 @@ module Crossly
 
     attr_accessor :points
 
+    attr_accessor :balance
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'spend_cents' => :'spendCents',
         :'orders' => :'orders',
-        :'points' => :'points'
+        :'points' => :'points',
+        :'balance' => :'balance'
       }
     end
 
@@ -40,7 +43,8 @@ module Crossly
       {
         :'spend_cents' => :'Float',
         :'orders' => :'Float',
-        :'points' => :'Float'
+        :'points' => :'Float',
+        :'balance' => :'Float'
       }
     end
 
@@ -76,6 +80,10 @@ module Crossly
       if attributes.key?(:'points')
         self.points = attributes[:'points']
       end
+
+      if attributes.key?(:'balance')
+        self.balance = attributes[:'balance']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -94,6 +102,10 @@ module Crossly
         invalid_properties.push('invalid value for "points", points cannot be nil.')
       end
 
+      if @balance.nil?
+        invalid_properties.push('invalid value for "balance", balance cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -103,6 +115,7 @@ module Crossly
       return false if @spend_cents.nil?
       return false if @orders.nil?
       return false if @points.nil?
+      return false if @balance.nil?
       true
     end
 
@@ -113,7 +126,8 @@ module Crossly
       self.class == o.class &&
           spend_cents == o.spend_cents &&
           orders == o.orders &&
-          points == o.points
+          points == o.points &&
+          balance == o.balance
     end
 
     # @see the `==` method
@@ -125,7 +139,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [spend_cents, orders, points].hash
+      [spend_cents, orders, points, balance].hash
     end
 
     # Builds the object from hash

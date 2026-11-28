@@ -47,6 +47,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**create_buyer_listing_split**](BuyerApi.md#create_buyer_listing_split) | **POST** /v1/buyer/listings/{slug}/split | Split a purchase: one pay link per person; nobody is charged until all have paid. |
 | [**create_buyer_listing_subscribe**](BuyerApi.md#create_buyer_listing_subscribe) | **POST** /v1/buyer/listings/{slug}/subscribe | Subscribe &amp; save: a standing order charged to your saved card every interval. Checked against this key’s spending controls; send an Idempotency-Key. |
 | [**create_buyer_listing_try_on**](BuyerApi.md#create_buyer_listing_try_on) | **POST** /v1/buyer/listings/{slug}/try-on | Render an AI try-on of this listing on the buyer’s own photo (base64 &#x60;photo&#x60;, or &#x60;reuseLastPhoto&#x60;). &#x60;confirmSelfAdult&#x60; must be true: the photo is of the buyer and they are 18+. Wearables only; capped per day; 503 naming TRYON_API_KEY when no image model is configured. |
+| [**create_buyer_loyalty_reward_redeem**](BuyerApi.md#create_buyer_loyalty_reward_redeem) | **POST** /v1/buyer/loyalty/{clubId}/rewards/{rewardId}/redeem | Spend points on a reward (Idempotency-Key required: a retry answers the same redemption). A price reward answers a single-use code. |
 | [**create_buyer_market_bid**](BuyerApi.md#create_buyer_market_bid) | **POST** /v1/buyer/market/bids | Place a fixed-price market bid. SPENDS MONEY: it fills against the lowest ask at or under your price and charges your saved card (plus the fast-ship premium when fastShip is set and it fills from vault stock). deliverTo vault keeps it in your Crossly vault; gradeWith sends a raw card to a Grading run first. Checked against this key’s spending controls; send an Idempotency-Key. |
 | [**create_buyer_market_watch**](BuyerApi.md#create_buyer_market_watch) | **POST** /v1/buyer/market/watches | Watch a market variant: alert at or below a price, or on any drop. |
 | [**create_buyer_offer**](BuyerApi.md#create_buyer_offer) | **POST** /v1/buyer/offers | Offer a price on a listing. |
@@ -137,7 +138,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_buyer_case**](BuyerApi.md#get_buyer_case) | **GET** /v1/buyer/cases/{id} | One case — its state, the message thread, and the return parcel if there is one. |
 | [**get_buyer_catalog_listing_my_size**](BuyerApi.md#get_buyer_catalog_listing_my_size) | **GET** /v1/buyer/catalog/listings/{slug}/my-size | This item against your size: the size you keep in this kind of item (and in this brand), whether this one is your size, smaller or larger, a warning if this brand and size ran small or large on you before, and how other buyers say the brand runs. null for an unsized item. |
 | [**get_buyer_catalog_listing_price**](BuyerApi.md#get_buyer_catalog_listing_price) | **GET** /v1/buyer/catalog/listings/{slug}/price | The price today. When the seller has the same item live on another marketplace for less, this IS that price (&#x60;priceMatch&#x60; says where from), and &#x60;lowestAnywhere&#x60; lists the marketplaces it is guaranteed not to be cheaper on. &#x60;priceCheck&#x60; rates it against real sales of the same catalog item in the same condition over the last 180 days (great / good / fair / high, with the median and middle-half range in cents); null until there are 3+ sales from 2+ sellers. |
-| [**get_buyer_catalog_listing_rental**](BuyerApi.md#get_buyer_catalog_listing_rental) | **GET** /v1/buyer/catalog/listings/{slug}/rental | Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, and the dates already booked. null when it is not for rent. |
+| [**get_buyer_catalog_listing_rental**](BuyerApi.md#get_buyer_catalog_listing_rental) | **GET** /v1/buyer/catalog/listings/{slug}/rental | Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, the dates already booked, and &#x60;policy&#x60;: the store return and payment policies the rental inherits (return line, protections, arrival photos, claim window, accepted methods). null when it is not for rent. |
 | [**get_buyer_checkout_usdc**](BuyerApi.md#get_buyer_checkout_usdc) | **GET** /v1/buyer/checkout/usdc | Whether Crossly takes USDC (Stripe stablecoin payments: Solana, Ethereum, Base, Polygon), and its per-order limit. Paying needs the buyer’s wallet, so it happens in the browser checkout, never unattended. |
 | [**get_buyer_collection_offer**](BuyerApi.md#get_buyer_collection_offer) | **GET** /v1/buyer/collection/{id}/offer | What an item in your collection would fetch now: the top open bid on the market for the same variant, condition and grade, and Crossly’s instant offer in store credit when that is switched on (a quote valid for a limited time). |
 | [**get_buyer_collection_set**](BuyerApi.md#get_buyer_collection_set) | **GET** /v1/buyer/collection/sets/{category}/{brand}/{model} | One set: every piece (owned or missing, with its lowest ask on the market), what completing it would cost now, and the leaderboard of collectors who opted in, with your rank. |
@@ -147,7 +148,9 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_buyer_event**](BuyerApi.md#get_buyer_event) | **GET** /v1/buyer/events/{slug} | A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP. |
 | [**get_buyer_fit_vocabulary**](BuyerApi.md#get_buyer_fit_vocabulary) | **GET** /v1/buyer/fit/vocabulary | Garment kinds and the measurements each takes. |
 | [**get_buyer_gift_finder_option**](BuyerApi.md#get_buyer_gift_finder_option) | **GET** /v1/buyer/gift-finder/options | The gift finder’s questions: recipients, interests, budgets. |
+| [**get_buyer_group_buy_share_link**](BuyerApi.md#get_buyer_group_buy_share_link) | **GET** /v1/buyer/group-buys/{id}/share-link | Share a group buy: { url (the pool with your refer-a-friend code), text (how many more units unlock the next price), imageUrl (its share card), refCode, next }. A friend who buys through it earns your refer-a-friend credit. |
 | [**get_buyer_home**](BuyerApi.md#get_buyer_home) | **GET** /v1/buyer/home | Your home in Crossly World (made on first read). |
+| [**get_buyer_home_pet**](BuyerApi.md#get_buyer_home_pet) | **GET** /v1/buyer/home/pets | Your companion pets in Crossly World: every pet, whether it is yours, how to earn it, and the one walking with you. Earned through quests and reputation, never sold. |
 | [**get_buyer_home_placeable**](BuyerApi.md#get_buyer_home_placeable) | **GET** /v1/buyer/home/placeable | What you could place in your home: your items and delivered furniture. |
 | [**get_buyer_impact**](BuyerApi.md#get_buyer_impact) | **GET** /v1/buyer/impact | The sourced footprint your secondhand purchases avoided. |
 | [**get_buyer_layaway**](BuyerApi.md#get_buyer_layaway) | **GET** /v1/buyer/layaways/{id} | One layaway and its schedule. |
@@ -162,6 +165,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**get_buyer_listing_subscribe_offer**](BuyerApi.md#get_buyer_listing_subscribe_offer) | **GET** /v1/buyer/listings/{slug}/subscribe-offer | The subscribe &amp; save discount and intervals on a listing; null when the seller has none. |
 | [**get_buyer_listing_try_on**](BuyerApi.md#get_buyer_listing_try_on) | **GET** /v1/buyer/listings/{slug}/try-on | Whether an AI try-on is offered for this listing (a wearable with a photo) and whether the image model is configured. |
 | [**get_buyer_live_stream_auction**](BuyerApi.md#get_buyer_live_stream_auction) | **GET** /v1/buyer/live-streams/{id}/auction | The auction running on a live stream right now, if any. Bid on it by its &#x60;slug&#x60; at POST /v1/buyer/auctions/:slug/bids. |
+| [**get_buyer_loyalty_reward**](BuyerApi.md#get_buyer_loyalty_reward) | **GET** /v1/buyer/loyalty/{clubId}/rewards | A club’s rewards shelf: what each reward costs in points, whether you can redeem it (and why not), stock left, and what you already redeemed. |
 | [**get_buyer_market_purchase_option**](BuyerApi.md#get_buyer_market_purchase_option) | **GET** /v1/buyer/market/purchase-options | Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid). |
 | [**get_buyer_order_eligibility**](BuyerApi.md#get_buyer_order_eligibility) | **GET** /v1/buyer/orders/{id}/eligibility | What you can do with one order right now — cancel, confirm receipt, report not received, leave feedback. |
 | [**get_buyer_order_export**](BuyerApi.md#get_buyer_order_export) | **GET** /v1/buyer/orders/export | Your order history as CSV text (up to 5,000 orders). |
@@ -248,6 +252,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**list_buyer_live_shipments**](BuyerApi.md#list_buyer_live_shipments) | **GET** /v1/buyer/live-shipments | Your one-box-per-show shipments: every order won in a show ships together, and postage is charged once (the rest refunded when it ships). |
 | [**list_buyer_live_stream_lineup**](BuyerApi.md#list_buyer_live_stream_lineup) | **GET** /v1/buyer/live-streams/{id}/lineup | What a live show will sell, in order: each item, its price, and whether it is still available. |
 | [**list_buyer_loyalty**](BuyerApi.md#list_buyer_loyalty) | **GET** /v1/buyer/loyalty | Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history. |
+| [**list_buyer_loyalty_points**](BuyerApi.md#list_buyer_loyalty_points) | **GET** /v1/buyer/loyalty/{clubId}/points | Your points history at a club: purchases, hunts, event check-ins, photo reviews, group buys and rewards you redeemed. |
 | [**list_buyer_market_bids**](BuyerApi.md#list_buyer_market_bids) | **GET** /v1/buyer/market/bids | Your resting market bids. |
 | [**list_buyer_market_watches**](BuyerApi.md#list_buyer_market_watches) | **GET** /v1/buyer/market/watches | Market variants you watch, with the price you are waiting for. |
 | [**list_buyer_offers**](BuyerApi.md#list_buyer_offers) | **GET** /v1/buyer/offers | Offers you have made, newest first (last 100). |
@@ -312,6 +317,7 @@ All URIs are relative to *https://crossly.net/api*
 | [**update_buyer_home**](BuyerApi.md#update_buyer_home) | **PATCH** /v1/buyer/home | Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values. |
 | [**update_buyer_home_builder**](BuyerApi.md#update_buyer_home_builder) | **PUT** /v1/buyer/home/builders | Set your co-builders (friends only, at most 4). |
 | [**update_buyer_home_layout**](BuyerApi.md#update_buyer_home_layout) | **PUT** /v1/buyer/home/layout | Arrange your home: the whole layout, checked against what you own. |
+| [**update_buyer_home_pet_active**](BuyerApi.md#update_buyer_home_pet_active) | **PUT** /v1/buyer/home/pets/active | Walk one of your pets with you in the world, or none (kind: null). Only a pet you have earned. |
 | [**update_buyer_hunt**](BuyerApi.md#update_buyer_hunt) | **PATCH** /v1/buyer/hunts/{id} | Pause, resume or stop a hunt. |
 | [**update_buyer_payment_method_default**](BuyerApi.md#update_buyer_payment_method_default) | **PUT** /v1/buyer/payment-methods/{id}/default | Make one of your saved cards the default. |
 | [**update_buyer_purchase_story**](BuyerApi.md#update_buyer_purchase_story) | **PUT** /v1/buyer/purchases/{id}/story | Write your owner story (280 characters); it travels with the item if you resell it. |
@@ -605,7 +611,7 @@ end
 
 ## create_buyer_board
 
-> <CreateBuyerBoardResponse> create_buyer_board
+> <CreateBuyerBoardResponse> create_buyer_board(create_buyer_board_request)
 
 Create an outfit board.
 
@@ -621,10 +627,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+create_buyer_board_request = CrosslyBuyer::CreateBuyerBoardRequest.new({title: 'title_example'}) # CreateBuyerBoardRequest | 
 
 begin
   # Create an outfit board.
-  result = api_instance.create_buyer_board
+  result = api_instance.create_buyer_board(create_buyer_board_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_board: #{e}"
@@ -635,12 +642,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerBoardResponse>, Integer, Hash)> create_buyer_board_with_http_info
+> <Array(<CreateBuyerBoardResponse>, Integer, Hash)> create_buyer_board_with_http_info(create_buyer_board_request)
 
 ```ruby
 begin
   # Create an outfit board.
-  data, status_code, headers = api_instance.create_buyer_board_with_http_info
+  data, status_code, headers = api_instance.create_buyer_board_with_http_info(create_buyer_board_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerBoardResponse>
@@ -651,7 +658,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_board_request** | **CreateBuyerBoardRequest** |  |  |
 
 ### Return type
 
@@ -663,13 +672,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_board_item
 
-> <BuyerResponse> create_buyer_board_item(id)
+> <BuyerResponse> create_buyer_board_item(id, create_buyer_board_item_request)
 
 Add a listing (by slug) to a board, at the next free spot.
 
@@ -686,10 +695,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+create_buyer_board_item_request = CrosslyBuyer::CreateBuyerBoardItemRequest.new({slug: 'slug_example'}) # CreateBuyerBoardItemRequest | 
 
 begin
   # Add a listing (by slug) to a board, at the next free spot.
-  result = api_instance.create_buyer_board_item(id)
+  result = api_instance.create_buyer_board_item(id, create_buyer_board_item_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_board_item: #{e}"
@@ -700,12 +710,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerResponse>, Integer, Hash)> create_buyer_board_item_with_http_info(id)
+> <Array(<BuyerResponse>, Integer, Hash)> create_buyer_board_item_with_http_info(id, create_buyer_board_item_request)
 
 ```ruby
 begin
   # Add a listing (by slug) to a board, at the next free spot.
-  data, status_code, headers = api_instance.create_buyer_board_item_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_board_item_with_http_info(id, create_buyer_board_item_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerResponse>
@@ -719,6 +729,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_board_item_request** | **CreateBuyerBoardItemRequest** |  |  |
 
 ### Return type
 
@@ -730,7 +741,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1008,7 +1019,7 @@ end
 
 ## create_buyer_cart_optimizer
 
-> <CreateBuyerCartOptimizerResponse> create_buyer_cart_optimizer
+> <CreateBuyerCartOptimizerResponse> create_buyer_cart_optimizer(create_buyer_cart_optimizer_request)
 
 Cart optimizer: send a shopping list (one item per line, \"2 Charizard Base Set\") and get the cheapest delivered basket across sellers — one pick per line, items + each seller’s shipping with free-shipping thresholds applied. fewestPackages prefers fewer sellers. Nothing is added to the cart.
 
@@ -1024,10 +1035,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+create_buyer_cart_optimizer_request = CrosslyBuyer::CreateBuyerCartOptimizerRequest.new({text: 'text_example'}) # CreateBuyerCartOptimizerRequest | 
 
 begin
   # Cart optimizer: send a shopping list (one item per line, \"2 Charizard Base Set\") and get the cheapest delivered basket across sellers — one pick per line, items + each seller’s shipping with free-shipping thresholds applied. fewestPackages prefers fewer sellers. Nothing is added to the cart.
-  result = api_instance.create_buyer_cart_optimizer
+  result = api_instance.create_buyer_cart_optimizer(create_buyer_cart_optimizer_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_cart_optimizer: #{e}"
@@ -1038,12 +1050,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerCartOptimizerResponse>, Integer, Hash)> create_buyer_cart_optimizer_with_http_info
+> <Array(<CreateBuyerCartOptimizerResponse>, Integer, Hash)> create_buyer_cart_optimizer_with_http_info(create_buyer_cart_optimizer_request)
 
 ```ruby
 begin
   # Cart optimizer: send a shopping list (one item per line, \"2 Charizard Base Set\") and get the cheapest delivered basket across sellers — one pick per line, items + each seller’s shipping with free-shipping thresholds applied. fewestPackages prefers fewer sellers. Nothing is added to the cart.
-  data, status_code, headers = api_instance.create_buyer_cart_optimizer_with_http_info
+  data, status_code, headers = api_instance.create_buyer_cart_optimizer_with_http_info(create_buyer_cart_optimizer_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerCartOptimizerResponse>
@@ -1054,7 +1066,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_cart_optimizer_request** | **CreateBuyerCartOptimizerRequest** |  |  |
 
 ### Return type
 
@@ -1066,13 +1080,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_cart_quote
 
-> <CreateBuyerCartQuoteResponse> create_buyer_cart_quote
+> <CreateBuyerCartQuoteResponse> create_buyer_cart_quote(opts)
 
 Price the cart, delivered — item, shipping, tax, total.
 
@@ -1090,10 +1104,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  create_buyer_cart_quote_request: CrosslyBuyer::CreateBuyerCartQuoteRequest.new # CreateBuyerCartQuoteRequest | 
+}
 
 begin
   # Price the cart, delivered — item, shipping, tax, total.
-  result = api_instance.create_buyer_cart_quote
+  result = api_instance.create_buyer_cart_quote(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_cart_quote: #{e}"
@@ -1104,12 +1121,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerCartQuoteResponse>, Integer, Hash)> create_buyer_cart_quote_with_http_info
+> <Array(<CreateBuyerCartQuoteResponse>, Integer, Hash)> create_buyer_cart_quote_with_http_info(opts)
 
 ```ruby
 begin
   # Price the cart, delivered — item, shipping, tax, total.
-  data, status_code, headers = api_instance.create_buyer_cart_quote_with_http_info
+  data, status_code, headers = api_instance.create_buyer_cart_quote_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerCartQuoteResponse>
@@ -1120,7 +1137,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_cart_quote_request** | **CreateBuyerCartQuoteRequest** |  | [optional] |
 
 ### Return type
 
@@ -1132,7 +1151,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -1556,7 +1575,7 @@ end
 
 ## create_buyer_catalog_listing_rental
 
-> <CreateBuyerCatalogListingRentalResponse> create_buyer_catalog_listing_rental(slug)
+> <CreateBuyerCatalogListingRentalResponse> create_buyer_catalog_listing_rental(slug, create_buyer_catalog_listing_rental_request)
 
 Book a rental. Returns a Stripe PaymentIntent client secret for rent + shipping both ways + deposit; the dates are held 30 minutes for payment. Crossly buys both labels; the deposit comes back after the item does.
 
@@ -1573,10 +1592,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+create_buyer_catalog_listing_rental_request = CrosslyBuyer::CreateBuyerCatalogListingRentalRequest.new({start_date: 'start_date_example', days: 3.56}) # CreateBuyerCatalogListingRentalRequest | 
 
 begin
   # Book a rental. Returns a Stripe PaymentIntent client secret for rent + shipping both ways + deposit; the dates are held 30 minutes for payment. Crossly buys both labels; the deposit comes back after the item does.
-  result = api_instance.create_buyer_catalog_listing_rental(slug)
+  result = api_instance.create_buyer_catalog_listing_rental(slug, create_buyer_catalog_listing_rental_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_catalog_listing_rental: #{e}"
@@ -1587,12 +1607,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerCatalogListingRentalResponse>, Integer, Hash)> create_buyer_catalog_listing_rental_with_http_info(slug)
+> <Array(<CreateBuyerCatalogListingRentalResponse>, Integer, Hash)> create_buyer_catalog_listing_rental_with_http_info(slug, create_buyer_catalog_listing_rental_request)
 
 ```ruby
 begin
   # Book a rental. Returns a Stripe PaymentIntent client secret for rent + shipping both ways + deposit; the dates are held 30 minutes for payment. Crossly buys both labels; the deposit comes back after the item does.
-  data, status_code, headers = api_instance.create_buyer_catalog_listing_rental_with_http_info(slug)
+  data, status_code, headers = api_instance.create_buyer_catalog_listing_rental_with_http_info(slug, create_buyer_catalog_listing_rental_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerCatalogListingRentalResponse>
@@ -1606,6 +1626,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_buyer_catalog_listing_rental_request** | **CreateBuyerCatalogListingRentalRequest** |  |  |
 
 ### Return type
 
@@ -1617,13 +1638,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_catalog_listing_rental_quote
 
-> <CreateBuyerCatalogListingRentalQuoteResponse> create_buyer_catalog_listing_rental_quote(slug)
+> <CreateBuyerCatalogListingRentalQuoteResponse> create_buyer_catalog_listing_rental_quote(slug, create_buyer_catalog_listing_rental_request)
 
 Price a rental: rent (the cheaper of by-the-day and by-the-week), both shipping legs once a ship-to is given, and the deposit. `problem` says why the dates can’t be booked.
 
@@ -1640,10 +1661,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+create_buyer_catalog_listing_rental_request = CrosslyBuyer::CreateBuyerCatalogListingRentalRequest.new({start_date: 'start_date_example', days: 3.56}) # CreateBuyerCatalogListingRentalRequest | 
 
 begin
   # Price a rental: rent (the cheaper of by-the-day and by-the-week), both shipping legs once a ship-to is given, and the deposit. `problem` says why the dates can’t be booked.
-  result = api_instance.create_buyer_catalog_listing_rental_quote(slug)
+  result = api_instance.create_buyer_catalog_listing_rental_quote(slug, create_buyer_catalog_listing_rental_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_catalog_listing_rental_quote: #{e}"
@@ -1654,12 +1676,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerCatalogListingRentalQuoteResponse>, Integer, Hash)> create_buyer_catalog_listing_rental_quote_with_http_info(slug)
+> <Array(<CreateBuyerCatalogListingRentalQuoteResponse>, Integer, Hash)> create_buyer_catalog_listing_rental_quote_with_http_info(slug, create_buyer_catalog_listing_rental_request)
 
 ```ruby
 begin
   # Price a rental: rent (the cheaper of by-the-day and by-the-week), both shipping legs once a ship-to is given, and the deposit. `problem` says why the dates can’t be booked.
-  data, status_code, headers = api_instance.create_buyer_catalog_listing_rental_quote_with_http_info(slug)
+  data, status_code, headers = api_instance.create_buyer_catalog_listing_rental_quote_with_http_info(slug, create_buyer_catalog_listing_rental_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerCatalogListingRentalQuoteResponse>
@@ -1673,6 +1695,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_buyer_catalog_listing_rental_request** | **CreateBuyerCatalogListingRentalRequest** |  |  |
 
 ### Return type
 
@@ -1684,13 +1707,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_catalog_listing_video_request
 
-> <CreateBuyerCatalogListingVideoRequestResponse> create_buyer_catalog_listing_video_request(slug)
+> <CreateBuyerCatalogListingVideoRequestResponse> create_buyer_catalog_listing_video_request(slug, opts)
 
 Ask the seller for a video of an item (one open request per item). The seller is notified; their answer appears on the listing for every buyer.
 
@@ -1707,10 +1730,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+opts = {
+  create_buyer_catalog_listing_video_request_request: CrosslyBuyer::CreateBuyerCatalogListingVideoRequestRequest.new # CreateBuyerCatalogListingVideoRequestRequest | 
+}
 
 begin
   # Ask the seller for a video of an item (one open request per item). The seller is notified; their answer appears on the listing for every buyer.
-  result = api_instance.create_buyer_catalog_listing_video_request(slug)
+  result = api_instance.create_buyer_catalog_listing_video_request(slug, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_catalog_listing_video_request: #{e}"
@@ -1721,12 +1747,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerCatalogListingVideoRequestResponse>, Integer, Hash)> create_buyer_catalog_listing_video_request_with_http_info(slug)
+> <Array(<CreateBuyerCatalogListingVideoRequestResponse>, Integer, Hash)> create_buyer_catalog_listing_video_request_with_http_info(slug, opts)
 
 ```ruby
 begin
   # Ask the seller for a video of an item (one open request per item). The seller is notified; their answer appears on the listing for every buyer.
-  data, status_code, headers = api_instance.create_buyer_catalog_listing_video_request_with_http_info(slug)
+  data, status_code, headers = api_instance.create_buyer_catalog_listing_video_request_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerCatalogListingVideoRequestResponse>
@@ -1740,6 +1766,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_buyer_catalog_listing_video_request_request** | **CreateBuyerCatalogListingVideoRequestRequest** |  | [optional] |
 
 ### Return type
 
@@ -1751,7 +1778,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2150,7 +2177,7 @@ end
 
 ## create_buyer_event_rsvp
 
-> <CreateBuyerEventRsvpResponse> create_buyer_event_rsvp(slug)
+> <CreateBuyerEventRsvpResponse> create_buyer_event_rsvp(slug, opts)
 
 RSVP to an event: going (counts against its capacity) or interested.
 
@@ -2167,10 +2194,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+opts = {
+  create_buyer_event_rsvp_request: CrosslyBuyer::CreateBuyerEventRsvpRequest.new # CreateBuyerEventRsvpRequest | 
+}
 
 begin
   # RSVP to an event: going (counts against its capacity) or interested.
-  result = api_instance.create_buyer_event_rsvp(slug)
+  result = api_instance.create_buyer_event_rsvp(slug, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_event_rsvp: #{e}"
@@ -2181,12 +2211,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerEventRsvpResponse>, Integer, Hash)> create_buyer_event_rsvp_with_http_info(slug)
+> <Array(<CreateBuyerEventRsvpResponse>, Integer, Hash)> create_buyer_event_rsvp_with_http_info(slug, opts)
 
 ```ruby
 begin
   # RSVP to an event: going (counts against its capacity) or interested.
-  data, status_code, headers = api_instance.create_buyer_event_rsvp_with_http_info(slug)
+  data, status_code, headers = api_instance.create_buyer_event_rsvp_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerEventRsvpResponse>
@@ -2200,6 +2230,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_buyer_event_rsvp_request** | **CreateBuyerEventRsvpRequest** |  | [optional] |
 
 ### Return type
 
@@ -2211,7 +2242,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -2887,7 +2918,7 @@ end
 
 ## create_buyer_layaway_pay
 
-> <BuyerLayawayResponse> create_buyer_layaway_pay(id)
+> <BuyerLayawayResponse> create_buyer_layaway_pay(id, opts)
 
 Pay some (at least $1) or all of what is left now, on the saved card. Paid in full, it ships.
 
@@ -2904,10 +2935,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+opts = {
+  create_buyer_layaway_pay_request: CrosslyBuyer::CreateBuyerLayawayPayRequest.new # CreateBuyerLayawayPayRequest | 
+}
 
 begin
   # Pay some (at least $1) or all of what is left now, on the saved card. Paid in full, it ships.
-  result = api_instance.create_buyer_layaway_pay(id)
+  result = api_instance.create_buyer_layaway_pay(id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_layaway_pay: #{e}"
@@ -2918,12 +2952,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerLayawayResponse>, Integer, Hash)> create_buyer_layaway_pay_with_http_info(id)
+> <Array(<BuyerLayawayResponse>, Integer, Hash)> create_buyer_layaway_pay_with_http_info(id, opts)
 
 ```ruby
 begin
   # Pay some (at least $1) or all of what is left now, on the saved card. Paid in full, it ships.
-  data, status_code, headers = api_instance.create_buyer_layaway_pay_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_layaway_pay_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerLayawayResponse>
@@ -2937,6 +2971,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_layaway_pay_request** | **CreateBuyerLayawayPayRequest** |  | [optional] |
 
 ### Return type
 
@@ -2948,7 +2983,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3155,7 +3190,7 @@ end
 
 ## create_buyer_listing_try_on
 
-> <CreateBuyerListingTryOnResponse> create_buyer_listing_try_on(slug)
+> <CreateBuyerListingTryOnResponse> create_buyer_listing_try_on(slug, create_buyer_listing_try_on_request)
 
 Render an AI try-on of this listing on the buyer’s own photo (base64 `photo`, or `reuseLastPhoto`). `confirmSelfAdult` must be true: the photo is of the buyer and they are 18+. Wearables only; capped per day; 503 naming TRYON_API_KEY when no image model is configured.
 
@@ -3172,10 +3207,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+create_buyer_listing_try_on_request = CrosslyBuyer::CreateBuyerListingTryOnRequest.new({confirm_self_adult: false}) # CreateBuyerListingTryOnRequest | 
 
 begin
   # Render an AI try-on of this listing on the buyer’s own photo (base64 `photo`, or `reuseLastPhoto`). `confirmSelfAdult` must be true: the photo is of the buyer and they are 18+. Wearables only; capped per day; 503 naming TRYON_API_KEY when no image model is configured.
-  result = api_instance.create_buyer_listing_try_on(slug)
+  result = api_instance.create_buyer_listing_try_on(slug, create_buyer_listing_try_on_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_listing_try_on: #{e}"
@@ -3186,12 +3222,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerListingTryOnResponse>, Integer, Hash)> create_buyer_listing_try_on_with_http_info(slug)
+> <Array(<CreateBuyerListingTryOnResponse>, Integer, Hash)> create_buyer_listing_try_on_with_http_info(slug, create_buyer_listing_try_on_request)
 
 ```ruby
 begin
   # Render an AI try-on of this listing on the buyer’s own photo (base64 `photo`, or `reuseLastPhoto`). `confirmSelfAdult` must be true: the photo is of the buyer and they are 18+. Wearables only; capped per day; 503 naming TRYON_API_KEY when no image model is configured.
-  data, status_code, headers = api_instance.create_buyer_listing_try_on_with_http_info(slug)
+  data, status_code, headers = api_instance.create_buyer_listing_try_on_with_http_info(slug, create_buyer_listing_try_on_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerListingTryOnResponse>
@@ -3205,10 +3241,80 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_buyer_listing_try_on_request** | **CreateBuyerListingTryOnRequest** |  |  |
 
 ### Return type
 
 **CreateBuyerListingTryOnResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## create_buyer_loyalty_reward_redeem
+
+> <CreateBuyerLoyaltyRewardRedeemResponse> create_buyer_loyalty_reward_redeem(club_id, reward_id)
+
+Spend points on a reward (Idempotency-Key required: a retry answers the same redemption). A price reward answers a single-use code.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+club_id = 'club_id_example' # String | 
+reward_id = 'reward_id_example' # String | 
+
+begin
+  # Spend points on a reward (Idempotency-Key required: a retry answers the same redemption). A price reward answers a single-use code.
+  result = api_instance.create_buyer_loyalty_reward_redeem(club_id, reward_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_loyalty_reward_redeem: #{e}"
+end
+```
+
+#### Using the create_buyer_loyalty_reward_redeem_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CreateBuyerLoyaltyRewardRedeemResponse>, Integer, Hash)> create_buyer_loyalty_reward_redeem_with_http_info(club_id, reward_id)
+
+```ruby
+begin
+  # Spend points on a reward (Idempotency-Key required: a retry answers the same redemption). A price reward answers a single-use code.
+  data, status_code, headers = api_instance.create_buyer_loyalty_reward_redeem_with_http_info(club_id, reward_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CreateBuyerLoyaltyRewardRedeemResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->create_buyer_loyalty_reward_redeem_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **club_id** | **String** |  |  |
+| **reward_id** | **String** |  |  |
+
+### Return type
+
+**CreateBuyerLoyaltyRewardRedeemResponse**
 
 ### Authorization
 
@@ -3766,7 +3872,7 @@ end
 
 ## create_buyer_pack_fairness_rotate
 
-> <GetBuyerPackFairnessResponse> create_buyer_pack_fairness_rotate
+> <GetBuyerPackFairnessResponse> create_buyer_pack_fairness_rotate(opts)
 
 Reveal your current server seed and start a new one (optionally with your own client seed). Refused while an opening is awaiting payment.
 
@@ -3782,10 +3888,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  create_buyer_pack_fairness_rotate_request: CrosslyBuyer::CreateBuyerPackFairnessRotateRequest.new # CreateBuyerPackFairnessRotateRequest | 
+}
 
 begin
   # Reveal your current server seed and start a new one (optionally with your own client seed). Refused while an opening is awaiting payment.
-  result = api_instance.create_buyer_pack_fairness_rotate
+  result = api_instance.create_buyer_pack_fairness_rotate(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_pack_fairness_rotate: #{e}"
@@ -3796,12 +3905,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetBuyerPackFairnessResponse>, Integer, Hash)> create_buyer_pack_fairness_rotate_with_http_info
+> <Array(<GetBuyerPackFairnessResponse>, Integer, Hash)> create_buyer_pack_fairness_rotate_with_http_info(opts)
 
 ```ruby
 begin
   # Reveal your current server seed and start a new one (optionally with your own client seed). Refused while an opening is awaiting payment.
-  data, status_code, headers = api_instance.create_buyer_pack_fairness_rotate_with_http_info
+  data, status_code, headers = api_instance.create_buyer_pack_fairness_rotate_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetBuyerPackFairnessResponse>
@@ -3812,7 +3921,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_pack_fairness_rotate_request** | **CreateBuyerPackFairnessRotateRequest** |  | [optional] |
 
 ### Return type
 
@@ -3824,13 +3935,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_pack_open
 
-> <CreateBuyerPackOpenResponse> create_buyer_pack_open(slug)
+> <CreateBuyerPackOpenResponse> create_buyer_pack_open(slug, create_buyer_pack_open_request)
 
 Open a pack. SPENDS MONEY: charges the pack price to your saved card, then pulls one real item by the published odds (provably fair: see /buyer/packs/fairness) into your Crossly vault. confirmAdult must be true. Checked against this key’s spending controls; send an Idempotency-Key.
 
@@ -3847,10 +3958,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+create_buyer_pack_open_request = CrosslyBuyer::CreateBuyerPackOpenRequest.new({confirm_adult: false}) # CreateBuyerPackOpenRequest | 
 
 begin
   # Open a pack. SPENDS MONEY: charges the pack price to your saved card, then pulls one real item by the published odds (provably fair: see /buyer/packs/fairness) into your Crossly vault. confirmAdult must be true. Checked against this key’s spending controls; send an Idempotency-Key.
-  result = api_instance.create_buyer_pack_open(slug)
+  result = api_instance.create_buyer_pack_open(slug, create_buyer_pack_open_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_pack_open: #{e}"
@@ -3861,12 +3973,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerPackOpenResponse>, Integer, Hash)> create_buyer_pack_open_with_http_info(slug)
+> <Array(<CreateBuyerPackOpenResponse>, Integer, Hash)> create_buyer_pack_open_with_http_info(slug, create_buyer_pack_open_request)
 
 ```ruby
 begin
   # Open a pack. SPENDS MONEY: charges the pack price to your saved card, then pulls one real item by the published odds (provably fair: see /buyer/packs/fairness) into your Crossly vault. confirmAdult must be true. Checked against this key’s spending controls; send an Idempotency-Key.
-  data, status_code, headers = api_instance.create_buyer_pack_open_with_http_info(slug)
+  data, status_code, headers = api_instance.create_buyer_pack_open_with_http_info(slug, create_buyer_pack_open_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerPackOpenResponse>
@@ -3880,6 +3992,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **create_buyer_pack_open_request** | **CreateBuyerPackOpenRequest** |  |  |
 
 ### Return type
 
@@ -3891,7 +4004,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -3964,7 +4077,7 @@ end
 
 ## create_buyer_passport_claim
 
-> <GetBuyerPassportResponse> create_buyer_passport_claim(code)
+> <GetBuyerPassportResponse> create_buyer_passport_claim(code, opts)
 
 Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
 
@@ -3981,10 +4094,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 code = 'code_example' # String | 
+opts = {
+  create_buyer_passport_claim_request: CrosslyBuyer::CreateBuyerPassportClaimRequest.new # CreateBuyerPassportClaimRequest | 
+}
 
 begin
   # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
-  result = api_instance.create_buyer_passport_claim(code)
+  result = api_instance.create_buyer_passport_claim(code, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_passport_claim: #{e}"
@@ -3995,12 +4111,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetBuyerPassportResponse>, Integer, Hash)> create_buyer_passport_claim_with_http_info(code)
+> <Array(<GetBuyerPassportResponse>, Integer, Hash)> create_buyer_passport_claim_with_http_info(code, opts)
 
 ```ruby
 begin
   # Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
-  data, status_code, headers = api_instance.create_buyer_passport_claim_with_http_info(code)
+  data, status_code, headers = api_instance.create_buyer_passport_claim_with_http_info(code, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetBuyerPassportResponse>
@@ -4014,6 +4130,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **code** | **String** |  |  |
+| **create_buyer_passport_claim_request** | **CreateBuyerPassportClaimRequest** |  | [optional] |
 
 ### Return type
 
@@ -4025,7 +4142,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4098,7 +4215,7 @@ end
 
 ## create_buyer_purchase_fit
 
-> <BuyerResponse> create_buyer_purchase_fit(id)
+> <BuyerResponse> create_buyer_purchase_fit(id, create_buyer_purchase_fit_request)
 
 Say how a delivered purchase fit: true_to_size, small or large. It teaches your size memory and, pooled with other buyers, how the brand runs.
 
@@ -4115,10 +4232,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+create_buyer_purchase_fit_request = CrosslyBuyer::CreateBuyerPurchaseFitRequest.new({fit: 'small'}) # CreateBuyerPurchaseFitRequest | 
 
 begin
   # Say how a delivered purchase fit: true_to_size, small or large. It teaches your size memory and, pooled with other buyers, how the brand runs.
-  result = api_instance.create_buyer_purchase_fit(id)
+  result = api_instance.create_buyer_purchase_fit(id, create_buyer_purchase_fit_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_purchase_fit: #{e}"
@@ -4129,12 +4247,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerResponse>, Integer, Hash)> create_buyer_purchase_fit_with_http_info(id)
+> <Array(<BuyerResponse>, Integer, Hash)> create_buyer_purchase_fit_with_http_info(id, create_buyer_purchase_fit_request)
 
 ```ruby
 begin
   # Say how a delivered purchase fit: true_to_size, small or large. It teaches your size memory and, pooled with other buyers, how the brand runs.
-  data, status_code, headers = api_instance.create_buyer_purchase_fit_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_purchase_fit_with_http_info(id, create_buyer_purchase_fit_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerResponse>
@@ -4148,6 +4266,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_purchase_fit_request** | **CreateBuyerPurchaseFitRequest** |  |  |
 
 ### Return type
 
@@ -4159,7 +4278,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4232,7 +4351,7 @@ end
 
 ## create_buyer_registry
 
-> <CreateBuyerRegistryResponse> create_buyer_registry
+> <CreateBuyerRegistryResponse> create_buyer_registry(opts)
 
 Start a gift registry (wedding, baby, birthday, housewarming, graduation, other). Items are added like any wishlist item; set shipAddressId to one of your saved addresses so guests can buy — they never see it.
 
@@ -4248,10 +4367,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  create_buyer_registry_request: CrosslyBuyer::CreateBuyerRegistryRequest.new # CreateBuyerRegistryRequest | 
+}
 
 begin
   # Start a gift registry (wedding, baby, birthday, housewarming, graduation, other). Items are added like any wishlist item; set shipAddressId to one of your saved addresses so guests can buy — they never see it.
-  result = api_instance.create_buyer_registry
+  result = api_instance.create_buyer_registry(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_registry: #{e}"
@@ -4262,12 +4384,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerRegistryResponse>, Integer, Hash)> create_buyer_registry_with_http_info
+> <Array(<CreateBuyerRegistryResponse>, Integer, Hash)> create_buyer_registry_with_http_info(opts)
 
 ```ruby
 begin
   # Start a gift registry (wedding, baby, birthday, housewarming, graduation, other). Items are added like any wishlist item; set shipAddressId to one of your saved addresses so guests can buy — they never see it.
-  data, status_code, headers = api_instance.create_buyer_registry_with_http_info
+  data, status_code, headers = api_instance.create_buyer_registry_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerRegistryResponse>
@@ -4278,7 +4400,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **create_buyer_registry_request** | **CreateBuyerRegistryRequest** |  | [optional] |
 
 ### Return type
 
@@ -4290,13 +4414,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_registry_gift_thanked
 
-> <CreateBuyerRegistryGiftThankedResponse> create_buyer_registry_gift_thanked(id, gift_id)
+> <CreateBuyerRegistryGiftThankedResponse> create_buyer_registry_gift_thanked(id, gift_id, create_buyer_registry_gift_thanked_request)
 
 Tick a gift as thanked (or untick it).
 
@@ -4314,10 +4438,11 @@ end
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
 gift_id = 'gift_id_example' # String | 
+create_buyer_registry_gift_thanked_request = CrosslyBuyer::CreateBuyerRegistryGiftThankedRequest.new({thanked: false}) # CreateBuyerRegistryGiftThankedRequest | 
 
 begin
   # Tick a gift as thanked (or untick it).
-  result = api_instance.create_buyer_registry_gift_thanked(id, gift_id)
+  result = api_instance.create_buyer_registry_gift_thanked(id, gift_id, create_buyer_registry_gift_thanked_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_registry_gift_thanked: #{e}"
@@ -4328,12 +4453,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerRegistryGiftThankedResponse>, Integer, Hash)> create_buyer_registry_gift_thanked_with_http_info(id, gift_id)
+> <Array(<CreateBuyerRegistryGiftThankedResponse>, Integer, Hash)> create_buyer_registry_gift_thanked_with_http_info(id, gift_id, create_buyer_registry_gift_thanked_request)
 
 ```ruby
 begin
   # Tick a gift as thanked (or untick it).
-  data, status_code, headers = api_instance.create_buyer_registry_gift_thanked_with_http_info(id, gift_id)
+  data, status_code, headers = api_instance.create_buyer_registry_gift_thanked_with_http_info(id, gift_id, create_buyer_registry_gift_thanked_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerRegistryGiftThankedResponse>
@@ -4348,6 +4473,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **gift_id** | **String** |  |  |
+| **create_buyer_registry_gift_thanked_request** | **CreateBuyerRegistryGiftThankedRequest** |  |  |
 
 ### Return type
 
@@ -4359,13 +4485,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## create_buyer_rental_arrival_photo
 
-> <BuyerRentalResponse> create_buyer_rental_arrival_photo(id)
+> <BuyerRentalResponse> create_buyer_rental_arrival_photo(id, create_buyer_rental_arrival_photo_request)
 
 Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
 
@@ -4382,10 +4508,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+create_buyer_rental_arrival_photo_request = CrosslyBuyer::CreateBuyerRentalArrivalPhotoRequest.new({photos: ['photos_example']}) # CreateBuyerRentalArrivalPhotoRequest | 
 
 begin
   # Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
-  result = api_instance.create_buyer_rental_arrival_photo(id)
+  result = api_instance.create_buyer_rental_arrival_photo(id, create_buyer_rental_arrival_photo_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_rental_arrival_photo: #{e}"
@@ -4396,12 +4523,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_arrival_photo_with_http_info(id)
+> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_arrival_photo_with_http_info(id, create_buyer_rental_arrival_photo_request)
 
 ```ruby
 begin
   # Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
-  data, status_code, headers = api_instance.create_buyer_rental_arrival_photo_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_rental_arrival_photo_with_http_info(id, create_buyer_rental_arrival_photo_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerRentalResponse>
@@ -4415,6 +4542,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_rental_arrival_photo_request** | **CreateBuyerRentalArrivalPhotoRequest** |  |  |
 
 ### Return type
 
@@ -4426,7 +4554,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4566,7 +4694,7 @@ end
 
 ## create_buyer_rental_claim_response
 
-> <BuyerResponse> create_buyer_rental_claim_response(id)
+> <BuyerResponse> create_buyer_rental_claim_response(id, create_buyer_rental_claim_response_request)
 
 Answer a deposit claim: accept (the claim is paid, the rest refunded) or dispute (Crossly decides).
 
@@ -4583,10 +4711,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+create_buyer_rental_claim_response_request = CrosslyBuyer::CreateBuyerRentalClaimResponseRequest.new({accept: false}) # CreateBuyerRentalClaimResponseRequest | 
 
 begin
   # Answer a deposit claim: accept (the claim is paid, the rest refunded) or dispute (Crossly decides).
-  result = api_instance.create_buyer_rental_claim_response(id)
+  result = api_instance.create_buyer_rental_claim_response(id, create_buyer_rental_claim_response_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_rental_claim_response: #{e}"
@@ -4597,12 +4726,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerResponse>, Integer, Hash)> create_buyer_rental_claim_response_with_http_info(id)
+> <Array(<BuyerResponse>, Integer, Hash)> create_buyer_rental_claim_response_with_http_info(id, create_buyer_rental_claim_response_request)
 
 ```ruby
 begin
   # Answer a deposit claim: accept (the claim is paid, the rest refunded) or dispute (Crossly decides).
-  data, status_code, headers = api_instance.create_buyer_rental_claim_response_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_rental_claim_response_with_http_info(id, create_buyer_rental_claim_response_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerResponse>
@@ -4616,6 +4745,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_rental_claim_response_request** | **CreateBuyerRentalClaimResponseRequest** |  |  |
 
 ### Return type
 
@@ -4627,7 +4757,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4700,7 +4830,7 @@ end
 
 ## create_buyer_rental_extension
 
-> <CreateBuyerRentalExtensionResponse> create_buyer_rental_extension(id)
+> <CreateBuyerRentalExtensionResponse> create_buyer_rental_extension(id, create_buyer_rental_extension_request)
 
 Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
 
@@ -4717,10 +4847,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+create_buyer_rental_extension_request = CrosslyBuyer::CreateBuyerRentalExtensionRequest.new({days: 3.56}) # CreateBuyerRentalExtensionRequest | 
 
 begin
   # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
-  result = api_instance.create_buyer_rental_extension(id)
+  result = api_instance.create_buyer_rental_extension(id, create_buyer_rental_extension_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_rental_extension: #{e}"
@@ -4731,12 +4862,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerRentalExtensionResponse>, Integer, Hash)> create_buyer_rental_extension_with_http_info(id)
+> <Array(<CreateBuyerRentalExtensionResponse>, Integer, Hash)> create_buyer_rental_extension_with_http_info(id, create_buyer_rental_extension_request)
 
 ```ruby
 begin
   # Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
-  data, status_code, headers = api_instance.create_buyer_rental_extension_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_rental_extension_with_http_info(id, create_buyer_rental_extension_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerRentalExtensionResponse>
@@ -4750,6 +4881,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_rental_extension_request** | **CreateBuyerRentalExtensionRequest** |  |  |
 
 ### Return type
 
@@ -4761,7 +4893,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -4900,7 +5032,7 @@ This endpoint does not need any parameter.
 
 ## create_buyer_rental_return_shipped
 
-> <BuyerRentalResponse> create_buyer_rental_return_shipped(id)
+> <BuyerRentalResponse> create_buyer_rental_return_shipped(id, opts)
 
 Say you sent your rental back (optionally with photos).
 
@@ -4917,10 +5049,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+opts = {
+  create_buyer_rental_return_shipped_request: CrosslyBuyer::CreateBuyerRentalReturnShippedRequest.new # CreateBuyerRentalReturnShippedRequest | 
+}
 
 begin
   # Say you sent your rental back (optionally with photos).
-  result = api_instance.create_buyer_rental_return_shipped(id)
+  result = api_instance.create_buyer_rental_return_shipped(id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_rental_return_shipped: #{e}"
@@ -4931,12 +5066,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_return_shipped_with_http_info(id)
+> <Array(<BuyerRentalResponse>, Integer, Hash)> create_buyer_rental_return_shipped_with_http_info(id, opts)
 
 ```ruby
 begin
   # Say you sent your rental back (optionally with photos).
-  data, status_code, headers = api_instance.create_buyer_rental_return_shipped_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_rental_return_shipped_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerRentalResponse>
@@ -4950,6 +5085,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_rental_return_shipped_request** | **CreateBuyerRentalReturnShippedRequest** |  | [optional] |
 
 ### Return type
 
@@ -4961,7 +5097,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -5914,7 +6050,7 @@ end
 
 ## create_buyer_vault_list
 
-> <CreateBuyerVaultListResponse> create_buyer_vault_list(id)
+> <CreateBuyerVaultListResponse> create_buyer_vault_list(id, create_buyer_vault_list_request)
 
 Sell a vault item on the market at your price. It is already authenticated, so when it sells nothing ships in: the buyer keeps it vaulted or it ships straight to them.
 
@@ -5931,10 +6067,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+create_buyer_vault_list_request = CrosslyBuyer::CreateBuyerVaultListRequest.new({price_cents: 3.56}) # CreateBuyerVaultListRequest | 
 
 begin
   # Sell a vault item on the market at your price. It is already authenticated, so when it sells nothing ships in: the buyer keeps it vaulted or it ships straight to them.
-  result = api_instance.create_buyer_vault_list(id)
+  result = api_instance.create_buyer_vault_list(id, create_buyer_vault_list_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_vault_list: #{e}"
@@ -5945,12 +6082,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerVaultListResponse>, Integer, Hash)> create_buyer_vault_list_with_http_info(id)
+> <Array(<CreateBuyerVaultListResponse>, Integer, Hash)> create_buyer_vault_list_with_http_info(id, create_buyer_vault_list_request)
 
 ```ruby
 begin
   # Sell a vault item on the market at your price. It is already authenticated, so when it sells nothing ships in: the buyer keeps it vaulted or it ships straight to them.
-  data, status_code, headers = api_instance.create_buyer_vault_list_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_vault_list_with_http_info(id, create_buyer_vault_list_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerVaultListResponse>
@@ -5964,6 +6101,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_vault_list_request** | **CreateBuyerVaultListRequest** |  |  |
 
 ### Return type
 
@@ -5975,7 +6113,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -6048,7 +6186,7 @@ end
 
 ## create_buyer_vault_withdraw
 
-> <CreateBuyerVaultWithdrawResponse> create_buyer_vault_withdraw(id)
+> <CreateBuyerVaultWithdrawResponse> create_buyer_vault_withdraw(id, opts)
 
 Ship a vault item home, standard or expedited. The shipping, any storage it owes and the early-withdrawal fee (within 90 days of arriving) are charged to your saved card now, all checked against this key’s spending controls; send an Idempotency-Key.
 
@@ -6065,10 +6203,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+opts = {
+  create_buyer_vault_withdraw_request: CrosslyBuyer::CreateBuyerVaultWithdrawRequest.new # CreateBuyerVaultWithdrawRequest | 
+}
 
 begin
   # Ship a vault item home, standard or expedited. The shipping, any storage it owes and the early-withdrawal fee (within 90 days of arriving) are charged to your saved card now, all checked against this key’s spending controls; send an Idempotency-Key.
-  result = api_instance.create_buyer_vault_withdraw(id)
+  result = api_instance.create_buyer_vault_withdraw(id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->create_buyer_vault_withdraw: #{e}"
@@ -6079,12 +6220,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<CreateBuyerVaultWithdrawResponse>, Integer, Hash)> create_buyer_vault_withdraw_with_http_info(id)
+> <Array(<CreateBuyerVaultWithdrawResponse>, Integer, Hash)> create_buyer_vault_withdraw_with_http_info(id, opts)
 
 ```ruby
 begin
   # Ship a vault item home, standard or expedited. The shipping, any storage it owes and the early-withdrawal fee (within 90 days of arriving) are charged to your saved card now, all checked against this key’s spending controls; send an Idempotency-Key.
-  data, status_code, headers = api_instance.create_buyer_vault_withdraw_with_http_info(id)
+  data, status_code, headers = api_instance.create_buyer_vault_withdraw_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CreateBuyerVaultWithdrawResponse>
@@ -6098,6 +6239,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_vault_withdraw_request** | **CreateBuyerVaultWithdrawRequest** |  | [optional] |
 
 ### Return type
 
@@ -6109,7 +6251,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -9272,7 +9414,7 @@ end
 
 > <GetBuyerCatalogListingRentalResponse> get_buyer_catalog_listing_rental(slug)
 
-Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, and the dates already booked. null when it is not for rent.
+Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, the dates already booked, and `policy`: the store return and payment policies the rental inherits (return line, protections, arrival photos, claim window, accepted methods). null when it is not for rent.
 
 ### Examples
 
@@ -9289,7 +9431,7 @@ api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
 
 begin
-  # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, and the dates already booked. null when it is not for rent.
+  # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, the dates already booked, and `policy`: the store return and payment policies the rental inherits (return line, protections, arrival photos, claim window, accepted methods). null when it is not for rent.
   result = api_instance.get_buyer_catalog_listing_rental(slug)
   p result
 rescue CrosslyBuyer::ApiError => e
@@ -9305,7 +9447,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, and the dates already booked. null when it is not for rent.
+  # Whether a listing is for rent: day and week rates, the refundable deposit, length limits, the turnaround buffer, the dates already booked, and `policy`: the store return and payment policies the rental inherits (return line, protections, arrival photos, claim window, accepted methods). null when it is not for rent.
   data, status_code, headers = api_instance.get_buyer_catalog_listing_rental_with_http_info(slug)
   p status_code # => 2xx
   p headers # => { ... }
@@ -9932,6 +10074,73 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
+## get_buyer_group_buy_share_link
+
+> <GetBuyerGroupBuyShareLinkResponse> get_buyer_group_buy_share_link(id)
+
+Share a group buy: { url (the pool with your refer-a-friend code), text (how many more units unlock the next price), imageUrl (its share card), refCode, next }. A friend who buys through it earns your refer-a-friend credit.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+id = 'id_example' # String | 
+
+begin
+  # Share a group buy: { url (the pool with your refer-a-friend code), text (how many more units unlock the next price), imageUrl (its share card), refCode, next }. A friend who buys through it earns your refer-a-friend credit.
+  result = api_instance.get_buyer_group_buy_share_link(id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_group_buy_share_link: #{e}"
+end
+```
+
+#### Using the get_buyer_group_buy_share_link_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerGroupBuyShareLinkResponse>, Integer, Hash)> get_buyer_group_buy_share_link_with_http_info(id)
+
+```ruby
+begin
+  # Share a group buy: { url (the pool with your refer-a-friend code), text (how many more units unlock the next price), imageUrl (its share card), refCode, next }. A friend who buys through it earns your refer-a-friend credit.
+  data, status_code, headers = api_instance.get_buyer_group_buy_share_link_with_http_info(id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerGroupBuyShareLinkResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_group_buy_share_link_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerGroupBuyShareLinkResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_buyer_home
 
 > <BuyerHomeResponse> get_buyer_home
@@ -9985,6 +10194,70 @@ This endpoint does not need any parameter.
 ### Return type
 
 **BuyerHomeResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_buyer_home_pet
+
+> <GetBuyerHomePetResponse> get_buyer_home_pet
+
+Your companion pets in Crossly World: every pet, whether it is yours, how to earn it, and the one walking with you. Earned through quests and reputation, never sold.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+
+begin
+  # Your companion pets in Crossly World: every pet, whether it is yours, how to earn it, and the one walking with you. Earned through quests and reputation, never sold.
+  result = api_instance.get_buyer_home_pet
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_home_pet: #{e}"
+end
+```
+
+#### Using the get_buyer_home_pet_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerHomePetResponse>, Integer, Hash)> get_buyer_home_pet_with_http_info
+
+```ruby
+begin
+  # Your companion pets in Crossly World: every pet, whether it is yours, how to earn it, and the one walking with you. Earned through quests and reputation, never sold.
+  data, status_code, headers = api_instance.get_buyer_home_pet_with_http_info
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerHomePetResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_home_pet_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetBuyerHomePetResponse**
 
 ### Authorization
 
@@ -10928,9 +11201,76 @@ end
 - **Accept**: application/json
 
 
+## get_buyer_loyalty_reward
+
+> <GetBuyerLoyaltyRewardResponse> get_buyer_loyalty_reward(club_id)
+
+A club’s rewards shelf: what each reward costs in points, whether you can redeem it (and why not), stock left, and what you already redeemed.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+club_id = 'club_id_example' # String | 
+
+begin
+  # A club’s rewards shelf: what each reward costs in points, whether you can redeem it (and why not), stock left, and what you already redeemed.
+  result = api_instance.get_buyer_loyalty_reward(club_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_loyalty_reward: #{e}"
+end
+```
+
+#### Using the get_buyer_loyalty_reward_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<GetBuyerLoyaltyRewardResponse>, Integer, Hash)> get_buyer_loyalty_reward_with_http_info(club_id)
+
+```ruby
+begin
+  # A club’s rewards shelf: what each reward costs in points, whether you can redeem it (and why not), stock left, and what you already redeemed.
+  data, status_code, headers = api_instance.get_buyer_loyalty_reward_with_http_info(club_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <GetBuyerLoyaltyRewardResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->get_buyer_loyalty_reward_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **club_id** | **String** |  |  |
+
+### Return type
+
+**GetBuyerLoyaltyRewardResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## get_buyer_market_purchase_option
 
-> <GetBuyerMarketPurchaseOptionResponse> get_buyer_market_purchase_option
+> <GetBuyerMarketPurchaseOptionResponse> get_buyer_market_purchase_option(variant_id, opts)
 
 Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid).
 
@@ -10946,10 +11286,14 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+variant_id = 'variant_id_example' # String | 
+opts = {
+  condition: 'DS' # String | 
+}
 
 begin
   # Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid).
-  result = api_instance.get_buyer_market_purchase_option
+  result = api_instance.get_buyer_market_purchase_option(variant_id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->get_buyer_market_purchase_option: #{e}"
@@ -10960,12 +11304,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetBuyerMarketPurchaseOptionResponse>, Integer, Hash)> get_buyer_market_purchase_option_with_http_info
+> <Array(<GetBuyerMarketPurchaseOptionResponse>, Integer, Hash)> get_buyer_market_purchase_option_with_http_info(variant_id, opts)
 
 ```ruby
 begin
   # Before you bid or buy: whether the lowest ask is vault stock (keep it vaulted, or pay fastShipCents to rush it), and the grading runs a raw card can go straight to (pass gradeWith on the bid).
-  data, status_code, headers = api_instance.get_buyer_market_purchase_option_with_http_info
+  data, status_code, headers = api_instance.get_buyer_market_purchase_option_with_http_info(variant_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetBuyerMarketPurchaseOptionResponse>
@@ -10976,7 +11320,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **variant_id** | **String** |  |  |
+| **condition** | **String** |  | [optional] |
 
 ### Return type
 
@@ -11401,7 +11748,7 @@ end
 
 ## get_buyer_passport
 
-> <GetBuyerPassportResponse> get_buyer_passport(code)
+> <GetBuyerPassportResponse> get_buyer_passport(code, opts)
 
 What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
 
@@ -11418,10 +11765,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 code = 'code_example' # String | 
+opts = {
+  uid: 'uid_example' # String | 
+}
 
 begin
   # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
-  result = api_instance.get_buyer_passport(code)
+  result = api_instance.get_buyer_passport(code, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->get_buyer_passport: #{e}"
@@ -11432,12 +11782,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetBuyerPassportResponse>, Integer, Hash)> get_buyer_passport_with_http_info(code)
+> <Array(<GetBuyerPassportResponse>, Integer, Hash)> get_buyer_passport_with_http_info(code, opts)
 
 ```ruby
 begin
   # What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid=, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
-  data, status_code, headers = api_instance.get_buyer_passport_with_http_info(code)
+  data, status_code, headers = api_instance.get_buyer_passport_with_http_info(code, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetBuyerPassportResponse>
@@ -11451,6 +11801,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **code** | **String** |  |  |
+| **uid** | **String** |  | [optional] |
 
 ### Return type
 
@@ -16020,7 +16371,7 @@ This endpoint does not need any parameter.
 
 ## list_buyer_hotspots
 
-> <ListBuyerHotspotsResponse> list_buyer_hotspots
+> <ListBuyerHotspotsResponse> list_buyer_hotspots(target_type, target_id)
 
 Shop-the-look tags on a story or lookbook photo: each tagged listing and where it sits on the image (x, y as fractions).
 
@@ -16036,10 +16387,12 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+target_type = 'story' # String | 
+target_id = 'target_id_example' # String | 
 
 begin
   # Shop-the-look tags on a story or lookbook photo: each tagged listing and where it sits on the image (x, y as fractions).
-  result = api_instance.list_buyer_hotspots
+  result = api_instance.list_buyer_hotspots(target_type, target_id)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->list_buyer_hotspots: #{e}"
@@ -16050,12 +16403,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerHotspotsResponse>, Integer, Hash)> list_buyer_hotspots_with_http_info
+> <Array(<ListBuyerHotspotsResponse>, Integer, Hash)> list_buyer_hotspots_with_http_info(target_type, target_id)
 
 ```ruby
 begin
   # Shop-the-look tags on a story or lookbook photo: each tagged listing and where it sits on the image (x, y as fractions).
-  data, status_code, headers = api_instance.list_buyer_hotspots_with_http_info
+  data, status_code, headers = api_instance.list_buyer_hotspots_with_http_info(target_type, target_id)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerHotspotsResponse>
@@ -16066,7 +16419,10 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **target_type** | **String** |  |  |
+| **target_id** | **String** |  |  |
 
 ### Return type
 
@@ -16592,6 +16948,73 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListBuyerLoyaltyResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_buyer_loyalty_points
+
+> <ListBuyerLoyaltyPointsResponse> list_buyer_loyalty_points(club_id)
+
+Your points history at a club: purchases, hunts, event check-ins, photo reviews, group buys and rewards you redeemed.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+club_id = 'club_id_example' # String | 
+
+begin
+  # Your points history at a club: purchases, hunts, event check-ins, photo reviews, group buys and rewards you redeemed.
+  result = api_instance.list_buyer_loyalty_points(club_id)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_loyalty_points: #{e}"
+end
+```
+
+#### Using the list_buyer_loyalty_points_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ListBuyerLoyaltyPointsResponse>, Integer, Hash)> list_buyer_loyalty_points_with_http_info(club_id)
+
+```ruby
+begin
+  # Your points history at a club: purchases, hunts, event check-ins, photo reviews, group buys and rewards you redeemed.
+  data, status_code, headers = api_instance.list_buyer_loyalty_points_with_http_info(club_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ListBuyerLoyaltyPointsResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->list_buyer_loyalty_points_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **club_id** | **String** |  |  |
+
+### Return type
+
+**ListBuyerLoyaltyPointsResponse**
 
 ### Authorization
 
@@ -17459,7 +17882,7 @@ end
 
 ## list_buyer_registry_search
 
-> <ListBuyerRegistrySearchResponse> list_buyer_registry_search
+> <ListBuyerRegistrySearchResponse> list_buyer_registry_search(opts)
 
 Find a registry by its name or the registrant’s name. Current and recent registries only.
 
@@ -17475,10 +17898,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  q: 'q_example' # String | 
+}
 
 begin
   # Find a registry by its name or the registrant’s name. Current and recent registries only.
-  result = api_instance.list_buyer_registry_search
+  result = api_instance.list_buyer_registry_search(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->list_buyer_registry_search: #{e}"
@@ -17489,12 +17915,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerRegistrySearchResponse>, Integer, Hash)> list_buyer_registry_search_with_http_info
+> <Array(<ListBuyerRegistrySearchResponse>, Integer, Hash)> list_buyer_registry_search_with_http_info(opts)
 
 ```ruby
 begin
   # Find a registry by its name or the registrant’s name. Current and recent registries only.
-  data, status_code, headers = api_instance.list_buyer_registry_search_with_http_info
+  data, status_code, headers = api_instance.list_buyer_registry_search_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerRegistrySearchResponse>
@@ -17505,7 +17931,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **q** | **String** |  | [optional] |
 
 ### Return type
 
@@ -17779,7 +18207,7 @@ This endpoint does not need any parameter.
 
 ## list_buyer_store_listings
 
-> <ListBuyerStoreListingsResponse> list_buyer_store_listings(slug)
+> <ListBuyerStoreListingsResponse> list_buyer_store_listings(slug, opts)
 
 A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
 
@@ -17796,10 +18224,20 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 slug = 'slug_example' # String | 
+opts = {
+  tag: 'tag_example', # String | 
+  category: 'category_example', # String | 
+  sub: 'sub_example', # String | 
+  q: 'q_example', # String | 
+  sort: 'title', # String | 
+  f: 'f_example', # String | 
+  limit: 8.14, # Float | 
+  offset: 8.14 # Float | 
+}
 
 begin
   # A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
-  result = api_instance.list_buyer_store_listings(slug)
+  result = api_instance.list_buyer_store_listings(slug, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->list_buyer_store_listings: #{e}"
@@ -17810,12 +18248,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerStoreListingsResponse>, Integer, Hash)> list_buyer_store_listings_with_http_info(slug)
+> <Array(<ListBuyerStoreListingsResponse>, Integer, Hash)> list_buyer_store_listings_with_http_info(slug, opts)
 
 ```ruby
 begin
   # A store's live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
-  data, status_code, headers = api_instance.list_buyer_store_listings_with_http_info(slug)
+  data, status_code, headers = api_instance.list_buyer_store_listings_with_http_info(slug, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerStoreListingsResponse>
@@ -17829,6 +18267,14 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **slug** | **String** |  |  |
+| **tag** | **String** |  | [optional] |
+| **category** | **String** |  | [optional] |
+| **sub** | **String** |  | [optional] |
+| **q** | **String** |  | [optional] |
+| **sort** | **String** |  | [optional] |
+| **f** | **String** |  | [optional] |
+| **limit** | **Float** |  | [optional] |
+| **offset** | **Float** |  | [optional] |
 
 ### Return type
 
@@ -20030,7 +20476,7 @@ This endpoint does not need any parameter.
 
 ## update_buyer_board
 
-> <BuyerResponse> update_buyer_board(id)
+> <BuyerResponse> update_buyer_board(id, update_buyer_board_request)
 
 Rename a board, change its description, or make it public / private.
 
@@ -20047,10 +20493,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+update_buyer_board_request = CrosslyBuyer::UpdateBuyerBoardRequest.new # UpdateBuyerBoardRequest | 
 
 begin
   # Rename a board, change its description, or make it public / private.
-  result = api_instance.update_buyer_board(id)
+  result = api_instance.update_buyer_board(id, update_buyer_board_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_board: #{e}"
@@ -20061,12 +20508,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerResponse>, Integer, Hash)> update_buyer_board_with_http_info(id)
+> <Array(<BuyerResponse>, Integer, Hash)> update_buyer_board_with_http_info(id, update_buyer_board_request)
 
 ```ruby
 begin
   # Rename a board, change its description, or make it public / private.
-  data, status_code, headers = api_instance.update_buyer_board_with_http_info(id)
+  data, status_code, headers = api_instance.update_buyer_board_with_http_info(id, update_buyer_board_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerResponse>
@@ -20080,6 +20527,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_buyer_board_request** | **UpdateBuyerBoardRequest** |  |  |
 
 ### Return type
 
@@ -20091,13 +20539,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_buyer_board_layout
 
-> <BuyerBoardResponse> update_buyer_board_layout(id)
+> <BuyerBoardResponse> update_buyer_board_layout(id, update_buyer_board_layout_request)
 
 Replace a board’s layout: items by platform listing id or slug, with x, y, w (0–1) and z. At most 40.
 
@@ -20114,10 +20562,11 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+update_buyer_board_layout_request = CrosslyBuyer::UpdateBuyerBoardLayoutRequest.new({items: [CrosslyBuyer::UpdateBuyerBoardLayoutRequestItems.new({platform_listing_id: 'platform_listing_id_example', x: 3.56, y: 3.56, w: 3.56, z: 3.56})]}) # UpdateBuyerBoardLayoutRequest | 
 
 begin
   # Replace a board’s layout: items by platform listing id or slug, with x, y, w (0–1) and z. At most 40.
-  result = api_instance.update_buyer_board_layout(id)
+  result = api_instance.update_buyer_board_layout(id, update_buyer_board_layout_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_board_layout: #{e}"
@@ -20128,12 +20577,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerBoardResponse>, Integer, Hash)> update_buyer_board_layout_with_http_info(id)
+> <Array(<BuyerBoardResponse>, Integer, Hash)> update_buyer_board_layout_with_http_info(id, update_buyer_board_layout_request)
 
 ```ruby
 begin
   # Replace a board’s layout: items by platform listing id or slug, with x, y, w (0–1) and z. At most 40.
-  data, status_code, headers = api_instance.update_buyer_board_layout_with_http_info(id)
+  data, status_code, headers = api_instance.update_buyer_board_layout_with_http_info(id, update_buyer_board_layout_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerBoardResponse>
@@ -20147,6 +20596,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **update_buyer_board_layout_request** | **UpdateBuyerBoardLayoutRequest** |  |  |
 
 ### Return type
 
@@ -20158,13 +20608,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_buyer_collection_set_leaderboard
 
-> <UpdateBuyerCollectionSetLeaderboardResponse> update_buyer_collection_set_leaderboard
+> <UpdateBuyerCollectionSetLeaderboardResponse> update_buyer_collection_set_leaderboard(update_buyer_collection_set_leaderboard_request)
 
 Show or hide yourself (by your public handle) on set leaderboards.
 
@@ -20180,10 +20630,11 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+update_buyer_collection_set_leaderboard_request = CrosslyBuyer::UpdateBuyerCollectionSetLeaderboardRequest.new({opt_in: false}) # UpdateBuyerCollectionSetLeaderboardRequest | 
 
 begin
   # Show or hide yourself (by your public handle) on set leaderboards.
-  result = api_instance.update_buyer_collection_set_leaderboard
+  result = api_instance.update_buyer_collection_set_leaderboard(update_buyer_collection_set_leaderboard_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_collection_set_leaderboard: #{e}"
@@ -20194,12 +20645,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateBuyerCollectionSetLeaderboardResponse>, Integer, Hash)> update_buyer_collection_set_leaderboard_with_http_info
+> <Array(<UpdateBuyerCollectionSetLeaderboardResponse>, Integer, Hash)> update_buyer_collection_set_leaderboard_with_http_info(update_buyer_collection_set_leaderboard_request)
 
 ```ruby
 begin
   # Show or hide yourself (by your public handle) on set leaderboards.
-  data, status_code, headers = api_instance.update_buyer_collection_set_leaderboard_with_http_info
+  data, status_code, headers = api_instance.update_buyer_collection_set_leaderboard_with_http_info(update_buyer_collection_set_leaderboard_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateBuyerCollectionSetLeaderboardResponse>
@@ -20210,7 +20661,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_buyer_collection_set_leaderboard_request** | **UpdateBuyerCollectionSetLeaderboardRequest** |  |  |
 
 ### Return type
 
@@ -20222,7 +20675,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -20567,7 +21020,7 @@ end
 
 ## update_buyer_home
 
-> <BuyerHomeResponse> update_buyer_home
+> <BuyerHomeResponse> update_buyer_home(opts)
 
 Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
 
@@ -20583,10 +21036,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  update_buyer_home_request: CrosslyBuyer::UpdateBuyerHomeRequest.new # UpdateBuyerHomeRequest | 
+}
 
 begin
   # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
-  result = api_instance.update_buyer_home
+  result = api_instance.update_buyer_home(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_home: #{e}"
@@ -20597,12 +21053,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerHomeResponse>, Integer, Hash)> update_buyer_home_with_http_info
+> <Array(<BuyerHomeResponse>, Integer, Hash)> update_buyer_home_with_http_info(opts)
 
 ```ruby
 begin
   # Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
-  data, status_code, headers = api_instance.update_buyer_home_with_http_info
+  data, status_code, headers = api_instance.update_buyer_home_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerHomeResponse>
@@ -20613,7 +21069,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_buyer_home_request** | **UpdateBuyerHomeRequest** |  | [optional] |
 
 ### Return type
 
@@ -20625,13 +21083,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_buyer_home_builder
 
-> <ListBuyerHomeBuildersResponse> update_buyer_home_builder
+> <ListBuyerHomeBuildersResponse> update_buyer_home_builder(opts)
 
 Set your co-builders (friends only, at most 4).
 
@@ -20647,10 +21105,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  update_buyer_home_builder_request: CrosslyBuyer::UpdateBuyerHomeBuilderRequest.new({user_ids: ['user_ids_example']}) # UpdateBuyerHomeBuilderRequest | 
+}
 
 begin
   # Set your co-builders (friends only, at most 4).
-  result = api_instance.update_buyer_home_builder
+  result = api_instance.update_buyer_home_builder(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_home_builder: #{e}"
@@ -20661,12 +21122,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<ListBuyerHomeBuildersResponse>, Integer, Hash)> update_buyer_home_builder_with_http_info
+> <Array(<ListBuyerHomeBuildersResponse>, Integer, Hash)> update_buyer_home_builder_with_http_info(opts)
 
 ```ruby
 begin
   # Set your co-builders (friends only, at most 4).
-  data, status_code, headers = api_instance.update_buyer_home_builder_with_http_info
+  data, status_code, headers = api_instance.update_buyer_home_builder_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ListBuyerHomeBuildersResponse>
@@ -20677,7 +21138,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_buyer_home_builder_request** | **UpdateBuyerHomeBuilderRequest** |  | [optional] |
 
 ### Return type
 
@@ -20689,13 +21152,13 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_buyer_home_layout
 
-> <BuyerHomeResponse> update_buyer_home_layout
+> <BuyerHomeResponse> update_buyer_home_layout(opts)
 
 Arrange your home: the whole layout, checked against what you own.
 
@@ -20711,10 +21174,13 @@ CrosslyBuyer.configure do |config|
 end
 
 api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  update_buyer_home_layout_request: CrosslyBuyer::UpdateBuyerHomeLayoutRequest.new({layout: [3.56]}) # UpdateBuyerHomeLayoutRequest | 
+}
 
 begin
   # Arrange your home: the whole layout, checked against what you own.
-  result = api_instance.update_buyer_home_layout
+  result = api_instance.update_buyer_home_layout(opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_home_layout: #{e}"
@@ -20725,12 +21191,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerHomeResponse>, Integer, Hash)> update_buyer_home_layout_with_http_info
+> <Array(<BuyerHomeResponse>, Integer, Hash)> update_buyer_home_layout_with_http_info(opts)
 
 ```ruby
 begin
   # Arrange your home: the whole layout, checked against what you own.
-  data, status_code, headers = api_instance.update_buyer_home_layout_with_http_info
+  data, status_code, headers = api_instance.update_buyer_home_layout_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerHomeResponse>
@@ -20741,7 +21207,9 @@ end
 
 ### Parameters
 
-This endpoint does not need any parameter.
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_buyer_home_layout_request** | **UpdateBuyerHomeLayoutRequest** |  | [optional] |
 
 ### Return type
 
@@ -20753,7 +21221,76 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## update_buyer_home_pet_active
+
+> <UpdateBuyerHomePetActiveResponse> update_buyer_home_pet_active(opts)
+
+Walk one of your pets with you in the world, or none (kind: null). Only a pet you have earned.
+
+### Examples
+
+```ruby
+require 'time'
+require 'crossly_buyer'
+# setup authorization
+CrosslyBuyer.configure do |config|
+  # Configure Bearer authorization: BuyerOAuth
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = CrosslyBuyer::BuyerApi.new
+opts = {
+  update_buyer_home_pet_active_request: CrosslyBuyer::UpdateBuyerHomePetActiveRequest.new({kind: 'cat'}) # UpdateBuyerHomePetActiveRequest | 
+}
+
+begin
+  # Walk one of your pets with you in the world, or none (kind: null). Only a pet you have earned.
+  result = api_instance.update_buyer_home_pet_active(opts)
+  p result
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_pet_active: #{e}"
+end
+```
+
+#### Using the update_buyer_home_pet_active_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<UpdateBuyerHomePetActiveResponse>, Integer, Hash)> update_buyer_home_pet_active_with_http_info(opts)
+
+```ruby
+begin
+  # Walk one of your pets with you in the world, or none (kind: null). Only a pet you have earned.
+  data, status_code, headers = api_instance.update_buyer_home_pet_active_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <UpdateBuyerHomePetActiveResponse>
+rescue CrosslyBuyer::ApiError => e
+  puts "Error when calling BuyerApi->update_buyer_home_pet_active_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **update_buyer_home_pet_active_request** | **UpdateBuyerHomePetActiveRequest** |  | [optional] |
+
+### Return type
+
+**UpdateBuyerHomePetActiveResponse**
+
+### Authorization
+
+[BuyerOAuth](../README.md#BuyerOAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
@@ -20962,7 +21499,7 @@ end
 
 ## update_buyer_registry
 
-> <BuyerRegistryResponse> update_buyer_registry(id)
+> <BuyerRegistryResponse> update_buyer_registry(id, opts)
 
 Edit a registry: title, kind, date, message, ship-to address.
 
@@ -20979,10 +21516,13 @@ end
 
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
+opts = {
+  create_buyer_registry_request: CrosslyBuyer::CreateBuyerRegistryRequest.new # CreateBuyerRegistryRequest | 
+}
 
 begin
   # Edit a registry: title, kind, date, message, ship-to address.
-  result = api_instance.update_buyer_registry(id)
+  result = api_instance.update_buyer_registry(id, opts)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_registry: #{e}"
@@ -20993,12 +21533,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<BuyerRegistryResponse>, Integer, Hash)> update_buyer_registry_with_http_info(id)
+> <Array(<BuyerRegistryResponse>, Integer, Hash)> update_buyer_registry_with_http_info(id, opts)
 
 ```ruby
 begin
   # Edit a registry: title, kind, date, message, ship-to address.
-  data, status_code, headers = api_instance.update_buyer_registry_with_http_info(id)
+  data, status_code, headers = api_instance.update_buyer_registry_with_http_info(id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BuyerRegistryResponse>
@@ -21012,6 +21552,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
+| **create_buyer_registry_request** | **CreateBuyerRegistryRequest** |  | [optional] |
 
 ### Return type
 
@@ -21023,13 +21564,13 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 
 ## update_buyer_registry_item
 
-> <UpdateBuyerRegistryItemResponse> update_buyer_registry_item(id, platform_listing_id)
+> <UpdateBuyerRegistryItemResponse> update_buyer_registry_item(id, platform_listing_id, update_buyer_registry_item_request)
 
 How many of an item you want (1–50).
 
@@ -21047,10 +21588,11 @@ end
 api_instance = CrosslyBuyer::BuyerApi.new
 id = 'id_example' # String | 
 platform_listing_id = 'platform_listing_id_example' # String | 
+update_buyer_registry_item_request = CrosslyBuyer::UpdateBuyerRegistryItemRequest.new({desired: 3.56}) # UpdateBuyerRegistryItemRequest | 
 
 begin
   # How many of an item you want (1–50).
-  result = api_instance.update_buyer_registry_item(id, platform_listing_id)
+  result = api_instance.update_buyer_registry_item(id, platform_listing_id, update_buyer_registry_item_request)
   p result
 rescue CrosslyBuyer::ApiError => e
   puts "Error when calling BuyerApi->update_buyer_registry_item: #{e}"
@@ -21061,12 +21603,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<UpdateBuyerRegistryItemResponse>, Integer, Hash)> update_buyer_registry_item_with_http_info(id, platform_listing_id)
+> <Array(<UpdateBuyerRegistryItemResponse>, Integer, Hash)> update_buyer_registry_item_with_http_info(id, platform_listing_id, update_buyer_registry_item_request)
 
 ```ruby
 begin
   # How many of an item you want (1–50).
-  data, status_code, headers = api_instance.update_buyer_registry_item_with_http_info(id, platform_listing_id)
+  data, status_code, headers = api_instance.update_buyer_registry_item_with_http_info(id, platform_listing_id, update_buyer_registry_item_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <UpdateBuyerRegistryItemResponse>
@@ -21081,6 +21623,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  |  |
 | **platform_listing_id** | **String** |  |  |
+| **update_buyer_registry_item_request** | **UpdateBuyerRegistryItemRequest** |  |  |
 
 ### Return type
 
@@ -21092,7 +21635,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 

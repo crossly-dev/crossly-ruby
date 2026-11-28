@@ -25,9 +25,9 @@ module Crossly
 
     attr_accessor :status
 
-    attr_accessor :amount
-
     attr_accessor :kind
+
+    attr_accessor :amount
 
     attr_accessor :note
 
@@ -65,8 +65,8 @@ module Crossly
         :'created_at' => :'createdAt',
         :'user_id' => :'userId',
         :'status' => :'status',
-        :'amount' => :'amount',
         :'kind' => :'kind',
+        :'amount' => :'amount',
         :'note' => :'note',
         :'place' => :'place',
         :'contest_id' => :'contestId'
@@ -86,8 +86,8 @@ module Crossly
         :'created_at' => :'Time',
         :'user_id' => :'String',
         :'status' => :'String',
-        :'amount' => :'Float',
         :'kind' => :'String',
+        :'amount' => :'Float',
         :'note' => :'String',
         :'place' => :'Float',
         :'contest_id' => :'String'
@@ -137,12 +137,12 @@ module Crossly
         self.status = attributes[:'status']
       end
 
-      if attributes.key?(:'amount')
-        self.amount = attributes[:'amount']
-      end
-
       if attributes.key?(:'kind')
         self.kind = attributes[:'kind']
+      end
+
+      if attributes.key?(:'amount')
+        self.amount = attributes[:'amount']
       end
 
       if attributes.key?(:'note')
@@ -178,12 +178,12 @@ module Crossly
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @amount.nil?
-        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
-      end
-
       if @kind.nil?
         invalid_properties.push('invalid value for "kind", kind cannot be nil.')
+      end
+
+      if @amount.nil?
+        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
       end
 
       if @place.nil?
@@ -206,8 +206,8 @@ module Crossly
       return false if @status.nil?
       status_validator = EnumAttributeValidator.new('String', ["failed", "granted", "owed_cbx", "owed_cosm", "owed_item", "owed_pin"])
       return false unless status_validator.valid?(@status)
-      return false if @amount.nil?
       return false if @kind.nil?
+      return false if @amount.nil?
       return false if @place.nil?
       return false if @contest_id.nil?
       true
@@ -233,8 +233,8 @@ module Crossly
           created_at == o.created_at &&
           user_id == o.user_id &&
           status == o.status &&
-          amount == o.amount &&
           kind == o.kind &&
+          amount == o.amount &&
           note == o.note &&
           place == o.place &&
           contest_id == o.contest_id
@@ -249,7 +249,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, ref, created_at, user_id, status, amount, kind, note, place, contest_id].hash
+      [id, ref, created_at, user_id, status, kind, amount, note, place, contest_id].hash
     end
 
     # Builds the object from hash

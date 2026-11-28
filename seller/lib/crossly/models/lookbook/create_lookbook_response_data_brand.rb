@@ -144,10 +144,10 @@ module Crossly
     def valid?
       return false if @colors.nil?
       return false if @heading_font.nil?
-      heading_font_validator = EnumAttributeValidator.new('String', ["system", "inter", "playfair", "dm-serif", "cormorant", "space-grotesk", "syne", "bebas", "archivo-black", "caveat", "mono", "serif"])
+      heading_font_validator = EnumAttributeValidator.new('String', ["system", "inter", "space-grotesk", "playfair", "cormorant", "archivo-black", "dm-serif", "syne", "bebas", "caveat", "mono", "serif"])
       return false unless heading_font_validator.valid?(@heading_font)
       return false if @body_font.nil?
-      body_font_validator = EnumAttributeValidator.new('String', ["system", "inter", "playfair", "dm-serif", "cormorant", "space-grotesk", "syne", "bebas", "archivo-black", "caveat", "mono", "serif"])
+      body_font_validator = EnumAttributeValidator.new('String', ["system", "inter", "space-grotesk", "playfair", "cormorant", "archivo-black", "dm-serif", "syne", "bebas", "caveat", "mono", "serif"])
       return false unless body_font_validator.valid?(@body_font)
       true
     end
@@ -155,7 +155,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] heading_font Object to be assigned
     def heading_font=(heading_font)
-      validator = EnumAttributeValidator.new('String', ["system", "inter", "playfair", "dm-serif", "cormorant", "space-grotesk", "syne", "bebas", "archivo-black", "caveat", "mono", "serif"])
+      validator = EnumAttributeValidator.new('String', ["system", "inter", "space-grotesk", "playfair", "cormorant", "archivo-black", "dm-serif", "syne", "bebas", "caveat", "mono", "serif"])
       unless validator.valid?(heading_font)
         fail ArgumentError, "invalid value for \"heading_font\", must be one of #{validator.allowable_values}."
       end
@@ -165,7 +165,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] body_font Object to be assigned
     def body_font=(body_font)
-      validator = EnumAttributeValidator.new('String', ["system", "inter", "playfair", "dm-serif", "cormorant", "space-grotesk", "syne", "bebas", "archivo-black", "caveat", "mono", "serif"])
+      validator = EnumAttributeValidator.new('String', ["system", "inter", "space-grotesk", "playfair", "cormorant", "archivo-black", "dm-serif", "syne", "bebas", "caveat", "mono", "serif"])
       unless validator.valid?(body_font)
         fail ArgumentError, "invalid value for \"body_font\", must be one of #{validator.allowable_values}."
       end

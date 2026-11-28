@@ -29,9 +29,9 @@ module Crossly
 
     attr_accessor :how
 
-    attr_accessor :gain_cents
-
     attr_accessor :term
+
+    attr_accessor :gain_cents
 
     attr_accessor :section1256
 
@@ -71,8 +71,8 @@ module Crossly
         :'contract_id' => :'contractId',
         :'proceeds_cents' => :'proceedsCents',
         :'how' => :'how',
-        :'gain_cents' => :'gainCents',
         :'term' => :'term',
+        :'gain_cents' => :'gainCents',
         :'section1256' => :'section1256',
         :'opened_at' => :'openedAt',
         :'closed_at' => :'closedAt'
@@ -94,8 +94,8 @@ module Crossly
         :'contract_id' => :'String',
         :'proceeds_cents' => :'Float',
         :'how' => :'String',
-        :'gain_cents' => :'Float',
         :'term' => :'String',
+        :'gain_cents' => :'Float',
         :'section1256' => :'Boolean',
         :'opened_at' => :'String',
         :'closed_at' => :'String'
@@ -151,12 +151,12 @@ module Crossly
         self.how = attributes[:'how']
       end
 
-      if attributes.key?(:'gain_cents')
-        self.gain_cents = attributes[:'gain_cents']
-      end
-
       if attributes.key?(:'term')
         self.term = attributes[:'term']
+      end
+
+      if attributes.key?(:'gain_cents')
+        self.gain_cents = attributes[:'gain_cents']
       end
 
       if attributes.key?(:'section1256')
@@ -204,12 +204,12 @@ module Crossly
         invalid_properties.push('invalid value for "how", how cannot be nil.')
       end
 
-      if @gain_cents.nil?
-        invalid_properties.push('invalid value for "gain_cents", gain_cents cannot be nil.')
-      end
-
       if @term.nil?
         invalid_properties.push('invalid value for "term", term cannot be nil.')
+      end
+
+      if @gain_cents.nil?
+        invalid_properties.push('invalid value for "gain_cents", gain_cents cannot be nil.')
       end
 
       if @section1256.nil?
@@ -241,10 +241,10 @@ module Crossly
       return false if @how.nil?
       how_validator = EnumAttributeValidator.new('String', ["closed", "settled"])
       return false unless how_validator.valid?(@how)
-      return false if @gain_cents.nil?
       return false if @term.nil?
       term_validator = EnumAttributeValidator.new('String', ["short", "long"])
       return false unless term_validator.valid?(@term)
+      return false if @gain_cents.nil?
       return false if @section1256.nil?
       return false if @opened_at.nil?
       return false if @closed_at.nil?
@@ -293,8 +293,8 @@ module Crossly
           contract_id == o.contract_id &&
           proceeds_cents == o.proceeds_cents &&
           how == o.how &&
-          gain_cents == o.gain_cents &&
           term == o.term &&
+          gain_cents == o.gain_cents &&
           section1256 == o.section1256 &&
           opened_at == o.opened_at &&
           closed_at == o.closed_at
@@ -309,7 +309,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [symbol, cost_cents, position, qty_milli, contract_id, proceeds_cents, how, gain_cents, term, section1256, opened_at, closed_at].hash
+      [symbol, cost_cents, position, qty_milli, contract_id, proceeds_cents, how, term, gain_cents, section1256, opened_at, closed_at].hash
     end
 
     # Builds the object from hash

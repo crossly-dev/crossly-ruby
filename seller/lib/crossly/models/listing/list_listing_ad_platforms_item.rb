@@ -184,7 +184,7 @@ module Crossly
       return false if @connected.nil?
       return false if @supported.nil?
       return false if @track.nil?
-      track_validator = EnumAttributeValidator.new('String', ["cookie", "api", "native"])
+      track_validator = EnumAttributeValidator.new('String', ["api", "cookie", "native"])
       return false unless track_validator.valid?(@track)
       return false if @programs.nil?
       return false if @verbs.nil?
@@ -194,7 +194,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] track Object to be assigned
     def track=(track)
-      validator = EnumAttributeValidator.new('String', ["cookie", "api", "native"])
+      validator = EnumAttributeValidator.new('String', ["api", "cookie", "native"])
       unless validator.valid?(track)
         fail ArgumentError, "invalid value for \"track\", must be one of #{validator.allowable_values}."
       end

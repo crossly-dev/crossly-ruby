@@ -45,10 +45,10 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'q' => :'Object',
+        :'q' => :'String',
         :'explanation' => :'String',
         :'assumptions' => :'Array<String>',
-        :'error' => :'Object'
+        :'error' => :'String'
       }
     end
 

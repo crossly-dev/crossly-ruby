@@ -83,6 +83,7 @@ module Crossly
     # Report a command done on the marketplace. relist: newExternalId when a new id was issued; refund_order: platformRefundId + amount (required); submit_tracking: trackingNumber/carrier as the marketplace holds them; message_buyer: platformMessageId.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingCommandCompleteRequest] :create_listing_command_complete_request 
     # @return [ListListingCommandsItem]
     def create_listing_command_complete(id, opts = {})
       data, _status_code, _headers = create_listing_command_complete_with_http_info(id, opts)
@@ -92,6 +93,7 @@ module Crossly
     # Report a command done on the marketplace. relist: newExternalId when a new id was issued; refund_order: platformRefundId + amount (required); submit_tracking: trackingNumber/carrier as the marketplace holds them; message_buyer: platformMessageId.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingCommandCompleteRequest] :create_listing_command_complete_request 
     # @return [Array<(ListListingCommandsItem, Integer, Hash)>] ListListingCommandsItem data, response status code and response headers
     def create_listing_command_complete_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -111,12 +113,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_command_complete_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListListingCommandsItem'
@@ -143,24 +150,30 @@ module Crossly
 
     # Report a command failed, with a reason the seller will see.
     # @param id [String] 
+    # @param create_listing_command_fail_request [CreateListingCommandFailRequest] 
     # @param [Hash] opts the optional parameters
     # @return [ListListingCommandsItem]
-    def create_listing_command_fail(id, opts = {})
-      data, _status_code, _headers = create_listing_command_fail_with_http_info(id, opts)
+    def create_listing_command_fail(id, create_listing_command_fail_request, opts = {})
+      data, _status_code, _headers = create_listing_command_fail_with_http_info(id, create_listing_command_fail_request, opts)
       data
     end
 
     # Report a command failed, with a reason the seller will see.
     # @param id [String] 
+    # @param create_listing_command_fail_request [CreateListingCommandFailRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(ListListingCommandsItem, Integer, Hash)>] ListListingCommandsItem data, response status code and response headers
-    def create_listing_command_fail_with_http_info(id, opts = {})
+    def create_listing_command_fail_with_http_info(id, create_listing_command_fail_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AppManagedListingsApi.create_listing_command_fail ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling AppManagedListingsApi.create_listing_command_fail"
+      end
+      # verify the required parameter 'create_listing_command_fail_request' is set
+      if @api_client.config.client_side_validation && create_listing_command_fail_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_command_fail_request' when calling AppManagedListingsApi.create_listing_command_fail"
       end
       # resource path
       local_var_path = '/v1/listing-commands/{id}/fail'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -172,12 +185,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_command_fail_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'ListListingCommandsItem'
@@ -205,25 +223,31 @@ module Crossly
     # Report a marketplace event (item.updated / ended / sold / relisted) for a listing your app manages.
     # Idempotent on `eventId`. State events apply only when `sequence` is higher than the last applied one (else `stale`, ignored). `item.sold` runs Crossly's sale cascade (other channels delist) and is never dropped as stale.
     # @param id [String] 
+    # @param create_listing_event_request [CreateListingEventRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingEventResponse]
-    def create_listing_event(id, opts = {})
-      data, _status_code, _headers = create_listing_event_with_http_info(id, opts)
+    def create_listing_event(id, create_listing_event_request, opts = {})
+      data, _status_code, _headers = create_listing_event_with_http_info(id, create_listing_event_request, opts)
       data
     end
 
     # Report a marketplace event (item.updated / ended / sold / relisted) for a listing your app manages.
     # Idempotent on &#x60;eventId&#x60;. State events apply only when &#x60;sequence&#x60; is higher than the last applied one (else &#x60;stale&#x60;, ignored). &#x60;item.sold&#x60; runs Crossly&#39;s sale cascade (other channels delist) and is never dropped as stale.
     # @param id [String] 
+    # @param create_listing_event_request [CreateListingEventRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingEventResponse, Integer, Hash)>] CreateListingEventResponse data, response status code and response headers
-    def create_listing_event_with_http_info(id, opts = {})
+    def create_listing_event_with_http_info(id, create_listing_event_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AppManagedListingsApi.create_listing_event ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
         fail ArgumentError, "Missing the required parameter 'id' when calling AppManagedListingsApi.create_listing_event"
+      end
+      # verify the required parameter 'create_listing_event_request' is set
+      if @api_client.config.client_side_validation && create_listing_event_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_event_request' when calling AppManagedListingsApi.create_listing_event"
       end
       # resource path
       local_var_path = '/v1/listings/{id}/events'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -235,12 +259,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_event_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingEventResponse'
@@ -266,19 +295,25 @@ module Crossly
     end
 
     # Report up to 100 marketplace events keyed by platform + externalId. One bad event never fails the rest.
+    # @param create_listing_event2_request [CreateListingEvent2Request] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingEvent2Response]
-    def create_listing_event2(opts = {})
-      data, _status_code, _headers = create_listing_event2_with_http_info(opts)
+    def create_listing_event2(create_listing_event2_request, opts = {})
+      data, _status_code, _headers = create_listing_event2_with_http_info(create_listing_event2_request, opts)
       data
     end
 
     # Report up to 100 marketplace events keyed by platform + externalId. One bad event never fails the rest.
+    # @param create_listing_event2_request [CreateListingEvent2Request] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingEvent2Response, Integer, Hash)>] CreateListingEvent2Response data, response status code and response headers
-    def create_listing_event2_with_http_info(opts = {})
+    def create_listing_event2_with_http_info(create_listing_event2_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AppManagedListingsApi.create_listing_event2 ...'
+      end
+      # verify the required parameter 'create_listing_event2_request' is set
+      if @api_client.config.client_side_validation && create_listing_event2_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_event2_request' when calling AppManagedListingsApi.create_listing_event2"
       end
       # resource path
       local_var_path = '/v1/listings/events'
@@ -290,12 +325,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_event2_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingEvent2Response'
@@ -322,20 +362,26 @@ module Crossly
 
     # Link a live marketplace listing your app already manages into Crossly (no re-listing). Idempotent.
     # Direct when Crossly holds the seller's own connection (verified by item id: exists, active, theirs); relayed otherwise, on your attestation plus `snapshot`. The listing shows \"Managed by <your app>\". Your revenue share is charged only on sales made on Crossly Shop; sales on eBay or any other marketplace never carry an app fee.
+    # @param create_listing_link_request [CreateListingLinkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingLinkResponse]
-    def create_listing_link(opts = {})
-      data, _status_code, _headers = create_listing_link_with_http_info(opts)
+    def create_listing_link(create_listing_link_request, opts = {})
+      data, _status_code, _headers = create_listing_link_with_http_info(create_listing_link_request, opts)
       data
     end
 
     # Link a live marketplace listing your app already manages into Crossly (no re-listing). Idempotent.
     # Direct when Crossly holds the seller&#39;s own connection (verified by item id: exists, active, theirs); relayed otherwise, on your attestation plus &#x60;snapshot&#x60;. The listing shows \&quot;Managed by &lt;your app&gt;\&quot;. Your revenue share is charged only on sales made on Crossly Shop; sales on eBay or any other marketplace never carry an app fee.
+    # @param create_listing_link_request [CreateListingLinkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingLinkResponse, Integer, Hash)>] CreateListingLinkResponse data, response status code and response headers
-    def create_listing_link_with_http_info(opts = {})
+    def create_listing_link_with_http_info(create_listing_link_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AppManagedListingsApi.create_listing_link ...'
+      end
+      # verify the required parameter 'create_listing_link_request' is set
+      if @api_client.config.client_side_validation && create_listing_link_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_link_request' when calling AppManagedListingsApi.create_listing_link"
       end
       # resource path
       local_var_path = '/v1/listings/link'
@@ -347,12 +393,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_link_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingLinkResponse'
@@ -378,19 +429,25 @@ module Crossly
     end
 
     # Link up to 100 live marketplace listings. Each item succeeds or fails on its own; re-sending is safe.
+    # @param create_listing_link_bulk_request [CreateListingLinkBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateListingLinkBulkResponse]
-    def create_listing_link_bulk(opts = {})
-      data, _status_code, _headers = create_listing_link_bulk_with_http_info(opts)
+    def create_listing_link_bulk(create_listing_link_bulk_request, opts = {})
+      data, _status_code, _headers = create_listing_link_bulk_with_http_info(create_listing_link_bulk_request, opts)
       data
     end
 
     # Link up to 100 live marketplace listings. Each item succeeds or fails on its own; re-sending is safe.
+    # @param create_listing_link_bulk_request [CreateListingLinkBulkRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateListingLinkBulkResponse, Integer, Hash)>] CreateListingLinkBulkResponse data, response status code and response headers
-    def create_listing_link_bulk_with_http_info(opts = {})
+    def create_listing_link_bulk_with_http_info(create_listing_link_bulk_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AppManagedListingsApi.create_listing_link_bulk ...'
+      end
+      # verify the required parameter 'create_listing_link_bulk_request' is set
+      if @api_client.config.client_side_validation && create_listing_link_bulk_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_listing_link_bulk_request' when calling AppManagedListingsApi.create_listing_link_bulk"
       end
       # resource path
       local_var_path = '/v1/listings/link/bulk'
@@ -402,12 +459,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_listing_link_bulk_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingLinkBulkResponse'
@@ -437,6 +499,7 @@ module Crossly
     # @param id [String] 
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingPlatformRecloneRequest] :create_listing_platform_reclone_request 
     # @return [CreateListingPlatformRecloneResponse]
     def create_listing_platform_reclone(id, platform, opts = {})
       data, _status_code, _headers = create_listing_platform_reclone_with_http_info(id, platform, opts)
@@ -448,6 +511,7 @@ module Crossly
     # @param id [String] 
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateListingPlatformRecloneRequest] :create_listing_platform_reclone_request 
     # @return [Array<(CreateListingPlatformRecloneResponse, Integer, Hash)>] CreateListingPlatformRecloneResponse data, response status code and response headers
     def create_listing_platform_reclone_with_http_info(id, platform, opts = {})
       if @api_client.config.debugging
@@ -471,12 +535,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_listing_platform_reclone_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingPlatformRecloneResponse'
@@ -640,6 +709,7 @@ module Crossly
     # @param id [String] 
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderTakeOverRequest] :create_order_take_over_request 
     # @return [CreateListingPlatformTakeOverResponse]
     def create_listing_platform_take_over(id, platform, opts = {})
       data, _status_code, _headers = create_listing_platform_take_over_with_http_info(id, platform, opts)
@@ -651,6 +721,7 @@ module Crossly
     # @param id [String] 
     # @param platform [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderTakeOverRequest] :create_order_take_over_request 
     # @return [Array<(CreateListingPlatformTakeOverResponse, Integer, Hash)>] CreateListingPlatformTakeOverResponse data, response status code and response headers
     def create_listing_platform_take_over_with_http_info(id, platform, opts = {})
       if @api_client.config.debugging
@@ -674,12 +745,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_take_over_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateListingPlatformTakeOverResponse'
@@ -766,19 +842,25 @@ module Crossly
     end
 
     # Report up to 100 order events (shipped, cancelled, refunded, delivered) keyed by platform + platformOrderId. Each completes the matching open order command. One bad event never fails the rest.
+    # @param create_order_event_request [CreateOrderEventRequest] 
     # @param [Hash] opts the optional parameters
     # @return [CreateOrderEventResponse]
-    def create_order_event(opts = {})
-      data, _status_code, _headers = create_order_event_with_http_info(opts)
+    def create_order_event(create_order_event_request, opts = {})
+      data, _status_code, _headers = create_order_event_with_http_info(create_order_event_request, opts)
       data
     end
 
     # Report up to 100 order events (shipped, cancelled, refunded, delivered) keyed by platform + platformOrderId. Each completes the matching open order command. One bad event never fails the rest.
+    # @param create_order_event_request [CreateOrderEventRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CreateOrderEventResponse, Integer, Hash)>] CreateOrderEventResponse data, response status code and response headers
-    def create_order_event_with_http_info(opts = {})
+    def create_order_event_with_http_info(create_order_event_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: AppManagedListingsApi.create_order_event ...'
+      end
+      # verify the required parameter 'create_order_event_request' is set
+      if @api_client.config.client_side_validation && create_order_event_request.nil?
+        fail ArgumentError, "Missing the required parameter 'create_order_event_request' when calling AppManagedListingsApi.create_order_event"
       end
       # resource path
       local_var_path = '/v1/orders/events'
@@ -790,12 +872,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(create_order_event_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderEventResponse'
@@ -823,6 +910,7 @@ module Crossly
     # Take over the app-managed item behind an order; its actions then go through your own connection.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderTakeOverRequest] :create_order_take_over_request 
     # @return [CreateOrderTakeOverResponse]
     def create_order_take_over(id, opts = {})
       data, _status_code, _headers = create_order_take_over_with_http_info(id, opts)
@@ -832,6 +920,7 @@ module Crossly
     # Take over the app-managed item behind an order; its actions then go through your own connection.
     # @param id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [CreateOrderTakeOverRequest] :create_order_take_over_request 
     # @return [Array<(CreateOrderTakeOverResponse, Integer, Hash)>] CreateOrderTakeOverResponse data, response status code and response headers
     def create_order_take_over_with_http_info(id, opts = {})
       if @api_client.config.debugging
@@ -851,12 +940,17 @@ module Crossly
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body]
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(opts[:'create_order_take_over_request'])
 
       # return_type
       return_type = opts[:debug_return_type] || 'CreateOrderTakeOverResponse'

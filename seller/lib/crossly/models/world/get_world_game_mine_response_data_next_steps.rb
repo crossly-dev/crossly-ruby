@@ -139,7 +139,7 @@ module Crossly
       return false unless id_validator.valid?(@id)
       return false if @label.nil?
       return false if @tab.nil?
-      tab_validator = EnumAttributeValidator.new('String', ["settings", "overview", "details", "badges", "rewards", "access", "places", "versions", "assets", "safety", "collaborators", "monetize", "live-ops", "servers"])
+      tab_validator = EnumAttributeValidator.new('String', ["settings", "overview", "details", "badges", "rewards", "access", "places", "localization", "versions", "assets", "safety", "collaborators", "monetize", "live-ops", "servers"])
       return false unless tab_validator.valid?(@tab)
       return false if @done.nil?
       true
@@ -158,7 +158,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] tab Object to be assigned
     def tab=(tab)
-      validator = EnumAttributeValidator.new('String', ["settings", "overview", "details", "badges", "rewards", "access", "places", "versions", "assets", "safety", "collaborators", "monetize", "live-ops", "servers"])
+      validator = EnumAttributeValidator.new('String', ["settings", "overview", "details", "badges", "rewards", "access", "places", "localization", "versions", "assets", "safety", "collaborators", "monetize", "live-ops", "servers"])
       unless validator.valid?(tab)
         fail ArgumentError, "invalid value for \"tab\", must be one of #{validator.allowable_values}."
       end

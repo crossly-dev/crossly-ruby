@@ -15,13 +15,41 @@ require 'time'
 
 module Crossly
   class CreateOfferRespondResponse
+    attr_accessor :floor_cents
+
+    attr_accessor :floor_source
+
     attr_accessor :ok
 
     attr_accessor :status
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'floor_cents' => :'floorCents',
+        :'floor_source' => :'floorSource',
         :'ok' => :'ok',
         :'status' => :'status'
       }
@@ -35,6 +63,8 @@ module Crossly
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'floor_cents' => :'Float',
+        :'floor_source' => :'String',
         :'ok' => :'Boolean',
         :'status' => :'String'
       }
@@ -43,6 +73,8 @@ module Crossly
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'floor_cents',
+        :'floor_source',
       ])
     end
 
@@ -60,6 +92,14 @@ module Crossly
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'floor_cents')
+        self.floor_cents = attributes[:'floor_cents']
+      end
+
+      if attributes.key?(:'floor_source')
+        self.floor_source = attributes[:'floor_source']
+      end
 
       if attributes.key?(:'ok')
         self.ok = attributes[:'ok']
@@ -88,9 +128,21 @@ module Crossly
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      floor_source_validator = EnumAttributeValidator.new('String', ["listing", "item", "break_even"])
+      return false unless floor_source_validator.valid?(@floor_source)
       return false if @ok.nil?
       return false if @status.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] floor_source Object to be assigned
+    def floor_source=(floor_source)
+      validator = EnumAttributeValidator.new('String', ["listing", "item", "break_even"])
+      unless validator.valid?(floor_source)
+        fail ArgumentError, "invalid value for \"floor_source\", must be one of #{validator.allowable_values}."
+      end
+      @floor_source = floor_source
     end
 
     # Checks equality by comparing each attribute.
@@ -98,6 +150,8 @@ module Crossly
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          floor_cents == o.floor_cents &&
+          floor_source == o.floor_source &&
           ok == o.ok &&
           status == o.status
     end
@@ -111,7 +165,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ok, status].hash
+      [floor_cents, floor_source, ok, status].hash
     end
 
     # Builds the object from hash

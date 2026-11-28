@@ -103,6 +103,8 @@ module Crossly
 
     attr_accessor :photos_return
 
+    attr_accessor :photos_back
+
     # A checklist the seller ticks at inspection (e.g. \"lens cap\", \"strap\").
     attr_accessor :checklist
 
@@ -178,6 +180,7 @@ module Crossly
         :'photos_out' => :'photosOut',
         :'photos_arrival' => :'photosArrival',
         :'photos_return' => :'photosReturn',
+        :'photos_back' => :'photosBack',
         :'checklist' => :'checklist',
         :'extensions' => :'extensions',
         :'buyout' => :'buyout',
@@ -232,6 +235,7 @@ module Crossly
         :'photos_out' => :'GetRentalSettingResponseDataDefaultsPhotosOut',
         :'photos_arrival' => :'Boolean',
         :'photos_return' => :'Boolean',
+        :'photos_back' => :'GetRentalSettingResponseDataDefaultsPhotosBack',
         :'checklist' => :'Array<String>',
         :'extensions' => :'GetRentalSettingResponseDataDefaultsExtensions',
         :'buyout' => :'GetRentalSettingResponseDataDefaultsBuyout',
@@ -281,6 +285,7 @@ module Crossly
         :'photos_out',
         :'photos_arrival',
         :'photos_return',
+        :'photos_back',
         :'checklist',
         :'extensions',
         :'buyout',
@@ -461,6 +466,10 @@ module Crossly
         self.photos_return = attributes[:'photos_return']
       end
 
+      if attributes.key?(:'photos_back')
+        self.photos_back = attributes[:'photos_back']
+      end
+
       if attributes.key?(:'checklist')
         if (value = attributes[:'checklist']).is_a?(Array)
           self.checklist = value
@@ -506,7 +515,7 @@ module Crossly
       return false unless early_return_validator.valid?(@early_return)
       shipping_paid_by_validator = EnumAttributeValidator.new('String', ["seller", "renter"])
       return false unless shipping_paid_by_validator.valid?(@shipping_paid_by)
-      approval_validator = EnumAttributeValidator.new('String', ["approval", "instant"])
+      approval_validator = EnumAttributeValidator.new('String', ["instant", "approval"])
       return false unless approval_validator.valid?(@approval)
       true
     end
@@ -544,7 +553,7 @@ module Crossly
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] approval Object to be assigned
     def approval=(approval)
-      validator = EnumAttributeValidator.new('String', ["approval", "instant"])
+      validator = EnumAttributeValidator.new('String', ["instant", "approval"])
       unless validator.valid?(approval)
         fail ArgumentError, "invalid value for \"approval\", must be one of #{validator.allowable_values}."
       end
@@ -593,6 +602,7 @@ module Crossly
           photos_out == o.photos_out &&
           photos_arrival == o.photos_arrival &&
           photos_return == o.photos_return &&
+          photos_back == o.photos_back &&
           checklist == o.checklist &&
           extensions == o.extensions &&
           buyout == o.buyout &&
@@ -610,7 +620,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [mode, daily_cents, weekly_cents, monthly_cents, weekend_cents, min_days, max_days, length_discounts, seasonal, last_minute, early_return, deposit, deposit_waive_loyalty_tier_id, deposit_waive_repeat_renters, damage_waiver, cleaning_fee_cents, late_fee_per_day_cents, late_grace_hours, lost_item_cents, quantity, buffer_before_days, buffer_after_days, blackouts, lead_days, advance_days, start_days, shipping, pickup, shipping_paid_by, insurance, min_renter_rating, new_renter_max_concurrent, approval, loyalty_tier_only_id, photos_out, photos_arrival, photos_return, checklist, extensions, buyout, cancellation, late_escalation, return_policy].hash
+      [mode, daily_cents, weekly_cents, monthly_cents, weekend_cents, min_days, max_days, length_discounts, seasonal, last_minute, early_return, deposit, deposit_waive_loyalty_tier_id, deposit_waive_repeat_renters, damage_waiver, cleaning_fee_cents, late_fee_per_day_cents, late_grace_hours, lost_item_cents, quantity, buffer_before_days, buffer_after_days, blackouts, lead_days, advance_days, start_days, shipping, pickup, shipping_paid_by, insurance, min_renter_rating, new_renter_max_concurrent, approval, loyalty_tier_only_id, photos_out, photos_arrival, photos_return, photos_back, checklist, extensions, buyout, cancellation, late_escalation, return_policy].hash
     end
 
     # Builds the object from hash

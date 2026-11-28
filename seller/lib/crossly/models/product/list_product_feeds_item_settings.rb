@@ -21,11 +21,52 @@ module Crossly
     # Prefix added to every item id, so two feeds into one catalogue cannot collide.
     attr_accessor :id_prefix
 
+    # Per output column: where its value comes from (absent column = Crossly's own mapping).
+    attr_accessor :field_map
+
+    # Google product category id sent when none can be derived from the listing's category.
+    attr_accessor :default_google_category
+
+    # Generic CSV / JSON / RSS feeds: which columns, in order (absent = all).
+    attr_accessor :columns
+
+    # ISO 4217 currency the prices are sent in (converted at the daily rate). Absent = USD, no conversion.
+    attr_accessor :currency
+
+    # ISO 3166-1 alpha-2 country the feed targets (shipping rows default to it).
+    attr_accessor :target_country
+
+    # BCP 47 language of the content (\"en\", \"en-GB\"); generic RSS/Atom/JSON carry it.
+    attr_accessor :language
+
+    # Flat shipping rates to state per item.
+    attr_accessor :shipping
+
+    attr_accessor :images
+
+    attr_accessor :utm
+
+    attr_accessor :refresh
+
+    # Rotation grace: how long the old URL keeps answering after a rotation, in hours (0 = dead at once).
+    attr_accessor :rotation_grace_hours
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'fallback_brand' => :'fallbackBrand',
-        :'id_prefix' => :'idPrefix'
+        :'id_prefix' => :'idPrefix',
+        :'field_map' => :'fieldMap',
+        :'default_google_category' => :'defaultGoogleCategory',
+        :'columns' => :'columns',
+        :'currency' => :'currency',
+        :'target_country' => :'targetCountry',
+        :'language' => :'language',
+        :'shipping' => :'shipping',
+        :'images' => :'images',
+        :'utm' => :'utm',
+        :'refresh' => :'refresh',
+        :'rotation_grace_hours' => :'rotationGraceHours'
       }
     end
 
@@ -38,7 +79,18 @@ module Crossly
     def self.openapi_types
       {
         :'fallback_brand' => :'String',
-        :'id_prefix' => :'String'
+        :'id_prefix' => :'String',
+        :'field_map' => :'Hash<String, Object>',
+        :'default_google_category' => :'String',
+        :'columns' => :'Array<String>',
+        :'currency' => :'String',
+        :'target_country' => :'String',
+        :'language' => :'String',
+        :'shipping' => :'Array<ListProductFeedsItemSettingsShipping>',
+        :'images' => :'ListProductFeedsItemSettingsImages',
+        :'utm' => :'ListProductFeedsItemSettingsUtm',
+        :'refresh' => :'ListProductFeedsItemSettingsRefresh',
+        :'rotation_grace_hours' => :'Float'
       }
     end
 
@@ -46,7 +98,18 @@ module Crossly
     def self.openapi_nullable
       Set.new([
         :'fallback_brand',
-        :'id_prefix'
+        :'id_prefix',
+        :'field_map',
+        :'default_google_category',
+        :'columns',
+        :'currency',
+        :'target_country',
+        :'language',
+        :'shipping',
+        :'images',
+        :'utm',
+        :'refresh',
+        :'rotation_grace_hours'
       ])
     end
 
@@ -72,6 +135,56 @@ module Crossly
       if attributes.key?(:'id_prefix')
         self.id_prefix = attributes[:'id_prefix']
       end
+
+      if attributes.key?(:'field_map')
+        if (value = attributes[:'field_map']).is_a?(Hash)
+          self.field_map = value
+        end
+      end
+
+      if attributes.key?(:'default_google_category')
+        self.default_google_category = attributes[:'default_google_category']
+      end
+
+      if attributes.key?(:'columns')
+        if (value = attributes[:'columns']).is_a?(Array)
+          self.columns = value
+        end
+      end
+
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
+      end
+
+      if attributes.key?(:'target_country')
+        self.target_country = attributes[:'target_country']
+      end
+
+      if attributes.key?(:'language')
+        self.language = attributes[:'language']
+      end
+
+      if attributes.key?(:'shipping')
+        if (value = attributes[:'shipping']).is_a?(Array)
+          self.shipping = value
+        end
+      end
+
+      if attributes.key?(:'images')
+        self.images = attributes[:'images']
+      end
+
+      if attributes.key?(:'utm')
+        self.utm = attributes[:'utm']
+      end
+
+      if attributes.key?(:'refresh')
+        self.refresh = attributes[:'refresh']
+      end
+
+      if attributes.key?(:'rotation_grace_hours')
+        self.rotation_grace_hours = attributes[:'rotation_grace_hours']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -93,7 +206,18 @@ module Crossly
       return true if self.equal?(o)
       self.class == o.class &&
           fallback_brand == o.fallback_brand &&
-          id_prefix == o.id_prefix
+          id_prefix == o.id_prefix &&
+          field_map == o.field_map &&
+          default_google_category == o.default_google_category &&
+          columns == o.columns &&
+          currency == o.currency &&
+          target_country == o.target_country &&
+          language == o.language &&
+          shipping == o.shipping &&
+          images == o.images &&
+          utm == o.utm &&
+          refresh == o.refresh &&
+          rotation_grace_hours == o.rotation_grace_hours
     end
 
     # @see the `==` method
@@ -105,7 +229,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [fallback_brand, id_prefix].hash
+      [fallback_brand, id_prefix, field_map, default_google_category, columns, currency, target_country, language, shipping, images, utm, refresh, rotation_grace_hours].hash
     end
 
     # Builds the object from hash

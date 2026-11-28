@@ -29,11 +29,11 @@ module Crossly
 
     attr_accessor :account_slot
 
+    attr_accessor :enabled
+
     attr_accessor :position
 
     attr_accessor :target
-
-    attr_accessor :enabled
 
     attr_accessor :target_key
 
@@ -49,9 +49,9 @@ module Crossly
         :'user_id' => :'userId',
         :'platform' => :'platform',
         :'account_slot' => :'accountSlot',
+        :'enabled' => :'enabled',
         :'position' => :'position',
         :'target' => :'target',
-        :'enabled' => :'enabled',
         :'target_key' => :'targetKey',
         :'stop_after' => :'stopAfter'
       }
@@ -72,9 +72,9 @@ module Crossly
         :'user_id' => :'String',
         :'platform' => :'String',
         :'account_slot' => :'Float',
+        :'enabled' => :'Boolean',
         :'position' => :'Float',
         :'target' => :'String',
-        :'enabled' => :'Boolean',
         :'target_key' => :'String',
         :'stop_after' => :'Boolean'
       }
@@ -131,16 +131,16 @@ module Crossly
         self.account_slot = attributes[:'account_slot']
       end
 
+      if attributes.key?(:'enabled')
+        self.enabled = attributes[:'enabled']
+      end
+
       if attributes.key?(:'position')
         self.position = attributes[:'position']
       end
 
       if attributes.key?(:'target')
         self.target = attributes[:'target']
-      end
-
-      if attributes.key?(:'enabled')
-        self.enabled = attributes[:'enabled']
       end
 
       if attributes.key?(:'target_key')
@@ -180,16 +180,16 @@ module Crossly
         invalid_properties.push('invalid value for "platform", platform cannot be nil.')
       end
 
+      if @enabled.nil?
+        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
+      end
+
       if @position.nil?
         invalid_properties.push('invalid value for "position", position cannot be nil.')
       end
 
       if @target.nil?
         invalid_properties.push('invalid value for "target", target cannot be nil.')
-      end
-
-      if @enabled.nil?
-        invalid_properties.push('invalid value for "enabled", enabled cannot be nil.')
       end
 
       if @stop_after.nil?
@@ -208,9 +208,9 @@ module Crossly
       return false if @updated_at.nil?
       return false if @user_id.nil?
       return false if @platform.nil?
+      return false if @enabled.nil?
       return false if @position.nil?
       return false if @target.nil?
-      return false if @enabled.nil?
       return false if @stop_after.nil?
       true
     end
@@ -227,9 +227,9 @@ module Crossly
           user_id == o.user_id &&
           platform == o.platform &&
           account_slot == o.account_slot &&
+          enabled == o.enabled &&
           position == o.position &&
           target == o.target &&
-          enabled == o.enabled &&
           target_key == o.target_key &&
           stop_after == o.stop_after
     end
@@ -243,7 +243,7 @@ module Crossly
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, created_at, updated_at, user_id, platform, account_slot, position, target, enabled, target_key, stop_after].hash
+      [id, name, created_at, updated_at, user_id, platform, account_slot, enabled, position, target, target_key, stop_after].hash
     end
 
     # Builds the object from hash
